@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Wizardry</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            font-family: "Courier New", monospace;
+            color: #00ff00;
+            overflow: hidden;
+        }
+        /* CRT screen effect */
+        .crt {
+            animation: flicker 1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 50%,
+                rgba(255, 255, 255, 0.1) 51%,
+                transparent 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 2;
+        }
+        /* Container */
+        .container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            height: 100vh;
+        }
+        /* Menu styles */
+        .menu {
+            padding: 20px;
+            border-right: 2px solid #00ff00;
+        }
+        .menu-item {
+            padding: 15px;
+            margin: 5px 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00ff00;
+        }
+        /* Active menu item */
+        .active {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid #00ff00;
+        }
+        /* Content frame styles */
+        .content-frame {
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="container">
+        <!-- Left Menu -->
+        <div class="menu crt">
+            <div class="menu-item active" onclick="loadContent('blog')">BLOG</div>
+            <div class="menu-item" onclick="loadContent('code')">CODE</div>
+            <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
+            <div class="menu-item" onclick="loadContent('art')">ART</div>
+            <div class="menu-item" onclick="loadContent('legends-of-darwinex')">LEGENDS OF DARWINEX</div>
+            <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
+            <div class="menu-item" onclick="loadContent('donate')">DONATE</div>
+        </div>
+        <!-- Content Frame -->
+        <div class="content-frame">
+            <iframe id="contentIframe" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+    </div>
+    <script>
+        function loadContent(page) {
+            const iframe = document.getElementById('contentIframe');
+            iframe.src = `${page}.html`;
+            // Remove active class from all menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+
+            // Add active class to clicked menu item
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
