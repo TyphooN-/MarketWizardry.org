@@ -98,17 +98,17 @@
     <script>
         // List of images for grid
         const images = [
-            { filename: "00001.png", path: "art/" },
-            { filename: "00002.png", path: "art/" },
-            { filename: "00003.png", path: "art/" },
-            { filename: "00004.png", path: "art/" },
-            { filename: "00005.png", path: "art/" },
-            { filename: "00006.png", path: "art/" },
-            { filename: "00007.png", path: "art/" },
-            { filename: "00008.png", path: "art/" },
-            { filename: "00009.png", path: "art/" },
-            { filename: "00010.png", path: "art/" },
-            { filename: "00011.png", path: "art/" }
+            { filename: "art/00001.png"},
+            { filename: "art/00002.png" },
+            { filename: "art/00003.png" },
+            { filename: "art/00004.png" },
+            { filename: "art/00005.png" },
+            { filename: "art/00006.png" },
+            { filename: "art/00007.png" },
+            { filename: "art/00008.png" },
+            { filename: "art/00009.png" },
+            { filename: "art/00010.png" },
+            { filename: "art/00011.png" }
         ];
         // Create image grid dynamically
         const imageGrid = document.getElementById('imageGrid');
@@ -117,7 +117,7 @@
             container.className = 'image-container';
             
             const img = document.createElement('img');
-            img.src = `${image.path}${image.filename}`;
+            img.src = `${image.filename}`;
             img.className = 'thumbnail';
             img.onclick = () => openModal(img.src);
             container.appendChild(img);
