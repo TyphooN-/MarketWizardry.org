@@ -98,9 +98,9 @@
     <div class="container">
         <!-- Left Menu -->
         <div class="menu crt">
-            <div class="menu-item" onclick="loadContent('market-wizardry')">MARKET WIZARDRY</div>
+            <div class="menu-item active" onclick="loadContent('market-wizardry')">MARKET WIZARDRY</div>
             <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
-            <div class="menu-item active" onclick="loadContent('blog')">BLOG</div>
+            <div class="menu-item " onclick="loadContent('blog')">BLOG</div>
             <div class="menu-item" onclick="loadContent('code')">CODE</div>
             <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
             <div class="menu-item" onclick="loadContent('art')">ART</div>
@@ -124,6 +124,10 @@
             // Add active class to clicked menu item
             event.target.classList.add('active');
         }
+        // Load "market-wizardry" content automatically when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadContent('market-wizardry');
+        });
     </script>
 </body>
 </html>
