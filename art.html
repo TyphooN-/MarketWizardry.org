@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Blog</title>
+    <title>Art</title>
     <style>
         body {
             background-color: #000;
@@ -11,25 +11,120 @@
             font-family: "Courier New", monospace;
             padding: 20px;
         }
-	a {
-	    color: #00ff00;
-	    text-decoration: none;
-	    font-weight: bold;
-	}
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
         .crt {
             animation: flicker 2s infinite;
         }
-
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
             100% { opacity: 1; }
         }
+        /* Image grid styles */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Maximum size of the container */
+            cursor: pointer;
+        }
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .full-image {
+            width: 100%;
+            height: auto;
+            border: 2px solid #00ff00;
+        }
+        .close-btn {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            color: #00ff00;
+            font-size: 24px;
+            cursor: pointer;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body class="crt">
     <h2>Art</h2>
-    Hello world
+    <!-- Image Grid -->
+    <div class="image-grid" id="imageGrid"></div>
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <a href="#" class="close-btn" onclick="closeModal()">×</a>
+        <img class="full-image" id="fullImage" src="" alt="">
+    </div>
+    <script>
+        // List of images for grid
+        const images = [
+            { filename: "00001.png", path: "art/00001.png" },
+            { filename: "00002.png", path: "art/00002.png" },
+            { filename: "00003.png", path: "art/00003.png" },
+            { filename: "00004.png", path: "art/00004.png" },
+            { filename: "00005.png", path: "art/00005.png" },
+            { filename: "00006.png", path: "art/00006.png" },
+            { filename: "00007.png", path: "art/00007.png" },
+            { filename: "00008.png", path: "art/00008.png" },
+            { filename: "00009.png", path: "art/00009.png" },
+            { filename: "00010.png", path: "art/00010.png" },
+            { filename: "00011.png", path: "art/00011.png" }
+        ];
+        // Create image grid dynamically
+        const imageGrid = document.getElementById('imageGrid');
+        images.forEach(image => {
+            const container = document.createElement('div');
+            container.className = 'image-container';
+            
+            const img = document.createElement('img');
+            img.src = `${image.path}${image.filename}`;
+            img.className = 'thumbnail';
+            img.onclick = () => openModal(img.src);
+            container.appendChild(img);
+            imageGrid.appendChild(container);
+        });
+        function openModal(src) {
+            document.getElementById('fullImage').src = src;
+            document.getElementById('imageModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+    </script>
 </body>
 </html>
-
