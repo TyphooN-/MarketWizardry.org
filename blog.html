@@ -2,33 +2,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Blog</title>
+    <title>Retro File Explorer</title>
     <style>
         body {
             background-color: #000;
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
+            margin: 0;
         }
-	a {
-	    color: #00ff00;
-	    text-decoration: none;
-	    font-weight: bold;
-	}
-        .crt {
-            animation: flicker 2s infinite;
+        
+        .file-explorer {
+            border: 2px solid #00ff00;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
         }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
+
+        .directory-header {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .file-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .file-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        .reader-window {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            z-index: 1000;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .reader-window-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #00ff00;
+            cursor: pointer;
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body class="crt">
-    <h2>Blog</h2>
-    Hello world
+    <div class="file-explorer">
+        <div class="directory-header">
+            📁 Blog Archive
+        </div>
+        
+        <ul class="file-list">
+            <li><a href="blog1.html" onclick="openFile(this.href)">📄 blog1.html</a></li>
+            <li><a href="blog2.html" onclick="openFile(this.href)">📄 blog2.html</a></li>
+            <!-- Add more files here -->
+        </ul>
+    </div>
+
+    <div id="readerWindow" class="reader-window">
+        <span class="reader-window-close" onclick="closeReader()">×</span>
+        <iframe id="contentFrame" style="width: 100%; height: 90%; border: none;"></iframe>
+    </div>
+
+    <script>
+        function openFile(url) {
+            document.getElementById('contentFrame').src = url;
+            document.getElementById('readerWindow').style.display = 'block';
+            return false; // Prevent default link behavior
+        }
+
+        function closeReader() {
+            document.getElementById('readerWindow').style.display = 'none';
+            document.getElementById('contentFrame').src = '';
+        }
+    </script>
 </body>
 </html>
-

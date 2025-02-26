@@ -89,7 +89,6 @@
     	<img src="" alt="Fullscreen image" class="full-image">
     </div>
 </div>
-
     <script>
         let currentImageIndex = 0;
         // Generate images dynamically
@@ -109,7 +108,6 @@
             const img = document.querySelectorAll('.thumbnail')[index];
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
-            
             modalImg.src = img.src;
             modal.style.display = 'block';
         }
