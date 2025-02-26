@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
     <style>
         body {
@@ -10,12 +11,13 @@
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
+            margin: 0;
         }
-	a {
-	    color: #00ff00;
-	    text-decoration: none;
-	    font-weight: bold;
-	}
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
         .crt {
             animation: flicker 2s infinite;
         }
@@ -24,11 +26,27 @@
             50% { opacity: 0.8; }
             100% { opacity: 1; }
         }
+        .image-container {
+            text-align: left;
+        }
+        .image-container img {
+            max-width: 300px;
+            width: auto;
+            height: auto;
+            margin: 20px 0;
+            display: inline-block;
+            object-fit: contain;
+            max-height: 90vh;
+            border: 2px solid #00ff00; /* Added green border */
+        }
     </style>
 </head>
 <body class="crt">
-    <h2>About</h2>
-    <a href="http://darwinex.com/invest/HAKR/" target="_blank" rel="noopener noreferrer"> TyphooN: Darwinex Gold Trader [HAKR] </a>
-    <img src="https://marketwizardry.org/img/soros_rp.png"
+    <div class="image-container">
+        <h2>About</h2>
+        <a href="http://darwinex.com/invest/HAKR/" target="_blank" rel="noopener noreferrer"> TyphooN: Darwinex Gold Trader [HAKR] </a><br>
+        <br>
+        George Soros Roleplay @ Early Darwinex Stocks (reported martingale bug)<br>
+        <img src="https://marketwizardry.org/img/soros_rp.png" alt="Soros RP (DARWIN RIP)">
 </body>
 </html>
