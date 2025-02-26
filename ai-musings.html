@@ -22,6 +22,9 @@
             border: 1px solid #0f0;
             border-radius: 3px;
             transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .file-entry:hover {
             background-color: #001;
@@ -65,7 +68,6 @@
     <h2>AI Musings</h2>
     <!-- File Grid -->
     <div class="file-grid" id="fileGrid"></div>
-
     <!-- Modal -->
     <div class="modal" id="textModal">
         <div class="modal-header">
@@ -75,35 +77,75 @@
         <pre class="text-content" id="textContent"></pre>
     </div>
     <script>
-        const files = {
-            1: 'deepseek_on_monero_adoption.txt',
-            2: 'deepseek_saves_man_from_financial_ruin.txt',
-            3: 'snoop_fire_spaghetti.txt',
-            4: 'terry_davis_quest.xt',
-            5: 'the_great_wall_showdown.txt',
+    const files = {
+        1: 'deepseek_on_monero_adoption.txt',
+        2: 'deepseek_saves_man_from_financial_ruin.txt',
+        3: 'snoop_fire_spaghetti.txt',
+        4: 'terry_davis_quest.txt',
+        5: 'the_great_wall_showdown.txt',
         };
         // Initialize file grid
         const fileGrid = document.getElementById('fileGrid');
-        for (const [key, value] of Object.entries(files)) {
+        let maxFileNameWidth = 0;
+        // Create temporary elements to measure widths
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.visibility = 'hidden';
+        document.body.appendChild(tempDiv);
+        // Function to calculate max width
+        function calculateMaxWidth() {
+            Object.values(files).forEach(fileName => {
+                tempDiv.textContent = fileName;
+                const width = tempDiv.offsetWidth;
+                if (width > maxFileNameWidth) {
+                    maxFileNameWidth = width;
+                }
+            });
+        }
+        // Create file entries and measure widths
+        Object.values(files).forEach(fileName => {
             const fileEntry = document.createElement('div');
             fileEntry.className = 'file-entry';
-            fileEntry.textContent = value;
-            fileEntry.onclick = () => loadFile(value);
+            fileEntry.textContent = fileName;
             fileGrid.appendChild(fileEntry);
-        }
+            
+            tempDiv.textContent = fileName;
+            maxFileNameWidth = Math.max(maxFileNameWidth, tempDiv.offsetWidth);
+        });
+        // Clean up temporary element
+        document.body.removeChild(tempDiv);
+        // Set fixed width for all elements and update grid layout
+        const fileEntries = document.querySelectorAll('.file-entry');
+        fileEntries.forEach(entry => {
+            entry.style.width = `${maxFileNameWidth}px`;
+        });
+
+        // Update grid to use max width
+        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
+        // Add click event listeners to file entries
+        fileEntries.forEach(entry => {
+            entry.addEventListener('click', () => {
+                const fileName = entry.textContent;
+                loadFile(fileName);
+            });
+        });
         function loadFile(fileName) {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    displayText(xhr.responseText, fileName);
-                }
-            };
-            xhr.onerror = function() {
-                console.error('Failed to load file');
-            };
-            // Update the path to your actual text files
-            xhr.open('GET', `fiction/${fileName}`, true);
-            xhr.send();
+            // Update this path if needed
+            const filePath = `./ai-musings/${fileName}`;
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load file');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    displayText(text, fileName);
+                })
+                .catch(error => {
+                    console.error('Error loading file:', error);
+                    alert(`Failed to load file: ${fileName}`);
+                });
         }
         function displayText(content, fileName) {
             document.getElementById('textContent').textContent = content;
