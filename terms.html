@@ -1,0 +1,162 @@
+<!-- ai-musings.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text File Viewer</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+        }
+        .file-grid {
+            display: grid;
+            gap: 10px;
+        }
+        .file-entry {
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid #0f0;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .file-entry:hover {
+            background-color: #001;
+            transform: scale(1.02);
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+            padding: 20px;
+            border: 1px solid #0f0;
+            z-index: 1000;
+            width: 80%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .close-btn {
+            color: #f00;
+            cursor: pointer;
+        }
+        .text-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="crt">
+    <h2>Terms</h2>
+    <!-- File Grid -->
+    <div class="file-grid" id="fileGrid"></div>
+    <!-- Modal -->
+    <div class="modal" id="textModal">
+        <div class="modal-header">
+            <span>File: <span id="currentFile">-</span></span>
+            <span class="close-btn" onclick="closeModal()">[X]</span>
+        </div>
+        <pre class="text-content" id="textContent"></pre>
+    </div>
+    <script>
+    const files = {
+        1: 'LICENSE',
+        2: 'DISCLAIMER_AND_RISK_WARNING',
+        };
+        // Initialize file grid
+        const fileGrid = document.getElementById('fileGrid');
+        let maxFileNameWidth = 0;
+        // Create temporary elements to measure widths
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.visibility = 'hidden';
+        document.body.appendChild(tempDiv);
+        // Function to calculate max width
+        function calculateMaxWidth() {
+            Object.values(files).forEach(fileName => {
+                tempDiv.textContent = fileName;
+                const width = tempDiv.offsetWidth;
+                if (width > maxFileNameWidth) {
+                    maxFileNameWidth = width;
+                }
+            });
+        }
+        // Create file entries and measure widths
+        Object.values(files).forEach(fileName => {
+            const fileEntry = document.createElement('div');
+            fileEntry.className = 'file-entry';
+            fileEntry.textContent = fileName;
+            fileGrid.appendChild(fileEntry);
+            tempDiv.textContent = fileName;
+            maxFileNameWidth = Math.max(maxFileNameWidth, tempDiv.offsetWidth);
+        });
+        // Clean up temporary element
+        document.body.removeChild(tempDiv);
+        // Set fixed width for all elements and update grid layout
+        const fileEntries = document.querySelectorAll('.file-entry');
+        fileEntries.forEach(entry => {
+            entry.style.width = `${maxFileNameWidth}px`;
+        });
+
+        // Update grid to use max width
+        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
+        // Add click event listeners to file entries
+        fileEntries.forEach(entry => {
+            entry.addEventListener('click', () => {
+                const fileName = entry.textContent;
+                loadFile(fileName);
+            });
+        });
+        function loadFile(fileName) {
+            // Update this path if needed
+            const filePath = `./terms/${fileName}`;
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load file');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    displayText(text, fileName);
+                })
+                .catch(error => {
+                    console.error('Error loading file:', error);
+                    alert(`Failed to load file: ${fileName}`);
+                });
+        }
+        function displayText(content, fileName) {
+            document.getElementById('textContent').textContent = content;
+            document.getElementById('currentFile').textContent = fileName;
+            document.getElementById('textModal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('textModal').style.display = 'none';
+        }
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
