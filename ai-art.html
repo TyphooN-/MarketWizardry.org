@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Art</title>
+    <title>AI Art</title>
     <style>
         body {
             background-color: #000;
@@ -78,7 +78,7 @@
     </style>
 </head>
 <body class="crt">
-    <h2>Art</h2>
+    <h2>AI Art</h2>
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here -->
@@ -99,7 +99,7 @@
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
-            img.src = `art/${String(i).padStart(5, '0')}.webp`;
+            img.src = `ai-art/${String(i).padStart(5, '0')}.webp`;
             img.onclick = function() { openImage(i - 1); }; // Pass 0-based index
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
