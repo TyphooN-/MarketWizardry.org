@@ -3,6 +3,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- Add viewport meta tag for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
     <style>
         body {
@@ -11,11 +13,11 @@
             font-family: "Courier New", monospace;
             padding: 20px;
         }
-	a {
-	    color: #00ff00;
-	    text-decoration: none;
-	    font-weight: bold;
-	}
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
         .crt {
             animation: flicker 2s infinite;
         }
@@ -24,11 +26,18 @@
             50% { opacity: 0.8; }
             100% { opacity: 1; }
         }
+        /* Add responsive image styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="crt">
     <h2>MarketWizardry.org</h2>
-    <img src = "https://marketwizardry.org/art/00010.png"></img>
+    <img src="https://marketwizardry.org/art/00010.png" alt="Market Wizardry Art">
 </body>
 </html>
-
