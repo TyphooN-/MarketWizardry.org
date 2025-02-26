@@ -10,6 +10,7 @@
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
+            margin: 0;
         }
         a {
             color: #00ff00;
@@ -24,13 +25,18 @@
             50% { opacity: 0.8; }
             100% { opacity: 1; }
         }
-        /* Add responsive image styling */
-        img {
-            max-width: 100%;
+        .image-container {
+            text-align: left;
+        }
+        .image-container img {
+            max-width: 300px;
+            width: auto;
             height: auto;
-            display: block;
-            margin: 0 auto;
+            margin: 20px 0;
+            display: inline-block;
             object-fit: contain;
+            max-height: 90vh;
+            border: 2px solid #00ff00; /* Added green border */
         }
     </style>
 </head>
