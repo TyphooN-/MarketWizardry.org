@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>Text File Viewer</title>
     <style>
+        a {
+            color: #00ff00;
+            font-weight: bold;
+        }
         body {
             background-color: #000;
             color: #0f0;
@@ -62,6 +66,18 @@
             padding: 10px;
             border-radius: 3px;
         }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
     </style>
 </head>
 <body class="crt">
@@ -76,6 +92,8 @@
         </div>
         <pre class="text-content" id="textContent"></pre>
     </div>
+    <div class="crt-divider"></div>
+    DISCLAIMER: All writings are a work of fiction. Names, characters, places and incidents either are products of the author’s imagination or are used fictitiously. Any resemblance to actual events or locales or persons, living or dead, is entirely coincidental.  Writings are literred in sarcasm based on real events and/or speculation.  For further information contact the author (TyphooN), in <a href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">Discord</a>.
     <script>
     const files = {
         1: 'monero_adoption.txt',
