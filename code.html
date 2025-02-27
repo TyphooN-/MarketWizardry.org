@@ -42,6 +42,18 @@
             border: 2px solid #00ff00; /* Added green border for iframes */
             margin: 20px 0;
         }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
     </style>
 </head>
 <body class="crt">
@@ -49,10 +61,11 @@
       <a href="https://github.com/TyphooN-/MQL5-NNFX-Risk_Management_System/" target="_blank" rel="noopener noreferrer"> MQL5 NNFX Risk Management System</a> - Magic Key inspired Risk Managment EA + NNFX style trading system (full indicators included).  VaR based risk management supported.<br><br>
       <a href="https://github.com/TyphooN-/MQL5-ExAmples/" target="_blank" rel="noopener noreferrer"> MQL5 ExAmples</a> - Example EAs/functions that do not make sense to exist in other repos.<br><br>
       <a href="https://github.com/TyphooN-/MQL5-MaliciousEAmporium/" target="_blank" rel="noopener noreferrer"> MQL5 MalciousEAmporium</a> - Proof of Concept EAs (Expert Advisor) to show the potential dangers of running a random EA on a trading account.<br><br>
-      <a href="https://github.com/TyphooN-/Darwin_Research/" target="_blank" rel="noopener noreferrer"> Darwin Research</a> - Python and R scripts to analyze raw DARWIN data offered through FTP.<br><br>
-      <a href="https://github.com/TyphooN-/R_Simulations/" target="_blank" rel="noopener noreferrer"> R Simulations</a> - Various simulations using the R language. <br><br>
-      <a href="https://marketwizardry.org/files/Solo_Whitepaper_v1.0.pdf"> Solo Project </a> - Monero fork with uncle mining support, pool resistant mining algorithm. (Dead in the water).
-      <br><br><br>
-      Inspired by (in no particular order): Linus Torvalds, John McAfee, Terry Davis, Orchard Forex, Daniel Micay, John Carmack, Dennis Ritchie, Satoshi Nakamoto, Andrey Sabelnikov, and Alan Turing.
+      <a href="https://github.com/TyphooN-/Darwin_Research/" target="_blank" rel="noopener noreferrer"> Darwin Research</a> - Python and R scripts to analyze raw DARWIN data.<br><br>
+      <a href="https://github.com/TyphooN-/Trading-Strategies/" target="_blank" rel="noopener noreferrer"> Trading Strategies</a> - Various trading algorithms and strategies.<br><br>
+      <div class="crt-divider"></div>
+      <h3>Inspirations:</h3>
+      Inspired by various concepts in mathematics, computer science, and quantitative finance.
 </body>
 </html>
+
