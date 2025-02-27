@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Retro Blog Archive</title>
+    <meta charset="UTF-8">
+    <title>Blog Explorer</title>
     <style>
         body {
             background-color: #000;
@@ -11,112 +12,86 @@
             padding: 20px;
             margin: 0;
         }
-        
-        .file-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        .container {
             max-width: 800px;
             margin: 0 auto;
         }
-
-        .file-item {
-            border: 2px solid #00ff00;
-            padding: 20px;
-            cursor: pointer;
+        h1 {
             text-align: center;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
         }
-
-        .file-item:hover {
-            background-color: rgba(0, 255, 0, 0.1);
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
         }
-
-        .text-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #000;
-            padding: 20px;
+        .blog-entry {
+            background-color: #000;
             border: 2px solid #00ff00;
-            z-index: 1000;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .blog-entry:hover {
+            background-color: #001100;
+            color: #00ff00;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        a {
             color: #00ff00;
-            cursor: pointer;
-            font-size: 1.5em;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .date {
+            color: #00cc00;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        .nav-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .nav-button {
+            background-color: #000;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            font-family: "Courier New", monospace;
+        }
+        .nav-button:hover {
+            background-color: #001100;
         }
     </style>
 </head>
 <body class="crt">
-    <div class="file-grid" id="fileGrid">
-        <!-- Files will be dynamically added here -->
+    <div class="container">
+        <h1>Blog Explorer</h1>
+        <div class="nav-bar">
+            <a href="#" class="nav-button">Main Menu</a>
+            <a href="#" class="nav-button">Refresh</a>
+        </div>
+
+        <div class="grid">
+            <div class="blog-entry">
+                <a href="blog1.html" target="_blank">The Origins of VaR</a>
+                <span class="date">Posted: 2023-01-15</span>
+            </div>
+
+            <div class="blog-entry">
+                <a href="blog2.html" target="_blank">VaR Whipsaw Strategy</a>
+                <span class="date">Posted: 2023-02-10</span>
+            </div>
+        </div>
     </div>
-
-    <div id="textModal" class="text-modal">
-        <span class="modal-close" onclick="closeModal()">×</span>
-        <div id="textContent"></div>
-    </div>
-
-    <script>
-        // Define your blog files
-        const blogFiles = [
-            { name: 'blog1.html', title: 'Blog Post 1' },
-            { name: 'blog2.html', title: 'Blog Post 2' }
-            // Add more files as needed
-        ];
-
-        // Create file grid items dynamically
-        function createFileGrid() {
-            const fileGrid = document.getElementById('fileGrid');
-            
-            blogFiles.forEach(file => {
-                const fileItem = document.createElement('div');
-                fileItem.className = 'file-item';
-                fileItem.innerHTML = `📄 ${file.title}<br>${file.name}`;
-                fileItem.onclick = () => openFile(file.name);
-                fileGrid.appendChild(fileItem);
-            });
-        }
-
-        function openFile(fileName) {
-            fetch(fileName)
-                .then(response => response.text())
-                .then(content => displayContent(content, fileName))
-                .catch(error => showError(error));
-        }
-
-        function displayContent(content, title) {
-            document.getElementById('textContent').textContent = content;
-            document.getElementById('textModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('textModal').style.display = 'none';
-        }
-
-        function showError(error) {
-            console.error('Error loading file:', error);
-            alert('Failed to load the requested file.');
-        }
-
-        // Initialize the file grid
-        window.onload = createFileGrid;
-
-        // Close modal when pressing ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('textModal').style.display !== 'none') {
-                closeModal();
-            }
-        });
-    </script>
 </body>
 </html>
