@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Retro File Explorer</title>
+    <title>Retro Blog Archive</title>
     <style>
         body {
             background-color: #000;
@@ -12,41 +12,26 @@
             margin: 0;
         }
         
-        .file-explorer {
-            border: 2px solid #00ff00;
-            padding: 20px;
-            width: 80%;
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
         }
 
-        .directory-header {
-            font-size: 1.5em;
-            margin-bottom: 20px;
+        .file-item {
+            border: 2px solid #00ff00;
+            padding: 20px;
+            cursor: pointer;
             text-align: center;
         }
 
-        .file-list {
-            list-style-type: none;
-            padding-left: 20px;
+        .file-item:hover {
+            background-color: rgba(0, 255, 0, 0.1);
         }
 
-        .file-list li {
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-shadow: 0 0 5px #00ff00;
-        }
-
-        .reader-window {
+        .text-modal {
             display: none;
             position: fixed;
             top: 50%;
@@ -61,7 +46,7 @@
             overflow-y: auto;
         }
 
-        .reader-window-close {
+        .modal-close {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -72,34 +57,66 @@
     </style>
 </head>
 <body class="crt">
-    <div class="file-explorer">
-        <div class="directory-header">
-            📁 Blog Archive
-        </div>
-        
-        <ul class="file-list">
-            <li><a href="blog1.html" onclick="openFile(this.href)">📄 blog1.html</a></li>
-            <li><a href="blog2.html" onclick="openFile(this.href)">📄 blog2.html</a></li>
-            <!-- Add more files here -->
-        </ul>
+    <div class="file-grid" id="fileGrid">
+        <!-- Files will be dynamically added here -->
     </div>
 
-    <div id="readerWindow" class="reader-window">
-        <span class="reader-window-close" onclick="closeReader()">×</span>
-        <iframe id="contentFrame" style="width: 100%; height: 90%; border: none;"></iframe>
+    <div id="textModal" class="text-modal">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <div id="textContent"></div>
     </div>
 
     <script>
-        function openFile(url) {
-            document.getElementById('contentFrame').src = url;
-            document.getElementById('readerWindow').style.display = 'block';
-            return false; // Prevent default link behavior
+        // Define your blog files
+        const blogFiles = [
+            { name: 'blog1.html', title: 'Blog Post 1' },
+            { name: 'blog2.html', title: 'Blog Post 2' }
+            // Add more files as needed
+        ];
+
+        // Create file grid items dynamically
+        function createFileGrid() {
+            const fileGrid = document.getElementById('fileGrid');
+            
+            blogFiles.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `📄 ${file.title}<br>${file.name}`;
+                fileItem.onclick = () => openFile(file.name);
+                fileGrid.appendChild(fileItem);
+            });
         }
 
-        function closeReader() {
-            document.getElementById('readerWindow').style.display = 'none';
-            document.getElementById('contentFrame').src = '';
+        function openFile(fileName) {
+            fetch(fileName)
+                .then(response => response.text())
+                .then(content => displayContent(content, fileName))
+                .catch(error => showError(error));
         }
+
+        function displayContent(content, title) {
+            document.getElementById('textContent').textContent = content;
+            document.getElementById('textModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('textModal').style.display = 'none';
+        }
+
+        function showError(error) {
+            console.error('Error loading file:', error);
+            alert('Failed to load the requested file.');
+        }
+
+        // Initialize the file grid
+        window.onload = createFileGrid;
+
+        // Close modal when pressing ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('textModal').style.display !== 'none') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
