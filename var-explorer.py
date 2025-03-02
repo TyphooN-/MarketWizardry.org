@@ -28,7 +28,7 @@ html_content = f"""<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CSV File Explorer</title>
+    <title>VaR Explorer</title>
     <style>
         body {{
             background-color: #000;
