@@ -78,7 +78,7 @@ html_content = f"""<!DOCTYPE html>
 </head>
 <body>
     <div class="container">
-        <h1>CSV File Explorer</h1>
+        <h1>VaR Explorer</h1>
         <div class="grid">"""
 
 # Add each file as an entry in the HTML
