@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Text File Viewer</title>
+    <title>AI Musings</title>
     <style>
         a {
             color: #00ff00;
@@ -23,7 +23,7 @@
         .file-entry {
             cursor: pointer;
             padding: 5px;
-            border: 1px solid #0f0;
+            border: 2px solid rgba(0, 255, 0, 0.5);
             border-radius: 3px;
             transition: all 0.3s ease;
             white-space: nowrap;
@@ -43,7 +43,7 @@
             transform: translate(-50%, -50%);
             background-color: #000;
             padding: 20px;
-            border: 1px solid #0f0;
+            border: 2px solid rgba(0, 255, 0, 0.5);
             z-index: 1000;
             width: 80%;
             max-height: 90vh;
@@ -78,6 +78,30 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
+        .disclaimer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+        }
+        .disclaimer-box {
+            min-width: 300px;
+            flex-grow: 1;
+            max-width: 50%;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #000000;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+        }
+        @media (max-width: 768px) {
+            .disclaimer-container {
+                flex-direction: column;
+            }
+            .disclaimer-box {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -93,7 +117,24 @@
         <pre class="text-content" id="textContent"></pre>
     </div>
     <div class="crt-divider"></div>
-    DISCLAIMER: All writings are a work of fiction. Names, characters, places and incidents either are products of the author’s imagination or are used fictitiously. Any resemblance to actual events or locales or persons, living or dead, is entirely coincidental.  Writings are literred in sarcasm based on real events and/or speculation.  For further information contact the author (TyphooN), in <a href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">Discord</a>.
+    <div class="disclaimer-container">
+        <div class="disclaimer-box">
+            <h3>Disclaimer</h3>
+            DISCLAIMER: All writings are a work of fiction. Names, characters, places and incidents either are products of the author’s imagination or are used fictitiously. Any resemblance to actual events or locales or persons, living or dead, is entirely coincidental.  Writings are literred in sarcasm based 
+on real events and/or speculation.  For further information contact the author (TyphooN), in <a href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">Discord</a>.<br>
+        </div>
+        
+        <div class="disclaimer-box">
+            <h3><a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">ollama</a> models used</h3>
+            <a href="https://ollama.com/library/deepseek-r1" target="_blank" rel="noopener noreferrer">deepseek-r1:70b</a><br>
+            <a href="https://ollama.com/library/qwen2.5:72b" target="_blank" rel="noopener noreferrer">qwen2.5:72b</a><br>
+            <a href="https://ollama.com/library/llama3.3" target="_blank" rel="noopener noreferrer">llama3.3</a><br>
+            <a href="https://ollama.com/library/mistral" target="_blank" rel="noopener noreferrer">mistral</a><br>
+            <a href="https://ollama.com/library/gemma2:27b" target="_blank" rel="noopener noreferrer">gemma2:27b</a><br>
+            <a href="https://ollama.com/library/deepseek-r1" target="_blank" rel="noopener noreferrer">phi4</a><br>
+            <a href="https://ollama.com/library/llava:34b" target="_blank" rel="noopener noreferrer">llava:34b</a><br>
+        </div>
+    </div>
     <script>
     const files = {
         1: 'monero_adoption.txt',
