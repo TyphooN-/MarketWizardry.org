@@ -33,6 +33,7 @@
             width: 100%;
             height: auto;
             border-radius: 5px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease-in-out;
         }
@@ -66,6 +67,7 @@
 	    max-height: 90vh;
 	    margin: 0 auto;
 	    display: block;
+	    border: 2px solid rgba(0, 255, 0, 0.5);
 	}
     </style>
 </head>
@@ -77,11 +79,9 @@
     </div>
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
-    	div class="modal-content">
     	<img src="" alt="Fullscreen image" class="full-image">
     </div>
 </div>
-
     <script>
         let currentImageIndex = 0;
         // Generate images dynamically
