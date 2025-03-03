@@ -1,10 +1,10 @@
+<!-- market-wizardry.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Add viewport meta tag for responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org</title>
+    <title>Market Wizardry</title>
     <style>
         body {
             background-color: #000;
@@ -13,38 +13,116 @@
             padding: 20px;
             margin: 0;
         }
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
+        .container {
+            max-width: 1200px;
+            margin: auto;
         }
-        .image-container {
+        header {
             text-align: left;
+            color: #00ff00;
+            margin-bottom: 20px;
         }
-        .image-container img {
-            max-width: 100%;
-            width: auto;
+        h1 {
+            margin: 0; /* Remove default margins */
+        }
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .image-item img {
+            width: 100%;
+            object-fit: cover;
+            border: 2px solid #00ff00;
+            transition: transform 0.3s ease-in-out, opacity 0.3s;
+        }
+        .image-item:hover img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        @media (max-width: 900px) {
+            .image-gallery {
+                grid-template-columns: repeat(2, 1fr); /* Maintain two columns on smaller screens */
+            }
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .modal-image {
+            width: 100%; 
             height: auto;
-            margin: 20px 0;
-            display: inline-block;
-            object-fit: contain;
-            border: 2px solid #00ff00;
-        }
-        iframe {
-            border: 2px solid #00ff00;
-            margin: 20px 0;
+            max-width: 100%;
+            max-height: 80vh; /* Limiting size for viewport fitting */
+            border: 4px solid #00ff00;
         }
     </style>
 </head>
 <body>
-    <h2>MarketWizardry.org</h2>
-    <div class="image-container">
-        <!-- NVDA powered gamer house image -->
-        <img src="https://marketwizardry.org/gpu/nvda_house.webp" alt="NVDA powered gamer house">
-        <img src="https://marketwizardry.org/gpu/amd_bigbrain.webp" alt="AMD Big Brain">
-        <img src="https://marketwizardry.org/gpu/nvda_in_spec_power_delivery.webp" alt="NVDA in-spec power delivery">
-        <img src="https://marketwizardry.org/gpu/nvda_missing_rops.webp" alt="NVDA Missing ROPS">
+<div class="container">
+    <header><h1>GPU Buyers Guide 2025</h1></header>
+    <div class="image-gallery">
+        <!-- Image items -->
+        <div class="image-item">
+            <img src="https://marketwizardry.org/gpu/nvda_house.webp" alt="NVDA Gamer House">
+        </div>
+        <div class="image-item">
+            <img src="https://marketwizardry.org/gpu/amd_bigbrain.webp" alt="AMD BigBrain">
+        </div>
+        <div class="image-item">
+            <img src="https://marketwizardry.org/gpu/nvda_in_spec_power_delivery.webp" alt="NVDA 'in-spec' Power Delivery">
+        </div>
+        <div class="image-item">
+            <img src="https://marketwizardry.org/gpu/nvda_missing_rops.webp" alt="NVDA ROPs">
+        </div>
     </div>
+</div>
+<!-- Modal structure -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+        <img class="modal-image" src="">
+    </div>
+</div>
+<script>
+    var modal = document.getElementById("myModal");
+    var images = document.querySelectorAll(".image-item img");
+    var modalImage = modal.querySelector('.modal-image');
+    // Open the modal and show the clicked image
+    images.forEach(function(image) {
+        image.onclick = function() {
+            modal.style.display = "flex";
+            modalImage.src = this.src;
+        }
+    });
+    // Close the modal when 'X' is clicked or anywhere outside the image
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
 </body>
 </html>
-
