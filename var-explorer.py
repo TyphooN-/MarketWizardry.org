@@ -43,7 +43,7 @@ html_content = f"""<!DOCTYPE html>
         }}
         h1 {{
             text-align: center;
-            border-bottom: 2px solid #00ff00;
+            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
         }}
         .grid {{
@@ -54,7 +54,7 @@ html_content = f"""<!DOCTYPE html>
         }}
         .file-entry {{
             background-color: #000;
-            border: 2px solid #00ff00;
+            border: 2px solid rgba(0, 255, 0, 0.5);
             padding: 15px;
             text-align: center;
             transition: all 0.3s ease;
