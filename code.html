@@ -1,3 +1,4 @@
+Create a "The Matrix" style text falling animation that starts below the bottom most crt-divider.  Utilize all available ASCII/Unicode characters that are common on most machines and special characters.  It can start below the bottom of the crt-divider and go all the way to the bottom of the page.  Have similar effects in regards to the colour of the text changing, getting bright, appearing, and disappearing as in the movie.  Make sure that all of the original content on this page remains unchanged.
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+            overflow-x: hidden;
         }
         a {
             color: #00ff00;
@@ -44,30 +46,33 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
-        /* Modal Styles */
-        #modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding-top: 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+        .matrix-text {
+            position: absolute;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            user-select: none;
+            animation: matrix-fall var(--duration) linear infinite;
+            opacity: 0.5;
         }
-        #modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: left;
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(calc(var(--height, 100vh)));
+                opacity: 0;
+            }
+        }
+        .matrix-char {
+            animation-delay: var(--delay, 0s);
         }
     </style>
 </head>
 <body>
     <h2>Open Source Code</h2>
+    <div class="crt-divider"></div>
     <a href="https://github.com/TyphooN-/MQL5-NNFX-Risk_Management_System/" target="_blank" rel="noopener noreferrer"> MQL5 NNFX Risk Management System</a> - Magic Key inspired Risk Managment EA + NNFX style trading system (full indicators included).  VaR based risk management supported. <br><br>
     <a href="https://github.com/TyphooN-/MQL5-ExAmples/" target="_blank" rel="noopener noreferrer"> MQL5 ExAmples</a> - Example EAs/functions that do not make sense to exist in other repos.<br><br>
     <a href="https://github.com/TyphooN-/MQL5-MaliciousEAmporium/" target="_blank" rel="noopener noreferrer"> MQL5 MalciousEAmporium</a> - Proof of Concept EAs (Expert Advisor) to show the potential dangers of running a random EA on a trading account.<br><br>
@@ -76,5 +81,34 @@
     <div class="crt-divider"></div>
     <h3>Inspirations (in no particular order)</h3>
     Linus Torvalds, John McAfee, Terry Davis, Aaron Swartz, John Ehlers, Orchard Forex, Daniel Micay, John Carmack, Dennis Ritchie, Satoshi Nakamoto, Andrey Sabelnikov, and Alan Turing.
+    <div class="crt-divider"></div>
+    <script>
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-={}:<>?';
+        const container = document.querySelector('body');
+        function createMatrixText() {
+            const char = characters[Math.floor(Math.random() * characters.length)];
+            const element = document.createElement('div');
+            element.className = 'matrix-text matrix-char';
+            // Random position
+            element.style.left = Math.random() * 100 + '%';
+            // Random animation duration (speed)
+            const duration = Math.random() * 3 + 2; // between 2-5 seconds
+            // Apply styles
+            element.style.setProperty('--duration', `${duration}s`);
+            element.style.setProperty('--delay', `${Math.random() * 2}S`);
+            element.textContent = char;
+            container.appendChild(element);
+            // Remove element after animation
+            setTimeout(() => {
+                element.remove();
+            }, duration * 1000 + 2000);
+        }
+        // Create periodic matrix text
+        setInterval(createMatrixText, 100);
+        // Initial burst of characters
+        for (let i = 0; i < 50; i++) {
+            setTimeout(createMatrixText, Math.random() * 5000);
+        }
+    </script>
 </body>
 </html>
