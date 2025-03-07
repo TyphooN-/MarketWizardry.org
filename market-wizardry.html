@@ -65,14 +65,20 @@
             width: 80%;
             max-width: 90vw;
             max-height: 90vh;
+            display: flex;
+            align-items: flex-start; /* Align items to the top */
         }
-
         .modal-image {
-            width: 100%; 
+            width: 70%; 
             height: auto;
             max-width: 100%;
             max-height: 80vh; /* Limiting size for viewport fitting */
             border: 4px solid #00ff00;
+        }
+        .modal-text {
+            width: 30%;
+            margin-left: 20px;
+            overflow-y: auto; /* Add scroll if text exceeds height */
         }
     </style>
 </head>
@@ -81,48 +87,77 @@
     <header><h1>GPU Buyers Guide 2025</h1></header>
     <div class="image-gallery">
         <!-- Image items -->
-        <div class="image-item">
+        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/the_cost_of_pixels.txt">
             <img src="https://marketwizardry.org/gpu/nvda_house.webp" alt="NVDA Gamer House">
         </div>
-        <div class="image-item">
+        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/nvidia_snake_oil.txt">
             <img src="https://marketwizardry.org/gpu/amd_bigbrain.webp" alt="AMD BigBrain">
         </div>
-        <div class="image-item">
+        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/gpu_inferno.txt">
             <img src="https://marketwizardry.org/gpu/nvda_in_spec_power_delivery.webp" alt="NVDA 'in-spec' Power Delivery">
         </div>
-        <div class="image-item">
+        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/nvidia_missing_ROPs.txt">
             <img src="https://marketwizardry.org/gpu/nvda_rops_table.webp" alt="NVDA ROPs">
+        </div>
+        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/jensen_huang_goodguy.txt">
+            <img src="https://marketwizardry.org/gpu/nvda_missing_rops.webp" alt="DELETEROPS.EXE">
         </div>
     </div>
 </div>
-<!-- Modal structure -->
 <div id="myModal" class="modal">
     <span class="close">&times;</span>
     <div class="modal-content">
         <img class="modal-image" src="">
+        <div class="modal-text"></div>
     </div>
 </div>
 <script>
     var modal = document.getElementById("myModal");
     var images = document.querySelectorAll(".image-item img");
     var modalImage = modal.querySelector('.modal-image');
-    // Open the modal and show the clicked image
-    images.forEach(function(image) {
-        image.onclick = function() {
-            modal.style.display = "flex";
-            modalImage.src = this.src;
-        }
-    });
-    // Close the modal when 'X' is clicked or anywhere outside the image
-    var span = document.getElementsByClassName("close")[0];
-    span.onclick = function() {
-        modal.style.display = "none";
+    var modalText = modal.querySelector('.modal-text');
+
+    function loadTextFile(url, callback) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                callback(null, data);
+            })
+            .catch(error => {
+                console.error('Error loading text file:', error);
+                callback(error, null);
+            });
     }
-    window.onclick = function(event) {
+    images.forEach(img => {
+        img.addEventListener('click', function() {
+            const parent = this.parentElement;
+            const textFile = parent.getAttribute('data-text');
+            modalImage.src = this.src;
+
+            loadTextFile(textFile, (error, data) => {
+                if (error) {
+                    modalText.innerHTML = 'Failed to load text file.';
+                } else {
+                    modalText.innerHTML = data;
+                }
+                modal.style.display = "block";
+            });
+        });
+    });
+    document.querySelector('.close').addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+    window.addEventListener('click', function(event) {
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    };
+    });
 </script>
 </body>
 </html>
+
