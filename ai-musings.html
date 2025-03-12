@@ -11,7 +11,7 @@
         }
         body {
             background-color: #000;
-            color: #0f0;
+            color: #00ff00;
             font-family: 'Courier New', monospace;
             margin: 0;
             padding: 20px;
@@ -55,8 +55,15 @@
             margin-bottom: 10px;
         }
         .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             color: #f00;
+            border: none;
+            padding: 10px;
             cursor: pointer;
+            z-index: 1001;
+            border-radius: 5px;
         }
         .text-content {
             white-space: pre-wrap;
@@ -196,32 +203,36 @@ on real events and/or speculation.  For further information contact the author (
                 loadFile(fileName);
             });
         });
-        function loadFile(fileName) {
-            // Update this path if needed
-            const filePath = `./ai-musings/${fileName}`;
-            fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to load file');
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    displayText(text, fileName);
-                })
-                .catch(error => {
-                    console.error('Error loading file:', error);
-                    alert(`Failed to load file: ${fileName}`);
-                });
-        }
-        function displayText(content, fileName) {
-            document.getElementById('textContent').textContent = content;
-            document.getElementById('currentFile').textContent = fileName;
-            document.getElementById('textModal').style.display = 'block';
-        }
-        function closeModal() {
-            document.getElementById('textModal').style.display = 'none';
-        }
+	function loadFile(fileName) {
+	    const filePath = `./ai-musings/${fileName}`;
+	    fetch(filePath)
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error(`Failed to load file: ${response.status} ${response.statusText}`);
+	            }
+	            return response.text();
+	        })
+	        .then(text => {
+	            displayText(text, fileName);
+	        })
+	        .catch(error => {
+	            console.error('Error loading file:', error.message);
+	            alert(`Failed to load file: ${fileName}. Error: ${error.message}`);
+	        });
+	}
+	function displayText(content, fileName) {
+	    const textModal = document.getElementById('textModal');
+	    textModal.setAttribute('aria-hidden', 'false'); // Show modal for screen readers
+	    textModal.setAttribute('role', 'dialog');
+	    document.getElementById('textContent').textContent = content;
+	    document.getElementById('currentFile').textContent = fileName;
+	    textModal.style.display = 'block';
+	}
+	function closeModal() {
+	    const textModal = document.getElementById('textModal');
+    	textModal.setAttribute('aria-hidden', 'true'); // Hide modal for screen readers
+	    textModal.style.display = 'none';
+	}
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
