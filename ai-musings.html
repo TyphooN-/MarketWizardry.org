@@ -1,9 +1,17 @@
+
+
+Instead of opening an entirely new modal can we have the text file modal always displayed directly to the right of it have the current text modal extended between the file grid and right viewport.  Remove the close button.  Keep all styling the same, except always view the text modal to the right of the new vertical file grid. When no file is selected display the text: "SELECT A FILE, ANY FILE!  PRESS ESCAPE TO CLEAR SCREEN IN CASE OF ONLOOKERS!"  Do not suggest any changes in another file.  Make all changes here.
+
+How can I create a gap for this vertical file grid?  The bottom and top of each item in the grid is overlapping.  Do not suggest any changes in another file.  Make all changes here.
+
+
+Can we verify that the returned text is actually a text file before viewing it?  I want to avoid security issues.  Do not suggest any changes in another file.  Make all changes here.
 <!-- ai-musings.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Musings</title>
+    <title>MarketWizardry.org | AI Musings</title>
     <style>
         a {
             color: #00ff00;
@@ -18,7 +26,7 @@
         }
         .file-grid {
             display: grid;
-            gap: 10px;
+            gap: 20px;
         }
         .file-entry {
             cursor: pointer;
@@ -137,7 +145,8 @@ on real events and/or speculation.  For further information contact the author (
             <a href="https://ollama.com/library/qwen2.5:72b" target="_blank" rel="noopener noreferrer">qwen2.5:72b</a><br>
             <a href="https://ollama.com/library/llama3.3" target="_blank" rel="noopener noreferrer">llama3.3</a><br>
             <a href="https://ollama.com/library/mistral" target="_blank" rel="noopener noreferrer">mistral</a><br>
-            <a href="https://ollama.com/library/gemma2:27b" target="_blank" rel="noopener noreferrer">gemma2:27b</a><br>
+            <a href="https://ollama.com/library/gemma3:27b" target="_blank" rel="noopener noreferrer">gemma3:27b</a><br>
+            <a href="https://ollama.com/library/qwq:32b" target="_blank" rel="noopener noreferrer">qwq:32b</a><br>
             <a href="https://ollama.com/library/deepseek-r1" target="_blank" rel="noopener noreferrer">phi4</a><br>
             <a href="https://ollama.com/library/llava:34b" target="_blank" rel="noopener noreferrer">llava:34b</a><br>
         </div>
@@ -182,9 +191,8 @@ on real events and/or speculation.  For further information contact the author (
             fileEntry.className = 'file-entry';
             fileEntry.textContent = fileName;
             fileGrid.appendChild(fileEntry);
-            
             tempDiv.textContent = fileName;
-            maxFileNameWidth = Math.max(maxFileNameWidth, tempDiv.offsetWidth);
+            maxFileNameWidth = Math.max(maxFileNameWidth+1, tempDiv.offsetWidth);
         });
         // Clean up temporary element
         document.body.removeChild(tempDiv);
@@ -193,7 +201,6 @@ on real events and/or speculation.  For further information contact the author (
         fileEntries.forEach(entry => {
             entry.style.width = `${maxFileNameWidth}px`;
         });
-
         // Update grid to use max width
         fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
         // Add click event listeners to file entries
