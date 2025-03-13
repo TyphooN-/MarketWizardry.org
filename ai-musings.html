@@ -202,23 +202,26 @@ on real events and/or speculation.  For further information contact the author (
                 loadFile(fileName);
             });
         });
-	function loadFile(fileName) {
-	    const filePath = `./ai-musings/${fileName}`;
-	    fetch(filePath)
-	        .then(response => {
-	            if (!response.ok) {
-	                throw new Error(`Failed to load file: ${response.status} ${response.statusText}`);
-	            }
-	            return response.text();
-	        })
-	        .then(text => {
-	            displayText(text, fileName);
-	        })
-	        .catch(error => {
-	            console.error('Error loading file:', error.message);
-	            alert(`Failed to load file: ${fileName}. Error: ${error.message}`);
-	        });
-	}
+        function loadFile(filename) {
+            fetch('./ai-musings/' + filename) // Securely fetch using relative path
+            .then(response => {
+        if (!response.ok) {
+                throw new Error('Network response was not ok');
+        }
+        // Check content type before proceeding
+        const contentType = response.headers.get('Content-Type');
+        if (!contentType.includes('text/plain')) {
+            alert('Invalid file type. Only text files are allowed.');
+            return; // Stop processing if not a text file
+        }
+        return response.text();
+        })
+        .then(text => displayText(text, filename))
+        .catch(error => {
+            console.error('Error loading file:', error);
+            alert('An error occurred while loading the file.');
+        });
+     }
 	function displayText(content, fileName) {
 	    const textModal = document.getElementById('textModal');
 	    textModal.setAttribute('aria-hidden', 'false'); // Show modal for screen readers
