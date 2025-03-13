@@ -1,10 +1,10 @@
 <!-- market-wizardry.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Wizardry</title>
+    <title>About</title>
     <style>
         body {
             background-color: #000;
@@ -13,151 +13,71 @@
             padding: 20px;
             margin: 0;
         }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-        header {
-            text-align: left;
+        a {
             color: #00ff00;
-            margin-bottom: 20px;
+            font-weight: bold;
         }
-        h1 {
-            margin: 0; /* Remove default margins */
+        .image-container {
+            text-align: left;
         }
-        .image-gallery {
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .image-item img {
-            width: 100%;
-            object-fit: cover;
-            border: 2px solid #00ff00;
-            transition: transform 0.3s ease-in-out, opacity 0.3s;
-        }
-        .image-item:hover img {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-        @media (max-width: 900px) {
-            .image-gallery {
-                grid-template-columns: repeat(2, 1fr); /* Maintain two columns on smaller screens */
-            }
-        }
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            position: relative;
-            margin: auto;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
             padding: 20px;
-            width: 80%;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: flex-start; /* Align items to the top */
         }
-        .modal-image {
-            width: 70%; 
-            height: auto;
+        .grid-container img {
             max-width: 100%;
-            max-height: 80vh; /* Limiting size for viewport fitting */
-            border: 4px solid #00ff00;
+            height: auto;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            object-fit: contain;
         }
-        .modal-text {
-            width: 30%;
-            margin-left: 20px;
-            overflow-y: auto; /* Add scroll if text exceeds height */
+        .text-box {
+            max-width: 800px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            padding: 20px;
+            margin: auto;
+        }
+        iframe {
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            margin: 20px 0;
+        }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <header><h1>GPU Buyers Guide 2025</h1></header>
-    <div class="image-gallery">
-        <!-- Image items -->
-        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/the_cost_of_pixels.txt">
-            <img src="https://marketwizardry.org/gpu/nvda_house.webp" alt="NVDA Gamer House">
-        </div>
-        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/nvidia_snake_oil.txt">
-            <img src="https://marketwizardry.org/gpu/amd_bigbrain.webp" alt="AMD BigBrain">
-        </div>
-        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/gpu_inferno.txt">
-            <img src="https://marketwizardry.org/gpu/nvda_in_spec_power_delivery.webp" alt="NVDA 'in-spec' Power Delivery">
-        </div>
-        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/nvidia_missing_ROPs.txt">
-            <img src="https://marketwizardry.org/gpu/nvda_rops_table.webp" alt="NVDA ROPs">
-        </div>
-        <div class="image-item" data-text="https://marketwizardry.org/ai-musings/jensen_huang_goodguy.txt">
-            <img src="https://marketwizardry.org/gpu/nvda_missing_rops.webp" alt="DELETEROPS.EXE">
+    <div class="image-container">
+        <h2>MarketWizardry.org</h2>
+        <div class="grid-container">
+            <img src="https://marketwizardry.org/ai-art/00016.webp" alt="VaR Cult Gathered Around The Fire">
+            <div class="text-box">
+        The VaR Cult was a diverse group, comprising traders from all walks of life.  There was Maestro,the trailblazer, whose daring trades inspired awe in his peers.  Tariq, the Code Wizard, wove intricate algorithms that danced with the market's rhythms.  Pepper, the Chaplain, brought a sense of spiritual balance to the group, reminding them that even in the darkest of times, there was always hope.  SixStringFire, the Metalhead, fueled by the raw energy of heavy metal music, traded with a ferocity that left opponents reeling. Nathan, the wise, offered sage advice, tempered by years of experience and a deep understanding of 
+the markets. And then there was Rafael, the troll with a heart of gold, whose sharp jabs and witty remarks kept the group on their toes.<br><br>
+
+Together, they formed an unstoppable force, driven by their quest for trading excellence. They competed in the monthly battle for seed allocation, their Darwins consistently topping the charts as they manipulated VaR levels with unprecedented skill. The risk engine, once a formidable foe, had become their plaything, as they coaxed and cajoled it into submission.<br><br>
+
+The MarketWizardry.info discord server was their sanctuary, a place where they shared knowledge, debated strategies, and supported one another through the inevitable ups and downs of trading. A required introduction post served as a rite of passage, welcoming new members into the fold, while a 3-month inactivity rule ensured that only those with a genuine work ethic remained.<br><br>
+
+TyphooN, ever the leader, patrolled the discord channels, his sarcastic tone and dark humor serving as a reminder to stay focused and avoid complacency. His intent was clear: to foster a relationship with his traders where knowledge flowed both ways, and everyone emerged stronger and wiser. As he often joked, "If you can't take the heat, stay out of my kitchen... or better yet, go trade with ICT and the Snake Oil Gang."<br><br>
+
+As the VaR Cult continued to dominate the Darwinex rankings, their legend grew. Traders from far and wide sought to join their ranks, hoping to learn from the masters and bask in the glory of their success. But TyphooN and his followers knew that true greatness came not from fame or fortune, but from the relentless pursuit of trading excellence.<br><br>
+
+And so, they pushed on, fueled by their passion for the markets and their commitment to one another. In the world of Darwinex, the VaR Cult had become a force to be reckoned with, their name whispered in awe by traders and investors alike. For in the depths of the financial universe, there existed a group of traders who had transcended the ordinary, their skills honed to perfection as they danced with the risk engine, bending it to their will like a spoon in the Matrix.<br><br>
+
+The tale of VaR cult continues to unfold: a testament that dedication, innovation, and camaraderie is required to dominate the high-stakes world of trading.  As the markets ebbed and flowed, one thing remained certain: the VaR Cult would always be at the forefront, their Darwins soaring, their traders united in their quest for greatness. For in the words of TyphooN, "When you're a master of VaR, you're not just trading – you're conducting a symphony of risk and reward, with the markets as your instrument."<br><br>
+            </div>
         </div>
     </div>
-</div>
-<div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <div class="modal-content">
-        <img class="modal-image" src="">
-        <div class="modal-text"></div>
-    </div>
-</div>
-<script>
-    var modal = document.getElementById("myModal");
-    var images = document.querySelectorAll(".image-item img");
-    var modalImage = modal.querySelector('.modal-image');
-    var modalText = modal.querySelector('.modal-text');
-
-    function loadTextFile(url, callback) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(data => {
-                callback(null, data);
-            })
-            .catch(error => {
-                console.error('Error loading text file:', error);
-                callback(error, null);
-            });
-    }
-    images.forEach(img => {
-        img.addEventListener('click', function() {
-            const parent = this.parentElement;
-            const textFile = parent.getAttribute('data-text');
-            modalImage.src = this.src;
-
-            loadTextFile(textFile, (error, data) => {
-                if (error) {
-                    modalText.innerHTML = 'Failed to load text file.';
-                } else {
-                    modalText.innerHTML = data;
-                }
-                modal.style.display = "block";
-            });
-        });
-    });
-    document.querySelector('.close').addEventListener('click', function() {
-        modal.style.display = "none";
-    });
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-</script>
 </body>
 </html>
-
