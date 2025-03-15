@@ -3,147 +3,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketWizardry.org | AI Musings</title>
     <style>
-        a {
-            color: #00ff00;
+        .file-entry {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
             font-weight: bold;
         }
-        body {
-            background-color: #000;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
-        }
-        .file-grid {
-            display: grid;
-            gap: 20px;
-        }
-        .file-entry {
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
             cursor: pointer;
-            padding: 5px;
-            border: 2px solid rgba(0, 255, 0, 0.5);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .file-entry:hover {
-            background-color: #001;
-            transform: scale(1.02);
-        }
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid rgba(0, 255, 0, 0.5);
-            z-index: 1000;
-            width: 80%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .close-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            color: #f00;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 1001;
-            border-radius: 5px;
-        }
-        .text-content {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background-color: #000;
-            color: #0f0;
-            padding: 10px;
-            border-radius: 3px;
-        }
-        .crt-divider {
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 30px 0;
-        }
-        @keyframes scan {
-            0% { opacity: 1; width: 0%; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
-        }
-        .disclaimer-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            width: 100%;
-        }
-        .disclaimer-box {
-            min-width: 300px;
-            flex-grow: 1;
-            max-width: 50%;
-            margin: 10px 0;
-            padding: 15px;
-            background-color: #000000;
-            border-radius: 5px;
-            border: 2px solid rgba(0, 255, 0, 0.5);
-        }
-        @media (max-width: 768px) {
-            .disclaimer-container {
-                flex-direction: column;
-            }
-            .disclaimer-box {
-                max-width: 100%;
-            }
         }
     </style>
 </head>
 <body>
-    <h2>AI Musings</h2>
-    <div class="crt-divider"></div>
-    <!-- File Grid -->
-    <div class="file-grid" id="fileGrid"></div>
-    <!-- Modal -->
-    <div class="modal" id="textModal">
-        <div class="modal-header">
-            <span>File: <span id="currentFile">-</span></span>
-            <span class="close-btn" onclick="closeModal()">[X]</span>
-        </div>
-        <pre class="text-content" id="textContent"></pre>
+<div id="fileGrid"></div>
+<!-- Modal -->
+<div id="textModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="currentFile">Current File</h2>
+        <pre id="textContent"></pre>
     </div>
-    <div class="crt-divider"></div>
-    <div class="disclaimer-container">
-        <div class="disclaimer-box">
-            <h3>Disclaimer</h3>
-            DISCLAIMER: All writings are a work of fiction. Names, characters, places and incidents either are products of the author’s imagination or are used fictitiously. Any resemblance to actual events or locales or persons, living or dead, is entirely coincidental.  Writings are literred in sarcasm based 
-on real events and/or speculation.  For further information contact the author (TyphooN), in <a href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">Discord</a>.<br>
-        </div>
-        <div class="disclaimer-box">
-            <h3><a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">ollama</a> models used</h3>
-            <a href="https://ollama.com/library/deepseek-r1" target="_blank" rel="noopener noreferrer">deepseek-r1:70b</a><br>
-            <a href="https://ollama.com/library/qwen2.5:72b" target="_blank" rel="noopener noreferrer">qwen2.5:72b</a><br>
-            <a href="https://ollama.com/library/llama3.3" target="_blank" rel="noopener noreferrer">llama3.3</a><br>
-            <a href="https://ollama.com/library/mistral" target="_blank" rel="noopener noreferrer">mistral</a><br>
-            <a href="https://ollama.com/library/gemma3:27b" target="_blank" rel="noopener noreferrer">gemma3:27b</a><br>
-            <a href="https://ollama.com/library/qwq:32b" target="_blank" rel="noopener noreferrer">qwq:32b</a><br>
-            <a href="https://ollama.com/library/deepseek-r1" target="_blank" rel="noopener noreferrer">phi4</a><br>
-            <a href="https://ollama.com/library/llava:34b" target="_blank" rel="noopener noreferrer">llava:34b</a><br>
-        </div>
-    </div>
-    <script>
+</div>
+<script>
     const files = {
         1: 'monero_adoption.txt',
         2: 'financial_advice.txt',
@@ -158,89 +70,66 @@ on real events and/or speculation.  For further information contact the author (
         11: 'ICT_2.txt',
         12: 'nvidia_missing_ROPs.txt',
         13: 'nvidia_snake_oil.txt',
-        };
-        // Initialize file grid
-        const fileGrid = document.getElementById('fileGrid');
-        let maxFileNameWidth = 0;
-        // Create temporary elements to measure widths
-        const tempDiv = document.createElement('div');
-        tempDiv.style.position = 'absolute';
-        tempDiv.style.visibility = 'hidden';
-        document.body.appendChild(tempDiv);
-        // Function to calculate max width
-        function calculateMaxWidth() {
-            Object.values(files).forEach(fileName => {
-                tempDiv.textContent = fileName;
-                const width = tempDiv.offsetWidth;
-                if (width > maxFileNameWidth) {
-                    maxFileNameWidth = width;
-                }
-            });
-        }
-        // Create file entries and measure widths
+    };
+    // Initialize file grid
+    const fileGrid = document.getElementById('fileGrid');
+    let maxFileNameWidth = 0;
+    // Create temporary elements to measure widths
+    const tempDiv = document.createElement('div');
+    tempDiv.style.position = 'absolute';
+    tempDiv.style.visibility = 'hidden';
+    document.body.appendChild(tempDiv);
+    // Function to calculate max width
+    function calculateMaxWidth() {
         Object.values(files).forEach(fileName => {
-            const fileEntry = document.createElement('div');
-            fileEntry.className = 'file-entry';
-            fileEntry.textContent = fileName;
-            fileGrid.appendChild(fileEntry);
             tempDiv.textContent = fileName;
-            maxFileNameWidth = Math.max(maxFileNameWidth+1, tempDiv.offsetWidth);
-        });
-        // Clean up temporary element
-        document.body.removeChild(tempDiv);
-        // Set fixed width for all elements and update grid layout
-        const fileEntries = document.querySelectorAll('.file-entry');
-        fileEntries.forEach(entry => {
-            entry.style.width = `${maxFileNameWidth}px`;
-        });
-        // Update grid to use max width
-        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
-        // Add click event listeners to file entries
-        fileEntries.forEach(entry => {
-            entry.addEventListener('click', () => {
-                const fileName = entry.textContent;
-                loadFile(fileName);
-            });
-        });
-        function loadFile(filename) {
-            fetch('./ai-musings/' + filename) // Securely fetch using relative path
-            .then(response => {
-        if (!response.ok) {
-                throw new Error('Network response was not ok');
-        }
-        // Check content type before proceeding
-        const contentType = response.headers.get('Content-Type');
-        if (!contentType.includes('text/plain')) {
-            alert('Invalid file type. Only text files are allowed.');
-            return; // Stop processing if not a text file
-        }
-        return response.text();
-        })
-        .then(text => displayText(text, filename))
-        .catch(error => {
-            console.error('Error loading file:', error);
-            alert('An error occurred while loading the file.');
-        });
-     }
-	function displayText(content, fileName) {
-	    const textModal = document.getElementById('textModal');
-	    textModal.setAttribute('aria-hidden', 'false'); // Show modal for screen readers
-	    textModal.setAttribute('role', 'dialog');
-	    document.getElementById('textContent').textContent = content;
-	    document.getElementById('currentFile').textContent = fileName;
-	    textModal.style.display = 'block';
-	}
-	function closeModal() {
-	    const textModal = document.getElementById('textModal');
-    	textModal.setAttribute('aria-hidden', 'true'); // Hide modal for screen readers
-	    textModal.style.display = 'none';
-	}
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
+            const width = tempDiv.offsetWidth;
+            if (width > maxFileNameWidth) {
+                maxFileNameWidth = width;
             }
         });
-    </script>
+    }
+    // Create file entries and measure widths
+    Object.values(files).forEach((fileName, index) => {
+        const fileEntry = document.createElement('div');
+        fileEntry.classList.add('file-entry');
+        fileEntry.textContent = fileName;
+        tempDiv.textContent = fileName;
+        maxFileNameWidth = Math.max(maxFileNameWidth, tempDiv.offsetWidth);
+        // Add event listener to the file entry
+        fileEntry.addEventListener('click', () => {
+            loadFile(fileName);
+        });
+        fileGrid.appendChild(fileEntry);
+    });
+    document.body.removeChild(tempDiv);
+    // Set grid width based on max file name width
+    fileGrid.style.gridTemplateColumns = `repeat(auto-fill, ${maxFileNameWidth}px)`;
+    // Function to load and display a file's content
+    function loadFile(fileName) {
+        fetch(`/${fileName}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('textContent').textContent = data;
+                document.getElementById('currentFile').textContent = fileName;
+                document.getElementById('textModal').style.display = 'block';
+            })
+            .catch(error => console.error('Error loading file:', error));
+    }
+    // Get the modal
+    const modal = document.getElementById("textModal");
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
