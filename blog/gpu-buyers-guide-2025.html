@@ -57,6 +57,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
         }
         .modal-content {
             display: flex;
@@ -68,6 +69,7 @@
             max-width: 1200px;
             position: relative;
             background-color: #000;
+            overflow-y: auto;
         }
         .modal-image {
             width: 50%; 
@@ -81,9 +83,12 @@
             font-family: "Courier New", monospace;
             white-space: pre-wrap;
             border: 2px solid #00ff00;
-            padding: 10px; /* Add padding for better readability */
+            padding: 20px;
+            border-radius: 5px;
             height: 80%;
+            min-height: 300px;
             word-wrap: break-word;
+            flex-grow: 1;
             overflow-y: auto; /* Add scroll if text exceeds height */
             padding: 20px;
         }
