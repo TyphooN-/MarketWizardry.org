@@ -83,10 +83,15 @@ html_content = f"""<!DOCTYPE html>
 
 # Add each file as an entry in the HTML
 for filename, date_str in files:
+    if "Stocks" in filename:
+        file_type = "Stocks"
+    else:
+        file_type = "CFD"  # Or whatever the other type is
+
     file_entry = f"""
             <div class="file-entry">
                 <a href="https://marketwizardry.org//var-explorer/{filename}">
-                    Darwinex-Live (Stocks) - {date_str}
+                    Darwinex-Live ({file_type}) - {date_str}
                 </a>
             </div>"""
     html_content += file_entry
