@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>GPU Buyers' Guide 2025</title>
     <style>
         body {
@@ -128,58 +128,50 @@
     </div>
 </div>
 <div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <div class="modal-content">
-        <img class="modal-image" src="">
-        <div class="modal-text"></div>
-    </div>
+   <span class="close">&times;</span>
+   <div class="modal-content">
+       <img class="modal-image" src="">
+       <div class="modal-text"></div>
+   </div>
 </div>
 <script>
-    var modal = document.getElementById("myModal");
-    var images = document.querySelectorAll(".image-item img");
-    var modalImage = modal.querySelector('.modal-image');
-    var modalText = modal.querySelector('.modal-text');
-    function loadTextFile(url, callback) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(data => {
-                callback(null, data);
-            })
-            .catch(error => {
-                console.error('Error loading text file:', error);
-                callback(error, null);
-            });
-    }
-    images.forEach(img => {
-        img.addEventListener('click', function() {
-            const parent = this.parentElement;
-            const textFile = parent.getAttribute('data-text');
-            modalImage.src = this.src;
+  var modal = document.getElementById("myModal");
+  var images = document.querySelectorAll(".image-item img");
+  var modalImage = modal.querySelector('.modal-image');
+  var modalText = modal.querySelector('.modal-text');
 
-            loadTextFile(textFile, (error, data) => {
-                if (error) {
-                    modalText.innerHTML = 'Failed to load text file.';
-                } else {
-                    modalText.innerHTML = data;
-                }
-                modal.style.display = "block";
-            });
-        });
-    });
-    document.querySelector('.close').addEventListener('click', function() {
-        modal.style.display = "none";
-    });
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
+  function loadTextFile(url, callback) {
+      fetch(url)
+          .then(response => response.text())
+          .then(data => callback(null, data))
+          .catch(error => callback(error, null));
+  }
+  images.forEach(img => {
+      img.addEventListener('click', handleImageClick);
+  });
+  function handleImageClick(event) {
+      const parent = event.target.parentElement;
+      const textFile = parent.getAttribute('data-text');
+      modalImage.src = this.src;
+
+      loadTextFile(textFile, (error, data) => {
+          if (error) {
+              modalText.innerHTML = 'Failed to load text file.';
+          } else {
+              modalText.innerHTML = data;
+          }
+     //   console.log("Modal should be displayed");
+          modal.style.display = "block";
+      });
+  }
+  document.querySelector('.close').addEventListener('click', function() {
+      modal.style.display = "none";
+  });
+  window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+          modal.style.display = "none";
+      }
+  });
 </script>
 </body>
 </html>
-
