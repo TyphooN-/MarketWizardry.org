@@ -85,7 +85,9 @@ html_content = f"""<!DOCTYPE html>
 for filename, date_str in files:
     if "Stocks" in filename:
         file_type = "Stocks"
-    else:
+    if "Futures" in filename:
+        file_type = "Futures"
+    if "CFD" in filename:
         file_type = "CFD"  # Or whatever the other type is
 
     file_entry = f"""
