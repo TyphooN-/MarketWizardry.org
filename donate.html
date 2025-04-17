@@ -1,27 +1,70 @@
-<!-- donate.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Donate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background-color: #000;
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
+            margin: 0;
         }
-	a {
-	    color: #00ff00;
-	    text-decoration: none;
-	    font-weight: bold;
-	}
+        a {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        .image-container {
+            text-align: left;
+            padding: 5px;
+        }
+
+        .image-container img,
+        iframe {
+            max-width: 300px;
+            width: auto;
+            height: auto;
+            margin: 20px 0;
+            display: inline-block;
+            object-fit: contain;
+            max-height: 90vh;
+            border: 2px solid rgba(0, 255, 0, 0.5) !important; /* Added !important */
+        }
+
+        iframe {
+            border: 2px solid rgba(0, 255, 0, 0.5) !important; /* Added !important */
+            margin: 20px 0;
+        }
+
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
     </style>
 </head>
 <body>
-    <h2>Donate</h2>
-    <img src="https://marketwizardry.org/img/ko-fi.png"
-<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'F1F41DKLY3');kofiwidget2.draw();</script>
+    <div class="image-container">
+        <h2>Donate</h2>
+        <div class="crt-divider"></div>
+        <a href ="https://ko-fi.com/marketwizardry" rel="noopener noreferrer"><img src="https://marketwizardry.org/img/ko-fi.png"></a><br>
+    </div>
+
+    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+    <script type='text/javascript'>
+        kofiwidget2.init('Support me on Ko-fi', '#333333', 'marketwizardry');
+        kofiwidget2.draw();
+    </script>
 </body>
 </html>
 
