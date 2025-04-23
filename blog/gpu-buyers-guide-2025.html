@@ -139,18 +139,16 @@
   var images = document.querySelectorAll(".image-item img");
   var modalImage = modal.querySelector('.modal-image');
   var modalText = modal.querySelector('.modal-text');
-
   function loadTextFile(url, callback) {
       fetch(url)
           .then(response => response.text())
           .then(data => callback(null, data))
           .catch(error => callback(error, null));
   }
-  images.forEach(img => {
-      img.addEventListener('click', handleImageClick);
-  });
-  function handleImageClick(event) {
-      const parent = event.target.parentElement;
+  // Function to handle both click and touch events
+  function handleImageInteraction(event) {
+      event.preventDefault(); // Prevent default behavior
+      const parent = this.parentElement;
       const textFile = parent.getAttribute('data-text');
       modalImage.src = this.src;
 
@@ -160,10 +158,14 @@
           } else {
               modalText.innerHTML = data;
           }
-     //   console.log("Modal should be displayed");
           modal.style.display = "block";
       });
   }
+  // Add both click and touch event listeners
+  images.forEach(img => {
+      img.addEventListener('click', handleImageInteraction);
+      img.addEventListener('touchstart', handleImageInteraction);
+  });
   document.querySelector('.close').addEventListener('click', function() {
       modal.style.display = "none";
   });
