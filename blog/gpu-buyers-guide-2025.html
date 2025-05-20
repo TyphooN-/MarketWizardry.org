@@ -14,11 +14,12 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-            overscroll-behavior: none;
+            overflow-y: auto; /* Allow scrolling on mobile */
         }
         .container {
             max-width: 1200px;
             margin: auto;
+            min-height: 100vh; /* Ensure container can grow */
         }
         header {
             text-align: left;
@@ -32,6 +33,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
+            width: 100%;
         }
         .image-item img {
             width: 100%;
@@ -75,7 +77,6 @@
             background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             overflow-y: auto;
-            overscroll-behavior: contain;
         }
         .modal-content {
             margin: 20px auto;
@@ -252,6 +253,7 @@
             modalImage.src = imgSrc;
             loadTextFile(textFile, (error, data) => {
                 if (error) {
+                    console.error('Failed to load text file:', error); // Debug log
                     modalIntroText.innerHTML = 'Failed to load text file.';
                     modalText.innerHTML = '';
                 } else {
@@ -263,6 +265,7 @@
                     modalText.innerHTML = (remainingText ? remainingText + '\n\n' : '') + remainingParagraphs;
                 }
                 modal.style.display = "block";
+                console.log('Modal opened'); // Debug log
                 document.body.style.overflow = "hidden";
                 modal.focus();
             });
@@ -275,33 +278,17 @@
         }
 
         function handleImageInteraction(event) {
-            if (!event.isTrusted) {
-                console.log("Synthetic event ignored:", event);
-                return;
-            }
-            const img = event.target;
+            event.preventDefault(); // Prevent default behavior
+            const img = event.currentTarget;
             const index = Array.from(images).indexOf(img);
+            console.log('Image clicked, index:', index); // Debug log
             openModal(index);
         }
 
         images.forEach((img, index) => {
+            // Handle both click and touch events
             img.addEventListener('click', handleImageInteraction);
-            img.addEventListener('touchstart', (event) => {
-                if (event.cancelable) {
-                    event.preventDefault();
-                    img.style.transform = 'scale(1.05)';
-                    img.style.opacity = '0.9';
-                }
-            });
-            img.addEventListener('touchend', (event) => {
-                img.style.transform = 'scale(1)';
-                img.style.opacity = '1';
-                handleImageInteraction.call(img, event);
-            });
-            img.addEventListener('touchcancel', () => {
-                img.style.transform = 'scale(1)';
-                img.style.opacity = '1';
-            });
+            img.addEventListener('touchend', handleImageInteraction);
         });
 
         closeBtn.addEventListener('click', closeModal);
@@ -309,10 +296,6 @@
         modal.addEventListener('click', (event) => {
             if (event.target === modal) closeModal();
         });
-
-        modal.addEventListener('touchmove', (event) => {
-            if (event.target === modal) event.preventDefault();
-        }, { passive: false });
 
         document.addEventListener('keydown', (event) => {
             if (modal.style.display !== "block") return;
