@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPU Buyers' Guide 2025</title>
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="Ripping apart NVDA and AMD’s overpriced silicon scams with zero mercy. Click if you dare, you pixel-chasing degenerate!">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MarketWizardry.org | GPU Buyers' Guide 2025">
+    <meta property="og:description" content="Ripping apart NVDA and AMD’s overpriced silicon scams with zero mercy. Click if you dare, you pixel-chasing degenerate!">
+    <meta property="og:image" content="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp">
+    <meta property="og:image:alt" content="GPU Buyers' Guide 2025 Thumbnail">
+    <meta property="og:url" content="https://marketwizardry.org/blog/gpu-buyers-guide-2025">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GPU Buyers' Guide 2025">
+    <meta name="twitter:description" content="Ripping apart NVDA and AMD’s overpriced silicon scams with zero mercy. Click if you dare, you pixel-chasing degenerate!">
+    <meta name="twitter:image" content="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
     <style>
         * {
             box-sizing: border-box;
@@ -40,8 +57,8 @@
             object-fit: cover;
             border: 2px solid #00ff00;
             transition: transform 0.3s ease-in-out, opacity 0.3s;
-            touch-action: manipulation;
             cursor: pointer;
+            pointer-events: auto;
         }
         .image-item.hovered img {
             transform: scale(1.05);
@@ -71,7 +88,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
+            z-index: 10000;
             overflow-y: auto;
         }
         .modal-content {
@@ -141,7 +158,7 @@
             color: #00ff00;
             font-size: 30px;
             cursor: pointer;
-            z-index: 1001;
+            z-index: 10001;
         }
         .modal[tabindex="0"]:focus {
             outline: none;
@@ -201,6 +218,11 @@
         const modalText = modal.querySelector('.modal-text');
         const closeBtn = document.querySelector('.close');
 
+        if (!modal || !modalImage || !modalIntroText || !modalText || !closeBtn) {
+            console.error('Modal elements not found:', { modal, modalImage, modalIntroText, modalText, closeBtn });
+            return;
+        }
+
         modal.style.display = "none";
         let currentImageIndex = -1;
         let touchStartTime = 0;
@@ -210,11 +232,17 @@
         function loadTextFile(url, callback) {
             fetch(url)
                 .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
+                    if (!response.ok) {
+                        console.error('Fetch failed:', response.status, response.statusText);
+                        throw new Error('Network response was not ok');
+                    }
                     return response.text();
                 })
                 .then(data => callback(null, data))
-                .catch(error => callback(error, null));
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    callback(error, 'Failed to load text file.');
+                });
         }
 
         function fitTextToIntroContainer(text) {
@@ -224,10 +252,10 @@
             let fits = true;
 
             modalIntroText.style.overflow = 'visible';
-            modalIntroText.innerHTML = '';
+            modalIntroText.textContent = '';
 
             for (let i = 0; i < words.length; i++) {
-                modalIntroText.innerHTML = introText + (introText ? ' ' : '') + words[i];
+                modalIntroText.textContent = introText + (introText ? ' ' : '') + words[i];
                 if (modalIntroText.scrollHeight > modalIntroText.clientHeight) {
                     fits = false;
                     remainingText = words.slice(i).join(' ') + '\n\n' + remainingText;
@@ -238,7 +266,7 @@
 
             if (fits) remainingText = '';
             modalIntroText.style.overflow = 'hidden';
-            modalIntroText.innerHTML = introText;
+            modalIntroText.textContent = introText;
             return { introText, remainingText };
         }
 
@@ -249,24 +277,24 @@
             const textFile = parent.getAttribute('data-text');
             const imgSrc = parent.querySelector('img').src;
 
-            console.log('Opening modal for index:', index, 'with image:', imgSrc); // Debug log
+            console.log('Opening modal for index:', index, 'with image:', imgSrc);
 
             modalImage.src = imgSrc;
             loadTextFile(textFile, (error, data) => {
                 if (error) {
-                    console.error('Failed to load text file:', error); // Debug log
-                    modalIntroText.innerHTML = 'Failed to load text file.';
-                    modalText.innerHTML = '';
+                    console.error('Failed to load text file:', error);
+                    modalIntroText.textContent = 'Failed to load text file.';
+                    modalText.textContent = '';
                 } else {
                     const paragraphs = data.split('\n\n');
                     const firstParagraph = paragraphs[0] || '';
                     const remainingParagraphs = paragraphs.slice(1).join('\n\n') || '';
                     const { introText, remainingText } = fitTextToIntroContainer(firstParagraph);
-                    modalIntroText.innerHTML = introText;
-                    modalText.innerHTML = (remainingText ? remainingText + '\n\n' : '') + remainingParagraphs;
+                    modalIntroText.textContent = introText;
+                    modalText.textContent = (remainingText ? remainingText + '\n\n' : '') + remainingParagraphs;
                 }
                 modal.style.display = "block";
-                console.log('Modal display set to block'); // Debug log
+                console.log('Modal display set to block');
                 document.body.style.overflow = "hidden";
                 modal.focus();
             });
@@ -276,7 +304,6 @@
             modal.style.display = "none";
             document.body.style.overflow = "auto";
             currentImageIndex = -1;
-            // Clear hover effect on all images when modal closes
             imageItems.forEach(item => item.classList.remove('hovered'));
         }
 
@@ -287,51 +314,79 @@
         function handleImageInteraction(event) {
             const img = event.currentTarget;
             const index = Array.from(images).indexOf(img);
-            console.log('Image interaction detected, index:', index); // Debug log
-            clearHoverEffects(); // Clear hover effect from other images
-            img.parentElement.classList.add('hovered'); // Re-apply to current image
+            console.log('Image interaction detected, index:', index);
+            clearHoverEffects();
+            img.parentElement.classList.add('hovered');
             openModal(index);
         }
 
         images.forEach((img) => {
-            // Handle click for non-touch devices
             img.addEventListener('click', (event) => {
-                console.log('Click event detected'); // Debug log
-                handleImageInteraction(event);
+                try {
+                    console.log('Click event detected');
+                    handleImageInteraction(event);
+                } catch (error) {
+                    console.error('Click handler error:', error);
+                }
             });
 
-            // Handle touch for mobile devices
             img.addEventListener('touchstart', (event) => {
-                touchStartTime = Date.now();
-                touchStartX = event.touches[0].clientX;
-                touchStartY = event.touches[0].clientY;
-                clearHoverEffects();
-                img.parentElement.classList.add('hovered');
-                console.log('Touchstart detected'); // Debug log
+                try {
+                    event.preventDefault();
+                    touchStartTime = Date.now();
+                    touchStartX = event.touches[0].clientX;
+                    touchStartY = event.touches[0].clientY;
+                    clearHoverEffects();
+                    img.parentElement.classList.add('hovered');
+                    console.log('Touchstart detected');
+                } catch (error) {
+                    console.error('Touchstart handler error:', error);
+                }
             });
 
             img.addEventListener('touchend', (event) => {
-                const touchEndTime = Date.now();
-                const touchEndX = event.changedTouches[0].clientX;
-                const touchEndY = event.changedTouches[0].clientY;
-                const touchDuration = touchEndTime - touchStartTime;
-                const touchDistance = Math.sqrt(
-                    Math.pow(touchEndX - touchStartX, 2) + Math.pow(touchEndY - touchStartY, 2)
-                );
+                try {
+                    event.preventDefault();
+                    const touchEndTime = Date.now();
+                    const touchEndX = event.changedTouches[0].clientX;
+                    const touchEndY = event.changedTouches[0].clientY;
+                    const touchDuration = touchEndTime - touchStartTime;
+                    const touchDistance = Math.sqrt(
+                        Math.pow(touchEndX - touchStartX, 2) + Math.pow(touchEndY - touchStartY, 2)
+                    );
 
-                // Less strict tap detection
-                if (touchDuration < 500 && touchDistance < 20) {
-                    console.log('Touchend detected as a tap'); // Debug log
-                    handleImageInteraction(event);
-                } else {
-                    console.log('Touchend ignored (long press or swipe)'); // Debug log
-                    clearHoverEffects();
+                    if (touchDuration < 500 && touchDistance < 30) {
+                        console.log('Touchend detected as a tap');
+                        handleImageInteraction(event);
+                    } else {
+                        console.log('Touchend ignored (long press or swipe)');
+                        clearHoverEffects();
+                    }
+                } catch (error) {
+                    console.error('Touchend handler error:', error);
                 }
             });
 
             img.addEventListener('touchcancel', () => {
-                clearHoverEffects();
-                console.log('Touchcancel detected'); // Debug log
+                try {
+                    clearHoverEffects();
+                    console.log('Touchcancel detected');
+                } catch (error) {
+                    console.error('Touchcancel handler error:', error);
+                }
+            });
+        });
+
+        imageItems.forEach((item, index) => {
+            item.addEventListener('click', (event) => {
+                try {
+                    console.log('Image item click detected, index:', index);
+                    clearHoverEffects();
+                    item.classList.add('hovered');
+                    openModal(index);
+                } catch (error) {
+                    console.error('Image item click handler error:', error);
+                }
             });
         });
 
