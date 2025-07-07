@@ -161,7 +161,7 @@ def find_var_outliers(filename):
 
 
         # --- NEW: Top 30 from Lowest Priced Stocks ---
-        print(f"\n{'='*25} Top 30 Low VaR/Ask from Lowest Priced Stocks (Excl. ETFs) {'='*25}")
+        print(f"\n{'='*25} Top 30 Low VaR/Ask from Lowest Priced Stocks (Excluding ETFs) {'='*25}")
         
         lowest_priced_pool = global_tradable_stocks_no_etf.sort_values(by='AskPrice').head(100)
         top_30_from_lowest_price = lowest_priced_pool.sort_values(by='VaR_to_Ask_Ratio').head(30).copy()
@@ -182,7 +182,7 @@ def find_var_outliers(filename):
 
 
         # --- NEW: Top 30 from Highest Priced Stocks ---
-        print(f"\n{'='*25} Top 30 Low VaR/Ask from Highest Priced Stocks (Excl. ETFs) {'='*25}")
+        print(f"\n{'='*25} Top 30 Low VaR/Ask from Highest Priced Stocks (Excluding ETFs) {'='*25}")
         
         highest_priced_pool = global_tradable_stocks_no_etf.sort_values(by='AskPrice', ascending=False).head(100)
         top_30_from_highest_price = highest_priced_pool.sort_values(by='VaR_to_Ask_Ratio').head(30).copy()
@@ -208,7 +208,6 @@ def find_var_outliers(filename):
 
         # --- Final Global Summary Section ---
         print(f"\n{'='*25} Top 30 Global Opportunities (Including ETFs) {'='*25}")
-        print("The assets with the absolute lowest VaR/Ask ratio from the entire dataset.")
         
         top_n_global = 30
         
@@ -234,7 +233,6 @@ def find_var_outliers(filename):
 
         # --- NEW: Top 30 Highest VaR/Ask Stocks ---
         print(f"\n{'='*25} Top 30 Highest VaR/Ask Assets (Including ETFs) {'='*25}")
-        print("The assets with the absolute highest VaR/Ask ratio from the entire dataset.")
         
         top_n_highest_var = 30
         
