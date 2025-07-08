@@ -4,6 +4,9 @@ import os
 directory = './var-explorer/'
 output_html_file = 'var-explorer.html'
 
+# Run the outlier analysis script
+os.system(f"bash {directory}run_outlier_analysis.sh")
+
 # Pattern for matching file names (e.g., start with "SymbolsExport-Darwinex-Live")
 pattern_start = "SymbolsExport-Darwinex-Live"
 

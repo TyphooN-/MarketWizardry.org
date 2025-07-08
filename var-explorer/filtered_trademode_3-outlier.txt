@@ -1,5 +1,5 @@
+Detected file type: Unknown. Displaying top/bottom 20 assets.
 Processing 0 large industries and 13 small industries...
-
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 18 total instruments.
 
@@ -9,22 +9,31 @@ Q3 (75th percentile): 0.0675
 IQR (Interquartile Range): 0.0273
 Lower Outlier Bound: -0.0007
 Upper Outlier Bound: 0.1085
+Contains 18 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0402
+Q3 (75th percentile): 0.0675
+IQR (Interquartile Range): 0.0273
+Lower Outlier Bound: -0.0007
+Upper Outlier Bound: 0.1085
 --- Found 2 Total Statistical VaR Outliers ---
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+CHGG       | Education & Training Serv | 0.1774 | (HIGH - Statistically Significant)
+CLF        | Steel                     | 0.1119 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 
->>> Non-Actionable Outliers (Close Only):
-WARNING: The following outliers cannot be opened for new trades.
-  - Symbol: CLF        | VaR/Ask Ratio: 0.1119 (HIGH)
-  - Symbol: CHGG       | VaR/Ask Ratio: 0.1774 (HIGH)
+========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
+Q1 (25th percentile): nan
+Q3 (75th percentile): nan
+IQR (Interquartile Range): nan
+Lower Outlier Bound: nan
+Upper Outlier Bound: nan
 
-========================= Top 30 Low VaR/Ask from Lowest Priced Stocks (Excluding ETFs) =========================
+========================= Top 20 Highest VaR/Ask Assets (Including ETFs) =========================
 Could not identify any candidates in this category.
 
-========================= Top 30 Low VaR/Ask from Highest Priced Stocks (Excluding ETFs) =========================
-Could not identify any candidates in this category.
-
-========================= Top 30 Global Opportunities (Including ETFs) =========================
-Could not identify any global top candidates.
-
-========================= Top 30 Highest VaR/Ask Assets (Including ETFs) =========================
+========================= Bottom 20 Lowest VaR/Ask Assets (Including ETFs) =========================
 Could not identify any candidates in this category.

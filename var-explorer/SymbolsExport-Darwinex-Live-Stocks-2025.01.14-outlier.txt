@@ -1,5 +1,7 @@
+Detected file type: Stocks. Displaying top/bottom 20 assets.
 Processing 8 large industries and 100 small industries...
 
+No statistical outliers found in this group.
 ============================== Analysis for: EXCHANGE TRADED FUND ==============================
 Contains 90 total instruments.
 
@@ -9,19 +11,23 @@ Q3 (75th percentile): 0.0212
 IQR (Interquartile Range): 0.0074
 Lower Outlier Bound: 0.0028
 Upper Outlier Bound: 0.0323
+Contains 90 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0138
+Q3 (75th percentile): 0.0212
+IQR (Interquartile Range): 0.0074
+Lower Outlier Bound: 0.0028
+Upper Outlier Bound: 0.0323
 --- Found 4 Total Statistical VaR Outliers ---
-
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-GDX        | 0.0325          | 0.03%                   | $1.18        | $36.39       | (HIGH)
-EWZ        | 0.0339          | 0.04%                   | $0.78        | $22.98       | (HIGH)
-GDXJ       | 0.0369          | 0.04%                   | $1.69        | $45.85       | (HIGH)
-ARKK       | 0.0442          | 0.04%                   | $2.49        | $56.39       | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+ARKK       | Exchange Traded Fund      | 0.0442 | (HIGH - Statistically Significant)
+EWZ        | Exchange Traded Fund      | 0.0339 | (HIGH - Statistically Significant)
+GDX        | Exchange Traded Fund      | 0.0325 | (HIGH - Statistically Significant)
+GDXJ       | Exchange Traded Fund      | 0.0369 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 ============================== Analysis for: INFORMATION TECHNOLOGY SERVICES ==============================
 Contains 10 total instruments.
 
@@ -31,17 +37,21 @@ Q3 (75th percentile): 0.0233
 IQR (Interquartile Range): 0.0043
 Lower Outlier Bound: 0.0126
 Upper Outlier Bound: 0.0297
+Contains 10 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0190
+Q3 (75th percentile): 0.0233
+IQR (Interquartile Range): 0.0043
+Lower Outlier Bound: 0.0126
+Upper Outlier Bound: 0.0297
 --- Found 2 Total Statistical VaR Outliers ---
-
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-VYX        | 0.0385          | 0.08%                   | $0.51        | $13.14       | (HIGH)
-SNX        | 0.0468          | 0.36%                   | $6.38        | $136.23      | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+SNX        | Information Technology Se | 0.0468 | (HIGH - Statistically Significant)
+VYX        | Information Technology Se | 0.0385 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 ============================== Analysis for: SEMICONDUCTORS ==============================
 Contains 11 total instruments.
 
@@ -51,16 +61,20 @@ Q3 (75th percentile): 0.0409
 IQR (Interquartile Range): 0.0139
 Lower Outlier Bound: 0.0062
 Upper Outlier Bound: 0.0617
+Contains 11 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0270
+Q3 (75th percentile): 0.0409
+IQR (Interquartile Range): 0.0139
+Lower Outlier Bound: 0.0062
+Upper Outlier Bound: 0.0617
 --- Found 1 Total Statistical VaR Outliers ---
-
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-WOLF       | 0.1040          | 0.21%                   | $0.50        | $4.79        | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+WOLF       | Semiconductors            | 0.1040 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 ============================== Analysis for: SOFTWARE - APPLICATION ==============================
 Contains 16 total instruments.
 
@@ -70,16 +84,22 @@ Q3 (75th percentile): 0.0447
 IQR (Interquartile Range): 0.0202
 Lower Outlier Bound: -0.0058
 Upper Outlier Bound: 0.0750
+Contains 16 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0245
+Q3 (75th percentile): 0.0447
+IQR (Interquartile Range): 0.0202
+Lower Outlier Bound: -0.0058
+Upper Outlier Bound: 0.0750
 --- Found 1 Total Statistical VaR Outliers ---
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+MSTR       | Software - Application    | 0.1196 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-MSTR       | 0.1196          | 0.83%                   | $41.10       | $343.75      | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+No statistical outliers found in this group.
 ============================== Analysis for: SPECIALTY INDUSTRIAL MACHINERY ==============================
 Contains 17 total instruments.
 
@@ -89,16 +109,20 @@ Q3 (75th percentile): 0.0244
 IQR (Interquartile Range): 0.0071
 Lower Outlier Bound: 0.0066
 Upper Outlier Bound: 0.0351
+Contains 17 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0173
+Q3 (75th percentile): 0.0244
+IQR (Interquartile Range): 0.0071
+Lower Outlier Bound: 0.0066
+Upper Outlier Bound: 0.0351
 --- Found 1 Total Statistical VaR Outliers ---
-
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-NDSN       | 0.0374          | 0.28%                   | $7.76        | $207.66      | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+NDSN       | Specialty Industrial Mach | 0.0374 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 ============================== Analysis for: UTILITIES - REGULATED ELECTRIC ==============================
 Contains 15 total instruments.
 
@@ -108,16 +132,20 @@ Q3 (75th percentile): 0.0220
 IQR (Interquartile Range): 0.0068
 Lower Outlier Bound: 0.0049
 Upper Outlier Bound: 0.0322
+Contains 15 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0152
+Q3 (75th percentile): 0.0220
+IQR (Interquartile Range): 0.0068
+Lower Outlier Bound: 0.0049
+Upper Outlier Bound: 0.0322
 --- Found 1 Total Statistical VaR Outliers ---
-
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-EIX        | 0.0601          | 0.51%                   | $3.51        | $58.52       | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+EIX        | Utilities - Regulated Ele | 0.0601 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 332 total instruments.
 
@@ -127,185 +155,105 @@ Q3 (75th percentile): 0.0315
 IQR (Interquartile Range): 0.0109
 Lower Outlier Bound: 0.0043
 Upper Outlier Bound: 0.0478
+Contains 332 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0206
+Q3 (75th percentile): 0.0315
+IQR (Interquartile Range): 0.0109
+Lower Outlier Bound: 0.0043
+Upper Outlier Bound: 0.0478
 --- Found 30 Total Statistical VaR Outliers ---
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+CC         | Specialty Chemicals       | 0.0550 | (HIGH - Statistically Significant)
+CIEN       | Communication Equipment   | 0.0674 | (HIGH - Statistically Significant)
+DAR        | Packaged Foods            | 0.0484 | (HIGH - Statistically Significant)
+DRI        | Restaurants               | 0.0581 | (HIGH - Statistically Significant)
+FIVE       | Specialty Retail          | 0.0502 | (HIGH - Statistically Significant)
+HUM        | Healthcare Plans          | 0.0601 | (HIGH - Statistically Significant)
+LAZR       | Auto Parts                | 0.1532 | (HIGH - Statistically Significant)
+JEF        | Financial Conglomerates   | 0.0483 | (HIGH - Statistically Significant)
+K          | Packaged Foods            | 0.0031 | (LOW - Statistically Significant)
+LW         | Packaged Foods            | 0.0886 | (HIGH - Statistically Significant)
+M          | Department Stores         | 0.0552 | (HIGH - Statistically Significant)
+MODG       | Leisure                   | 0.0711 | (HIGH - Statistically Significant)
+MRNA       | Biotechnology             | 0.0916 | (HIGH - Statistically Significant)
+NTLA       | Biotechnology             | 0.0782 | (HIGH - Statistically Significant)
+NWL        | Household & Personal Prod | 0.0531 | (HIGH - Statistically Significant)
+OLLI       | Discount Stores           | 0.0653 | (HIGH - Statistically Significant)
+PENN       | Resorts & Casinos         | 0.0565 | (HIGH - Statistically Significant)
+RH         | Specialty Retail          | 0.0825 | (HIGH - Statistically Significant)
+ROKU       | Entertainment             | 0.0491 | (HIGH - Statistically Significant)
+RUN        | Solar                     | 0.0758 | (HIGH - Statistically Significant)
+SNAP       | Internet Content & Inform | 0.0483 | (HIGH - Statistically Significant)
+STZ        | Beverages - Wineries & Di | 0.0636 | (HIGH - Statistically Significant)
+TDOC       | Health Information Servic | 0.0626 | (HIGH - Statistically Significant)
+TSLA       | Auto Manufacturers        | 0.0725 | (HIGH - Statistically Significant)
+VRTX       | Biotechnology             | 0.0478 | (HIGH - Statistically Significant)
+UAA        | Apparel Manufacturing     | 0.0511 | (HIGH - Statistically Significant)
+VST        | Utilities - Independent P | 0.0577 | (HIGH - Statistically Significant)
+W          | Internet Retail           | 0.0567 | (HIGH - Statistically Significant)
+X          | Steel                     | 0.0753 | (HIGH - Statistically Significant)
+WBA        | Pharmaceutical Retailers  | 0.1135 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-K          | 0.0031          | 0.01%                   | $0.25        | $81.41       | (LOW - Statistically Significant)
-VRTX       | 0.0478          | 0.40%                   | $19.70       | $412.25      | (HIGH)
-SNAP       | 0.0483          | 0.09%                   | $0.55        | $11.34       | (HIGH)
-JEF        | 0.0483          | 0.13%                   | $3.46        | $71.51       | (HIGH)
-DAR        | 0.0484          | 0.22%                   | $1.74        | $36.02       | (HIGH)
-ROKU       | 0.0491          | 0.15%                   | $3.68        | $74.91       | (HIGH)
-FIVE       | 0.0502          | 0.35%                   | $4.73        | $94.20       | (HIGH)
-UAA        | 0.0511          | 0.12%                   | $0.42        | $8.20        | (HIGH)
-NWL        | 0.0531          | 0.10%                   | $0.52        | $9.87        | (HIGH)
-CC         | 0.0550          | 0.05%                   | $1.02        | $18.62       | (HIGH)
-M          | 0.0552          | 0.07%                   | $0.77        | $14.03       | (HIGH)
-PENN       | 0.0565          | 0.05%                   | $1.17        | $20.69       | (HIGH)
-W          | 0.0567          | 0.05%                   | $2.43        | $42.85       | (HIGH)
-VST        | 0.0577          | 0.10%                   | $9.84        | $170.48      | (HIGH)
-DRI        | 0.0581          | 0.18%                   | $10.60       | $182.56      | (HIGH)
-HUM        | 0.0601          | 0.19%                   | $16.98       | $282.69      | (HIGH)
-TDOC       | 0.0626          | 0.11%                   | $0.59        | $9.36        | (HIGH)
-STZ        | 0.0636          | 0.31%                   | $11.61       | $182.50      | (HIGH)
-OLLI       | 0.0653          | 0.28%                   | $6.50        | $99.61       | (HIGH)
-CIEN       | 0.0674          | 0.32%                   | $5.62        | $83.45       | (HIGH)
-MODG       | 0.0711          | 0.12%                   | $0.58        | $8.18        | (HIGH)
-TSLA       | 0.0725          | 0.01%                   | $28.75       | $396.35      | (HIGH)
-X          | 0.0753          | 0.05%                   | $2.75        | $36.47       | (HIGH)
-RUN        | 0.0758          | 0.21%                   | $0.73        | $9.58        | (HIGH)
-NTLA       | 0.0782          | 0.10%                   | $0.76        | $9.69        | (HIGH)
-RH         | 0.0825          | 0.33%                   | $34.47       | $417.85      | (HIGH)
-LW         | 0.0886          | 0.30%                   | $5.31        | $59.89       | (HIGH)
-MRNA       | 0.0916          | 0.15%                   | $3.16        | $34.47       | (HIGH)
-WBA        | 0.1135          | 0.08%                   | $1.39        | $12.26       | (HIGH)
-LAZR       | 0.1532          | 0.50%                   | $0.91        | $5.95        | (HIGH)
----------------------------------------------------------------------------------------------------------
+========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
+Q1 (25th percentile): 0.0188
+Q3 (75th percentile): 0.0296
+IQR (Interquartile Range): 0.0108
+Lower Outlier Bound: 0.0026
+Upper Outlier Bound: 0.0459
 
-========================= Top 30 Low VaR/Ask from Lowest Priced Stocks (Excluding ETFs) =========================
+========================= Top 20 Highest VaR/Ask Assets (Including ETFs) =========================
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-JNPR       | Communication Equipment                  | 0.0122          | 0.05%                   | $0.47        | $38.52       | (Low VaR/Ask)
-PPL        | Utilities - Regulated Electric           | 0.0147          | 0.03%                   | $0.47        | $31.98       | (Low VaR/Ask)
-ROL        | Personal Services                        | 0.0148          | 0.26%                   | $0.69        | $46.85       | (Low VaR/Ask)
-ARCC       | Assets Management                        | 0.0149          | 0.04%                   | $0.33        | $22.40       | (Low VaR/Ask)
-NWSA       | Broadcasting                             | 0.0152          | 0.04%                   | $0.42        | $27.54       | (Low VaR/Ask)
-GNTX       | Auto Parts                               | 0.0155          | 0.26%                   | $0.42        | $27.20       | (Low VaR/Ask)
-CSX        | Railroads                                | 0.0161          | 0.03%                   | $0.52        | $32.12       | (Low VaR/Ask)
-FE         | Utilities - Regulated Electric           | 0.0162          | 0.03%                   | $0.63        | $39.17       | (Low VaR/Ask)
-VVV        | Oil & Gas Refining & Marketing           | 0.0168          | 0.06%                   | $0.60        | $35.77       | (Low VaR/Ask)
-CNP        | Utilities - Regulated Electric           | 0.0175          | 0.03%                   | $0.56        | $31.84       | (Low VaR/Ask)
-NYT        | Publishing                               | 0.0176          | 0.37%                   | $0.91        | $51.71       | (Low VaR/Ask)
-T          | Telecom Services                         | 0.0186          | 0.05%                   | $0.40        | $21.80       | (Low VaR/Ask)
-VZ         | Telecom Services                         | 0.0194          | 0.03%                   | $0.74        | $38.31       | (Low VaR/Ask)
-TTEK       | Engineering & Construction               | 0.0195          | 0.07%                   | $0.82        | $41.83       | (Low VaR/Ask)
-GLW        | Electronic Components                    | 0.0199          | 0.13%                   | $0.94        | $47.38       | (Low VaR/Ask)
-OGE        | Utilities - Regulated Electric           | 0.0204          | 0.24%                   | $0.83        | $40.85       | (Low VaR/Ask)
-BAC        | Banks - Diversified                      | 0.0206          | 0.02%                   | $0.95        | $45.82       | (Low VaR/Ask)
-VRNS       | Software - Infrastructure                | 0.0209          | 0.37%                   | $0.96        | $45.61       | (Low VaR/Ask)
-ZWS        | Specialty Industrial Machinery           | 0.0211          | 0.48%                   | $0.79        | $37.26       | (Low VaR/Ask)
-NOV        | Oil & Gas Equipment & Services           | 0.0214          | 0.07%                   | $0.32        | $14.89       | (Low VaR/Ask)
-MAT        | Leisure                                  | 0.0214          | 0.05%                   | $0.39        | $18.19       | (Low VaR/Ask)
-LKQ        | Auto Parts                               | 0.0215          | 0.03%                   | $0.80        | $37.28       | (Low VaR/Ask)
-TFC        | Banks - Regional                         | 0.0221          | 0.05%                   | $0.97        | $43.85       | (Low VaR/Ask)
-KMI        | Oil & Gas Midstream                      | 0.0221          | 0.03%                   | $0.64        | $29.11       | (Low VaR/Ask)
-G          | Information Technology Services          | 0.0225          | 0.18%                   | $0.99        | $44.28       | (Low VaR/Ask)
-IRDM       | Telecom Services                         | 0.0227          | 0.18%                   | $0.62        | $27.20       | (Low VaR/Ask)
-HBI        | Apparel Manufacturing                    | 0.0229          | 0.12%                   | $0.19        | $8.49        | (Low VaR/Ask)
-DOW        | Chemicals                                | 0.0230          | 0.02%                   | $0.92        | $40.09       | (Low VaR/Ask)
-PFE        | Drugs Manufacturers - General            | 0.0231          | 0.04%                   | $0.61        | $26.40       | (Low VaR/Ask)
-SEE        | Packaging & Containers                   | 0.0234          | 0.09%                   | $0.80        | $33.97       | (Low VaR/Ask)
+LAZR       | Auto Parts                               | 0.1532 | 0.50%                   | $0.91 | $5.95 | (HIGH - Statistically Significant)
+MSTR       | Software - Application                   | 0.1196 | 0.83%                   | $41.10 | $343.75 | (HIGH - Statistically Significant)
+WBA        | Pharmaceutical Retailers                 | 0.1135 | 0.08%                   | $1.39 | $12.26 | (HIGH - Statistically Significant)
+WOLF       | Semiconductors                           | 0.1040 | 0.21%                   | $0.50 | $4.79 | (HIGH - Statistically Significant)
+MRNA       | Biotechnology                            | 0.0916 | 0.15%                   | $3.16 | $34.47 | (HIGH - Statistically Significant)
+LW         | Packaged Foods                           | 0.0886 | 0.30%                   | $5.31 | $59.89 | (HIGH - Statistically Significant)
+RH         | Specialty Retail                         | 0.0825 | 0.33%                   | $34.47 | $417.85 | (HIGH - Statistically Significant)
+NTLA       | Biotechnology                            | 0.0782 | 0.10%                   | $0.76 | $9.69 | (HIGH - Statistically Significant)
+RUN        | Solar                                    | 0.0758 | 0.21%                   | $0.73 | $9.58 | (HIGH - Statistically Significant)
+X          | Steel                                    | 0.0753 | 0.05%                   | $2.75 | $36.47 | (HIGH - Statistically Significant)
+TSLA       | Auto Manufacturers                       | 0.0725 | 0.01%                   | $28.75 | $396.35 | (HIGH - Statistically Significant)
+MODG       | Leisure                                  | 0.0711 | 0.12%                   | $0.58 | $8.18 | (HIGH - Statistically Significant)
+COIN       | Software - Application                   | 0.0683 | 0.14%                   | $17.43 | $255.11 | (Low VaR/Ask)
+CIEN       | Communication Equipment                  | 0.0674 | 0.32%                   | $5.62 | $83.45 | (HIGH - Statistically Significant)
+OLLI       | Discount Stores                          | 0.0653 | 0.28%                   | $6.50 | $99.61 | (HIGH - Statistically Significant)
+STZ        | Beverages - Wineries & Distilleries      | 0.0636 | 0.31%                   | $11.61 | $182.50 | (HIGH - Statistically Significant)
+TDOC       | Health Information Services              | 0.0626 | 0.11%                   | $0.59 | $9.36 | (HIGH - Statistically Significant)
+EIX        | Utilities - Regulated Electric           | 0.0601 | 0.51%                   | $3.51 | $58.52 | (HIGH - Statistically Significant)
+HUM        | Healthcare Plans                         | 0.0601 | 0.19%                   | $16.98 | $282.69 | (HIGH - Statistically Significant)
+DRI        | Restaurants                              | 0.0581 | 0.18%                   | $10.60 | $182.56 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-========================= Top 30 Low VaR/Ask from Highest Priced Stocks (Excluding ETFs) =========================
+========================= Bottom 20 Lowest VaR/Ask Assets (Including ETFs) =========================
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-WM         | Waste Management                         | 0.0125          | 0.17%                   | $2.59        | $206.94      | (Low VaR/Ask)
-ROP        | Specialty Industrial Machinery           | 0.0128          | 0.28%                   | $6.54        | $511.34      | (Low VaR/Ask)
-PKG        | Packaging & Containers                   | 0.0128          | 0.16%                   | $2.98        | $232.37      | (Low VaR/Ask)
-MCD        | Restaurants                              | 0.0139          | 0.26%                   | $3.91        | $281.70      | (Low VaR/Ask)
-RSG        | Waste Management                         | 0.0141          | 0.27%                   | $2.93        | $207.12      | (Low VaR/Ask)
-V          | Credit Services                          | 0.0147          | 0.30%                   | $4.56        | $309.70      | (Low VaR/Ask)
-AON        | Insurance Brokers                        | 0.0150          | 0.09%                   | $5.44        | $362.57      | (Low VaR/Ask)
-COST       | Discount Stores                          | 0.0150          | 0.13%                   | $13.79       | $916.77      | (Low VaR/Ask)
-ITW        | Specialty Industrial Machinery           | 0.0150          | 0.24%                   | $3.81        | $253.21      | (Low VaR/Ask)
-MSI        | Communication Equipment                  | 0.0151          | 0.06%                   | $6.95        | $460.58      | (Low VaR/Ask)
-GD         | Aerospace & Defence                      | 0.0152          | 0.17%                   | $4.02        | $264.87      | (Low VaR/Ask)
-MCK        | Medical Distribution                     | 0.0155          | 0.11%                   | $9.20        | $594.31      | (Low VaR/Ask)
-IT         | Information Technology Services          | 0.0164          | 0.26%                   | $8.19        | $500.19      | (Low VaR/Ask)
-CME        | Financial Data & Stock Exchanges         | 0.0166          | 0.05%                   | $3.84        | $231.86      | (Low VaR/Ask)
-MLM        | Building Materials                       | 0.0166          | 0.41%                   | $8.61        | $518.99      | (Low VaR/Ask)
-LOW        | Home Improvement Retail                  | 0.0166          | 0.32%                   | $4.19        | $251.72      | (Low VaR/Ask)
-ADP        | Staffing & Employment Services           | 0.0169          | 0.04%                   | $4.93        | $291.78      | (Low VaR/Ask)
-FI         | Information Technology Services          | 0.0173          | 0.09%                   | $3.54        | $204.47      | (Low VaR/Ask)
-HLT        | Lodging                                  | 0.0174          | 0.22%                   | $4.26        | $245.10      | (Low VaR/Ask)
-CB         | Insurance - Property & Casualty          | 0.0177          | 0.11%                   | $4.70        | $265.71      | (Low VaR/Ask)
-AZO        | Specialty Retail                         | 0.0178          | 0.43%                   | $57.71       | $3237.21     | (Low VaR/Ask)
-UNP        | Railroads                                | 0.0180          | 0.18%                   | $4.13        | $229.31      | (Low VaR/Ask)
-FFIV       | Software - Infrastructure                | 0.0184          | 0.03%                   | $4.74        | $257.86      | (Low VaR/Ask)
-CMI        | Specialty Industrial Machinery           | 0.0187          | 0.19%                   | $6.82        | $364.28      | (Low VaR/Ask)
-VMC        | Building Materials                       | 0.0188          | 0.25%                   | $4.88        | $259.79      | (Low VaR/Ask)
-MKTX       | Capital Markets                          | 0.0191          | 0.35%                   | $4.16        | $217.08      | (Low VaR/Ask)
-TMO        | Diagnostics & Research                   | 0.0193          | 0.18%                   | $10.73       | $557.32      | (Low VaR/Ask)
-IBM        | Information Technology Services          | 0.0193          | 0.08%                   | $4.20        | $217.62      | (Low VaR/Ask)
-HD         | Home Improvement Retail                  | 0.0194          | 0.16%                   | $7.64        | $392.87      | (Low VaR/Ask)
-PH         | Specialty Industrial Machinery           | 0.0196          | 0.33%                   | $12.73       | $648.66      | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-========================= Top 30 Global Opportunities (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-SMAR       | Software - Application                   | 0.0015          | 0.02%                   | $0.08        | $56.33       | (Low VaR/Ask)
-K          | Packaged Foods                           | 0.0031          | 0.01%                   | $0.25        | $81.41       | (LOW - Statistically Significant)
-TIP        | Exchange Traded Fund                     | 0.0044          | 0.03%                   | $0.47        | $106.28      | (Low VaR/Ask)
-EMB        | Exchange Traded Fund                     | 0.0088          | 0.02%                   | $0.78        | $88.78       | (Low VaR/Ask)
-SYY        | Food Distribution                        | 0.0100          | 0.07%                   | $0.74        | $73.97       | (Low VaR/Ask)
-EFAV       | Exchange Traded Fund                     | 0.0103          | 0.16%                   | $0.72        | $69.99       | (Low VaR/Ask)
-XLP        | Exchange Traded Fund                     | 0.0103          | 0.03%                   | $0.79        | $76.48       | (Low VaR/Ask)
-TLT        | Exchange Traded Fund                     | 0.0113          | 0.02%                   | $0.96        | $85.26       | (Low VaR/Ask)
-PFF        | Exchange Traded Fund                     | 0.0113          | 0.03%                   | $0.35        | $31.13       | (Low VaR/Ask)
-USMV       | Exchange Traded Fund                     | 0.0118          | 0.02%                   | $1.05        | $88.57       | (Low VaR/Ask)
-SPDW       | Exchange Traded Fund                     | 0.0122          | 0.03%                   | $0.41        | $33.95       | (Low VaR/Ask)
-JNPR       | Communication Equipment                  | 0.0122          | 0.05%                   | $0.47        | $38.52       | (Low VaR/Ask)
-WM         | Waste Management                         | 0.0125          | 0.17%                   | $2.59        | $206.94      | (Low VaR/Ask)
-VWO        | Exchange Traded Fund                     | 0.0126          | 0.02%                   | $0.54        | $43.01       | (Low VaR/Ask)
-CAH        | Medical Distribution                     | 0.0127          | 0.10%                   | $1.58        | $124.10      | (Low VaR/Ask)
-SPLV       | Exchange Traded Fund                     | 0.0128          | 0.03%                   | $0.89        | $69.30       | (Low VaR/Ask)
-ROP        | Specialty Industrial Machinery           | 0.0128          | 0.28%                   | $6.54        | $511.34      | (Low VaR/Ask)
-DIS        | Entertainment                            | 0.0128          | 0.06%                   | $1.38        | $108.07      | (Low VaR/Ask)
-VXUS       | Exchange Traded Fund                     | 0.0128          | 0.03%                   | $0.75        | $58.33       | (Low VaR/Ask)
-PKG        | Packaging & Containers                   | 0.0128          | 0.16%                   | $2.98        | $232.37      | (Low VaR/Ask)
-FVD        | Exchange Traded Fund                     | 0.0129          | 0.02%                   | $0.56        | $43.20       | (Low VaR/Ask)
-XLV        | Exchange Traded Fund                     | 0.0130          | 0.01%                   | $1.82        | $140.00      | (Low VaR/Ask)
-EFA        | Exchange Traded Fund                     | 0.0131          | 0.03%                   | $0.98        | $75.13       | (Low VaR/Ask)
-HDV        | Exchange Traded Fund                     | 0.0131          | 0.04%                   | $1.48        | $112.74      | (Low VaR/Ask)
-VEA        | Exchange Traded Fund                     | 0.0131          | 0.02%                   | $0.62        | $47.57       | (Low VaR/Ask)
-SPYV       | Exchange Traded Fund                     | 0.0133          | 0.04%                   | $0.68        | $50.97       | (Low VaR/Ask)
-EFG        | Exchange Traded Fund                     | 0.0133          | 0.44%                   | $1.28        | $96.36       | (Low VaR/Ask)
-DIA        | Exchange Traded Fund                     | 0.0134          | 0.01%                   | $5.71        | $424.92      | (Low VaR/Ask)
-IVE        | Exchange Traded Fund                     | 0.0137          | 0.04%                   | $2.61        | $190.25      | (Low VaR/Ask)
-EEM        | Exchange Traded Fund                     | 0.0137          | 0.02%                   | $0.57        | $41.27       | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-========================= Top 30 Highest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-LAZR       | Auto Parts                               | 0.1532          | 0.50%                   | $0.91        | $5.95        | (HIGH - Statistically Significant)
-MSTR       | Software - Application                   | 0.1196          | 0.83%                   | $41.10       | $343.75      | (HIGH - Statistically Significant)
-WBA        | Pharmaceutical Retailers                 | 0.1135          | 0.08%                   | $1.39        | $12.26       | (HIGH - Statistically Significant)
-WOLF       | Semiconductors                           | 0.1040          | 0.21%                   | $0.50        | $4.79        | (HIGH - Statistically Significant)
-MRNA       | Biotechnology                            | 0.0916          | 0.15%                   | $3.16        | $34.47       | (HIGH - Statistically Significant)
-LW         | Packaged Foods                           | 0.0886          | 0.30%                   | $5.31        | $59.89       | (HIGH - Statistically Significant)
-RH         | Specialty Retail                         | 0.0825          | 0.33%                   | $34.47       | $417.85      | (HIGH - Statistically Significant)
-NTLA       | Biotechnology                            | 0.0782          | 0.10%                   | $0.76        | $9.69        | (HIGH - Statistically Significant)
-RUN        | Solar                                    | 0.0758          | 0.21%                   | $0.73        | $9.58        | (HIGH - Statistically Significant)
-X          | Steel                                    | 0.0753          | 0.05%                   | $2.75        | $36.47       | (HIGH - Statistically Significant)
-TSLA       | Auto Manufacturers                       | 0.0725          | 0.01%                   | $28.75       | $396.35      | (HIGH - Statistically Significant)
-MODG       | Leisure                                  | 0.0711          | 0.12%                   | $0.58        | $8.18        | (HIGH - Statistically Significant)
-COIN       | Software - Application                   | 0.0683          | 0.14%                   | $17.43       | $255.11      | (Low VaR/Ask)
-CIEN       | Communication Equipment                  | 0.0674          | 0.32%                   | $5.62        | $83.45       | (HIGH - Statistically Significant)
-OLLI       | Discount Stores                          | 0.0653          | 0.28%                   | $6.50        | $99.61       | (HIGH - Statistically Significant)
-STZ        | Beverages - Wineries & Distilleries      | 0.0636          | 0.31%                   | $11.61       | $182.50      | (HIGH - Statistically Significant)
-TDOC       | Health Information Services              | 0.0626          | 0.11%                   | $0.59        | $9.36        | (HIGH - Statistically Significant)
-EIX        | Utilities - Regulated Electric           | 0.0601          | 0.51%                   | $3.51        | $58.52       | (HIGH - Statistically Significant)
-HUM        | Healthcare Plans                         | 0.0601          | 0.19%                   | $16.98       | $282.69      | (HIGH - Statistically Significant)
-DRI        | Restaurants                              | 0.0581          | 0.18%                   | $10.60       | $182.56      | (HIGH - Statistically Significant)
-VST        | Utilities - Independent Power Producers  | 0.0577          | 0.10%                   | $9.84        | $170.48      | (HIGH - Statistically Significant)
-W          | Internet Retail                          | 0.0567          | 0.05%                   | $2.43        | $42.85       | (HIGH - Statistically Significant)
-PENN       | Resorts & Casinos                        | 0.0565          | 0.05%                   | $1.17        | $20.69       | (HIGH - Statistically Significant)
-M          | Department Stores                        | 0.0552          | 0.07%                   | $0.77        | $14.03       | (HIGH - Statistically Significant)
-CC         | Specialty Chemicals                      | 0.0550          | 0.05%                   | $1.02        | $18.62       | (HIGH - Statistically Significant)
-NWL        | Household & Personal Products            | 0.0531          | 0.10%                   | $0.52        | $9.87        | (HIGH - Statistically Significant)
-ADBE       | Software - Infrastructure                | 0.0523          | 0.07%                   | $21.55       | $412.23      | (Low VaR/Ask)
-UAA        | Apparel Manufacturing                    | 0.0511          | 0.12%                   | $0.42        | $8.20        | (HIGH - Statistically Significant)
-FIVE       | Specialty Retail                         | 0.0502          | 0.35%                   | $4.73        | $94.20       | (HIGH - Statistically Significant)
-ON         | Semiconductors                           | 0.0499          | 0.04%                   | $2.75        | $55.17       | (Low VaR/Ask)
+SMAR       | Software - Application                   | 0.0015 | 0.02%                   | $0.08 | $56.33 | (Low VaR/Ask)
+K          | Packaged Foods                           | 0.0031 | 0.01%                   | $0.25 | $81.41 | (LOW - Statistically Significant)
+TIP        | Exchange Traded Fund                     | 0.0044 | 0.03%                   | $0.47 | $106.28 | (Low VaR/Ask)
+EMB        | Exchange Traded Fund                     | 0.0088 | 0.02%                   | $0.78 | $88.78 | (Low VaR/Ask)
+SYY        | Food Distribution                        | 0.0100 | 0.07%                   | $0.74 | $73.97 | (Low VaR/Ask)
+EFAV       | Exchange Traded Fund                     | 0.0103 | 0.16%                   | $0.72 | $69.99 | (Low VaR/Ask)
+XLP        | Exchange Traded Fund                     | 0.0103 | 0.03%                   | $0.79 | $76.48 | (Low VaR/Ask)
+TLT        | Exchange Traded Fund                     | 0.0113 | 0.02%                   | $0.96 | $85.26 | (Low VaR/Ask)
+PFF        | Exchange Traded Fund                     | 0.0113 | 0.03%                   | $0.35 | $31.13 | (Low VaR/Ask)
+USMV       | Exchange Traded Fund                     | 0.0118 | 0.02%                   | $1.05 | $88.57 | (Low VaR/Ask)
+SPDW       | Exchange Traded Fund                     | 0.0122 | 0.03%                   | $0.41 | $33.95 | (Low VaR/Ask)
+JNPR       | Communication Equipment                  | 0.0122 | 0.05%                   | $0.47 | $38.52 | (Low VaR/Ask)
+WM         | Waste Management                         | 0.0125 | 0.17%                   | $2.59 | $206.94 | (Low VaR/Ask)
+VWO        | Exchange Traded Fund                     | 0.0126 | 0.02%                   | $0.54 | $43.01 | (Low VaR/Ask)
+CAH        | Medical Distribution                     | 0.0127 | 0.10%                   | $1.58 | $124.10 | (Low VaR/Ask)
+SPLV       | Exchange Traded Fund                     | 0.0128 | 0.03%                   | $0.89 | $69.30 | (Low VaR/Ask)
+ROP        | Specialty Industrial Machinery           | 0.0128 | 0.28%                   | $6.54 | $511.34 | (Low VaR/Ask)
+DIS        | Entertainment                            | 0.0128 | 0.06%                   | $1.38 | $108.07 | (Low VaR/Ask)
+VXUS       | Exchange Traded Fund                     | 0.0128 | 0.03%                   | $0.75 | $58.33 | (Low VaR/Ask)
+PKG        | Packaging & Containers                   | 0.0128 | 0.16%                   | $2.98 | $232.37 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

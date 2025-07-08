@@ -1,5 +1,5 @@
+Detected file type: Futures. Displaying top/bottom 5 assets.
 Processing 1 large industries and 5 small industries...
-
 ============================== Analysis for: UNDEFINED ==============================
 Contains 11 total instruments.
 
@@ -9,17 +9,21 @@ Q3 (75th percentile): 3.9351
 IQR (Interquartile Range): 3.7333
 Lower Outlier Bound: -5.3983
 Upper Outlier Bound: 9.5351
+Contains 11 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.2017
+Q3 (75th percentile): 3.9351
+IQR (Interquartile Range): 3.7333
+Lower Outlier Bound: -5.3983
+Upper Outlier Bound: 9.5351
 --- Found 2 Total Statistical VaR Outliers ---
-
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-RB_Q       | 1630.3507       | 0.02%                   | $3515.53     | $2.16        | (HIGH)
-HO_Q       | 2328.3806       | 0.03%                   | $5631.65     | $2.42        | (HIGH)
----------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+HO_Q       | Undefined                 | 2328.3806 | (HIGH - Statistically Significant)
+RB_Q       | Undefined                 | 1630.3507 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 14 total instruments.
 
@@ -29,137 +33,47 @@ Q3 (75th percentile): 55.1152
 IQR (Interquartile Range): 53.2517
 Lower Outlier Bound: -78.0139
 Upper Outlier Bound: 134.9927
+Contains 14 total instruments.
 
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 1.8635
+Q3 (75th percentile): 55.1152
+IQR (Interquartile Range): 53.2517
+Lower Outlier Bound: -78.0139
+Upper Outlier Bound: 134.9927
 --- Found 2 Total Statistical VaR Outliers ---
+----------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Note
+----------------------------------------------------------------------------------------------------
+HG_U       | Commodities - Precious    | 506.2653 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy      | 563.8284 | (HIGH - Statistically Significant)
+----------------------------------------------------------------------------------------------------
 
->>> Actionable Outliers (Tradable):
----------------------------------------------------------------------------------------------------------
-Symbol     | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
----------------------------------------------------------------------------------------------------------
-HG_U       | 506.2653        | 0.02%                   | $2537.15     | $5.01        | (HIGH)
-NG_Q       | 563.8284        | 0.06%                   | $1922.65     | $3.41        | (HIGH)
----------------------------------------------------------------------------------------------------------
+========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
+Q1 (25th percentile): 0.8657
+Q3 (75th percentile): 52.9241
+IQR (Interquartile Range): 52.0583
+Lower Outlier Bound: -77.2218
+Upper Outlier Bound: 131.0116
 
-========================= Top 30 Low VaR/Ask from Lowest Priced Stocks (Excluding ETFs) =========================
+========================= Top 5 Highest VaR/Ask Assets (Including ETFs) =========================
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-MBT_N      | Undefined                                | 0.0034          | 0.02%                   | $372.55      | $108255.00   | (Low VaR/Ask)
-YM_U       | Undefined                                | 0.0669          | 0.00%                   | $2983.81     | $44602.00    | (Low VaR/Ask)
-FESX_U     | Undefined                                | 0.1392          | 0.02%                   | $743.60      | $5341.00     | (Low VaR/Ask)
-NQ_U       | Undefined                                | 0.2642          | 0.00%                   | $6037.93     | $22852.50    | (Low VaR/Ask)
-FDAX_U     | Undefined                                | 0.3653          | 0.01%                   | $8800.34     | $24094.00    | (Low VaR/Ask)
-ES_U       | Utilities - Regulated Electric           | 0.5367          | 0.00%                   | $3364.08     | $6267.50     | (Low VaR/Ask)
-ZS_Q       | Commodities - Agricultural               | 0.8657          | 0.05%                   | $892.33      | $1030.75     | (Low VaR/Ask)
-RTY_U      | Undefined                                | 0.9242          | 0.00%                   | $2057.80     | $2226.60     | (Low VaR/Ask)
-GC_Q       | Undefined                                | 1.4203          | 0.01%                   | $4752.37     | $3346.10     | (Low VaR/Ask)
-ZM_Q       | Commodities - Agricultural               | 1.4463          | 0.04%                   | $394.25      | $272.60      | (Low VaR/Ask)
-KE_U       | Commodities - Agricultural               | 1.5853          | 0.09%                   | $838.20      | $528.75      | (Low VaR/Ask)
-PL_V       | Commodities - Precious                   | 2.6984          | 0.02%                   | $3728.15     | $1381.60     | (Low VaR/Ask)
-ZN_U       | Undefined                                | 3.8455          | 0.01%                   | $426.79      | $110.98      | (Low VaR/Ask)
-FGBL_U     | Undefined                                | 4.0246          | 0.01%                   | $523.64      | $130.11      | (Low VaR/Ask)
-HE_N       | Utilities - Diversified                  | 7.9857          | 0.05%                   | $856.07      | $107.20      | (Low VaR/Ask)
-HE_Q       | Utilities - Diversified                  | 8.0379          | 0.07%                   | $862.47      | $107.30      | (Low VaR/Ask)
-LE_Q       | Commodities - Agricultural               | 8.2766          | 0.02%                   | $1787.54     | $215.97      | (Low VaR/Ask)
-ZL_Q       | Commodities - Agricultural               | 26.4544         | 0.02%                   | $1426.42     | $53.92       | (Low VaR/Ask)
-BZ_U       | Commodities - Energy                     | 52.9241         | 0.04%                   | $3686.69     | $69.66       | (Low VaR/Ask)
-CL_Q       | Commodities - Energy                     | 55.8456         | 0.01%                   | $3799.73     | $68.04       | (Low VaR/Ask)
-SI_U       | Commodities - Precious                   | 90.5714         | 0.03%                   | $3347.06     | $36.95       | (Low VaR/Ask)
-HG_U       | Commodities - Precious                   | 506.2653        | 0.02%                   | $2537.15     | $5.01        | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy                     | 563.8284        | 0.06%                   | $1922.65     | $3.41        | (HIGH - Statistically Significant)
-RB_Q       | Undefined                                | 1630.3507       | 0.02%                   | $3515.53     | $2.16        | (HIGH - Statistically Significant)
-HO_Q       | Undefined                                | 2328.3806       | 0.03%                   | $5631.65     | $2.42        | (HIGH - Statistically Significant)
+HO_Q       | Undefined                                | 2328.3806 | 0.03%                   | $5631.65 | $2.42 | (HIGH - Statistically Significant)
+RB_Q       | Undefined                                | 1630.3507 | 0.02%                   | $3515.53 | $2.16 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy                     | 563.8284 | 0.06%                   | $1922.65 | $3.41 | (HIGH - Statistically Significant)
+HG_U       | Commodities - Precious                   | 506.2653 | 0.02%                   | $2537.15 | $5.01 | (HIGH - Statistically Significant)
+SI_U       | Commodities - Precious                   | 90.5714 | 0.03%                   | $3347.06 | $36.95 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-========================= Top 30 Low VaR/Ask from Highest Priced Stocks (Excluding ETFs) =========================
+========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-MBT_N      | Undefined                                | 0.0034          | 0.02%                   | $372.55      | $108255.00   | (Low VaR/Ask)
-YM_U       | Undefined                                | 0.0669          | 0.00%                   | $2983.81     | $44602.00    | (Low VaR/Ask)
-FESX_U     | Undefined                                | 0.1392          | 0.02%                   | $743.60      | $5341.00     | (Low VaR/Ask)
-NQ_U       | Undefined                                | 0.2642          | 0.00%                   | $6037.93     | $22852.50    | (Low VaR/Ask)
-FDAX_U     | Undefined                                | 0.3653          | 0.01%                   | $8800.34     | $24094.00    | (Low VaR/Ask)
-ES_U       | Utilities - Regulated Electric           | 0.5367          | 0.00%                   | $3364.08     | $6267.50     | (Low VaR/Ask)
-ZS_Q       | Commodities - Agricultural               | 0.8657          | 0.05%                   | $892.33      | $1030.75     | (Low VaR/Ask)
-RTY_U      | Undefined                                | 0.9242          | 0.00%                   | $2057.80     | $2226.60     | (Low VaR/Ask)
-GC_Q       | Undefined                                | 1.4203          | 0.01%                   | $4752.37     | $3346.10     | (Low VaR/Ask)
-ZM_Q       | Commodities - Agricultural               | 1.4463          | 0.04%                   | $394.25      | $272.60      | (Low VaR/Ask)
-KE_U       | Commodities - Agricultural               | 1.5853          | 0.09%                   | $838.20      | $528.75      | (Low VaR/Ask)
-PL_V       | Commodities - Precious                   | 2.6984          | 0.02%                   | $3728.15     | $1381.60     | (Low VaR/Ask)
-ZN_U       | Undefined                                | 3.8455          | 0.01%                   | $426.79      | $110.98      | (Low VaR/Ask)
-FGBL_U     | Undefined                                | 4.0246          | 0.01%                   | $523.64      | $130.11      | (Low VaR/Ask)
-HE_N       | Utilities - Diversified                  | 7.9857          | 0.05%                   | $856.07      | $107.20      | (Low VaR/Ask)
-HE_Q       | Utilities - Diversified                  | 8.0379          | 0.07%                   | $862.47      | $107.30      | (Low VaR/Ask)
-LE_Q       | Commodities - Agricultural               | 8.2766          | 0.02%                   | $1787.54     | $215.97      | (Low VaR/Ask)
-ZL_Q       | Commodities - Agricultural               | 26.4544         | 0.02%                   | $1426.42     | $53.92       | (Low VaR/Ask)
-BZ_U       | Commodities - Energy                     | 52.9241         | 0.04%                   | $3686.69     | $69.66       | (Low VaR/Ask)
-CL_Q       | Commodities - Energy                     | 55.8456         | 0.01%                   | $3799.73     | $68.04       | (Low VaR/Ask)
-SI_U       | Commodities - Precious                   | 90.5714         | 0.03%                   | $3347.06     | $36.95       | (Low VaR/Ask)
-HG_U       | Commodities - Precious                   | 506.2653        | 0.02%                   | $2537.15     | $5.01        | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy                     | 563.8284        | 0.06%                   | $1922.65     | $3.41        | (HIGH - Statistically Significant)
-RB_Q       | Undefined                                | 1630.3507       | 0.02%                   | $3515.53     | $2.16        | (HIGH - Statistically Significant)
-HO_Q       | Undefined                                | 2328.3806       | 0.03%                   | $5631.65     | $2.42        | (HIGH - Statistically Significant)
------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-========================= Top 30 Global Opportunities (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-MBT_N      | Undefined                                | 0.0034          | 0.02%                   | $372.55      | $108255.00   | (Low VaR/Ask)
-YM_U       | Undefined                                | 0.0669          | 0.00%                   | $2983.81     | $44602.00    | (Low VaR/Ask)
-FESX_U     | Undefined                                | 0.1392          | 0.02%                   | $743.60      | $5341.00     | (Low VaR/Ask)
-NQ_U       | Undefined                                | 0.2642          | 0.00%                   | $6037.93     | $22852.50    | (Low VaR/Ask)
-FDAX_U     | Undefined                                | 0.3653          | 0.01%                   | $8800.34     | $24094.00    | (Low VaR/Ask)
-ES_U       | Utilities - Regulated Electric           | 0.5367          | 0.00%                   | $3364.08     | $6267.50     | (Low VaR/Ask)
-ZS_Q       | Commodities - Agricultural               | 0.8657          | 0.05%                   | $892.33      | $1030.75     | (Low VaR/Ask)
-RTY_U      | Undefined                                | 0.9242          | 0.00%                   | $2057.80     | $2226.60     | (Low VaR/Ask)
-GC_Q       | Undefined                                | 1.4203          | 0.01%                   | $4752.37     | $3346.10     | (Low VaR/Ask)
-ZM_Q       | Commodities - Agricultural               | 1.4463          | 0.04%                   | $394.25      | $272.60      | (Low VaR/Ask)
-KE_U       | Commodities - Agricultural               | 1.5853          | 0.09%                   | $838.20      | $528.75      | (Low VaR/Ask)
-PL_V       | Commodities - Precious                   | 2.6984          | 0.02%                   | $3728.15     | $1381.60     | (Low VaR/Ask)
-ZN_U       | Undefined                                | 3.8455          | 0.01%                   | $426.79      | $110.98      | (Low VaR/Ask)
-FGBL_U     | Undefined                                | 4.0246          | 0.01%                   | $523.64      | $130.11      | (Low VaR/Ask)
-HE_N       | Utilities - Diversified                  | 7.9857          | 0.05%                   | $856.07      | $107.20      | (Low VaR/Ask)
-HE_Q       | Utilities - Diversified                  | 8.0379          | 0.07%                   | $862.47      | $107.30      | (Low VaR/Ask)
-LE_Q       | Commodities - Agricultural               | 8.2766          | 0.02%                   | $1787.54     | $215.97      | (Low VaR/Ask)
-ZL_Q       | Commodities - Agricultural               | 26.4544         | 0.02%                   | $1426.42     | $53.92       | (Low VaR/Ask)
-BZ_U       | Commodities - Energy                     | 52.9241         | 0.04%                   | $3686.69     | $69.66       | (Low VaR/Ask)
-CL_Q       | Commodities - Energy                     | 55.8456         | 0.01%                   | $3799.73     | $68.04       | (Low VaR/Ask)
-SI_U       | Commodities - Precious                   | 90.5714         | 0.03%                   | $3347.06     | $36.95       | (Low VaR/Ask)
-HG_U       | Commodities - Precious                   | 506.2653        | 0.02%                   | $2537.15     | $5.01        | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy                     | 563.8284        | 0.06%                   | $1922.65     | $3.41        | (HIGH - Statistically Significant)
-RB_Q       | Undefined                                | 1630.3507       | 0.02%                   | $3515.53     | $2.16        | (HIGH - Statistically Significant)
-HO_Q       | Undefined                                | 2328.3806       | 0.03%                   | $5631.65     | $2.42        | (HIGH - Statistically Significant)
------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-========================= Top 30 Highest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-HO_Q       | Undefined                                | 2328.3806       | 0.03%                   | $5631.65     | $2.42        | (HIGH - Statistically Significant)
-RB_Q       | Undefined                                | 1630.3507       | 0.02%                   | $3515.53     | $2.16        | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy                     | 563.8284        | 0.06%                   | $1922.65     | $3.41        | (HIGH - Statistically Significant)
-HG_U       | Commodities - Precious                   | 506.2653        | 0.02%                   | $2537.15     | $5.01        | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious                   | 90.5714         | 0.03%                   | $3347.06     | $36.95       | (Low VaR/Ask)
-CL_Q       | Commodities - Energy                     | 55.8456         | 0.01%                   | $3799.73     | $68.04       | (Low VaR/Ask)
-BZ_U       | Commodities - Energy                     | 52.9241         | 0.04%                   | $3686.69     | $69.66       | (Low VaR/Ask)
-ZL_Q       | Commodities - Agricultural               | 26.4544         | 0.02%                   | $1426.42     | $53.92       | (Low VaR/Ask)
-LE_Q       | Commodities - Agricultural               | 8.2766          | 0.02%                   | $1787.54     | $215.97      | (Low VaR/Ask)
-HE_Q       | Utilities - Diversified                  | 8.0379          | 0.07%                   | $862.47      | $107.30      | (Low VaR/Ask)
-HE_N       | Utilities - Diversified                  | 7.9857          | 0.05%                   | $856.07      | $107.20      | (Low VaR/Ask)
-FGBL_U     | Undefined                                | 4.0246          | 0.01%                   | $523.64      | $130.11      | (Low VaR/Ask)
-ZN_U       | Undefined                                | 3.8455          | 0.01%                   | $426.79      | $110.98      | (Low VaR/Ask)
-PL_V       | Commodities - Precious                   | 2.6984          | 0.02%                   | $3728.15     | $1381.60     | (Low VaR/Ask)
-KE_U       | Commodities - Agricultural               | 1.5853          | 0.09%                   | $838.20      | $528.75      | (Low VaR/Ask)
-ZM_Q       | Commodities - Agricultural               | 1.4463          | 0.04%                   | $394.25      | $272.60      | (Low VaR/Ask)
-GC_Q       | Undefined                                | 1.4203          | 0.01%                   | $4752.37     | $3346.10     | (Low VaR/Ask)
-RTY_U      | Undefined                                | 0.9242          | 0.00%                   | $2057.80     | $2226.60     | (Low VaR/Ask)
-ZS_Q       | Commodities - Agricultural               | 0.8657          | 0.05%                   | $892.33      | $1030.75     | (Low VaR/Ask)
-ES_U       | Utilities - Regulated Electric           | 0.5367          | 0.00%                   | $3364.08     | $6267.50     | (Low VaR/Ask)
-FDAX_U     | Undefined                                | 0.3653          | 0.01%                   | $8800.34     | $24094.00    | (Low VaR/Ask)
-NQ_U       | Undefined                                | 0.2642          | 0.00%                   | $6037.93     | $22852.50    | (Low VaR/Ask)
-FESX_U     | Undefined                                | 0.1392          | 0.02%                   | $743.60      | $5341.00     | (Low VaR/Ask)
-YM_U       | Undefined                                | 0.0669          | 0.00%                   | $2983.81     | $44602.00    | (Low VaR/Ask)
-MBT_N      | Undefined                                | 0.0034          | 0.02%                   | $372.55      | $108255.00   | (Low VaR/Ask)
+MBT_N      | Undefined                                | 0.0034 | 0.02%                   | $372.55 | $108255.00 | (Low VaR/Ask)
+YM_U       | Undefined                                | 0.0669 | 0.00%                   | $2983.81 | $44602.00 | (Low VaR/Ask)
+FESX_U     | Undefined                                | 0.1392 | 0.02%                   | $743.60 | $5341.00 | (Low VaR/Ask)
+NQ_U       | Undefined                                | 0.2642 | 0.00%                   | $6037.93 | $22852.50 | (Low VaR/Ask)
+FDAX_U     | Undefined                                | 0.3653 | 0.01%                   | $8800.34 | $24094.00 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
