@@ -48,6 +48,91 @@
         a:hover {
             text-decoration: underline;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #000;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 10px; /* Reduced padding */
+            border: 2px solid #00ff00; /* Green border */
+            max-width: fit-content; /* Adjust width to content */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px; /* Reduced padding */
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em; /* Smaller header font size */
+        }
+
+        .modal-header a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .modal-header a:hover {
+            text-decoration: underline;
+        }
+
+        .close-button {
+            color: #00ff00;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+            word-wrap: break-word; /* Break long words */
+            max-height: 70vh; /* Limit height and enable scrolling */
+            overflow-y: auto;
+            color: #00ff00;
+            font-size: 1.2em;
+            padding: 15px;
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
     </style>
 </head>
 <body>
@@ -55,996 +140,1078 @@
         <h1>VaR Explorer</h1>
         <div class="grid">
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.07.06-outlier.txt">
                     Darwinex-Live (CFD) - 2025-07-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.07.06-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-07-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.07.06-outlier.txt">
                     Darwinex-Live (Futures) - 2025-07-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.07.03-outlier.txt">
                     Darwinex-Live (Futures) - 2025-07-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.07.03-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-07-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.07.03-outlier.txt">
                     Darwinex-Live (CFD) - 2025-07-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.07.02-outlier.txt">
                     Darwinex-Live (Futures) - 2025-07-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.07.02-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-07-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.07.02-outlier.txt">
                     Darwinex-Live (CFD) - 2025-07-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.07.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.07.01-outlier.txt">
                     Darwinex-Live (CFD) - 2025-07-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.07.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.07.01-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-07-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.07.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.07.01-outlier.txt">
                     Darwinex-Live (Futures) - 2025-07-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.30-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.30-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.30-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.27-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.27-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.27-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.26.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.26.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.26-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-26
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.26.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.26.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.26-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-26
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.26.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.26.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.26-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-26
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.25-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.25-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.25-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.24-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.24-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.24-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.23-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.23-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.23-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.19.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.19.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.19-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-19
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.19.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.19.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.19-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-19
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.19.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.19.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.19-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-19
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.18.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.18.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.18-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-18
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.18.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.18.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.18-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-18
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.18.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.18.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.18-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-18
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.17.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.17.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.17-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-17
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.17.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.17.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.17-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-17
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.17.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.17.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.17-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-17
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.16-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.16-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.16-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.13-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.13-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.13-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.12.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.12.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.12-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-12
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.12.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.12.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.12-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-12
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.12.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.12.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.12-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-12
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.11.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.11.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.11-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-11
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.11.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.11.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.11-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-11
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.11.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.11.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.11-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-11
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.10.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.10.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.10-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-10
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.10.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.10.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.10-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-10
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.10.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.10.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.10-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-10
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.09-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.06.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.06.09-outlier.txt">
                     Darwinex-Live (Futures) - 2025-06-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.09-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.05.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.05.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.05-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-05
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.05.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.05.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.05-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-05
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.04.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.04.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.04-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-04
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.04.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.04.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.04-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-04
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.03-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.03-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.06.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.06.02-outlier.txt">
                     Darwinex-Live (CFD) - 2025-06-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.06.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.06.02-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-06-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.30-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.30-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.30-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.29.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.29-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-29
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.29.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.29-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-29
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.29.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.29-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-29
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.28.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.28.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.28-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-28
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.28.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.28.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.28-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-28
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.28.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.28.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.28-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-28
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.27-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.27-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.27-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.23-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.23-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.23-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.22.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.22.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.22-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-22
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.22.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.22.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.22-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-22
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.22.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.22.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.22-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-22
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.21.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.21.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.21-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-21
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.21.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.21.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.21-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-21
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.21.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.21.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.21-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-21
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.20.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.20.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.20-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-20
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.20.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.20.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.20-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-20
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.20.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.20.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.20-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-20
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.19.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.19.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.19-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-19
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.19.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.19.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.19-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-19
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.19.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.19.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.19-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-19
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.16-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.16-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.16-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.15.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.15.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.15-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-15
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.15.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.15.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.15-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-15
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.15.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.15.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.15-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-15
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.14.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.14.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.14-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-14
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.14.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.14.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.14-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-14
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.14.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.14.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.14-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-14
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.13-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.13-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.13-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.09-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.09-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.09-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.08.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.08.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.08-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-08
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.08.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.08.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.08-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-08
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.08.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.08.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.08-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-08
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.07.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.07.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.07-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-07
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.07.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.07.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.07-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-07
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.07.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.07.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.07-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-07
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.06-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.06-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.03-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.03-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.03-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.02-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.02-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.02.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.02-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-02
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.05.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.05.01-outlier.txt">
                     Darwinex-Live (CFD) - 2025-05-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.05.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.05.01-outlier.txt">
                     Darwinex-Live (Futures) - 2025-05-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.05.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.05.01-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-05-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.30-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.30-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.04.30-outlier.txt">
                     Darwinex-Live (Futures) - 2025-04-30
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.29.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.04.29-outlier.txt">
                     Darwinex-Live (Futures) - 2025-04-29
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.25-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.04.25-outlier.txt">
                     Darwinex-Live (Futures) - 2025-04-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.25-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.24-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.24-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.23-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.04.23-outlier.txt">
                     Darwinex-Live (Futures) - 2025-04-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.23-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.22.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.22.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.22-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-22
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.22.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.22.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.22-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-22
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.17.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.17.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.17-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-17
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.17.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.04.17.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.04.17-outlier.txt">
                     Darwinex-Live (Futures) - 2025-04-17
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.17.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.17.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.17-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-17
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.16-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.15.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.15.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.15-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-15
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.11.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.11.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.11-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-11
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.11.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.11.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.11-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-11
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.09-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.09-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.05.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.05.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.05-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-05
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.05.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.05.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.05-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-05
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.04.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.04.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.04-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-04
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.04.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.04.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.04-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-04
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.03-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.03-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.04.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.04.01-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-04-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.01.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.04.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.04.01-outlier.txt">
                     Darwinex-Live (CFD) - 2025-04-01
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.29.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.29-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-29
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.29.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.03.29-outlier.txt">
                     Darwinex-Live (CFD) - 2025-03-29
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.28.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.28.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.28-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-28
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.28.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.28.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.03.28-outlier.txt">
                     Darwinex-Live (CFD) - 2025-03-28
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.27-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.03.27-outlier.txt">
                     Darwinex-Live (CFD) - 2025-03-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.26.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.26.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.26-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-26
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.26.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.26.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.03.26-outlier.txt">
                     Darwinex-Live (CFD) - 2025-03-26
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.03.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.03.24-outlier.txt">
                     Darwinex-Live (CFD) - 2025-03-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.21.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.21.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.21-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-21
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.20.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.20.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.20-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-20
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.14.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.14.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.14-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-14
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.13-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.12.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.12.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.12-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-12
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.10.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.10.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.10-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-10
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.07.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.07.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.07-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-07
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.06-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.05.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.05.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.05-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-05
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.04.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.03.04.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.03.04-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-03-04
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.27.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.27.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.27-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-27
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.26.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.26.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.26-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-26
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.25.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.25.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.25-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-25
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.24-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.14.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.14.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.14-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-14
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.13-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.12.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.12.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.12-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-12
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.07.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.07.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.07-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-07
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.04.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.04.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.04-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-04
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.03.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.02.03.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.02.03-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-02-03
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.24.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.24.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.24-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-24
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.23.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.23.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.23-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-23
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.22.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.22.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.22-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-22
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.21.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.21.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.21-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-21
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.16.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.16.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.16-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-16
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.14.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.14.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.14-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-14
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.13.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.13.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.13-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-13
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.10.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.10.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.10-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-10
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.09.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.09.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.09-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-09
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.08.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.08.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.08-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-08
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.07.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.07.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.07-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-07
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.06.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.01.06.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.01.06-outlier.txt">
                     Darwinex-Live (Stocks) - 2025-01-06
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2024.12.31.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2024.12.31.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2024.12.31-outlier.txt">
                     Darwinex-Live (Stocks) - 2024-12-31
                 </a>
             </div>
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2024.12.30.csv">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2024.12.30.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2024.12.30-outlier.txt">
                     Darwinex-Live (Stocks) - 2024-12-30
                 </a>
             </div>
         </div>
     </div>
+
+    <!-- The Modal -->
+    <div id="outlierModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <a id="downloadCsvLink" href="#" download>Download Original CSV</a>
+                <span class="close-button">&times;</span>
+            </div>
+            <pre id="outlierContent" class="modal-body"></pre>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("outlierModal");
+        const closeButton = document.getElementsByClassName("close-button")[0];
+        const modalTitle = document.getElementById("modalTitle");
+        const outlierContent = document.getElementById("outlierContent");
+        const downloadCsvLink = document.getElementById("downloadCsvLink");
+        const fileEntryLinks = document.querySelectorAll(".file-entry a");
+        let currentIndex = 0;
+
+        function openModalAtIndex(index) {
+            const link = fileEntryLinks[index];
+            const csvUrl = link.href;
+            const outlierFileName = link.dataset.outlierFile;
+            const fileName = link.textContent.trim();
+
+            modalTitle.textContent = `VaR Outlier Report for ${fileName}`;
+            downloadCsvLink.href = csvUrl;
+
+            fetch('var-explorer/' + outlierFileName)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    outlierContent.textContent = data;
+                    modal.style.display = "block";
+                    currentIndex = index;
+                })
+                .catch(error => {
+                    console.error("Error fetching outlier report:", error);
+                    outlierContent.textContent = "Error loading report.";
+                    modal.style.display = "block";
+                });
+        }
+
+        fileEntryLinks.forEach((link, index) => {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                openModalAtIndex(index);
+            });
+        });
+
+        closeButton.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        window.addEventListener("keydown", function(event) {
+            if (modal.style.display === "block") {
+                if (event.key === "Escape") {
+                    modal.style.display = "none";
+                } else if (event.key === "ArrowLeft") {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : fileEntryLinks.length - 1;
+                    openModalAtIndex(currentIndex);
+                } else if (event.key === "ArrowRight") {
+                    currentIndex = (currentIndex < fileEntryLinks.length - 1) ? currentIndex + 1 : 0;
+                    openModalAtIndex(currentIndex);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

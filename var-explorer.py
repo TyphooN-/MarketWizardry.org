@@ -74,6 +74,91 @@ html_content = f"""<!DOCTYPE html>
         a:hover {{
             text-decoration: underline;
         }}
+
+        /* Modal Styles */
+        .modal {{
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            padding-top: 60px;
+        }}
+
+        .modal-content {{
+            background-color: #000;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 10px; /* Reduced padding */
+            border: 2px solid #00ff00; /* Green border */
+            max-width: fit-content; /* Adjust width to content */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }}
+
+        .modal-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px; /* Reduced padding */
+            margin-bottom: 5px; /* Reduced margin */
+        }}
+
+        .modal-header h2 {{
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em; /* Smaller header font size */
+        }}
+
+        .modal-header a {{
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }}
+
+        .modal-header a:hover {{
+            text-decoration: underline;
+        }}
+
+        .close-button {{
+            color: #00ff00;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }}
+
+        .close-button:hover,
+        .close-button:focus {{
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+        }}
+
+        .modal-body {{
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+            word-wrap: break-word; /* Break long words */
+            max-height: 70vh; /* Limit height and enable scrolling */
+            overflow-y: auto;
+            color: #00ff00;
+            font-size: 1.2em;
+            padding: 15px;
+        }}
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {{
+            from {{top:-300px; opacity:0}}
+            to {{top:0; opacity:1}}
+        }}
+
+        @keyframes animatetop {{
+            from {{top:-300px; opacity:0}}
+            to {{top:0; opacity:1}}
+        }}
     </style>
 </head>
 <body>
@@ -83,25 +168,110 @@ html_content = f"""<!DOCTYPE html>
 
 # Add each file as an entry in the HTML
 for filename, date_str in files:
+    file_type = ""
     if "Stocks" in filename:
         file_type = "Stocks"
-    if "Futures" in filename:
+    elif "Futures" in filename:
         file_type = "Futures"
-    if "CFD" in filename:
+    elif "CFD" in filename:
         file_type = "CFD"  # Or whatever the other type is
 
+    outlier_filename = f"{filename.replace('.csv', '')}-outlier.txt"
+    
     file_entry = f"""
             <div class="file-entry">
-                <a href="https://marketwizardry.org//var-explorer/{filename}">
+                <a href="https://marketwizardry.org//var-explorer/{filename}" data-outlier-file="{outlier_filename}">
                     Darwinex-Live ({file_type}) - {date_str}
                 </a>
             </div>"""
     html_content += file_entry
 
-# Close the HTML tags
-html_content += """
+# Close the HTML tags and add modal structure and script
+html_content += f"""
         </div>
     </div>
+
+    <!-- The Modal -->
+    <div id="outlierModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <a id="downloadCsvLink" href="#" download>Download Original CSV</a>
+                <span class="close-button">&times;</span>
+            </div>
+            <pre id="outlierContent" class="modal-body"></pre>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("outlierModal");
+        const closeButton = document.getElementsByClassName("close-button")[0];
+        const modalTitle = document.getElementById("modalTitle");
+        const outlierContent = document.getElementById("outlierContent");
+        const downloadCsvLink = document.getElementById("downloadCsvLink");
+        const fileEntryLinks = document.querySelectorAll(".file-entry a");
+        let currentIndex = 0;
+
+        function openModalAtIndex(index) {{
+            const link = fileEntryLinks[index];
+            const csvUrl = link.href;
+            const outlierFileName = link.dataset.outlierFile;
+            const fileName = link.textContent.trim();
+
+            modalTitle.textContent = `VaR Outlier Report for ${{fileName}}`;
+            downloadCsvLink.href = csvUrl;
+
+            fetch('var-explorer/' + outlierFileName)
+                .then(response => {{
+                    if (!response.ok) {{
+                        throw new Error(`HTTP error! status: ${{response.status}}`);
+                    }}
+                    return response.text();
+                }})
+                .then(data => {{
+                    outlierContent.textContent = data;
+                    modal.style.display = "block";
+                    currentIndex = index;
+                }})
+                .catch(error => {{
+                    console.error("Error fetching outlier report:", error);
+                    outlierContent.textContent = "Error loading report.";
+                    modal.style.display = "block";
+                }});
+        }}
+
+        fileEntryLinks.forEach((link, index) => {{
+            link.addEventListener("click", function(event) {{
+                event.preventDefault();
+                openModalAtIndex(index);
+            }});
+        }});
+
+        closeButton.addEventListener("click", function() {{
+            modal.style.display = "none";
+        }});
+
+        window.addEventListener("click", function(event) {{
+            if (event.target == modal) {{
+                modal.style.display = "none";
+            }}
+        }});
+
+        window.addEventListener("keydown", function(event) {{
+            if (modal.style.display === "block") {{
+                if (event.key === "Escape") {{
+                    modal.style.display = "none";
+                }} else if (event.key === "ArrowLeft") {{
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : fileEntryLinks.length - 1;
+                    openModalAtIndex(currentIndex);
+                }} else if (event.key === "ArrowRight") {{
+                    currentIndex = (currentIndex < fileEntryLinks.length - 1) ? currentIndex + 1 : 0;
+                    openModalAtIndex(currentIndex);
+                }}
+            }}
+        }});
+    </script>
 </body>
 </html>"""
 
@@ -110,4 +280,3 @@ with open(output_html_file, 'w') as f:
     f.write(html_content)
 
 print(f"HTML generated and saved to {output_html_file}")
-

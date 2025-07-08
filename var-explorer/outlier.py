@@ -111,7 +111,7 @@ def find_var_outliers(filename):
     only reports on groups where significant outliers are found.
     """
     try:
-        df = pd.read_csv(filename, delimiter=';')
+        df = pd.read_csv(filename, delimiter=';', encoding='latin1')
         required_columns = ['Symbol', 'VaR_1_Lot', 'AskPrice', 'BidPrice', 'TradeMode', 'IndustryName', 'SectorName']
         if not all(col in df.columns for col in required_columns):
             print(f"Error: Required columns missing. Need: {required_columns}")
@@ -260,6 +260,11 @@ def find_var_outliers(filename):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
+import sys
+
 if __name__ == "__main__":
-    csv_filename = input("Please enter the CSV filename (e.g., SymbolsExport-Darwinex-Live-Stocks-2025.06.25.csv): ")
-    find_var_outliers(csv_filename)
+    if len(sys.argv) > 1:
+        csv_filename = sys.argv[1]
+        find_var_outliers(csv_filename)
+    else:
+        print("Usage: python outlier.py <csv_filename>")
