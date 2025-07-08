@@ -3,6 +3,7 @@ import numpy as np
 
 # This constant is used in multiple functions, so it's defined globally.
 MINIMUM_GROUP_SIZE = 10
+TOP_N_DISPLAY = 20 # User-defined variable for top/bottom N display
 
 def get_outlier_note(row, bounds_dict, small_industries_list):
     """
@@ -34,7 +35,7 @@ def get_outlier_note(row, bounds_dict, small_industries_list):
     return '(Low VaR/Ask)'
 
 
-def analyze_group(group_name, group_df, bounds_dict=None):
+def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=None):
     """
     Performs a statistical VaR outlier analysis on a given group of stocks.
     This function will produce NO output unless at least one
@@ -70,7 +71,17 @@ def analyze_group(group_name, group_df, bounds_dict=None):
 
         # --- Only print a report if outliers were actually found ---
         if not all_outliers.empty:
-            print(f"\n{'='*30} Analysis for: {group_name.upper()} {'='*30}")
+            print(f"{'='*30} Analysis for: {group_name.upper()} {'='*30}")
+            
+            print(f"Contains {len(group_df)} total instruments.")
+
+            print(f"\n--- VaR Ratio Statistics ---")
+            print(f"Q1 (25th percentile): {Q1:.4f}")
+            print(f"Q3 (75th percentile): {Q3:.4f}")
+            print(f"IQR (Interquartile Range): {IQR:.4f}")
+            print(f"Lower Outlier Bound: {lower_bound:.4f}")
+            print(f"Upper Outlier Bound: {upper_bound:.4f}")
+
             print(f"Contains {len(group_df)} total instruments.")
 
             print("\n--- VaR Ratio Statistics ---")
@@ -80,30 +91,25 @@ def analyze_group(group_name, group_df, bounds_dict=None):
             print(f"Lower Outlier Bound: {lower_bound:.4f}")
             print(f"Upper Outlier Bound: {upper_bound:.4f}")
 
-            print(f"\n--- Found {len(all_outliers)} Total Statistical VaR Outliers ---")
+            print(f"--- Found {len(all_outliers)} Total Statistical VaR Outliers ---")
             
-            actionable_outliers = all_outliers[all_outliers['TradeMode'] != 3].copy()
-            close_only_outliers = all_outliers[all_outliers['TradeMode'] == 3].copy()
+            # Print details of each outlier
+            if not all_outliers.empty:
+                all_outliers['Note'] = all_outliers.apply(
+                    get_outlier_note,
+                    axis=1,
+                    args=(bounds_dict, small_industries_list)
+                )
+                print("-" * 100)
+                print(f"{'Symbol':<10} | {'Industry':<25} | {'VaR/Ask Ratio':<15} | {'Note'}")
+                print("-" * 100)
+                for index, row in all_outliers.iterrows():
+                    print(f"{row['Symbol']:<10} | {row['IndustryName']:<25.25} | {row['VaR_to_Ask_Ratio']:.4f} | {row['Note']}")
+                print("-" * 100)
+            
+        else:
+            print("\nNo statistical outliers found in this group.")
 
-            if not actionable_outliers.empty:
-                print("\n>>> Actionable Outliers (Tradable):")
-                actionable_outliers.sort_values(by='VaR_to_Ask_Ratio', inplace=True)
-                print("-" * 105)
-                print(f"{'Symbol':<10} | {'VaR/Ask Ratio':<15} | {'Relative Spread':<18} | {'VaR_1_Lot':<12} | {'AskPrice':<12} | {'Note'}")
-                print("-" * 105)
-                for index, row in actionable_outliers.iterrows():
-                    note = "(LOW - Statistically Significant)" if row['VaR_to_Ask_Ratio'] < lower_bound else "(HIGH)"
-                    spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                    print(f"{row['Symbol']:<10} | {row['VaR_to_Ask_Ratio']:<15.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:<11.2f} | ${row['AskPrice']:<11.2f} | {note}")
-                print("-" * 105)
-
-            if not close_only_outliers.empty:
-                print("\n>>> Non-Actionable Outliers (Close Only):")
-                close_only_outliers.sort_values(by='VaR_to_Ask_Ratio', inplace=True)
-                print("WARNING: The following outliers cannot be opened for new trades.")
-                for index, row in close_only_outliers.iterrows():
-                    note = "(LOW)" if row['VaR_to_Ask_Ratio'] < lower_bound else "(HIGH)"
-                    print(f"  - Symbol: {row['Symbol']:<10} | VaR/Ask Ratio: {row['VaR_to_Ask_Ratio']:.4f} {note}")
 
 def find_var_outliers(filename):
     """
@@ -146,111 +152,64 @@ def find_var_outliers(filename):
         # --- Run Analysis ---
         for industry in sorted(large_industries):
             industry_df = df_cleaned[df_cleaned['IndustryName'] == industry].copy()
-            analyze_group(industry, industry_df, bounds_dict=industry_bounds)
+            analyze_group(industry, industry_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
 
         if small_industries:
             aggregated_df = df_cleaned[df_cleaned['IndustryName'].isin(small_industries)].copy()
             if len(aggregated_df) >= MINIMUM_GROUP_SIZE:
-                analyze_group("AGGREGATED SMALL INDUSTRIES", aggregated_df, bounds_dict=industry_bounds)
-
-        # --- Filter for Price-Based Summaries (Excluding ETFs) ---
-        global_tradable_stocks_no_etf = df_cleaned[
-            (df_cleaned['TradeMode'] != 3) &
-            (df_cleaned['IndustryName'] != 'Exchange Traded Fund')
-        ].copy()
-
-
-        # --- NEW: Top 30 from Lowest Priced Stocks ---
-        print(f"\n{'='*25} Top 30 Low VaR/Ask from Lowest Priced Stocks (Excluding ETFs) {'='*25}")
-        
-        lowest_priced_pool = global_tradable_stocks_no_etf.sort_values(by='AskPrice').head(100)
-        top_30_from_lowest_price = lowest_priced_pool.sort_values(by='VaR_to_Ask_Ratio').head(30).copy()
-        
-        if not top_30_from_lowest_price.empty:
-            top_30_from_lowest_price['Note'] = top_30_from_lowest_price.apply(
-                get_outlier_note, axis=1, args=(industry_bounds, small_industries)
-            )
-            print("-" * 155)
-            print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Relative Spread':<18} | {'VaR_1_Lot':<12} | {'AskPrice':<12} | {'Note'}")
-            print("-" * 155)
-            for index, row in top_30_from_lowest_price.iterrows():
-                spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:<15.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:<11.2f} | ${row['AskPrice']:<11.2f} | {row['Note']}")
-            print("-" * 155)
-        else:
-            print("Could not identify any candidates in this category.")
-
-
-        # --- NEW: Top 30 from Highest Priced Stocks ---
-        print(f"\n{'='*25} Top 30 Low VaR/Ask from Highest Priced Stocks (Excluding ETFs) {'='*25}")
-        
-        highest_priced_pool = global_tradable_stocks_no_etf.sort_values(by='AskPrice', ascending=False).head(100)
-        top_30_from_highest_price = highest_priced_pool.sort_values(by='VaR_to_Ask_Ratio').head(30).copy()
-        
-        if not top_30_from_highest_price.empty:
-            top_30_from_highest_price['Note'] = top_30_from_highest_price.apply(
-                get_outlier_note, axis=1, args=(industry_bounds, small_industries)
-            )
-            print("-" * 155)
-            print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Relative Spread':<18} | {'VaR_1_Lot':<12} | {'AskPrice':<12} | {'Note'}")
-            print("-" * 155)
-            for index, row in top_30_from_highest_price.iterrows():
-                spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:<15.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:<11.2f} | ${row['AskPrice']:<11.2f} | {row['Note']}")
-            print("-" * 155)
-        else:
-            print("Could not identify any candidates in this category.")
-
+                analyze_group("AGGREGATED SMALL INDUSTRIES", aggregated_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
 
         # --- Filter for Global Summaries (Including ETFs) ---
         global_tradable_stocks_with_etfs = df_cleaned[df_cleaned['TradeMode'] != 3].copy()
 
+        # Calculate global statistics
+        global_Q1 = global_tradable_stocks_with_etfs['VaR_to_Ask_Ratio'].quantile(0.25)
+        global_Q3 = global_tradable_stocks_with_etfs['VaR_to_Ask_Ratio'].quantile(0.75)
+        global_IQR = global_Q3 - global_Q1
+        global_lower_bound = global_Q1 - 1.5 * global_IQR
+        global_upper_bound = global_Q3 + 1.5 * global_IQR
 
-        # --- Final Global Summary Section ---
-        print(f"\n{'='*25} Top 30 Global Opportunities (Including ETFs) {'='*25}")
-        
-        top_n_global = 30
-        
-        global_top_candidates = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio').head(top_n_global)
-        
-        if not global_top_candidates.empty:
-            global_top_candidates['Note'] = global_top_candidates.apply(
-                get_outlier_note, 
-                axis=1, 
+        print(f"\n{'='*25} Global VaR/Ask Ratio Statistics (Including ETFs) {'='*25}")
+        print(f"Q1 (25th percentile): {global_Q1:.4f}")
+        print(f"Q3 (75th percentile): {global_Q3:.4f}")
+        print(f"IQR (Interquartile Range): {global_IQR:.4f}")
+        print(f"Lower Outlier Bound: {global_lower_bound:.4f}")
+        print(f"Upper Outlier Bound: {global_upper_bound:.4f}")
+
+        # --- Top 10 VaR/Ask Stocks ---
+        print(f"\n{'='*25} Top {TOP_N_DISPLAY} Highest VaR/Ask Assets (Including ETFs) {'='*25}")
+        top_n_highest_var = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=False).head(TOP_N_DISPLAY)
+        if not top_n_highest_var.empty:
+            top_n_highest_var['Note'] = top_n_highest_var.apply(
+                get_outlier_note,
+                axis=1,
                 args=(industry_bounds, small_industries)
             )
-
             print("-" * 155)
             print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Relative Spread':<18} | {'VaR_1_Lot':<12} | {'AskPrice':<12} | {'Note'}")
             print("-" * 155)
-            for index, row in global_top_candidates.iterrows():
+            for index, row in top_n_highest_var.iterrows():
                 spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:<15.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:<11.2f} | ${row['AskPrice']:<11.2f} | {row['Note']}")
+                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:.2f} | ${row['AskPrice']:.2f} | {row['Note']}")
             print("-" * 155)
         else:
-            print("Could not identify any global top candidates.")
+            print("Could not identify any candidates in this category.")
 
-
-        # --- NEW: Top 30 Highest VaR/Ask Stocks ---
-        print(f"\n{'='*25} Top 30 Highest VaR/Ask Assets (Including ETFs) {'='*25}")
-        
-        top_n_highest_var = 30
-        
-        highest_var_candidates = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=False).head(top_n_highest_var)
-        
-        if not highest_var_candidates.empty:
-            highest_var_candidates['Note'] = highest_var_candidates.apply(
-                get_outlier_note, 
-                axis=1, 
+        # --- Bottom 10 VaR/Ask Stocks ---
+        print(f"\n{'='*25} Bottom {TOP_N_DISPLAY} Lowest VaR/Ask Assets (Including ETFs) {'='*25}")
+        bottom_n_lowest_var = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=True).head(TOP_N_DISPLAY)
+        if not bottom_n_lowest_var.empty:
+            bottom_n_lowest_var['Note'] = bottom_n_lowest_var.apply(
+                get_outlier_note,
+                axis=1,
                 args=(industry_bounds, small_industries)
             )
-
             print("-" * 155)
             print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Relative Spread':<18} | {'VaR_1_Lot':<12} | {'AskPrice':<12} | {'Note'}")
             print("-" * 155)
-            for index, row in highest_var_candidates.iterrows():
+            for index, row in bottom_n_lowest_var.iterrows():
                 spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:<15.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:<11.2f} | ${row['AskPrice']:<11.2f} | {row['Note']}")
+                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['VaR_1_Lot']:.2f} | ${row['AskPrice']:.2f} | {row['Note']}")
             print("-" * 155)
         else:
             print("Could not identify any candidates in this category.")
