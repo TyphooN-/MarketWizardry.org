@@ -106,7 +106,7 @@ html_content = f"""<!DOCTYPE html>
 
         .modal-header {{
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
             border-bottom: 1px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 5px; /* Reduced padding */
@@ -123,6 +123,9 @@ html_content = f"""<!DOCTYPE html>
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 2px 5px;
+            margin-left: 10px;
         }}
 
         .modal-header a:hover {{
@@ -131,9 +134,11 @@ html_content = f"""<!DOCTYPE html>
 
         .close-button {{
             color: #00ff00;
-            float: right;
             font-size: 28px;
             font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 0 5px;
+            line-height: 1;
         }}
 
         .close-button:hover,
@@ -141,6 +146,7 @@ html_content = f"""<!DOCTYPE html>
             color: #00ff00;
             text-decoration: none;
             cursor: pointer;
+            background-color: #001100;
         }}
 
         .modal-body {{
@@ -188,20 +194,20 @@ for filename, date_str in files:
     elif "Futures" in filename:
         file_type = "Futures"
     elif "CFD" in filename:
-        file_type = "CFD"  # Or whatever the other type is
+        file_type = "CFD"
 
     outlier_filename = f"{filename.replace('.csv', '')}-outlier.txt"
     
-    file_entry = f"""
+    file_entry = f'''
             <div class="file-entry">
                 <a href="https://marketwizardry.org//var-explorer/{filename}" data-outlier-file="{outlier_filename}">
                     Darwinex-Live ({file_type}) - {date_str}
                 </a>
-            </div>"""
+            </div>'''
     html_content += file_entry
 
 # Close the HTML tags and add modal structure and script
-html_content += f"""
+html_content += """
         </div>
     </div>
 
@@ -236,7 +242,7 @@ html_content += f"""
             const outlierUrl = 'var-explorer/' + outlierFileName;
             const fileName = link.textContent.trim();
 
-            modalTitle.textContent = `VaR Outlier Report for ${{fileName}}`;
+            modalTitle.textContent = "VaR Outlier Report for " + fileName;
             downloadCsvLink.href = csvUrl;
             downloadOutlierLink.href = outlierUrl;
             downloadOutlierLink.download = outlierFileName;
@@ -244,7 +250,7 @@ html_content += f"""
             fetch(outlierUrl)
                 .then(response => {{
                     if (!response.ok) {{
-                        throw new Error(`HTTP error! status: ${{response.status}}`);
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }}
                     return response.text();
                 }})
