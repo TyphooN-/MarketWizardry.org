@@ -32,6 +32,7 @@ html_content = f"""<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>VaR Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {{
             background-color: #000;
@@ -162,6 +163,16 @@ html_content = f"""<!DOCTYPE html>
             from {{top:-300px; opacity:0}}
             to {{top:0; opacity:1}}
         }}
+
+        @media screen and (max-width: 600px) {{
+            .grid {{
+                grid-template-columns: 1fr;
+            }}
+            .modal-content {{
+                margin: 10% auto;
+                width: 90%;
+            }}
+        }}
     </style>
 </head>
 <body>
@@ -200,6 +211,7 @@ html_content += f"""
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
+                <a id="downloadOutlierLink" href="#" download>Download Outlier Report</a>
                 <a id="downloadCsvLink" href="#" download>Download Original CSV</a>
                 <span class="close-button">&times;</span>
             </div>
@@ -213,6 +225,7 @@ html_content += f"""
         const modalTitle = document.getElementById("modalTitle");
         const outlierContent = document.getElementById("outlierContent");
         const downloadCsvLink = document.getElementById("downloadCsvLink");
+        const downloadOutlierLink = document.getElementById("downloadOutlierLink");
         const fileEntryLinks = document.querySelectorAll(".file-entry a");
         let currentIndex = 0;
 
@@ -220,12 +233,15 @@ html_content += f"""
             const link = fileEntryLinks[index];
             const csvUrl = link.href;
             const outlierFileName = link.dataset.outlierFile;
+            const outlierUrl = 'var-explorer/' + outlierFileName;
             const fileName = link.textContent.trim();
 
             modalTitle.textContent = `VaR Outlier Report for ${{fileName}}`;
             downloadCsvLink.href = csvUrl;
+            downloadOutlierLink.href = outlierUrl;
+            downloadOutlierLink.download = outlierFileName;
 
-            fetch('var-explorer/' + outlierFileName)
+            fetch(outlierUrl)
                 .then(response => {{
                     if (!response.ok) {{
                         throw new Error(`HTTP error! status: ${{response.status}}`);
