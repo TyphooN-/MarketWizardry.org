@@ -1,14 +1,7 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Processing 0 large industries and 4 small industries...
-============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 10 total instruments.
 
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 0.3934
-Q3 (75th percentile): 2.4690
-IQR (Interquartile Range): 2.0755
-Lower Outlier Bound: -2.7199
-Upper Outlier Bound: 5.5823
+============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 10 total instruments.
 
 --- VaR Ratio Statistics ---
@@ -19,9 +12,9 @@ Lower Outlier Bound: -2.7199
 Upper Outlier Bound: 5.5823
 --- Found 1 Total Statistical VaR Outliers ---
 ----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Note
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
 ----------------------------------------------------------------------------------------------------
-FGBL_M     | Undefined                 | 7.0389 | (HIGH - Statistically Significant)
+FGBL_M     | Undefined                 | 7.0389 | 0.02%                   | (HIGH - Statistically Significant)
 ----------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
@@ -32,23 +25,23 @@ Lower Outlier Bound: -2.7199
 Upper Outlier Bound: 5.5823
 
 ========================= Top 5 Highest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-FGBL_M     | Undefined                                | 7.0389 | 0.02%                   | $923.92 | $131.26 | (HIGH - Statistically Significant)
-LE_M       | Commodities - Agricultural               | 4.7403 | 0.01%                   | $1021.64 | $215.53 | (Low VaR/Ask)
-GC_Q       | Undefined                                | 2.8253 | 0.00%                   | $9443.40 | $3342.40 | (Low VaR/Ask)
-PL_N       | Commodities - Precious                   | 1.3998 | 0.02%                   | $1513.79 | $1081.40 | (Low VaR/Ask)
-RTY_M      | Undefined                                | 1.1525 | 0.00%                   | $2393.48 | $2076.70 | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+FGBL_M     | Undefined                                | 7.0389 | 0.02%                   | $131.26 | (HIGH - Statistically Significant)
+LE_M       | Commodities - Agricultural               | 4.7403 | 0.01%                   | $215.53 | (Low VaR/Ask)
+GC_Q       | Undefined                                | 2.8253 | 0.00%                   | $3342.40 | (Low VaR/Ask)
+PL_N       | Commodities - Precious                   | 1.3998 | 0.02%                   | $1081.40 | (Low VaR/Ask)
+RTY_M      | Undefined                                | 1.1525 | 0.00%                   | $2076.70 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-YM_M       | Undefined                                | 0.0877 | 0.03%                   | $3704.85 | $42244.00 | (Low VaR/Ask)
-FESX_M     | Undefined                                | 0.1591 | 0.04%                   | $855.14 | $5376.00 | (Low VaR/Ask)
-FDAX_M     | Undefined                                | 0.3875 | 0.05%                   | $9298.36 | $23993.00 | (Low VaR/Ask)
-NQ_M       | Undefined                                | 0.4111 | 0.00%                   | $8789.80 | $21383.50 | (Low VaR/Ask)
-ES_M       | Utilities - Regulated Electric           | 0.8763 | 0.00%                   | $5185.96 | $5918.00 | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+YM_M       | Undefined                                | 0.0877 | 0.03%                   | $42244.00 | (Low VaR/Ask)
+FESX_M     | Undefined                                | 0.1591 | 0.04%                   | $5376.00 | (Low VaR/Ask)
+FDAX_M     | Undefined                                | 0.3875 | 0.05%                   | $23993.00 | (Low VaR/Ask)
+NQ_M       | Undefined                                | 0.4111 | 0.00%                   | $21383.50 | (Low VaR/Ask)
+ES_M       | Utilities - Regulated Electric           | 0.8763 | 0.00%                   | $5918.00 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------

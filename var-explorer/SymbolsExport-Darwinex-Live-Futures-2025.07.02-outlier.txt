@@ -1,5 +1,7 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
+WARNING: ZC_U has no VaR value detected!
 Processing 1 large industries and 5 small industries...
+
 ============================== Analysis for: UNDEFINED ==============================
 Contains 11 total instruments.
 
@@ -9,21 +11,14 @@ Q3 (75th percentile): 4.6453
 IQR (Interquartile Range): 4.4368
 Lower Outlier Bound: -6.4466
 Upper Outlier Bound: 11.3004
-Contains 11 total instruments.
-
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 0.2086
-Q3 (75th percentile): 4.6453
-IQR (Interquartile Range): 4.4368
-Lower Outlier Bound: -6.4466
-Upper Outlier Bound: 11.3004
 --- Found 2 Total Statistical VaR Outliers ---
 ----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Note
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
 ----------------------------------------------------------------------------------------------------
-HO_Q       | Undefined                 | 2270.0103 | (HIGH - Statistically Significant)
-RB_Q       | Undefined                 | 1664.6182 | (HIGH - Statistically Significant)
+HO_Q       | Undefined                 | 2270.0103 | 0.03%                   | (HIGH - Statistically Significant)
+RB_Q       | Undefined                 | 1664.6182 | 0.05%                   | (HIGH - Statistically Significant)
 ----------------------------------------------------------------------------------------------------
+
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 13 total instruments.
 
@@ -33,20 +28,12 @@ Q3 (75th percentile): 55.3849
 IQR (Interquartile Range): 53.8514
 Lower Outlier Bound: -79.2435
 Upper Outlier Bound: 136.1620
-Contains 13 total instruments.
-
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.5335
-Q3 (75th percentile): 55.3849
-IQR (Interquartile Range): 53.8514
-Lower Outlier Bound: -79.2435
-Upper Outlier Bound: 136.1620
 --- Found 2 Total Statistical VaR Outliers ---
 ----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Note
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
 ----------------------------------------------------------------------------------------------------
-HG_U       | Commodities - Precious    | 468.6620 | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy      | 569.7735 | (HIGH - Statistically Significant)
+HG_U       | Commodities - Precious    | 468.6620 | 0.04%                   | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy      | 569.7735 | 0.03%                   | (HIGH - Statistically Significant)
 ----------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
@@ -57,23 +44,23 @@ Lower Outlier Bound: -78.0862
 Upper Outlier Bound: 132.0558
 
 ========================= Top 5 Highest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-HO_Q       | Undefined                                | 2270.0103 | 0.03%                   | $5492.97 | $2.42 | (HIGH - Statistically Significant)
-RB_Q       | Undefined                                | 1664.6182 | 0.05%                   | $3536.15 | $2.12 | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy                     | 569.7735 | 0.03%                   | $1993.07 | $3.50 | (HIGH - Statistically Significant)
-HG_U       | Commodities - Precious                   | 468.6620 | 0.04%                   | $2436.11 | $5.20 | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious                   | 106.1872 | 0.01%                   | $3906.63 | $36.79 | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HO_Q       | Undefined                                | 2270.0103 | 0.03%                   | $2.42 | (HIGH - Statistically Significant)
+RB_Q       | Undefined                                | 1664.6182 | 0.05%                   | $2.12 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy                     | 569.7735 | 0.03%                   | $3.50 | (HIGH - Statistically Significant)
+HG_U       | Commodities - Precious                   | 468.6620 | 0.04%                   | $5.20 | (HIGH - Statistically Significant)
+SI_U       | Commodities - Precious                   | 106.1872 | 0.01%                   | $36.79 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-MBT_N      | Undefined                                | 0.0038 | 0.03%                   | $419.14 | $109830.00 | (Low VaR/Ask)
-YM_U       | Undefined                                | 0.0672 | 0.00%                   | $3008.99 | $44792.00 | (Low VaR/Ask)
-FESX_U     | Undefined                                | 0.1343 | 0.04%                   | $717.59 | $5342.00 | (Low VaR/Ask)
-NQ_U       | Undefined                                | 0.2828 | 0.00%                   | $6462.58 | $22853.50 | (Low VaR/Ask)
-FDAX_U     | Undefined                                | 0.3589 | 0.03%                   | $8586.55 | $23925.00 | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+MBT_N      | Undefined                                | 0.0038 | 0.03%                   | $109830.00 | (Low VaR/Ask)
+YM_U       | Undefined                                | 0.0672 | 0.00%                   | $44792.00 | (Low VaR/Ask)
+FESX_U     | Undefined                                | 0.1343 | 0.04%                   | $5342.00 | (Low VaR/Ask)
+NQ_U       | Undefined                                | 0.2828 | 0.00%                   | $22853.50 | (Low VaR/Ask)
+FDAX_U     | Undefined                                | 0.3589 | 0.03%                   | $23925.00 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------

@@ -1,14 +1,8 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
+WARNING: ZM_N has no VaR value detected!
 Processing 1 large industries and 5 small industries...
-============================== Analysis for: UNDEFINED ==============================
-Contains 11 total instruments.
 
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 0.8004
-Q3 (75th percentile): 7.4774
-IQR (Interquartile Range): 6.6770
-Lower Outlier Bound: -9.2151
-Upper Outlier Bound: 17.4929
+============================== Analysis for: UNDEFINED ==============================
 Contains 11 total instruments.
 
 --- VaR Ratio Statistics ---
@@ -19,20 +13,13 @@ Lower Outlier Bound: -9.2151
 Upper Outlier Bound: 17.4929
 --- Found 2 Total Statistical VaR Outliers ---
 ----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Note
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
 ----------------------------------------------------------------------------------------------------
-HO_M       | Undefined                 | 1252.9342 | (HIGH - Statistically Significant)
-RB_M       | Undefined                 | 1311.1843 | (HIGH - Statistically Significant)
+HO_M       | Undefined                 | 1252.9342 | 0.05%                   | (HIGH - Statistically Significant)
+RB_M       | Undefined                 | 1311.1843 | 0.04%                   | (HIGH - Statistically Significant)
 ----------------------------------------------------------------------------------------------------
-============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 14 total instruments.
 
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.4160
-Q3 (75th percentile): 45.4562
-IQR (Interquartile Range): 44.0402
-Lower Outlier Bound: -64.6443
-Upper Outlier Bound: 111.5165
+============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 14 total instruments.
 
 --- VaR Ratio Statistics ---
@@ -43,11 +30,11 @@ Lower Outlier Bound: -64.6443
 Upper Outlier Bound: 111.5165
 --- Found 3 Total Statistical VaR Outliers ---
 ----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Note
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
 ----------------------------------------------------------------------------------------------------
-HG_N       | Commodities - Precious    | 1186.2655 | (HIGH - Statistically Significant)
-NG_M       | Commodities - Energy      | 643.6501 | (HIGH - Statistically Significant)
-SI_N       | Commodities - Precious    | 136.1114 | (HIGH - Statistically Significant)
+HG_N       | Commodities - Precious    | 1186.2655 | 0.02%                   | (HIGH - Statistically Significant)
+NG_M       | Commodities - Energy      | 643.6501 | 0.06%                   | (HIGH - Statistically Significant)
+SI_N       | Commodities - Precious    | 136.1114 | 0.03%                   | (HIGH - Statistically Significant)
 ----------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
@@ -58,23 +45,23 @@ Lower Outlier Bound: -61.1837
 Upper Outlier Bound: 104.9383
 
 ========================= Top 5 Highest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-RB_M       | Undefined                                | 1311.1843 | 0.04%                   | $2700.12 | $2.06 | (HIGH - Statistically Significant)
-HO_M       | Undefined                                | 1252.9342 | 0.05%                   | $2513.51 | $2.01 | (HIGH - Statistically Significant)
-HG_N       | Commodities - Precious                   | 1186.2655 | 0.02%                   | $5641.88 | $4.76 | (HIGH - Statistically Significant)
-NG_M       | Commodities - Energy                     | 643.6501 | 0.06%                   | $2243.76 | $3.49 | (HIGH - Statistically Significant)
-SI_N       | Commodities - Precious                   | 136.1114 | 0.03%                   | $4552.25 | $33.45 | (HIGH - Statistically Significant)
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+RB_M       | Undefined                                | 1311.1843 | 0.04%                   | $2.06 | (HIGH - Statistically Significant)
+HO_M       | Undefined                                | 1252.9342 | 0.05%                   | $2.01 | (HIGH - Statistically Significant)
+HG_N       | Commodities - Precious                   | 1186.2655 | 0.02%                   | $4.76 | (HIGH - Statistically Significant)
+NG_M       | Commodities - Energy                     | 643.6501 | 0.06%                   | $3.49 | (HIGH - Statistically Significant)
+SI_N       | Commodities - Precious                   | 136.1114 | 0.03%                   | $33.45 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | VaR/Ask Ratio   | Relative Spread    | VaR_1_Lot    | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------------------------------------
-MBT_K      | Undefined                                | 0.0052 | 0.04%                   | $492.85 | $95200.00 | (Low VaR/Ask)
-YM_M       | Undefined                                | 0.2007 | 0.01%                   | $8193.44 | $40830.00 | (Low VaR/Ask)
-FESX_M     | Undefined                                | 0.4887 | 0.02%                   | $2547.06 | $5212.00 | (Low VaR/Ask)
-ZS_N       | Commodities - Agricultural               | 0.7301 | 0.02%                   | $759.90 | $1040.75 | (Low VaR/Ask)
-PL_N       | Commodities - Precious                   | 0.9945 | 0.02%                   | $986.53 | $992.00 | (Low VaR/Ask)
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+MBT_K      | Undefined                                | 0.0052 | 0.04%                   | $95200.00 | (Low VaR/Ask)
+YM_M       | Undefined                                | 0.2007 | 0.01%                   | $40830.00 | (Low VaR/Ask)
+FESX_M     | Undefined                                | 0.4887 | 0.02%                   | $5212.00 | (Low VaR/Ask)
+ZS_N       | Commodities - Agricultural               | 0.7301 | 0.02%                   | $1040.75 | (Low VaR/Ask)
+PL_N       | Commodities - Precious                   | 0.9945 | 0.02%                   | $992.00 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------
