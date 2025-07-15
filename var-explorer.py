@@ -178,6 +178,9 @@ html_content = f"""<!DOCTYPE html>
                 margin: 10% auto;
                 width: 90%;
             }}
+            .modal-body {{
+                font-size: 0.6em;
+            }}
         }}
     </style>
 </head>
