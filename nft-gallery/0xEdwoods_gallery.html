@@ -1,0 +1,259 @@
+
+<!-- user_gallery.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NFT (Not For Trade) Gallery - 0xEdwoods</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        /* Image grid styles */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Maximum size of the container */
+            cursor: pointer;
+        }
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 10px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        .filename-display {
+            color: #00ff00;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h2>NFT (Not For Trade) Gallery - 0xEdwoods</h2>
+    <div class="crt-divider"></div>
+    <!-- Image Grid -->
+    <div class="image-grid" id="imageGrid">
+        <!-- Images will be inserted here by JavaScript -->
+    </div>
+    <!-- Modal -->
+    <div class="modal" id="fullscreenModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="filename-display" id="modalFilename"></div>
+            <div class="crt-divider"></div>
+            <img src="" alt="Fullscreen image" class="full-image">
+        </div>
+    </div>
+</div>
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./0xEdwoods/webp/0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929813218-Spell_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929813218-Spell_video2-1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp',
+            './0xEdwoods/webp/0xEdwoods-1932490445357265002-Luv_video4-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
+        }
+    };
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

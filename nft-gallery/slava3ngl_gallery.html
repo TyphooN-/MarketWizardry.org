@@ -1,0 +1,254 @@
+
+<!-- user_gallery.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NFT (Not For Trade) Gallery - slava3ngl</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        /* Image grid styles */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Maximum size of the container */
+            cursor: pointer;
+        }
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 10px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        .filename-display {
+            color: #00ff00;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h2>NFT (Not For Trade) Gallery - slava3ngl</h2>
+    <div class="crt-divider"></div>
+    <!-- Image Grid -->
+    <div class="image-grid" id="imageGrid">
+        <!-- Images will be inserted here by JavaScript -->
+    </div>
+    <!-- Modal -->
+    <div class="modal" id="fullscreenModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="filename-display" id="modalFilename"></div>
+            <div class="crt-divider"></div>
+            <img src="" alt="Fullscreen image" class="full-image">
+        </div>
+    </div>
+</div>
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./slava3ngl/webp/slava3ngl-1938947464037310723-Neon_bones_whisper_in_fractured_dusk__video4-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1927644000-Good_MORNING__video1-1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1938704051702505894-WL_presale_for_Wirecore_starts_soon__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1923296052-GMGood_MorningGM_video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1939246533444288989-GOOD_MISTY_MORNING_video3-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1930180718-GOOD_MORNING_video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1929644817-__video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1929094309-GOOD_MORNING_digital_fam__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1937793350989754621-Good_Morning__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1923506007-1-Bit_Classics_video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1923296052771184806-GMGood_MorningGM_video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1925477437-GMGM_video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1925592962-Data_Drying_video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1920758274-GMGMGM_video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1930545323-GMGM_video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1928007108-Good_morning__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1942139098216427841-GOOD_MORNING_video4-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1922209394-GOOD_STRUCTURAL_MORNING__video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video4-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1922570331-Good_Morning_video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1939292460393595276-Frail_frames_flicker_in_velvet_silence__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1928227719-Say_cheese__video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1930905644-GOOD_GEOMETRIC_MORNING__video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1920396063-GMGMGM__video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video3-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1943593612064743854-GM_INTERNET_RIDERS__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1931282167-GMGMGM_video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1938515948790550693-Good_digital_Morning__video3-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1942866299345838351-GOOD_MORNING_INTERNET__video2-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1928007108-Good_morning__video1-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1934891768471781873-GOOD_MORNING_INTERNET_video3-lossy.webp',
+            './slava3ngl/webp/slava3ngl-1927283232-GOOD_GLOWING_MORNING__video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
+        }
+    };
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
