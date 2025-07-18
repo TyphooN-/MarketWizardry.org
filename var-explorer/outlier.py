@@ -95,13 +95,13 @@ def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=
                     axis=1,
                     args=(bounds_dict, small_industries_list)
                 )
-                print("-" * 100)
-                print(f"{'Symbol':<10} | {'Industry':<25} | {'VaR/Ask Ratio':<15} | {'Spread':<18} | {'Note'}")
-                print("-" * 100)
+                print("-" * 125)
+                print(f"{'Symbol':<10} | {'Industry':<25} | {'VaR/Ask Ratio':<15} | {'Spread':<18} | {'AskPrice':<12} | {'Note'}")
+                print("-" * 125)
                 for index, row in all_outliers.iterrows():
                     spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                    print(f"{row['Symbol']:<10} | {row['IndustryName']:<25.25} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | {row['Note']}")
-                print("-" * 100)
+                    print(f"{row['Symbol']:<10} | {row['IndustryName']:<25.25} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['AskPrice']:.2f} | {row['Note']}")
+                print("-" * 125)
 
 def find_var_outliers(filename):
     """
@@ -229,6 +229,14 @@ def find_var_outliers(filename):
                 print("-" * 125)
             else:
                 print("Could not identify any candidates in this category.")
+
+        # Report on symbols with TradeMode == 3 (close only)
+        close_only_symbols = df_cleaned[df_cleaned['TradeMode'] == 3]
+        if not close_only_symbols.empty:
+            print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
+            print("The following symbols are in 'close-only' mode and cannot be traded:")
+            for index, row in close_only_symbols.iterrows():
+                print(f"- {row['Symbol']} ({row['IndustryName']})")
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

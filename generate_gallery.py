@@ -335,6 +335,8 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         print(f"Generated {output_file} with {len(image_paths)} images for user {username}.")
         return True
 
+import json
+
 def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     html_template = """
 <!-- all.html -->
@@ -450,8 +452,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = [IMAGE_PATHS_PLACEHOLDER]; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
+        let allImagePaths = []; // Initialize as empty
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
         const imageGrid = document.getElementById('imageGrid');
@@ -488,11 +489,18 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 
         // Initial load
         document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-            }
+            fetch('./all_images.json') // Fetch the new JSON file
+                .then(response => response.json())
+                .then(data => {
+                    allImagePaths = data;
+                    console.log("All Image Paths loaded from JSON:", allImagePaths);
+                    loadMoreImages();
+                    // Load more images immediately if the initial load doesn't fill the viewport
+                    if (document.body.offsetHeight < window.innerHeight) {
+                        loadMoreImages();
+                    }
+                })
+                .catch(error => console.error('Error fetching image paths:', error));
         });
 
         // Scroll event for lazy loading
@@ -572,14 +580,18 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                     for file in files:
                         if fnmatch.fnmatch(file, search_pattern):
                             relative_path = os.path.relpath(os.path.join(root, file), nft_gallery_path)
-                            all_image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
+                            all_image_paths.append(f"./{relative_path.replace(os.sep, '/')}")
 
-    image_paths_str = ',\n            '.join(all_image_paths)
-    final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
+    # Write the JSON file
+    json_output_file = os.path.join('nft-gallery', 'all_images.json')
+    with open(json_output_file, 'w') as f:
+        json.dump(all_image_paths, f)
+    print(f"Generated {json_output_file} with {len(all_image_paths)} images.")
 
+    # Write the HTML file
     with open(output_file, 'w') as f:
-        f.write(final_html)
-    print(f"Generated {output_file} with {len(all_image_paths)} images.")
+        f.write(html_template)
+    print(f"Generated {output_file}.")
 
 
 if __name__ == "__main__":
