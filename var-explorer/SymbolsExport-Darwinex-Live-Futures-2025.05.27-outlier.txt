@@ -11,14 +11,14 @@ IQR (Interquartile Range): 234.8808
 Lower Outlier Bound: -352.0069
 Upper Outlier Bound: 587.5163
 --- Found 4 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HO_M       | Undefined                 | 1139.7655 | 0.04%                   | (HIGH - Statistically Significant)
-HO_N       | Undefined                 | 1085.7051 | 0.03%                   | (HIGH - Statistically Significant)
-RB_M       | Undefined                 | 930.9429 | 0.02%                   | (HIGH - Statistically Significant)
-RB_N       | Undefined                 | 919.6118 | 0.01%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HO_M       | Undefined                 | 1139.7655 | 0.04%                   | $2.08 | (HIGH - Statistically Significant)
+HO_N       | Undefined                 | 1085.7051 | 0.03%                   | $2.06 | (HIGH - Statistically Significant)
+RB_M       | Undefined                 | 930.9429 | 0.02%                   | $2.08 | (HIGH - Statistically Significant)
+RB_N       | Undefined                 | 919.6118 | 0.01%                   | $2.05 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 15 total instruments.
@@ -30,13 +30,13 @@ IQR (Interquartile Range): 30.4858
 Lower Outlier Bound: -44.3795
 Upper Outlier Bound: 77.5637
 --- Found 3 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HG_N       | Commodities - Precious    | 780.7224 | 0.02%                   | (HIGH - Statistically Significant)
-NG_N       | Commodities - Energy      | 599.0823 | 0.05%                   | (HIGH - Statistically Significant)
-SI_N       | Commodities - Precious    | 114.3167 | 0.01%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_N       | Commodities - Precious    | 780.7224 | 0.02%                   | $4.74 | (HIGH - Statistically Significant)
+NG_N       | Commodities - Energy      | 599.0823 | 0.05%                   | $3.75 | (HIGH - Statistically Significant)
+SI_N       | Commodities - Precious    | 114.3167 | 0.01%                   | $33.38 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.9031
@@ -66,3 +66,11 @@ FESX_M     | Undefined                                | 0.1544 | 0.04%          
 FDAX_M     | Undefined                                | 0.3676 | 0.01%                   | $24323.00 | (Low VaR/Ask)
 NQ_M       | Undefined                                | 0.4134 | 0.00%                   | $21466.75 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- BZ_N (Commodities - Energy)
+- HO_M (Undefined)
+- MBT_K (Undefined)
+- RB_M (Undefined)
+- ZN_M (Undefined)

@@ -12,13 +12,13 @@ IQR (Interquartile Range): 49.8254
 Lower Outlier Bound: -73.6323
 Upper Outlier Bound: 125.6693
 --- Found 3 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HG_N       | Commodities - Precious    | 1430.4112 | 0.04%                   | (HIGH - Statistically Significant)
-NG_M       | Commodities - Energy      | 630.8431 | 0.03%                   | (HIGH - Statistically Significant)
-SI_N       | Commodities - Precious    | 264.8300 | 0.01%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_N       | Commodities - Precious    | 1430.4112 | 0.04%                   | $4.90 | (HIGH - Statistically Significant)
+NG_M       | Commodities - Energy      | 630.8431 | 0.03%                   | $3.16 | (HIGH - Statistically Significant)
+SI_N       | Commodities - Precious    | 264.8300 | 0.01%                   | $33.34 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 1.1749
@@ -48,3 +48,11 @@ FESX_M     | Undefined                                | 0.4847 | 0.04%          
 ZC_N       | Commodities - Agricultural               | 0.7312 | 0.05%                   | $484.25 | (Low VaR/Ask)
 ZS_N       | Commodities - Agricultural               | 1.0922 | 0.02%                   | $1059.00 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- BZ_M (Commodities - Energy)
+- HO_K (Undefined)
+- RB_K (Undefined)
+- ZC_K (Commodities - Agricultural)
+- ZS_K (Commodities - Agricultural)

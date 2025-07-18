@@ -12,12 +12,12 @@ IQR (Interquartile Range): 3.6924
 Lower Outlier Bound: -5.2378
 Upper Outlier Bound: 9.5318
 --- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HO_Q       | Undefined                 | 2300.7094 | 0.01%                   | (HIGH - Statistically Significant)
-RB_Q       | Undefined                 | 1554.0729 | 0.02%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HO_Q       | Undefined                 | 2300.7094 | 0.01%                   | $2.47 | (HIGH - Statistically Significant)
+RB_Q       | Undefined                 | 1554.0729 | 0.02%                   | $2.19 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 15 total instruments.
@@ -29,12 +29,12 @@ IQR (Interquartile Range): 49.7929
 Lower Outlier Bound: -72.6118
 Upper Outlier Bound: 126.5598
 --- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HG_U       | Commodities - Precious    | 1025.2429 | 0.03%                   | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy      | 597.0166 | 0.03%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_U       | Commodities - Precious    | 1025.2429 | 0.03%                   | $5.58 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy      | 597.0166 | 0.03%                   | $3.36 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.9712
@@ -64,3 +64,7 @@ NQ_U       | Undefined                                | 0.2650 | 0.00%          
 FDAX_U     | Undefined                                | 0.4082 | 0.01%                   | $24323.00 | (Low VaR/Ask)
 ES_U       | Utilities - Regulated Electric           | 0.5408 | 0.00%                   | $6293.50 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- HE_N (Utilities - Diversified)

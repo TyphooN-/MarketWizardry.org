@@ -12,13 +12,13 @@ IQR (Interquartile Range): 56.1357
 Lower Outlier Bound: -83.0689
 Upper Outlier Bound: 141.4740
 --- Found 3 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HG_U       | Commodities - Precious    | 527.3397 | 0.02%                   | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy      | 579.2032 | 0.03%                   | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious    | 144.8813 | 0.03%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_U       | Commodities - Precious    | 527.3397 | 0.02%                   | $4.97 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy      | 579.2032 | 0.03%                   | $3.58 | (HIGH - Statistically Significant)
+SI_U       | Commodities - Precious    | 144.8813 | 0.03%                   | $36.59 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.6866
@@ -48,3 +48,12 @@ FESX_U     | Undefined                                | 0.1211 | 0.04%          
 NQ_U       | Undefined                                | 0.2811 | 0.00%                   | $22467.75 | (Low VaR/Ask)
 FDAX_U     | Undefined                                | 0.3051 | 0.01%                   | $23628.00 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- BZ_Q (Commodities - Energy)
+- HO_N (Undefined)
+- MBT_M (Undefined)
+- RB_N (Undefined)
+- ZC_N (Commodities - Agricultural)
+- ZS_N (Commodities - Agricultural)

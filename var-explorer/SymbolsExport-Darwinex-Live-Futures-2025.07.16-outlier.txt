@@ -11,12 +11,12 @@ IQR (Interquartile Range): 3.6964
 Lower Outlier Bound: -5.2456
 Upper Outlier Bound: 9.5399
 --- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HO_Q       | Undefined                 | 1986.0732 | 0.05%                   | (HIGH - Statistically Significant)
-RB_Q       | Undefined                 | 1422.3808 | 0.03%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HO_Q       | Undefined                 | 1986.0732 | 0.05%                   | $2.40 | (HIGH - Statistically Significant)
+RB_Q       | Undefined                 | 1422.3808 | 0.03%                   | $2.16 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 15 total instruments.
@@ -28,13 +28,13 @@ IQR (Interquartile Range): 42.1758
 Lower Outlier Bound: -61.8330
 Upper Outlier Bound: 106.8704
 --- Found 3 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HG_U       | Commodities - Precious    | 1013.5388 | 0.02%                   | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy      | 563.9344 | 0.06%                   | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious    | 117.6886 | 0.01%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_U       | Commodities - Precious    | 1013.5388 | 0.02%                   | $5.51 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy      | 563.9344 | 0.06%                   | $3.57 | (HIGH - Statistically Significant)
+SI_U       | Commodities - Precious    | 117.6886 | 0.01%                   | $38.10 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.9838
@@ -64,3 +64,7 @@ NQ_U       | Undefined                                | 0.2130 | 0.00%          
 FDAX_U     | Undefined                                | 0.3850 | 0.02%                   | $24268.00 | (Low VaR/Ask)
 ES_U       | Utilities - Regulated Electric           | 0.4489 | 0.01%                   | $6294.50 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- CL_Q (Commodities - Energy)

@@ -11,12 +11,12 @@ IQR (Interquartile Range): 3.6295
 Lower Outlier Bound: -4.5522
 Upper Outlier Bound: 9.9657
 --- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-ZL_N       | Commodities - Agricultura | 26.9917 | 0.02%                   | (HIGH - Statistically Significant)
-ZL_Q       | Commodities - Agricultura | 26.8349 | 0.02%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+ZL_N       | Commodities - Agricultura | 26.9917 | 0.02%                   | $54.40 | (HIGH - Statistically Significant)
+ZL_Q       | Commodities - Agricultura | 26.8349 | 0.02%                   | $54.54 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.6785
@@ -46,3 +46,13 @@ YM_U       | Undefined                                | 0.0605 | 0.00%          
 FESX_U     | Undefined                                | 0.1391 | 0.02%                   | $5237.00 | (Low VaR/Ask)
 NQ_U       | Undefined                                | 0.2962 | 0.00%                   | $21897.25 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- HG_N (Commodities - Precious)
+- KE_N (Commodities - Agricultural)
+- NG_N (Commodities - Energy)
+- PL_N (Commodities - Precious)
+- SI_N (Commodities - Precious)
+- ZL_N (Commodities - Agricultural)
+- ZM_N (Commodities - Agricultural)

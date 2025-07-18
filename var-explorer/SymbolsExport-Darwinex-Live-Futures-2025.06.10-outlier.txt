@@ -11,12 +11,12 @@ IQR (Interquartile Range): 2.8071
 Lower Outlier Bound: -4.0968
 Upper Outlier Bound: 7.1318
 --- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HO_N       | Undefined                 | 961.7560 | 0.03%                   | (HIGH - Statistically Significant)
-RB_N       | Undefined                 | 772.1346 | 0.03%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HO_N       | Undefined                 | 961.7560 | 0.03%                   | $2.14 | (HIGH - Statistically Significant)
+RB_N       | Undefined                 | 772.1346 | 0.03%                   | $2.09 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
 Contains 17 total instruments.
@@ -28,13 +28,13 @@ IQR (Interquartile Range): 23.8813
 Lower Outlier Bound: -34.6232
 Upper Outlier Bound: 60.9022
 --- Found 3 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HG_N       | Commodities - Precious    | 656.5072 | 0.02%                   | (HIGH - Statistically Significant)
-NG_N       | Commodities - Energy      | 649.4227 | 0.06%                   | (HIGH - Statistically Significant)
-SI_N       | Commodities - Precious    | 150.2758 | 0.01%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_N       | Commodities - Precious    | 656.5072 | 0.02%                   | $4.91 | (HIGH - Statistically Significant)
+NG_N       | Commodities - Energy      | 649.4227 | 0.06%                   | $3.53 | (HIGH - Statistically Significant)
+SI_N       | Commodities - Precious    | 150.2758 | 0.01%                   | $36.71 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.3245
@@ -64,3 +64,7 @@ YM_U       | Undefined                                | 0.0617 | 0.01%          
 FESX_U     | Undefined                                | 0.1136 | 0.09%                   | $5444.00 | (Low VaR/Ask)
 FESX_M     | Undefined                                | 0.1140 | 0.02%                   | $5421.00 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- HE_M (Utilities - Diversified)

@@ -1,29 +1,21 @@
 Detected file type: Unknown. Displaying top/bottom 20 assets.
 Processing 0 large industries and 13 small industries...
+
 ============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 18 total instruments.
+Contains 20 total instruments.
 
 --- VaR Ratio Statistics ---
-Q1 (25th percentile): 0.0402
-Q3 (75th percentile): 0.0675
-IQR (Interquartile Range): 0.0273
-Lower Outlier Bound: -0.0007
-Upper Outlier Bound: 0.1085
-Contains 18 total instruments.
-
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 0.0402
-Q3 (75th percentile): 0.0675
-IQR (Interquartile Range): 0.0273
-Lower Outlier Bound: -0.0007
-Upper Outlier Bound: 0.1085
---- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Note
-----------------------------------------------------------------------------------------------------
-CHGG       | Education & Training Serv | 0.1774 | (HIGH - Statistically Significant)
-CLF        | Steel                     | 0.1119 | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+Q1 (25th percentile): 0.0424
+Q3 (75th percentile): 0.0668
+IQR (Interquartile Range): 0.0244
+Lower Outlier Bound: 0.0059
+Upper Outlier Bound: 0.1033
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+BPMC       | Biotechnology             | 0.0043 | 0.01%                   | $129.37 | (LOW - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): nan
@@ -37,3 +29,26 @@ Could not identify any candidates in this category.
 
 ========================= Bottom 20 Lowest VaR/Ask Assets (Including ETFs) =========================
 Could not identify any candidates in this category.
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- AAL (Airlines)
+- BPMC (Biotechnology)
+- CHGG (Education & Training Services)
+- CLF (Steel)
+- COTY (Household & Personal Products)
+- ELAN (Drugs Manufacturers - Specialty & Genetic)
+- GT (Auto Parts)
+- LAZR (Auto Parts)
+- KSS (Department Stores)
+- LEG (Furnishing, Fixtures & Appliances)
+- MODG (Leisure)
+- NWL (Household & Personal Products)
+- SNAP (Internet Content & Information)
+- TDOC (Health Information Services)
+- TXG (Health Information Services)
+- VIR (Biotechnology)
+- VTRS (Drugs Manufacturers - Specialty & Genetic)
+- VYX (Information Technology Services)
+- X (Steel)
+- SGI (Furnishing, Fixtures & Appliances)

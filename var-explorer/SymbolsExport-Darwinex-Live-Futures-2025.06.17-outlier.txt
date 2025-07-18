@@ -11,12 +11,12 @@ IQR (Interquartile Range): 2.8835
 Lower Outlier Bound: -3.3621
 Upper Outlier Bound: 8.1721
 --- Found 2 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-ZL_N       | Commodities - Agricultura | 26.7939 | 0.04%                   | (HIGH - Statistically Significant)
-ZL_Q       | Commodities - Agricultura | 26.6261 | 0.04%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+ZL_N       | Commodities - Agricultura | 26.7939 | 0.04%                   | $54.69 | (HIGH - Statistically Significant)
+ZL_Q       | Commodities - Agricultura | 26.6261 | 0.04%                   | $54.88 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ============================== Analysis for: UNDEFINED ==============================
 Contains 19 total instruments.
@@ -28,14 +28,14 @@ IQR (Interquartile Range): 5.3540
 Lower Outlier Bound: -7.8957
 Upper Outlier Bound: 13.5201
 --- Found 4 Total Statistical VaR Outliers ---
-----------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | Note
-----------------------------------------------------------------------------------------------------
-HO_N       | Undefined                 | 1705.0028 | 0.16%                   | (HIGH - Statistically Significant)
-HO_Q       | Undefined                 | 1595.7916 | 0.13%                   | (HIGH - Statistically Significant)
-RB_N       | Undefined                 | 1142.2799 | 0.09%                   | (HIGH - Statistically Significant)
-RB_Q       | Undefined                 | 1063.0856 | 0.08%                   | (HIGH - Statistically Significant)
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HO_N       | Undefined                 | 1705.0028 | 0.16%                   | $2.53 | (HIGH - Statistically Significant)
+HO_Q       | Undefined                 | 1595.7916 | 0.13%                   | $2.48 | (HIGH - Statistically Significant)
+RB_N       | Undefined                 | 1142.2799 | 0.09%                   | $2.28 | (HIGH - Statistically Significant)
+RB_Q       | Undefined                 | 1063.0856 | 0.08%                   | $2.27 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.9596
@@ -65,3 +65,13 @@ YM_U       | Undefined                                | 0.0690 | 0.02%          
 FESX_U     | Undefined                                | 0.1358 | 0.04%                   | $5284.00 | (Low VaR/Ask)
 NQ_U       | Undefined                                | 0.3009 | 0.01%                   | $21921.25 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+The following symbols are in 'close-only' mode and cannot be traded:
+- CL_N (Commodities - Energy)
+- ES_M (Utilities - Regulated Electric)
+- NQ_M (Undefined)
+- RTY_M (Undefined)
+- YM_M (Undefined)
+- FDAX_M (Undefined)
+- FESX_M (Undefined)
