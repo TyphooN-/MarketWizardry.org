@@ -147,6 +147,13 @@ def find_var_outliers(filename):
         df['TradeMode'] = df['TradeMode'].astype(int)
 
         df['VaR_to_Ask_Ratio'] = df.apply(lambda r: r['VaR_1_Lot'] / r['AskPrice'] if r['AskPrice'] != 0 else np.nan, axis=1)
+        
+        print(f"Adding 'VaR/Ask Ratio' to {filename} and saving...")
+        try:
+            df.to_csv(filename, sep=';', index=False, encoding='latin1')
+        except Exception as e:
+            print(f"Error saving updated CSV {filename}: {e}")
+
         df['Spread'] = df['AskPrice'] - df['BidPrice']
         df['RelativeSpread_%'] = (df['Spread'] / df['AskPrice']) * 100
         df_cleaned = df.dropna(subset=['VaR_to_Ask_Ratio']).copy()
@@ -234,7 +241,6 @@ def find_var_outliers(filename):
         close_only_symbols = df_cleaned[df_cleaned['TradeMode'] == 3]
         if not close_only_symbols.empty:
             print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
-            print("The following symbols are in 'close-only' mode and cannot be traded:")
             for index, row in close_only_symbols.iterrows():
                 print(f"- {row['Symbol']} ({row['IndustryName']})")
 

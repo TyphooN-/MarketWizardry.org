@@ -1,11 +1,27 @@
 import os
+import stat
 
 # Define the directory containing CSV files and output HTML file path
 directory = './var-explorer/'
 output_html_file = 'var-explorer.html'
 
-# Run the outlier analysis script
-os.system(f"bash {directory}run_outlier_analysis.sh")
+# Path to the outlier analysis script
+outlier_script_path = os.path.join(directory, 'run_outlier_analysis.sh')
+
+# --- Ensure the script is executable and run it ---
+if os.path.exists(outlier_script_path):
+    # Check if the script has execute permissions
+    if not os.access(outlier_script_path, os.X_OK):
+        print(f"Script at {outlier_script_path} is not executable. Adding execute permissions...")
+        # Add execute permissions (owner and group)
+        os.chmod(outlier_script_path, os.stat(outlier_script_path).st_mode | stat.S_IXUSR | stat.S_IXGRP)
+    
+    # Run the outlier analysis script
+    print(f"Running outlier analysis script: {outlier_script_path}")
+    os.system(f"bash {outlier_script_path}")
+    print("Outlier analysis script finished.")
+else:
+    print(f"Warning: Outlier script not found at {outlier_script_path}")
 
 # Pattern for matching file names (e.g., start with "SymbolsExport-Darwinex-Live")
 pattern_start = "SymbolsExport-Darwinex-Live"
