@@ -1,6 +1,6 @@
 Detected file type: Stocks. Displaying top/bottom 30 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Stocks-2025.01.22.csv and saving...
-Processing 19 large industries and 101 small industries...
+Processing 19 large industries...
 
 ============================== Analysis for: AEROSPACE & DEFENCE ==============================
 Contains 14 total instruments.
@@ -223,43 +223,160 @@ EIX        | Utilities - Regulated Ele | 0.0677 | 0.24%                   | $62.
 NEE        | Utilities - Regulated Ele | 0.0288 | 0.01%                   | $70.84 | (HIGH - Statistically Significant)
 SRE        | Utilities - Regulated Ele | 0.0364 | 0.21%                   | $86.62 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
+Aggregating 101 small industries by sector...
+Analyzing AGGREGATED BASIC MATERIALS INDUSTRIES with 22 instruments.
 
-============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 420 total instruments.
+============================== Analysis for: AGGREGATED BASIC MATERIALS INDUSTRIES ==============================
+Contains 22 total instruments.
 
 --- VaR Ratio Statistics ---
-Q1 (25th percentile): 0.0211
-Q3 (75th percentile): 0.0337
-IQR (Interquartile Range): 0.0126
-Lower Outlier Bound: 0.0022
-Upper Outlier Bound: 0.0527
---- Found 22 Total Statistical VaR Outliers ---
+Q1 (25th percentile): 0.0272
+Q3 (75th percentile): 0.0361
+IQR (Interquartile Range): 0.0089
+Lower Outlier Bound: 0.0138
+Upper Outlier Bound: 0.0495
+--- Found 1 Total Statistical VaR Outliers ---
 -----------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------
-ENPH       | Solar                     | 0.0574 | 0.38%                   | $63.20 | (HIGH - Statistically Significant)
-CHGG       | Education & Training Serv | 0.0930 | 0.66%                   | $1.51 | (HIGH - Statistically Significant)
-COHR       | Scientific & Technical In | 0.0562 | 0.47%                   | $103.69 | (HIGH - Statistically Significant)
+X          | Steel                     | 0.0731 | 0.05%                   | $36.64 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED COMMUNICATION SERVICES INDUSTRIES with 31 instruments.
+
+============================== Analysis for: AGGREGATED COMMUNICATION SERVICES INDUSTRIES ==============================
+Contains 31 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0178
+Q3 (75th percentile): 0.0316
+IQR (Interquartile Range): 0.0138
+Lower Outlier Bound: -0.0028
+Upper Outlier Bound: 0.0523
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+SNAP       | Internet Content & Inform | 0.0580 | 0.09%                   | $10.59 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED CONSUMER CYCLICAL INDUSTRIES with 101 instruments.
+
+============================== Analysis for: AGGREGATED CONSUMER CYCLICAL INDUSTRIES ==============================
+Contains 101 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0230
+Q3 (75th percentile): 0.0335
+IQR (Interquartile Range): 0.0106
+Lower Outlier Bound: 0.0071
+Upper Outlier Bound: 0.0494
+--- Found 9 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
 CVNA       | Internet Retail           | 0.0838 | 0.04%                   | $231.72 | (HIGH - Statistically Significant)
 DRI        | Restaurants               | 0.0572 | 0.12%                   | $186.32 | (HIGH - Statistically Significant)
-EXPI       | Real Estate Services      | 0.0639 | 0.09%                   | $11.36 | (HIGH - Statistically Significant)
 LAZR       | Auto Parts                | 0.1849 | 0.46%                   | $6.51 | (HIGH - Statistically Significant)
 M          | Department Stores         | 0.0556 | 0.07%                   | $14.43 | (HIGH - Statistically Significant)
 MODG       | Leisure                   | 0.0702 | 0.12%                   | $8.59 | (HIGH - Statistically Significant)
 PENN       | Resorts & Casinos         | 0.0549 | 0.05%                   | $20.66 | (HIGH - Statistically Significant)
-PGNY       | Health Information Servic | 0.0667 | 0.05%                   | $21.47 | (HIGH - Statistically Significant)
 PTON       | Leisure                   | 0.0738 | 0.12%                   | $8.44 | (HIGH - Statistically Significant)
-RUN        | Solar                     | 0.0756 | 0.11%                   | $9.23 | (HIGH - Statistically Significant)
-SNAP       | Internet Content & Inform | 0.0580 | 0.09%                   | $10.59 | (HIGH - Statistically Significant)
-STZ        | Beverages - Wineries & Di | 0.0641 | 0.30%                   | $182.73 | (HIGH - Statistically Significant)
-TDOC       | Health Information Servic | 0.0616 | 0.11%                   | $9.51 | (HIGH - Statistically Significant)
 TSLA       | Auto Manufacturers        | 0.0734 | 0.02%                   | $423.42 | (HIGH - Statistically Significant)
-TXG        | Health Information Servic | 0.0601 | 0.80%                   | $16.15 | (HIGH - Statistically Significant)
-VST        | Utilities - Independent P | 0.0579 | 0.10%                   | $185.51 | (HIGH - Statistically Significant)
 W          | Internet Retail           | 0.0585 | 0.12%                   | $48.60 | (HIGH - Statistically Significant)
-X          | Steel                     | 0.0731 | 0.05%                   | $36.64 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED CONSUMER DEFENSIVE INDUSTRIES with 34 instruments.
+
+============================== Analysis for: AGGREGATED CONSUMER DEFENSIVE INDUSTRIES ==============================
+Contains 34 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0185
+Q3 (75th percentile): 0.0298
+IQR (Interquartile Range): 0.0113
+Lower Outlier Bound: 0.0015
+Upper Outlier Bound: 0.0467
+--- Found 3 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+CHGG       | Education & Training Serv | 0.0930 | 0.66%                   | $1.51 | (HIGH - Statistically Significant)
+OLLI       | Discount Stores           | 0.0511 | 0.11%                   | $113.83 | (HIGH - Statistically Significant)
+STZ        | Beverages - Wineries & Di | 0.0641 | 0.30%                   | $182.73 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED ENERGY INDUSTRIES with 23 instruments.
+
+============================== Analysis for: AGGREGATED ENERGY INDUSTRIES ==============================
+Contains 23 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0223
+Q3 (75th percentile): 0.0292
+IQR (Interquartile Range): 0.0069
+Lower Outlier Bound: 0.0119
+Upper Outlier Bound: 0.0396
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+TPL        | Oil & Gas E&P             | 0.0485 | 1.05% (High Spread!)    | $1421.13 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED FINANCIAL INDUSTRIES with 43 instruments.
+
+============================== Analysis for: AGGREGATED FINANCIAL INDUSTRIES ==============================
+Contains 43 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0201
+Q3 (75th percentile): 0.0279
+IQR (Interquartile Range): 0.0078
+Lower Outlier Bound: 0.0084
+Upper Outlier Bound: 0.0396
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+JEF        | Financial Conglomerates   | 0.0503 | 0.33%                   | $78.08 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED HEALTHCARE INDUSTRIES with 39 instruments.
+
+============================== Analysis for: AGGREGATED HEALTHCARE INDUSTRIES ==============================
+Contains 39 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0198
+Q3 (75th percentile): 0.0328
+IQR (Interquartile Range): 0.0129
+Lower Outlier Bound: 0.0004
+Upper Outlier Bound: 0.0522
+--- Found 4 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+PGNY       | Health Information Servic | 0.0667 | 0.05%                   | $21.47 | (HIGH - Statistically Significant)
+TDOC       | Health Information Servic | 0.0616 | 0.11%                   | $9.51 | (HIGH - Statistically Significant)
+TXG        | Health Information Servic | 0.0601 | 0.80%                   | $16.15 | (HIGH - Statistically Significant)
 WBA        | Pharmaceutical Retailers  | 0.1112 | 0.09%                   | $11.33 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
+Analyzing AGGREGATED INDUSTRIALS INDUSTRIES with 72 instruments.
+Skipping aggregation for sector 'Real Estate': Not enough instruments (9) to meet MINIMUM_GROUP_SIZE (10).
+Analyzing AGGREGATED TECHNOLOGY INDUSTRIES with 38 instruments.
+
+============================== Analysis for: AGGREGATED TECHNOLOGY INDUSTRIES ==============================
+Contains 38 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.0246
+Q3 (75th percentile): 0.0394
+IQR (Interquartile Range): 0.0148
+Lower Outlier Bound: 0.0024
+Upper Outlier Bound: 0.0615
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+RUN        | Solar                     | 0.0756 | 0.11%                   | $9.23 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Skipping aggregation for sector 'Undefined': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
+Skipping aggregation for sector 'Utilities': Not enough instruments (7) to meet MINIMUM_GROUP_SIZE (10).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.0201
@@ -298,7 +415,7 @@ EIX        | Utilities - Regulated Electric           | 0.0677 | 0.24%          
 INSP       | Medical Devices                          | 0.0674 | 0.14%                   | $185.10 | (Low VaR/Ask)
 PGNY       | Health Information Services              | 0.0667 | 0.05%                   | $21.47 | (HIGH - Statistically Significant)
 STZ        | Beverages - Wineries & Distilleries      | 0.0641 | 0.30%                   | $182.73 | (HIGH - Statistically Significant)
-EXPI       | Real Estate Services                     | 0.0639 | 0.09%                   | $11.36 | (HIGH - Statistically Significant)
+EXPI       | Real Estate Services                     | 0.0639 | 0.09%                   | $11.36 | (Low VaR/Ask)
 TDOC       | Health Information Services              | 0.0616 | 0.11%                   | $9.51 | (HIGH - Statistically Significant)
 TXG        | Health Information Services              | 0.0601 | 0.80%                   | $16.15 | (HIGH - Statistically Significant)
 W          | Internet Retail                          | 0.0585 | 0.12%                   | $48.60 | (HIGH - Statistically Significant)

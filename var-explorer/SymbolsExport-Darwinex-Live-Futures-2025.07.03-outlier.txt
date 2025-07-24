@@ -1,6 +1,6 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Futures-2025.07.03.csv and saving...
-Processing 1 large industries and 5 small industries...
+Processing 1 large industries...
 
 ============================== Analysis for: UNDEFINED ==============================
 Contains 11 total instruments.
@@ -18,16 +18,18 @@ Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | 
 HO_Q       | Undefined                 | 2284.9314 | 0.04%                   | $2.39 | (HIGH - Statistically Significant)
 RB_Q       | Undefined                 | 1641.9403 | 0.02%                   | $2.12 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
+Aggregating 5 small industries by sector...
+Analyzing AGGREGATED COMMODITIES INDUSTRIES with 11 instruments.
 
-============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 13 total instruments.
+============================== Analysis for: AGGREGATED COMMODITIES INDUSTRIES ==============================
+Contains 11 total instruments.
 
 --- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.5823
-Q3 (75th percentile): 56.0157
-IQR (Interquartile Range): 54.4333
-Lower Outlier Bound: -80.0677
-Upper Outlier Bound: 137.6657
+Q1 (25th percentile): 2.1260
+Q3 (75th percentile): 82.3561
+IQR (Interquartile Range): 80.2301
+Lower Outlier Bound: -118.2191
+Upper Outlier Bound: 202.7013
 --- Found 2 Total Statistical VaR Outliers ---
 -----------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
@@ -35,6 +37,8 @@ Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | 
 HG_U       | Commodities - Precious    | 492.1946 | 0.02%                   | $5.14 | (HIGH - Statistically Significant)
 NG_Q       | Commodities - Energy      | 579.1539 | 0.03%                   | $3.44 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.7914

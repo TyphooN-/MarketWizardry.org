@@ -1,25 +1,28 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Futures-2025.07.21.csv and saving...
-Processing 1 large industries and 5 small industries...
+Processing 1 large industries...
+Aggregating 5 small industries by sector...
+Analyzing AGGREGATED COMMODITIES INDUSTRIES with 16 instruments.
 
-============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 18 total instruments.
+============================== Analysis for: AGGREGATED COMMODITIES INDUSTRIES ==============================
+Contains 16 total instruments.
 
 --- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.3857
-Q3 (75th percentile): 25.6132
-IQR (Interquartile Range): 24.2274
-Lower Outlier Bound: -34.9555
-Upper Outlier Bound: 61.9543
---- Found 4 Total Statistical VaR Outliers ---
+Q1 (25th percentile): 1.5254
+Q3 (75th percentile): 48.8052
+IQR (Interquartile Range): 47.2798
+Lower Outlier Bound: -69.3943
+Upper Outlier Bound: 119.7249
+--- Found 3 Total Statistical VaR Outliers ---
 -----------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------
 HG_U       | Commodities - Precious    | 1007.0958 | 0.04%                   | $5.64 | (HIGH - Statistically Significant)
 NG_Q       | Commodities - Energy      | 567.7771 | 0.12%                   | $3.31 | (HIGH - Statistically Significant)
 NG_U       | Commodities - Energy      | 568.5701 | 0.12%                   | $3.34 | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious    | 117.9549 | 0.03%                   | $39.27 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 1.1077

@@ -1,16 +1,18 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Futures-2025.06.25.csv and saving...
-Processing 1 large industries and 5 small industries...
+Processing 1 large industries...
+Aggregating 5 small industries by sector...
+Analyzing AGGREGATED COMMODITIES INDUSTRIES with 14 instruments.
 
-============================== Analysis for: AGGREGATED SMALL INDUSTRIES ==============================
-Contains 16 total instruments.
+============================== Analysis for: AGGREGATED COMMODITIES INDUSTRIES ==============================
+Contains 14 total instruments.
 
 --- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.1347
-Q3 (75th percentile): 57.2704
-IQR (Interquartile Range): 56.1357
-Lower Outlier Bound: -83.0689
-Upper Outlier Bound: 141.4740
+Q1 (25th percentile): 1.2970
+Q3 (75th percentile): 57.4165
+IQR (Interquartile Range): 56.1195
+Lower Outlier Bound: -82.8823
+Upper Outlier Bound: 141.5958
 --- Found 3 Total Statistical VaR Outliers ---
 -----------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
@@ -19,6 +21,8 @@ HG_U       | Commodities - Precious    | 527.3397 | 0.02%                   | $4
 NG_Q       | Commodities - Energy      | 579.2032 | 0.03%                   | $3.58 | (HIGH - Statistically Significant)
 SI_U       | Commodities - Precious    | 144.8813 | 0.03%                   | $36.59 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.6866

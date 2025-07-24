@@ -4,9 +4,8 @@
 # It processes the files in parallel for efficiency.
 
 # --- Configuration ---
-# Set the maximum number of parallel jobs.
-# Adjust this based on the number of CPU cores you have.
-MAX_JOBS=4
+# Set the maximum number of parallel jobs to the number of CPU cores.
+MAX_JOBS=$(nproc)
 
 # --- Functions ---
 
@@ -16,15 +15,9 @@ process_file() {
 
     echo "Processing $file..."
 
-    # Check if 'VaR_to_Ask_Ratio' column exists
-    if head -n 1 "$file" | grep -q "VaR_to_Ask_Ratio"; then
-        echo "File $file already contains 'VaR_to_Ask_Ratio' column. Skipping."
-        return 0
-    fi
-
-    # Run the Python script for outlier analysis
+    # Run the Python script for outlier analysis with --overwrite flag
     # The output is redirected to a .txt file
-    python3 outlier.py "$file" > "${file%.csv}-outlier.txt"
+    python3 outlier.py "$file" --overwrite > "${file%.csv}-outlier.txt"
     
     echo "Finished processing $file."
 }

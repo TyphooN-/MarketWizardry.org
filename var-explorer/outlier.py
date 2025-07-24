@@ -22,10 +22,16 @@ def get_outlier_note(row, bounds_dict, small_industries_list):
         str: A note indicating the stock's outlier status.
     """
     industry = row['IndustryName']
+    sector = row['SectorName'] # Get the sector for the current row
     ratio = row['VaR_to_Ask_Ratio']
 
     # Determine which group the stock belongs to for bound checking
-    group_name = "AGGREGATED SMALL INDUSTRIES" if industry in small_industries_list else industry
+    if industry in small_industries_list:
+        # If it's a small industry, its group name is its aggregated sector group
+        group_name = f"AGGREGATED {sector.upper()} INDUSTRIES"
+    else:
+        # Otherwise, it's its own industry group
+        group_name = industry
 
     # Check if bounds were successfully calculated for this group
     if group_name in bounds_dict:
@@ -134,16 +140,14 @@ def find_var_outliers(filename):
 
         required_columns = ['Symbol', 'VaR_1_Lot', 'AskPrice', 'BidPrice', 'TradeMode', 'IndustryName', 'SectorName']
         if not all(col in df.columns for col in required_columns):
-            print(f"Error: Required columns missing. Need: {required_columns}")
-            return
+            print(f"Warning: Some required columns are missing. Analysis might be incomplete. Missing: {[col for col in required_columns if col not in df.columns]}")
 
-        df = df[df['SectorName'] != 'Currency'].copy()
-        df = df.dropna(subset=required_columns).copy()
+        if file_type == 'Stocks':
+            df = df[df['SectorName'] != 'Currency'].copy()
 
         for col in ['VaR_1_Lot', 'AskPrice', 'BidPrice', 'TradeMode']:
             df[col] = pd.to_numeric(df[col], errors='coerce')
         
-        df = df.dropna(subset=['VaR_1_Lot', 'AskPrice', 'BidPrice', 'TradeMode']).copy()
         df['TradeMode'] = df['TradeMode'].astype(int)
 
         df['VaR_to_Ask_Ratio'] = df.apply(lambda r: r['VaR_1_Lot'] / r['AskPrice'] if r['AskPrice'] != 0 else np.nan, axis=1)
@@ -156,29 +160,41 @@ def find_var_outliers(filename):
 
         df['Spread'] = df['AskPrice'] - df['BidPrice']
         df['RelativeSpread_%'] = (df['Spread'] / df['AskPrice']) * 100
-        df_cleaned = df.dropna(subset=['VaR_to_Ask_Ratio']).copy()
+        df_for_analysis = df.dropna(subset=['VaR_to_Ask_Ratio']).copy()
 
-        if df_cleaned.empty: return print("No valid data to analyze after cleaning.")
+        if df_for_analysis.empty: return print("No valid data to analyze after cleaning.")
 
-        industry_counts = df_cleaned['IndustryName'].value_counts()
+        industry_counts = df_for_analysis['IndustryName'].value_counts()
         
         large_industries = industry_counts[industry_counts >= MINIMUM_GROUP_SIZE].index.tolist()
         small_industries = industry_counts[industry_counts < MINIMUM_GROUP_SIZE].index.tolist()
 
-        print(f"Processing {len(large_industries)} large industries and {len(small_industries)} small industries...")
+        print(f"Processing {len(large_industries)} large industries...")
 
         industry_bounds = {}
 
         for industry in sorted(large_industries):
-            industry_df = df_cleaned[df_cleaned['IndustryName'] == industry].copy()
+            industry_df = df_for_analysis[df_for_analysis['IndustryName'] == industry].copy()
             analyze_group(industry, industry_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
 
+        # New intelligent aggregation for small industries by sector
         if small_industries:
-            aggregated_df = df_cleaned[df_cleaned['IndustryName'].isin(small_industries)].copy()
-            if len(aggregated_df) >= MINIMUM_GROUP_SIZE:
-                analyze_group("AGGREGATED SMALL INDUSTRIES", aggregated_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
+            small_industries_df = df_for_analysis[df_for_analysis['IndustryName'].isin(small_industries)].copy()
+            sectors_with_small_industries = small_industries_df['SectorName'].unique().tolist()
+            
+            print(f"Aggregating {len(small_industries)} small industries by sector...")
 
-        global_tradable_stocks_with_etfs = df_cleaned[df_cleaned['TradeMode'] != 3].copy()
+            for sector in sorted(sectors_with_small_industries):
+                sector_aggregated_df = small_industries_df[small_industries_df['SectorName'] == sector].copy()
+                
+                if len(sector_aggregated_df) >= MINIMUM_GROUP_SIZE:
+                    aggregated_group_name = f"AGGREGATED {sector.upper()} INDUSTRIES"
+                    print(f"Analyzing {aggregated_group_name} with {len(sector_aggregated_df)} instruments.")
+                    analyze_group(aggregated_group_name, sector_aggregated_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
+                else:
+                    print(f"Skipping aggregation for sector '{sector}': Not enough instruments ({len(sector_aggregated_df)}) to meet MINIMUM_GROUP_SIZE ({MINIMUM_GROUP_SIZE}).")
+
+        global_tradable_stocks_with_etfs = df_for_analysis[df_for_analysis['TradeMode'] != 3].copy()
 
         global_Q1 = global_tradable_stocks_with_etfs['VaR_to_Ask_Ratio'].quantile(0.25)
         global_Q3 = global_tradable_stocks_with_etfs['VaR_to_Ask_Ratio'].quantile(0.75)
@@ -223,7 +239,7 @@ def find_var_outliers(filename):
 
         if file_type == 'Stocks':
             print(f"\n{'='*25} Bottom {STOCKS_TOP} Lowest VaR/Ask Stocks (Excluding ETFs) {'='*25}")
-            non_etf_stocks = df_cleaned[(df_cleaned['TradeMode'] != 3) & (df_cleaned['IndustryName'] != 'Exchange Traded Fund')].copy()
+            non_etf_stocks = df_for_analysis[(df_for_analysis['TradeMode'] != 3) & (df_for_analysis['IndustryName'] != 'Exchange Traded Fund')].copy()
             bottom_30_lowest_var_no_etf = non_etf_stocks.sort_values(by='VaR_to_Ask_Ratio', ascending=True).head(STOCKS_TOP)
             if not bottom_30_lowest_var_no_etf.empty:
                 bottom_30_lowest_var_no_etf['Note'] = bottom_30_lowest_var_no_etf.apply(get_outlier_note, axis=1, args=(industry_bounds, small_industries))
@@ -238,7 +254,7 @@ def find_var_outliers(filename):
                 print("Could not identify any candidates in this category.")
 
         # Report on symbols with TradeMode == 3 (close only)
-        close_only_symbols = df_cleaned[df_cleaned['TradeMode'] == 3]
+        close_only_symbols = df_for_analysis[df_for_analysis['TradeMode'] == 3]
         if not close_only_symbols.empty:
             print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
             for index, row in close_only_symbols.iterrows():
