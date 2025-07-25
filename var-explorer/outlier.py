@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import re
+import argparse
 
 # This constant is used in multiple functions, so it's defined globally.
 MINIMUM_GROUP_SIZE = 5
@@ -109,7 +110,7 @@ def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=
                     print(f"{row['Symbol']:<10} | {row['IndustryName']:<25.25} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['AskPrice']:.2f} | {row['Note']}")
                 print("-" * 125)
 
-def find_var_outliers(filename):
+def find_var_outliers(filename, overwrite=False):
     """
     Main function to load and clean data, then orchestrate a tiered analysis that
     only reports on groups where significant outliers are found.
@@ -127,7 +128,7 @@ def find_var_outliers(filename):
             file_type = "Futures"
             TOP_N_DISPLAY = FUTURES_TOP
         
-        print(f"Detected file type: {file_type}. Displaying top/bottom {TOP_N_DISPLAY} assets.")
+        print(f"Detected file type: {file_type}. Displaying top/bottom {TOP_N_DISPLAY} assets at end.")
 
         df = pd.read_csv(filename, delimiter=';', encoding='latin1')
 
@@ -150,13 +151,12 @@ def find_var_outliers(filename):
         
         df['TradeMode'] = df['TradeMode'].astype(int)
 
-        df['VaR_to_Ask_Ratio'] = df.apply(lambda r: r['VaR_1_Lot'] / r['AskPrice'] if r['AskPrice'] != 0 else np.nan, axis=1)
-        
-        print(f"Adding 'VaR/Ask Ratio' to {filename} and saving...")
-        try:
-            df.to_csv(filename, sep=';', index=False, encoding='latin1')
-        except Exception as e:
-            print(f"Error saving updated CSV {filename}: {e}")
+        if 'VaR_to_Ask_Ratio' not in df.columns or overwrite:
+            df['VaR_to_Ask_Ratio'] = df.apply(lambda r: r['VaR_1_Lot'] / r['AskPrice'] if r['AskPrice'] != 0 else np.nan, axis=1)
+            try:
+                df.to_csv(filename, sep=';', index=False, encoding='latin1')
+            except Exception as e:
+                print(f"Error saving updated CSV {filename}: {e}")
 
         df['Spread'] = df['AskPrice'] - df['BidPrice']
         df['RelativeSpread_%'] = (df['Spread'] / df['AskPrice']) * 100
@@ -169,8 +169,6 @@ def find_var_outliers(filename):
         large_industries = industry_counts[industry_counts >= MINIMUM_GROUP_SIZE].index.tolist()
         small_industries = industry_counts[industry_counts < MINIMUM_GROUP_SIZE].index.tolist()
 
-        
-
         industry_bounds = {}
 
         for industry in sorted(large_industries):
@@ -182,15 +180,14 @@ def find_var_outliers(filename):
             small_industries_df = df_for_analysis[df_for_analysis['IndustryName'].isin(small_industries)].copy()
             sectors_with_small_industries = small_industries_df['SectorName'].unique().tolist()
             
-            
-
             for sector in sorted(sectors_with_small_industries):
                 sector_aggregated_df = small_industries_df[small_industries_df['SectorName'] == sector].copy()
                 
                 if len(sector_aggregated_df) >= MINIMUM_GROUP_SIZE:
                     aggregated_group_name = f"AGGREGATED {sector.upper()} INDUSTRIES"
                     analyze_group(aggregated_group_name, sector_aggregated_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
-                
+                else:
+                    print(f"Skipping aggregation for sector '{sector}': Not enough instruments ({len(sector_aggregated_df)}) to meet MINIMUM_GROUP_SIZE ({MINIMUM_GROUP_SIZE}).")
 
         global_tradable_stocks_with_etfs = df_for_analysis[df_for_analysis['TradeMode'] != 3].copy()
 
@@ -263,11 +260,11 @@ def find_var_outliers(filename):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-import sys
-
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        csv_filename = sys.argv[1]
-        find_var_outliers(csv_filename)
-    else:
-        print("Usage: python outlier.py <csv_filename>")
+    parser = argparse.ArgumentParser(description='Find VaR outliers in a given CSV file.')
+    parser.add_argument('filename', type=str, help='The path to the CSV file to analyze.')
+    parser.add_argument('--overwrite', action='store_true', help='Force recalculation and overwrite of the VaR/Ask Ratio column.')
+    
+    args = parser.parse_args()
+    
+    find_var_outliers(args.filename, args.overwrite)
