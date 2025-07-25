@@ -1,28 +1,26 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Futures-2025.06.25.csv and saving...
-Processing 1 large industries...
-Aggregating 5 small industries by sector...
-Analyzing AGGREGATED COMMODITIES INDUSTRIES with 14 instruments.
+Processing 2 large industries...
 
-============================== Analysis for: AGGREGATED COMMODITIES INDUSTRIES ==============================
-Contains 14 total instruments.
+============================== Analysis for: COMMODITIES - AGRICULTURAL ==============================
+Contains 7 total instruments.
 
 --- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.2970
-Q3 (75th percentile): 57.4165
-IQR (Interquartile Range): 56.1195
-Lower Outlier Bound: -82.8823
-Upper Outlier Bound: 141.5958
---- Found 3 Total Statistical VaR Outliers ---
+Q1 (25th percentile): 0.8223
+Q3 (75th percentile): 4.6368
+IQR (Interquartile Range): 3.8145
+Lower Outlier Bound: -4.8995
+Upper Outlier Bound: 10.3586
+--- Found 1 Total Statistical VaR Outliers ---
 -----------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------
-HG_U       | Commodities - Precious    | 527.3397 | 0.02%                   | $4.97 | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy      | 579.2032 | 0.03%                   | $3.58 | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious    | 144.8813 | 0.03%                   | $36.59 | (HIGH - Statistically Significant)
+ZL_Q       | Commodities - Agricultura | 27.8073 | 0.10%                   | $52.06 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
-Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
-Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
+Aggregating 4 small industries by sector...
+Analyzing AGGREGATED COMMODITIES INDUSTRIES with 7 instruments.
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.6866
@@ -37,9 +35,9 @@ Symbol     | Industry                                 | VaR/Ask Ratio   | Spread
 -----------------------------------------------------------------------------------------------------------------------------
 HO_Q       | Undefined                                | 2253.5245 | 0.03%                   | $2.26 | (Low VaR/Ask)
 RB_Q       | Undefined                                | 1703.2830 | 0.03%                   | $2.07 | (Low VaR/Ask)
-NG_Q       | Commodities - Energy                     | 579.2032 | 0.03%                   | $3.58 | (HIGH - Statistically Significant)
-HG_U       | Commodities - Precious                   | 527.3397 | 0.02%                   | $4.97 | (HIGH - Statistically Significant)
-SI_U       | Commodities - Precious                   | 144.8813 | 0.03%                   | $36.59 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy                     | 579.2032 | 0.03%                   | $3.58 | (Low VaR/Ask)
+HG_U       | Commodities - Precious                   | 527.3397 | 0.02%                   | $4.97 | (Low VaR/Ask)
+SI_U       | Commodities - Precious                   | 144.8813 | 0.03%                   | $36.59 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
 
 ========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================

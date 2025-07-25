@@ -1,9 +1,25 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Futures-2025.05.30.csv and saving...
-Processing 0 large industries...
-Aggregating 4 small industries by sector...
-Skipping aggregation for sector 'Commodities': Not enough instruments (3) to meet MINIMUM_GROUP_SIZE (10).
-Skipping aggregation for sector 'Indexes': Not enough instruments (7) to meet MINIMUM_GROUP_SIZE (10).
+Processing 1 large industries...
+
+============================== Analysis for: UNDEFINED ==============================
+Contains 7 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 0.2733
+Q3 (75th percentile): 1.9889
+IQR (Interquartile Range): 1.7156
+Lower Outlier Bound: -2.3001
+Upper Outlier Bound: 4.5624
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+FGBL_M     | Undefined                 | 7.0389 | 0.02%                   | $131.26 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Aggregating 3 small industries by sector...
+Skipping aggregation for sector 'Commodities': Not enough instruments (2) to meet MINIMUM_GROUP_SIZE (5).
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.3934
@@ -16,7 +32,7 @@ Upper Outlier Bound: 5.5823
 -----------------------------------------------------------------------------------------------------------------------------
 Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
 -----------------------------------------------------------------------------------------------------------------------------
-FGBL_M     | Undefined                                | 7.0389 | 0.02%                   | $131.26 | (Low VaR/Ask)
+FGBL_M     | Undefined                                | 7.0389 | 0.02%                   | $131.26 | (HIGH - Statistically Significant)
 LE_M       | Commodities - Agricultural               | 4.7403 | 0.01%                   | $215.53 | (Low VaR/Ask)
 GC_Q       | Undefined                                | 2.8253 | 0.00%                   | $3342.40 | (Low VaR/Ask)
 PL_N       | Commodities - Precious                   | 1.3998 | 0.02%                   | $1081.40 | (Low VaR/Ask)

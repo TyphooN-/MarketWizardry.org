@@ -3,7 +3,7 @@ import numpy as np
 import re
 
 # This constant is used in multiple functions, so it's defined globally.
-MINIMUM_GROUP_SIZE = 10
+MINIMUM_GROUP_SIZE = 5
 STOCKS_TOP = 30 # User-defined variable for top/bottom N display for Stocks
 CFD_TOP = 40    # User-defined variable for top/bottom N display for CFDs
 FUTURES_TOP = 5 # User-defined variable for top/bottom N display for Futures

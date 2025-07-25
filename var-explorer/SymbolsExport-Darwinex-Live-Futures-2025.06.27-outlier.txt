@@ -1,6 +1,22 @@
 Detected file type: Futures. Displaying top/bottom 5 assets.
 Adding 'VaR/Ask Ratio' to ./SymbolsExport-Darwinex-Live-Futures-2025.06.27.csv and saving...
-Processing 1 large industries...
+Processing 2 large industries...
+
+============================== Analysis for: COMMODITIES - AGRICULTURAL ==============================
+Contains 5 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 1.3948
+Q3 (75th percentile): 7.6383
+IQR (Interquartile Range): 6.2435
+Lower Outlier Bound: -7.9703
+Upper Outlier Bound: 17.0035
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+ZL_Q       | Commodities - Agricultura | 27.5367 | 0.04%                   | $52.43 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ============================== Analysis for: UNDEFINED ==============================
 Contains 11 total instruments.
@@ -18,27 +34,10 @@ Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | 
 HO_Q       | Undefined                 | 2235.4491 | 0.02%                   | $2.23 | (HIGH - Statistically Significant)
 RB_Q       | Undefined                 | 1696.3946 | 0.03%                   | $2.06 | (HIGH - Statistically Significant)
 -----------------------------------------------------------------------------------------------------------------------------
-Aggregating 5 small industries by sector...
-Analyzing AGGREGATED COMMODITIES INDUSTRIES with 11 instruments.
-
-============================== Analysis for: AGGREGATED COMMODITIES INDUSTRIES ==============================
-Contains 11 total instruments.
-
---- VaR Ratio Statistics ---
-Q1 (25th percentile): 1.9515
-Q3 (75th percentile): 100.0030
-IQR (Interquartile Range): 98.0515
-Lower Outlier Bound: -145.1257
-Upper Outlier Bound: 247.0803
---- Found 2 Total Statistical VaR Outliers ---
------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
------------------------------------------------------------------------------------------------------------------------------
-HG_U       | Commodities - Precious    | 547.0071 | 0.02%                   | $5.12 | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy      | 547.7476 | 0.03%                   | $3.75 | (HIGH - Statistically Significant)
------------------------------------------------------------------------------------------------------------------------------
-Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
-Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (10).
+Aggregating 4 small industries by sector...
+Analyzing AGGREGATED COMMODITIES INDUSTRIES with 6 instruments.
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
 
 ========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
 Q1 (25th percentile): 0.7300
@@ -53,8 +52,8 @@ Symbol     | Industry                                 | VaR/Ask Ratio   | Spread
 -----------------------------------------------------------------------------------------------------------------------------
 HO_Q       | Undefined                                | 2235.4491 | 0.02%                   | $2.23 | (HIGH - Statistically Significant)
 RB_Q       | Undefined                                | 1696.3946 | 0.03%                   | $2.06 | (HIGH - Statistically Significant)
-NG_Q       | Commodities - Energy                     | 547.7476 | 0.03%                   | $3.75 | (HIGH - Statistically Significant)
-HG_U       | Commodities - Precious                   | 547.0071 | 0.02%                   | $5.12 | (HIGH - Statistically Significant)
+NG_Q       | Commodities - Energy                     | 547.7476 | 0.03%                   | $3.75 | (Low VaR/Ask)
+HG_U       | Commodities - Precious                   | 547.0071 | 0.02%                   | $5.12 | (Low VaR/Ask)
 SI_U       | Commodities - Precious                   | 143.0942 | 0.03%                   | $36.17 | (Low VaR/Ask)
 -----------------------------------------------------------------------------------------------------------------------------
 
