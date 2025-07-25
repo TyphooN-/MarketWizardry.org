@@ -18,7 +18,10 @@ if os.path.exists(outlier_script_path):
     
     # Run the outlier analysis script
     print(f"Running outlier analysis script: {outlier_script_path}")
-    os.system(f"bash {outlier_script_path}")
+    original_cwd = os.getcwd()
+    os.chdir(directory) # Change to the directory where the script expects to find files
+    os.system(f"bash {os.path.basename(outlier_script_path)}") # Execute the script by its name
+    os.chdir(original_cwd) # Change back to the original working directory
     print("Outlier analysis script finished.")
 else:
     print(f"Warning: Outlier script not found at {outlier_script_path}")
