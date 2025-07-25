@@ -169,7 +169,7 @@ def find_var_outliers(filename):
         large_industries = industry_counts[industry_counts >= MINIMUM_GROUP_SIZE].index.tolist()
         small_industries = industry_counts[industry_counts < MINIMUM_GROUP_SIZE].index.tolist()
 
-        print(f"Processing {len(large_industries)} large industries...")
+        
 
         industry_bounds = {}
 
@@ -182,17 +182,15 @@ def find_var_outliers(filename):
             small_industries_df = df_for_analysis[df_for_analysis['IndustryName'].isin(small_industries)].copy()
             sectors_with_small_industries = small_industries_df['SectorName'].unique().tolist()
             
-            print(f"Aggregating {len(small_industries)} small industries by sector...")
+            
 
             for sector in sorted(sectors_with_small_industries):
                 sector_aggregated_df = small_industries_df[small_industries_df['SectorName'] == sector].copy()
                 
                 if len(sector_aggregated_df) >= MINIMUM_GROUP_SIZE:
                     aggregated_group_name = f"AGGREGATED {sector.upper()} INDUSTRIES"
-                    print(f"Analyzing {aggregated_group_name} with {len(sector_aggregated_df)} instruments.")
                     analyze_group(aggregated_group_name, sector_aggregated_df, bounds_dict=industry_bounds, small_industries_list=small_industries)
-                else:
-                    print(f"Skipping aggregation for sector '{sector}': Not enough instruments ({len(sector_aggregated_df)}) to meet MINIMUM_GROUP_SIZE ({MINIMUM_GROUP_SIZE}).")
+                
 
         global_tradable_stocks_with_etfs = df_for_analysis[df_for_analysis['TradeMode'] != 3].copy()
 
