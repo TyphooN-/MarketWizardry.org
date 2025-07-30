@@ -82,33 +82,49 @@ def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=
 
         # --- Only print a report if outliers were actually found ---
         if not all_outliers.empty:
-            print(f"\n{'='*30} Analysis for: {group_name.upper()} {'='*30}")
-            
-            print(f"Contains {len(group_df)} total instruments.")
+            print_dataframe(all_outliers, bounds_dict, small_industries_list, f"Analysis for: {group_name.upper()}")
 
-            print(f"\n--- VaR Ratio Statistics ---")
-            print(f"Q1 (25th percentile): {Q1:.4f}")
-            print(f"Q3 (75th percentile): {Q3:.4f}")
-            print(f"IQR (Interquartile Range): {IQR:.4f}")
-            print(f"Lower Outlier Bound: {lower_bound:.4f}")
-            print(f"Upper Outlier Bound: {upper_bound:.4f}")
 
-            print(f"--- Found {len(all_outliers)} Total Statistical VaR Outliers ---")
-            
-            # Print details of each outlier
-            if not all_outliers.empty:
-                all_outliers['Note'] = all_outliers.apply(
-                    get_outlier_note,
-                    axis=1,
-                    args=(bounds_dict, small_industries_list)
-                )
-                print("-" * 125)
-                print(f"{'Symbol':<10} | {'Industry':<25} | {'VaR/Ask Ratio':<15} | {'Spread':<18} | {'AskPrice':<12} | {'Note'}")
-                print("-" * 125)
-                for index, row in all_outliers.iterrows():
-                    spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                    print(f"{row['Symbol']:<10} | {row['IndustryName']:<25.25} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['AskPrice']:.2f} | {row['Note']}")
-                print("-" * 125)
+def print_dataframe(df, bounds_dict, small_industries_list, table_title):
+    """Helper function to print DataFrame contents with aligned columns."""
+    print(f"\n{'='*25} {table_title} {'='*25}")
+    
+    # Define headers and their respective widths
+    headers = {
+        'Symbol': 10,
+        'Industry': 40,
+        'VaR/Ask Ratio': 15,
+        'Spread': 22,  # Increased width to accommodate high spread warning
+        'AskPrice': 12,
+        'Note': 0  # Note will take remaining space
+    }
+
+    # Create header string
+    header_line = " | ".join([f"{h:<{w}}" for h, w in headers.items() if w > 0]) + " | Note"
+    print("-" * (sum(headers.values()) + len(headers) * 3))
+    print(header_line)
+    print("-" * (sum(headers.values()) + len(headers) * 3))
+
+    # Apply the get_outlier_note function to get the 'Note' for each row
+    df['Note'] = df.apply(get_outlier_note, axis=1, args=(bounds_dict, small_industries_list))
+
+    for _, row in df.iterrows():
+        spread_warning = " (High Spread!)" if row.get('RelativeSpread_%', 0) > 1.0 else ""
+        
+        # Prepare strings for each column, ensuring they are formatted and aligned
+        symbol_str = f"{row['Symbol']:<{headers['Symbol']}}"
+        industry_str = f"{row['IndustryName']:<{headers['Industry']}.{headers['Industry']}}"
+        var_ratio_str = f"{row['VaR_to_Ask_Ratio']:.4f}"
+        var_ratio_str = f"{var_ratio_str:<{headers['VaR/Ask Ratio']}}"
+        spread_str = f"{row.get('RelativeSpread_%', 0):.2f}%{spread_warning}"
+        spread_str = f"{spread_str:<{headers['Spread']}}"
+        ask_price_str = f"${row['AskPrice']:.2f}"
+        ask_price_str = f"{ask_price_str:<{headers['AskPrice']}}"
+
+        # Join all parts and print
+        print(f"{symbol_str} | {industry_str} | {var_ratio_str} | {spread_str} | {ask_price_str} | {row['Note']}")
+
+    print("-" * (sum(headers.values()) + len(headers) * 3))
 
 def find_var_outliers(filename, overwrite=False):
     """
@@ -204,47 +220,23 @@ def find_var_outliers(filename, overwrite=False):
         print(f"Lower Outlier Bound: {global_lower_bound:.4f}")
         print(f"Upper Outlier Bound: {global_upper_bound:.4f}")
 
-        print(f"\n{'='*25} Top {TOP_N_DISPLAY} Highest VaR/Ask Assets (Including ETFs) {'='*25}")
         top_n_highest_var = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=False).head(TOP_N_DISPLAY)
         if not top_n_highest_var.empty:
-            top_n_highest_var['Note'] = top_n_highest_var.apply(get_outlier_note, axis=1, args=(industry_bounds, small_industries))
-            print("-" * 125)
-            print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Spread':<18} | {'AskPrice':<12} | {'Note'}")
-            print("-" * 125)
-            for index, row in top_n_highest_var.iterrows():
-                spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['AskPrice']:.2f} | {row['Note']}")
-            print("-" * 125)
+            print_dataframe(top_n_highest_var, industry_bounds, small_industries, f"Top {TOP_N_DISPLAY} Highest VaR/Ask Assets (Including ETFs)")
         else:
             print("Could not identify any candidates in this category.")
 
-        print(f"\n{'='*25} Bottom {TOP_N_DISPLAY} Lowest VaR/Ask Assets (Including ETFs) {'='*25}")
         bottom_n_lowest_var = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=True).head(TOP_N_DISPLAY)
         if not bottom_n_lowest_var.empty:
-            bottom_n_lowest_var['Note'] = bottom_n_lowest_var.apply(get_outlier_note, axis=1, args=(industry_bounds, small_industries))
-            print("-" * 125)
-            print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Spread':<18} | {'AskPrice':<12} | {'Note'}")
-            print("-" * 125)
-            for index, row in bottom_n_lowest_var.iterrows():
-                spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['AskPrice']:.2f} | {row['Note']}")
-            print("-" * 125)
+            print_dataframe(bottom_n_lowest_var, industry_bounds, small_industries, f"Bottom {TOP_N_DISPLAY} Lowest VaR/Ask Assets (Including ETFs)")
         else:
             print("Could not identify any candidates in this category.")
 
         if file_type == 'Stocks':
-            print(f"\n{'='*25} Bottom {STOCKS_TOP} Lowest VaR/Ask Stocks (Excluding ETFs) {'='*25}")
             non_etf_stocks = df_for_analysis[(df_for_analysis['TradeMode'] != 3) & (df_for_analysis['IndustryName'] != 'Exchange Traded Fund')].copy()
             bottom_30_lowest_var_no_etf = non_etf_stocks.sort_values(by='VaR_to_Ask_Ratio', ascending=True).head(STOCKS_TOP)
             if not bottom_30_lowest_var_no_etf.empty:
-                bottom_30_lowest_var_no_etf['Note'] = bottom_30_lowest_var_no_etf.apply(get_outlier_note, axis=1, args=(industry_bounds, small_industries))
-                print("-" * 125)
-                print(f"{'Symbol':<10} | {'Industry':<40} | {'VaR/Ask Ratio':<15} | {'Spread':<18} | {'AskPrice':<12} | {'Note'}")
-                print("-" * 125)
-                for index, row in bottom_30_lowest_var_no_etf.iterrows():
-                    spread_warning = " (High Spread!)" if row['RelativeSpread_%'] > 1.0 else ""
-                    print(f"{row['Symbol']:<10} | {row['IndustryName']:<40.40} | {row['VaR_to_Ask_Ratio']:.4f} | {row['RelativeSpread_%']:.2f}%{spread_warning:<18} | ${row['AskPrice']:.2f} | {row['Note']}")
-                print("-" * 125)
+                print_dataframe(bottom_30_lowest_var_no_etf, industry_bounds, small_industries, f"Bottom {STOCKS_TOP} Lowest VaR/Ask Stocks (Excluding ETFs)")
             else:
                 print("Could not identify any candidates in this category.")
 
