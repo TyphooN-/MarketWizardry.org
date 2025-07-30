@@ -1,0 +1,68 @@
+Detected file type: Futures. Displaying top/bottom 5 assets at end.
+
+============================== Analysis for: UNDEFINED ==============================
+Contains 21 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 1.4127
+Q3 (75th percentile): 804.1380
+IQR (Interquartile Range): 802.7252
+Lower Outlier Bound: -1202.6751
+Upper Outlier Bound: 2008.2258
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+6J_U       | Undefined                 | 114133.3052 | 0.00%                   | $0.01 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+
+============================== Analysis for: AGGREGATED COMMODITIES INDUSTRIES ==============================
+Contains 7 total instruments.
+
+--- VaR Ratio Statistics ---
+Q1 (25th percentile): 24.1924
+Q3 (75th percentile): 297.0107
+IQR (Interquartile Range): 272.8183
+Lower Outlier Bound: -385.0350
+Upper Outlier Bound: 706.2381
+--- Found 1 Total Statistical VaR Outliers ---
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                  | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+HG_U       | Commodities - Precious    | 1070.0278 | 0.02%                   | $5.67 | (HIGH - Statistically Significant)
+-----------------------------------------------------------------------------------------------------------------------------
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
+
+========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
+Q1 (25th percentile): 1.2842
+Q3 (75th percentile): 740.9285
+IQR (Interquartile Range): 739.6443
+Lower Outlier Bound: -1108.1823
+Upper Outlier Bound: 1850.3951
+
+========================= Top 5 Highest VaR/Ask Assets (Including ETFs) =========================
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+6J_U       | Undefined                                | 114133.3052 | 0.00%                   | $0.01 | (HIGH - Statistically Significant)
+HO_U       | Undefined                                | 1290.7554 | 0.06%                   | $2.45 | (Low VaR/Ask)
+HG_U       | Commodities - Precious                   | 1070.0278 | 0.02%                   | $5.67 | (HIGH - Statistically Significant)
+6S_U       | Undefined                                | 903.8609 | 0.00%                   | $1.25 | (Low VaR/Ask)
+6E_U       | Undefined                                | 895.3550 | 0.00%                   | $1.16 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------
+
+========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================
+-----------------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread             | AskPrice     | Note
+-----------------------------------------------------------------------------------------------------------------------------
+YM_U       | Undefined                                | 0.0478 | 0.00%                   | $44768.00 | (Low VaR/Ask)
+FESX_U     | Undefined                                | 0.1581 | 0.02%                   | $5396.00 | (Low VaR/Ask)
+NQ_U       | Undefined                                | 0.1688 | 0.00%                   | $23457.25 | (Low VaR/Ask)
+ES_U       | Utilities - Regulated Electric           | 0.3455 | 0.00%                   | $6403.75 | (Low VaR/Ask)
+FDAX_U     | Undefined                                | 0.3929 | 0.01%                   | $24298.00 | (Low VaR/Ask)
+-----------------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+- BZ_U (Commodities - Energy)
+- LE_Q (Commodities - Agricultural)
