@@ -19,10 +19,12 @@ for filename in os.listdir(directory):
         # Extract date from file name, assuming a format like '...-YYYY.MM.DD-...'
         try:
             date_part = filename.split('-')[4]
+            csv_filename = filename.replace("-ev_outlier.txt", ".csv").replace("-ev_var_outlier.txt", ".csv")
+
         except IndexError:
             continue
         
-        files.append((filename, date_part))
+        files.append((filename, date_part, csv_filename))
 
 # Sort files by the extracted dates for display order
 files.sort(key=lambda x: x[1], reverse=True)
@@ -191,7 +193,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="grid">"""
 
 # Add each file as an entry in the HTML
-for filename, date_str in files:
+for filename, date_str, csv_filename in files:
     file_type = ""
     if "ev_var_outlier" in filename:
         file_type = "EV VaR Outlier"
@@ -203,7 +205,7 @@ for filename, date_str in files:
 
     file_entry = f'''
             <div class="file-entry">
-                <a href="#" data-outlier-file="{filename}">
+                <a href="#" data-outlier-file="{filename}" data-csv-file="{csv_filename}">
                     {link_text}
                 </a>
             </div>'''
@@ -221,6 +223,7 @@ html_content += """
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
                 <a id="downloadOutlierLink" href="#" download>Download Report</a>
+                <a id="downloadCsvLink" href="#" download>Download Original CSV</a>
                 <span class="close-button">&times;</span>
             </div>
             <pre id="outlierContent" class="modal-body"></pre>
@@ -233,18 +236,23 @@ html_content += """
         const modalTitle = document.getElementById("modalTitle");
         const outlierContent = document.getElementById("outlierContent");
         const downloadOutlierLink = document.getElementById("downloadOutlierLink");
+        const downloadCsvLink = document.getElementById("downloadCsvLink");
         const fileEntryLinks = document.querySelectorAll(".file-entry a");
         let currentIndex = 0;
 
         function openModalAtIndex(index) {
             const link = fileEntryLinks[index];
             const outlierFileName = link.dataset.outlierFile;
+            const csvFileName = link.dataset.csvFile;
             const outlierUrl = 'ev-explorer/' + outlierFileName;
+            const csvUrl = 'ev-explorer/' + csvFileName;
             const fileName = link.textContent.trim();
 
             modalTitle.textContent = "EV Report for " + fileName;
             downloadOutlierLink.href = outlierUrl;
             downloadOutlierLink.download = outlierFileName;
+            downloadCsvLink.href = csvUrl;
+            downloadCsvLink.download = csvFileName;
 
             fetch(outlierUrl)
                 .then(response => {

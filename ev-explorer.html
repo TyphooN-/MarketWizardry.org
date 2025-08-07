@@ -160,42 +160,42 @@
         <h1>EV Explorer</h1>
         <div class="grid">
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-06 (EV VaR Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-06 (EV Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-05 (EV Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_var_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-05 (EV VaR Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-04 (EV Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_var_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-04 (EV VaR Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_var_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-01 (EV VaR Outlier)
                 </a>
             </div>
             <div class="file-entry">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_outlier.txt">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV.csv">
                     Darwinex-Live (Stocks) - 2025-08-01 (EV Outlier)
                 </a>
             </div>
@@ -209,6 +209,7 @@
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
                 <a id="downloadOutlierLink" href="#" download>Download Report</a>
+                <a id="downloadCsvLink" href="#" download>Download Original CSV</a>
                 <span class="close-button">&times;</span>
             </div>
             <pre id="outlierContent" class="modal-body"></pre>
@@ -221,18 +222,23 @@
         const modalTitle = document.getElementById("modalTitle");
         const outlierContent = document.getElementById("outlierContent");
         const downloadOutlierLink = document.getElementById("downloadOutlierLink");
+        const downloadCsvLink = document.getElementById("downloadCsvLink");
         const fileEntryLinks = document.querySelectorAll(".file-entry a");
         let currentIndex = 0;
 
         function openModalAtIndex(index) {
             const link = fileEntryLinks[index];
             const outlierFileName = link.dataset.outlierFile;
+            const csvFileName = link.dataset.csvFile;
             const outlierUrl = 'ev-explorer/' + outlierFileName;
+            const csvUrl = 'ev-explorer/' + csvFileName;
             const fileName = link.textContent.trim();
 
             modalTitle.textContent = "EV Report for " + fileName;
             downloadOutlierLink.href = outlierUrl;
             downloadOutlierLink.download = outlierFileName;
+            downloadCsvLink.href = csvUrl;
+            downloadCsvLink.download = csvFileName;
 
             fetch(outlierUrl)
                 .then(response => {
