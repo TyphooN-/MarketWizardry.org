@@ -153,8 +153,7 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         .modal-body {{
-            white-space: pre-wrap; /* Preserve whitespace and wrap text */
-            word-wrap: break-word; /* Break long words */
+            white-space: pre; /* Preserve whitespace and do not wrap text */
             max-height: 70vh; /* Limit height and enable scrolling */
             overflow-y: auto;
             color: #00ff00;
