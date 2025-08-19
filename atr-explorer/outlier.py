@@ -95,15 +95,14 @@ def analyze_group(group_name, group_df, column_name):
 
     outliers, q1, q3, iqr, lower_bound, upper_bound = find_outliers_iqr(group_df, column_name)
 
-    print(f"\n{'='*25} IQR Statistics for {column_name} in {group_name} {'='*25}")
-    print(f"Q1 (25th percentile): {q1:.4f}")
-    print(f"Q3 (75th percentile): {q3:.4f}")
-    print(f"IQR (Interquartile Range): {iqr:.4f}")
-    if lower_bound is not None and upper_bound is not None:
-        print(f"Lower Outlier Bound: {lower_bound:.4f}")
-        print(f"Upper Outlier Bound: {upper_bound:.4f}")
-
     if not outliers.empty:
+        print(f"\n{'='*25} IQR Statistics for {column_name} in {group_name} {'='*25}")
+        print(f"Q1 (25th percentile): {q1:.4f}")
+        print(f"Q3 (75th percentile): {q3:.4f}")
+        print(f"IQR (Interquartile Range): {iqr:.4f}")
+        if lower_bound is not None and upper_bound is not None:
+            print(f"Lower Outlier Bound: {lower_bound:.4f}")
+            print(f"Upper Outlier Bound: {upper_bound:.4f}")
         print_outliers(outliers, column_name, group_name)
 
 def find_atr_outliers(filename):
