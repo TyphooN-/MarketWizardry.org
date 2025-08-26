@@ -1,5 +1,6 @@
 import os
 import stat
+import re
 
 # Define the directory containing CSV files and output HTML file path
 directory = './atr-explorer/'
@@ -27,20 +28,16 @@ else:
     print(f"Warning: Outlier script not found at {outlier_script_path}")
 
 # Pattern for matching file names (e.g., start with "SymbolsExport-Darwinex-Live")
-pattern_start = "SymbolsExport-Darwinex-Live"
+pattern = re.compile(r"SymbolsExport-Darwinex-Live-(CFD|Stocks|Futures)-(\d{4}\.\d{2}\.\d{2})\.csv")
 
 # Collect all .csv files in the directory that match the naming pattern
 files = []
 for filename in os.listdir(directory):
-    if filename.endswith(".csv") and filename.startswith(pattern_start):
-        # Extract date from file name assuming format 'SymbolsExport-...YYYY.MM.DD.csv'
-        parts = filename.split('-')
-        try:
-            date_part = '-'.join(parts[-1].split('.')[:3])  # Join YYYY, MM, DD
-        except IndexError:
-            continue
-        
-        files.append((filename, date_part))
+    match = pattern.match(filename)
+    if match:
+        file_type = match.group(1)
+        date_part = match.group(2)
+        files.append((filename, date_part, file_type))
 
 # Sort files by the extracted dates for display order
 files.sort(key=lambda x: x[1], reverse=True)
@@ -208,7 +205,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="grid">"""
 
 # Add each file as an entry in the HTML
-for filename, date_str in files:
+for filename, date_str, file_type in files:
     file_type = ""
     if "Stocks" in filename:
         file_type = "Stocks"

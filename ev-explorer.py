@@ -1,5 +1,5 @@
 import os
-import stat
+import re
 
 # Define the directory containing CSV files and output HTML file path
 directory = './ev-explorer/'
@@ -9,22 +9,17 @@ output_html_file = 'ev-explorer.html'
 # Note: The outlier script execution part is removed as per user request.
 
 # Pattern for matching file names
-pattern_outlier = "-ev_outlier.txt"
-pattern_var_outlier = "-ev_var_outlier.txt"
+pattern = re.compile(r"SymbolsExport-Darwinex-Live-Stocks-(\d{4}\.\d{2}\.\d{2})-EV-(ev_outlier|ev_var_outlier)\.txt")
 
 # Collect all .txt files in the directory that match the naming patterns
 files = []
 for filename in os.listdir(directory):
-    if filename.endswith(pattern_outlier) or filename.endswith(pattern_var_outlier):
-        # Extract date from file name, assuming a format like '...-YYYY.MM.DD-...'
-        try:
-            date_part = filename.split('-')[4]
-            csv_filename = filename.replace("-ev_outlier.txt", ".csv").replace("-ev_var_outlier.txt", ".csv")
-
-        except IndexError:
-            continue
-        
-        files.append((filename, date_part, csv_filename))
+    match = pattern.match(filename)
+    if match:
+        date_part = match.group(1)
+        report_type = match.group(2)
+        csv_filename = f"SymbolsExport-Darwinex-Live-Stocks-{date_part}-EV.csv"
+        files.append((filename, date_part, csv_filename, report_type))
 
 # Sort files by the extracted dates for display order
 files.sort(key=lambda x: x[1], reverse=True)
@@ -192,11 +187,11 @@ html_content = f"""<!DOCTYPE html>
         <div class="grid">"""
 
 # Add each file as an entry in the HTML
-for filename, date_str, csv_filename in files:
+for filename, date_str, csv_filename, report_type in files:
     file_type = ""
-    if "ev_var_outlier" in filename:
+    if report_type == "ev_var_outlier":
         file_type = "EV VaR Outlier"
-    elif "ev_outlier" in filename:
+    elif report_type == "ev_outlier":
         file_type = "EV Outlier"
 
     formatted_date = date_str.replace('.', '-')
