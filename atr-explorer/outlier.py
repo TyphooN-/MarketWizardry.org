@@ -160,6 +160,13 @@ def find_atr_outliers(filename):
 
         df.to_csv(filename, sep=';', index=False, encoding='latin1')
 
+        # Report on symbols with TradeMode == 3 (close only)
+        close_only_symbols = df[df['TradeMode'] == 3]
+        if not close_only_symbols.empty:
+            print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
+            for index, row in close_only_symbols.iterrows():
+                print(f"- {row['Symbol']} ({row['IndustryName']})")
+
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
     except Exception as e:
