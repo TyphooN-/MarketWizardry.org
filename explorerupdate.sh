@@ -18,7 +18,8 @@ python3 var-explorer.py
 echo "Updating EV Explorer..."
 cp "var-explorer/SymbolsExport-Darwinex-Live-Stocks-$DATE.csv" ev-explorer/
 (cd ev-explorer && python3 evscrape.py "SymbolsExport-Darwinex-Live-Stocks-$DATE.csv")
-(cd ev-explorer && python3 outlier.py "SymbolsExport-Darwinex-Live-Stocks-$DATE-EV.csv" > "SymbolsExport-Darwinex-Live-Stocks-$DATE-EV-ev_outlier.txt")
+(cd ev-explorer && python3 ev_outlier.py "SymbolsExport-Darwinex-Live-Stocks-$DATE-EV.csv")
+(cd ev-explorer && python3 ev_var_outlier.py "SymbolsExport-Darwinex-Live-Stocks-$DATE-EV.csv")
 python3 ev-explorer.py
 
 # --- ATR Explorer ---
