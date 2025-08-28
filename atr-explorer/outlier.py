@@ -133,22 +133,28 @@ def find_atr_outliers(filename):
             df[ratio_col_name] = pd.to_numeric(df[col], errors='coerce') / df['AskPrice']
             ratio_columns.append(ratio_col_name)
 
+        # Report on symbols with TradeMode == 3 (close only)
+        close_only_symbols = df[df['TradeMode'] == 3]
+        
+        # Exclude close-only symbols from the analysis
+        df_for_analysis = df[df['TradeMode'] != 3].copy()
+
         for col in ratio_columns:
             # Global analysis
-            analyze_group(f"Global ({file_type})", df, col)
+            analyze_group(f"Global ({file_type})", df_for_analysis, col)
 
             # Industry-level analysis
-            industry_counts = df['IndustryName'].value_counts()
+            industry_counts = df_for_analysis['IndustryName'].value_counts()
             large_industries = industry_counts[industry_counts >= MINIMUM_GROUP_SIZE].index.tolist()
             small_industries = industry_counts[industry_counts < MINIMUM_GROUP_SIZE].index.tolist()
 
             for industry in sorted(large_industries):
-                industry_df = df[df['IndustryName'] == industry].copy()
+                industry_df = df_for_analysis[df_for_analysis['IndustryName'] == industry].copy()
                 analyze_group(industry, industry_df, col)
 
             # Aggregated sector analysis for small industries
             if small_industries:
-                small_industries_df = df[df['IndustryName'].isin(small_industries)].copy()
+                small_industries_df = df_for_analysis[df_for_analysis['IndustryName'].isin(small_industries)].copy()
                 sectors_with_small_industries = small_industries_df['SectorName'].unique().tolist()
                 
                 for sector in sorted(sectors_with_small_industries):
@@ -160,8 +166,6 @@ def find_atr_outliers(filename):
 
         df.to_csv(filename, sep=';', index=False, encoding='latin1')
 
-        # Report on symbols with TradeMode == 3 (close only)
-        close_only_symbols = df[df['TradeMode'] == 3]
         if not close_only_symbols.empty:
             print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
             for index, row in close_only_symbols.iterrows():
