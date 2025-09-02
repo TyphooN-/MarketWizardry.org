@@ -234,6 +234,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             margin: 20px 0;
             padding: 15px;
             font-style: italic;
+            font-weight: bold;
             opacity: 0.9;
         }
     </style>
@@ -515,6 +516,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             margin: 20px 0;
             padding: 15px;
             font-style: italic;
+            font-weight: bold;
             opacity: 0.9;
         }
     </style>
