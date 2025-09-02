@@ -1,19 +1,9 @@
 
-<!-- user_gallery.html -->
+<!-- all.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NFT (Not For Trade) Gallery - godlikepx</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="godlikepx's digital art collection - Claims divine status, delivers earthly disappointment. This collection proves that even gods can have off millennia. Witness pixels arranged with the confidence of deity and the skill of a concussed intern.">
-    <meta property="og:title" content="NFT Gallery - godlikepx">
-    <meta property="og:description" content="godlikepx's digital art collection - Claims divine status, delivers earthly disappointment. This collection proves that even gods can have off millennia. Witness pixels arranged with the confidence of deity and the skill of a concussed intern.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.info/nft-gallery/godlikepx_gallery.html">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - godlikepx">
-    <meta name="twitter:description" content="godlikepx's digital art collection - Claims divine status, delivers earthly disappointment. This collection proves that even gods can have off millennia. Witness pixels arranged with the confidence of deity and the skill of a concussed intern.">
+    <title>NFT Gallery - All Images</title>
     <style>
         body {
             background-color: #000;
@@ -105,7 +95,7 @@
     </style>
 </head>
 <body>
-    <h2>NFT (Not For Trade) Gallery - godlikepx</h2>
+    <h2>NFT Gallery - All Images</h2>
     <div class="crt-divider"></div>
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -122,11 +112,7 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./godlikepx/webp/godlikepx-1908539452-Journal-video1-lossy.webp',
-            './godlikepx/webp/godlikepx-1937479899394277816-1bit_Pixel_art_I_made_a_while_back_for_http___guillotine.agency_video3-lossy.webp',
-            './godlikepx/webp/godlikepx-1939010251472212420-_The_Collector__video3-lossy.webp',
-            './godlikepx/webp/godlikepx-1930298508-Frozen_hour_video1-lossy.webp',
-            './godlikepx/webp/godlikepx-1902670263-Advertise_your_account_with_one_animation_video2-lossy.webp']; // All image paths from Python
+        const allImagePaths = []; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
