@@ -14,6 +14,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - vad_jpg">
     <meta name="twitter:description" content="vad_jpg's digital art collection - Very Awful Disappointment in JPEG format. This collection compresses artistic standards lower than a 90s dial-up download. Loading time: eternal regret.">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                window.location.href = `/index.html`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #000;

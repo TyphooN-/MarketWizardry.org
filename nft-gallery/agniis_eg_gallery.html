@@ -18,6 +18,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="agniis_eg Gallery - MarketWizardry.org">
     <meta name="twitter:description" content="Fire-themed digital destruction with example suffix. Elemental chaos meets placeholder identity for collectors seeking branded burning.">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                window.location.href = `/index.html`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #000;

@@ -14,6 +14,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - slava3ngl">
     <meta name="twitter:description" content="slava3ngl's digital art collection - Glory to... well, certainly not these pixels. This Slavic-inspired collection proves that suffering is universal, transcending both borders and artistic mediums. Borscht tastes better than this looks.">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                window.location.href = `/index.html`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #000;

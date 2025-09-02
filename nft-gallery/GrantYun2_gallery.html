@@ -20,6 +20,20 @@
     <meta name="twitter:description" content="GrantYun2's sequel to mediocrity, now with blockchain validation. Digital art 2.0 for people who thought the first iteration needed more pretension.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                window.location.href = `/index.html`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #000;

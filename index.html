@@ -170,9 +170,12 @@
             // Add active class to clicked menu item
             event.target.classList.add('active');
         }
-        // Load "market-wizardry" content automatically when the page loads
+        // Load content based on URL parameter or default to "market-wizardry"
         document.addEventListener('DOMContentLoaded', function() {
-            loadContent('market-wizardry');
+            const urlParams = new URLSearchParams(window.location.search);
+            const pageParam = urlParams.get('page');
+            const targetPage = pageParam || 'market-wizardry';
+            loadContent(targetPage);
         });
     </script>
 </body>

@@ -18,6 +18,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="baladasathar Gallery - MarketWizardry.org">
     <meta name="twitter:description" content="Medieval quest names meet modern digital desperation. Epic usernames for legendary pixel adventures that nobody asked for.">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                window.location.href = `/index.html`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #000;

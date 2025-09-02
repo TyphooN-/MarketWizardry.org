@@ -18,6 +18,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="armilk88 Gallery - MarketWizardry.org">
     <meta name="twitter:description" content="Military dairy products from 1988. Combat lactose art for people who think their childhood trauma needs numerical validation.">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                window.location.href = `/index.html`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #000;
