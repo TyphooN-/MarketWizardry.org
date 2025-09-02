@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+"""
+ATR Explorer Generator - MarketWizardry.org
+
+ATR analysis for psychopaths who think standard deviation is too mainstream.
+Find out which stocks are having mental breakdowns in real-time.
+
+Because nothing says 'professional trader' like obsessing over average true range
+while your portfolio slowly bleeds to death.
+"""
+
 import os
 import stat
 import re

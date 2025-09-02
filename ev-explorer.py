@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+"""
+EV Explorer Generator - MarketWizardry.org
+
+EV calculations for gambling addicts who pretend they're investors.
+Statistically validate your financial suicide with mathematical precision.
+
+Turning expected value theory into a weapon of mass portfolio destruction
+since whenever this script was first written.
+"""
+
 import os
 import re
 

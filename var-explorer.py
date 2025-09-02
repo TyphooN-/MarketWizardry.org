@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+"""
+VaR Explorer Generator - MarketWizardry.org
+
+Value at Risk calculations for degenerates who need mathematical proof
+their portfolio is doomed. Watch your money evaporate with scientific precision.
+
+Because sometimes you need a computer to tell you exactly how screwed you are.
+Welcome to quantitative finance, where the math is real but the profits are imaginary.
+"""
+
 import os
 import stat
 import re
