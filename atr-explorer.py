@@ -65,8 +65,9 @@ html_content = f"""<!DOCTYPE html>
         if (window === window.top) {{
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {{
-                // For blog posts and NFT galleries, redirect to the actual file
-                window.location.href = `/index.html`;
+                // For blog posts and NFT galleries, pass full path
+                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
             }} else {{
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');

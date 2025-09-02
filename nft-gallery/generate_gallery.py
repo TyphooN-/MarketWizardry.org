@@ -16,7 +16,8 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
                 // For blog posts and NFT galleries, redirect to the actual file
-                window.location.href = `/index.html`;
+                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
             } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');

@@ -159,16 +159,23 @@
     <script>
         function loadContent(page) {
             const iframe = document.getElementById('contentIframe');
-            iframe.src = `${page}.html`;
+            // Handle full paths (like blog/post.html or nft-gallery/artist.html) vs simple page names
+            if (page.includes('/') || page.endsWith('.html')) {
+                iframe.src = page;
+            } else {
+                iframe.src = `${page}.html`;
+            }
             // Remove active class from all menu items
             const menuItems = document.querySelectorAll('.menu-item, .image-item');
             menuItems.forEach(item => item.classList.remove('active'));
             // Check if the clicked element is the Market Wizardry image and skip marking it as active
-            if (event.target.tagName === 'IMG') {
+            if (event && event.target && event.target.tagName === 'IMG') {
                 return;
             }
-            // Add active class to clicked menu item
-            event.target.classList.add('active');
+            // Add active class to clicked menu item only if event exists (user clicked)
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
         // Load content based on URL parameter or default to "market-wizardry"
         document.addEventListener('DOMContentLoaded', function() {
