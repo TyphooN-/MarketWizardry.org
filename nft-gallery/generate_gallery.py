@@ -1,6 +1,24 @@
 import os
 import fnmatch
+import random
 
+def get_existing_flavor_text(username):
+    """Extract existing flavor text from the user's gallery HTML file meta description"""
+    gallery_file = f"{username}_gallery.html"
+    if os.path.exists(gallery_file):
+        try:
+            with open(gallery_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Look for meta description content
+                import re
+                match = re.search(r'<meta name="description" content="([^"]+)"', content)
+                if match:
+                    return match.group(1)
+        except Exception as e:
+            print(f"Error reading existing flavor text for {username}: {e}")
+    
+    # Fallback if no existing flavor text found
+    return f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
 
 def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[]):
     html_content = """
@@ -69,6 +87,15 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         }
         a:hover {
             text-decoration: underline;
+        }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -194,10 +221,21 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             margin-bottom: 10px;
             word-wrap: break-word;
         }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
     <h2>NFT Gallery - USERNAME_PLACEHOLDER</h2>
+    <div class="crt-divider"></div>
+    <div class="flavor-text">FLAVOR_TEXT_PLACEHOLDER</div>
     <div class="crt-divider"></div>
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -325,7 +363,9 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 </html>
 """
 
+    flavor_text = get_existing_flavor_text(username)
     html_template = html_template.replace("USERNAME_PLACEHOLDER", username)
+    html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", flavor_text)
 
     image_paths = []
     user_webp_dir = os.path.join(username, "webp")
@@ -445,10 +485,21 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             margin-bottom: 10px;
             word-wrap: break-word;
         }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
     <h2>NFT Gallery - All Images</h2>
+    <div class="crt-divider"></div>
+    <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
     <div class="crt-divider"></div>
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
