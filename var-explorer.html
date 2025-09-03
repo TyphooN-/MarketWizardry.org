@@ -2,28 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VaR Explorer</title>
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="VaR Explorer - MarketWizardry.org">
-    <meta property="og:description" content="Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.">
-    <meta property="og:url" content="https://marketwizardry.org/var-explorer.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="VaR Explorer - MarketWizardry.org">
-    <meta name="twitter:description" content="Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
+                // For blog posts and NFT galleries, redirect to the actual file
                 const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
                 window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
             } else {
@@ -187,6 +173,36 @@
     <div class="container">
         <h1>VaR Explorer</h1>
         <div class="grid">
+            <div class="file-entry">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.09.02-outlier.txt">
+                    Darwinex-Live (CFD) - 2025.09.02
+                </a>
+            </div>
+            <div class="file-entry">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-outlier.txt">
+                    Darwinex-Live (Stocks) - 2025.09.02
+                </a>
+            </div>
+            <div class="file-entry">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.02.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.09.02-outlier.txt">
+                    Darwinex-Live (Futures) - 2025.09.02
+                </a>
+            </div>
+            <div class="file-entry">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.09.01-outlier.txt">
+                    Darwinex-Live (Futures) - 2025.09.01
+                </a>
+            </div>
+            <div class="file-entry">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.01-outlier.txt">
+                    Darwinex-Live (Stocks) - 2025.09.01
+                </a>
+            </div>
+            <div class="file-entry">
+                <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.01.csv" data-outlier-file="SymbolsExport-Darwinex-Live-CFD-2025.09.01-outlier.txt">
+                    Darwinex-Live (CFD) - 2025.09.01
+                </a>
+            </div>
             <div class="file-entry">
                 <a href="https://marketwizardry.org//var-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29.csv" data-outlier-file="SymbolsExport-Darwinex-Live-Futures-2025.08.29-outlier.txt">
                     Darwinex-Live (Futures) - 2025.08.29
