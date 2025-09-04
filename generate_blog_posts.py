@@ -223,7 +223,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     <div class="modal-content">
         <div class="modal-header">
             <h2>{title}</h2>
-            <a id="downloadButton" href="#" download="{txt_filename}">Download Report</a>
+            <a id="downloadButton" href="{txt_filename}">Download Report</a>
             <span class="close-button" onclick="closeModal()">&times;</span>
         </div>
         <div class="modal-text" tabindex="0">{content}</div>
@@ -233,14 +233,6 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 <script>
     function openModal() {{
         const modal = document.getElementById("analysisModal");
-        const modalText = modal.querySelector('.modal-text');
-        const downloadButton = document.getElementById("downloadButton");
-        
-        // Create blob for download
-        const textContent = modalText.textContent;
-        const blob = new Blob([textContent], {{ type: 'text/plain' }});
-        const url = URL.createObjectURL(blob);
-        downloadButton.href = url;
         
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
@@ -249,15 +241,9 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 
     function closeModal() {{
         const modal = document.getElementById("analysisModal");
-        const downloadButton = document.getElementById("downloadButton");
         
         modal.style.display = "none";
         document.body.style.overflow = "auto";
-        
-        // Clean up blob URL
-        if (downloadButton.href && downloadButton.href.startsWith('blob:')) {{
-            URL.revokeObjectURL(downloadButton.href);
-        }}
     }}
 
     // Close modal when clicking outside content

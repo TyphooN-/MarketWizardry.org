@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude x Darwinex Outlier Analysis</title>
+    <link rel="canonical" href="https://marketwizardry.org/blog/09032025-Claude_x_Darwinex_Outlier.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
     <!-- Standard Meta Tags -->
     <meta name="description" content="Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland.">
     <!-- Open Graph Meta Tags -->
@@ -12,12 +15,44 @@
     <meta property="og:url" content="https://marketwizardry.org/blog/09032025-Claude_x_Darwinex_Outlier.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Claude x Darwinex Outlier Analysis">
     <meta name="twitter:description" content="Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Claude x Darwinex Outlier Analysis",
+        "description": "Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland.",
+        "author": {
+            "@type": "Person",
+            "name": "TyphooN",
+            "url": "https://marketwizardry.org"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "TyphooN",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp"
+            }
+        },
+        "datePublished": "2025-09-03",
+        "dateModified": "2025-09-03",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://marketwizardry.org/blog/09032025-Claude_x_Darwinex_Outlier.html"
+        },
+        "articleSection": "Finance",
+        "keywords": ["Investment Analysis", "Darwinex", "VaR Analysis", "Statistical Outliers", "Trading", "Finance"]
+    }
+    </script>
     <script>
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
@@ -209,7 +244,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2>Claude x Darwinex Outlier Analysis</h2>
-            <a id="downloadButton" href="#" download="09032025-Claude_x_Darwinex_Outlier.txt">Download Report</a>
+            <a id="downloadButton" href="09032025-Claude_x_Darwinex_Outlier.txt">Download Report</a>
             <span class="close-button" onclick="closeModal()">&times;</span>
         </div>
         <div class="modal-text" tabindex="0">Below are all prompts I have been using combined with the https://github.com/TyphooN-/marketWizardry.org/ git repository.  Full output is provided to show processing.  Future reports will not include this.  I wanted to show users how they can utilize this data within their own AI assisted workflows.
@@ -807,14 +842,6 @@
 <script>
     function openModal() {
         const modal = document.getElementById("analysisModal");
-        const modalText = modal.querySelector('.modal-text');
-        const downloadButton = document.getElementById("downloadButton");
-        
-        // Create blob for download
-        const textContent = modalText.textContent;
-        const blob = new Blob([textContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        downloadButton.href = url;
         
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
@@ -823,15 +850,9 @@
 
     function closeModal() {
         const modal = document.getElementById("analysisModal");
-        const downloadButton = document.getElementById("downloadButton");
         
         modal.style.display = "none";
         document.body.style.overflow = "auto";
-        
-        // Clean up blob URL
-        if (downloadButton.href && downloadButton.href.startsWith('blob:')) {
-            URL.revokeObjectURL(downloadButton.href);
-        }
     }
 
     // Close modal when clicking outside content

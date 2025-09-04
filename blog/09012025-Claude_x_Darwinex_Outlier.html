@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude x Darwinex Outlier Analysis | MarketWizardry.org</title>
+    <link rel="canonical" href="https://marketwizardry.org/blog/09012025-Claude_x_Darwinex_Outlier.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
     <!-- Standard Meta Tags -->
     <meta name="description" content="Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland.">
     <!-- Open Graph Meta Tags -->
@@ -12,6 +15,8 @@
     <meta property="og:url" content="https://marketwizardry.org/blog/09012025-Claude_x_Darwinex_Outlier.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Claude x Darwinex Outlier Analysis">
@@ -239,7 +244,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2>Claude x Darwinex Outlier Analysis</h2>
-            <a id="downloadButton" href="#" download="09012025-Claude_x_Darwinex_Outlier.txt">Download Report</a>
+            <a id="downloadButton" href="09012025-Claude_x_Darwinex_Outlier.txt">Download Report</a>
             <span class="close-button" onclick="closeModal()">&times;</span>
         </div>
         <div class="modal-text" tabindex="0">● First, let me identify all the close-only symbols from the outlier report:
@@ -537,14 +542,6 @@
 <script>
     function openModal() {
         const modal = document.getElementById("analysisModal");
-        const modalText = modal.querySelector('.modal-text');
-        const downloadButton = document.getElementById("downloadButton");
-        
-        // Create blob for download
-        const textContent = modalText.textContent;
-        const blob = new Blob([textContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        downloadButton.href = url;
         
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
@@ -553,15 +550,9 @@
 
     function closeModal() {
         const modal = document.getElementById("analysisModal");
-        const downloadButton = document.getElementById("downloadButton");
         
         modal.style.display = "none";
         document.body.style.overflow = "auto";
-        
-        // Clean up blob URL
-        if (downloadButton.href && downloadButton.href.startsWith('blob:')) {
-            URL.revokeObjectURL(downloadButton.href);
-        }
     }
 
     // Close modal when clicking outside content
