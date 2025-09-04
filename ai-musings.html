@@ -81,71 +81,92 @@
             background-color: #001;
             transform: scale(1.02);
         }
-        /* Modal styles */
+        /* Modal Styles - Explorer Style */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            padding-top: 60px;
         }
-        .modal-content { /* New style for modal content wrapper */
-            position: relative;
+
+        .modal-content {
             background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 10px; /* Reduced padding */
+            border: 2px solid #00ff00; /* Green border */
+            max-width: fit-content; /* Adjust width to content */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
         }
-        .modal-header { /* Keep this for the file name and close button */
+
+        .modal-header {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px; /* Reduced padding */
+            margin-bottom: 5px; /* Reduced margin */
         }
-        .close-btn {
-            position: absolute; /* Keep absolute for now, relative to modal-content */
-            top: 10px;
-            right: 10px;
-            color: #f00;
-            border: none;
-            padding: 10px;
+
+        .modal-header h2 {
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em; /* Smaller header font size */
+        }
+
+        .modal-header a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 2px 5px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-header a:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+
+        .close-button {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
-            z-index: 1001;
-            border-radius: 5px;
         }
-        .text-content {
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
             white-space: pre-wrap;
             word-wrap: break-word;
-            background-color: #000;
-            color: #0f0;
+            max-height: 70vh;
+            overflow-y: auto;
             padding: 10px;
-            border-radius: 3px;
+            background-color: #001;
+            border: 1px solid rgba(0, 255, 0, 0.3);
         }
-        .crt-divider { /* Add this for consistency */
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 10px 0;
-        }
-        @keyframes scan { /* Add this for consistency */
-            0% { opacity: 1; width: 0%; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
-        }
-        .filename-display { /* Add this for consistency, though modal-header serves similar purpose */
-            color: #00ff00;
-            margin-bottom: 10px;
-            word-wrap: break-word;
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
         }
         .crt-divider {
             width: 100%;
@@ -190,14 +211,15 @@
     <!-- File Grid -->
     <div class="file-grid" id="fileGrid"></div>
     <!-- Modal -->
-    <div class="modal" id="textModal">
+    <div id="textModal" class="modal">
+        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
-                <span>File: <span id="currentFile">-</span></span>
-                <span class="close-btn" onclick="closeModal()">[X]</span>
+                <h2 id="modalTitle">AI Musings Document</h2>
+                <a id="downloadLink" href="#" download>Download File</a>
+                <span class="close-button">&times;</span>
             </div>
-            <div class="crt-divider"></div>
-            <pre class="text-content" id="textContent"></pre>
+            <pre id="textContent" class="modal-body"></pre>
         </div>
     </div>
     <div class="crt-divider"></div>
@@ -262,50 +284,91 @@ on real events and/or speculation.  For further information contact the author (
         // Update grid to use max width
         fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
         // Add click event listeners to file entries
-        fileEntries.forEach(entry => {
+        fileEntries.forEach((entry, index) => {
             entry.addEventListener('click', () => {
                 const fileName = entry.textContent;
+                currentFileIndex = index;
                 loadFile(fileName);
             });
         });
-        function loadFile(filename) {
-            fetch('./ai-musings/' + filename) // Securely fetch using relative path
-            .then(response => {
-        if (!response.ok) {
-                throw new Error('Network response was not ok');
+        function loadFile(fileName) {
+            // Update this path if needed
+            const filePath = `./ai-musings/${fileName}`;
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load file');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    displayText(text, fileName);
+                })
+                .catch(error => {
+                    console.error('Error loading file:', error);
+                    alert(`Failed to load file: ${fileName}`);
+                });
         }
-        // Check content type before proceeding
-        const contentType = response.headers.get('Content-Type');
-        if (!contentType.includes('text/plain')) {
-            alert('Invalid file type. Only text files are allowed.');
-            return; // Stop processing if not a text file
+        let currentFileIndex = 0;
+        let currentFileContent = '';
+        
+        function displayText(content, fileName) {
+            currentFileContent = content;
+            document.getElementById('textContent').textContent = content;
+            document.getElementById('modalTitle').textContent = fileName;
+            
+            // Set up download link
+            const downloadLink = document.getElementById('downloadLink');
+            const blob = new Blob([content], { type: 'text/plain' });
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = fileName + '.txt';
+            
+            document.getElementById('textModal').style.display = 'block';
         }
-        return response.text();
-        })
-        .then(text => displayText(text, filename))
-        .catch(error => {
-            console.error('Error loading file:', error);
-            alert('An error occurred while loading the file.');
+        
+        function closeModal() {
+            document.getElementById('textModal').style.display = 'none';
+            // Clean up blob URL
+            const downloadLink = document.getElementById('downloadLink');
+            if (downloadLink.href.startsWith('blob:')) {
+                URL.revokeObjectURL(downloadLink.href);
+            }
+        }
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('textModal');
+            if (modal.style.display === 'block') {
+                if (event.key === 'Escape') {
+                    closeModal();
+                } else if (event.key === 'ArrowLeft') {
+                    // Navigate to previous file
+                    const fileKeys = Object.keys(files);
+                    currentFileIndex = currentFileIndex > 0 ? currentFileIndex - 1 : fileKeys.length - 1;
+                    loadFile(files[fileKeys[currentFileIndex]]);
+                } else if (event.key === 'ArrowRight') {
+                    // Navigate to next file
+                    const fileKeys = Object.keys(files);
+                    currentFileIndex = currentFileIndex < fileKeys.length - 1 ? currentFileIndex + 1 : 0;
+                    loadFile(files[fileKeys[currentFileIndex]]);
+                } else if (event.key === 'd' && (event.ctrlKey || event.metaKey)) {
+                    // Ctrl+D or Cmd+D to download
+                    event.preventDefault();
+                    document.getElementById('downloadLink').click();
+                }
+            }
         });
-     }
-	function displayText(content, fileName) {
-	    const textModal = document.getElementById('textModal');
-	    textModal.setAttribute('aria-hidden', 'false'); // Show modal for screen readers
-	    textModal.setAttribute('role', 'dialog');
-	    document.getElementById('textContent').textContent = content;
-	    document.getElementById('currentFile').textContent = fileName;
-	    textModal.style.display = 'flex'; // Use flex for centering
-	}
-	function closeModal() {
-	    const textModal = document.getElementById('textModal');
-    	textModal.setAttribute('aria-hidden', 'true'); // Hide modal for screen readers
-	    textModal.style.display = 'none';
-	}
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('textModal');
+            if (event.target === modal) {
                 closeModal();
             }
+        });
+        
+        // Set up close button after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.close-button').addEventListener('click', closeModal);
         });
     </script>
 </body>
