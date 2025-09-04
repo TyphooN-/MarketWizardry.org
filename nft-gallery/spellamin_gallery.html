@@ -1,5 +1,4 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
     <meta property="og:title" content="NFT Gallery - spellamin">
     <meta property="og:description" content="spellamin's digital art collection - Casting spells of disappointment and hexes of bad taste. This magical collection proves that even wizardry can't fix fundamental design flaws. Abracadabra more like abracadab-no.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.info/nft-gallery/spellamin_gallery.html">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/spellamin_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - spellamin">
     <meta name="twitter:description" content="spellamin's digital art collection - Casting spells of disappointment and hexes of bad taste. This magical collection proves that even wizardry can't fix fundamental design flaws. Abracadabra more like abracadab-no.">
@@ -27,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -57,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -67,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -82,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -92,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -143,7 +139,7 @@
             opacity: 0.9;
         }
     </style>
-        <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
@@ -156,8 +152,425 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1925487815-_Burn__has_been_collected_by-video1-lossy.webp" alt="spellamin-1925487815-_Burn__has_been_collected_by-video1-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1925654727-_Ghost__sold_to-video1-lossy.webp" alt="spellamin-1925654727-_Ghost__sold_to-video1-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926101080-Two_artworks_from_my_daily_series_are_open_for_bidding_video2-lossy.webp" alt="spellamin-1926101080-Two_artworks_from_my_daily_series_are_open_for_bidding_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926180339-Empire_Things__Shadows-video1-lossy.webp" alt="spellamin-1926180339-Empire_Things__Shadows-video1-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926249848-We_are_static_souls_in_a_system_s_grip__video2-lossy.webp" alt="spellamin-1926249848-We_are_static_souls_in_a_system_s_grip__video2-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926279294830928346-Let_me_promote_your_art_as_my_pinned_post_for_a_few_days_to_help_get_you_more_exposure___video1-lossy.webp" alt="spellamin-1926279294830928346-Let_me_promote_your_art_as_my_pinned_post_for_a_few_days_to_help_get_you_more_exposure___video1-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926314604-DOOM-LAGGING-video3-lossy.webp" alt="spellamin-1926314604-DOOM-LAGGING-video3-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926599517-Never_asking_where_it_leads__video1-lossy.webp" alt="spellamin-1926599517-Never_asking_where_it_leads__video1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926887380-Badge_of_Losses_video1-lossy.webp" alt="spellamin-1926887380-Badge_of_Losses_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1926887380-Badge_of_Losses_video2-lossy.webp" alt="spellamin-1926887380-Badge_of_Losses_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927061042-Kicked_off___Let_s_go_video3-lossy.webp" alt="spellamin-1927061042-Kicked_off___Let_s_go_video3-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927081301-Melted__2025__video1-lossy.webp" alt="spellamin-1927081301-Melted__2025__video1-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927081301-Melted__2025__video2-lossy.webp" alt="spellamin-1927081301-Melted__2025__video2-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927191617-Facets_-_X__my_collab_collection_with_video1-lossy.webp" alt="spellamin-1927191617-Facets_-_X__my_collab_collection_with_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927222193-GM_Dealers_video1-lossy.webp" alt="spellamin-1927222193-GM_Dealers_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927351148-Overcooked_video1-lossy.webp" alt="spellamin-1927351148-Overcooked_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927433476-Overcooked_video2-lossy.webp" alt="spellamin-1927433476-Overcooked_video2-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927449301195628890-Man__It_s_truly_amazing_to_see_this_collection_gaining_traction_and_drawing_in_new_art_enthusiasts_video3-lossy.webp" alt="spellamin-1927449301195628890-Man__It_s_truly_amazing_to_see_this_collection_gaining_traction_and_drawing_in_new_art_enthusiasts_video3-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927553854-MONALOSSA_video1-lossy.webp" alt="spellamin-1927553854-MONALOSSA_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927553854-MONALOSSA_video2-lossy.webp" alt="spellamin-1927553854-MONALOSSA_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927605449-GM_Watchers_video2-lossy.webp" alt="spellamin-1927605449-GM_Watchers_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927806134-In_Lies_We_Trust_video3-lossy.webp" alt="spellamin-1927806134-In_Lies_We_Trust_video3-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video1-lossy.webp" alt="spellamin-1927815765-EXPLORE-R__2022__video1-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video2-lossy.webp" alt="spellamin-1927815765-EXPLORE-R__2022__video2-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video3-lossy.webp" alt="spellamin-1927815765-EXPLORE-R__2022__video3-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928171585-Escape_Denied_video3-lossy.webp" alt="spellamin-1928171585-Escape_Denied_video3-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928176688-Escape_Denied_video2-lossy.webp" alt="spellamin-1928176688-Escape_Denied_video2-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928180734-Auction_live_for__Escape_Denied___that_escalated_fast._Grateful_for_the_early_b-lossy.webp" alt="spellamin-1928180734-Auction_live_for__Escape_Denied___that_escalated_fast._Grateful_for_the_early_b-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928270112-Starting_the_day_with_a_new_bid_from_video2-lossy.webp" alt="spellamin-1928270112-Starting_the_day_with_a_new_bid_from_video2-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928274849-Endspark__2025__video1-lossy.webp" alt="spellamin-1928274849-Endspark__2025__video1-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928274849-Endspark__2025__video2-lossy.webp" alt="spellamin-1928274849-Endspark__2025__video2-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928286614-Yess_video1-lossy.webp" alt="spellamin-1928286614-Yess_video1-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928293368-Yes__Drowned_Dream_video1-lossy.webp" alt="spellamin-1928293368-Yes__Drowned_Dream_video1-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1928316346-Received_a_new_bid_from_video2-lossy.webp" alt="spellamin-1928316346-Received_a_new_bid_from_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929191273-Sunday_art_share__let_s_promote_your_work_video1-lossy.webp" alt="spellamin-1929191273-Sunday_art_share__let_s_promote_your_work_video1-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video1-lossy.webp" alt="spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video1-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video2-lossy.webp" alt="spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video2-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video3-lossy.webp" alt="spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video3-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929247992-New_bid_alert__shoutout_to_video2-lossy.webp" alt="spellamin-1929247992-New_bid_alert__shoutout_to_video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929247992-New_bid_alert__shoutout_to_video3-lossy.webp" alt="spellamin-1929247992-New_bid_alert__shoutout_to_video3-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929250862989238726-Auction_s_heating_up_ser__not_even_keeping_up_with_screenshots_anymore__Shoutout_to_video1-lossy.webp" alt="spellamin-1929250862989238726-Auction_s_heating_up_ser__not_even_keeping_up_with_screenshots_anymore__Shoutout_to_video1-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929266499-Earth._Sold._Quietly_video2-lossy.webp" alt="spellamin-1929266499-Earth._Sold._Quietly_video2-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929274677-_HOLYCANDLE__just_found_a_new_home_on_the_secondary_for_0.18__video2-lossy.webp" alt="spellamin-1929274677-_HOLYCANDLE__just_found_a_new_home_on_the_secondary_for_0.18__video2-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929296900-________________________________video1-lossy.webp" alt="spellamin-1929296900-________________________________video1-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929382309-GM_Scrollers_video1-lossy.webp" alt="spellamin-1929382309-GM_Scrollers_video1-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929382309-GM_Scrollers_video2-lossy.webp" alt="spellamin-1929382309-GM_Scrollers_video2-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929462349-Broken_for_years._Then_a_green_flicker_video1-lossy.webp" alt="spellamin-1929462349-Broken_for_years._Then_a_green_flicker_video1-lossy.webp" onclick="openImage(46)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929566049-Art_of_the_Day_Challenge__video1-lossy.webp" alt="spellamin-1929566049-Art_of_the_Day_Challenge__video1-lossy.webp" onclick="openImage(47)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929572743-_Earth._Sold._Quietly__Auction_Ends_in_3Hrs_video1-lossy.webp" alt="spellamin-1929572743-_Earth._Sold._Quietly__Auction_Ends_in_3Hrs_video1-lossy.webp" onclick="openImage(48)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929963081-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Bric-lossy.webp" alt="spellamin-1929963081-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Bric-lossy.webp" onclick="openImage(49)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929965413-Three_auctions_live_today__feeling_grateful_video1-lossy.webp" alt="spellamin-1929965413-Three_auctions_live_today__feeling_grateful_video1-lossy.webp" onclick="openImage(50)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929988663271928142-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Brick_by_brick__we_re_bui_video2-lossy.webp" alt="spellamin-1929988663271928142-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Brick_by_brick__we_re_bui_video2-lossy.webp" onclick="openImage(51)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1929989772-Wish_this_was_only_art_but_it_has_a_lot_of_reality_great_piece_spell__3_video1-lossy.webp" alt="spellamin-1929989772-Wish_this_was_only_art_but_it_has_a_lot_of_reality_great_piece_spell__3_video1-lossy.webp" onclick="openImage(52)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930004148-_They_Bomb_You__They_Feed_You__is_now_collected_by_video1-lossy.webp" alt="spellamin-1930004148-_They_Bomb_You__They_Feed_You__is_now_collected_by_video1-lossy.webp" onclick="openImage(53)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930006943-The_City_We_Asked_For_video1-lossy.webp" alt="spellamin-1930006943-The_City_We_Asked_For_video1-lossy.webp" onclick="openImage(54)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930018214-Vibe_check_passed_video2-lossy.webp" alt="spellamin-1930018214-Vibe_check_passed_video2-lossy.webp" onclick="openImage(55)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video1-lossy.webp" alt="spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video1-lossy.webp" onclick="openImage(56)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video2-lossy.webp" alt="spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video2-lossy.webp" onclick="openImage(57)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video3-lossy.webp" alt="spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video3-lossy.webp" onclick="openImage(58)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video4-lossy.webp" alt="spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video4-lossy.webp" onclick="openImage(59)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930080847-Alright__Just_checked_my_collab_piece_with_the_legend_XCOPY__Facets-X___floor_s-lossy.webp" alt="spellamin-1930080847-Alright__Just_checked_my_collab_piece_with_the_legend_XCOPY__Facets-X___floor_s-lossy.webp" onclick="openImage(60)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930094899-Later_today_I_ll_be_posting_a_thread_of_all_my_1_1s_on_secondary__felt_like_rev-lossy.webp" alt="spellamin-1930094899-Later_today_I_ll_be_posting_a_thread_of_all_my_1_1s_on_secondary__felt_like_rev-lossy.webp" onclick="openImage(61)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930098503-This_is_me._My_lighter_side_video2-lossy.webp" alt="spellamin-1930098503-This_is_me._My_lighter_side_video2-lossy.webp" onclick="openImage(62)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930109997-GM_X_video1-lossy.webp" alt="spellamin-1930109997-GM_X_video1-lossy.webp" onclick="openImage(63)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video1-lossy.webp" alt="spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video1-lossy.webp" onclick="openImage(64)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video3-lossy.webp" alt="spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video3-lossy.webp" onclick="openImage(65)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930146953-Resharing_my_listed_1_1s_available_on_secondary_video2-lossy.webp" alt="spellamin-1930146953-Resharing_my_listed_1_1s_available_on_secondary_video2-lossy.webp" onclick="openImage(66)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930187471-Auction_ending_in_6_Hrs_video1-lossy.webp" alt="spellamin-1930187471-Auction_ending_in_6_Hrs_video1-lossy.webp" onclick="openImage(67)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930202371-Sharing_Day_29_Drop_a_bit_early_video1-lossy.webp" alt="spellamin-1930202371-Sharing_Day_29_Drop_a_bit_early_video1-lossy.webp" onclick="openImage(68)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930219653-_______________________________________video1-lossy.webp" alt="spellamin-1930219653-_______________________________________video1-lossy.webp" onclick="openImage(69)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930246919-Ok__video2-lossy.webp" alt="spellamin-1930246919-Ok__video2-lossy.webp" onclick="openImage(70)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930255018-Shoutout_to_video2-lossy.webp" alt="spellamin-1930255018-Shoutout_to_video2-lossy.webp" onclick="openImage(71)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930255018-Shoutout_to_video3-lossy.webp" alt="spellamin-1930255018-Shoutout_to_video3-lossy.webp" onclick="openImage(72)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930467422-Mint_it_video1-lossy.webp" alt="spellamin-1930467422-Mint_it_video1-lossy.webp" onclick="openImage(73)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930475240-GM_Collectors_video1-lossy.webp" alt="spellamin-1930475240-GM_Collectors_video1-lossy.webp" onclick="openImage(74)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930501635-_Silence__has_been_privately_collected_by_video1-lossy.webp" alt="spellamin-1930501635-_Silence__has_been_privately_collected_by_video1-lossy.webp" onclick="openImage(75)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930556032-Today_s_art_includes_a_bonus_for_bidders_video1-lossy.webp" alt="spellamin-1930556032-Today_s_art_includes_a_bonus_for_bidders_video1-lossy.webp" onclick="openImage(76)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930630133-New_bid_just_landed_from_video2-lossy.webp" alt="spellamin-1930630133-New_bid_just_landed_from_video2-lossy.webp" onclick="openImage(77)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930694071-New_0.14__bid_just_in_from_video1-lossy.webp" alt="spellamin-1930694071-New_0.14__bid_just_in_from_video1-lossy.webp" onclick="openImage(78)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video1-lossy.webp" alt="spellamin-1930698496-YEAR_4040_Update_video1-lossy.webp" onclick="openImage(79)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video2-lossy.webp" alt="spellamin-1930698496-YEAR_4040_Update_video2-lossy.webp" onclick="openImage(80)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video3-lossy.webp" alt="spellamin-1930698496-YEAR_4040_Update_video3-lossy.webp" onclick="openImage(81)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930791328-_______________________video1-lossy.webp" alt="spellamin-1930791328-_______________________video1-lossy.webp" onclick="openImage(82)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930792736-Fresh_bid_in__0.154_ETH_from_video1-lossy.webp" alt="spellamin-1930792736-Fresh_bid_in__0.154_ETH_from_video1-lossy.webp" onclick="openImage(83)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930793662-YEAR_4040_Auction_Update_-_8_Days_Left_video1-lossy.webp" alt="spellamin-1930793662-YEAR_4040_Auction_Update_-_8_Days_Left_video1-lossy.webp" onclick="openImage(84)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930814654-________________unminted__video1-lossy.webp" alt="spellamin-1930814654-________________unminted__video1-lossy.webp" onclick="openImage(85)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1930814654-________________unminted__video2-lossy.webp" alt="spellamin-1930814654-________________unminted__video2-lossy.webp" onclick="openImage(86)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1931017726-The_King_of_Static_video1-lossy.webp" alt="spellamin-1931017726-The_King_of_Static_video1-lossy.webp" onclick="openImage(87)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1931023332-Clock_In._Clock_Out_video1-lossy.webp" alt="spellamin-1931023332-Clock_In._Clock_Out_video1-lossy.webp" onclick="openImage(88)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1931026104-The_moment_I_listed_it__video2-lossy.webp" alt="spellamin-1931026104-The_moment_I_listed_it__video2-lossy.webp" onclick="openImage(89)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video1-lossy.webp" alt="spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video1-lossy.webp" onclick="openImage(90)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video2-lossy.webp" alt="spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video2-lossy.webp" onclick="openImage(91)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1931287466-We_walk_on_cliffs_we_cannot_see_video4-lossy.webp" alt="spellamin-1931287466-We_walk_on_cliffs_we_cannot_see_video4-lossy.webp" onclick="openImage(92)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1934706575135961372-Freedoom_sold_to_video2-lossy.webp" alt="spellamin-1934706575135961372-Freedoom_sold_to_video2-lossy.webp" onclick="openImage(93)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1934797552483750137-Auction_Live_video2-lossy.webp" alt="spellamin-1934797552483750137-Auction_Live_video2-lossy.webp" onclick="openImage(94)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1934907269482758241-_______________________video2-lossy.webp" alt="spellamin-1934907269482758241-_______________________video2-lossy.webp" onclick="openImage(95)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1934933427138253136-_________________________________________________video2-lossy.webp" alt="spellamin-1934933427138253136-_________________________________________________video2-lossy.webp" onclick="openImage(96)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1934979139527942259-F___-_____________ss_______video2-lossy.webp" alt="spellamin-1934979139527942259-F___-_____________ss_______video2-lossy.webp" onclick="openImage(97)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935123941233656147-Beautiful_Hell_video2-lossy.webp" alt="spellamin-1935123941233656147-Beautiful_Hell_video2-lossy.webp" onclick="openImage(98)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935330168983203844-_____s_________________._______________video2-lossy.webp" alt="spellamin-1935330168983203844-_____s_________________._______________video2-lossy.webp" onclick="openImage(99)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935357561680572786-Auction_Live_for__Ferry_to_the_Void__video2-lossy.webp" alt="spellamin-1935357561680572786-Auction_Live_for__Ferry_to_the_Void__video2-lossy.webp" onclick="openImage(100)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935419619159822513-___________________________________video2-lossy.webp" alt="spellamin-1935419619159822513-___________________________________video2-lossy.webp" onclick="openImage(101)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935432786845855871-__________________________________video2-lossy.webp" alt="spellamin-1935432786845855871-__________________________________video2-lossy.webp" onclick="openImage(102)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935595599702917580-________________________video3-lossy.webp" alt="spellamin-1935595599702917580-________________________video3-lossy.webp" onclick="openImage(103)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935595599702917580-________________________video4-lossy.webp" alt="spellamin-1935595599702917580-________________________video4-lossy.webp" onclick="openImage(104)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935596307093000341-M_O_N_U_M_E_N_T___O_F___T_H_E___D_I_S_C_O_N_N_E_C_T_E_D__video3-lossy.webp" alt="spellamin-1935596307093000341-M_O_N_U_M_E_N_T___O_F___T_H_E___D_I_S_C_O_N_N_E_C_T_E_D__video3-lossy.webp" onclick="openImage(105)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935661268095979543-_I_Had_a_Plan__sold_to_video2-lossy.webp" alt="spellamin-1935661268095979543-_I_Had_a_Plan__sold_to_video2-lossy.webp" onclick="openImage(106)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935727185504931988-__________-_Auction_Live_video2-lossy.webp" alt="spellamin-1935727185504931988-__________-_Auction_Live_video2-lossy.webp" onclick="openImage(107)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1935731716670542066-____________________video2-lossy.webp" alt="spellamin-1935731716670542066-____________________video2-lossy.webp" onclick="openImage(108)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1936165184176808255-GN_Gang_video4-lossy.webp" alt="spellamin-1936165184176808255-GN_Gang_video4-lossy.webp" onclick="openImage(109)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1936508729739923942-Corporate_Messiah_video2-lossy.webp" alt="spellamin-1936508729739923942-Corporate_Messiah_video2-lossy.webp" onclick="openImage(110)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1936547445648822662-Chained_to_Time_video2-lossy.webp" alt="spellamin-1936547445648822662-Chained_to_Time_video2-lossy.webp" onclick="openImage(111)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1936794872565871007-War_is_no_longer_fought_on_land._It_s_streamed__scheduled__and_sponsored_video2-lossy.webp" alt="spellamin-1936794872565871007-War_is_no_longer_fought_on_land._It_s_streamed__scheduled__and_sponsored_video2-lossy.webp" onclick="openImage(112)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1940875391801217222-__________________video2-lossy.webp" alt="spellamin-1940875391801217222-__________________video2-lossy.webp" onclick="openImage(113)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941053876620480612-While_all_the_noise_was_going_on__video4-lossy.webp" alt="spellamin-1941053876620480612-While_all_the_noise_was_going_on__video4-lossy.webp" onclick="openImage(114)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941207078711832895-That_s_a_wrap__The_auction_for__9_to_Die__has_ended__secured_by_video2-lossy.webp" alt="spellamin-1941207078711832895-That_s_a_wrap__The_auction_for__9_to_Die__has_ended__secured_by_video2-lossy.webp" onclick="openImage(115)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941335532413518327-GM_Degens_video3-lossy.webp" alt="spellamin-1941335532413518327-GM_Degens_video3-lossy.webp" onclick="openImage(116)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941335532413518327-GM_Degens_video4-lossy.webp" alt="spellamin-1941335532413518327-GM_Degens_video4-lossy.webp" onclick="openImage(117)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941580107308728369-Addicted_to_Echoes_She_Created_video2-lossy.webp" alt="spellamin-1941580107308728369-Addicted_to_Echoes_She_Created_video2-lossy.webp" onclick="openImage(118)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941717429958135939-GM_Gamblers_video4-lossy.webp" alt="spellamin-1941717429958135939-GM_Gamblers_video4-lossy.webp" onclick="openImage(119)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941722055495282916-Post_your_new_work_below._Any_chain_video2-lossy.webp" alt="spellamin-1941722055495282916-Post_your_new_work_below._Any_chain_video2-lossy.webp" onclick="openImage(120)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941746434946293887-At_the_Edge_of_Memory__video4-lossy.webp" alt="spellamin-1941746434946293887-At_the_Edge_of_Memory__video4-lossy.webp" onclick="openImage(121)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1941776772678156651-________________-_Auction_Live_video2-lossy.webp" alt="spellamin-1941776772678156651-________________-_Auction_Live_video2-lossy.webp" onclick="openImage(122)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942083103452696647-I_Tried_to_Be_Okay__I_Really_Did_video2-lossy.webp" alt="spellamin-1942083103452696647-I_Tried_to_Be_Okay__I_Really_Did_video2-lossy.webp" onclick="openImage(123)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942108822539260371-___________________video4-lossy.webp" alt="spellamin-1942108822539260371-___________________video4-lossy.webp" onclick="openImage(124)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942117286095061138-_____________________video4-lossy.webp" alt="spellamin-1942117286095061138-_____________________video4-lossy.webp" onclick="openImage(125)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942164416511791222-My_SuperRare_piece__Burning_Harmony__is_now_listed_for_resale_by_the_current_hodler_video3-lossy.webp" alt="spellamin-1942164416511791222-My_SuperRare_piece__Burning_Harmony__is_now_listed_for_resale_by_the_current_hodler_video3-lossy.webp" onclick="openImage(126)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942484744815436023-_____________________video2-lossy.webp" alt="spellamin-1942484744815436023-_____________________video2-lossy.webp" onclick="openImage(127)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942517833188937882-You_weren_t_designed_to_carry_this_much_video2-lossy.webp" alt="spellamin-1942517833188937882-You_weren_t_designed_to_carry_this_much_video2-lossy.webp" onclick="openImage(128)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942618128279822685-please_don_t_outbid_me__video3-lossy.webp" alt="spellamin-1942618128279822685-please_don_t_outbid_me__video3-lossy.webp" onclick="openImage(129)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942618128279822685-please_don_t_outbid_me__video4-lossy.webp" alt="spellamin-1942618128279822685-please_don_t_outbid_me__video4-lossy.webp" onclick="openImage(130)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942623908643123537-do_you_really_have_to_advertise__shhh_video2-lossy.webp" alt="spellamin-1942623908643123537-do_you_really_have_to_advertise__shhh_video2-lossy.webp" onclick="openImage(131)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942791398727770601-my_first_video3-lossy.webp" alt="spellamin-1942791398727770601-my_first_video3-lossy.webp" onclick="openImage(132)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942791398727770601-my_first_video4-lossy.webp" alt="spellamin-1942791398727770601-my_first_video4-lossy.webp" onclick="openImage(133)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1942816934057132410-This_is_what_the_end_looks_like_after_you_win_video2-lossy.webp" alt="spellamin-1942816934057132410-This_is_what_the_end_looks_like_after_you_win_video2-lossy.webp" onclick="openImage(134)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1943224810663793009-Survived_the_Meeting_video4-lossy.webp" alt="spellamin-1943224810663793009-Survived_the_Meeting_video4-lossy.webp" onclick="openImage(135)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1943353117464035429-Probably_a_good_day_to_bring_DALL-E_s_Revenge_by_video3-lossy.webp" alt="spellamin-1943353117464035429-Probably_a_good_day_to_bring_DALL-E_s_Revenge_by_video3-lossy.webp" onclick="openImage(136)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1943370729694568592-New_bid_from_1dontknows_video4-lossy.webp" alt="spellamin-1943370729694568592-New_bid_from_1dontknows_video4-lossy.webp" onclick="openImage(137)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/spellamin/webp/spellamin-1943378847929348307-_____________________video3-lossy.webp" alt="spellamin-1943378847929348307-_____________________video3-lossy.webp" onclick="openImage(138)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -166,249 +579,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/spellamin/webp/spellamin-1925487815-_Burn__has_been_collected_by-video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1925654727-_Ghost__sold_to-video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926101080-Two_artworks_from_my_daily_series_are_open_for_bidding_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926180339-Empire_Things__Shadows-video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926249848-We_are_static_souls_in_a_system_s_grip__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926279294830928346-Let_me_promote_your_art_as_my_pinned_post_for_a_few_days_to_help_get_you_more_exposure___video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926314604-DOOM-LAGGING-video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926599517-Never_asking_where_it_leads__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926887380-Badge_of_Losses_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1926887380-Badge_of_Losses_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927061042-Kicked_off___Let_s_go_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927081301-Melted__2025__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927081301-Melted__2025__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927191617-Facets_-_X__my_collab_collection_with_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927222193-GM_Dealers_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927351148-Overcooked_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927433476-Overcooked_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927449301195628890-Man__It_s_truly_amazing_to_see_this_collection_gaining_traction_and_drawing_in_new_art_enthusiasts_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927553854-MONALOSSA_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927553854-MONALOSSA_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927605449-GM_Watchers_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927806134-In_Lies_We_Trust_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928171585-Escape_Denied_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928176688-Escape_Denied_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928180734-Auction_live_for__Escape_Denied___that_escalated_fast._Grateful_for_the_early_b-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928270112-Starting_the_day_with_a_new_bid_from_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928274849-Endspark__2025__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928274849-Endspark__2025__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928286614-Yess_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928293368-Yes__Drowned_Dream_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1928316346-Received_a_new_bid_from_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929191273-Sunday_art_share__let_s_promote_your_work_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929247992-New_bid_alert__shoutout_to_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929247992-New_bid_alert__shoutout_to_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929250862989238726-Auction_s_heating_up_ser__not_even_keeping_up_with_screenshots_anymore__Shoutout_to_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929266499-Earth._Sold._Quietly_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929274677-_HOLYCANDLE__just_found_a_new_home_on_the_secondary_for_0.18__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929296900-________________________________video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929382309-GM_Scrollers_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929382309-GM_Scrollers_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929462349-Broken_for_years._Then_a_green_flicker_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929566049-Art_of_the_Day_Challenge__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929572743-_Earth._Sold._Quietly__Auction_Ends_in_3Hrs_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929963081-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Bric-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929965413-Three_auctions_live_today__feeling_grateful_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929988663271928142-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Brick_by_brick__we_re_bui_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1929989772-Wish_this_was_only_art_but_it_has_a_lot_of_reality_great_piece_spell__3_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930004148-_They_Bomb_You__They_Feed_You__is_now_collected_by_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930006943-The_City_We_Asked_For_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930018214-Vibe_check_passed_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930080847-Alright__Just_checked_my_collab_piece_with_the_legend_XCOPY__Facets-X___floor_s-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930094899-Later_today_I_ll_be_posting_a_thread_of_all_my_1_1s_on_secondary__felt_like_rev-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930098503-This_is_me._My_lighter_side_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930109997-GM_X_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930146953-Resharing_my_listed_1_1s_available_on_secondary_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930187471-Auction_ending_in_6_Hrs_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930202371-Sharing_Day_29_Drop_a_bit_early_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930219653-_______________________________________video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930246919-Ok__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930255018-Shoutout_to_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930255018-Shoutout_to_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930467422-Mint_it_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930475240-GM_Collectors_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930501635-_Silence__has_been_privately_collected_by_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930556032-Today_s_art_includes_a_bonus_for_bidders_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930630133-New_bid_just_landed_from_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930694071-New_0.14__bid_just_in_from_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930791328-_______________________video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930792736-Fresh_bid_in__0.154_ETH_from_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930793662-YEAR_4040_Auction_Update_-_8_Days_Left_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930814654-________________unminted__video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1930814654-________________unminted__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1931017726-The_King_of_Static_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1931023332-Clock_In._Clock_Out_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1931026104-The_moment_I_listed_it__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video1-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1931287466-We_walk_on_cliffs_we_cannot_see_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1934706575135961372-Freedoom_sold_to_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1934797552483750137-Auction_Live_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1934907269482758241-_______________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1934933427138253136-_________________________________________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1934979139527942259-F___-_____________ss_______video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935123941233656147-Beautiful_Hell_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935330168983203844-_____s_________________._______________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935357561680572786-Auction_Live_for__Ferry_to_the_Void__video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935419619159822513-___________________________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935432786845855871-__________________________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935595599702917580-________________________video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935595599702917580-________________________video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935596307093000341-M_O_N_U_M_E_N_T___O_F___T_H_E___D_I_S_C_O_N_N_E_C_T_E_D__video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935661268095979543-_I_Had_a_Plan__sold_to_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935727185504931988-__________-_Auction_Live_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1935731716670542066-____________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1936165184176808255-GN_Gang_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1936508729739923942-Corporate_Messiah_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1936547445648822662-Chained_to_Time_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1936794872565871007-War_is_no_longer_fought_on_land._It_s_streamed__scheduled__and_sponsored_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1940875391801217222-__________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941053876620480612-While_all_the_noise_was_going_on__video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941207078711832895-That_s_a_wrap__The_auction_for__9_to_Die__has_ended__secured_by_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941335532413518327-GM_Degens_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941335532413518327-GM_Degens_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941580107308728369-Addicted_to_Echoes_She_Created_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941717429958135939-GM_Gamblers_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941722055495282916-Post_your_new_work_below._Any_chain_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941746434946293887-At_the_Edge_of_Memory__video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1941776772678156651-________________-_Auction_Live_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942083103452696647-I_Tried_to_Be_Okay__I_Really_Did_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942108822539260371-___________________video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942117286095061138-_____________________video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942164416511791222-My_SuperRare_piece__Burning_Harmony__is_now_listed_for_resale_by_the_current_hodler_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942484744815436023-_____________________video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942517833188937882-You_weren_t_designed_to_carry_this_much_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942618128279822685-please_don_t_outbid_me__video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942618128279822685-please_don_t_outbid_me__video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942623908643123537-do_you_really_have_to_advertise__shhh_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942791398727770601-my_first_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942791398727770601-my_first_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1942816934057132410-This_is_what_the_end_looks_like_after_you_win_video2-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1943224810663793009-Survived_the_Meeting_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1943353117464035429-Probably_a_good_day_to_bring_DALL-E_s_Revenge_by_video3-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1943370729694568592-New_bid_from_1dontknows_video4-lossy.webp',
-            '/nft-gallery/spellamin/webp/spellamin-1943378847929348307-_____________________video3-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/spellamin/webp/spellamin-1925487815-_Burn__has_been_collected_by-video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1925654727-_Ghost__sold_to-video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926101080-Two_artworks_from_my_daily_series_are_open_for_bidding_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926180339-Empire_Things__Shadows-video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926249848-We_are_static_souls_in_a_system_s_grip__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926279294830928346-Let_me_promote_your_art_as_my_pinned_post_for_a_few_days_to_help_get_you_more_exposure___video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926314604-DOOM-LAGGING-video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926599517-Never_asking_where_it_leads__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926887380-Badge_of_Losses_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1926887380-Badge_of_Losses_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927061042-Kicked_off___Let_s_go_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927081301-Melted__2025__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927081301-Melted__2025__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927191617-Facets_-_X__my_collab_collection_with_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927222193-GM_Dealers_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927351148-Overcooked_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927433476-Overcooked_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927449301195628890-Man__It_s_truly_amazing_to_see_this_collection_gaining_traction_and_drawing_in_new_art_enthusiasts_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927553854-MONALOSSA_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927553854-MONALOSSA_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927605449-GM_Watchers_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927806134-In_Lies_We_Trust_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1927815765-EXPLORE-R__2022__video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928171585-Escape_Denied_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928176688-Escape_Denied_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928180734-Auction_live_for__Escape_Denied___that_escalated_fast._Grateful_for_the_early_b-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928270112-Starting_the_day_with_a_new_bid_from_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928274849-Endspark__2025__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928274849-Endspark__2025__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928286614-Yess_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928293368-Yes__Drowned_Dream_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1928316346-Received_a_new_bid_from_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929191273-Sunday_art_share__let_s_promote_your_work_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929241668-_Statue_of_Liability__Auction_Ends_in_2Hrs_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929247992-New_bid_alert__shoutout_to_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929247992-New_bid_alert__shoutout_to_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929250862989238726-Auction_s_heating_up_ser__not_even_keeping_up_with_screenshots_anymore__Shoutout_to_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929266499-Earth._Sold._Quietly_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929274677-_HOLYCANDLE__just_found_a_new_home_on_the_secondary_for_0.18__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929296900-________________________________video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929382309-GM_Scrollers_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929382309-GM_Scrollers_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929462349-Broken_for_years._Then_a_green_flicker_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929566049-Art_of_the_Day_Challenge__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929572743-_Earth._Sold._Quietly__Auction_Ends_in_3Hrs_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929963081-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Bric-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929965413-Three_auctions_live_today__feeling_grateful_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929988663271928142-We_re_slowly_climbing_the_6529_Memecard_ranks__currently_sitting_at_138th._Brick_by_brick__we_re_bui_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1929989772-Wish_this_was_only_art_but_it_has_a_lot_of_reality_great_piece_spell__3_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930004148-_They_Bomb_You__They_Feed_You__is_now_collected_by_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930006943-The_City_We_Asked_For_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930018214-Vibe_check_passed_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930022349-Working_on_this_collection_in_parallel__should_I_keep_pushing_it__video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930080847-Alright__Just_checked_my_collab_piece_with_the_legend_XCOPY__Facets-X___floor_s-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930094899-Later_today_I_ll_be_posting_a_thread_of_all_my_1_1s_on_secondary__felt_like_rev-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930098503-This_is_me._My_lighter_side_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930109997-GM_X_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930146433-Resharing_my_listed_1_1s_available_on_secondary_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930146953-Resharing_my_listed_1_1s_available_on_secondary_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930187471-Auction_ending_in_6_Hrs_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930202371-Sharing_Day_29_Drop_a_bit_early_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930219653-_______________________________________video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930246919-Ok__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930255018-Shoutout_to_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930255018-Shoutout_to_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930467422-Mint_it_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930475240-GM_Collectors_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930501635-_Silence__has_been_privately_collected_by_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930556032-Today_s_art_includes_a_bonus_for_bidders_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930630133-New_bid_just_landed_from_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930694071-New_0.14__bid_just_in_from_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930698496-YEAR_4040_Update_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930791328-_______________________video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930792736-Fresh_bid_in__0.154_ETH_from_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930793662-YEAR_4040_Auction_Update_-_8_Days_Left_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930814654-________________unminted__video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1930814654-________________unminted__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1931017726-The_King_of_Static_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1931023332-Clock_In._Clock_Out_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1931026104-The_moment_I_listed_it__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video1-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1931060415-YEAR_4040_Auction_Update___6_Days_23_Hrs_left_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1931287466-We_walk_on_cliffs_we_cannot_see_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1934706575135961372-Freedoom_sold_to_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1934797552483750137-Auction_Live_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1934907269482758241-_______________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1934933427138253136-_________________________________________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1934979139527942259-F___-_____________ss_______video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935123941233656147-Beautiful_Hell_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935330168983203844-_____s_________________._______________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935357561680572786-Auction_Live_for__Ferry_to_the_Void__video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935419619159822513-___________________________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935432786845855871-__________________________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935595599702917580-________________________video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935595599702917580-________________________video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935596307093000341-M_O_N_U_M_E_N_T___O_F___T_H_E___D_I_S_C_O_N_N_E_C_T_E_D__video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935661268095979543-_I_Had_a_Plan__sold_to_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935727185504931988-__________-_Auction_Live_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1935731716670542066-____________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1936165184176808255-GN_Gang_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1936508729739923942-Corporate_Messiah_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1936547445648822662-Chained_to_Time_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1936794872565871007-War_is_no_longer_fought_on_land._It_s_streamed__scheduled__and_sponsored_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1940875391801217222-__________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941053876620480612-While_all_the_noise_was_going_on__video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941207078711832895-That_s_a_wrap__The_auction_for__9_to_Die__has_ended__secured_by_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941335532413518327-GM_Degens_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941335532413518327-GM_Degens_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941580107308728369-Addicted_to_Echoes_She_Created_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941717429958135939-GM_Gamblers_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941722055495282916-Post_your_new_work_below._Any_chain_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941746434946293887-At_the_Edge_of_Memory__video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1941776772678156651-________________-_Auction_Live_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942083103452696647-I_Tried_to_Be_Okay__I_Really_Did_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942108822539260371-___________________video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942117286095061138-_____________________video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942164416511791222-My_SuperRare_piece__Burning_Harmony__is_now_listed_for_resale_by_the_current_hodler_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942484744815436023-_____________________video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942517833188937882-You_weren_t_designed_to_carry_this_much_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942618128279822685-please_don_t_outbid_me__video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942618128279822685-please_don_t_outbid_me__video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942623908643123537-do_you_really_have_to_advertise__shhh_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942791398727770601-my_first_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942791398727770601-my_first_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1942816934057132410-This_is_what_the_end_looks_like_after_you_win_video2-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1943224810663793009-Survived_the_Meeting_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1943353117464035429-Probably_a_good_day_to_bring_DALL-E_s_Revenge_by_video3-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1943370729694568592-New_bid_from_1dontknows_video4-lossy.webp',\n            '/nft-gallery/spellamin/webp/spellamin-1943378847929348307-_____________________video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

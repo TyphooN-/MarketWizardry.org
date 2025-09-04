@@ -1,5 +1,4 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
     <meta property="og:title" content="NFT Gallery - rustnfteth">
     <meta property="og:description" content="rustnfteth's digital art collection - Rust meets Ethereum in a beautiful collision of blockchain disappointment. This collection proves that even memory-safe programming can't protect you from aesthetic disasters.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.info/nft-gallery/rustnfteth_gallery.html">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/rustnfteth_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - rustnfteth">
     <meta name="twitter:description" content="rustnfteth's digital art collection - Rust meets Ethereum in a beautiful collision of blockchain disappointment. This collection proves that even memory-safe programming can't protect you from aesthetic disasters.">
@@ -27,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -57,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -67,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -82,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -92,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -143,7 +139,7 @@
             opacity: 0.9;
         }
     </style>
-        <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
@@ -156,8 +152,173 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1927745570-_Flourish_With_Caution__video1-lossy.webp" alt="rustnfteth-1927745570-_Flourish_With_Caution__video1-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1927768675458621755-_EVERY_SILENCE_HOLDS_A_SUPERNOVA__has_been_kicked_off_by_og_rust_collector_video1-lossy.webp" alt="rustnfteth-1927768675458621755-_EVERY_SILENCE_HOLDS_A_SUPERNOVA__has_been_kicked_off_by_og_rust_collector_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1928031696-_IF_THE_WORLD_WAS_ENDING__auction_was_kicked_off_by_video1-lossy.webp" alt="rustnfteth-1928031696-_IF_THE_WORLD_WAS_ENDING__auction_was_kicked_off_by_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video1-lossy.webp" alt="rustnfteth-1928153501-Rank_Without_Merit_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video2-lossy.webp" alt="rustnfteth-1928153501-Rank_Without_Merit_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1928169680-Thanks_for_looking_out_for_us_video1-lossy.webp" alt="rustnfteth-1928169680-Thanks_for_looking_out_for_us_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1928512174-Death_by_a_thousand_commutes_video1-lossy.webp" alt="rustnfteth-1928512174-Death_by_a_thousand_commutes_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1928869930-The_cost_of_stability_video1-lossy.webp" alt="rustnfteth-1928869930-The_cost_of_stability_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929122725-Another_auction_just_kicked_off_to_start_the_month_of_June__video1-lossy.webp" alt="rustnfteth-1929122725-Another_auction_just_kicked_off_to_start_the_month_of_June__video1-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video1-lossy.webp" alt="rustnfteth-1929146522-the_dust_in_my_soul_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video2-lossy.webp" alt="rustnfteth-1929146522-the_dust_in_my_soul_video2-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video1-lossy.webp" alt="rustnfteth-1929188970-Knowing_was_the_trap_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video2-lossy.webp" alt="rustnfteth-1929188970-Knowing_was_the_trap_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video3-lossy.webp" alt="rustnfteth-1929188970-Knowing_was_the_trap_video3-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929522423-gm__video1-lossy.webp" alt="rustnfteth-1929522423-gm__video1-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929610957-Do_Not_Delete_video1-lossy.webp" alt="rustnfteth-1929610957-Do_Not_Delete_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929922168-_Cursor_of_Faith__video1-lossy.webp" alt="rustnfteth-1929922168-_Cursor_of_Faith__video1-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1929969956-Electricity_from_the_pills_in_me_video1-lossy.webp" alt="rustnfteth-1929969956-Electricity_from_the_pills_in_me_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video1-lossy.webp" alt="rustnfteth-1930300398-Last_Man_Standing_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video2-lossy.webp" alt="rustnfteth-1930300398-Last_Man_Standing_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1930993977420820904-gm__video4-lossy.webp" alt="rustnfteth-1930993977420820904-gm__video4-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1931769848381518263-Rest_in_Chaos_video2-lossy.webp" alt="rustnfteth-1931769848381518263-Rest_in_Chaos_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1932806803357667808-Another_auction_kicked_off_from_the_B.R.E.D_collection_by_dear_friend_and_artist_video4-lossy.webp" alt="rustnfteth-1932806803357667808-Another_auction_kicked_off_from_the_B.R.E.D_collection_by_dear_friend_and_artist_video4-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video3-lossy.webp" alt="rustnfteth-1934167909938671735-__Hang_my_head_video3-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video4-lossy.webp" alt="rustnfteth-1934167909938671735-__Hang_my_head_video4-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1934962318833865101-Just_noticed__ALL_GOOD__was_kicked_off_by_video3-lossy.webp" alt="rustnfteth-1934962318833865101-Just_noticed__ALL_GOOD__was_kicked_off_by_video3-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1935085562194440665-WAITING__WAITING_DRIVES_YOU_CRAZY_WAITING_DRIVES_YOU_CRAZY_ENDLESS_video4-lossy.webp" alt="rustnfteth-1935085562194440665-WAITING__WAITING_DRIVES_YOU_CRAZY_WAITING_DRIVES_YOU_CRAZY_ENDLESS_video4-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1935312227038384381-Might_fuck_around_and_show_the_first_Lunatic_soon_video2-lossy.webp" alt="rustnfteth-1935312227038384381-Might_fuck_around_and_show_the_first_Lunatic_soon_video2-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1935402701568778615-Ripples_On_a_Blank_Shore_video2-lossy.webp" alt="rustnfteth-1935402701568778615-Ripples_On_a_Blank_Shore_video2-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1935785553011916860-Off_Path_video2-lossy.webp" alt="rustnfteth-1935785553011916860-Off_Path_video2-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939387632825532782-dream_state_video2-lossy.webp" alt="rustnfteth-1939387632825532782-dream_state_video2-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939776894964310428-Unscheduled_Departure_video2-lossy.webp" alt="rustnfteth-1939776894964310428-Unscheduled_Departure_video2-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939949288437531070-Auction_kicked_off_by_video3-lossy.webp" alt="rustnfteth-1939949288437531070-Auction_kicked_off_by_video3-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939951324776333469-_Off_Path__was_kicked_off_yesterday_by_video3-lossy.webp" alt="rustnfteth-1939951324776333469-_Off_Path__was_kicked_off_yesterday_by_video3-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939951780592304549-_Sanctified_Maintenance__was_kicked_off_by_none_other_than_the_legendary_video3-lossy.webp" alt="rustnfteth-1939951780592304549-_Sanctified_Maintenance__was_kicked_off_by_none_other_than_the_legendary_video3-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939952511110009331-_Cursor_of_Faith__kicked_off_yesterday_by_jj_rascal_video4-lossy.webp" alt="rustnfteth-1939952511110009331-_Cursor_of_Faith__kicked_off_yesterday_by_jj_rascal_video4-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939953098417418341-_Knowing_Was_The_Trap__was_kicked_off_by_video3-lossy.webp" alt="rustnfteth-1939953098417418341-_Knowing_Was_The_Trap__was_kicked_off_by_video3-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1939994345400140018-Echoes_of_the_Desert_video4-lossy.webp" alt="rustnfteth-1939994345400140018-Echoes_of_the_Desert_video4-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1940041565562708429-gm__video2-lossy.webp" alt="rustnfteth-1940041565562708429-gm__video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1940109840959107323-if_u_didn_t_watch_this_yesterday_please_put_in_some_headphones_and_bang_your_head_video3-lossy.webp" alt="rustnfteth-1940109840959107323-if_u_didn_t_watch_this_yesterday_please_put_in_some_headphones_and_bang_your_head_video3-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1940378690757742664-Both_bidders__editions_airdropped_to_their_owners_video4-lossy.webp" alt="rustnfteth-1940378690757742664-Both_bidders__editions_airdropped_to_their_owners_video4-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1940407391381868945-Only_5_pieces_left_now_in_the__MEMEnto_Mori__collection_video4-lossy.webp" alt="rustnfteth-1940407391381868945-Only_5_pieces_left_now_in_the__MEMEnto_Mori__collection_video4-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1940804057326932093-gm_frens_video4-lossy.webp" alt="rustnfteth-1940804057326932093-gm_frens_video4-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1940826911888035852-Collateral_Innocence_video2-lossy.webp" alt="rustnfteth-1940826911888035852-Collateral_Innocence_video2-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1941051003878756726-_GOING_HOME__auction_was_kicked_off_video2-lossy.webp" alt="rustnfteth-1941051003878756726-_GOING_HOME__auction_was_kicked_off_video2-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1941081090082701385-Crowd_favorite__DEATH_BY_A_THOUSAND_SWIPES__has_also_been_kicked_off_today_by_video4-lossy.webp" alt="rustnfteth-1941081090082701385-Crowd_favorite__DEATH_BY_A_THOUSAND_SWIPES__has_also_been_kicked_off_today_by_video4-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1942201829644759340-gm__video3-lossy.webp" alt="rustnfteth-1942201829644759340-gm__video3-lossy.webp" onclick="openImage(46)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1942267098899624302-Surrender_to_the_Shadow_video2-lossy.webp" alt="rustnfteth-1942267098899624302-Surrender_to_the_Shadow_video2-lossy.webp" onclick="openImage(47)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1942627996138909753-Am_I_going_up__video2-lossy.webp" alt="rustnfteth-1942627996138909753-Am_I_going_up__video2-lossy.webp" onclick="openImage(48)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1942667486228537387-Nothing_Left_to_Wait_For_video2-lossy.webp" alt="rustnfteth-1942667486228537387-Nothing_Left_to_Wait_For_video2-lossy.webp" onclick="openImage(49)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video3-lossy.webp" alt="rustnfteth-1942990622778101765-Excessive_Curiosity_video3-lossy.webp" onclick="openImage(50)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video4-lossy.webp" alt="rustnfteth-1942990622778101765-Excessive_Curiosity_video4-lossy.webp" onclick="openImage(51)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1943300526625493495-hide_your_opepens_video4-lossy.webp" alt="rustnfteth-1943300526625493495-hide_your_opepens_video4-lossy.webp" onclick="openImage(52)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1943396695842152501-Start_of_Something_Beautiful_video2-lossy.webp" alt="rustnfteth-1943396695842152501-Start_of_Something_Beautiful_video2-lossy.webp" onclick="openImage(53)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/rustnfteth/webp/rustnfteth-1943691603261997320-Still_Brought_Two_Chairs_video2-lossy.webp" alt="rustnfteth-1943691603261997320-Still_Brought_Two_Chairs_video2-lossy.webp" onclick="openImage(54)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -166,165 +327,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/rustnfteth/webp/rustnfteth-1927745570-_Flourish_With_Caution__video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1927768675458621755-_EVERY_SILENCE_HOLDS_A_SUPERNOVA__has_been_kicked_off_by_og_rust_collector_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1928031696-_IF_THE_WORLD_WAS_ENDING__auction_was_kicked_off_by_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1928169680-Thanks_for_looking_out_for_us_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1928512174-Death_by_a_thousand_commutes_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1928869930-The_cost_of_stability_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929122725-Another_auction_just_kicked_off_to_start_the_month_of_June__video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929522423-gm__video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929610957-Do_Not_Delete_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929922168-_Cursor_of_Faith__video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1929969956-Electricity_from_the_pills_in_me_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video1-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1930993977420820904-gm__video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1931769848381518263-Rest_in_Chaos_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1932806803357667808-Another_auction_kicked_off_from_the_B.R.E.D_collection_by_dear_friend_and_artist_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1934962318833865101-Just_noticed__ALL_GOOD__was_kicked_off_by_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1935085562194440665-WAITING__WAITING_DRIVES_YOU_CRAZY_WAITING_DRIVES_YOU_CRAZY_ENDLESS_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1935312227038384381-Might_fuck_around_and_show_the_first_Lunatic_soon_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1935402701568778615-Ripples_On_a_Blank_Shore_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1935785553011916860-Off_Path_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939387632825532782-dream_state_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939776894964310428-Unscheduled_Departure_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939949288437531070-Auction_kicked_off_by_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939951324776333469-_Off_Path__was_kicked_off_yesterday_by_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939951780592304549-_Sanctified_Maintenance__was_kicked_off_by_none_other_than_the_legendary_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939952511110009331-_Cursor_of_Faith__kicked_off_yesterday_by_jj_rascal_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939953098417418341-_Knowing_Was_The_Trap__was_kicked_off_by_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1939994345400140018-Echoes_of_the_Desert_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1940041565562708429-gm__video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1940109840959107323-if_u_didn_t_watch_this_yesterday_please_put_in_some_headphones_and_bang_your_head_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1940378690757742664-Both_bidders__editions_airdropped_to_their_owners_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1940407391381868945-Only_5_pieces_left_now_in_the__MEMEnto_Mori__collection_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1940804057326932093-gm_frens_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1940826911888035852-Collateral_Innocence_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1941051003878756726-_GOING_HOME__auction_was_kicked_off_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1941081090082701385-Crowd_favorite__DEATH_BY_A_THOUSAND_SWIPES__has_also_been_kicked_off_today_by_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1942201829644759340-gm__video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1942267098899624302-Surrender_to_the_Shadow_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1942627996138909753-Am_I_going_up__video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1942667486228537387-Nothing_Left_to_Wait_For_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video3-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1943300526625493495-hide_your_opepens_video4-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1943396695842152501-Start_of_Something_Beautiful_video2-lossy.webp',
-            '/nft-gallery/rustnfteth/webp/rustnfteth-1943691603261997320-Still_Brought_Two_Chairs_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/rustnfteth/webp/rustnfteth-1927745570-_Flourish_With_Caution__video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1927768675458621755-_EVERY_SILENCE_HOLDS_A_SUPERNOVA__has_been_kicked_off_by_og_rust_collector_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1928031696-_IF_THE_WORLD_WAS_ENDING__auction_was_kicked_off_by_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1928169680-Thanks_for_looking_out_for_us_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1928512174-Death_by_a_thousand_commutes_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1928869930-The_cost_of_stability_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929122725-Another_auction_just_kicked_off_to_start_the_month_of_June__video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929522423-gm__video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929610957-Do_Not_Delete_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929922168-_Cursor_of_Faith__video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1929969956-Electricity_from_the_pills_in_me_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video1-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1930993977420820904-gm__video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1931769848381518263-Rest_in_Chaos_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1932806803357667808-Another_auction_kicked_off_from_the_B.R.E.D_collection_by_dear_friend_and_artist_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1934962318833865101-Just_noticed__ALL_GOOD__was_kicked_off_by_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1935085562194440665-WAITING__WAITING_DRIVES_YOU_CRAZY_WAITING_DRIVES_YOU_CRAZY_ENDLESS_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1935312227038384381-Might_fuck_around_and_show_the_first_Lunatic_soon_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1935402701568778615-Ripples_On_a_Blank_Shore_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1935785553011916860-Off_Path_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939387632825532782-dream_state_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939776894964310428-Unscheduled_Departure_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939949288437531070-Auction_kicked_off_by_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939951324776333469-_Off_Path__was_kicked_off_yesterday_by_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939951780592304549-_Sanctified_Maintenance__was_kicked_off_by_none_other_than_the_legendary_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939952511110009331-_Cursor_of_Faith__kicked_off_yesterday_by_jj_rascal_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939953098417418341-_Knowing_Was_The_Trap__was_kicked_off_by_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1939994345400140018-Echoes_of_the_Desert_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1940041565562708429-gm__video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1940109840959107323-if_u_didn_t_watch_this_yesterday_please_put_in_some_headphones_and_bang_your_head_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1940378690757742664-Both_bidders__editions_airdropped_to_their_owners_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1940407391381868945-Only_5_pieces_left_now_in_the__MEMEnto_Mori__collection_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1940804057326932093-gm_frens_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1940826911888035852-Collateral_Innocence_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1941051003878756726-_GOING_HOME__auction_was_kicked_off_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1941081090082701385-Crowd_favorite__DEATH_BY_A_THOUSAND_SWIPES__has_also_been_kicked_off_today_by_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1942201829644759340-gm__video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1942267098899624302-Surrender_to_the_Shadow_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1942627996138909753-Am_I_going_up__video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1942667486228537387-Nothing_Left_to_Wait_For_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video3-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1943300526625493495-hide_your_opepens_video4-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1943396695842152501-Start_of_Something_Beautiful_video2-lossy.webp',\n            '/nft-gallery/rustnfteth/webp/rustnfteth-1943691603261997320-Still_Brought_Two_Chairs_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

@@ -1,31 +1,22 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFT (Not For Trade) Gallery - Gogolitus | MarketWizardry.org</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/Gogolitus_gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Gogolitus's surreal digital landscapes where nightmares become art form. Bizarre and beautiful visuals for collectors who appreciate the aesthetics of controlled chaos.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Gogolitus Gallery - MarketWizardry.org">
+    <meta property="og:title" content="NFT Gallery - Gogolitus">
     <meta property="og:description" content="Gogolitus's surreal digital landscapes where nightmares become art form. Bizarre and beautiful visuals for collectors who appreciate the aesthetics of controlled chaos.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/Gogolitus_gallery.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/Gogolitus_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Gogolitus Gallery - MarketWizardry.org">
+    <meta name="twitter:title" content="NFT Gallery - Gogolitus">
     <meta name="twitter:description" content="Gogolitus's surreal digital landscapes where nightmares become art form. Bizarre and beautiful visuals for collectors who appreciate the aesthetics of controlled chaos.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
@@ -35,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -65,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -75,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -90,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -100,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -151,6 +139,8 @@
             opacity: 0.9;
         }
     </style>
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
     <h2>NFT (Not For Trade) Gallery - Gogolitus</h2>
@@ -162,8 +152,155 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1922251542314279063-Art_begins_where_your____inclination____dares_to_wander___trust_it__for_it_whispers_the_language_of_video1-1-lossy.webp" alt="Gogolitus-1922251542314279063-Art_begins_where_your____inclination____dares_to_wander___trust_it__for_it_whispers_the_language_of_video1-1-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1923110524-Just_listed_on_video2-lossy.webp" alt="Gogolitus-1923110524-Just_listed_on_video2-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1923110944-A_close-up_view_video2-lossy.webp" alt="Gogolitus-1923110944-A_close-up_view_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1923152258-Around_twenty_secondary_sales_of__Gleam_of_the_Elsewhere__have_taken_place_over-lossy.webp" alt="Gogolitus-1923152258-Around_twenty_secondary_sales_of__Gleam_of_the_Elsewhere__have_taken_place_over-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1923160451-Collected_on_video1-lossy.webp" alt="Gogolitus-1923160451-Collected_on_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1923161673-Collected_on_video2-lossy.webp" alt="Gogolitus-1923161673-Collected_on_video2-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video2-1-lossy.webp" alt="Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video2-1-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video3-1-lossy.webp" alt="Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video3-1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931118188-My_piece_for_the_Objkt_Art_Pack_has_just_been_revealed_video2-lossy.webp" alt="Gogolitus-1931118188-My_piece_for_the_Objkt_Art_Pack_has_just_been_revealed_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931121335-What_if_you_could_see_the_entire_light_spectrum__video3-lossy.webp" alt="Gogolitus-1931121335-What_if_you_could_see_the_entire_light_spectrum__video3-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931125108-What_if_you_could_see_the_entire_light_spectrum__video1-lossy.webp" alt="Gogolitus-1931125108-What_if_you_could_see_the_entire_light_spectrum__video1-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931173064-_Yuka_Morita_sending_the_Mutagen_Signal__by_video1-lossy.webp" alt="Gogolitus-1931173064-_Yuka_Morita_sending_the_Mutagen_Signal__by_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931648234-_Floppy_Risk__x_video2-lossy.webp" alt="Gogolitus-1931648234-_Floppy_Risk__x_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1931663025-Over_the_past_few_days__I_ve_been_working_on_a_tool_specifically_designed_for_c-lossy.webp" alt="Gogolitus-1931663025-Over_the_past_few_days__I_ve_been_working_on_a_tool_specifically_designed_for_c-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1932534444281250161-_Don_t_Panic._Stay_Cold.__video2-lossy.webp" alt="Gogolitus-1932534444281250161-_Don_t_Panic._Stay_Cold.__video2-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1932984148152431015-I_m_stoked_to_reveal_these_two_pieces_created_for_video4-lossy.webp" alt="Gogolitus-1932984148152431015-I_m_stoked_to_reveal_these_two_pieces_created_for_video4-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1933390609756152195-What_s_your_Holy_Grail__video4-lossy.webp" alt="Gogolitus-1933390609756152195-What_s_your_Holy_Grail__video4-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1933420738888781870-Next_show_is_Wednesday_thanks_for_the_patience_my_friends_video3-lossy.webp" alt="Gogolitus-1933420738888781870-Next_show_is_Wednesday_thanks_for_the_patience_my_friends_video3-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1933556351877460096-Now_Listed_video3-lossy.webp" alt="Gogolitus-1933556351877460096-Now_Listed_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1933556351877460096-Now_Listed_video4-lossy.webp" alt="Gogolitus-1933556351877460096-Now_Listed_video4-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video3-lossy.webp" alt="Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video3-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video4-lossy.webp" alt="Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video4-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1935334554937491894-Meow_s_Lava_Tracks__2023___pixelart_video3-lossy.webp" alt="Gogolitus-1935334554937491894-Meow_s_Lava_Tracks__2023___pixelart_video3-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1935419245111734433-Nice_Art_video4-lossy.webp" alt="Gogolitus-1935419245111734433-Nice_Art_video4-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1935428743440515475-You_can_actually_follow_a_cat_going_through_its_full_cycle_for_almost_20_seconds__even_though_it_s_o_video4-lossy.webp" alt="Gogolitus-1935428743440515475-You_can_actually_follow_a_cat_going_through_its_full_cycle_for_almost_20_seconds__even_though_it_s_o_video4-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1935429279820714234-New_mint_on_video4-lossy.webp" alt="Gogolitus-1935429279820714234-New_mint_on_video4-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1935476359528116714-_Kitty_Training_VI__video4-lossy.webp" alt="Gogolitus-1935476359528116714-_Kitty_Training_VI__video4-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1935969783419122078-I_have_just_collected__Kitty_Training_VI__by_video3-lossy.webp" alt="Gogolitus-1935969783419122078-I_have_just_collected__Kitty_Training_VI__by_video3-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938284089263722737-I_just_minted_this_piece_in_200_editions__and_I_will_send_it_to_anyone_who_requests_it_under_this_tw_video4-lossy.webp" alt="Gogolitus-1938284089263722737-I_just_minted_this_piece_in_200_editions__and_I_will_send_it_to_anyone_who_requests_it_under_this_tw_video4-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938307095373213712-An_edition_of__Holographic_Sun__has_been_collected_for_40__tezos_on_sec_video2-lossy.webp" alt="Gogolitus-1938307095373213712-An_edition_of__Holographic_Sun__has_been_collected_for_40__tezos_on_sec_video2-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938348361519710702-DON_T._BE._CREATIVE_video4-lossy.webp" alt="Gogolitus-1938348361519710702-DON_T._BE._CREATIVE_video4-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938597741669855569-_pixelart_video4-lossy.webp" alt="Gogolitus-1938597741669855569-_pixelart_video4-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938666948524441727-_ScrollFlow_XY__-_Feb._2023_video4-lossy.webp" alt="Gogolitus-1938666948524441727-_ScrollFlow_XY__-_Feb._2023_video4-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938729129089679451-Love_one_another_video2-lossy.webp" alt="Gogolitus-1938729129089679451-Love_one_another_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938761497523466266-All_editions_have_taken_flight_video3-lossy.webp" alt="Gogolitus-1938761497523466266-All_editions_have_taken_flight_video3-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1938993968332574919-Another_edition_of__Aurora_of_Fire__was_acquired_today_on_the_secondary_video2-lossy.webp" alt="Gogolitus-1938993968332574919-Another_edition_of__Aurora_of_Fire__was_acquired_today_on_the_secondary_video2-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1939141576217006308-Why_are_we_here__video4-lossy.webp" alt="Gogolitus-1939141576217006308-Why_are_we_here__video4-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1939188268433592823-GMeow_Sunday_video4-lossy.webp" alt="Gogolitus-1939188268433592823-GMeow_Sunday_video4-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942319564185801164-I_ve_just_let_go_of_my_personal_edition_of_my__Tezos_genesis_piece__Color_Factory__for_165__video2-lossy.webp" alt="Gogolitus-1942319564185801164-I_ve_just_let_go_of_my_personal_edition_of_my__Tezos_genesis_piece__Color_Factory__for_165__video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942325755519685013-An_anon_collector_just_acquired_several_pieces_on_the_secondary_market_for_a_little_over_600__Tezos_video2-lossy.webp" alt="Gogolitus-1942325755519685013-An_anon_collector_just_acquired_several_pieces_on_the_secondary_market_for_a_little_over_600__Tezos_video2-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942349185455423966-An_edition_of__Kitty_Training_V__has_been_collected_on_secondary_video2-lossy.webp" alt="Gogolitus-1942349185455423966-An_edition_of__Kitty_Training_V__has_been_collected_on_secondary_video2-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942674447032619124-__vortex.exe___video4-lossy.webp" alt="Gogolitus-1942674447032619124-__vortex.exe___video4-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video3-lossy.webp" alt="Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video3-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video4-lossy.webp" alt="Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video4-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942979834835320971-Handcrafted__pixelart_with_video3-lossy.webp" alt="Gogolitus-1942979834835320971-Handcrafted__pixelart_with_video3-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1942999014514856338-Which_one_do_you_prefer___video4-lossy.webp" alt="Gogolitus-1942999014514856338-Which_one_do_you_prefer___video4-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1943502949902086505-You_have_no_valid_reason_to_be_bullish_on_tezos_video3-lossy.webp" alt="Gogolitus-1943502949902086505-You_have_no_valid_reason_to_be_bullish_on_tezos_video3-lossy.webp" onclick="openImage(46)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1943663575136109003-GM_everyone_______video3-lossy.webp" alt="Gogolitus-1943663575136109003-GM_everyone_______video3-lossy.webp" onclick="openImage(47)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/Gogolitus/webp/Gogolitus-1943722451403231553-The_auction_is_currently_at_115__tezos_video2-lossy.webp" alt="Gogolitus-1943722451403231553-The_auction_is_currently_at_115__tezos_video2-lossy.webp" onclick="openImage(48)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -172,159 +309,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/Gogolitus/webp/Gogolitus-1922251542314279063-Art_begins_where_your____inclination____dares_to_wander___trust_it__for_it_whispers_the_language_of_video1-1-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1923110524-Just_listed_on_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1923110944-A_close-up_view_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1923152258-Around_twenty_secondary_sales_of__Gleam_of_the_Elsewhere__have_taken_place_over-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1923160451-Collected_on_video1-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1923161673-Collected_on_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video2-1-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video3-1-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931118188-My_piece_for_the_Objkt_Art_Pack_has_just_been_revealed_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931121335-What_if_you_could_see_the_entire_light_spectrum__video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931125108-What_if_you_could_see_the_entire_light_spectrum__video1-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931173064-_Yuka_Morita_sending_the_Mutagen_Signal__by_video1-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931648234-_Floppy_Risk__x_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1931663025-Over_the_past_few_days__I_ve_been_working_on_a_tool_specifically_designed_for_c-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1932534444281250161-_Don_t_Panic._Stay_Cold.__video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1932984148152431015-I_m_stoked_to_reveal_these_two_pieces_created_for_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1933390609756152195-What_s_your_Holy_Grail__video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1933420738888781870-Next_show_is_Wednesday_thanks_for_the_patience_my_friends_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1933556351877460096-Now_Listed_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1933556351877460096-Now_Listed_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1935334554937491894-Meow_s_Lava_Tracks__2023___pixelart_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1935419245111734433-Nice_Art_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1935428743440515475-You_can_actually_follow_a_cat_going_through_its_full_cycle_for_almost_20_seconds__even_though_it_s_o_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1935429279820714234-New_mint_on_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1935476359528116714-_Kitty_Training_VI__video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1935969783419122078-I_have_just_collected__Kitty_Training_VI__by_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938284089263722737-I_just_minted_this_piece_in_200_editions__and_I_will_send_it_to_anyone_who_requests_it_under_this_tw_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938307095373213712-An_edition_of__Holographic_Sun__has_been_collected_for_40__tezos_on_sec_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938348361519710702-DON_T._BE._CREATIVE_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938597741669855569-_pixelart_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938666948524441727-_ScrollFlow_XY__-_Feb._2023_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938729129089679451-Love_one_another_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938761497523466266-All_editions_have_taken_flight_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1938993968332574919-Another_edition_of__Aurora_of_Fire__was_acquired_today_on_the_secondary_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1939141576217006308-Why_are_we_here__video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1939188268433592823-GMeow_Sunday_video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942319564185801164-I_ve_just_let_go_of_my_personal_edition_of_my__Tezos_genesis_piece__Color_Factory__for_165__video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942325755519685013-An_anon_collector_just_acquired_several_pieces_on_the_secondary_market_for_a_little_over_600__Tezos_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942349185455423966-An_edition_of__Kitty_Training_V__has_been_collected_on_secondary_video2-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942674447032619124-__vortex.exe___video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942979834835320971-Handcrafted__pixelart_with_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1942999014514856338-Which_one_do_you_prefer___video4-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1943502949902086505-You_have_no_valid_reason_to_be_bullish_on_tezos_video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1943663575136109003-GM_everyone_______video3-lossy.webp',
-            '/nft-gallery/Gogolitus/webp/Gogolitus-1943722451403231553-The_auction_is_currently_at_115__tezos_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/Gogolitus/webp/Gogolitus-1922251542314279063-Art_begins_where_your____inclination____dares_to_wander___trust_it__for_it_whispers_the_language_of_video1-1-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1923110524-Just_listed_on_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1923110944-A_close-up_view_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1923152258-Around_twenty_secondary_sales_of__Gleam_of_the_Elsewhere__have_taken_place_over-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1923160451-Collected_on_video1-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1923161673-Collected_on_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video2-1-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931112542-Thank_you_to_the_anon_who_collected_3_pieces_on_sec._today__video3-1-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931118188-My_piece_for_the_Objkt_Art_Pack_has_just_been_revealed_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931121335-What_if_you_could_see_the_entire_light_spectrum__video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931125108-What_if_you_could_see_the_entire_light_spectrum__video1-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931173064-_Yuka_Morita_sending_the_Mutagen_Signal__by_video1-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931648234-_Floppy_Risk__x_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1931663025-Over_the_past_few_days__I_ve_been_working_on_a_tool_specifically_designed_for_c-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1932534444281250161-_Don_t_Panic._Stay_Cold.__video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1932984148152431015-I_m_stoked_to_reveal_these_two_pieces_created_for_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1933390609756152195-What_s_your_Holy_Grail__video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1933420738888781870-Next_show_is_Wednesday_thanks_for_the_patience_my_friends_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1933556351877460096-Now_Listed_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1933556351877460096-Now_Listed_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1933560216794378659-I_have_just_collected__The_Silence_between_Levels__by_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1935334554937491894-Meow_s_Lava_Tracks__2023___pixelart_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1935419245111734433-Nice_Art_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1935428743440515475-You_can_actually_follow_a_cat_going_through_its_full_cycle_for_almost_20_seconds__even_though_it_s_o_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1935429279820714234-New_mint_on_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1935476359528116714-_Kitty_Training_VI__video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1935969783419122078-I_have_just_collected__Kitty_Training_VI__by_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938284089263722737-I_just_minted_this_piece_in_200_editions__and_I_will_send_it_to_anyone_who_requests_it_under_this_tw_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938307095373213712-An_edition_of__Holographic_Sun__has_been_collected_for_40__tezos_on_sec_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938348361519710702-DON_T._BE._CREATIVE_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938597741669855569-_pixelart_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938666948524441727-_ScrollFlow_XY__-_Feb._2023_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938729129089679451-Love_one_another_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938761497523466266-All_editions_have_taken_flight_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1938993968332574919-Another_edition_of__Aurora_of_Fire__was_acquired_today_on_the_secondary_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1939141576217006308-Why_are_we_here__video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1939188268433592823-GMeow_Sunday_video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942319564185801164-I_ve_just_let_go_of_my_personal_edition_of_my__Tezos_genesis_piece__Color_Factory__for_165__video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942325755519685013-An_anon_collector_just_acquired_several_pieces_on_the_secondary_market_for_a_little_over_600__Tezos_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942349185455423966-An_edition_of__Kitty_Training_V__has_been_collected_on_secondary_video2-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942674447032619124-__vortex.exe___video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942924930792001542-PEW_PEW_PEW_PEW_PEW_PEW______video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942979834835320971-Handcrafted__pixelart_with_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1942999014514856338-Which_one_do_you_prefer___video4-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1943502949902086505-You_have_no_valid_reason_to_be_bullish_on_tezos_video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1943663575136109003-GM_everyone_______video3-lossy.webp',\n            '/nft-gallery/Gogolitus/webp/Gogolitus-1943722451403231553-The_auction_is_currently_at_115__tezos_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

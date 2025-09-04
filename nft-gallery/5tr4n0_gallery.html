@@ -1,31 +1,22 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFT (Not For Trade) Gallery - 5tr4n0 | MarketWizardry.org</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/5tr4n0_gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="5tr4n0 Gallery - MarketWizardry.org">
+    <meta property="og:title" content="NFT Gallery - 5tr4n0">
     <meta property="og:description" content="5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/5tr4n0_gallery.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/5tr4n0_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="5tr4n0 Gallery - MarketWizardry.org">
+    <meta name="twitter:title" content="NFT Gallery - 5tr4n0">
     <meta name="twitter:description" content="5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
@@ -35,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -65,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -75,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -90,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -100,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -151,6 +139,8 @@
             opacity: 0.9;
         }
     </style>
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
     <h2>NFT (Not For Trade) Gallery - 5tr4n0</h2>
@@ -162,8 +152,191 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp" alt="5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp" alt="5tr4n0-1928807011-too_much_noise_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp" alt="5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp" alt="5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp" alt="5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp" alt="5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp" alt="5tr4n0-1930270255-tomorrow_video1-1-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp" alt="5tr4n0-1930270255-tomorrow_video2-1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp" alt="5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp" alt="5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp" alt="5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp" alt="5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp" alt="5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp" alt="5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp" alt="5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp" alt="5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp" alt="5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp" alt="5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp" alt="5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp" alt="5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp" alt="5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp" alt="5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp" alt="5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp" alt="5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp" alt="5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp" alt="5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp" alt="5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp" alt="5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp" alt="5tr4n0-1935851915876635041-gradients_video4-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp" alt="5tr4n0-1936060013535010819-br0ken__video3-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp" alt="5tr4n0-1936060013535010819-br0ken__video4-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp" alt="5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp" alt="5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp" alt="5tr4n0-1938326928576164272-legend_move_video3-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp" alt="5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp" alt="5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp" alt="5tr4n0-1939689154113405160-gm_video3-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp" alt="5tr4n0-1939689154113405160-gm_video4-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp" alt="5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video3-lossy.webp" alt="5tr4n0-1940385209872191830-br0ken_video3-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp" alt="5tr4n0-1940385209872191830-br0ken_video4-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp" alt="5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp" alt="5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp" alt="5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp" alt="5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp" alt="5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp" alt="5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp" onclick="openImage(46)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp" alt="5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp" onclick="openImage(47)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp" alt="5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp" onclick="openImage(48)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp" alt="5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp" onclick="openImage(49)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp" alt="5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp" onclick="openImage(50)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1942924400384266335-br0ken_video2-lossy.webp" alt="5tr4n0-1942924400384266335-br0ken_video2-lossy.webp" onclick="openImage(51)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp" alt="5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp" onclick="openImage(52)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp" alt="5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp" onclick="openImage(53)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp" alt="5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp" onclick="openImage(54)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp" alt="5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp" onclick="openImage(55)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp" alt="5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp" onclick="openImage(56)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp" alt="5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp" onclick="openImage(57)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp" alt="5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp" onclick="openImage(58)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp" alt="5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp" onclick="openImage(59)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp" alt="5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp" onclick="openImage(60)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -172,171 +345,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942924400384266335-br0ken_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1942924400384266335-br0ken_video2-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp',\n            '/nft-gallery/5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

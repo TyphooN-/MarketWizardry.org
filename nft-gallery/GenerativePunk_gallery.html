@@ -1,31 +1,22 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFT (Not For Trade) Gallery - GenerativePunk | MarketWizardry.org</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/GenerativePunk_gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="GenerativePunk's algorithmic rebellion against good taste. Computer-generated punk attitude for people who outsource their counterculture to code.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="GenerativePunk Gallery - MarketWizardry.org">
+    <meta property="og:title" content="NFT Gallery - GenerativePunk">
     <meta property="og:description" content="GenerativePunk's algorithmic rebellion against good taste. Computer-generated punk attitude for people who outsource their counterculture to code.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/GenerativePunk_gallery.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/GenerativePunk_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GenerativePunk Gallery - MarketWizardry.org">
+    <meta name="twitter:title" content="NFT Gallery - GenerativePunk">
     <meta name="twitter:description" content="GenerativePunk's algorithmic rebellion against good taste. Computer-generated punk attitude for people who outsource their counterculture to code.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
@@ -35,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -65,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -75,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -90,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -100,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -151,6 +139,8 @@
             opacity: 0.9;
         }
     </style>
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
     <h2>NFT (Not For Trade) Gallery - GenerativePunk</h2>
@@ -162,8 +152,146 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1912274123-100__javascript_p5.js_video1-lossy.webp" alt="GenerativePunk-1912274123-100__javascript_p5.js_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1918572585-GM_Friends_video1-lossy.webp" alt="GenerativePunk-1918572585-GM_Friends_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1919720109779599815-I_recently_wrote_a_new_article_for_my_students_about_how_to_deform_grids._It_actually_led_me_to_a_ne_video1-lossy.webp" alt="GenerativePunk-1919720109779599815-I_recently_wrote_a_new_article_for_my_students_about_how_to_deform_grids._It_actually_led_me_to_a_ne_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1919836495-Black_new_series_on_video1-lossy.webp" alt="GenerativePunk-1919836495-Black_new_series_on_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1920616993-Wild_video1-lossy.webp" alt="GenerativePunk-1920616993-Wild_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1920869921-On_rodeo_now__https___rodeo.club_post_0xCF54fCBc77bc1CE87d5173b102092dABeD-lossy.webp" alt="GenerativePunk-1920869921-On_rodeo_now__https___rodeo.club_post_0xCF54fCBc77bc1CE87d5173b102092dABeD-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1921333594-GN_Friends_video1-lossy.webp" alt="GenerativePunk-1921333594-GN_Friends_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video1-lossy.webp" alt="GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video2-lossy.webp" alt="GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video2-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1922071548-The_situation_has_become_highly_volatile_video1-lossy.webp" alt="GenerativePunk-1922071548-The_situation_has_become_highly_volatile_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1922330257-My_little_contribution_for__OBJKT4OBJKT_video1-lossy.webp" alt="GenerativePunk-1922330257-My_little_contribution_for__OBJKT4OBJKT_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1922771368-From_perspective_to_torsion._Minimal_version_video1-lossy.webp" alt="GenerativePunk-1922771368-From_perspective_to_torsion._Minimal_version_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1923123336-Looks_like_the_Doctor_Strange_s_cape_video1-lossy.webp" alt="GenerativePunk-1923123336-Looks_like_the_Doctor_Strange_s_cape_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1924741184-One_of_many_variations_video1-lossy.webp" alt="GenerativePunk-1924741184-One_of_many_variations_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1924766697-Meanwhile_on_video1-lossy.webp" alt="GenerativePunk-1924766697-Meanwhile_on_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1925523413-There_were_some_issues_at_the_rodeo_yesterday__and_this_GIF_was_accidental-lossy.webp" alt="GenerativePunk-1925523413-There_were_some_issues_at_the_rodeo_yesterday__and_this_GIF_was_accidental-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video1-lossy.webp" alt="GenerativePunk-1925942633-Wish_you_a_good_week_end__video1-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video2-lossy.webp" alt="GenerativePunk-1925942633-Wish_you_a_good_week_end__video2-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video3-lossy.webp" alt="GenerativePunk-1925942633-Wish_you_a_good_week_end__video3-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video4-lossy.webp" alt="GenerativePunk-1925942633-Wish_you_a_good_week_end__video4-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1926319840-_rodeodotclub_video1-lossy.webp" alt="GenerativePunk-1926319840-_rodeodotclub_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1926699730-Have_to_turn_this_gif_into_a_loop_but_i_m_too_lazy_video1-lossy.webp" alt="GenerativePunk-1926699730-Have_to_turn_this_gif_into_a_loop_but_i_m_too_lazy_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1927499488-I_m_starting_to_revisit_some_of_my_workshops_and_adapt_them_on_a_gif_loop_-lossy.webp" alt="GenerativePunk-1927499488-I_m_starting_to_revisit_some_of_my_workshops_and_adapt_them_on_a_gif_loop_-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1927764259221483827-Geometric_generative_loops__the_art_of_making_simple_things_complicated__and_vice_versa__video1-lossy.webp" alt="GenerativePunk-1927764259221483827-Geometric_generative_loops__the_art_of_making_simple_things_complicated__and_vice_versa__video1-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1928536047-Cheers__video1-lossy.webp" alt="GenerativePunk-1928536047-Cheers__video1-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1928746651-Duotone_Moebus_video1-lossy.webp" alt="GenerativePunk-1928746651-Duotone_Moebus_video1-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1928746651-Duotone_Moebus_video2-lossy.webp" alt="GenerativePunk-1928746651-Duotone_Moebus_video2-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1929827558536663490-These_colors_and_animation_feel_like_a_style_of_old_figures_that_we_found_in_old_works_of_naturalist_video1-lossy.webp" alt="GenerativePunk-1929827558536663490-These_colors_and_animation_feel_like_a_style_of_old_figures_that_we_found_in_old_works_of_naturalist_video1-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1931041933-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_find-lossy.webp" alt="GenerativePunk-1931041933-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_find-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1931041933079835110-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_finding_the_right_words__video1-lossy.webp" alt="GenerativePunk-1931041933079835110-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_finding_the_right_words__video1-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1931084207-A_peaceful_loop_video1-lossy.webp" alt="GenerativePunk-1931084207-A_peaceful_loop_video1-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1931084207889240492-A_peaceful_loop_video2-lossy.webp" alt="GenerativePunk-1931084207889240492-A_peaceful_loop_video2-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1932138164707107319-Thank_you_____video3-lossy.webp" alt="GenerativePunk-1932138164707107319-Thank_you_____video3-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1932772108003668399-Looping_a_bichromie_Moebus_figure_video2-lossy.webp" alt="GenerativePunk-1932772108003668399-Looping_a_bichromie_Moebus_figure_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1932837335336468841-Fun__This_GIF_exhibits_a_moir__effect_that_varies_depending_on_the_width_of_the_image_video4-lossy.webp" alt="GenerativePunk-1932837335336468841-Fun__This_GIF_exhibits_a_moir__effect_that_varies_depending_on_the_width_of_the_image_video4-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1932921909701980182-Experimenting_with_new_ways_to_build_grids_with_code._Especially_using_incrementation_with_normaliza_video2-lossy.webp" alt="GenerativePunk-1932921909701980182-Experimenting_with_new_ways_to_build_grids_with_code._Especially_using_incrementation_with_normaliza_video2-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1934529423492988935-I_made_this_GIF_for_GiftDay._I_remember_the_first_GIF_I_saw._Who_would_ve_thought_I_d_be_making_GIFs_video2-lossy.webp" alt="GenerativePunk-1934529423492988935-I_made_this_GIF_for_GiftDay._I_remember_the_first_GIF_I_saw._Who_would_ve_thought_I_d_be_making_GIFs_video2-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1935692839649992713-I_ll_be_a_bit_less_productive_for_one_day_or_two_video3-lossy.webp" alt="GenerativePunk-1935692839649992713-I_ll_be_a_bit_less_productive_for_one_day_or_two_video3-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1935981918727598245-Took_a_short_break_to_tackle_a_challenge_I_couldn_t_crack_before__looping_Georg_Nees___Schotter__ani_video2-lossy.webp" alt="GenerativePunk-1935981918727598245-Took_a_short_break_to_tackle_a_challenge_I_couldn_t_crack_before__looping_Georg_Nees___Schotter__ani_video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1936773696129278202-Hey_friends__During_the___HEN___period__I_have_created_a_total_of_223_GIFs._But_guess_what__Out_of_a_video2-lossy.webp" alt="GenerativePunk-1936773696129278202-Hey_friends__During_the___HEN___period__I_have_created_a_total_of_223_GIFs._But_guess_what__Out_of_a_video2-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1939335857816719811-Wish_you_a_great_end_to_your_weekend__video2-lossy.webp" alt="GenerativePunk-1939335857816719811-Wish_you_a_great_end_to_your_weekend__video2-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1940152217107153280-Happy__TezosTuesday__video3-lossy.webp" alt="GenerativePunk-1940152217107153280-Happy__TezosTuesday__video3-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1940748608955207796-WebGL_endless_loop_video4-lossy.webp" alt="GenerativePunk-1940748608955207796-WebGL_endless_loop_video4-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1941963512760221871-Of_my_200_gifs_on_HEN__2_remain_in_unique_edition_on_http___objkt.com_on_primary_market_video2-lossy.webp" alt="GenerativePunk-1941963512760221871-Of_my_200_gifs_on_HEN__2_remain_in_unique_edition_on_http___objkt.com_on_primary_market_video2-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1942708475567694110-Gif_Perfect_loop_with_code_based_generative_animation___p5js__video2-lossy.webp" alt="GenerativePunk-1942708475567694110-Gif_Perfect_loop_with_code_based_generative_animation___p5js__video2-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/GenerativePunk/webp/GenerativePunk-1942915021605884013-f_0_draw_____createCanvas_W_500_W_WEBGL__rotateX_-PI_8__rotateY_f___.01__for_j_28_j--__for_c_99_s_co_video2-lossy.webp" alt="GenerativePunk-1942915021605884013-f_0_draw_____createCanvas_W_500_W_WEBGL__rotateX_-PI_8__rotateY_f___.01__for_j_28_j--__for_c_99_s_co_video2-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -172,156 +300,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/GenerativePunk/webp/GenerativePunk-1912274123-100__javascript_p5.js_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1918572585-GM_Friends_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1919720109779599815-I_recently_wrote_a_new_article_for_my_students_about_how_to_deform_grids._It_actually_led_me_to_a_ne_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1919836495-Black_new_series_on_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1920616993-Wild_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1920869921-On_rodeo_now__https___rodeo.club_post_0xCF54fCBc77bc1CE87d5173b102092dABeD-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1921333594-GN_Friends_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922071548-The_situation_has_become_highly_volatile_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922330257-My_little_contribution_for__OBJKT4OBJKT_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922771368-From_perspective_to_torsion._Minimal_version_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1923123336-Looks_like_the_Doctor_Strange_s_cape_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1924741184-One_of_many_variations_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1924766697-Meanwhile_on_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925523413-There_were_some_issues_at_the_rodeo_yesterday__and_this_GIF_was_accidental-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video3-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video4-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1926319840-_rodeodotclub_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1926699730-Have_to_turn_this_gif_into_a_loop_but_i_m_too_lazy_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1927499488-I_m_starting_to_revisit_some_of_my_workshops_and_adapt_them_on_a_gif_loop_-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1927764259221483827-Geometric_generative_loops__the_art_of_making_simple_things_complicated__and_vice_versa__video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1928536047-Cheers__video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1928746651-Duotone_Moebus_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1928746651-Duotone_Moebus_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1929827558536663490-These_colors_and_animation_feel_like_a_style_of_old_figures_that_we_found_in_old_works_of_naturalist_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931041933-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_find-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931041933079835110-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_finding_the_right_words__video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931084207-A_peaceful_loop_video1-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931084207889240492-A_peaceful_loop_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932138164707107319-Thank_you_____video3-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932772108003668399-Looping_a_bichromie_Moebus_figure_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932837335336468841-Fun__This_GIF_exhibits_a_moir__effect_that_varies_depending_on_the_width_of_the_image_video4-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932921909701980182-Experimenting_with_new_ways_to_build_grids_with_code._Especially_using_incrementation_with_normaliza_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1934529423492988935-I_made_this_GIF_for_GiftDay._I_remember_the_first_GIF_I_saw._Who_would_ve_thought_I_d_be_making_GIFs_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1935692839649992713-I_ll_be_a_bit_less_productive_for_one_day_or_two_video3-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1935981918727598245-Took_a_short_break_to_tackle_a_challenge_I_couldn_t_crack_before__looping_Georg_Nees___Schotter__ani_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1936773696129278202-Hey_friends__During_the___HEN___period__I_have_created_a_total_of_223_GIFs._But_guess_what__Out_of_a_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1939335857816719811-Wish_you_a_great_end_to_your_weekend__video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1940152217107153280-Happy__TezosTuesday__video3-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1940748608955207796-WebGL_endless_loop_video4-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1941963512760221871-Of_my_200_gifs_on_HEN__2_remain_in_unique_edition_on_http___objkt.com_on_primary_market_video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942708475567694110-Gif_Perfect_loop_with_code_based_generative_animation___p5js__video2-lossy.webp',
-            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942915021605884013-f_0_draw_____createCanvas_W_500_W_WEBGL__rotateX_-PI_8__rotateY_f___.01__for_j_28_j--__for_c_99_s_co_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/GenerativePunk/webp/GenerativePunk-1912274123-100__javascript_p5.js_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1918572585-GM_Friends_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1919720109779599815-I_recently_wrote_a_new_article_for_my_students_about_how_to_deform_grids._It_actually_led_me_to_a_ne_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1919836495-Black_new_series_on_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1920616993-Wild_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1920869921-On_rodeo_now__https___rodeo.club_post_0xCF54fCBc77bc1CE87d5173b102092dABeD-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1921333594-GN_Friends_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922026262-Just_a_2D_grid__no_3D__video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922071548-The_situation_has_become_highly_volatile_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922330257-My_little_contribution_for__OBJKT4OBJKT_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1922771368-From_perspective_to_torsion._Minimal_version_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1923123336-Looks_like_the_Doctor_Strange_s_cape_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1924741184-One_of_many_variations_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1924766697-Meanwhile_on_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925523413-There_were_some_issues_at_the_rodeo_yesterday__and_this_GIF_was_accidental-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video3-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1925942633-Wish_you_a_good_week_end__video4-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1926319840-_rodeodotclub_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1926699730-Have_to_turn_this_gif_into_a_loop_but_i_m_too_lazy_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1927499488-I_m_starting_to_revisit_some_of_my_workshops_and_adapt_them_on_a_gif_loop_-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1927764259221483827-Geometric_generative_loops__the_art_of_making_simple_things_complicated__and_vice_versa__video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1928536047-Cheers__video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1928746651-Duotone_Moebus_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1928746651-Duotone_Moebus_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1929827558536663490-These_colors_and_animation_feel_like_a_style_of_old_figures_that_we_found_in_old_works_of_naturalist_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931041933-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_find-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931041933079835110-I_m_trying_to_describe_this_kind_of_sculpture__but_I_m_having_trouble_finding_the_right_words__video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931084207-A_peaceful_loop_video1-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1931084207889240492-A_peaceful_loop_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932138164707107319-Thank_you_____video3-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932772108003668399-Looping_a_bichromie_Moebus_figure_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932837335336468841-Fun__This_GIF_exhibits_a_moir__effect_that_varies_depending_on_the_width_of_the_image_video4-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1932921909701980182-Experimenting_with_new_ways_to_build_grids_with_code._Especially_using_incrementation_with_normaliza_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1934529423492988935-I_made_this_GIF_for_GiftDay._I_remember_the_first_GIF_I_saw._Who_would_ve_thought_I_d_be_making_GIFs_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1935692839649992713-I_ll_be_a_bit_less_productive_for_one_day_or_two_video3-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1935981918727598245-Took_a_short_break_to_tackle_a_challenge_I_couldn_t_crack_before__looping_Georg_Nees___Schotter__ani_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1936773696129278202-Hey_friends__During_the___HEN___period__I_have_created_a_total_of_223_GIFs._But_guess_what__Out_of_a_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1939335857816719811-Wish_you_a_great_end_to_your_weekend__video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1940152217107153280-Happy__TezosTuesday__video3-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1940748608955207796-WebGL_endless_loop_video4-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1941963512760221871-Of_my_200_gifs_on_HEN__2_remain_in_unique_edition_on_http___objkt.com_on_primary_market_video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942708475567694110-Gif_Perfect_loop_with_code_based_generative_animation___p5js__video2-lossy.webp',\n            '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942915021605884013-f_0_draw_____createCanvas_W_500_W_WEBGL__rotateX_-PI_8__rotateY_f___.01__for_j_28_j--__for_c_99_s_co_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

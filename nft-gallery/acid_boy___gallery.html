@@ -1,28 +1,21 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFT (Not For Trade) Gallery - acid_boy__ | MarketWizardry.org</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/acid_boy___gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Chemical burn aesthetics for the digitally damaged. Psychedelic childhood trauma meets blockchain therapy in perfect melting harmony.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="acid_boy__ Gallery - MarketWizardry.org">
+    <meta property="og:title" content="NFT Gallery - acid_boy__">
     <meta property="og:description" content="Chemical burn aesthetics for the digitally damaged. Psychedelic childhood trauma meets blockchain therapy in perfect melting harmony.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/acid_boy___gallery.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/acid_boy___gallery.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="acid_boy__ Gallery - MarketWizardry.org">
+    <meta name="twitter:title" content="NFT Gallery - acid_boy__">
     <meta name="twitter:description" content="Chemical burn aesthetics for the digitally damaged. Psychedelic childhood trauma meets blockchain therapy in perfect melting harmony.">
     <script>
         // Set viewport immediately for mobile scaling
@@ -33,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -63,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -73,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -88,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -98,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -149,6 +139,8 @@
             opacity: 0.9;
         }
     </style>
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
     <h2>NFT (Not For Trade) Gallery - acid_boy__</h2>
@@ -160,8 +152,137 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1887905523-Open_Edition_-_For_fun__on_base_video2-lossy.webp" alt="acid_boy__-1887905523-Open_Edition_-_For_fun__on_base_video2-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1888931482-Gm_yall_video2-lossy.webp" alt="acid_boy__-1888931482-Gm_yall_video2-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1888955808-New_3__piece_on_video2-lossy.webp" alt="acid_boy__-1888955808-New_3__piece_on_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1889314043-GM__video2-lossy.webp" alt="acid_boy__-1889314043-GM__video2-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1894049494-Dancers_1_on_video1-lossy.webp" alt="acid_boy__-1894049494-Dancers_1_on_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1898757253-Gm_video3-lossy.webp" alt="acid_boy__-1898757253-Gm_video3-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1902011610-Good_day_yall_video1-lossy.webp" alt="acid_boy__-1902011610-Good_day_yall_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1903086769-Hi_folks__video2-lossy.webp" alt="acid_boy__-1903086769-Hi_folks__video2-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1903086769-Hi_folks__video3-lossy.webp" alt="acid_boy__-1903086769-Hi_folks__video3-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1906039416-good_day_yall__video1-lossy.webp" alt="acid_boy__-1906039416-good_day_yall__video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video1-lossy.webp" alt="acid_boy__-1910313967-GEE_EEM_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video2-lossy.webp" alt="acid_boy__-1910313967-GEE_EEM_video2-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video3-lossy.webp" alt="acid_boy__-1910313967-GEE_EEM_video3-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1911782715-GM_yall_video1-1-lossy.webp" alt="acid_boy__-1911782715-GM_yall_video1-1-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1913234327-ACID_video3-lossy.webp" alt="acid_boy__-1913234327-ACID_video3-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1914322223-ACID_video1-1-lossy.webp" alt="acid_boy__-1914322223-ACID_video1-1-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video1-lossy.webp" alt="acid_boy__-1917203317-Alive_checkup..._are_you__video1-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video2-lossy.webp" alt="acid_boy__-1917203317-Alive_checkup..._are_you__video2-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video3-lossy.webp" alt="acid_boy__-1917203317-Alive_checkup..._are_you__video3-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1917578537-Glitch_in_the_matrix_video1-lossy.webp" alt="acid_boy__-1917578537-Glitch_in_the_matrix_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1920830089-_p5js_video1-lossy.webp" alt="acid_boy__-1920830089-_p5js_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1923010377-LOOLOOPLOOP_video2-lossy.webp" alt="acid_boy__-1923010377-LOOLOOPLOOP_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1923382894-lp_video1-lossy.webp" alt="acid_boy__-1923382894-lp_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1924191338-LOOP_video3-lossy.webp" alt="acid_boy__-1924191338-LOOP_video3-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1925200469-LOOP_video1-1-lossy.webp" alt="acid_boy__-1925200469-LOOP_video1-1-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1925547169-OOF__video1-lossy.webp" alt="acid_boy__-1925547169-OOF__video1-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1925558099-LooP_video2-lossy.webp" alt="acid_boy__-1925558099-LooP_video2-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1926998668-LoopLoop_video1-lossy.webp" alt="acid_boy__-1926998668-LoopLoop_video1-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1927350875-3rd_bid_-_LFG____video1-lossy.webp" alt="acid_boy__-1927350875-3rd_bid_-_LFG____video1-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1927842317-Testing_stuff___video2-lossy.webp" alt="acid_boy__-1927842317-Testing_stuff___video2-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1929519507-LOOP_video2-lossy.webp" alt="acid_boy__-1929519507-LOOP_video2-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1930266504-LooP_video1-lossy.webp" alt="acid_boy__-1930266504-LooP_video1-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1930990041-Loop._Gm_fam_video1-lossy.webp" alt="acid_boy__-1930990041-Loop._Gm_fam_video1-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1932127484465565874-NFT_Madness_listed_at_125E_video2-lossy.webp" alt="acid_boy__-1932127484465565874-NFT_Madness_listed_at_125E_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1932420760934518958-llooppooll_video2-lossy.webp" alt="acid_boy__-1932420760934518958-llooppooll_video2-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1932807696463638594-need_to_collect_some_digital_art_to_feel_something_-_it_s_been_a_while_video2-lossy.webp" alt="acid_boy__-1932807696463638594-need_to_collect_some_digital_art_to_feel_something_-_it_s_been_a_while_video2-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1933145641686876219-GM_folks__video2-lossy.webp" alt="acid_boy__-1933145641686876219-GM_folks__video2-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1933909229544641010-Looop_video4-lossy.webp" alt="acid_boy__-1933909229544641010-Looop_video4-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1935338000843706614-working_on_my_new_website_feels_like_video2-lossy.webp" alt="acid_boy__-1935338000843706614-working_on_my_new_website_feels_like_video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1937491084701020331-The_universe_is_a_donut_video4-lossy.webp" alt="acid_boy__-1937491084701020331-The_universe_is_a_donut_video4-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1940527205941235749-What_s_happening_here___video3-lossy.webp" alt="acid_boy__-1940527205941235749-What_s_happening_here___video3-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1940546693646405898-i_want_to_lay_down_in_a_pool_of_serotonin_video2-lossy.webp" alt="acid_boy__-1940546693646405898-i_want_to_lay_down_in_a_pool_of_serotonin_video2-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/acid_boy__/webp/acid_boy__-1942265450827784232-LoOp_video2-lossy.webp" alt="acid_boy__-1942265450827784232-LoOp_video2-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -170,153 +291,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/acid_boy__/webp/acid_boy__-1887905523-Open_Edition_-_For_fun__on_base_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1888931482-Gm_yall_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1888955808-New_3__piece_on_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1889314043-GM__video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1894049494-Dancers_1_on_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1898757253-Gm_video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1902011610-Good_day_yall_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1903086769-Hi_folks__video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1903086769-Hi_folks__video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1906039416-good_day_yall__video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1911782715-GM_yall_video1-1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1913234327-ACID_video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1914322223-ACID_video1-1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1917578537-Glitch_in_the_matrix_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1920830089-_p5js_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1923010377-LOOLOOPLOOP_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1923382894-lp_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1924191338-LOOP_video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1925200469-LOOP_video1-1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1925547169-OOF__video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1925558099-LooP_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1926998668-LoopLoop_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1927350875-3rd_bid_-_LFG____video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1927842317-Testing_stuff___video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1929519507-LOOP_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1930266504-LooP_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1930990041-Loop._Gm_fam_video1-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1932127484465565874-NFT_Madness_listed_at_125E_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1932420760934518958-llooppooll_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1932807696463638594-need_to_collect_some_digital_art_to_feel_something_-_it_s_been_a_while_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1933145641686876219-GM_folks__video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1933909229544641010-Looop_video4-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1935338000843706614-working_on_my_new_website_feels_like_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1937491084701020331-The_universe_is_a_donut_video4-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1940527205941235749-What_s_happening_here___video3-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1940546693646405898-i_want_to_lay_down_in_a_pool_of_serotonin_video2-lossy.webp',
-            '/nft-gallery/acid_boy__/webp/acid_boy__-1942265450827784232-LoOp_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/acid_boy__/webp/acid_boy__-1887905523-Open_Edition_-_For_fun__on_base_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1888931482-Gm_yall_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1888955808-New_3__piece_on_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1889314043-GM__video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1894049494-Dancers_1_on_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1898757253-Gm_video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1902011610-Good_day_yall_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1903086769-Hi_folks__video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1903086769-Hi_folks__video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1906039416-good_day_yall__video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1910313967-GEE_EEM_video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1911782715-GM_yall_video1-1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1913234327-ACID_video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1914322223-ACID_video1-1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1917203317-Alive_checkup..._are_you__video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1917578537-Glitch_in_the_matrix_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1920830089-_p5js_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1923010377-LOOLOOPLOOP_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1923382894-lp_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1924191338-LOOP_video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1925200469-LOOP_video1-1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1925547169-OOF__video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1925558099-LooP_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1926998668-LoopLoop_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1927350875-3rd_bid_-_LFG____video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1927842317-Testing_stuff___video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1929519507-LOOP_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1930266504-LooP_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1930990041-Loop._Gm_fam_video1-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1932127484465565874-NFT_Madness_listed_at_125E_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1932420760934518958-llooppooll_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1932807696463638594-need_to_collect_some_digital_art_to_feel_something_-_it_s_been_a_while_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1933145641686876219-GM_folks__video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1933909229544641010-Looop_video4-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1935338000843706614-working_on_my_new_website_feels_like_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1937491084701020331-The_universe_is_a_donut_video4-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1940527205941235749-What_s_happening_here___video3-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1940546693646405898-i_want_to_lay_down_in_a_pool_of_serotonin_video2-lossy.webp',\n            '/nft-gallery/acid_boy__/webp/acid_boy__-1942265450827784232-LoOp_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

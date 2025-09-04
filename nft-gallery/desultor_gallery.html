@@ -1,5 +1,4 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
     <meta property="og:title" content="NFT Gallery - desultor">
     <meta property="og:description" content="desultor's digital art collection - Art for the professionally hopeless. This collection captures the exact moment when dreams go to die - beautifully documented in high resolution. Perfect viewing for your quarterly performance review.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.info/nft-gallery/desultor_gallery.html">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/desultor_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - desultor">
     <meta name="twitter:description" content="desultor's digital art collection - Art for the professionally hopeless. This collection captures the exact moment when dreams go to die - beautifully documented in high resolution. Perfect viewing for your quarterly performance review.">
@@ -27,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -57,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -67,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -82,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -92,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -143,7 +139,7 @@
             opacity: 0.9;
         }
     </style>
-        <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
@@ -156,8 +152,284 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1925730247-tomorrow-video3-lossy.webp" alt="desultor-1925730247-tomorrow-video3-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1925905311-in_a_universe_of_infinite_realities_you_re_my__1_collector_in_at_least_420_of_th-lossy.webp" alt="desultor-1925905311-in_a_universe_of_infinite_realities_you_re_my__1_collector_in_at_least_420_of_th-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1925905733-These_are_the_coordinates_for_today_s___sigils__drop_by-video3-lossy.webp" alt="desultor-1925905733-These_are_the_coordinates_for_today_s___sigils__drop_by-video3-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1926994406-gm_wide_eyed_video3-lossy.webp" alt="desultor-1926994406-gm_wide_eyed_video3-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927024573-manifesting_video2-lossy.webp" alt="desultor-1927024573-manifesting_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927024573-manifesting_video3-lossy.webp" alt="desultor-1927024573-manifesting_video3-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927411133-hot_dang__love_to_video2-lossy.webp" alt="desultor-1927411133-hot_dang__love_to_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927704710-gm_on_re-run_video1-lossy.webp" alt="desultor-1927704710-gm_on_re-run_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927764747-Love_life_without_regrets_video2-lossy.webp" alt="desultor-1927764747-Love_life_without_regrets_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927765451-live_life_without_regrets_video1-lossy.webp" alt="desultor-1927765451-live_life_without_regrets_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927778550-__tangy_tales_i_tell_myself___video1-lossy.webp" alt="desultor-1927778550-__tangy_tales_i_tell_myself___video1-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927784177-thank_you_bigly_to_video3-lossy.webp" alt="desultor-1927784177-thank_you_bigly_to_video3-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927784177-thank_you_bigly_to_video4-lossy.webp" alt="desultor-1927784177-thank_you_bigly_to_video4-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927806380-skull_studies_video1-lossy.webp" alt="desultor-1927806380-skull_studies_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927841282-You_don_t_agree_with_their_tweet__in_fact__you_can_t_stand_their_self-important_-lossy.webp" alt="desultor-1927841282-You_don_t_agree_with_their_tweet__in_fact__you_can_t_stand_their_self-important_-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927942928-by_desultor_in_partnership_with_desultor_presented_by_desultor_video1-lossy.webp" alt="desultor-1927942928-by_desultor_in_partnership_with_desultor_presented_by_desultor_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927948681531085240-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_crypto___ranked_from_absolute_video2-lossy.webp" alt="desultor-1927948681531085240-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_crypto___ranked_from_absolute_video2-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1927960319-niceee_gif_video1-lossy.webp" alt="desultor-1927960319-niceee_gif_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1928245223601148343-Class_of_2021_Check-in_-_share_your_art_and_repost_if_you_been_here_since__21_video1-lossy.webp" alt="desultor-1928245223601148343-Class_of_2021_Check-in_-_share_your_art_and_repost_if_you_been_here_since__21_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1928266096-infinny_video1-lossy.webp" alt="desultor-1928266096-infinny_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1928445124-gm_big_friday_energy_video1-lossy.webp" alt="desultor-1928445124-gm_big_friday_energy_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1928496250-fuck_you_homie_I_like_skull_art_video2-lossy.webp" alt="desultor-1928496250-fuck_you_homie_I_like_skull_art_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1928593060-_sigils__by_video1-lossy.webp" alt="desultor-1928593060-_sigils__by_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1928623949-gn_to_infinny_video1-lossy.webp" alt="desultor-1928623949-gn_to_infinny_video1-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929200156-temple_of_the_falling_sky__2022__video2-lossy.webp" alt="desultor-1929200156-temple_of_the_falling_sky__2022__video2-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929255561-gm_sunday_funday_video2-lossy.webp" alt="desultor-1929255561-gm_sunday_funday_video2-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929511624-Finally_MC-DEATH.EXE__by_video1-lossy.webp" alt="desultor-1929511624-Finally_MC-DEATH.EXE__by_video1-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929914054-gm_sweet_like_candy_video1-1-lossy.webp" alt="desultor-1929914054-gm_sweet_like_candy_video1-1-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929914054-gm_sweet_like_candy_video2-1-lossy.webp" alt="desultor-1929914054-gm_sweet_like_candy_video2-1-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video1-lossy.webp" alt="desultor-1929969833-looking_for_liquidity__2024__video1-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video2-lossy.webp" alt="desultor-1929969833-looking_for_liquidity__2024__video2-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930007091-CANAL_ST_CURATION_CONTEST_NOW_OPEN_video4-lossy.webp" alt="desultor-1930007091-CANAL_ST_CURATION_CONTEST_NOW_OPEN_video4-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930013222-thank_you_video1-lossy.webp" alt="desultor-1930013222-thank_you_video1-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930223429-Skull_Studies__59_by_video2-lossy.webp" alt="desultor-1930223429-Skull_Studies__59_by_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video1-lossy.webp" alt="desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video1-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video2-lossy.webp" alt="desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video2-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video3-lossy.webp" alt="desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video3-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930419678-whats_great_about_the_skull_art_narrative_is_its_most_of_my_work_video2-lossy.webp" alt="desultor-1930419678-whats_great_about_the_skull_art_narrative_is_its_most_of_my_work_video2-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1930964953-gm_friday_style_with_cheese_video1-lossy.webp" alt="desultor-1930964953-gm_friday_style_with_cheese_video1-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1931071323-Art_on_Tezos_Friday_Recap_video2-lossy.webp" alt="desultor-1931071323-Art_on_Tezos_Friday_Recap_video2-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1931178425-Delicious__video1-lossy.webp" alt="desultor-1931178425-Delicious__video1-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1931182641-Who_does_not_have_a_Call_Data_Comrade_yet__video2-lossy.webp" alt="desultor-1931182641-Who_does_not_have_a_Call_Data_Comrade_yet__video2-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1931329847-gm_weekend_energy_video1-lossy.webp" alt="desultor-1931329847-gm_weekend_energy_video1-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1931329847-gm_weekend_energy_video2-lossy.webp" alt="desultor-1931329847-gm_weekend_energy_video2-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1931565262-my_old_tv_video2-lossy.webp" alt="desultor-1931565262-my_old_tv_video2-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932127367-collected_some_comrades_video1-lossy.webp" alt="desultor-1932127367-collected_some_comrades_video1-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932127367-collected_some_comrades_video2-lossy.webp" alt="desultor-1932127367-collected_some_comrades_video2-lossy.webp" onclick="openImage(46)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932127907-Comrade__31_was_SOLD__video2-lossy.webp" alt="desultor-1932127907-Comrade__31_was_SOLD__video2-lossy.webp" onclick="openImage(47)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932194775-buckle_up_video2-lossy.webp" alt="desultor-1932194775-buckle_up_video2-lossy.webp" onclick="openImage(48)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932194775-buckle_up_video3-lossy.webp" alt="desultor-1932194775-buckle_up_video3-lossy.webp" onclick="openImage(49)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932399635-gm_till_the_end_video2-lossy.webp" alt="desultor-1932399635-gm_till_the_end_video2-lossy.webp" onclick="openImage(50)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932487094-trappings__2021__video2-lossy.webp" alt="desultor-1932487094-trappings__2021__video2-lossy.webp" onclick="openImage(51)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932507526-hold_up_boss_video1-lossy.webp" alt="desultor-1932507526-hold_up_boss_video1-lossy.webp" onclick="openImage(52)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932564213-Sleep_video1-lossy.webp" alt="desultor-1932564213-Sleep_video1-lossy.webp" onclick="openImage(53)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932564213-Sleep_video2-lossy.webp" alt="desultor-1932564213-Sleep_video2-lossy.webp" onclick="openImage(54)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932773828-gm_pardna_video3-lossy.webp" alt="desultor-1932773828-gm_pardna_video3-lossy.webp" onclick="openImage(55)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932778522-gm_pardna_video2-lossy.webp" alt="desultor-1932778522-gm_pardna_video2-lossy.webp" onclick="openImage(56)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932802027-do_something_nice_for_yourself_today_video2-lossy.webp" alt="desultor-1932802027-do_something_nice_for_yourself_today_video2-lossy.webp" onclick="openImage(57)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932802178-do_something_nice_for_yourself_today_video3-lossy.webp" alt="desultor-1932802178-do_something_nice_for_yourself_today_video3-lossy.webp" onclick="openImage(58)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932807657-Do_something_nice_for_yourself_today_video2-lossy.webp" alt="desultor-1932807657-Do_something_nice_for_yourself_today_video2-lossy.webp" onclick="openImage(59)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1932827668-do_something_nice_for_yourself_today_video1-lossy.webp" alt="desultor-1932827668-do_something_nice_for_yourself_today_video1-lossy.webp" onclick="openImage(60)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video3-lossy.webp" alt="desultor-1933347136722096433-sigils_by_desultor_video3-lossy.webp" onclick="openImage(61)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video4-lossy.webp" alt="desultor-1933347136722096433-sigils_by_desultor_video4-lossy.webp" onclick="openImage(62)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1933482418943766815-gm_inside_out_video4-lossy.webp" alt="desultor-1933482418943766815-gm_inside_out_video4-lossy.webp" onclick="openImage(63)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1933721863747989985-me_after_being_liquidated_and_telling_myself_nothing_matters_because_life_s_a_simulation_video2-lossy.webp" alt="desultor-1933721863747989985-me_after_being_liquidated_and_telling_myself_nothing_matters_because_life_s_a_simulation_video2-lossy.webp" onclick="openImage(64)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1933862894514667900-gm__you_owe_it_to_yourself_video2-lossy.webp" alt="desultor-1933862894514667900-gm__you_owe_it_to_yourself_video2-lossy.webp" onclick="openImage(65)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1934217476734165410-gm_sunday_with_cheese_video3-lossy.webp" alt="desultor-1934217476734165410-gm_sunday_with_cheese_video3-lossy.webp" onclick="openImage(66)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1934580786906460597-gm_to_the_face_video2-lossy.webp" alt="desultor-1934580786906460597-gm_to_the_face_video2-lossy.webp" onclick="openImage(67)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1934945129909162433-gm_till_doomsday_video2-lossy.webp" alt="desultor-1934945129909162433-gm_till_doomsday_video2-lossy.webp" onclick="openImage(68)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1935100608354337097-They_found_the_treasure_of_Oak_Island_https___x.com_breaking911_st_breaking911_status_19350777325071_video2-lossy.webp" alt="desultor-1935100608354337097-They_found_the_treasure_of_Oak_Island_https___x.com_breaking911_st_breaking911_status_19350777325071_video2-lossy.webp" onclick="openImage(69)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1935303656737554900-gm__gn._times_an_illusion_video3-lossy.webp" alt="desultor-1935303656737554900-gm__gn._times_an_illusion_video3-lossy.webp" onclick="openImage(70)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1935444573058113931-almost_sat_on_my_throne_with_the_seat_up_video4-lossy.webp" alt="desultor-1935444573058113931-almost_sat_on_my_throne_with_the_seat_up_video4-lossy.webp" onclick="openImage(71)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1935533270793420844-juicy_and_crispy_video4-lossy.webp" alt="desultor-1935533270793420844-juicy_and_crispy_video4-lossy.webp" onclick="openImage(72)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1939868270569402418-gonna_getcha_video4-lossy.webp" alt="desultor-1939868270569402418-gonna_getcha_video4-lossy.webp" onclick="openImage(73)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1939886385755979928-_desultor_video3-lossy.webp" alt="desultor-1939886385755979928-_desultor_video3-lossy.webp" onclick="openImage(74)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940041936750223541-gm_through_the_noise_video2-lossy.webp" alt="desultor-1940041936750223541-gm_through_the_noise_video2-lossy.webp" onclick="openImage(75)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940156076311421044-____________________video3-lossy.webp" alt="desultor-1940156076311421044-____________________video3-lossy.webp" onclick="openImage(76)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940365071533981853-gm_all_over_video3-lossy.webp" alt="desultor-1940365071533981853-gm_all_over_video3-lossy.webp" onclick="openImage(77)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940432082624479313-dOpPpE_aCrOsS_tHe_RaDiOcItY___video3-lossy.webp" alt="desultor-1940432082624479313-dOpPpE_aCrOsS_tHe_RaDiOcItY___video3-lossy.webp" onclick="openImage(78)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940908942911328421-wen_the_food_so_good_you_do_a_lil_dance_video3-lossy.webp" alt="desultor-1940908942911328421-wen_the_food_so_good_you_do_a_lil_dance_video3-lossy.webp" onclick="openImage(79)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940932203376239040-gm_innit_video3-lossy.webp" alt="desultor-1940932203376239040-gm_innit_video3-lossy.webp" onclick="openImage(80)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1940976520954314824-Untitled_video3-lossy.webp" alt="desultor-1940976520954314824-Untitled_video3-lossy.webp" onclick="openImage(81)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1941127595623682407-gm_from_the_street_video4-lossy.webp" alt="desultor-1941127595623682407-gm_from_the_street_video4-lossy.webp" onclick="openImage(82)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1941704224602980375-l1nk_br0k3n____tr4nsm1ss10n_f41l3d_video2-lossy.webp" alt="desultor-1941704224602980375-l1nk_br0k3n____tr4nsm1ss10n_f41l3d_video2-lossy.webp" onclick="openImage(83)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1941850598418096331-gm_pedal_to_the_metal_video2-lossy.webp" alt="desultor-1941850598418096331-gm_pedal_to_the_metal_video2-lossy.webp" onclick="openImage(84)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1942206092257247570-don_t_forget_a_week_heres_like_a_month_in_normie_world_video3-lossy.webp" alt="desultor-1942206092257247570-don_t_forget_a_week_heres_like_a_month_in_normie_world_video3-lossy.webp" onclick="openImage(85)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1942561991513579588-gm_through_it_all_video3-lossy.webp" alt="desultor-1942561991513579588-gm_through_it_all_video3-lossy.webp" onclick="openImage(86)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1942702367440355642-everything_fake_video2-lossy.webp" alt="desultor-1942702367440355642-everything_fake_video2-lossy.webp" onclick="openImage(87)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1942945835462852729-Not_so_hot_take__the_girls_in_this_space_are_way_hotter_than_the_guys_on_average._Imagine_NorCal__my_video4-lossy.webp" alt="desultor-1942945835462852729-Not_so_hot_take__the_girls_in_this_space_are_way_hotter_than_the_guys_on_average._Imagine_NorCal__my_video4-lossy.webp" onclick="openImage(88)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1943117504563548428-_Rio_Art_Residency_Patron__by_video4-lossy.webp" alt="desultor-1943117504563548428-_Rio_Art_Residency_Patron__by_video4-lossy.webp" onclick="openImage(89)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1943276256952250392-gm_every_which_way_video3-lossy.webp" alt="desultor-1943276256952250392-gm_every_which_way_video3-lossy.webp" onclick="openImage(90)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/desultor/webp/desultor-1943674941536137692-GM_all_video4-lossy.webp" alt="desultor-1943674941536137692-GM_all_video4-lossy.webp" onclick="openImage(91)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -166,202 +438,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/desultor/webp/desultor-1925730247-tomorrow-video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1925905311-in_a_universe_of_infinite_realities_you_re_my__1_collector_in_at_least_420_of_th-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1925905733-These_are_the_coordinates_for_today_s___sigils__drop_by-video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1926994406-gm_wide_eyed_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927024573-manifesting_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927024573-manifesting_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927411133-hot_dang__love_to_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927704710-gm_on_re-run_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927764747-Love_life_without_regrets_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927765451-live_life_without_regrets_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927778550-__tangy_tales_i_tell_myself___video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927784177-thank_you_bigly_to_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927784177-thank_you_bigly_to_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927806380-skull_studies_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927841282-You_don_t_agree_with_their_tweet__in_fact__you_can_t_stand_their_self-important_-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927942928-by_desultor_in_partnership_with_desultor_presented_by_desultor_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927948681531085240-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_crypto___ranked_from_absolute_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1927960319-niceee_gif_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1928245223601148343-Class_of_2021_Check-in_-_share_your_art_and_repost_if_you_been_here_since__21_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1928266096-infinny_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1928445124-gm_big_friday_energy_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1928496250-fuck_you_homie_I_like_skull_art_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1928593060-_sigils__by_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1928623949-gn_to_infinny_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929200156-temple_of_the_falling_sky__2022__video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929255561-gm_sunday_funday_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929511624-Finally_MC-DEATH.EXE__by_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929914054-gm_sweet_like_candy_video1-1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929914054-gm_sweet_like_candy_video2-1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930007091-CANAL_ST_CURATION_CONTEST_NOW_OPEN_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930013222-thank_you_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930223429-Skull_Studies__59_by_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930419678-whats_great_about_the_skull_art_narrative_is_its_most_of_my_work_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1930964953-gm_friday_style_with_cheese_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1931071323-Art_on_Tezos_Friday_Recap_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1931178425-Delicious__video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1931182641-Who_does_not_have_a_Call_Data_Comrade_yet__video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1931329847-gm_weekend_energy_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1931329847-gm_weekend_energy_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1931565262-my_old_tv_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932127367-collected_some_comrades_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932127367-collected_some_comrades_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932127907-Comrade__31_was_SOLD__video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932194775-buckle_up_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932194775-buckle_up_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932399635-gm_till_the_end_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932487094-trappings__2021__video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932507526-hold_up_boss_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932564213-Sleep_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932564213-Sleep_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932773828-gm_pardna_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932778522-gm_pardna_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932802027-do_something_nice_for_yourself_today_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932802178-do_something_nice_for_yourself_today_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932807657-Do_something_nice_for_yourself_today_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1932827668-do_something_nice_for_yourself_today_video1-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1933482418943766815-gm_inside_out_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1933721863747989985-me_after_being_liquidated_and_telling_myself_nothing_matters_because_life_s_a_simulation_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1933862894514667900-gm__you_owe_it_to_yourself_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1934217476734165410-gm_sunday_with_cheese_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1934580786906460597-gm_to_the_face_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1934945129909162433-gm_till_doomsday_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1935100608354337097-They_found_the_treasure_of_Oak_Island_https___x.com_breaking911_st_breaking911_status_19350777325071_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1935303656737554900-gm__gn._times_an_illusion_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1935444573058113931-almost_sat_on_my_throne_with_the_seat_up_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1935533270793420844-juicy_and_crispy_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1939868270569402418-gonna_getcha_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1939886385755979928-_desultor_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940041936750223541-gm_through_the_noise_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940156076311421044-____________________video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940365071533981853-gm_all_over_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940432082624479313-dOpPpE_aCrOsS_tHe_RaDiOcItY___video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940908942911328421-wen_the_food_so_good_you_do_a_lil_dance_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940932203376239040-gm_innit_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1940976520954314824-Untitled_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1941127595623682407-gm_from_the_street_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1941704224602980375-l1nk_br0k3n____tr4nsm1ss10n_f41l3d_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1941850598418096331-gm_pedal_to_the_metal_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1942206092257247570-don_t_forget_a_week_heres_like_a_month_in_normie_world_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1942561991513579588-gm_through_it_all_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1942702367440355642-everything_fake_video2-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1942945835462852729-Not_so_hot_take__the_girls_in_this_space_are_way_hotter_than_the_guys_on_average._Imagine_NorCal__my_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1943117504563548428-_Rio_Art_Residency_Patron__by_video4-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1943276256952250392-gm_every_which_way_video3-lossy.webp',
-            '/nft-gallery/desultor/webp/desultor-1943674941536137692-GM_all_video4-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/desultor/webp/desultor-1925730247-tomorrow-video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1925905311-in_a_universe_of_infinite_realities_you_re_my__1_collector_in_at_least_420_of_th-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1925905733-These_are_the_coordinates_for_today_s___sigils__drop_by-video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1926994406-gm_wide_eyed_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927024573-manifesting_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927024573-manifesting_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927411133-hot_dang__love_to_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927704710-gm_on_re-run_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927764747-Love_life_without_regrets_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927765451-live_life_without_regrets_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927778550-__tangy_tales_i_tell_myself___video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927784177-thank_you_bigly_to_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927784177-thank_you_bigly_to_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927806380-skull_studies_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927841282-You_don_t_agree_with_their_tweet__in_fact__you_can_t_stand_their_self-important_-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927942928-by_desultor_in_partnership_with_desultor_presented_by_desultor_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927948681531085240-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_crypto___ranked_from_absolute_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1927960319-niceee_gif_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1928245223601148343-Class_of_2021_Check-in_-_share_your_art_and_repost_if_you_been_here_since__21_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1928266096-infinny_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1928445124-gm_big_friday_energy_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1928496250-fuck_you_homie_I_like_skull_art_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1928593060-_sigils__by_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1928623949-gn_to_infinny_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929200156-temple_of_the_falling_sky__2022__video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929255561-gm_sunday_funday_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929511624-Finally_MC-DEATH.EXE__by_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929914054-gm_sweet_like_candy_video1-1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929914054-gm_sweet_like_candy_video2-1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930007091-CANAL_ST_CURATION_CONTEST_NOW_OPEN_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930013222-thank_you_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930223429-Skull_Studies__59_by_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930419678-whats_great_about_the_skull_art_narrative_is_its_most_of_my_work_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1930964953-gm_friday_style_with_cheese_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1931071323-Art_on_Tezos_Friday_Recap_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1931178425-Delicious__video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1931182641-Who_does_not_have_a_Call_Data_Comrade_yet__video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1931329847-gm_weekend_energy_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1931329847-gm_weekend_energy_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1931565262-my_old_tv_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932127367-collected_some_comrades_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932127367-collected_some_comrades_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932127907-Comrade__31_was_SOLD__video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932194775-buckle_up_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932194775-buckle_up_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932399635-gm_till_the_end_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932487094-trappings__2021__video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932507526-hold_up_boss_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932564213-Sleep_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932564213-Sleep_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932773828-gm_pardna_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932778522-gm_pardna_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932802027-do_something_nice_for_yourself_today_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932802178-do_something_nice_for_yourself_today_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932807657-Do_something_nice_for_yourself_today_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1932827668-do_something_nice_for_yourself_today_video1-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1933482418943766815-gm_inside_out_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1933721863747989985-me_after_being_liquidated_and_telling_myself_nothing_matters_because_life_s_a_simulation_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1933862894514667900-gm__you_owe_it_to_yourself_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1934217476734165410-gm_sunday_with_cheese_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1934580786906460597-gm_to_the_face_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1934945129909162433-gm_till_doomsday_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1935100608354337097-They_found_the_treasure_of_Oak_Island_https___x.com_breaking911_st_breaking911_status_19350777325071_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1935303656737554900-gm__gn._times_an_illusion_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1935444573058113931-almost_sat_on_my_throne_with_the_seat_up_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1935533270793420844-juicy_and_crispy_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1939868270569402418-gonna_getcha_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1939886385755979928-_desultor_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940041936750223541-gm_through_the_noise_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940156076311421044-____________________video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940365071533981853-gm_all_over_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940432082624479313-dOpPpE_aCrOsS_tHe_RaDiOcItY___video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940908942911328421-wen_the_food_so_good_you_do_a_lil_dance_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940932203376239040-gm_innit_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1940976520954314824-Untitled_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1941127595623682407-gm_from_the_street_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1941704224602980375-l1nk_br0k3n____tr4nsm1ss10n_f41l3d_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1941850598418096331-gm_pedal_to_the_metal_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1942206092257247570-don_t_forget_a_week_heres_like_a_month_in_normie_world_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1942561991513579588-gm_through_it_all_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1942702367440355642-everything_fake_video2-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1942945835462852729-Not_so_hot_take__the_girls_in_this_space_are_way_hotter_than_the_guys_on_average._Imagine_NorCal__my_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1943117504563548428-_Rio_Art_Residency_Patron__by_video4-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1943276256952250392-gm_every_which_way_video3-lossy.webp',\n            '/nft-gallery/desultor/webp/desultor-1943674941536137692-GM_all_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

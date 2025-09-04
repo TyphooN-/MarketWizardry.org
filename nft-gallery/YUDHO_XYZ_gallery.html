@@ -1,28 +1,21 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFT (Not For Trade) Gallery - YUDHO_XYZ | MarketWizardry.org</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/YUDHO_XYZ_gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="XYZ generation art from someone whose name sounds like a sneeze. Digital coordinates for people lost in blockchain space.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="YUDHO_XYZ Gallery - MarketWizardry.org">
+    <meta property="og:title" content="NFT Gallery - YUDHO_XYZ">
     <meta property="og:description" content="XYZ generation art from someone whose name sounds like a sneeze. Digital coordinates for people lost in blockchain space.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/YUDHO_XYZ_gallery.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/YUDHO_XYZ_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="YUDHO_XYZ Gallery - MarketWizardry.org">
+    <meta name="twitter:title" content="NFT Gallery - YUDHO_XYZ">
     <meta name="twitter:description" content="XYZ generation art from someone whose name sounds like a sneeze. Digital coordinates for people lost in blockchain space.">
     <script>
         // Set viewport immediately for mobile scaling
@@ -33,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -63,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -73,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -88,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -98,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -149,6 +139,8 @@
             opacity: 0.9;
         }
     </style>
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
     <h2>NFT (Not For Trade) Gallery - YUDHO_XYZ</h2>
@@ -160,8 +152,137 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1919744207-_______________video1-lossy.webp" alt="YUDHO_XYZ-1919744207-_______________video1-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1919744650-_______________video2-lossy.webp" alt="YUDHO_XYZ-1919744650-_______________video2-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920142173-__________________video3-lossy.webp" alt="YUDHO_XYZ-1920142173-__________________video3-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920144220-_________________-video3-lossy.webp" alt="YUDHO_XYZ-1920144220-_________________-video3-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920382058-Yes_YES__video2-lossy.webp" alt="YUDHO_XYZ-1920382058-Yes_YES__video2-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920421573-__________________video1-lossy.webp" alt="YUDHO_XYZ-1920421573-__________________video1-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920921616898212093-_M________________________________M___________E________________C________________R____________Y_______video1-lossy.webp" alt="YUDHO_XYZ-1920921616898212093-_M________________________________M___________E________________C________________R____________Y_______video1-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921026043294400730-_M________________________________M___________E________________C________________R____________Y_______video2-lossy.webp" alt="YUDHO_XYZ-1921026043294400730-_M________________________________M___________E________________C________________R____________Y_______video2-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921389541-___________________video2-lossy.webp" alt="YUDHO_XYZ-1921389541-___________________video2-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921611577-____________________________video1-lossy.webp" alt="YUDHO_XYZ-1921611577-____________________________video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921611577-____________________________video3-lossy.webp" alt="YUDHO_XYZ-1921611577-____________________________video3-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922667791-ambivalent_and_painful_to_say_this_but_at_this_point_I_m_not_so_sure_anymore_if-lossy.webp" alt="YUDHO_XYZ-1922667791-ambivalent_and_painful_to_say_this_but_at_this_point_I_m_not_so_sure_anymore_if-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922700632-Thank_you_video1-lossy.webp" alt="YUDHO_XYZ-1922700632-Thank_you_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922958788-Little_shout_out_to_video1-lossy.webp" alt="YUDHO_XYZ-1922958788-Little_shout_out_to_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922958871871582348-.This_is_a_Leap_of_Faith_video1-lossy.webp" alt="YUDHO_XYZ-1922958871871582348-.This_is_a_Leap_of_Faith_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922970559-.This_is_a_Leap_of_Faith-video2-lossy.webp" alt="YUDHO_XYZ-1922970559-.This_is_a_Leap_of_Faith-video2-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922970751-Little_shout_out_to_video2-lossy.webp" alt="YUDHO_XYZ-1922970751-Little_shout_out_to_video2-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923001523-Signal_Lost_video2-lossy.webp" alt="YUDHO_XYZ-1923001523-Signal_Lost_video2-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923001523-Signal_Lost_video3-lossy.webp" alt="YUDHO_XYZ-1923001523-Signal_Lost_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923015636-magic_stick_people_join_us_video1-lossy.webp" alt="YUDHO_XYZ-1923015636-magic_stick_people_join_us_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923018752-This_is_the_way._You_are_minting_for_eternity_video1-lossy.webp" alt="YUDHO_XYZ-1923018752-This_is_the_way._You_are_minting_for_eternity_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923269311-Lots_of_staged_stuff_happening_these_days_video1-1-lossy.webp" alt="YUDHO_XYZ-1923269311-Lots_of_staged_stuff_happening_these_days_video1-1-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924128563-Into_the_void_video1-lossy.webp" alt="YUDHO_XYZ-1924128563-Into_the_void_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924426379-1__Meme_Card__363_is_from_video1-lossy.webp" alt="YUDHO_XYZ-1924426379-1__Meme_Card__363_is_from_video1-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924438923-1__Meme_Card__363_is_from_video3-lossy.webp" alt="YUDHO_XYZ-1924438923-1__Meme_Card__363_is_from_video3-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924523889-seized_video3-lossy.webp" alt="YUDHO_XYZ-1924523889-seized_video3-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video1-lossy.webp" alt="YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video1-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video2-lossy.webp" alt="YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video2-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930316793-Me_and_my_AI_video1-lossy.webp" alt="YUDHO_XYZ-1930316793-Me_and_my_AI_video1-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930316793-Me_and_my_AI_video3-lossy.webp" alt="YUDHO_XYZ-1930316793-Me_and_my_AI_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video1-lossy.webp" alt="YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video1-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video2-lossy.webp" alt="YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video2-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video4-lossy.webp" alt="YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video4-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1932839618803867893-____________video4-lossy.webp" alt="YUDHO_XYZ-1932839618803867893-____________video4-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1933585834139435083-The_Digital_Asset_Museum_Presents..._GENESIS_video4-lossy.webp" alt="YUDHO_XYZ-1933585834139435083-The_Digital_Asset_Museum_Presents..._GENESIS_video4-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1934830119291695369-A_Dialogue_Between___video4-lossy.webp" alt="YUDHO_XYZ-1934830119291695369-A_Dialogue_Between___video4-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1934923207867552055-A_Dialogue_Between___video3-lossy.webp" alt="YUDHO_XYZ-1934923207867552055-A_Dialogue_Between___video3-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1935751041712373969-______________video2-lossy.webp" alt="YUDHO_XYZ-1935751041712373969-______________video2-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1936479208995537066-SINGULARITY_video4-lossy.webp" alt="YUDHO_XYZ-1936479208995537066-SINGULARITY_video4-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937800602123481323-Going_______video2-lossy.webp" alt="YUDHO_XYZ-1937800602123481323-Going_______video2-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937835894263959973-Minting_today__25th_June_9AM_EST_video2-lossy.webp" alt="YUDHO_XYZ-1937835894263959973-Minting_today__25th_June_9AM_EST_video2-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1941091586596905352-gm_from_aura_farming_kid_video3-lossy.webp" alt="YUDHO_XYZ-1941091586596905352-gm_from_aura_farming_kid_video3-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1942922158369390739-Recently_got_some_art_by_video3-lossy.webp" alt="YUDHO_XYZ-1942922158369390739-Recently_got_some_art_by_video3-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -170,153 +291,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1919744207-_______________video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1919744650-_______________video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920142173-__________________video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920144220-_________________-video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920382058-Yes_YES__video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920421573-__________________video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920921616898212093-_M________________________________M___________E________________C________________R____________Y_______video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921026043294400730-_M________________________________M___________E________________C________________R____________Y_______video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921389541-___________________video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921611577-____________________________video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921611577-____________________________video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922667791-ambivalent_and_painful_to_say_this_but_at_this_point_I_m_not_so_sure_anymore_if-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922700632-Thank_you_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922958788-Little_shout_out_to_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922958871871582348-.This_is_a_Leap_of_Faith_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922970559-.This_is_a_Leap_of_Faith-video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922970751-Little_shout_out_to_video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923001523-Signal_Lost_video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923001523-Signal_Lost_video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923015636-magic_stick_people_join_us_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923018752-This_is_the_way._You_are_minting_for_eternity_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923269311-Lots_of_staged_stuff_happening_these_days_video1-1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924128563-Into_the_void_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924426379-1__Meme_Card__363_is_from_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924438923-1__Meme_Card__363_is_from_video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924523889-seized_video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930316793-Me_and_my_AI_video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930316793-Me_and_my_AI_video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video1-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video4-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1932839618803867893-____________video4-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1933585834139435083-The_Digital_Asset_Museum_Presents..._GENESIS_video4-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1934830119291695369-A_Dialogue_Between___video4-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1934923207867552055-A_Dialogue_Between___video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1935751041712373969-______________video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1936479208995537066-SINGULARITY_video4-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937800602123481323-Going_______video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937835894263959973-Minting_today__25th_June_9AM_EST_video2-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1941091586596905352-gm_from_aura_farming_kid_video3-lossy.webp',
-            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1942922158369390739-Recently_got_some_art_by_video3-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1919744207-_______________video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1919744650-_______________video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920142173-__________________video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920144220-_________________-video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920382058-Yes_YES__video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920421573-__________________video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1920921616898212093-_M________________________________M___________E________________C________________R____________Y_______video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921026043294400730-_M________________________________M___________E________________C________________R____________Y_______video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921389541-___________________video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921611577-____________________________video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1921611577-____________________________video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922667791-ambivalent_and_painful_to_say_this_but_at_this_point_I_m_not_so_sure_anymore_if-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922700632-Thank_you_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922958788-Little_shout_out_to_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922958871871582348-.This_is_a_Leap_of_Faith_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922970559-.This_is_a_Leap_of_Faith-video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1922970751-Little_shout_out_to_video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923001523-Signal_Lost_video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923001523-Signal_Lost_video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923015636-magic_stick_people_join_us_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923018752-This_is_the_way._You_are_minting_for_eternity_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1923269311-Lots_of_staged_stuff_happening_these_days_video1-1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924128563-Into_the_void_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924426379-1__Meme_Card__363_is_from_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924438923-1__Meme_Card__363_is_from_video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924523889-seized_video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1924529056-MEMECRYPTION___CODE_NAME__6529_by_video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930316793-Me_and_my_AI_video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930316793-Me_and_my_AI_video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video1-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1930418852-_Everything_I_buy__I_buy_with_the_institutions_in_mind__video4-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1932839618803867893-____________video4-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1933585834139435083-The_Digital_Asset_Museum_Presents..._GENESIS_video4-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1934830119291695369-A_Dialogue_Between___video4-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1934923207867552055-A_Dialogue_Between___video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1935751041712373969-______________video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1936479208995537066-SINGULARITY_video4-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937800602123481323-Going_______video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937835894263959973-Minting_today__25th_June_9AM_EST_video2-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1941091586596905352-gm_from_aura_farming_kid_video3-lossy.webp',\n            '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1942922158369390739-Recently_got_some_art_by_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>

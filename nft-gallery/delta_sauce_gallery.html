@@ -1,5 +1,4 @@
-
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
     <meta property="og:title" content="NFT Gallery - delta_sauce">
     <meta property="og:description" content="delta_sauce's digital art collection - The secret sauce of disappointment, aged to perfection. This artist's work is like a fine wine that turned to vinegar - technically still liquid, but you'll regret the experience. Bon appétit, masochists!">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.info/nft-gallery/delta_sauce_gallery.html">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/delta_sauce_gallery.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - delta_sauce">
     <meta name="twitter:description" content="delta_sauce's digital art collection - The secret sauce of disappointment, aged to perfection. This artist's work is like a fine wine that turned to vinegar - technically still liquid, but you'll regret the experience. Bon appétit, masochists!">
@@ -27,21 +26,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -57,7 +56,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -67,7 +65,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Maximum size of the container */
+            max-width: 500px;
             cursor: pointer;
         }
         .thumbnail {
@@ -82,7 +80,6 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -92,29 +89,28 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
-	.modal-content {
-	    position: relative;
-	    background-color: #000;
-	    padding: 20px;
-	    border: 2px solid #00ff00;
-	    border-radius: 5px;
-	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
-	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
-	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
-	    display: block;
-	    margin: 0 auto;
-	    object-fit: contain;
-	}
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .full-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -143,7 +139,7 @@
             opacity: 0.9;
         }
     </style>
-        <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
@@ -156,8 +152,224 @@
 
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here by JavaScript -->
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1925988141-Coming_June_2025__video1-lossy.webp" alt="delta_sauce-1925988141-Coming_June_2025__video1-lossy.webp" onclick="openImage(0)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1927653982-can_I_get_a_light__video2-lossy.webp" alt="delta_sauce-1927653982-can_I_get_a_light__video2-lossy.webp" onclick="openImage(1)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1927715910-can_I_get_a_light__video1-lossy.webp" alt="delta_sauce-1927715910-can_I_get_a_light__video1-lossy.webp" onclick="openImage(2)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video3-lossy.webp" alt="delta_sauce-1927820796-Big_fan_of_video3-lossy.webp" onclick="openImage(3)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video4-lossy.webp" alt="delta_sauce-1927820796-Big_fan_of_video4-lossy.webp" onclick="openImage(4)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video1-lossy.webp" alt="delta_sauce-1927850050-The_Bowler_has_been_summoned_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video2-lossy.webp" alt="delta_sauce-1927850050-The_Bowler_has_been_summoned_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928066060-pasted_video1-lossy.webp" alt="delta_sauce-1928066060-pasted_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928124302-_Raging_Profits__by_video1-lossy.webp" alt="delta_sauce-1928124302-_Raging_Profits__by_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video1-lossy.webp" alt="delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video1-lossy.webp" onclick="openImage(9)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video3-lossy.webp" alt="delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video3-lossy.webp" onclick="openImage(10)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928233299-buckle_up_buttercup_video1-lossy.webp" alt="delta_sauce-1928233299-buckle_up_buttercup_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928617005-This_was_worth_the_entire_trip_to_Austin__video3-lossy.webp" alt="delta_sauce-1928617005-This_was_worth_the_entire_trip_to_Austin__video3-lossy.webp" onclick="openImage(12)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1928923149-Finally_back_home_video2-lossy.webp" alt="delta_sauce-1928923149-Finally_back_home_video2-lossy.webp" onclick="openImage(13)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929015640-Trust_the_flow_video1-lossy.webp" alt="delta_sauce-1929015640-Trust_the_flow_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929260191-Coming_video2-lossy.webp" alt="delta_sauce-1929260191-Coming_video2-lossy.webp" onclick="openImage(15)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929267436-Much_love_to_video2-lossy.webp" alt="delta_sauce-1929267436-Much_love_to_video2-lossy.webp" onclick="openImage(16)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929273143-d_video1-lossy.webp" alt="delta_sauce-1929273143-d_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929314978-GA___video2-lossy.webp" alt="delta_sauce-1929314978-GA___video2-lossy.webp" onclick="openImage(18)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929567741-just_a_crosshair..._just_a_shot_away_from_you_video1-lossy.webp" alt="delta_sauce-1929567741-just_a_crosshair..._just_a_shot_away_from_you_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929605059-June_17th_-_Two_Iconic_Drops__video1-lossy.webp" alt="delta_sauce-1929605059-June_17th_-_Two_Iconic_Drops__video1-lossy.webp" onclick="openImage(20)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929622575-Next_to_launch_at_Fellowship__video1-lossy.webp" alt="delta_sauce-1929622575-Next_to_launch_at_Fellowship__video1-lossy.webp" onclick="openImage(21)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929633478-Hope_the_Feed_is_ready_video2-lossy.webp" alt="delta_sauce-1929633478-Hope_the_Feed_is_ready_video2-lossy.webp" onclick="openImage(22)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929653693-war_zone_video2-lossy.webp" alt="delta_sauce-1929653693-war_zone_video2-lossy.webp" onclick="openImage(23)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929939183-you_maniacs_broke_video1-lossy.webp" alt="delta_sauce-1929939183-you_maniacs_broke_video1-lossy.webp" onclick="openImage(24)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929946538-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_budde-lossy.webp" alt="delta_sauce-1929946538-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_budde-lossy.webp" onclick="openImage(25)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video1-lossy.webp" alt="delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video1-lossy.webp" onclick="openImage(26)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video3-lossy.webp" alt="delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video3-lossy.webp" onclick="openImage(27)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930008287-_me_clicking_refresh_video2-lossy.webp" alt="delta_sauce-1930008287-_me_clicking_refresh_video2-lossy.webp" onclick="openImage(28)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930099259-gn_video3-lossy.webp" alt="delta_sauce-1930099259-gn_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930109522238157067-I_m_not_sure_art_was_meant_to_be_created_and_sold_at_the_pace_that_seems_to_be_the_norm_here__video1-1-lossy.webp" alt="delta_sauce-1930109522238157067-I_m_not_sure_art_was_meant_to_be_created_and_sold_at_the_pace_that_seems_to_be_the_norm_here__video1-1-lossy.webp" onclick="openImage(30)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930274023-Do_a_bit_of_collecting__Green_by_video1-lossy.webp" alt="delta_sauce-1930274023-Do_a_bit_of_collecting__Green_by_video1-lossy.webp" onclick="openImage(31)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930308070-boom..._headshot_video2-1-lossy.webp" alt="delta_sauce-1930308070-boom..._headshot_video2-1-lossy.webp" onclick="openImage(32)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930352813-Manifesting_to_get_this_masterpiece_video2-lossy.webp" alt="delta_sauce-1930352813-Manifesting_to_get_this_masterpiece_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930745475-Sorry__video2-lossy.webp" alt="delta_sauce-1930745475-Sorry__video2-lossy.webp" onclick="openImage(34)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1930770954-love_hurts_video3-lossy.webp" alt="delta_sauce-1930770954-love_hurts_video3-lossy.webp" onclick="openImage(35)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1931077934300938623-The_digital_progression_from_pixelated_creatures_on_an_LCD_screen_to_the_black_mass_of_data_as_singu_video3-lossy.webp" alt="delta_sauce-1931077934300938623-The_digital_progression_from_pixelated_creatures_on_an_LCD_screen_to_the_black_mass_of_data_as_singu_video3-lossy.webp" onclick="openImage(36)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1931080529-FEED_touches_on_the_topic_of_addiction_video2-lossy.webp" alt="delta_sauce-1931080529-FEED_touches_on_the_topic_of_addiction_video2-lossy.webp" onclick="openImage(37)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1931177734-GN_video2-lossy.webp" alt="delta_sauce-1931177734-GN_video2-lossy.webp" onclick="openImage(38)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935092163542401384-my_finger_is_on_the_button_video3-lossy.webp" alt="delta_sauce-1935092163542401384-my_finger_is_on_the_button_video3-lossy.webp" onclick="openImage(39)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935445728538562678-The_auction_for_these_last_two_auctions_of_FEED_are_crazy____video4-lossy.webp" alt="delta_sauce-1935445728538562678-The_auction_for_these_last_two_auctions_of_FEED_are_crazy____video4-lossy.webp" onclick="openImage(40)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935478172117778765-can_I_get_a_light__video3-lossy.webp" alt="delta_sauce-1935478172117778765-can_I_get_a_light__video3-lossy.webp" onclick="openImage(41)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935499828446044368-_The_Feed__by_video4-lossy.webp" alt="delta_sauce-1935499828446044368-_The_Feed__by_video4-lossy.webp" onclick="openImage(42)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935514353752522935-FEED_is_featured_on_video3-lossy.webp" alt="delta_sauce-1935514353752522935-FEED_is_featured_on_video3-lossy.webp" onclick="openImage(43)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935678017344561472-Delta_Feed_has_a_nice_ring_video4-lossy.webp" alt="delta_sauce-1935678017344561472-Delta_Feed_has_a_nice_ring_video4-lossy.webp" onclick="openImage(44)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935689079221301439-One_of_my_favourite_pieces__from_video3-lossy.webp" alt="delta_sauce-1935689079221301439-One_of_my_favourite_pieces__from_video3-lossy.webp" onclick="openImage(45)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935828886052286602-damn_a_loan_originating_from_jg_wentworth_nft_loaning_platform_to_the_tune_of_six_million_dollars_wa_video3-lossy.webp" alt="delta_sauce-1935828886052286602-damn_a_loan_originating_from_jg_wentworth_nft_loaning_platform_to_the_tune_of_six_million_dollars_wa_video3-lossy.webp" onclick="openImage(46)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935880604446605532-Everything_interesting_in_the_world_always_starts_with_a_small_group_of_misfits_that_are_brave_enoug_video2-lossy.webp" alt="delta_sauce-1935880604446605532-Everything_interesting_in_the_world_always_starts_with_a_small_group_of_misfits_that_are_brave_enoug_video2-lossy.webp" onclick="openImage(47)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1935889042685800957-MAKE_ART_NOT_WAR_by_video3-lossy.webp" alt="delta_sauce-1935889042685800957-MAKE_ART_NOT_WAR_by_video3-lossy.webp" onclick="openImage(48)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1936547373142175930-_me_looking_at_ETH_price_video3-lossy.webp" alt="delta_sauce-1936547373142175930-_me_looking_at_ETH_price_video3-lossy.webp" onclick="openImage(49)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video3-lossy.webp" alt="delta_sauce-1940941045455282431-Neither_video3-lossy.webp" onclick="openImage(50)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video4-lossy.webp" alt="delta_sauce-1940941045455282431-Neither_video4-lossy.webp" onclick="openImage(51)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941233670335103413-Sent__video4-lossy.webp" alt="delta_sauce-1941233670335103413-Sent__video4-lossy.webp" onclick="openImage(52)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941265226806198272-Always_a_good_day_to_acquire_another_Views_piece_to_my_collection__video3-lossy.webp" alt="delta_sauce-1941265226806198272-Always_a_good_day_to_acquire_another_Views_piece_to_my_collection__video3-lossy.webp" onclick="openImage(53)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941518983800422619-First_rule_of_cabal_club_is_denying_its_existence_video2-lossy.webp" alt="delta_sauce-1941518983800422619-First_rule_of_cabal_club_is_denying_its_existence_video2-lossy.webp" onclick="openImage(54)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941550313468723701-crypto_art_video2-lossy.webp" alt="delta_sauce-1941550313468723701-crypto_art_video2-lossy.webp" onclick="openImage(55)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video3-lossy.webp" alt="delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video3-lossy.webp" onclick="openImage(56)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video4-lossy.webp" alt="delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video4-lossy.webp" onclick="openImage(57)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941726679166009707-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video2-lossy.webp" alt="delta_sauce-1941726679166009707-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video2-lossy.webp" onclick="openImage(58)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1941916620634411118-lmaoooo_he_literally_did_the_tweet__what_is_wrong_with_these_people_video3-lossy.webp" alt="delta_sauce-1941916620634411118-lmaoooo_he_literally_did_the_tweet__what_is_wrong_with_these_people_video3-lossy.webp" onclick="openImage(59)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1942421703419724094-pilled_video3-lossy.webp" alt="delta_sauce-1942421703419724094-pilled_video3-lossy.webp" onclick="openImage(60)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1942432039275291115-please_don_t_outbid_me__video2-lossy.webp" alt="delta_sauce-1942432039275291115-please_don_t_outbid_me__video2-lossy.webp" onclick="openImage(61)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video3-lossy.webp" alt="delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video3-lossy.webp" onclick="openImage(62)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video4-lossy.webp" alt="delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video4-lossy.webp" onclick="openImage(63)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943352343304499245-remember__the_floor_is_lava__video2-lossy.webp" alt="delta_sauce-1943352343304499245-remember__the_floor_is_lava__video2-lossy.webp" onclick="openImage(64)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943355595542671493-Decided_to_pull_the_trigger_and_pick_up_my_first_gristle_buddee_by_video3-lossy.webp" alt="delta_sauce-1943355595542671493-Decided_to_pull_the_trigger_and_pick_up_my_first_gristle_buddee_by_video3-lossy.webp" onclick="openImage(65)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943357653230485849-feels_like_underwater_beach_ball_moment_dunnit__video2-lossy.webp" alt="delta_sauce-1943357653230485849-feels_like_underwater_beach_ball_moment_dunnit__video2-lossy.webp" onclick="openImage(66)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943378581674975525-proof_video4-lossy.webp" alt="delta_sauce-1943378581674975525-proof_video4-lossy.webp" onclick="openImage(67)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943384944937443827-proof_video3-lossy.webp" alt="delta_sauce-1943384944937443827-proof_video3-lossy.webp" onclick="openImage(68)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943422496050417798-The_Basilisk_video4-lossy.webp" alt="delta_sauce-1943422496050417798-The_Basilisk_video4-lossy.webp" onclick="openImage(69)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943431718649639371-cmon_eth_video2-lossy.webp" alt="delta_sauce-1943431718649639371-cmon_eth_video2-lossy.webp" onclick="openImage(70)" loading="lazy">
+        </div>
+        <div class="image-container">
+            <img class="thumbnail" src="/nft-gallery/delta_sauce/webp/delta_sauce-1943434051542495556-Higher_video3-lossy.webp" alt="delta_sauce-1943434051542495556-Higher_video3-lossy.webp" onclick="openImage(71)" loading="lazy">
+        </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -166,182 +378,43 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
+
     <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/delta_sauce/webp/delta_sauce-1925988141-Coming_June_2025__video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1927653982-can_I_get_a_light__video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1927715910-can_I_get_a_light__video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928066060-pasted_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928124302-_Raging_Profits__by_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928233299-buckle_up_buttercup_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928617005-This_was_worth_the_entire_trip_to_Austin__video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1928923149-Finally_back_home_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929015640-Trust_the_flow_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929260191-Coming_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929267436-Much_love_to_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929273143-d_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929314978-GA___video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929567741-just_a_crosshair..._just_a_shot_away_from_you_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929605059-June_17th_-_Two_Iconic_Drops__video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929622575-Next_to_launch_at_Fellowship__video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929633478-Hope_the_Feed_is_ready_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929653693-war_zone_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929939183-you_maniacs_broke_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929946538-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_budde-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930008287-_me_clicking_refresh_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930099259-gn_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930109522238157067-I_m_not_sure_art_was_meant_to_be_created_and_sold_at_the_pace_that_seems_to_be_the_norm_here__video1-1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930274023-Do_a_bit_of_collecting__Green_by_video1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930308070-boom..._headshot_video2-1-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930352813-Manifesting_to_get_this_masterpiece_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930745475-Sorry__video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1930770954-love_hurts_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1931077934300938623-The_digital_progression_from_pixelated_creatures_on_an_LCD_screen_to_the_black_mass_of_data_as_singu_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1931080529-FEED_touches_on_the_topic_of_addiction_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1931177734-GN_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935092163542401384-my_finger_is_on_the_button_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935445728538562678-The_auction_for_these_last_two_auctions_of_FEED_are_crazy____video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935478172117778765-can_I_get_a_light__video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935499828446044368-_The_Feed__by_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935514353752522935-FEED_is_featured_on_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935678017344561472-Delta_Feed_has_a_nice_ring_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935689079221301439-One_of_my_favourite_pieces__from_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935828886052286602-damn_a_loan_originating_from_jg_wentworth_nft_loaning_platform_to_the_tune_of_six_million_dollars_wa_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935880604446605532-Everything_interesting_in_the_world_always_starts_with_a_small_group_of_misfits_that_are_brave_enoug_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1935889042685800957-MAKE_ART_NOT_WAR_by_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1936547373142175930-_me_looking_at_ETH_price_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941233670335103413-Sent__video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941265226806198272-Always_a_good_day_to_acquire_another_Views_piece_to_my_collection__video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941518983800422619-First_rule_of_cabal_club_is_denying_its_existence_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941550313468723701-crypto_art_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941726679166009707-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1941916620634411118-lmaoooo_he_literally_did_the_tweet__what_is_wrong_with_these_people_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1942421703419724094-pilled_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1942432039275291115-please_don_t_outbid_me__video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943352343304499245-remember__the_floor_is_lava__video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943355595542671493-Decided_to_pull_the_trigger_and_pick_up_my_first_gristle_buddee_by_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943357653230485849-feels_like_underwater_beach_ball_moment_dunnit__video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943378581674975525-proof_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943384944937443827-proof_video3-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943422496050417798-The_Basilisk_video4-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943431718649639371-cmon_eth_video2-lossy.webp',
-            '/nft-gallery/delta_sauce/webp/delta_sauce-1943434051542495556-Higher_video3-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-
-                }, 100);
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = ['/nft-gallery/delta_sauce/webp/delta_sauce-1925988141-Coming_June_2025__video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1927653982-can_I_get_a_light__video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1927715910-can_I_get_a_light__video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928066060-pasted_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928124302-_Raging_Profits__by_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928233299-buckle_up_buttercup_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928617005-This_was_worth_the_entire_trip_to_Austin__video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1928923149-Finally_back_home_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929015640-Trust_the_flow_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929260191-Coming_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929267436-Much_love_to_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929273143-d_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929314978-GA___video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929567741-just_a_crosshair..._just_a_shot_away_from_you_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929605059-June_17th_-_Two_Iconic_Drops__video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929622575-Next_to_launch_at_Fellowship__video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929633478-Hope_the_Feed_is_ready_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929653693-war_zone_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929939183-you_maniacs_broke_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929946538-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_budde-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930008287-_me_clicking_refresh_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930099259-gn_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930109522238157067-I_m_not_sure_art_was_meant_to_be_created_and_sold_at_the_pace_that_seems_to_be_the_norm_here__video1-1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930274023-Do_a_bit_of_collecting__Green_by_video1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930308070-boom..._headshot_video2-1-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930352813-Manifesting_to_get_this_masterpiece_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930745475-Sorry__video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1930770954-love_hurts_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1931077934300938623-The_digital_progression_from_pixelated_creatures_on_an_LCD_screen_to_the_black_mass_of_data_as_singu_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1931080529-FEED_touches_on_the_topic_of_addiction_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1931177734-GN_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935092163542401384-my_finger_is_on_the_button_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935445728538562678-The_auction_for_these_last_two_auctions_of_FEED_are_crazy____video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935478172117778765-can_I_get_a_light__video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935499828446044368-_The_Feed__by_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935514353752522935-FEED_is_featured_on_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935678017344561472-Delta_Feed_has_a_nice_ring_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935689079221301439-One_of_my_favourite_pieces__from_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935828886052286602-damn_a_loan_originating_from_jg_wentworth_nft_loaning_platform_to_the_tune_of_six_million_dollars_wa_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935880604446605532-Everything_interesting_in_the_world_always_starts_with_a_small_group_of_misfits_that_are_brave_enoug_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1935889042685800957-MAKE_ART_NOT_WAR_by_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1936547373142175930-_me_looking_at_ETH_price_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941233670335103413-Sent__video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941265226806198272-Always_a_good_day_to_acquire_another_Views_piece_to_my_collection__video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941518983800422619-First_rule_of_cabal_club_is_denying_its_existence_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941550313468723701-crypto_art_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941726679166009707-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1941916620634411118-lmaoooo_he_literally_did_the_tweet__what_is_wrong_with_these_people_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1942421703419724094-pilled_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1942432039275291115-please_don_t_outbid_me__video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943352343304499245-remember__the_floor_is_lava__video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943355595542671493-Decided_to_pull_the_trigger_and_pick_up_my_first_gristle_buddee_by_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943357653230485849-feels_like_underwater_beach_ball_moment_dunnit__video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943378581674975525-proof_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943384944937443827-proof_video3-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943422496050417798-The_Basilisk_video4-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943431718649639371-cmon_eth_video2-lossy.webp',\n            '/nft-gallery/delta_sauce/webp/delta_sauce-1943434051542495556-Higher_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>
