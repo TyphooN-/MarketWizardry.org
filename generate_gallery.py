@@ -29,18 +29,29 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
     <title>NFT (Not For Trade) Gallery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-            } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -125,18 +136,29 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 <head>
     <title>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</title>
     <script>
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-            } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -407,18 +429,29 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 <head>
     <title>NFT (Not For Trade) Gallery - All Images</title>
     <script>
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-            } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>

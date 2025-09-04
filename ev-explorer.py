@@ -43,18 +43,29 @@ html_content = f"""<!DOCTYPE html>
     <title>EV Explorer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {{
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }}
+        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {{
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {{
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-            }} else {{
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${{currentPage}}`;
-            }}
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {{
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {{
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                }} else {{
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${{currentPage}}`;
+                }}
+            }}, 100);
         }}
     </script>
     <style>
