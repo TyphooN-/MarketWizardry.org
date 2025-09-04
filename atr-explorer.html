@@ -11,18 +11,27 @@
     <!-- Standard Meta Tags -->
     <meta name="description" content="Average True Range: measuring market mood swings like a therapist for psychotic price action. Because volatility needs quantification, obviously.">
     <script>
-        // Redirect to index.html if accessed directly (not in iframe)
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
+                // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
                 // For blog posts and NFT galleries, pass full path
                 const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
                 window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-            } else {
+        } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
                 window.location.href = `/?page=${currentPage}`;
-            }
         }
     </script>
     <style>
@@ -170,9 +179,7 @@
                 width: 90%;
             }
             .modal-body {
-                font-size: 0.6em;
-            }
-        }
+                font-size: 0.6em;}
     </style>
         <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">

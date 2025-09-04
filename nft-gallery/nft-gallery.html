@@ -12,8 +12,18 @@
     <!-- Standard Meta Tags -->
     <meta name="description" content="Digital receipts for JPEGs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion in blockchain form.">
         <script>
-        // Redirect to index.html if accessed directly (not in iframe)
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
+                // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
                 // For blog posts and NFT galleries, pass full path
@@ -22,9 +32,7 @@
             } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
-        }
+                window.location.href = `/?page=${currentPage}`;}
     </script>
 
     <style>

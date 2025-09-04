@@ -25,18 +25,27 @@
     <meta name="twitter:title" content="bluretina Gallery - MarketWizardry.org">
     <meta name="twitter:description" content="Eye strain aesthetics in soothing blue tones. Retinal damage art for people who want their vision loss to be aesthetically pleasing.">
     <script>
-        // Redirect to index.html if accessed directly (not in iframe)
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
+                // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
                 // For blog posts and NFT galleries, pass full path
                 const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
                 window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-            } else {
+        } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
                 window.location.href = `/?page=${currentPage}`;
-            }
         }
     </script>
     <style>
@@ -217,15 +226,15 @@
             // Load more images immediately if the initial load doesn't fill the viewport
             if (document.body.offsetHeight < window.innerHeight) {
                 loadMoreImages();
-            }
-        });
+
+                }, 100);
 
         // Scroll event for lazy loading
         window.addEventListener('scroll', () => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
                 loadMoreImages();
-            }
-        });
+
+                }, 100);
 
         function openImage(index) {
             currentImageIndex = index;
@@ -241,13 +250,11 @@
             if (currentImageIndex > 0) {
                 currentImageIndex--;
                 openImage(currentImageIndex);
-            }
         }
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
-            }
         }
     	function closeModal() {
         	const modal = document.getElementById('fullscreenModal');
@@ -278,9 +285,7 @@
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-                }
-            }
-        });
+                }});
     </script>
 </body>
 </html>

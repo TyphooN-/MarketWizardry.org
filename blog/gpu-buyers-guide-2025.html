@@ -43,9 +43,7 @@
             "name": "TyphooN",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp"
-            }
-        },
+                "url": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp"},
         "datePublished": "2025-09-04",
         "dateModified": "2025-09-04",
         "mainEntityOfPage": {
@@ -57,8 +55,18 @@
     }
     </script>
     <script>
-        // Redirect to index.html if accessed directly (not in iframe)
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+        
+                // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
             const currentPath = window.location.pathname;
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
                 // For blog posts and NFT galleries, pass full path
@@ -67,9 +75,7 @@
             } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
-        }
+                window.location.href = `/?page=${currentPage}`;}
     </script>
     <style>
         * {
@@ -119,17 +125,13 @@
                 grid-template-columns: 1fr;
             }
             .modal-content {
-                width: 90%;
-            }
-        }
+                width: 90%;}
         @media (max-width: 480px) {
             body {
                 padding: 10px;
             }
             .modal-content {
-                width: 95%;
-            }
-        }
+                width: 95%;}
         .modal {
             display: none;
             position: fixed;
@@ -222,9 +224,7 @@
                 max-width: none;
             }
             .modal-intro-text {
-                max-height: 200px;
-            }
-        }
+                max-height: 200px;}
     </style>
 </head>
 <body>
@@ -457,9 +457,7 @@
                     break;
                 case 'ArrowRight':
                     if (currentImageIndex < imageItems.length - 1) openModal(currentImageIndex + 1);
-                    break;
-            }
-        });
+                    break;});
 
         modalText.addEventListener('keydown', (event) => {
             if (modal.style.display !== "block") return;
@@ -469,17 +467,13 @@
                 modalText.scrollTop -= scrollAmount;
             } else if (event.key === 'ArrowDown') {
                 event.preventDefault();
-                modalText.scrollTop += scrollAmount;
-            }
-        });
+                modalText.scrollTop += scrollAmount;});
 
         modalText.setAttribute('tabindex', '0');
 
         window.addEventListener('resize', () => {
             if (modal.style.display === "block" && currentImageIndex >= 0) {
-                openModal(currentImageIndex);
-            }
-        });
+                openModal(currentImageIndex);});
     });
 </script>
 </body>
