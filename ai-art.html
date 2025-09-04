@@ -134,10 +134,16 @@
 <body>
     <h2>AI Art</h2>
     <div class="crt-divider"></div>
+
+    <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
+
+    <div class="crt-divider"></div>
+
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <!-- Images will be inserted here -->
+        <!-- Images will be inserted here by JavaScript -->
     </div>
+    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -146,75 +152,77 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
+
     <script>
-        let currentImageIndex = 0;
-        // Generate images dynamically
-        const imageGrid = document.getElementById('imageGrid');
-        for (let i = 1; i <= 85; i++) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = `ai-art/${String(i).padStart(5, '0')}.webp`;
-            img.onclick = function() { openImage(i - 1); }; // Pass 0-based index
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
+        const allImagePaths = [
+            "/ai-art/00001.webp", "/ai-art/00002.webp", "/ai-art/00003.webp", "/ai-art/00004.webp", "/ai-art/00005.webp",
+            "/ai-art/00006.webp", "/ai-art/00007.webp", "/ai-art/00008.webp", "/ai-art/00009.webp", "/ai-art/00010.webp",
+            "/ai-art/00011.webp", "/ai-art/00012.webp", "/ai-art/00013.webp", "/ai-art/00014.webp", "/ai-art/00015.webp",
+            "/ai-art/00016.webp", "/ai-art/00017.webp", "/ai-art/00018.webp", "/ai-art/00019.webp", "/ai-art/00020.webp",
+            "/ai-art/00021.webp", "/ai-art/00022.webp", "/ai-art/00023.webp", "/ai-art/00024.webp", "/ai-art/00025.webp",
+            "/ai-art/00026.webp", "/ai-art/00027.webp", "/ai-art/00028.webp", "/ai-art/00029.webp", "/ai-art/00030.webp",
+            "/ai-art/00031.webp", "/ai-art/00032.webp", "/ai-art/00033.webp", "/ai-art/00034.webp", "/ai-art/00035.webp",
+            "/ai-art/00036.webp", "/ai-art/00037.webp", "/ai-art/00038.webp", "/ai-art/00039.webp", "/ai-art/00040.webp",
+            "/ai-art/00041.webp", "/ai-art/00042.webp", "/ai-art/00043.webp", "/ai-art/00044.webp", "/ai-art/00045.webp",
+            "/ai-art/00046.webp", "/ai-art/00047.webp", "/ai-art/00048.webp", "/ai-art/00049.webp", "/ai-art/00050.webp",
+            "/ai-art/00051.webp", "/ai-art/00052.webp", "/ai-art/00053.webp", "/ai-art/00054.webp", "/ai-art/00055.webp",
+            "/ai-art/00056.webp", "/ai-art/00057.webp", "/ai-art/00058.webp", "/ai-art/00059.webp", "/ai-art/00060.webp",
+            "/ai-art/00061.webp", "/ai-art/00062.webp", "/ai-art/00063.webp", "/ai-art/00064.webp", "/ai-art/00065.webp",
+            "/ai-art/00066.webp", "/ai-art/00067.webp", "/ai-art/00068.webp", "/ai-art/00069.webp", "/ai-art/00070.webp",
+            "/ai-art/00071.webp", "/ai-art/00072.webp", "/ai-art/00073.webp", "/ai-art/00074.webp", "/ai-art/00075.webp",
+            "/ai-art/00076.webp", "/ai-art/00077.webp", "/ai-art/00078.webp", "/ai-art/00079.webp", "/ai-art/00080.webp",
+            "/ai-art/00081.webp", "/ai-art/00082.webp", "/ai-art/00083.webp", "/ai-art/00084.webp", "/ai-art/00085.webp"
+        ];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
-            const img = document.querySelectorAll('.thumbnail')[index];
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename'); // Get the filename display element
+            const modalFilename = document.getElementById('modalFilename');
             
-            modalImg.src = img.src;
-            modalFilename.textContent = img.alt; // Use alt text as filename
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            const images = document.querySelectorAll('.thumbnail');
-            if (currentImageIndex < images.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') { // Check for flex display
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        	}
-    	};
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
                 }
             }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Populate image grid on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageGrid = document.getElementById('imageGrid');
+            allImagePaths.forEach((path, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+                const img = document.createElement('img');
+                img.className = 'thumbnail';
+                img.src = path;
+                img.alt = path.split('/').pop(); // Use filename as alt text
+                img.onclick = () => openImage(index);
+                img.loading = 'lazy'; // Add lazy loading
+                imgContainer.appendChild(img);
+                imageGrid.appendChild(imgContainer);
+            });
         });
     </script>
 </body>
