@@ -291,6 +291,41 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 </html>'''
 
 
+def generate_witty_description(content, filename, title):
+    """Generate witty Sam Hyde-esque meta descriptions for blog posts"""
+    content_lower = content.lower()
+    
+    # Base witty descriptions based on content analysis
+    witty_descriptions = [
+        "Market autism dissected with surgical precision for your viewing displeasure. Because someone needs to document the financial apocalypse in real-time.",
+        "Statistical anomaly hunting for degenerate traders who think patterns in chaos make them Warren Buffett. Spoiler: they don't.",
+        "VaR analysis for masochists who enjoy quantifying exactly how their portfolios will implode. Because ignorance was never bliss in finance.",
+        "Investment recommendations from the digital wasteland where reality meets mathematical suffering. Your broker's nightmares made manifest.",
+        "Darwinex outlier analysis that'll make your risk manager quit and your compliance officer weep. Not for the financially faint of heart.",
+        "Deep dive into market mechanics for traders who mistake spreadsheet autism for genuine market insight. Results may vary drastically.",
+        "Financial analysis weaponized for maximum psychological damage. Watch your investment thesis crumble in real-time algorithmic glory.",
+        "Market wizardry that separates actionable opportunities from close-only traps in the statistical anomaly wasteland of modern trading.",
+    ]
+    
+    # Content-specific descriptions based on keywords
+    if 'darwinex' in content_lower and 'outlier' in content_lower:
+        return "Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland."
+    elif 'investment' in content_lower and 'recommendation' in content_lower:
+        return "Investment recommendations from the digital wasteland where mathematical precision meets portfolio carnage. Your risk manager's worst nightmare."
+    elif 'var' in content_lower or 'value at risk' in content_lower:
+        return "VaR analysis for masochists who enjoy quantifying exactly how their portfolios will implode. Because ignorance was never bliss in finance."
+    elif 'analysis' in content_lower and 'market' in content_lower:
+        return "Market autism dissected with surgical precision for your viewing displeasure. Because someone needs to document the financial apocalypse."
+    elif 'trade' in content_lower or 'trading' in content_lower:
+        return "Trading insights that'll make your broker weep and your compliance officer question their life choices. Not for the mentally stable."
+    elif 'statistical' in content_lower or 'outlier' in content_lower:
+        return "Statistical anomaly hunting for degenerate traders who think patterns in chaos make them Warren Buffett. Reality check included."
+    else:
+        # Fallback: pick a random witty description
+        import random
+        return random.choice(witty_descriptions)
+
+
 def extract_title_and_summary(content, filename):
     """Extract title and summary from content"""
     lines = content.split('\n')
@@ -308,7 +343,6 @@ def extract_title_and_summary(content, filename):
     
     # Look for title patterns in content
     title = "Market Analysis"
-    summary = "Financial analysis and market insights."
     section_title = "📊 MARKET ANALYSIS"
     
     for line in lines[:20]:  # Check first 20 lines
@@ -320,11 +354,9 @@ def extract_title_and_summary(content, filename):
         if any(keyword in line.lower() for keyword in ['executive summary', 'comprehensive', 'analysis', 'investment']):
             if 'outlier' in line.lower() and 'darwinex' in line.lower():
                 title = "Claude x Darwinex Outlier Analysis"
-                summary = "Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland."
                 section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
             elif 'investment' in line.lower():
                 title = f"Investment Analysis - {date_str}" if date_str else "Investment Analysis"
-                summary = "Comprehensive market analysis with buy/sell recommendations based on statistical outliers and fundamental analysis."
                 section_title = "📊 INVESTMENT RECOMMENDATIONS"
             break
         elif line.startswith('●') and len(line) > 10:
@@ -333,6 +365,9 @@ def extract_title_and_summary(content, filename):
             if len(clean_line) < 80:
                 title = clean_line
                 break
+    
+    # Generate witty summary based on content
+    summary = generate_witty_description(content, filename, title)
     
     return title, summary, section_title
 
@@ -373,16 +408,70 @@ def generate_html_from_txt(txt_path):
     return str(html_file)
 
 
-def update_blog_index(blog_entries):
-    """Update blog.html with new entries"""
+def parse_existing_blog_entries():
+    """Parse existing blog entries from blog.html"""
+    existing_entries = []
+    
+    try:
+        with open(BLOG_INDEX, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Extract existing blog entries using regex
+        pattern = r'<div class="blog-entry">\s*<a href="https://marketwizardry\.org/blog/([^"]+)">([^<]+)</a>\s*<span class="date">Posted: ([^<]+)</span>\s*</div>'
+        matches = re.findall(pattern, content, re.MULTILINE | re.DOTALL)
+        
+        for filename, title, date in matches:
+            existing_entries.append({
+                'filename': filename.strip(),
+                'title': title.strip(),
+                'date': date.strip(),
+                'source': 'existing'
+            })
+        
+        print(f"Found {len(existing_entries)} existing blog entries")
+        return existing_entries
+        
+    except FileNotFoundError:
+        print(f"{BLOG_INDEX} not found, will create new one")
+        return []
+
+
+def update_blog_index(new_txt_entries):
+    """Update blog.html with new entries, preserving existing ones"""
+    
+    # Get existing entries from blog.html
+    existing_entries = parse_existing_blog_entries()
+    
+    # Create a set of existing filenames to avoid duplicates
+    existing_filenames = {entry['filename'] for entry in existing_entries}
+    
+    # Add only new entries that don't already exist
+    new_entries_added = []
+    for entry in new_txt_entries:
+        if entry['filename'] not in existing_filenames:
+            entry['source'] = 'txt-generated'
+            new_entries_added.append(entry)
+            print(f"Adding new entry: {entry['title']}")
+        else:
+            print(f"Skipping duplicate entry: {entry['title']}")
+    
+    # Combine all entries
+    all_entries = existing_entries + new_entries_added
+    
+    # Sort by date (newest first)
+    all_entries.sort(key=lambda x: x['date'], reverse=True)
+    
+    if not new_entries_added:
+        print("No new entries to add")
+        return
     
     # Read current blog.html
     with open(BLOG_INDEX, 'r', encoding='utf-8') as f:
         current_content = f.read()
     
-    # Generate entries HTML
+    # Generate entries HTML for all entries
     entries_html = []
-    for entry in sorted(blog_entries, key=lambda x: x['date'], reverse=True):
+    for entry in all_entries:
         entry_html = f'''            <div class="blog-entry">
                 <a href="https://marketwizardry.org/blog/{entry['filename']}">{entry['title']}</a>
                 <span class="date">Posted: {entry['date']}</span>
@@ -401,7 +490,7 @@ def update_blog_index(blog_entries):
     with open(BLOG_INDEX, 'w', encoding='utf-8') as f:
         f.write(new_content)
     
-    print(f"Updated {BLOG_INDEX} with {len(blog_entries)} entries")
+    print(f"Updated {BLOG_INDEX}: {len(existing_entries)} existing + {len(new_entries_added)} new = {len(all_entries)} total entries")
 
 
 def main():
@@ -443,7 +532,7 @@ def main():
             'summary': summary
         })
     
-    # Update blog index
+    # Update blog index (now preserves existing entries)
     update_blog_index(blog_entries)
     
     print("Blog generation complete!")
