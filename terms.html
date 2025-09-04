@@ -76,6 +76,7 @@
             transform: scale(1.02);
         }
         
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -91,10 +92,10 @@
 
         .modal-content {
             background-color: #000;
-            margin: 5% auto; /* 15% from the top and centered */
-            padding: 10px; /* Reduced padding */
-            border: 2px solid #00ff00; /* Green border */
-            max-width: fit-content; /* Adjust width to content */
+            margin: 5% auto;
+            padding: 10px;
+            border: 2px solid #00ff00;
+            max-width: fit-content;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation-name: animatetop;
             animation-duration: 0.4s
@@ -105,14 +106,14 @@
             justify-content: space-around;
             align-items: center;
             border-bottom: 1px solid rgba(0, 255, 0, 0.5);
-            padding-bottom: 5px; /* Reduced padding */
-            margin-bottom: 5px; /* Reduced margin */
+            padding-bottom: 5px;
+            margin-bottom: 5px;
         }
 
         .modal-header h2 {
             margin: 0;
             color: #00ff00;
-            font-size: 1.2em; /* Smaller header font size */
+            font-size: 1.2em;
         }
 
         .modal-header a {
@@ -121,20 +122,20 @@
             font-weight: bold;
             border: 2px solid #00ff00;
             padding: 2px 5px;
-            margin: 0 5px;
-            transition: background-color 0.3s;
+            margin-left: 10px;
         }
 
         .modal-header a:hover {
-            background-color: #00ff00;
-            color: #000;
+            text-decoration: underline;
         }
 
         .close-button {
-            color: #aaa;
+            color: #00ff00;
             font-size: 28px;
             font-weight: bold;
-            cursor: pointer;
+            border: 2px solid #00ff00;
+            padding: 0 5px;
+            line-height: 1;
         }
 
         .close-button:hover,
@@ -142,50 +143,80 @@
             color: #00ff00;
             text-decoration: none;
             cursor: pointer;
+            background-color: #001100;
         }
 
         .modal-body {
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.4;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            white-space: pre;
             max-height: 70vh;
             overflow-y: auto;
-            padding: 10px;
-            background-color: #001;
-            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            font-size: 1.2em;
+            padding: 15px;
         }
 
         @keyframes animatetop {
             from {top:-300px; opacity:0}
             to {top:0; opacity:1}
         }
-        .text-content {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background-color: #000;
-            color: #0f0;
-            padding: 10px;
-            border-radius: 3px;
+
+        @media screen and (max-width: 600px) {
+            .modal {
+                padding-top: 20px;
+            }
+            
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px 5px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1em;
+                margin-bottom: 10px;
+            }
+            
+            .modal-header a {
+                font-size: 0.9em;
+                margin: 5px 0;
+                padding: 5px 10px;
+                border: 1px solid #00ff00;
+                display: inline-block;
+            }
+            
+            .close-button {
+                position: absolute !important;
+                top: 10px;
+                right: 15px;
+                font-size: 24px !important;
+            }
+            
+            .modal-body {
+                font-size: 0.7em;
+                max-height: 60vh;
+                padding: 10px;
+                line-height: 1.3;
+            }
         }
-        .crt-divider { /* Add this for consistency */
+        
+        .crt-divider {
             width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
             margin: 10px 0;
         }
-        @keyframes scan { /* Add this for consistency */
+        @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
-        }
-        .filename-display { /* Add this for consistency, though modal-header serves similar purpose */
-            color: #00ff00;
-            margin-bottom: 10px;
-            word-wrap: break-word;
         }
         
     </style>
