@@ -17,31 +17,108 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - p1xelfool">
     <meta name="twitter:description" content="p1xelfool's digital art collection - The fool and his pixels are soon parted. This collection proves that wisdom and digital art don't always correlate. Low resolution, high foolishness.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/p1xelfool/webp/p1xelfool-1899267699-_on__the_timebender_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1899772385-Pixel_master_at_work_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1900022143603073155-h_lo________________2023_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1900269073-alg0--_is_now_available_on_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1902059358-New_portfolio_is_live____http___p1xelfool.com_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1902159245-How_s_it_going__video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1904233411977335120-Amazing_work__video1-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1904397752-Oooh_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1905109278-Pixel_party_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1905270858-In_2022_I_started_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1907424265-image.pixels_index__video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1909261147502485998-Today_marks_4_years_since_I_decided_to_create_a_negative_of_myself__an_alter-ego_to_challenge_my_con_video1-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1915630223-uncertain_index_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1917580342-Extremely_happy_to_contribute_with_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1919786307-chrmwr-x_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1924679863-Dig_it_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1925203681-a_certain_amount_of_light_video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1927408911-I_would_say_it_is_a_very_architectural_piece_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1927408911214051450-I_would_say_it_is_a_very_architectural_piece_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1927789417-Beauty_video1-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928090151-So_dope_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928090151458144467-So_dope_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928448606-h_lo__2023_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928845178-amazing_work_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930033846583464015-unnamed_video2-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930686573-OMFG_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1937611450303815804-Sounds_like_I_need_to_finish_it__video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1938467551035461771-would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_ba_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1939115407731736609-one_million_particles_at_the_browser____video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940508304985481343-Generations__1303_by_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940785989326077967-An_exploration_of_pixel_data_manipulation_through_real-time_software__undeniable_failure_is_a_manife_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940808141152965097-undeniable_failure_is_now_live_on_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940858415393525976-undeniable_failure__680_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940953430593622425-undeniable_failure__768_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1941554559484297634-undeniable_failure__842_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1942791324186390788-g_mma_8___0___11_video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1943370767896326180-How__video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1943752470573752472-Dioramas__754_by_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,146 +227,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1899267699-_on__the_timebender_video1-lossy.webp" alt="p1xelfool-1899267699-_on__the_timebender_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1899772385-Pixel_master_at_work_video1-lossy.webp" alt="p1xelfool-1899772385-Pixel_master_at_work_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1900022143603073155-h_lo________________2023_video1-lossy.webp" alt="p1xelfool-1900022143603073155-h_lo________________2023_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1900269073-alg0--_is_now_available_on_video1-lossy.webp" alt="p1xelfool-1900269073-alg0--_is_now_available_on_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1902059358-New_portfolio_is_live____http___p1xelfool.com_video1-lossy.webp" alt="p1xelfool-1902059358-New_portfolio_is_live____http___p1xelfool.com_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1902159245-How_s_it_going__video1-lossy.webp" alt="p1xelfool-1902159245-How_s_it_going__video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1904233411977335120-Amazing_work__video1-1-lossy.webp" alt="p1xelfool-1904233411977335120-Amazing_work__video1-1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1904397752-Oooh_video1-lossy.webp" alt="p1xelfool-1904397752-Oooh_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1905109278-Pixel_party_video1-lossy.webp" alt="p1xelfool-1905109278-Pixel_party_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1905270858-In_2022_I_started_video1-lossy.webp" alt="p1xelfool-1905270858-In_2022_I_started_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video1-lossy.webp" alt="p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video2-lossy.webp" alt="p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video2-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1907424265-image.pixels_index__video1-lossy.webp" alt="p1xelfool-1907424265-image.pixels_index__video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1909261147502485998-Today_marks_4_years_since_I_decided_to_create_a_negative_of_myself__an_alter-ego_to_challenge_my_con_video1-1-lossy.webp" alt="p1xelfool-1909261147502485998-Today_marks_4_years_since_I_decided_to_create_a_negative_of_myself__an_alter-ego_to_challenge_my_con_video1-1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1915630223-uncertain_index_video1-lossy.webp" alt="p1xelfool-1915630223-uncertain_index_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1917580342-Extremely_happy_to_contribute_with_video1-lossy.webp" alt="p1xelfool-1917580342-Extremely_happy_to_contribute_with_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1919786307-chrmwr-x_video1-lossy.webp" alt="p1xelfool-1919786307-chrmwr-x_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video2-lossy.webp" alt="p1xelfool-1921757089-All_the_niceeee_things_too__video2-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video3-lossy.webp" alt="p1xelfool-1921757089-All_the_niceeee_things_too__video3-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1924679863-Dig_it_video1-lossy.webp" alt="p1xelfool-1924679863-Dig_it_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1925203681-a_certain_amount_of_light_video3-lossy.webp" alt="p1xelfool-1925203681-a_certain_amount_of_light_video3-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1927408911-I_would_say_it_is_a_very_architectural_piece_video1-lossy.webp" alt="p1xelfool-1927408911-I_would_say_it_is_a_very_architectural_piece_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1927408911214051450-I_would_say_it_is_a_very_architectural_piece_video2-lossy.webp" alt="p1xelfool-1927408911214051450-I_would_say_it_is_a_very_architectural_piece_video2-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1927789417-Beauty_video1-1-lossy.webp" alt="p1xelfool-1927789417-Beauty_video1-1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1928090151-So_dope_video4-lossy.webp" alt="p1xelfool-1928090151-So_dope_video4-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1928090151458144467-So_dope_video2-lossy.webp" alt="p1xelfool-1928090151458144467-So_dope_video2-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1928448606-h_lo__2023_video1-lossy.webp" alt="p1xelfool-1928448606-h_lo__2023_video1-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1928845178-amazing_work_video1-lossy.webp" alt="p1xelfool-1928845178-amazing_work_video1-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1930033846583464015-unnamed_video2-1-lossy.webp" alt="p1xelfool-1930033846583464015-unnamed_video2-1-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video1-lossy.webp" alt="p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video1-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video2-lossy.webp" alt="p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video2-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1930686573-OMFG_video1-lossy.webp" alt="p1xelfool-1930686573-OMFG_video1-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1937611450303815804-Sounds_like_I_need_to_finish_it__video2-lossy.webp" alt="p1xelfool-1937611450303815804-Sounds_like_I_need_to_finish_it__video2-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video3-lossy.webp" alt="p1xelfool-1938018177104883800-liquid_synchronies__74_W_video3-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video4-lossy.webp" alt="p1xelfool-1938018177104883800-liquid_synchronies__74_W_video4-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1938467551035461771-would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_ba_video2-lossy.webp" alt="p1xelfool-1938467551035461771-would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_ba_video2-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1939115407731736609-one_million_particles_at_the_browser____video3-lossy.webp" alt="p1xelfool-1939115407731736609-one_million_particles_at_the_browser____video3-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1940508304985481343-Generations__1303_by_video4-lossy.webp" alt="p1xelfool-1940508304985481343-Generations__1303_by_video4-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1940785989326077967-An_exploration_of_pixel_data_manipulation_through_real-time_software__undeniable_failure_is_a_manife_video4-lossy.webp" alt="p1xelfool-1940785989326077967-An_exploration_of_pixel_data_manipulation_through_real-time_software__undeniable_failure_is_a_manife_video4-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1940808141152965097-undeniable_failure_is_now_live_on_video2-lossy.webp" alt="p1xelfool-1940808141152965097-undeniable_failure_is_now_live_on_video2-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1940858415393525976-undeniable_failure__680_video4-lossy.webp" alt="p1xelfool-1940858415393525976-undeniable_failure__680_video4-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1940953430593622425-undeniable_failure__768_video4-lossy.webp" alt="p1xelfool-1940953430593622425-undeniable_failure__768_video4-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1941554559484297634-undeniable_failure__842_video2-lossy.webp" alt="p1xelfool-1941554559484297634-undeniable_failure__842_video2-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1942791324186390788-g_mma_8___0___11_video3-lossy.webp" alt="p1xelfool-1942791324186390788-g_mma_8___0___11_video3-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1943370767896326180-How__video3-lossy.webp" alt="p1xelfool-1943370767896326180-How__video3-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/p1xelfool/webp/p1xelfool-1943752470573752472-Dioramas__754_by_video4-lossy.webp" alt="p1xelfool-1943752470573752472-Dioramas__754_by_video4-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -301,9 +241,67 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/p1xelfool/webp/p1xelfool-1899267699-_on__the_timebender_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1899772385-Pixel_master_at_work_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1900022143603073155-h_lo________________2023_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1900269073-alg0--_is_now_available_on_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1902059358-New_portfolio_is_live____http___p1xelfool.com_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1902159245-How_s_it_going__video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1904233411977335120-Amazing_work__video1-1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1904397752-Oooh_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1905109278-Pixel_party_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1905270858-In_2022_I_started_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1907424265-image.pixels_index__video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1909261147502485998-Today_marks_4_years_since_I_decided_to_create_a_negative_of_myself__an_alter-ego_to_challenge_my_con_video1-1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1915630223-uncertain_index_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1917580342-Extremely_happy_to_contribute_with_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1919786307-chrmwr-x_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video3-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1924679863-Dig_it_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1925203681-a_certain_amount_of_light_video3-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1927408911-I_would_say_it_is_a_very_architectural_piece_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1927408911214051450-I_would_say_it_is_a_very_architectural_piece_video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1927789417-Beauty_video1-1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1928090151-So_dope_video4-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1928090151458144467-So_dope_video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1928448606-h_lo__2023_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1928845178-amazing_work_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1930033846583464015-unnamed_video2-1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1930686573-OMFG_video1-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1937611450303815804-Sounds_like_I_need_to_finish_it__video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video3-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video4-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1938467551035461771-would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_ba_video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1939115407731736609-one_million_particles_at_the_browser____video3-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1940508304985481343-Generations__1303_by_video4-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1940785989326077967-An_exploration_of_pixel_data_manipulation_through_real-time_software__undeniable_failure_is_a_manife_video4-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1940808141152965097-undeniable_failure_is_now_live_on_video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1940858415393525976-undeniable_failure__680_video4-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1940953430593622425-undeniable_failure__768_video4-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1941554559484297634-undeniable_failure__842_video2-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1942791324186390788-g_mma_8___0___11_video3-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1943370767896326180-How__video3-lossy.webp',\n            '/nft-gallery/p1xelfool/webp/p1xelfool-1943752470573752472-Dioramas__754_by_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/p1xelfool/webp/p1xelfool-1899267699-_on__the_timebender_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1899772385-Pixel_master_at_work_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1900022143603073155-h_lo________________2023_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1900269073-alg0--_is_now_available_on_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1902059358-New_portfolio_is_live____http___p1xelfool.com_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1902159245-How_s_it_going__video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1904233411977335120-Amazing_work__video1-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1904397752-Oooh_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1905109278-Pixel_party_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1905270858-In_2022_I_started_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1907424265-image.pixels_index__video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1909261147502485998-Today_marks_4_years_since_I_decided_to_create_a_negative_of_myself__an_alter-ego_to_challenge_my_con_video1-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1915630223-uncertain_index_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1917580342-Extremely_happy_to_contribute_with_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1919786307-chrmwr-x_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1924679863-Dig_it_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1925203681-a_certain_amount_of_light_video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1927408911-I_would_say_it_is_a_very_architectural_piece_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1927408911214051450-I_would_say_it_is_a_very_architectural_piece_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1927789417-Beauty_video1-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928090151-So_dope_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928090151458144467-So_dope_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928448606-h_lo__2023_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1928845178-amazing_work_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930033846583464015-unnamed_video2-1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1930686573-OMFG_video1-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1937611450303815804-Sounds_like_I_need_to_finish_it__video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1938467551035461771-would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_ba_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1939115407731736609-one_million_particles_at_the_browser____video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940508304985481343-Generations__1303_by_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940785989326077967-An_exploration_of_pixel_data_manipulation_through_real-time_software__undeniable_failure_is_a_manife_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940808141152965097-undeniable_failure_is_now_live_on_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940858415393525976-undeniable_failure__680_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1940953430593622425-undeniable_failure__768_video4-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1941554559484297634-undeniable_failure__842_video2-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1942791324186390788-g_mma_8___0___11_video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1943370767896326180-How__video3-lossy.webp',
+            '/nft-gallery/p1xelfool/webp/p1xelfool-1943752470573752472-Dioramas__754_by_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -319,6 +317,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

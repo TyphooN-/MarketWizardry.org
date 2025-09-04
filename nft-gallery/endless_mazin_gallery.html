@@ -17,31 +17,116 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - endless_mazin">
     <meta name="twitter:description" content="endless_mazin's digital art collection - Like being trapped in a maze designed by a sadistic geometry teacher. This collection proves that sometimes 'endless' isn't a selling point - it's a warning. Prepare for digital vertigo and existential confusion.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/endless_mazin/webp/endless_mazin-1903355906-Phantasmagoria_GIFs_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1903941228-Auction_on_March_25_-_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1905064458-Rootrealm_Portal_-_on_Visual_Detachment_exhibition___video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1905349658-Cartographic_Earthforms_-_Mantle_network_debut_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1907352532-Working_on_a_music_video_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video1-1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1908102671-Landing_at_Vending_Machine_on_April_9th_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1909599298-Launching_tomorrow____Vending_Machine_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1910066207-Machine_is_live___video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1910449037-Dunes_of_Iridell____Inside_the_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1911054908-_Rootrealm__is_one_of_28_pieces_obtainable_from_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1911451783-My_3-month_journey_with_Blueprint_Cohort_2_has_wrapped_up_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1911776624-Jumnesia__The_Ultimate_Glitchscape_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1912542163-Music_video_I_shot_for_the_band_is_airing_soon_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1912944025-love_the_way_your_animations_flow__video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1913654511-The_Thing_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1914391022-200_editions_owned_in_the_Vending_Machine_Takeover__video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1914748092-Original_res__video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1915418664-Altered_Divinity_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1916036789-Zalvia____Available_inside_the_Vending_Machine_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1916703108-Caelid_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1918586717-Rootship_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1920079952-Duogenesis_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1920821671-Evermorph_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1921630358-Amazing_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1922463842-4_unique_pieces_inside_the_Vending_Machine_takeover_-_none_owned_yet_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1925244149-The_Cathode_Knight_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1926216329-_Nomadlands_Protocol__-_live_on_bpdotfun_x_m4zin_.net_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1927711787-Mortal_Continuum_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1929191245-Kindled_-_live_on_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1929923885-Earthbending_Protocol_video1-1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1933270788192260226-Jumnesia_Jungles__Displayed__video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1935197963233411385-Beautified_Entropy_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1936097210275352914-Woah_this_is_beautiful_and_trippy_at_the_same_time_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1938005829426303196-Last_night_at_Times_SquareThank_you_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1942094101773439090-Awesome_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1942604878951436769-SignalWave____video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1943028275250405681-Junglecore_Jumnesia___just_dropped_a_new_audiovisual._Link_below_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,170 +235,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1903355906-Phantasmagoria_GIFs_video1-lossy.webp" alt="endless_mazin-1903355906-Phantasmagoria_GIFs_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1903941228-Auction_on_March_25_-_video1-lossy.webp" alt="endless_mazin-1903941228-Auction_on_March_25_-_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1905064458-Rootrealm_Portal_-_on_Visual_Detachment_exhibition___video1-lossy.webp" alt="endless_mazin-1905064458-Rootrealm_Portal_-_on_Visual_Detachment_exhibition___video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1905349658-Cartographic_Earthforms_-_Mantle_network_debut_video1-lossy.webp" alt="endless_mazin-1905349658-Cartographic_Earthforms_-_Mantle_network_debut_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1907352532-Working_on_a_music_video_video1-lossy.webp" alt="endless_mazin-1907352532-Working_on_a_music_video_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video1-1-lossy.webp" alt="endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video1-1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video2-lossy.webp" alt="endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1908102671-Landing_at_Vending_Machine_on_April_9th_video1-lossy.webp" alt="endless_mazin-1908102671-Landing_at_Vending_Machine_on_April_9th_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1909599298-Launching_tomorrow____Vending_Machine_video1-lossy.webp" alt="endless_mazin-1909599298-Launching_tomorrow____Vending_Machine_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1910066207-Machine_is_live___video1-lossy.webp" alt="endless_mazin-1910066207-Machine_is_live___video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1910449037-Dunes_of_Iridell____Inside_the_video1-lossy.webp" alt="endless_mazin-1910449037-Dunes_of_Iridell____Inside_the_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1911054908-_Rootrealm__is_one_of_28_pieces_obtainable_from_video1-lossy.webp" alt="endless_mazin-1911054908-_Rootrealm__is_one_of_28_pieces_obtainable_from_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1911451783-My_3-month_journey_with_Blueprint_Cohort_2_has_wrapped_up_video1-lossy.webp" alt="endless_mazin-1911451783-My_3-month_journey_with_Blueprint_Cohort_2_has_wrapped_up_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1911776624-Jumnesia__The_Ultimate_Glitchscape_video1-lossy.webp" alt="endless_mazin-1911776624-Jumnesia__The_Ultimate_Glitchscape_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1912542163-Music_video_I_shot_for_the_band_is_airing_soon_video1-lossy.webp" alt="endless_mazin-1912542163-Music_video_I_shot_for_the_band_is_airing_soon_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1912944025-love_the_way_your_animations_flow__video1-lossy.webp" alt="endless_mazin-1912944025-love_the_way_your_animations_flow__video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1913654511-The_Thing_video1-lossy.webp" alt="endless_mazin-1913654511-The_Thing_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1914391022-200_editions_owned_in_the_Vending_Machine_Takeover__video1-lossy.webp" alt="endless_mazin-1914391022-200_editions_owned_in_the_Vending_Machine_Takeover__video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1914748092-Original_res__video1-lossy.webp" alt="endless_mazin-1914748092-Original_res__video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1915418664-Altered_Divinity_video1-lossy.webp" alt="endless_mazin-1915418664-Altered_Divinity_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1916036789-Zalvia____Available_inside_the_Vending_Machine_video1-lossy.webp" alt="endless_mazin-1916036789-Zalvia____Available_inside_the_Vending_Machine_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1916703108-Caelid_video1-lossy.webp" alt="endless_mazin-1916703108-Caelid_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video1-lossy.webp" alt="endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video2-lossy.webp" alt="endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video2-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video3-lossy.webp" alt="endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video3-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1918586717-Rootship_video1-lossy.webp" alt="endless_mazin-1918586717-Rootship_video1-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video1-lossy.webp" alt="endless_mazin-1919383523-Neuralscape_video1-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video2-lossy.webp" alt="endless_mazin-1919383523-Neuralscape_video2-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1920079952-Duogenesis_video1-lossy.webp" alt="endless_mazin-1920079952-Duogenesis_video1-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1920821671-Evermorph_video1-lossy.webp" alt="endless_mazin-1920821671-Evermorph_video1-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1921630358-Amazing_video2-lossy.webp" alt="endless_mazin-1921630358-Amazing_video2-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1922463842-4_unique_pieces_inside_the_Vending_Machine_takeover_-_none_owned_yet_video1-lossy.webp" alt="endless_mazin-1922463842-4_unique_pieces_inside_the_Vending_Machine_takeover_-_none_owned_yet_video1-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video1-lossy.webp" alt="endless_mazin-1924637128-Gleech_Thing_video1-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video2-lossy.webp" alt="endless_mazin-1924637128-Gleech_Thing_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1925244149-The_Cathode_Knight_video1-lossy.webp" alt="endless_mazin-1925244149-The_Cathode_Knight_video1-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1926216329-_Nomadlands_Protocol__-_live_on_bpdotfun_x_m4zin_.net_video1-lossy.webp" alt="endless_mazin-1926216329-_Nomadlands_Protocol__-_live_on_bpdotfun_x_m4zin_.net_video1-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video1-lossy.webp" alt="endless_mazin-1926987901-Rooted_Sentinel_video1-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video2-lossy.webp" alt="endless_mazin-1926987901-Rooted_Sentinel_video2-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1927711787-Mortal_Continuum_video1-lossy.webp" alt="endless_mazin-1927711787-Mortal_Continuum_video1-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video1-lossy.webp" alt="endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video1-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video2-lossy.webp" alt="endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video2-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1929191245-Kindled_-_live_on_video1-lossy.webp" alt="endless_mazin-1929191245-Kindled_-_live_on_video1-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1929923885-Earthbending_Protocol_video1-1-lossy.webp" alt="endless_mazin-1929923885-Earthbending_Protocol_video1-1-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1933270788192260226-Jumnesia_Jungles__Displayed__video3-lossy.webp" alt="endless_mazin-1933270788192260226-Jumnesia_Jungles__Displayed__video3-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video3-lossy.webp" alt="endless_mazin-1933690551322488912-Details_video3-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video4-lossy.webp" alt="endless_mazin-1933690551322488912-Details_video4-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1935197963233411385-Beautified_Entropy_video3-lossy.webp" alt="endless_mazin-1935197963233411385-Beautified_Entropy_video3-lossy.webp" onclick="openImage(46)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1936097210275352914-Woah_this_is_beautiful_and_trippy_at_the_same_time_video4-lossy.webp" alt="endless_mazin-1936097210275352914-Woah_this_is_beautiful_and_trippy_at_the_same_time_video4-lossy.webp" onclick="openImage(47)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video3-lossy.webp" alt="endless_mazin-1936788088015192525-Too_good_video3-lossy.webp" onclick="openImage(48)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video4-lossy.webp" alt="endless_mazin-1936788088015192525-Too_good_video4-lossy.webp" onclick="openImage(49)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1938005829426303196-Last_night_at_Times_SquareThank_you_video4-lossy.webp" alt="endless_mazin-1938005829426303196-Last_night_at_Times_SquareThank_you_video4-lossy.webp" onclick="openImage(50)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1942094101773439090-Awesome_video2-lossy.webp" alt="endless_mazin-1942094101773439090-Awesome_video2-lossy.webp" onclick="openImage(51)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1942604878951436769-SignalWave____video2-lossy.webp" alt="endless_mazin-1942604878951436769-SignalWave____video2-lossy.webp" onclick="openImage(52)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/endless_mazin/webp/endless_mazin-1943028275250405681-Junglecore_Jumnesia___just_dropped_a_new_audiovisual._Link_below_video4-lossy.webp" alt="endless_mazin-1943028275250405681-Junglecore_Jumnesia___just_dropped_a_new_audiovisual._Link_below_video4-lossy.webp" onclick="openImage(53)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -325,9 +249,75 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/endless_mazin/webp/endless_mazin-1903355906-Phantasmagoria_GIFs_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1903941228-Auction_on_March_25_-_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1905064458-Rootrealm_Portal_-_on_Visual_Detachment_exhibition___video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1905349658-Cartographic_Earthforms_-_Mantle_network_debut_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1907352532-Working_on_a_music_video_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video1-1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1908102671-Landing_at_Vending_Machine_on_April_9th_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1909599298-Launching_tomorrow____Vending_Machine_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1910066207-Machine_is_live___video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1910449037-Dunes_of_Iridell____Inside_the_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1911054908-_Rootrealm__is_one_of_28_pieces_obtainable_from_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1911451783-My_3-month_journey_with_Blueprint_Cohort_2_has_wrapped_up_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1911776624-Jumnesia__The_Ultimate_Glitchscape_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1912542163-Music_video_I_shot_for_the_band_is_airing_soon_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1912944025-love_the_way_your_animations_flow__video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1913654511-The_Thing_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1914391022-200_editions_owned_in_the_Vending_Machine_Takeover__video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1914748092-Original_res__video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1915418664-Altered_Divinity_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1916036789-Zalvia____Available_inside_the_Vending_Machine_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1916703108-Caelid_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video3-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1918586717-Rootship_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1920079952-Duogenesis_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1920821671-Evermorph_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1921630358-Amazing_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1922463842-4_unique_pieces_inside_the_Vending_Machine_takeover_-_none_owned_yet_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1925244149-The_Cathode_Knight_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1926216329-_Nomadlands_Protocol__-_live_on_bpdotfun_x_m4zin_.net_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1927711787-Mortal_Continuum_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1929191245-Kindled_-_live_on_video1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1929923885-Earthbending_Protocol_video1-1-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1933270788192260226-Jumnesia_Jungles__Displayed__video3-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video3-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video4-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1935197963233411385-Beautified_Entropy_video3-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1936097210275352914-Woah_this_is_beautiful_and_trippy_at_the_same_time_video4-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video3-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video4-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1938005829426303196-Last_night_at_Times_SquareThank_you_video4-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1942094101773439090-Awesome_video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1942604878951436769-SignalWave____video2-lossy.webp',\n            '/nft-gallery/endless_mazin/webp/endless_mazin-1943028275250405681-Junglecore_Jumnesia___just_dropped_a_new_audiovisual._Link_below_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/endless_mazin/webp/endless_mazin-1903355906-Phantasmagoria_GIFs_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1903941228-Auction_on_March_25_-_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1905064458-Rootrealm_Portal_-_on_Visual_Detachment_exhibition___video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1905349658-Cartographic_Earthforms_-_Mantle_network_debut_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1907352532-Working_on_a_music_video_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video1-1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1908102671-Landing_at_Vending_Machine_on_April_9th_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1909599298-Launching_tomorrow____Vending_Machine_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1910066207-Machine_is_live___video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1910449037-Dunes_of_Iridell____Inside_the_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1911054908-_Rootrealm__is_one_of_28_pieces_obtainable_from_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1911451783-My_3-month_journey_with_Blueprint_Cohort_2_has_wrapped_up_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1911776624-Jumnesia__The_Ultimate_Glitchscape_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1912542163-Music_video_I_shot_for_the_band_is_airing_soon_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1912944025-love_the_way_your_animations_flow__video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1913654511-The_Thing_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1914391022-200_editions_owned_in_the_Vending_Machine_Takeover__video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1914748092-Original_res__video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1915418664-Altered_Divinity_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1916036789-Zalvia____Available_inside_the_Vending_Machine_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1916703108-Caelid_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1918586717-Rootship_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1920079952-Duogenesis_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1920821671-Evermorph_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1921630358-Amazing_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1922463842-4_unique_pieces_inside_the_Vending_Machine_takeover_-_none_owned_yet_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1925244149-The_Cathode_Knight_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1926216329-_Nomadlands_Protocol__-_live_on_bpdotfun_x_m4zin_.net_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1927711787-Mortal_Continuum_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1929191245-Kindled_-_live_on_video1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1929923885-Earthbending_Protocol_video1-1-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1933270788192260226-Jumnesia_Jungles__Displayed__video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1933690551322488912-Details_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1935197963233411385-Beautified_Entropy_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1936097210275352914-Woah_this_is_beautiful_and_trippy_at_the_same_time_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video3-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1938005829426303196-Last_night_at_Times_SquareThank_you_video4-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1942094101773439090-Awesome_video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1942604878951436769-SignalWave____video2-lossy.webp',
+            '/nft-gallery/endless_mazin/webp/endless_mazin-1943028275250405681-Junglecore_Jumnesia___just_dropped_a_new_audiovisual._Link_below_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -343,6 +333,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

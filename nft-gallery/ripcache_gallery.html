@@ -17,31 +17,74 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ripcache">
     <meta name="twitter:description" content="ripcache's digital art collection - RIP cache memory, it died serving this content. This collection proves that some data should never be cached, stored, or remembered. Clear browser history immediately after viewing.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/ripcache/webp/ripcache-1913331145-It_is_bleak_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1913693673-pattern_recognition_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1919739777-gm_video3-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1922410722-noise_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1924885009-i_recently_had_a_chance_to_experience_some_of_video2-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video2-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video3-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1926665908094714113-warehouse_video2-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video2-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video3-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,44 +193,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1913331145-It_is_bleak_video1-lossy.webp" alt="ripcache-1913331145-It_is_bleak_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1913693673-pattern_recognition_video1-lossy.webp" alt="ripcache-1913693673-pattern_recognition_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1919739777-gm_video3-1-lossy.webp" alt="ripcache-1919739777-gm_video3-1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1922410722-noise_video1-lossy.webp" alt="ripcache-1922410722-noise_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1924885009-i_recently_had_a_chance_to_experience_some_of_video2-lossy.webp" alt="ripcache-1924885009-i_recently_had_a_chance_to_experience_some_of_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video1-lossy.webp" alt="ripcache-1925566684-once_in_a_lifetime_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video2-lossy.webp" alt="ripcache-1925566684-once_in_a_lifetime_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video3-lossy.webp" alt="ripcache-1925566684-once_in_a_lifetime_video3-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1926665908094714113-warehouse_video2-1-lossy.webp" alt="ripcache-1926665908094714113-warehouse_video2-1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video2-1-lossy.webp" alt="ripcache-1928488368-gm_skull_art_enthusiasts_video2-1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video3-1-lossy.webp" alt="ripcache-1928488368-gm_skull_art_enthusiasts_video3-1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video4-lossy.webp" alt="ripcache-1928488368-gm_skull_art_enthusiasts_video4-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -199,9 +207,33 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/ripcache/webp/ripcache-1913331145-It_is_bleak_video1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1913693673-pattern_recognition_video1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1919739777-gm_video3-1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1922410722-noise_video1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1924885009-i_recently_had_a_chance_to_experience_some_of_video2-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video2-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video3-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1926665908094714113-warehouse_video2-1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video2-1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video3-1-lossy.webp',\n            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/ripcache/webp/ripcache-1913331145-It_is_bleak_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1913693673-pattern_recognition_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1919739777-gm_video3-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1922410722-noise_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1924885009-i_recently_had_a_chance_to_experience_some_of_video2-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video2-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1925566684-once_in_a_lifetime_video3-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1926665908094714113-warehouse_video2-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video2-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video3-1-lossy.webp',
+            '/nft-gallery/ripcache/webp/ripcache-1928488368-gm_skull_art_enthusiasts_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -217,6 +249,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

@@ -17,31 +17,73 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - armilk88">
     <meta name="twitter:description" content="armilk88's retro military aesthetic meets digital expression. Combat-inspired visuals with nostalgic undertones for collectors who appreciate the intersection of memory and art.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/armilk88/webp/armilk88-1927838041-good_night_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1928073375-G00d_morgen________HAV_A_GO00day_FAM_video1-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1929143851-Good_afternoon__Have_a_great_weekend_everyone__video1-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1930268963-GM_GM_GM_GM_GM___7_good_morning__true__video1-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1930601779034534169-base__mint__base__paint__base__mint__base__paint__video4-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1932017793366409568-a___sys_e___as_a_life_c_cle_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1932847251644137737-WindowsTinder_69.exe_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1934074098549710850-Are_you_ready_to_eat_pizza_yet_yet_yet__video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1935291703469994122-Hello__I_receive_a_lot_of_orders_and_various_offers._But_recently_I_was_asked_to_post_an_NFT_with_th_video3-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1938227389454291034-gmgmgmgmgmgmgmgm_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1943081846977302637-gm___video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,41 +192,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1927838041-good_night_video2-lossy.webp" alt="armilk88-1927838041-good_night_video2-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1928073375-G00d_morgen________HAV_A_GO00day_FAM_video1-lossy.webp" alt="armilk88-1928073375-G00d_morgen________HAV_A_GO00day_FAM_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1929143851-Good_afternoon__Have_a_great_weekend_everyone__video1-lossy.webp" alt="armilk88-1929143851-Good_afternoon__Have_a_great_weekend_everyone__video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1930268963-GM_GM_GM_GM_GM___7_good_morning__true__video1-lossy.webp" alt="armilk88-1930268963-GM_GM_GM_GM_GM___7_good_morning__true__video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1930601779034534169-base__mint__base__paint__base__mint__base__paint__video4-lossy.webp" alt="armilk88-1930601779034534169-base__mint__base__paint__base__mint__base__paint__video4-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1932017793366409568-a___sys_e___as_a_life_c_cle_video2-lossy.webp" alt="armilk88-1932017793366409568-a___sys_e___as_a_life_c_cle_video2-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1932847251644137737-WindowsTinder_69.exe_video2-lossy.webp" alt="armilk88-1932847251644137737-WindowsTinder_69.exe_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1934074098549710850-Are_you_ready_to_eat_pizza_yet_yet_yet__video2-lossy.webp" alt="armilk88-1934074098549710850-Are_you_ready_to_eat_pizza_yet_yet_yet__video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1935291703469994122-Hello__I_receive_a_lot_of_orders_and_various_offers._But_recently_I_was_asked_to_post_an_NFT_with_th_video3-lossy.webp" alt="armilk88-1935291703469994122-Hello__I_receive_a_lot_of_orders_and_various_offers._But_recently_I_was_asked_to_post_an_NFT_with_th_video3-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1938227389454291034-gmgmgmgmgmgmgmgm_video2-lossy.webp" alt="armilk88-1938227389454291034-gmgmgmgmgmgmgmgm_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/armilk88/webp/armilk88-1943081846977302637-gm___video3-lossy.webp" alt="armilk88-1943081846977302637-gm___video3-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -196,9 +206,32 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/armilk88/webp/armilk88-1927838041-good_night_video2-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1928073375-G00d_morgen________HAV_A_GO00day_FAM_video1-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1929143851-Good_afternoon__Have_a_great_weekend_everyone__video1-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1930268963-GM_GM_GM_GM_GM___7_good_morning__true__video1-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1930601779034534169-base__mint__base__paint__base__mint__base__paint__video4-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1932017793366409568-a___sys_e___as_a_life_c_cle_video2-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1932847251644137737-WindowsTinder_69.exe_video2-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1934074098549710850-Are_you_ready_to_eat_pizza_yet_yet_yet__video2-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1935291703469994122-Hello__I_receive_a_lot_of_orders_and_various_offers._But_recently_I_was_asked_to_post_an_NFT_with_th_video3-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1938227389454291034-gmgmgmgmgmgmgmgm_video2-lossy.webp',\n            '/nft-gallery/armilk88/webp/armilk88-1943081846977302637-gm___video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/armilk88/webp/armilk88-1927838041-good_night_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1928073375-G00d_morgen________HAV_A_GO00day_FAM_video1-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1929143851-Good_afternoon__Have_a_great_weekend_everyone__video1-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1930268963-GM_GM_GM_GM_GM___7_good_morning__true__video1-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1930601779034534169-base__mint__base__paint__base__mint__base__paint__video4-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1932017793366409568-a___sys_e___as_a_life_c_cle_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1932847251644137737-WindowsTinder_69.exe_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1934074098549710850-Are_you_ready_to_eat_pizza_yet_yet_yet__video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1935291703469994122-Hello__I_receive_a_lot_of_orders_and_various_offers._But_recently_I_was_asked_to_post_an_NFT_with_th_video3-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1938227389454291034-gmgmgmgmgmgmgmgm_video2-lossy.webp',
+            '/nft-gallery/armilk88/webp/armilk88-1943081846977302637-gm___video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -214,6 +247,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

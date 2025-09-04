@@ -17,31 +17,91 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - PunksDistorted">
     <meta name="twitter:description" content="CryptoPunks but make them suffer. Digital rebellion through pixel corruption for collectors who need their NFTs extra damaged and meaningless.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/PunksDistorted/webp/PunksDistorted-1907891741-Just_minted_my_fist_interactive_token_on_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1909330139-Just_minted_PD25_13_on_OBJKT_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1909899328-I_dont_give_a_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video3-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910089093-I_have_just_collected__DECAY__by_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1913260314-you_can_just_coin_things_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1915496690-This_content_has_been_restricted__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1916573424-PD25_15_minted_on_OBJKT_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1919831957-Just_minted_PD25_16_on_OBJKT_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1919832660-Thank_you_for_collecting_AR_015_on_secondary_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922362317-System_error__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922547703-I_have_just_collected__Imposter_Syndrome__by_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922685012-I_have_just_collected__inundated__by_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603023-Thank_you_for_collecting_Smile_on_secondary_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603213-Xray_baby_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1928182240-The_Birth_of_JPG_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1928841369-I_like_skull_art__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1930720628-The_Trash_Fountain_thief__PD25_19__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1935309328291913840-RCSA_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1935964062036193295-Washing_day_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1936372255174607144-NOKIA_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1936396618078601523-Rekt_pepe_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video3-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video4-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video3-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video4-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1940755374090735670-__gifpunk_secured_on_secondary_by_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,95 +210,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1907891741-Just_minted_my_fist_interactive_token_on_video1-lossy.webp" alt="PunksDistorted-1907891741-Just_minted_my_fist_interactive_token_on_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1909330139-Just_minted_PD25_13_on_OBJKT_video1-lossy.webp" alt="PunksDistorted-1909330139-Just_minted_PD25_13_on_OBJKT_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1909899328-I_dont_give_a_video1-lossy.webp" alt="PunksDistorted-1909899328-I_dont_give_a_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video1-lossy.webp" alt="PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video2-lossy.webp" alt="PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video3-lossy.webp" alt="PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video3-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1910089093-I_have_just_collected__DECAY__by_video1-lossy.webp" alt="PunksDistorted-1910089093-I_have_just_collected__DECAY__by_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1913260314-you_can_just_coin_things_video1-lossy.webp" alt="PunksDistorted-1913260314-you_can_just_coin_things_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1915496690-This_content_has_been_restricted__video1-lossy.webp" alt="PunksDistorted-1915496690-This_content_has_been_restricted__video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1916573424-PD25_15_minted_on_OBJKT_video1-lossy.webp" alt="PunksDistorted-1916573424-PD25_15_minted_on_OBJKT_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1919831957-Just_minted_PD25_16_on_OBJKT_video1-lossy.webp" alt="PunksDistorted-1919831957-Just_minted_PD25_16_on_OBJKT_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1919832660-Thank_you_for_collecting_AR_015_on_secondary_video1-lossy.webp" alt="PunksDistorted-1919832660-Thank_you_for_collecting_AR_015_on_secondary_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1922362317-System_error__video1-lossy.webp" alt="PunksDistorted-1922362317-System_error__video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1922547703-I_have_just_collected__Imposter_Syndrome__by_video1-lossy.webp" alt="PunksDistorted-1922547703-I_have_just_collected__Imposter_Syndrome__by_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1922685012-I_have_just_collected__inundated__by_video1-lossy.webp" alt="PunksDistorted-1922685012-I_have_just_collected__inundated__by_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603023-Thank_you_for_collecting_Smile_on_secondary_video1-lossy.webp" alt="PunksDistorted-1927603023-Thank_you_for_collecting_Smile_on_secondary_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603213-Xray_baby_video1-lossy.webp" alt="PunksDistorted-1927603213-Xray_baby_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1928182240-The_Birth_of_JPG_video1-lossy.webp" alt="PunksDistorted-1928182240-The_Birth_of_JPG_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1928841369-I_like_skull_art__video1-lossy.webp" alt="PunksDistorted-1928841369-I_like_skull_art__video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1930720628-The_Trash_Fountain_thief__PD25_19__video1-lossy.webp" alt="PunksDistorted-1930720628-The_Trash_Fountain_thief__PD25_19__video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1935309328291913840-RCSA_video2-lossy.webp" alt="PunksDistorted-1935309328291913840-RCSA_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1935964062036193295-Washing_day_video2-lossy.webp" alt="PunksDistorted-1935964062036193295-Washing_day_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1936372255174607144-NOKIA_video2-lossy.webp" alt="PunksDistorted-1936372255174607144-NOKIA_video2-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1936396618078601523-Rekt_pepe_video2-lossy.webp" alt="PunksDistorted-1936396618078601523-Rekt_pepe_video2-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video3-lossy.webp" alt="PunksDistorted-1939346355798835411-spinning_video3-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video4-lossy.webp" alt="PunksDistorted-1939346355798835411-spinning_video4-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video3-lossy.webp" alt="PunksDistorted-1939918463847510286-The_Art_Shop_video3-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video4-lossy.webp" alt="PunksDistorted-1939918463847510286-The_Art_Shop_video4-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PunksDistorted/webp/PunksDistorted-1940755374090735670-__gifpunk_secured_on_secondary_by_video2-lossy.webp" alt="PunksDistorted-1940755374090735670-__gifpunk_secured_on_secondary_by_video2-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -250,9 +224,50 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/PunksDistorted/webp/PunksDistorted-1907891741-Just_minted_my_fist_interactive_token_on_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1909330139-Just_minted_PD25_13_on_OBJKT_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1909899328-I_dont_give_a_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video2-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video3-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910089093-I_have_just_collected__DECAY__by_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1913260314-you_can_just_coin_things_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1915496690-This_content_has_been_restricted__video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1916573424-PD25_15_minted_on_OBJKT_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1919831957-Just_minted_PD25_16_on_OBJKT_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1919832660-Thank_you_for_collecting_AR_015_on_secondary_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922362317-System_error__video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922547703-I_have_just_collected__Imposter_Syndrome__by_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922685012-I_have_just_collected__inundated__by_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603023-Thank_you_for_collecting_Smile_on_secondary_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603213-Xray_baby_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1928182240-The_Birth_of_JPG_video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1928841369-I_like_skull_art__video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1930720628-The_Trash_Fountain_thief__PD25_19__video1-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1935309328291913840-RCSA_video2-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1935964062036193295-Washing_day_video2-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1936372255174607144-NOKIA_video2-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1936396618078601523-Rekt_pepe_video2-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video3-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video4-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video3-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video4-lossy.webp',\n            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1940755374090735670-__gifpunk_secured_on_secondary_by_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/PunksDistorted/webp/PunksDistorted-1907891741-Just_minted_my_fist_interactive_token_on_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1909330139-Just_minted_PD25_13_on_OBJKT_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1909899328-I_dont_give_a_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910065025-_TEZOSTUESDAY_Announcement__video3-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1910089093-I_have_just_collected__DECAY__by_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1913260314-you_can_just_coin_things_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1915496690-This_content_has_been_restricted__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1916573424-PD25_15_minted_on_OBJKT_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1919831957-Just_minted_PD25_16_on_OBJKT_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1919832660-Thank_you_for_collecting_AR_015_on_secondary_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922362317-System_error__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922547703-I_have_just_collected__Imposter_Syndrome__by_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1922685012-I_have_just_collected__inundated__by_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603023-Thank_you_for_collecting_Smile_on_secondary_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1927603213-Xray_baby_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1928182240-The_Birth_of_JPG_video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1928841369-I_like_skull_art__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1930720628-The_Trash_Fountain_thief__PD25_19__video1-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1935309328291913840-RCSA_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1935964062036193295-Washing_day_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1936372255174607144-NOKIA_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1936396618078601523-Rekt_pepe_video2-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video3-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939346355798835411-spinning_video4-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video3-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1939918463847510286-The_Art_Shop_video4-lossy.webp',
+            '/nft-gallery/PunksDistorted/webp/PunksDistorted-1940755374090735670-__gifpunk_secured_on_secondary_by_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -268,6 +283,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

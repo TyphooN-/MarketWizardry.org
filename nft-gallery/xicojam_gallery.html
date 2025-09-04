@@ -17,31 +17,94 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - xicojam">
     <meta name="twitter:description" content="xicojam's digital art collection - Like a traffic jam but for your eyeballs. This collection creates congestion in your visual cortex with nowhere to go but down. Emergency detour recommended.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/xicojam/webp/xicojam-1907842648-revelation_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1909330026-the_news_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1915466818-Muesli_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1915534344-A_to_01_to_B_to_01_to_C_to_01_to_D_video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1916627123-Merriweather_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1916902199-...one_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1920144049-synapse_to_synapse_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1920562175-node_to_node_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1920897336-axon_to_dendrite_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921255098-voice_looping_on_a_bad_landline_connection_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921308607-C12H17N2O4P_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921469477-login_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921469477-login_video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921731946-file_to_file_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1922372982-watch_it_bend_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1923215489-earth_base_II_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1924303218-the_great_equalizer_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1924328011-cycles_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1924524951-prompt_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1925305925-88_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1929349224-___video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1930348121-there_s_a_MEMORYBOARD_inside_objkt_s_Art_Pack__video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1933658715321958836-HEXBOARD__1__1___128___video4-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1936072070707724776-been_inside_The_Room_for_like..._8_weeks__video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1938090468425806053-The_Path_video4-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1938279522333561217-Motarola_G420_video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1940839156588093820-this_dream_again_video4-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1943488785053864196-TZERVER_01_____ff0000_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,104 +213,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1907842648-revelation_video1-lossy.webp" alt="xicojam-1907842648-revelation_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1909330026-the_news_video1-lossy.webp" alt="xicojam-1909330026-the_news_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1915466818-Muesli_video1-lossy.webp" alt="xicojam-1915466818-Muesli_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1915534344-A_to_01_to_B_to_01_to_C_to_01_to_D_video3-lossy.webp" alt="xicojam-1915534344-A_to_01_to_B_to_01_to_C_to_01_to_D_video3-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1916627123-Merriweather_video1-lossy.webp" alt="xicojam-1916627123-Merriweather_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1916902199-...one_video1-lossy.webp" alt="xicojam-1916902199-...one_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1920144049-synapse_to_synapse_video1-lossy.webp" alt="xicojam-1920144049-synapse_to_synapse_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1920562175-node_to_node_video1-lossy.webp" alt="xicojam-1920562175-node_to_node_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1920897336-axon_to_dendrite_video1-lossy.webp" alt="xicojam-1920897336-axon_to_dendrite_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921255098-voice_looping_on_a_bad_landline_connection_video2-lossy.webp" alt="xicojam-1921255098-voice_looping_on_a_bad_landline_connection_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921308607-C12H17N2O4P_video1-lossy.webp" alt="xicojam-1921308607-C12H17N2O4P_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921469477-login_video2-lossy.webp" alt="xicojam-1921469477-login_video2-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921469477-login_video3-lossy.webp" alt="xicojam-1921469477-login_video3-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921731946-file_to_file_video2-lossy.webp" alt="xicojam-1921731946-file_to_file_video2-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video1-lossy.webp" alt="xicojam-1921742842-Art_Hub___Share_Stations___OE_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video2-lossy.webp" alt="xicojam-1921742842-Art_Hub___Share_Stations___OE_video2-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1922372982-watch_it_bend_video1-lossy.webp" alt="xicojam-1922372982-watch_it_bend_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1923215489-earth_base_II_video1-lossy.webp" alt="xicojam-1923215489-earth_base_II_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1924303218-the_great_equalizer_video2-lossy.webp" alt="xicojam-1924303218-the_great_equalizer_video2-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1924328011-cycles_video2-lossy.webp" alt="xicojam-1924328011-cycles_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1924524951-prompt_video2-lossy.webp" alt="xicojam-1924524951-prompt_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1925305925-88_video2-lossy.webp" alt="xicojam-1925305925-88_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1929349224-___video2-lossy.webp" alt="xicojam-1929349224-___video2-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video1-lossy.webp" alt="xicojam-1929953465-Pipedream_Operator___11_25___8___video1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video2-lossy.webp" alt="xicojam-1929953465-Pipedream_Operator___11_25___8___video2-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1930348121-there_s_a_MEMORYBOARD_inside_objkt_s_Art_Pack__video3-lossy.webp" alt="xicojam-1930348121-there_s_a_MEMORYBOARD_inside_objkt_s_Art_Pack__video3-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1933658715321958836-HEXBOARD__1__1___128___video4-lossy.webp" alt="xicojam-1933658715321958836-HEXBOARD__1__1___128___video4-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1936072070707724776-been_inside_The_Room_for_like..._8_weeks__video2-lossy.webp" alt="xicojam-1936072070707724776-been_inside_The_Room_for_like..._8_weeks__video2-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1938090468425806053-The_Path_video4-lossy.webp" alt="xicojam-1938090468425806053-The_Path_video4-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1938279522333561217-Motarola_G420_video3-lossy.webp" alt="xicojam-1938279522333561217-Motarola_G420_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1940839156588093820-this_dream_again_video4-lossy.webp" alt="xicojam-1940839156588093820-this_dream_again_video4-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/xicojam/webp/xicojam-1943488785053864196-TZERVER_01_____ff0000_video4-lossy.webp" alt="xicojam-1943488785053864196-TZERVER_01_____ff0000_video4-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -259,9 +227,53 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/xicojam/webp/xicojam-1907842648-revelation_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1909330026-the_news_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1915466818-Muesli_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1915534344-A_to_01_to_B_to_01_to_C_to_01_to_D_video3-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1916627123-Merriweather_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1916902199-...one_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1920144049-synapse_to_synapse_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1920562175-node_to_node_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1920897336-axon_to_dendrite_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921255098-voice_looping_on_a_bad_landline_connection_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921308607-C12H17N2O4P_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921469477-login_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921469477-login_video3-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921731946-file_to_file_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1922372982-watch_it_bend_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1923215489-earth_base_II_video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1924303218-the_great_equalizer_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1924328011-cycles_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1924524951-prompt_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1925305925-88_video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1929349224-___video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video1-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1930348121-there_s_a_MEMORYBOARD_inside_objkt_s_Art_Pack__video3-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1933658715321958836-HEXBOARD__1__1___128___video4-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1936072070707724776-been_inside_The_Room_for_like..._8_weeks__video2-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1938090468425806053-The_Path_video4-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1938279522333561217-Motarola_G420_video3-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1940839156588093820-this_dream_again_video4-lossy.webp',\n            '/nft-gallery/xicojam/webp/xicojam-1943488785053864196-TZERVER_01_____ff0000_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/xicojam/webp/xicojam-1907842648-revelation_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1909330026-the_news_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1915466818-Muesli_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1915534344-A_to_01_to_B_to_01_to_C_to_01_to_D_video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1916627123-Merriweather_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1916902199-...one_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1920144049-synapse_to_synapse_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1920562175-node_to_node_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1920897336-axon_to_dendrite_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921255098-voice_looping_on_a_bad_landline_connection_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921308607-C12H17N2O4P_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921469477-login_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921469477-login_video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921731946-file_to_file_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1921742842-Art_Hub___Share_Stations___OE_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1922372982-watch_it_bend_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1923215489-earth_base_II_video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1924303218-the_great_equalizer_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1924328011-cycles_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1924524951-prompt_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1925305925-88_video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1929349224-___video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video1-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1929953465-Pipedream_Operator___11_25___8___video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1930348121-there_s_a_MEMORYBOARD_inside_objkt_s_Art_Pack__video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1933658715321958836-HEXBOARD__1__1___128___video4-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1936072070707724776-been_inside_The_Room_for_like..._8_weeks__video2-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1938090468425806053-The_Path_video4-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1938279522333561217-Motarola_G420_video3-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1940839156588093820-this_dream_again_video4-lossy.webp',
+            '/nft-gallery/xicojam/webp/xicojam-1943488785053864196-TZERVER_01_____ff0000_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -277,6 +289,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

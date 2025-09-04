@@ -17,31 +17,85 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - aaasonipse">
     <meta name="twitter:description" content="Triple-A rated digital nightmares with a solar eclipse twist. Premium astronomical anxiety for collectors who need their cosmic dread validated.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/aaasonipse/webp/aaasonipse-1909976074802299077-to_infinity_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1910145943-are_any_of_my_followers_from_china___wanna_inform_us_what_the_vibes_are_over_t-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1910706635-swarm_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1914156653-distorted_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1916188150-002_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1917026151-orb_dance_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1923901155-today_is_my_birthday__video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1927568979-te_traje_flores_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1927865055-lupukngna_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1928639055-i_need_tezos_to_go_up_right_now_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929283668-The_soviets_killed_many_more_innocents_than_they_did_Nazis._We_should_have_end-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929302792-estamos_a_tiempo_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929342670-mi_coraz_n_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929552171-cuando_eramos_solo_dos_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929992433-ignorance_is_bliss_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1930788369-The_most_American_headline_ever_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1931393803-freedom_fighter_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1933712725760172366-If_you_were_silent_during_two_years_of_Palestinian_massacres_and_last_night_s_attack_on_Iran__don_t_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1937570615675818018-transcending_matter_with_jurema-preta_pure_dmt_if_you_even_care_video3-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1940911514858541092-As_an_American_let_me_just_put_it_out_there_that_I_hate_Donald_Trump_and_voted_against_him_everytime_video4-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1942280569452171477-death_death_to_the_idf_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1942281755416805399-a_lot_of_you_don_t_respect_the_perfect_loop_and_it_shows_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1942354577057075542-ex_nihilo_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,77 +204,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1909976074802299077-to_infinity_video1-lossy.webp" alt="aaasonipse-1909976074802299077-to_infinity_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1910145943-are_any_of_my_followers_from_china___wanna_inform_us_what_the_vibes_are_over_t-lossy.webp" alt="aaasonipse-1910145943-are_any_of_my_followers_from_china___wanna_inform_us_what_the_vibes_are_over_t-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1910706635-swarm_video2-lossy.webp" alt="aaasonipse-1910706635-swarm_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1914156653-distorted_video1-lossy.webp" alt="aaasonipse-1914156653-distorted_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1916188150-002_video1-lossy.webp" alt="aaasonipse-1916188150-002_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1917026151-orb_dance_video1-lossy.webp" alt="aaasonipse-1917026151-orb_dance_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1923901155-today_is_my_birthday__video1-lossy.webp" alt="aaasonipse-1923901155-today_is_my_birthday__video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1927568979-te_traje_flores_video1-lossy.webp" alt="aaasonipse-1927568979-te_traje_flores_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1927865055-lupukngna_video1-lossy.webp" alt="aaasonipse-1927865055-lupukngna_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1928639055-i_need_tezos_to_go_up_right_now_video1-lossy.webp" alt="aaasonipse-1928639055-i_need_tezos_to_go_up_right_now_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1929283668-The_soviets_killed_many_more_innocents_than_they_did_Nazis._We_should_have_end-lossy.webp" alt="aaasonipse-1929283668-The_soviets_killed_many_more_innocents_than_they_did_Nazis._We_should_have_end-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1929302792-estamos_a_tiempo_video1-lossy.webp" alt="aaasonipse-1929302792-estamos_a_tiempo_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1929342670-mi_coraz_n_video1-lossy.webp" alt="aaasonipse-1929342670-mi_coraz_n_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1929552171-cuando_eramos_solo_dos_video1-lossy.webp" alt="aaasonipse-1929552171-cuando_eramos_solo_dos_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1929992433-ignorance_is_bliss_video1-lossy.webp" alt="aaasonipse-1929992433-ignorance_is_bliss_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1930788369-The_most_American_headline_ever_video2-lossy.webp" alt="aaasonipse-1930788369-The_most_American_headline_ever_video2-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1931393803-freedom_fighter_video1-lossy.webp" alt="aaasonipse-1931393803-freedom_fighter_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1933712725760172366-If_you_were_silent_during_two_years_of_Palestinian_massacres_and_last_night_s_attack_on_Iran__don_t_video2-lossy.webp" alt="aaasonipse-1933712725760172366-If_you_were_silent_during_two_years_of_Palestinian_massacres_and_last_night_s_attack_on_Iran__don_t_video2-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1937570615675818018-transcending_matter_with_jurema-preta_pure_dmt_if_you_even_care_video3-lossy.webp" alt="aaasonipse-1937570615675818018-transcending_matter_with_jurema-preta_pure_dmt_if_you_even_care_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1940911514858541092-As_an_American_let_me_just_put_it_out_there_that_I_hate_Donald_Trump_and_voted_against_him_everytime_video4-lossy.webp" alt="aaasonipse-1940911514858541092-As_an_American_let_me_just_put_it_out_there_that_I_hate_Donald_Trump_and_voted_against_him_everytime_video4-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1942280569452171477-death_death_to_the_idf_video2-lossy.webp" alt="aaasonipse-1942280569452171477-death_death_to_the_idf_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1942281755416805399-a_lot_of_you_don_t_respect_the_perfect_loop_and_it_shows_video2-lossy.webp" alt="aaasonipse-1942281755416805399-a_lot_of_you_don_t_respect_the_perfect_loop_and_it_shows_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/aaasonipse/webp/aaasonipse-1942354577057075542-ex_nihilo_video2-lossy.webp" alt="aaasonipse-1942354577057075542-ex_nihilo_video2-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -232,9 +218,44 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/aaasonipse/webp/aaasonipse-1909976074802299077-to_infinity_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1910145943-are_any_of_my_followers_from_china___wanna_inform_us_what_the_vibes_are_over_t-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1910706635-swarm_video2-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1914156653-distorted_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1916188150-002_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1917026151-orb_dance_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1923901155-today_is_my_birthday__video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1927568979-te_traje_flores_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1927865055-lupukngna_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1928639055-i_need_tezos_to_go_up_right_now_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1929283668-The_soviets_killed_many_more_innocents_than_they_did_Nazis._We_should_have_end-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1929302792-estamos_a_tiempo_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1929342670-mi_coraz_n_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1929552171-cuando_eramos_solo_dos_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1929992433-ignorance_is_bliss_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1930788369-The_most_American_headline_ever_video2-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1931393803-freedom_fighter_video1-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1933712725760172366-If_you_were_silent_during_two_years_of_Palestinian_massacres_and_last_night_s_attack_on_Iran__don_t_video2-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1937570615675818018-transcending_matter_with_jurema-preta_pure_dmt_if_you_even_care_video3-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1940911514858541092-As_an_American_let_me_just_put_it_out_there_that_I_hate_Donald_Trump_and_voted_against_him_everytime_video4-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1942280569452171477-death_death_to_the_idf_video2-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1942281755416805399-a_lot_of_you_don_t_respect_the_perfect_loop_and_it_shows_video2-lossy.webp',\n            '/nft-gallery/aaasonipse/webp/aaasonipse-1942354577057075542-ex_nihilo_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/aaasonipse/webp/aaasonipse-1909976074802299077-to_infinity_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1910145943-are_any_of_my_followers_from_china___wanna_inform_us_what_the_vibes_are_over_t-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1910706635-swarm_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1914156653-distorted_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1916188150-002_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1917026151-orb_dance_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1923901155-today_is_my_birthday__video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1927568979-te_traje_flores_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1927865055-lupukngna_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1928639055-i_need_tezos_to_go_up_right_now_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929283668-The_soviets_killed_many_more_innocents_than_they_did_Nazis._We_should_have_end-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929302792-estamos_a_tiempo_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929342670-mi_coraz_n_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929552171-cuando_eramos_solo_dos_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1929992433-ignorance_is_bliss_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1930788369-The_most_American_headline_ever_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1931393803-freedom_fighter_video1-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1933712725760172366-If_you_were_silent_during_two_years_of_Palestinian_massacres_and_last_night_s_attack_on_Iran__don_t_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1937570615675818018-transcending_matter_with_jurema-preta_pure_dmt_if_you_even_care_video3-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1940911514858541092-As_an_American_let_me_just_put_it_out_there_that_I_hate_Donald_Trump_and_voted_against_him_everytime_video4-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1942280569452171477-death_death_to_the_idf_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1942281755416805399-a_lot_of_you_don_t_respect_the_perfect_loop_and_it_shows_video2-lossy.webp',
+            '/nft-gallery/aaasonipse/webp/aaasonipse-1942354577057075542-ex_nihilo_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -250,6 +271,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

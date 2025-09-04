@@ -17,31 +17,115 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - PERFECTL00P">
     <meta name="twitter:description" content="PERFECTL00P's infinite digital cycles for people who think endless repetition justifies premium pricing. Perfect loops for imperfect investment decisions.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920242999-____________________________________________video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921221544-c_y_c_l_e_s__video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921946909-Closer__for__objkt4objkt_event_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922347447-_______________video2-1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923383434-160_million_views_my_dudes_____________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924850144-_______________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925031782-bag_scene_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925201469-______________II______wip_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925245846-dont_sleep_on_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925612421-NFC_Lisbon_is_around_the_corner_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925613323-NFC_Lisbon_is_around_the_corner_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925643619-_________________video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1926320701-E_s_c_a_p_e___v_e_l_o_c_i_t_y__video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video1-1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928098880-started_buying_art_on_tezos_grabbed_this_dope_piece_this_morn_who_are_your_fa-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928605344-Well_dam_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928844560-________________________video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928846120110698587-Man__as_an_artist__there_s_nothing_like_those_days_when_the_art_is_just_flowing_and_it_feels_so_damn_video1-1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1930637734-____________video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1931191132-Special_Pepe_Zone__SPeZ__video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933251753312686508-___________________________video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933558093561897106-Uh_oh_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934414551950188654-Touching_Grass_for__GifArtDay_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934795887240466450-Minted_this_set_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935065042929455427-tis_an_honor_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935410707950092540-_______________________video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935681426281701439-W_h_a_t____pr__gr_m___d_i_d___I___o_p_e_n_._._.__video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1936082045848957398-3.5_hours_left_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1938954538804715816-this_cant_be_right_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940406325424594959-up_to_200_mil_views_on_giphy_-_and_was_invited_to_the_Museum_of_GIPHY_Artists_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940437568979656747-Much_appreciation_to_everyone_that_collected_this_work____It_is_now_sold_on_primary_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940444182944047302-weeeeeeeeeeee___video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940764202127540382-__________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1942612635251306847-Worlds_Collide_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943550091614392427-AI_slop_shit_post___2k_likes_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,167 +234,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920242999-____________________________________________video1-lossy.webp" alt="PERFECTL00P-1920242999-____________________________________________video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video1-lossy.webp" alt="PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video3-lossy.webp" alt="PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video3-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921221544-c_y_c_l_e_s__video1-lossy.webp" alt="PERFECTL00P-1921221544-c_y_c_l_e_s__video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921946909-Closer__for__objkt4objkt_event_video1-lossy.webp" alt="PERFECTL00P-1921946909-Closer__for__objkt4objkt_event_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922347447-_______________video2-1-lossy.webp" alt="PERFECTL00P-1922347447-_______________video2-1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video1-lossy.webp" alt="PERFECTL00P-1922748223-Big_Ass_Fly_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video2-lossy.webp" alt="PERFECTL00P-1922748223-Big_Ass_Fly_video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video1-lossy.webp" alt="PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video2-lossy.webp" alt="PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923383434-160_million_views_my_dudes_____________video3-lossy.webp" alt="PERFECTL00P-1923383434-160_million_views_my_dudes_____________video3-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video1-lossy.webp" alt="PERFECTL00P-1924649259-Have_a_great_Monday_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video2-lossy.webp" alt="PERFECTL00P-1924649259-Have_a_great_Monday_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924850144-_______________video3-lossy.webp" alt="PERFECTL00P-1924850144-_______________video3-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925031782-bag_scene_video1-lossy.webp" alt="PERFECTL00P-1925031782-bag_scene_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925201469-______________II______wip_video1-lossy.webp" alt="PERFECTL00P-1925201469-______________II______wip_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925245846-dont_sleep_on_video1-lossy.webp" alt="PERFECTL00P-1925245846-dont_sleep_on_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video1-lossy.webp" alt="PERFECTL00P-1925246369-______________II_poop_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video2-lossy.webp" alt="PERFECTL00P-1925246369-______________II_poop_video2-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925612421-NFC_Lisbon_is_around_the_corner_video1-lossy.webp" alt="PERFECTL00P-1925612421-NFC_Lisbon_is_around_the_corner_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925613323-NFC_Lisbon_is_around_the_corner_video2-lossy.webp" alt="PERFECTL00P-1925613323-NFC_Lisbon_is_around_the_corner_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925643619-_________________video1-lossy.webp" alt="PERFECTL00P-1925643619-_________________video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1926320701-E_s_c_a_p_e___v_e_l_o_c_i_t_y__video1-lossy.webp" alt="PERFECTL00P-1926320701-E_s_c_a_p_e___v_e_l_o_c_i_t_y__video1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video1-1-lossy.webp" alt="PERFECTL00P-1927740544-Ohhh_shiiii_video1-1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video2-lossy.webp" alt="PERFECTL00P-1927740544-Ohhh_shiiii_video2-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video3-lossy.webp" alt="PERFECTL00P-1927740544-Ohhh_shiiii_video3-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928098880-started_buying_art_on_tezos_grabbed_this_dope_piece_this_morn_who_are_your_fa-lossy.webp" alt="PERFECTL00P-1928098880-started_buying_art_on_tezos_grabbed_this_dope_piece_this_morn_who_are_your_fa-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928605344-Well_dam_video2-lossy.webp" alt="PERFECTL00P-1928605344-Well_dam_video2-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928844560-________________________video2-lossy.webp" alt="PERFECTL00P-1928844560-________________________video2-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928846120110698587-Man__as_an_artist__there_s_nothing_like_those_days_when_the_art_is_just_flowing_and_it_feels_so_damn_video1-1-lossy.webp" alt="PERFECTL00P-1928846120110698587-Man__as_an_artist__there_s_nothing_like_those_days_when_the_art_is_just_flowing_and_it_feels_so_damn_video1-1-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1930637734-____________video1-lossy.webp" alt="PERFECTL00P-1930637734-____________video1-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1931191132-Special_Pepe_Zone__SPeZ__video2-lossy.webp" alt="PERFECTL00P-1931191132-Special_Pepe_Zone__SPeZ__video2-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933251753312686508-___________________________video4-lossy.webp" alt="PERFECTL00P-1933251753312686508-___________________________video4-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933558093561897106-Uh_oh_video4-lossy.webp" alt="PERFECTL00P-1933558093561897106-Uh_oh_video4-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934414551950188654-Touching_Grass_for__GifArtDay_video2-lossy.webp" alt="PERFECTL00P-1934414551950188654-Touching_Grass_for__GifArtDay_video2-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934795887240466450-Minted_this_set_video3-lossy.webp" alt="PERFECTL00P-1934795887240466450-Minted_this_set_video3-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935065042929455427-tis_an_honor_video4-lossy.webp" alt="PERFECTL00P-1935065042929455427-tis_an_honor_video4-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935410707950092540-_______________________video4-lossy.webp" alt="PERFECTL00P-1935410707950092540-_______________________video4-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935681426281701439-W_h_a_t____pr__gr_m___d_i_d___I___o_p_e_n_._._.__video3-lossy.webp" alt="PERFECTL00P-1935681426281701439-W_h_a_t____pr__gr_m___d_i_d___I___o_p_e_n_._._.__video3-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1936082045848957398-3.5_hours_left_video4-lossy.webp" alt="PERFECTL00P-1936082045848957398-3.5_hours_left_video4-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video3-lossy.webp" alt="PERFECTL00P-1937557924726936031-________________video3-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video4-lossy.webp" alt="PERFECTL00P-1937557924726936031-________________video4-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1938954538804715816-this_cant_be_right_video3-lossy.webp" alt="PERFECTL00P-1938954538804715816-this_cant_be_right_video3-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video3-lossy.webp" alt="PERFECTL00P-1939691793488007175-_____video3-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video4-lossy.webp" alt="PERFECTL00P-1939691793488007175-_____video4-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940406325424594959-up_to_200_mil_views_on_giphy_-_and_was_invited_to_the_Museum_of_GIPHY_Artists_video3-lossy.webp" alt="PERFECTL00P-1940406325424594959-up_to_200_mil_views_on_giphy_-_and_was_invited_to_the_Museum_of_GIPHY_Artists_video3-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940437568979656747-Much_appreciation_to_everyone_that_collected_this_work____It_is_now_sold_on_primary_video3-lossy.webp" alt="PERFECTL00P-1940437568979656747-Much_appreciation_to_everyone_that_collected_this_work____It_is_now_sold_on_primary_video3-lossy.webp" onclick="openImage(46)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940444182944047302-weeeeeeeeeeee___video2-lossy.webp" alt="PERFECTL00P-1940444182944047302-weeeeeeeeeeee___video2-lossy.webp" onclick="openImage(47)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940764202127540382-__________video3-lossy.webp" alt="PERFECTL00P-1940764202127540382-__________video3-lossy.webp" onclick="openImage(48)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1942612635251306847-Worlds_Collide_video4-lossy.webp" alt="PERFECTL00P-1942612635251306847-Worlds_Collide_video4-lossy.webp" onclick="openImage(49)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943550091614392427-AI_slop_shit_post___2k_likes_video2-lossy.webp" alt="PERFECTL00P-1943550091614392427-AI_slop_shit_post___2k_likes_video2-lossy.webp" onclick="openImage(50)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video3-lossy.webp" alt="PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video3-lossy.webp" onclick="openImage(51)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video4-lossy.webp" alt="PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video4-lossy.webp" onclick="openImage(52)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -322,9 +248,74 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920242999-____________________________________________video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921221544-c_y_c_l_e_s__video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921946909-Closer__for__objkt4objkt_event_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922347447-_______________video2-1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923383434-160_million_views_my_dudes_____________video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924850144-_______________video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925031782-bag_scene_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925201469-______________II______wip_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925245846-dont_sleep_on_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925612421-NFC_Lisbon_is_around_the_corner_video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925613323-NFC_Lisbon_is_around_the_corner_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925643619-_________________video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1926320701-E_s_c_a_p_e___v_e_l_o_c_i_t_y__video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video1-1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928098880-started_buying_art_on_tezos_grabbed_this_dope_piece_this_morn_who_are_your_fa-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928605344-Well_dam_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928844560-________________________video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928846120110698587-Man__as_an_artist__there_s_nothing_like_those_days_when_the_art_is_just_flowing_and_it_feels_so_damn_video1-1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1930637734-____________video1-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1931191132-Special_Pepe_Zone__SPeZ__video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933251753312686508-___________________________video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933558093561897106-Uh_oh_video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934414551950188654-Touching_Grass_for__GifArtDay_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934795887240466450-Minted_this_set_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935065042929455427-tis_an_honor_video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935410707950092540-_______________________video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935681426281701439-W_h_a_t____pr__gr_m___d_i_d___I___o_p_e_n_._._.__video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1936082045848957398-3.5_hours_left_video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1938954538804715816-this_cant_be_right_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940406325424594959-up_to_200_mil_views_on_giphy_-_and_was_invited_to_the_Museum_of_GIPHY_Artists_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940437568979656747-Much_appreciation_to_everyone_that_collected_this_work____It_is_now_sold_on_primary_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940444182944047302-weeeeeeeeeeee___video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940764202127540382-__________video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1942612635251306847-Worlds_Collide_video4-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943550091614392427-AI_slop_shit_post___2k_likes_video2-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video3-lossy.webp',\n            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920242999-____________________________________________video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1920511597-15_minutes_left____________________________GIF_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921221544-c_y_c_l_e_s__video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1921946909-Closer__for__objkt4objkt_event_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922347447-_______________video2-1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1922748223-Big_Ass_Fly_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923036246-P_a_r_t_i_c_l_e___a_c_c_e_l_e_r_a_t_o_r___soldOut__by_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1923383434-160_million_views_my_dudes_____________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924649259-Have_a_great_Monday_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1924850144-_______________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925031782-bag_scene_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925201469-______________II______wip_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925245846-dont_sleep_on_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925246369-______________II_poop_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925612421-NFC_Lisbon_is_around_the_corner_video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925613323-NFC_Lisbon_is_around_the_corner_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1925643619-_________________video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1926320701-E_s_c_a_p_e___v_e_l_o_c_i_t_y__video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video1-1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1927740544-Ohhh_shiiii_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928098880-started_buying_art_on_tezos_grabbed_this_dope_piece_this_morn_who_are_your_fa-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928605344-Well_dam_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928844560-________________________video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1928846120110698587-Man__as_an_artist__there_s_nothing_like_those_days_when_the_art_is_just_flowing_and_it_feels_so_damn_video1-1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1930637734-____________video1-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1931191132-Special_Pepe_Zone__SPeZ__video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933251753312686508-___________________________video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1933558093561897106-Uh_oh_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934414551950188654-Touching_Grass_for__GifArtDay_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1934795887240466450-Minted_this_set_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935065042929455427-tis_an_honor_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935410707950092540-_______________________video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1935681426281701439-W_h_a_t____pr__gr_m___d_i_d___I___o_p_e_n_._._.__video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1936082045848957398-3.5_hours_left_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1937557924726936031-________________video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1938954538804715816-this_cant_be_right_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1939691793488007175-_____video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940406325424594959-up_to_200_mil_views_on_giphy_-_and_was_invited_to_the_Museum_of_GIPHY_Artists_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940437568979656747-Much_appreciation_to_everyone_that_collected_this_work____It_is_now_sold_on_primary_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940444182944047302-weeeeeeeeeeee___video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1940764202127540382-__________video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1942612635251306847-Worlds_Collide_video4-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943550091614392427-AI_slop_shit_post___2k_likes_video2-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video3-lossy.webp',
+            '/nft-gallery/PERFECTL00P/webp/PERFECTL00P-1943870912589443162-I_can_sleep_here_s_a_little_Duck_and_Weave_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -340,6 +331,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

@@ -17,31 +17,94 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - slava3ngl">
     <meta name="twitter:description" content="slava3ngl's digital art collection - Glory to... well, certainly not these pixels. This Slavic-inspired collection proves that suffering is universal, transcending both borders and artistic mediums. Borscht tastes better than this looks.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/slava3ngl/webp/slava3ngl-1920396063-GMGMGM__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1920758274-GMGMGM_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1922209394-GOOD_STRUCTURAL_MORNING__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1922570331-Good_Morning_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1923296052-GMGood_MorningGM_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1923296052771184806-GMGood_MorningGM_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1923506007-1-Bit_Classics_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1925477437-GMGM_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1925592962-Data_Drying_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1927283232-GOOD_GLOWING_MORNING__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1927644000-Good_MORNING__video1-1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1928227719-Say_cheese__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1929094309-GOOD_MORNING_digital_fam__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1929644817-__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1930180718-GOOD_MORNING_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1930545323-GMGM_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1930905644-GOOD_GEOMETRIC_MORNING__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1931282167-GMGMGM_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video4-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1934891768471781873-GOOD_MORNING_INTERNET_video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1937793350989754621-Good_Morning__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1938515948790550693-Good_digital_Morning__video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1938704051702505894-WL_presale_for_Wirecore_starts_soon__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1938947464037310723-Neon_bones_whisper_in_fractured_dusk__video4-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1939246533444288989-GOOD_MISTY_MORNING_video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1939292460393595276-Frail_frames_flicker_in_velvet_silence__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1942139098216427841-GOOD_MORNING_video4-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1942866299345838351-GOOD_MORNING_INTERNET__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1943593612064743854-GM_INTERNET_RIDERS__video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,104 +213,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1920396063-GMGMGM__video1-lossy.webp" alt="slava3ngl-1920396063-GMGMGM__video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1920758274-GMGMGM_video1-lossy.webp" alt="slava3ngl-1920758274-GMGMGM_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1922209394-GOOD_STRUCTURAL_MORNING__video1-lossy.webp" alt="slava3ngl-1922209394-GOOD_STRUCTURAL_MORNING__video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1922570331-Good_Morning_video1-lossy.webp" alt="slava3ngl-1922570331-Good_Morning_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1923296052-GMGood_MorningGM_video2-lossy.webp" alt="slava3ngl-1923296052-GMGood_MorningGM_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1923296052771184806-GMGood_MorningGM_video1-lossy.webp" alt="slava3ngl-1923296052771184806-GMGood_MorningGM_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1923506007-1-Bit_Classics_video1-lossy.webp" alt="slava3ngl-1923506007-1-Bit_Classics_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1925477437-GMGM_video2-lossy.webp" alt="slava3ngl-1925477437-GMGM_video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1925592962-Data_Drying_video2-lossy.webp" alt="slava3ngl-1925592962-Data_Drying_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1927283232-GOOD_GLOWING_MORNING__video1-lossy.webp" alt="slava3ngl-1927283232-GOOD_GLOWING_MORNING__video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1927644000-Good_MORNING__video1-1-lossy.webp" alt="slava3ngl-1927644000-Good_MORNING__video1-1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video1-lossy.webp" alt="slava3ngl-1928007108-Good_morning__video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video2-lossy.webp" alt="slava3ngl-1928007108-Good_morning__video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1928227719-Say_cheese__video1-lossy.webp" alt="slava3ngl-1928227719-Say_cheese__video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1929094309-GOOD_MORNING_digital_fam__video2-lossy.webp" alt="slava3ngl-1929094309-GOOD_MORNING_digital_fam__video2-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1929644817-__video1-lossy.webp" alt="slava3ngl-1929644817-__video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1930180718-GOOD_MORNING_video1-lossy.webp" alt="slava3ngl-1930180718-GOOD_MORNING_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1930545323-GMGM_video1-lossy.webp" alt="slava3ngl-1930545323-GMGM_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1930905644-GOOD_GEOMETRIC_MORNING__video1-lossy.webp" alt="slava3ngl-1930905644-GOOD_GEOMETRIC_MORNING__video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1931282167-GMGMGM_video2-lossy.webp" alt="slava3ngl-1931282167-GMGMGM_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video3-lossy.webp" alt="slava3ngl-1932354638264823969-GMGMGM_video3-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video4-lossy.webp" alt="slava3ngl-1932354638264823969-GMGMGM_video4-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1934891768471781873-GOOD_MORNING_INTERNET_video3-lossy.webp" alt="slava3ngl-1934891768471781873-GOOD_MORNING_INTERNET_video3-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1937793350989754621-Good_Morning__video2-lossy.webp" alt="slava3ngl-1937793350989754621-Good_Morning__video2-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1938515948790550693-Good_digital_Morning__video3-lossy.webp" alt="slava3ngl-1938515948790550693-Good_digital_Morning__video3-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1938704051702505894-WL_presale_for_Wirecore_starts_soon__video2-lossy.webp" alt="slava3ngl-1938704051702505894-WL_presale_for_Wirecore_starts_soon__video2-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1938947464037310723-Neon_bones_whisper_in_fractured_dusk__video4-lossy.webp" alt="slava3ngl-1938947464037310723-Neon_bones_whisper_in_fractured_dusk__video4-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1939246533444288989-GOOD_MISTY_MORNING_video3-lossy.webp" alt="slava3ngl-1939246533444288989-GOOD_MISTY_MORNING_video3-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1939292460393595276-Frail_frames_flicker_in_velvet_silence__video2-lossy.webp" alt="slava3ngl-1939292460393595276-Frail_frames_flicker_in_velvet_silence__video2-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1942139098216427841-GOOD_MORNING_video4-lossy.webp" alt="slava3ngl-1942139098216427841-GOOD_MORNING_video4-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1942866299345838351-GOOD_MORNING_INTERNET__video2-lossy.webp" alt="slava3ngl-1942866299345838351-GOOD_MORNING_INTERNET__video2-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/slava3ngl/webp/slava3ngl-1943593612064743854-GM_INTERNET_RIDERS__video2-lossy.webp" alt="slava3ngl-1943593612064743854-GM_INTERNET_RIDERS__video2-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -259,9 +227,53 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/slava3ngl/webp/slava3ngl-1920396063-GMGMGM__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1920758274-GMGMGM_video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1922209394-GOOD_STRUCTURAL_MORNING__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1922570331-Good_Morning_video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1923296052-GMGood_MorningGM_video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1923296052771184806-GMGood_MorningGM_video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1923506007-1-Bit_Classics_video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1925477437-GMGM_video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1925592962-Data_Drying_video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1927283232-GOOD_GLOWING_MORNING__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1927644000-Good_MORNING__video1-1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1928227719-Say_cheese__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1929094309-GOOD_MORNING_digital_fam__video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1929644817-__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1930180718-GOOD_MORNING_video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1930545323-GMGM_video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1930905644-GOOD_GEOMETRIC_MORNING__video1-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1931282167-GMGMGM_video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video3-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video4-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1934891768471781873-GOOD_MORNING_INTERNET_video3-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1937793350989754621-Good_Morning__video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1938515948790550693-Good_digital_Morning__video3-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1938704051702505894-WL_presale_for_Wirecore_starts_soon__video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1938947464037310723-Neon_bones_whisper_in_fractured_dusk__video4-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1939246533444288989-GOOD_MISTY_MORNING_video3-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1939292460393595276-Frail_frames_flicker_in_velvet_silence__video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1942139098216427841-GOOD_MORNING_video4-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1942866299345838351-GOOD_MORNING_INTERNET__video2-lossy.webp',\n            '/nft-gallery/slava3ngl/webp/slava3ngl-1943593612064743854-GM_INTERNET_RIDERS__video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/slava3ngl/webp/slava3ngl-1920396063-GMGMGM__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1920758274-GMGMGM_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1922209394-GOOD_STRUCTURAL_MORNING__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1922570331-Good_Morning_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1923296052-GMGood_MorningGM_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1923296052771184806-GMGood_MorningGM_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1923506007-1-Bit_Classics_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1925477437-GMGM_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1925592962-Data_Drying_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1927283232-GOOD_GLOWING_MORNING__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1927644000-Good_MORNING__video1-1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1928007108-Good_morning__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1928227719-Say_cheese__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1929094309-GOOD_MORNING_digital_fam__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1929644817-__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1930180718-GOOD_MORNING_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1930545323-GMGM_video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1930905644-GOOD_GEOMETRIC_MORNING__video1-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1931282167-GMGMGM_video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1932354638264823969-GMGMGM_video4-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1934891768471781873-GOOD_MORNING_INTERNET_video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1937793350989754621-Good_Morning__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1938515948790550693-Good_digital_Morning__video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1938704051702505894-WL_presale_for_Wirecore_starts_soon__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1938947464037310723-Neon_bones_whisper_in_fractured_dusk__video4-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1939246533444288989-GOOD_MISTY_MORNING_video3-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1939292460393595276-Frail_frames_flicker_in_velvet_silence__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1942139098216427841-GOOD_MORNING_video4-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1942866299345838351-GOOD_MORNING_INTERNET__video2-lossy.webp',
+            '/nft-gallery/slava3ngl/webp/slava3ngl-1943593612064743854-GM_INTERNET_RIDERS__video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -277,6 +289,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

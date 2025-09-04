@@ -17,31 +17,83 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - weirdnikita">
     <meta name="twitter:description" content="weirdnikita's digital art collection - Weird doesn't begin to cover it. This Eastern European artist brings Soviet-era aesthetics into the digital age, proving that some things were better left in the past. Comrade, this is not the art we ordered.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/weirdnikita/webp/weirdnikita-1909242402-BREAKING__Amongst_the_chaos_of_the_markets_somehow_the_auction_for_my_piece__-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1922915500-Recursive_Backdoor_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1923419747-how_did_nikita_find_a_picture_of_my_wife_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924012894-Love_ur_mind_Nikita_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924133532-Boots___120_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924218821-disk_jockey_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924733866-3_rooms_left_in_the_house_of_6_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924769509-mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1930038248-there_are_still_some_no_brainers_availabe_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1930643719-__jhana_in_electric_flames___video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1932742893124694185-GM__It_s__TezosTuesday___drop_your_pieces_below__video4-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1934361494919205182-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video4-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1935766413735870903-New_collection_Kinetic_Gridwork_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1939822756180476249-I_Tried_to_Be_Soil_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1940692887597207702-Minted_piece_via_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,71 +202,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1909242402-BREAKING__Amongst_the_chaos_of_the_markets_somehow_the_auction_for_my_piece__-lossy.webp" alt="weirdnikita-1909242402-BREAKING__Amongst_the_chaos_of_the_markets_somehow_the_auction_for_my_piece__-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1922915500-Recursive_Backdoor_video2-lossy.webp" alt="weirdnikita-1922915500-Recursive_Backdoor_video2-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1923419747-how_did_nikita_find_a_picture_of_my_wife_video2-lossy.webp" alt="weirdnikita-1923419747-how_did_nikita_find_a_picture_of_my_wife_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924012894-Love_ur_mind_Nikita_video1-lossy.webp" alt="weirdnikita-1924012894-Love_ur_mind_Nikita_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924133532-Boots___120_video2-lossy.webp" alt="weirdnikita-1924133532-Boots___120_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924218821-disk_jockey_video1-lossy.webp" alt="weirdnikita-1924218821-disk_jockey_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video2-lossy.webp" alt="weirdnikita-1924595860-looks_good_to_eat_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video3-lossy.webp" alt="weirdnikita-1924595860-looks_good_to_eat_video3-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924733866-3_rooms_left_in_the_house_of_6_video1-lossy.webp" alt="weirdnikita-1924733866-3_rooms_left_in_the_house_of_6_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1924769509-mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-lossy.webp" alt="weirdnikita-1924769509-mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video1-lossy.webp" alt="weirdnikita-1925563523-jhana_in_electric_flames_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video3-lossy.webp" alt="weirdnikita-1925563523-jhana_in_electric_flames_video3-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video1-lossy.webp" alt="weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video3-lossy.webp" alt="weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video3-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1930038248-there_are_still_some_no_brainers_availabe_video1-lossy.webp" alt="weirdnikita-1930038248-there_are_still_some_no_brainers_availabe_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1930643719-__jhana_in_electric_flames___video1-lossy.webp" alt="weirdnikita-1930643719-__jhana_in_electric_flames___video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1932742893124694185-GM__It_s__TezosTuesday___drop_your_pieces_below__video4-lossy.webp" alt="weirdnikita-1932742893124694185-GM__It_s__TezosTuesday___drop_your_pieces_below__video4-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1934361494919205182-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video4-lossy.webp" alt="weirdnikita-1934361494919205182-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video4-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1935766413735870903-New_collection_Kinetic_Gridwork_video3-lossy.webp" alt="weirdnikita-1935766413735870903-New_collection_Kinetic_Gridwork_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1939822756180476249-I_Tried_to_Be_Soil_video3-lossy.webp" alt="weirdnikita-1939822756180476249-I_Tried_to_Be_Soil_video3-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/weirdnikita/webp/weirdnikita-1940692887597207702-Minted_piece_via_video4-lossy.webp" alt="weirdnikita-1940692887597207702-Minted_piece_via_video4-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -226,9 +216,42 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/weirdnikita/webp/weirdnikita-1909242402-BREAKING__Amongst_the_chaos_of_the_markets_somehow_the_auction_for_my_piece__-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1922915500-Recursive_Backdoor_video2-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1923419747-how_did_nikita_find_a_picture_of_my_wife_video2-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924012894-Love_ur_mind_Nikita_video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924133532-Boots___120_video2-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924218821-disk_jockey_video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video2-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video3-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924733866-3_rooms_left_in_the_house_of_6_video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1924769509-mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video3-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video3-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1930038248-there_are_still_some_no_brainers_availabe_video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1930643719-__jhana_in_electric_flames___video1-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1932742893124694185-GM__It_s__TezosTuesday___drop_your_pieces_below__video4-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1934361494919205182-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video4-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1935766413735870903-New_collection_Kinetic_Gridwork_video3-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1939822756180476249-I_Tried_to_Be_Soil_video3-lossy.webp',\n            '/nft-gallery/weirdnikita/webp/weirdnikita-1940692887597207702-Minted_piece_via_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/weirdnikita/webp/weirdnikita-1909242402-BREAKING__Amongst_the_chaos_of_the_markets_somehow_the_auction_for_my_piece__-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1922915500-Recursive_Backdoor_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1923419747-how_did_nikita_find_a_picture_of_my_wife_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924012894-Love_ur_mind_Nikita_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924133532-Boots___120_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924218821-disk_jockey_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video2-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924595860-looks_good_to_eat_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924733866-3_rooms_left_in_the_house_of_6_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1924769509-mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1925563523-jhana_in_electric_flames_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1928835697-gm__thank_you_for_the_feature_SuperRare_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1930038248-there_are_still_some_no_brainers_availabe_video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1930643719-__jhana_in_electric_flames___video1-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1932742893124694185-GM__It_s__TezosTuesday___drop_your_pieces_below__video4-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1934361494919205182-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video4-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1935766413735870903-New_collection_Kinetic_Gridwork_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1939822756180476249-I_Tried_to_Be_Soil_video3-lossy.webp',
+            '/nft-gallery/weirdnikita/webp/weirdnikita-1940692887597207702-Minted_piece_via_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -244,6 +267,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

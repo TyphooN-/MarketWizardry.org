@@ -17,31 +17,108 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - Nicolas_Sassoon">
     <meta name="twitter:description" content="Nicolas Sassoon's hypnotic digital patterns for collectors who think repetition equals profundity. Mesmerizing loops for people stuck in NFT purgatory.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video2-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1886162705301569713-Moon_rising_over_inlet_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1887184575-Gem_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890157476-Take_it_all_in_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890472139-Cove_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1892654706-Dawn_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1893458395-night_light_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1894820407-Ruins_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1895511159-still_alive_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1896987847-Peaks_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1898100961-Silent_mountains_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1899197260-Mist_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1900678282-Small_RGB_Study_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1901725710-Haze_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1902753816-1_pixel___1_pixel_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1904605249-Shores_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1905369272-Path_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1909312923-Choices__once_again_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1911086169-Altitude_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1916229021-Isle_Study_4__2023_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1918015356117082267-Winds_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1919478034-Summit_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1923121393-rising_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1924616393-which_artist_are_you_most_excited_about_right_now__video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video2-1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1934272065231577408-RGB_203_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935043906347180479-RGB_191_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935770547125723330-Thank_you_so_much_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937240062032293942-RGB_177_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1939718847382081766-Thank_you_so_much_video2-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941708102681698565-RGB_111_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941865948585050389-In_20_years_of_practice__I_think_I_ve_read_headlines_saying__painting_is_dead__about_20_times_video2-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942034058046771529-RGB_189_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942654279539404876-RGB_75_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943031134918512702-Mid-Career_Artist__2025_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943315322204766350-RGB_117_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,146 +227,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video1-lossy.webp" alt="Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video2-lossy.webp" alt="Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video2-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1886162705301569713-Moon_rising_over_inlet_video1-lossy.webp" alt="Nicolas_Sassoon-1886162705301569713-Moon_rising_over_inlet_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1887184575-Gem_video1-lossy.webp" alt="Nicolas_Sassoon-1887184575-Gem_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890157476-Take_it_all_in_video1-lossy.webp" alt="Nicolas_Sassoon-1890157476-Take_it_all_in_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890472139-Cove_video1-lossy.webp" alt="Nicolas_Sassoon-1890472139-Cove_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1892654706-Dawn_video1-lossy.webp" alt="Nicolas_Sassoon-1892654706-Dawn_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1893458395-night_light_video1-lossy.webp" alt="Nicolas_Sassoon-1893458395-night_light_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1894820407-Ruins_video1-lossy.webp" alt="Nicolas_Sassoon-1894820407-Ruins_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1895511159-still_alive_video1-lossy.webp" alt="Nicolas_Sassoon-1895511159-still_alive_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1896987847-Peaks_video1-lossy.webp" alt="Nicolas_Sassoon-1896987847-Peaks_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1898100961-Silent_mountains_video1-lossy.webp" alt="Nicolas_Sassoon-1898100961-Silent_mountains_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1899197260-Mist_video1-lossy.webp" alt="Nicolas_Sassoon-1899197260-Mist_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1900678282-Small_RGB_Study_video1-lossy.webp" alt="Nicolas_Sassoon-1900678282-Small_RGB_Study_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1901725710-Haze_video1-lossy.webp" alt="Nicolas_Sassoon-1901725710-Haze_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1902753816-1_pixel___1_pixel_video1-lossy.webp" alt="Nicolas_Sassoon-1902753816-1_pixel___1_pixel_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1904605249-Shores_video1-lossy.webp" alt="Nicolas_Sassoon-1904605249-Shores_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1905369272-Path_video1-lossy.webp" alt="Nicolas_Sassoon-1905369272-Path_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1909312923-Choices__once_again_video1-lossy.webp" alt="Nicolas_Sassoon-1909312923-Choices__once_again_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1911086169-Altitude_video1-lossy.webp" alt="Nicolas_Sassoon-1911086169-Altitude_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1916229021-Isle_Study_4__2023_video1-lossy.webp" alt="Nicolas_Sassoon-1916229021-Isle_Study_4__2023_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1918015356117082267-Winds_video1-lossy.webp" alt="Nicolas_Sassoon-1918015356117082267-Winds_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1919478034-Summit_video1-lossy.webp" alt="Nicolas_Sassoon-1919478034-Summit_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1923121393-rising_video1-lossy.webp" alt="Nicolas_Sassoon-1923121393-rising_video1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1924616393-which_artist_are_you_most_excited_about_right_now__video1-lossy.webp" alt="Nicolas_Sassoon-1924616393-which_artist_are_you_most_excited_about_right_now__video1-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video2-1-lossy.webp" alt="Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video2-1-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video3-lossy.webp" alt="Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video3-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video3-lossy.webp" alt="Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video3-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video4-lossy.webp" alt="Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video4-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1934272065231577408-RGB_203_video4-lossy.webp" alt="Nicolas_Sassoon-1934272065231577408-RGB_203_video4-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935043906347180479-RGB_191_video4-lossy.webp" alt="Nicolas_Sassoon-1935043906347180479-RGB_191_video4-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935770547125723330-Thank_you_so_much_video4-lossy.webp" alt="Nicolas_Sassoon-1935770547125723330-Thank_you_so_much_video4-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video3-lossy.webp" alt="Nicolas_Sassoon-1936794293252805082-RGB_116_video3-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video4-lossy.webp" alt="Nicolas_Sassoon-1936794293252805082-RGB_116_video4-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937240062032293942-RGB_177_video4-lossy.webp" alt="Nicolas_Sassoon-1937240062032293942-RGB_177_video4-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video3-lossy.webp" alt="Nicolas_Sassoon-1937893816935010638-RGB_204_video3-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video4-lossy.webp" alt="Nicolas_Sassoon-1937893816935010638-RGB_204_video4-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video3-lossy.webp" alt="Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video3-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video4-lossy.webp" alt="Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video4-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1939718847382081766-Thank_you_so_much_video2-lossy.webp" alt="Nicolas_Sassoon-1939718847382081766-Thank_you_so_much_video2-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941708102681698565-RGB_111_video4-lossy.webp" alt="Nicolas_Sassoon-1941708102681698565-RGB_111_video4-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941865948585050389-In_20_years_of_practice__I_think_I_ve_read_headlines_saying__painting_is_dead__about_20_times_video2-lossy.webp" alt="Nicolas_Sassoon-1941865948585050389-In_20_years_of_practice__I_think_I_ve_read_headlines_saying__painting_is_dead__about_20_times_video2-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942034058046771529-RGB_189_video4-lossy.webp" alt="Nicolas_Sassoon-1942034058046771529-RGB_189_video4-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942654279539404876-RGB_75_video4-lossy.webp" alt="Nicolas_Sassoon-1942654279539404876-RGB_75_video4-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943031134918512702-Mid-Career_Artist__2025_video4-lossy.webp" alt="Nicolas_Sassoon-1943031134918512702-Mid-Career_Artist__2025_video4-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943315322204766350-RGB_117_video3-lossy.webp" alt="Nicolas_Sassoon-1943315322204766350-RGB_117_video3-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -301,9 +241,67 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video2-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1886162705301569713-Moon_rising_over_inlet_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1887184575-Gem_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890157476-Take_it_all_in_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890472139-Cove_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1892654706-Dawn_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1893458395-night_light_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1894820407-Ruins_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1895511159-still_alive_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1896987847-Peaks_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1898100961-Silent_mountains_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1899197260-Mist_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1900678282-Small_RGB_Study_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1901725710-Haze_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1902753816-1_pixel___1_pixel_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1904605249-Shores_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1905369272-Path_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1909312923-Choices__once_again_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1911086169-Altitude_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1916229021-Isle_Study_4__2023_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1918015356117082267-Winds_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1919478034-Summit_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1923121393-rising_video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1924616393-which_artist_are_you_most_excited_about_right_now__video1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video2-1-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video3-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video3-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1934272065231577408-RGB_203_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935043906347180479-RGB_191_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935770547125723330-Thank_you_so_much_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video3-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937240062032293942-RGB_177_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video3-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video3-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1939718847382081766-Thank_you_so_much_video2-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941708102681698565-RGB_111_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941865948585050389-In_20_years_of_practice__I_think_I_ve_read_headlines_saying__painting_is_dead__about_20_times_video2-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942034058046771529-RGB_189_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942654279539404876-RGB_75_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943031134918512702-Mid-Career_Artist__2025_video4-lossy.webp',\n            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943315322204766350-RGB_117_video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video2-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1886162705301569713-Moon_rising_over_inlet_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1887184575-Gem_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890157476-Take_it_all_in_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1890472139-Cove_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1892654706-Dawn_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1893458395-night_light_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1894820407-Ruins_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1895511159-still_alive_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1896987847-Peaks_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1898100961-Silent_mountains_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1899197260-Mist_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1900678282-Small_RGB_Study_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1901725710-Haze_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1902753816-1_pixel___1_pixel_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1904605249-Shores_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1905369272-Path_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1909312923-Choices__once_again_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1911086169-Altitude_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1916229021-Isle_Study_4__2023_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1918015356117082267-Winds_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1919478034-Summit_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1923121393-rising_video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1924616393-which_artist_are_you_most_excited_about_right_now__video1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video2-1-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1934272065231577408-RGB_203_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935043906347180479-RGB_191_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1935770547125723330-Thank_you_so_much_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937240062032293942-RGB_177_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video3-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1939718847382081766-Thank_you_so_much_video2-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941708102681698565-RGB_111_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1941865948585050389-In_20_years_of_practice__I_think_I_ve_read_headlines_saying__painting_is_dead__about_20_times_video2-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942034058046771529-RGB_189_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1942654279539404876-RGB_75_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943031134918512702-Mid-Career_Artist__2025_video4-lossy.webp',
+            '/nft-gallery/Nicolas_Sassoon/webp/Nicolas_Sassoon-1943315322204766350-RGB_117_video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -319,6 +317,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

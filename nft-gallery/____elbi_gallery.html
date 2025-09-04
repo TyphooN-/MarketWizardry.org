@@ -17,31 +17,91 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ____elbi">
     <meta name="twitter:description" content="Quadruple underscore minimalism meets existential username crisis. When even your digital identity needs excessive punctuation to feel special.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,95 +210,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp" alt="____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp" alt="____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp" alt="____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp" alt="____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp" alt="____elbi-1907161296014876917-desktop_video1-1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp" alt="____elbi-1907175757-Where_I_Post_From_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp" alt="____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp" alt="____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp" alt="____elbi-1907790471-GM_video1-1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp" alt="____elbi-1909314521-DODGE_THIS__video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp" alt="____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp" alt="____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp" alt="____elbi-1912570454-LOST_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp" alt="____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp" alt="____elbi-1918357031-Constant_Headache_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp" alt="____elbi-1919396043-GM_video3-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp" alt="____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp" alt="____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp" alt="____elbi-1920852987-M05WX_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp" alt="____elbi-1922033378-TV_PARTY_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp" alt="____elbi-1924887832-unnamed_video1-1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp" alt="____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp" alt="____elbi-1928472529-Dope___video1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video2-lossy.webp" alt="____elbi-1928472529-Dope___video2-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp" alt="____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp" alt="____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp" alt="____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp" alt="____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp" alt="____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -250,9 +224,50 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video2-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp',\n            '/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -268,6 +283,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

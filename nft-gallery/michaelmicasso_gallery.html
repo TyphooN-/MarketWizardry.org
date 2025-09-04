@@ -17,31 +17,82 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - michaelmicasso">
     <meta name="twitter:description" content="michaelmicasso's digital art collection - Like Michelangelo and Picasso had a tragic offspring raised by Microsoft Paint. This collection demonstrates what happens when artistic ambition meets technological incompetence. The Sistine Chapel this ain't.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/michaelmicasso/webp/michaelmicasso-1928448259-I_like_skull_art_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929114109-wip_video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929334880-_____________video1-1-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929347956-taking_my_good_time__video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929499149-images_like_this_slaughter_my_customary_lack_of_excitement_video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929711741-_____________________________________________________video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934215894206710181-it_is_later_than_you_think_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934457174358651225-Thank_you_so_much_for_the_GIFt_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934632046246474186-good_night_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1935092679962165574-it_s_4am_and_I_m_wide_awake_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1937898101345493228-__________________________video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1938602001467929048-_SOLDIER__has_been_collected_by_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1938774561153241187-__________________video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940378300649754976-___________________________________video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940651114468372872-With_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1941007299210051956-With_video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1943300646276358603-great_words_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1943537917411876988-_WOODCUTTER__has_been_collected_by_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,68 +201,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1928448259-I_like_skull_art_video3-lossy.webp" alt="michaelmicasso-1928448259-I_like_skull_art_video3-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1929114109-wip_video2-lossy.webp" alt="michaelmicasso-1929114109-wip_video2-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1929334880-_____________video1-1-lossy.webp" alt="michaelmicasso-1929334880-_____________video1-1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1929347956-taking_my_good_time__video2-lossy.webp" alt="michaelmicasso-1929347956-taking_my_good_time__video2-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1929499149-images_like_this_slaughter_my_customary_lack_of_excitement_video2-lossy.webp" alt="michaelmicasso-1929499149-images_like_this_slaughter_my_customary_lack_of_excitement_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1929711741-_____________________________________________________video3-lossy.webp" alt="michaelmicasso-1929711741-_____________________________________________________video3-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1934215894206710181-it_is_later_than_you_think_video4-lossy.webp" alt="michaelmicasso-1934215894206710181-it_is_later_than_you_think_video4-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1934457174358651225-Thank_you_so_much_for_the_GIFt_video3-lossy.webp" alt="michaelmicasso-1934457174358651225-Thank_you_so_much_for_the_GIFt_video3-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1934632046246474186-good_night_video4-lossy.webp" alt="michaelmicasso-1934632046246474186-good_night_video4-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1935092679962165574-it_s_4am_and_I_m_wide_awake_video4-lossy.webp" alt="michaelmicasso-1935092679962165574-it_s_4am_and_I_m_wide_awake_video4-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1937898101345493228-__________________________video4-lossy.webp" alt="michaelmicasso-1937898101345493228-__________________________video4-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1938602001467929048-_SOLDIER__has_been_collected_by_video3-lossy.webp" alt="michaelmicasso-1938602001467929048-_SOLDIER__has_been_collected_by_video3-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1938774561153241187-__________________video4-lossy.webp" alt="michaelmicasso-1938774561153241187-__________________video4-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1940378300649754976-___________________________________video4-lossy.webp" alt="michaelmicasso-1940378300649754976-___________________________________video4-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video3-lossy.webp" alt="michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video3-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video4-lossy.webp" alt="michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video4-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1940651114468372872-With_video4-lossy.webp" alt="michaelmicasso-1940651114468372872-With_video4-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1941007299210051956-With_video2-lossy.webp" alt="michaelmicasso-1941007299210051956-With_video2-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1943300646276358603-great_words_video4-lossy.webp" alt="michaelmicasso-1943300646276358603-great_words_video4-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/michaelmicasso/webp/michaelmicasso-1943537917411876988-_WOODCUTTER__has_been_collected_by_video3-lossy.webp" alt="michaelmicasso-1943537917411876988-_WOODCUTTER__has_been_collected_by_video3-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -223,9 +215,41 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/michaelmicasso/webp/michaelmicasso-1928448259-I_like_skull_art_video3-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929114109-wip_video2-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929334880-_____________video1-1-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929347956-taking_my_good_time__video2-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929499149-images_like_this_slaughter_my_customary_lack_of_excitement_video2-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929711741-_____________________________________________________video3-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934215894206710181-it_is_later_than_you_think_video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934457174358651225-Thank_you_so_much_for_the_GIFt_video3-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934632046246474186-good_night_video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1935092679962165574-it_s_4am_and_I_m_wide_awake_video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1937898101345493228-__________________________video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1938602001467929048-_SOLDIER__has_been_collected_by_video3-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1938774561153241187-__________________video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940378300649754976-___________________________________video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video3-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940651114468372872-With_video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1941007299210051956-With_video2-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1943300646276358603-great_words_video4-lossy.webp',\n            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1943537917411876988-_WOODCUTTER__has_been_collected_by_video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/michaelmicasso/webp/michaelmicasso-1928448259-I_like_skull_art_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929114109-wip_video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929334880-_____________video1-1-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929347956-taking_my_good_time__video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929499149-images_like_this_slaughter_my_customary_lack_of_excitement_video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1929711741-_____________________________________________________video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934215894206710181-it_is_later_than_you_think_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934457174358651225-Thank_you_so_much_for_the_GIFt_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1934632046246474186-good_night_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1935092679962165574-it_s_4am_and_I_m_wide_awake_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1937898101345493228-__________________________video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1938602001467929048-_SOLDIER__has_been_collected_by_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1938774561153241187-__________________video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940378300649754976-___________________________________video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video3-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940416943456215307-Just_finished_all_12_catechist_classes_on_my_parish_today_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1940651114468372872-With_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1941007299210051956-With_video2-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1943300646276358603-great_words_video4-lossy.webp',
+            '/nft-gallery/michaelmicasso/webp/michaelmicasso-1943537917411876988-_WOODCUTTER__has_been_collected_by_video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -241,6 +265,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

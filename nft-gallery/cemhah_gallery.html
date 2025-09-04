@@ -17,31 +17,96 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - cemhah">
     <meta name="twitter:description" content="Mysterious vowel-consonant combinations hiding digital confusion. Alphabet soup usernames for people who gave up on pronunciation.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/cemhah/webp/cemhah-1905293112-Skipping_on_the_chain_-_Now_live-video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1922693422-Boomboxing___vibing-video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1927781910-Somewhere_in_the_galaxy__yo-yos_roll__crystal_rains_fall__and_you_dance_like_no_on-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928526554-Colour_not_found_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928555468-______________video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1929956612-Sometimes_we_go_video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1930319179-Let_s_add_some_perspective_video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1934315944291238211-rare_footage_of_curator_chasing_an_artist_for_exhibition_deadline_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1935328276089573509-Upload_the_Lie_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1936857870269587915-pepe.exe_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1937208156607639753-proof_of_exhibition_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1938596860543009253-back_to_genart_for_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1939700753960214965-What_does_your_soul_look_like__video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940034041371099243-Anon_bidder_joined_the_bidding_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940042823115710589-Last_5_hours_and_30_minutes_in_the_auction_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940111007004991790-Rise_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940606429318017531-The_Lie_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1941585866662551800-They_say_generative_art_is_dead__but_we_re_just_getting_started__video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1941974654819680509-34_compositions_in_a_nutshell_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1943308312188948979-your_ego_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,110 +215,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1905293112-Skipping_on_the_chain_-_Now_live-video1-lossy.webp" alt="cemhah-1905293112-Skipping_on_the_chain_-_Now_live-video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1922693422-Boomboxing___vibing-video3-lossy.webp" alt="cemhah-1922693422-Boomboxing___vibing-video3-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1927781910-Somewhere_in_the_galaxy__yo-yos_roll__crystal_rains_fall__and_you_dance_like_no_on-lossy.webp" alt="cemhah-1927781910-Somewhere_in_the_galaxy__yo-yos_roll__crystal_rains_fall__and_you_dance_like_no_on-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video1-lossy.webp" alt="cemhah-1928174823-Colour_not_found_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video2-lossy.webp" alt="cemhah-1928174823-Colour_not_found_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1928526554-Colour_not_found_video3-lossy.webp" alt="cemhah-1928526554-Colour_not_found_video3-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1928555468-______________video1-lossy.webp" alt="cemhah-1928555468-______________video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video1-lossy.webp" alt="cemhah-1929600932-Where_to__video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video2-lossy.webp" alt="cemhah-1929600932-Where_to__video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1929956612-Sometimes_we_go_video1-lossy.webp" alt="cemhah-1929956612-Sometimes_we_go_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1930319179-Let_s_add_some_perspective_video1-lossy.webp" alt="cemhah-1930319179-Let_s_add_some_perspective_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video3-lossy.webp" alt="cemhah-1933136719160701150-Do_you_have_a_date_now__video3-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video4-lossy.webp" alt="cemhah-1933136719160701150-Do_you_have_a_date_now__video4-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1934315944291238211-rare_footage_of_curator_chasing_an_artist_for_exhibition_deadline_video3-lossy.webp" alt="cemhah-1934315944291238211-rare_footage_of_curator_chasing_an_artist_for_exhibition_deadline_video3-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video3-lossy.webp" alt="cemhah-1934325504242528716-happy_gif_day_video3-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video4-lossy.webp" alt="cemhah-1934325504242528716-happy_gif_day_video4-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1935328276089573509-Upload_the_Lie_video3-lossy.webp" alt="cemhah-1935328276089573509-Upload_the_Lie_video3-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1936857870269587915-pepe.exe_video3-lossy.webp" alt="cemhah-1936857870269587915-pepe.exe_video3-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1937208156607639753-proof_of_exhibition_video3-lossy.webp" alt="cemhah-1937208156607639753-proof_of_exhibition_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1938596860543009253-back_to_genart_for_video2-lossy.webp" alt="cemhah-1938596860543009253-back_to_genart_for_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1939700753960214965-What_does_your_soul_look_like__video3-lossy.webp" alt="cemhah-1939700753960214965-What_does_your_soul_look_like__video3-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1940034041371099243-Anon_bidder_joined_the_bidding_video2-lossy.webp" alt="cemhah-1940034041371099243-Anon_bidder_joined_the_bidding_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1940042823115710589-Last_5_hours_and_30_minutes_in_the_auction_video4-lossy.webp" alt="cemhah-1940042823115710589-Last_5_hours_and_30_minutes_in_the_auction_video4-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video3-lossy.webp" alt="cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video3-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video4-lossy.webp" alt="cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video4-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1940111007004991790-Rise_video4-lossy.webp" alt="cemhah-1940111007004991790-Rise_video4-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1940606429318017531-The_Lie_video2-lossy.webp" alt="cemhah-1940606429318017531-The_Lie_video2-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1941585866662551800-They_say_generative_art_is_dead__but_we_re_just_getting_started__video3-lossy.webp" alt="cemhah-1941585866662551800-They_say_generative_art_is_dead__but_we_re_just_getting_started__video3-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1941974654819680509-34_compositions_in_a_nutshell_video3-lossy.webp" alt="cemhah-1941974654819680509-34_compositions_in_a_nutshell_video3-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video3-lossy.webp" alt="cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video4-lossy.webp" alt="cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video4-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1943308312188948979-your_ego_video2-lossy.webp" alt="cemhah-1943308312188948979-your_ego_video2-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video3-lossy.webp" alt="cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video3-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video4-lossy.webp" alt="cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video4-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -265,9 +229,55 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/cemhah/webp/cemhah-1905293112-Skipping_on_the_chain_-_Now_live-video1-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1922693422-Boomboxing___vibing-video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1927781910-Somewhere_in_the_galaxy__yo-yos_roll__crystal_rains_fall__and_you_dance_like_no_on-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video1-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video2-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1928526554-Colour_not_found_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1928555468-______________video1-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video1-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video2-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1929956612-Sometimes_we_go_video1-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1930319179-Let_s_add_some_perspective_video1-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video4-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1934315944291238211-rare_footage_of_curator_chasing_an_artist_for_exhibition_deadline_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video4-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1935328276089573509-Upload_the_Lie_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1936857870269587915-pepe.exe_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1937208156607639753-proof_of_exhibition_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1938596860543009253-back_to_genart_for_video2-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1939700753960214965-What_does_your_soul_look_like__video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1940034041371099243-Anon_bidder_joined_the_bidding_video2-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1940042823115710589-Last_5_hours_and_30_minutes_in_the_auction_video4-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video4-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1940111007004991790-Rise_video4-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1940606429318017531-The_Lie_video2-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1941585866662551800-They_say_generative_art_is_dead__but_we_re_just_getting_started__video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1941974654819680509-34_compositions_in_a_nutshell_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video4-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1943308312188948979-your_ego_video2-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video3-lossy.webp',\n            '/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/cemhah/webp/cemhah-1905293112-Skipping_on_the_chain_-_Now_live-video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1922693422-Boomboxing___vibing-video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1927781910-Somewhere_in_the_galaxy__yo-yos_roll__crystal_rains_fall__and_you_dance_like_no_on-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928174823-Colour_not_found_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928526554-Colour_not_found_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1928555468-______________video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1929600932-Where_to__video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1929956612-Sometimes_we_go_video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1930319179-Let_s_add_some_perspective_video1-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1933136719160701150-Do_you_have_a_date_now__video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1934315944291238211-rare_footage_of_curator_chasing_an_artist_for_exhibition_deadline_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1934325504242528716-happy_gif_day_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1935328276089573509-Upload_the_Lie_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1936857870269587915-pepe.exe_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1937208156607639753-proof_of_exhibition_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1938596860543009253-back_to_genart_for_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1939700753960214965-What_does_your_soul_look_like__video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940034041371099243-Anon_bidder_joined_the_bidding_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940042823115710589-Last_5_hours_and_30_minutes_in_the_auction_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940063176944459997-I_ve_been_a_long_time_fan_of_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940111007004991790-Rise_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1940606429318017531-The_Lie_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1941585866662551800-They_say_generative_art_is_dead__but_we_re_just_getting_started__video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1941974654819680509-34_compositions_in_a_nutshell_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1942536626204467613-still_cooking_frog_just_for_fun_video4-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1943308312188948979-your_ego_video2-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video3-lossy.webp',
+            '/nft-gallery/cemhah/webp/cemhah-1943404971933741430-The_evolution_progress._Still_a_wip_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -283,6 +293,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

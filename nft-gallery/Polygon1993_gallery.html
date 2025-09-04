@@ -17,31 +17,90 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - Polygon1993">
     <meta name="twitter:description" content="Polygon-based geometric nightmares for people who thought regular shapes were too simple. Mathematical precision meets digital desperation in perfect blockchain harmony.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/Polygon1993/webp/Polygon1993-1910835189-I_have_already_paid_for_all_my_future_sins_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1913633369-OVERMIND_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1914414248-Dark_Portal_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1915174210-Sooo_goood_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1915534653-YUGIIII_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1918069113-This_is_how_it_feels_to_chew_5_gum_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1919893716-c_est_trop_beau_gros_c_est_fou_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920505502-____________video3-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920854962-Last_day_to_get_your_hands_on_the_second_extension_of_the_Phantasm_TCG_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1921358609-love_this_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1922337234-15e_visite_d_appart_qui_se_solde_par_un__chec__1_an_et_demi___chercher_et___p-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1922806098-hype_intensifies_for__MTGxFINALFANTASY_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1923155206-fallen_angel_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1923899949-GTA_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1924175724-Starlight_Crusader_-_From_concept_to_reality_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1926810084-BANNED_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1930380306-Ludens_video1-1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video3-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video4-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1943093796738064606-she_s_gone_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,92 +209,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1910835189-I_have_already_paid_for_all_my_future_sins_video1-lossy.webp" alt="Polygon1993-1910835189-I_have_already_paid_for_all_my_future_sins_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1913633369-OVERMIND_video1-lossy.webp" alt="Polygon1993-1913633369-OVERMIND_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1914414248-Dark_Portal_video1-lossy.webp" alt="Polygon1993-1914414248-Dark_Portal_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1915174210-Sooo_goood_video1-lossy.webp" alt="Polygon1993-1915174210-Sooo_goood_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1915534653-YUGIIII_video1-lossy.webp" alt="Polygon1993-1915534653-YUGIIII_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1918069113-This_is_how_it_feels_to_chew_5_gum_video1-lossy.webp" alt="Polygon1993-1918069113-This_is_how_it_feels_to_chew_5_gum_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video1-lossy.webp" alt="Polygon1993-1919511994-Stardust_Crusader_-_1_1_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video2-lossy.webp" alt="Polygon1993-1919511994-Stardust_Crusader_-_1_1_video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1919893716-c_est_trop_beau_gros_c_est_fou_video2-lossy.webp" alt="Polygon1993-1919893716-c_est_trop_beau_gros_c_est_fou_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video1-lossy.webp" alt="Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video2-lossy.webp" alt="Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video2-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1920505502-____________video3-lossy.webp" alt="Polygon1993-1920505502-____________video3-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1920854962-Last_day_to_get_your_hands_on_the_second_extension_of_the_Phantasm_TCG_video2-lossy.webp" alt="Polygon1993-1920854962-Last_day_to_get_your_hands_on_the_second_extension_of_the_Phantasm_TCG_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1921358609-love_this_video1-lossy.webp" alt="Polygon1993-1921358609-love_this_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1922337234-15e_visite_d_appart_qui_se_solde_par_un__chec__1_an_et_demi___chercher_et___p-lossy.webp" alt="Polygon1993-1922337234-15e_visite_d_appart_qui_se_solde_par_un__chec__1_an_et_demi___chercher_et___p-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1922806098-hype_intensifies_for__MTGxFINALFANTASY_video1-lossy.webp" alt="Polygon1993-1922806098-hype_intensifies_for__MTGxFINALFANTASY_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1923155206-fallen_angel_video1-lossy.webp" alt="Polygon1993-1923155206-fallen_angel_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1923899949-GTA_video1-lossy.webp" alt="Polygon1993-1923899949-GTA_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1924175724-Starlight_Crusader_-_From_concept_to_reality_video2-lossy.webp" alt="Polygon1993-1924175724-Starlight_Crusader_-_From_concept_to_reality_video2-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video1-lossy.webp" alt="Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video2-lossy.webp" alt="Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1926810084-BANNED_video1-lossy.webp" alt="Polygon1993-1926810084-BANNED_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video1-lossy.webp" alt="Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video2-lossy.webp" alt="Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video2-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1930380306-Ludens_video1-1-lossy.webp" alt="Polygon1993-1930380306-Ludens_video1-1-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video3-lossy.webp" alt="Polygon1993-1936926233360814547-uzumaki_video3-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video4-lossy.webp" alt="Polygon1993-1936926233360814547-uzumaki_video4-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/Polygon1993/webp/Polygon1993-1943093796738064606-she_s_gone_video3-lossy.webp" alt="Polygon1993-1943093796738064606-she_s_gone_video3-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -247,9 +223,49 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/Polygon1993/webp/Polygon1993-1910835189-I_have_already_paid_for_all_my_future_sins_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1913633369-OVERMIND_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1914414248-Dark_Portal_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1915174210-Sooo_goood_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1915534653-YUGIIII_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1918069113-This_is_how_it_feels_to_chew_5_gum_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1919893716-c_est_trop_beau_gros_c_est_fou_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1920505502-____________video3-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1920854962-Last_day_to_get_your_hands_on_the_second_extension_of_the_Phantasm_TCG_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1921358609-love_this_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1922337234-15e_visite_d_appart_qui_se_solde_par_un__chec__1_an_et_demi___chercher_et___p-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1922806098-hype_intensifies_for__MTGxFINALFANTASY_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1923155206-fallen_angel_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1923899949-GTA_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1924175724-Starlight_Crusader_-_From_concept_to_reality_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1926810084-BANNED_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video2-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1930380306-Ludens_video1-1-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video3-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video4-lossy.webp',\n            '/nft-gallery/Polygon1993/webp/Polygon1993-1943093796738064606-she_s_gone_video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/Polygon1993/webp/Polygon1993-1910835189-I_have_already_paid_for_all_my_future_sins_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1913633369-OVERMIND_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1914414248-Dark_Portal_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1915174210-Sooo_goood_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1915534653-YUGIIII_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1918069113-This_is_how_it_feels_to_chew_5_gum_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1919511994-Stardust_Crusader_-_1_1_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1919893716-c_est_trop_beau_gros_c_est_fou_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920179965-Missing_Kazuo_s_genius__the_real_king_of_this_game_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920505502-____________video3-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1920854962-Last_day_to_get_your_hands_on_the_second_extension_of_the_Phantasm_TCG_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1921358609-love_this_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1922337234-15e_visite_d_appart_qui_se_solde_par_un__chec__1_an_et_demi___chercher_et___p-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1922806098-hype_intensifies_for__MTGxFINALFANTASY_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1923155206-fallen_angel_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1923899949-GTA_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1924175724-Starlight_Crusader_-_From_concept_to_reality_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1925708625-One_of_my_fav_sprite__so_goofy_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1926810084-BANNED_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1927896909-Almost_20_million_views_for_this_video__pretty_crazy_video2-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1930380306-Ludens_video1-1-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video3-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1936926233360814547-uzumaki_video4-lossy.webp',
+            '/nft-gallery/Polygon1993/webp/Polygon1993-1943093796738064606-she_s_gone_video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -265,6 +281,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

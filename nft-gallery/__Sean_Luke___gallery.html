@@ -17,31 +17,72 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - __Sean_Luke__">
     <meta name="twitter:description" content="Double underscore desperation meets standard human names. When your real identity needs digital padding to achieve blockchain relevance.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865807643-_p14__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865820963-_Asphodel_Mettle__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865948903-_Fella_07__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865951682-_endless_beating_heART__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865953086-_tezpole_2024__by_video3-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1866543501-_Material_Output_01__by-video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1871240311-sending_a_BIG_thank_you_to_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1884987034-fireee_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1889379801-belly_up_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1894791379-hard_pass_video1-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,38 +191,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865807643-_p14__by_video1-lossy.webp" alt="__Sean_Luke__-1865807643-_p14__by_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865820963-_Asphodel_Mettle__by_video1-lossy.webp" alt="__Sean_Luke__-1865820963-_Asphodel_Mettle__by_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865948903-_Fella_07__by_video1-lossy.webp" alt="__Sean_Luke__-1865948903-_Fella_07__by_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865951682-_endless_beating_heART__by_video1-lossy.webp" alt="__Sean_Luke__-1865951682-_endless_beating_heART__by_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865953086-_tezpole_2024__by_video3-lossy.webp" alt="__Sean_Luke__-1865953086-_tezpole_2024__by_video3-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1866543501-_Material_Output_01__by-video1-lossy.webp" alt="__Sean_Luke__-1866543501-_Material_Output_01__by-video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1871240311-sending_a_BIG_thank_you_to_video1-lossy.webp" alt="__Sean_Luke__-1871240311-sending_a_BIG_thank_you_to_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1884987034-fireee_video1-lossy.webp" alt="__Sean_Luke__-1884987034-fireee_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1889379801-belly_up_video1-lossy.webp" alt="__Sean_Luke__-1889379801-belly_up_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1894791379-hard_pass_video1-lossy.webp" alt="__Sean_Luke__-1894791379-hard_pass_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -193,9 +205,31 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865807643-_p14__by_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865820963-_Asphodel_Mettle__by_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865948903-_Fella_07__by_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865951682-_endless_beating_heART__by_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865953086-_tezpole_2024__by_video3-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1866543501-_Material_Output_01__by-video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1871240311-sending_a_BIG_thank_you_to_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1884987034-fireee_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1889379801-belly_up_video1-lossy.webp',\n            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1894791379-hard_pass_video1-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865807643-_p14__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865820963-_Asphodel_Mettle__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865948903-_Fella_07__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865951682-_endless_beating_heART__by_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1865953086-_tezpole_2024__by_video3-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1866543501-_Material_Output_01__by-video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1871240311-sending_a_BIG_thank_you_to_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1884987034-fireee_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1889379801-belly_up_video1-lossy.webp',
+            '/nft-gallery/__Sean_Luke__/webp/__Sean_Luke__-1894791379-hard_pass_video1-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -211,6 +245,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

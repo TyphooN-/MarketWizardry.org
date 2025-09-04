@@ -17,31 +17,99 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - 0xEdwoods">
     <meta name="twitter:description" content="Edwoods collection for collectors who enjoy their digital art with extra existential dread. Horror meets blockchain meets your wallet.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/0xEdwoods/webp/0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video2-1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1932490445357265002-Luv_video4-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,119 +218,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp" alt="0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp" alt="0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp" alt="0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp" alt="0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp" alt="0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp" alt="0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp" alt="0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp" alt="0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp" alt="0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video1-lossy.webp" alt="0xEdwoods-1929813218-Spell_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video2-1-lossy.webp" alt="0xEdwoods-1929813218-Spell_video2-1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp" alt="0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp" alt="0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp" alt="0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp" alt="0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp" alt="0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1932490445357265002-Luv_video4-lossy.webp" alt="0xEdwoods-1932490445357265002-Luv_video4-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp" alt="0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp" alt="0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp" alt="0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp" alt="0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp" alt="0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp" alt="0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp" alt="0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp" alt="0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp" alt="0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp" alt="0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp" alt="0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp" alt="0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp" alt="0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp" alt="0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp" alt="0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp" alt="0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp" alt="0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp" alt="0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp" alt="0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/0xEdwoods/webp/0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp" alt="0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -274,9 +232,58 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/0xEdwoods/webp/0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video2-1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1932490445357265002-Luv_video4-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp',\n            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/0xEdwoods/webp/0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929813218-Spell_video2-1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1932490445357265002-Luv_video4-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp',
+            '/nft-gallery/0xEdwoods/webp/0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -292,6 +299,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

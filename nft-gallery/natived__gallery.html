@@ -17,31 +17,81 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - natived_">
     <meta name="twitter:description" content="natived_'s digital art collection - Native perspectives in the digital realm. This artist brings cultural depth to blockchain art, blending traditional influences with modern digital expression.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/natived_/webp/natived_-1922276006-___________________2022__video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1922610810-Collected__Adam__by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1925462907-_______video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video2-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1938241882364252429-they_coming_video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1940450323832987681-Untitled_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,65 +200,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1922276006-___________________2022__video1-lossy.webp" alt="natived_-1922276006-___________________2022__video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp" alt="natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1922610810-Collected__Adam__by_video1-lossy.webp" alt="natived_-1922610810-Collected__Adam__by_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp" alt="natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp" alt="natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp" alt="natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1925462907-_______video1-lossy.webp" alt="natived_-1925462907-_______video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp" alt="natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp" alt="natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp" alt="natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp" alt="natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video1-lossy.webp" alt="natived_-1932824723-The_floor_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video2-lossy.webp" alt="natived_-1932824723-The_floor_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp" alt="natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp" alt="natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp" alt="natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1938241882364252429-they_coming_video3-lossy.webp" alt="natived_-1938241882364252429-they_coming_video3-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp" alt="natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/natived_/webp/natived_-1940450323832987681-Untitled_video4-lossy.webp" alt="natived_-1940450323832987681-Untitled_video4-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -220,9 +214,40 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/natived_/webp/natived_-1922276006-___________________2022__video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1922610810-Collected__Adam__by_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1925462907-_______video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video1-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video2-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1938241882364252429-they_coming_video3-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp',\n            '/nft-gallery/natived_/webp/natived_-1940450323832987681-Untitled_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/natived_/webp/natived_-1922276006-___________________2022__video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1922610810-Collected__Adam__by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1925462907-_______video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video1-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1932824723-The_floor_video2-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1938241882364252429-they_coming_video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp',
+            '/nft-gallery/natived_/webp/natived_-1940450323832987681-Untitled_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -238,6 +263,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

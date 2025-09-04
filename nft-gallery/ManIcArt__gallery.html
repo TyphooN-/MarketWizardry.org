@@ -17,31 +17,135 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ManIcArt_">
     <meta name="twitter:description" content="ManIcArt's frenzied digital episodes packaged as collectible mental breakdowns. Manic art for people who think instability is an investment strategy.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/ManIcArt_/webp/ManIcArt_-1926419533-Reach_of_Destiny__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926473012-New_beginnings__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926651657-More_Than_a_Vision_GM_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926660130-I_heard_it_was_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926671862-new_pfp_for_a_bit_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926973418-Primitive_Beauty_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926990455104745643-Downward_Spiral_is_a_reflection_of_my_past_when_I_was_on_a_Downward_Spiral_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927742381-He_bowed__not_from_weakness_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927917273-_The_beauty_s_in_the_breakdown.__video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928062728-I_don_t_make_art._I_leave_evidence_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928197222-Create_Your_Own_Reality__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928232071-My_mind_made_this_exit._My_soul_followed_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928430332-Painted_in_pulses__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928517419-He_outgrew_his_skin_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928636419-This_is_what_winning_looks_like_when_you_ve_lost_your_mind_more_times_than_they-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928779475-Sometimes_you_bloom_after_breaking._Sometimes_you_fly_because_you_ve_fallen_eno-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929287105-Touched_by_Madness__Guarded_by_Grace__video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929527042-I_didn_t_slay_the_beast._I_became_one__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929627824-Glimpse__video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930056824-_____________________video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930196191-__Crawled_through_static_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930793807-Rebel_With_a_Reason__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931168006-Sacred_Signal_Lost__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932244337150074941-The_Path_Rewritten__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932642718741663902-____________________________________video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932863281057980796-Paint_on_my_hands._Noise_in_my_head._Art_was_the_only_way_out_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933280855419486289-This_isn_t_flight_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1934009686254043187-Peace_begins_in_the_mind._Art_is_my_protest_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935102292564525541-The_Rhythm_of_Chaos__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935684868232384584-GMgm_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935879024464519468-They_thought_I_was_sitting_still_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936240435053142289-Through_my_art_I_wear_my_heart_on_the_canvas_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936603206697558509-Holy_shit_i_love_this__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936967925186863439-The_bloom_broke_through_the_static_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937037809526755825-You_can_t_paint_over_what_was_born_to_burn_through_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937338798351749525-The_shadows_get_louder_the_brighter_you_burn_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937565090506539345-Lost_Myself_Found_Myself__video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937856494772293634-In_a_world_that_forgets_how_to_feel_be_the_glitch_that_remembers_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1938245075475304542-Till_death__we_do_art_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1938797718593229067-So_I_zoomed_in_and_what_do_I_see___My_piece_titled___________._Shout_out_to_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1939346174760169596-Moment_of_Clarity__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940183930767835217-Believe_you_can_and_you_re_halfway_there_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940800334286471378-Do_not_go_where_the_path_may_lead__go_instead_where_there_is_no_path_and_leave_a_trail_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940953945368891445-You_have_to_believe_in_yourself_when_no_one_else_does_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1941507954810945564-I_planted_hope_in_the_dark_and_now_it_s_starting_to_bloom_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1942300997423976585-Beyond_the_cracks_of_this_world__a_golden_silence_waits__reflecting_what_we_ve_lost__and_what_we_re_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943002784019697694-Beyond_Words__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943107828085866888-You_have_the_power_to_fold_reality_like_paper_crafting_it_into_something_only_you_could_imagine_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943136418600976437-Did_you_move_to_Africa__video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,227 +254,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926419533-Reach_of_Destiny__video1-lossy.webp" alt="ManIcArt_-1926419533-Reach_of_Destiny__video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926473012-New_beginnings__video1-lossy.webp" alt="ManIcArt_-1926473012-New_beginnings__video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video2-lossy.webp" alt="ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video3-lossy.webp" alt="ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video3-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926651657-More_Than_a_Vision_GM_video1-lossy.webp" alt="ManIcArt_-1926651657-More_Than_a_Vision_GM_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926660130-I_heard_it_was_video1-lossy.webp" alt="ManIcArt_-1926660130-I_heard_it_was_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926671862-new_pfp_for_a_bit_video4-lossy.webp" alt="ManIcArt_-1926671862-new_pfp_for_a_bit_video4-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video1-lossy.webp" alt="ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video2-lossy.webp" alt="ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926973418-Primitive_Beauty_video1-lossy.webp" alt="ManIcArt_-1926973418-Primitive_Beauty_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1926990455104745643-Downward_Spiral_is_a_reflection_of_my_past_when_I_was_on_a_Downward_Spiral_video1-lossy.webp" alt="ManIcArt_-1926990455104745643-Downward_Spiral_is_a_reflection_of_my_past_when_I_was_on_a_Downward_Spiral_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally-lossy.webp" alt="ManIcArt_-1927063555-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video2-lossy.webp" alt="ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video3-lossy.webp" alt="ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video3-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927742381-He_bowed__not_from_weakness_video1-1-lossy.webp" alt="ManIcArt_-1927742381-He_bowed__not_from_weakness_video1-1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927917273-_The_beauty_s_in_the_breakdown.__video1-1-lossy.webp" alt="ManIcArt_-1927917273-_The_beauty_s_in_the_breakdown.__video1-1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video1-lossy.webp" alt="ManIcArt_-1927959400-I_Art_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video2-lossy.webp" alt="ManIcArt_-1927959400-I_Art_video2-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928062728-I_don_t_make_art._I_leave_evidence_video1-1-lossy.webp" alt="ManIcArt_-1928062728-I_don_t_make_art._I_leave_evidence_video1-1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928197222-Create_Your_Own_Reality__video1-lossy.webp" alt="ManIcArt_-1928197222-Create_Your_Own_Reality__video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928232071-My_mind_made_this_exit._My_soul_followed_video1-lossy.webp" alt="ManIcArt_-1928232071-My_mind_made_this_exit._My_soul_followed_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928430332-Painted_in_pulses__video1-lossy.webp" alt="ManIcArt_-1928430332-Painted_in_pulses__video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928517419-He_outgrew_his_skin_video1-1-lossy.webp" alt="ManIcArt_-1928517419-He_outgrew_his_skin_video1-1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928636419-This_is_what_winning_looks_like_when_you_ve_lost_your_mind_more_times_than_they-lossy.webp" alt="ManIcArt_-1928636419-This_is_what_winning_looks_like_when_you_ve_lost_your_mind_more_times_than_they-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1928779475-Sometimes_you_bloom_after_breaking._Sometimes_you_fly_because_you_ve_fallen_eno-lossy.webp" alt="ManIcArt_-1928779475-Sometimes_you_bloom_after_breaking._Sometimes_you_fly_because_you_ve_fallen_eno-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1929287105-Touched_by_Madness__Guarded_by_Grace__video1-1-lossy.webp" alt="ManIcArt_-1929287105-Touched_by_Madness__Guarded_by_Grace__video1-1-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1929527042-I_didn_t_slay_the_beast._I_became_one__video1-lossy.webp" alt="ManIcArt_-1929527042-I_didn_t_slay_the_beast._I_became_one__video1-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1929627824-Glimpse__video1-1-lossy.webp" alt="ManIcArt_-1929627824-Glimpse__video1-1-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930056824-_____________________video1-lossy.webp" alt="ManIcArt_-1930056824-_____________________video1-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930196191-__Crawled_through_static_video1-1-lossy.webp" alt="ManIcArt_-1930196191-__Crawled_through_static_video1-1-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video1-lossy.webp" alt="ManIcArt_-1930426969-Through_distortion_I_found_direction_video1-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video2-lossy.webp" alt="ManIcArt_-1930426969-Through_distortion_I_found_direction_video2-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video1-lossy.webp" alt="ManIcArt_-1930637676-The_Artist_Ascends__video1-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video2-lossy.webp" alt="ManIcArt_-1930637676-The_Artist_Ascends__video2-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video3-lossy.webp" alt="ManIcArt_-1930637676-The_Artist_Ascends__video3-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1930793807-Rebel_With_a_Reason__video1-lossy.webp" alt="ManIcArt_-1930793807-Rebel_With_a_Reason__video1-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1931168006-Sacred_Signal_Lost__video1-lossy.webp" alt="ManIcArt_-1931168006-Sacred_Signal_Lost__video1-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video3-lossy.webp" alt="ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video3-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video4-lossy.webp" alt="ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video4-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1932244337150074941-The_Path_Rewritten__video2-lossy.webp" alt="ManIcArt_-1932244337150074941-The_Path_Rewritten__video2-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1932642718741663902-____________________________________video2-lossy.webp" alt="ManIcArt_-1932642718741663902-____________________________________video2-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1932863281057980796-Paint_on_my_hands._Noise_in_my_head._Art_was_the_only_way_out_video2-lossy.webp" alt="ManIcArt_-1932863281057980796-Paint_on_my_hands._Noise_in_my_head._Art_was_the_only_way_out_video2-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1933280855419486289-This_isn_t_flight_video2-lossy.webp" alt="ManIcArt_-1933280855419486289-This_isn_t_flight_video2-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video3-lossy.webp" alt="ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video3-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video4-lossy.webp" alt="ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video4-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1934009686254043187-Peace_begins_in_the_mind._Art_is_my_protest_video2-lossy.webp" alt="ManIcArt_-1934009686254043187-Peace_begins_in_the_mind._Art_is_my_protest_video2-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1935102292564525541-The_Rhythm_of_Chaos__video2-lossy.webp" alt="ManIcArt_-1935102292564525541-The_Rhythm_of_Chaos__video2-lossy.webp" onclick="openImage(46)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1935684868232384584-GMgm_video3-lossy.webp" alt="ManIcArt_-1935684868232384584-GMgm_video3-lossy.webp" onclick="openImage(47)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video3-lossy.webp" alt="ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video3-lossy.webp" onclick="openImage(48)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video4-lossy.webp" alt="ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video4-lossy.webp" onclick="openImage(49)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1935879024464519468-They_thought_I_was_sitting_still_video2-lossy.webp" alt="ManIcArt_-1935879024464519468-They_thought_I_was_sitting_still_video2-lossy.webp" onclick="openImage(50)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video3-lossy.webp" alt="ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video3-lossy.webp" onclick="openImage(51)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video4-lossy.webp" alt="ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video4-lossy.webp" onclick="openImage(52)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1936240435053142289-Through_my_art_I_wear_my_heart_on_the_canvas_video4-lossy.webp" alt="ManIcArt_-1936240435053142289-Through_my_art_I_wear_my_heart_on_the_canvas_video4-lossy.webp" onclick="openImage(53)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1936603206697558509-Holy_shit_i_love_this__video2-lossy.webp" alt="ManIcArt_-1936603206697558509-Holy_shit_i_love_this__video2-lossy.webp" onclick="openImage(54)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1936967925186863439-The_bloom_broke_through_the_static_video2-lossy.webp" alt="ManIcArt_-1936967925186863439-The_bloom_broke_through_the_static_video2-lossy.webp" onclick="openImage(55)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1937037809526755825-You_can_t_paint_over_what_was_born_to_burn_through_video2-lossy.webp" alt="ManIcArt_-1937037809526755825-You_can_t_paint_over_what_was_born_to_burn_through_video2-lossy.webp" onclick="openImage(56)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1937338798351749525-The_shadows_get_louder_the_brighter_you_burn_video4-lossy.webp" alt="ManIcArt_-1937338798351749525-The_shadows_get_louder_the_brighter_you_burn_video4-lossy.webp" onclick="openImage(57)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1937565090506539345-Lost_Myself_Found_Myself__video4-lossy.webp" alt="ManIcArt_-1937565090506539345-Lost_Myself_Found_Myself__video4-lossy.webp" onclick="openImage(58)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video3-lossy.webp" alt="ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video3-lossy.webp" onclick="openImage(59)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video4-lossy.webp" alt="ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video4-lossy.webp" onclick="openImage(60)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1937856494772293634-In_a_world_that_forgets_how_to_feel_be_the_glitch_that_remembers_video2-lossy.webp" alt="ManIcArt_-1937856494772293634-In_a_world_that_forgets_how_to_feel_be_the_glitch_that_remembers_video2-lossy.webp" onclick="openImage(61)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1938245075475304542-Till_death__we_do_art_video2-lossy.webp" alt="ManIcArt_-1938245075475304542-Till_death__we_do_art_video2-lossy.webp" onclick="openImage(62)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1938797718593229067-So_I_zoomed_in_and_what_do_I_see___My_piece_titled___________._Shout_out_to_video4-lossy.webp" alt="ManIcArt_-1938797718593229067-So_I_zoomed_in_and_what_do_I_see___My_piece_titled___________._Shout_out_to_video4-lossy.webp" onclick="openImage(63)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1939346174760169596-Moment_of_Clarity__video2-lossy.webp" alt="ManIcArt_-1939346174760169596-Moment_of_Clarity__video2-lossy.webp" onclick="openImage(64)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1940183930767835217-Believe_you_can_and_you_re_halfway_there_video2-lossy.webp" alt="ManIcArt_-1940183930767835217-Believe_you_can_and_you_re_halfway_there_video2-lossy.webp" onclick="openImage(65)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1940800334286471378-Do_not_go_where_the_path_may_lead__go_instead_where_there_is_no_path_and_leave_a_trail_video4-lossy.webp" alt="ManIcArt_-1940800334286471378-Do_not_go_where_the_path_may_lead__go_instead_where_there_is_no_path_and_leave_a_trail_video4-lossy.webp" onclick="openImage(66)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1940953945368891445-You_have_to_believe_in_yourself_when_no_one_else_does_video3-lossy.webp" alt="ManIcArt_-1940953945368891445-You_have_to_believe_in_yourself_when_no_one_else_does_video3-lossy.webp" onclick="openImage(67)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1941507954810945564-I_planted_hope_in_the_dark_and_now_it_s_starting_to_bloom_video2-lossy.webp" alt="ManIcArt_-1941507954810945564-I_planted_hope_in_the_dark_and_now_it_s_starting_to_bloom_video2-lossy.webp" onclick="openImage(68)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1942300997423976585-Beyond_the_cracks_of_this_world__a_golden_silence_waits__reflecting_what_we_ve_lost__and_what_we_re_video2-lossy.webp" alt="ManIcArt_-1942300997423976585-Beyond_the_cracks_of_this_world__a_golden_silence_waits__reflecting_what_we_ve_lost__and_what_we_re_video2-lossy.webp" onclick="openImage(69)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1943002784019697694-Beyond_Words__video2-lossy.webp" alt="ManIcArt_-1943002784019697694-Beyond_Words__video2-lossy.webp" onclick="openImage(70)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1943107828085866888-You_have_the_power_to_fold_reality_like_paper_crafting_it_into_something_only_you_could_imagine_video3-lossy.webp" alt="ManIcArt_-1943107828085866888-You_have_the_power_to_fold_reality_like_paper_crafting_it_into_something_only_you_could_imagine_video3-lossy.webp" onclick="openImage(71)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/ManIcArt_/webp/ManIcArt_-1943136418600976437-Did_you_move_to_Africa__video2-lossy.webp" alt="ManIcArt_-1943136418600976437-Did_you_move_to_Africa__video2-lossy.webp" onclick="openImage(72)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -382,9 +268,94 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/ManIcArt_/webp/ManIcArt_-1926419533-Reach_of_Destiny__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926473012-New_beginnings__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926651657-More_Than_a_Vision_GM_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926660130-I_heard_it_was_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926671862-new_pfp_for_a_bit_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926973418-Primitive_Beauty_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926990455104745643-Downward_Spiral_is_a_reflection_of_my_past_when_I_was_on_a_Downward_Spiral_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927742381-He_bowed__not_from_weakness_video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927917273-_The_beauty_s_in_the_breakdown.__video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928062728-I_don_t_make_art._I_leave_evidence_video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928197222-Create_Your_Own_Reality__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928232071-My_mind_made_this_exit._My_soul_followed_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928430332-Painted_in_pulses__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928517419-He_outgrew_his_skin_video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928636419-This_is_what_winning_looks_like_when_you_ve_lost_your_mind_more_times_than_they-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928779475-Sometimes_you_bloom_after_breaking._Sometimes_you_fly_because_you_ve_fallen_eno-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929287105-Touched_by_Madness__Guarded_by_Grace__video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929527042-I_didn_t_slay_the_beast._I_became_one__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929627824-Glimpse__video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930056824-_____________________video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930196191-__Crawled_through_static_video1-1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930793807-Rebel_With_a_Reason__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931168006-Sacred_Signal_Lost__video1-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932244337150074941-The_Path_Rewritten__video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932642718741663902-____________________________________video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932863281057980796-Paint_on_my_hands._Noise_in_my_head._Art_was_the_only_way_out_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933280855419486289-This_isn_t_flight_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1934009686254043187-Peace_begins_in_the_mind._Art_is_my_protest_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935102292564525541-The_Rhythm_of_Chaos__video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935684868232384584-GMgm_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935879024464519468-They_thought_I_was_sitting_still_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936240435053142289-Through_my_art_I_wear_my_heart_on_the_canvas_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936603206697558509-Holy_shit_i_love_this__video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936967925186863439-The_bloom_broke_through_the_static_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937037809526755825-You_can_t_paint_over_what_was_born_to_burn_through_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937338798351749525-The_shadows_get_louder_the_brighter_you_burn_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937565090506539345-Lost_Myself_Found_Myself__video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937856494772293634-In_a_world_that_forgets_how_to_feel_be_the_glitch_that_remembers_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1938245075475304542-Till_death__we_do_art_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1938797718593229067-So_I_zoomed_in_and_what_do_I_see___My_piece_titled___________._Shout_out_to_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1939346174760169596-Moment_of_Clarity__video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940183930767835217-Believe_you_can_and_you_re_halfway_there_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940800334286471378-Do_not_go_where_the_path_may_lead__go_instead_where_there_is_no_path_and_leave_a_trail_video4-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940953945368891445-You_have_to_believe_in_yourself_when_no_one_else_does_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1941507954810945564-I_planted_hope_in_the_dark_and_now_it_s_starting_to_bloom_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1942300997423976585-Beyond_the_cracks_of_this_world__a_golden_silence_waits__reflecting_what_we_ve_lost__and_what_we_re_video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943002784019697694-Beyond_Words__video2-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943107828085866888-You_have_the_power_to_fold_reality_like_paper_crafting_it_into_something_only_you_could_imagine_video3-lossy.webp',\n            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943136418600976437-Did_you_move_to_Africa__video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/ManIcArt_/webp/ManIcArt_-1926419533-Reach_of_Destiny__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926473012-New_beginnings__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926487540-I_own_three_1_1_pieces_by_MaNiC_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926651657-More_Than_a_Vision_GM_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926660130-I_heard_it_was_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926671862-new_pfp_for_a_bit_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926721243375435993-GM__________________________________is_a_special_collaborative_piece__created_by_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926973418-Primitive_Beauty_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1926990455104745643-Downward_Spiral_is_a_reflection_of_my_past_when_I_was_on_a_Downward_Spiral_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927063555523699137-Just_because_a_fellow_artist_makes_hella_sales_doesn_t_mean_you_need_to_finally_start_trying_to_be_t_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927742381-He_bowed__not_from_weakness_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927917273-_The_beauty_s_in_the_breakdown.__video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1927959400-I_Art_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928062728-I_don_t_make_art._I_leave_evidence_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928197222-Create_Your_Own_Reality__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928232071-My_mind_made_this_exit._My_soul_followed_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928430332-Painted_in_pulses__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928517419-He_outgrew_his_skin_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928636419-This_is_what_winning_looks_like_when_you_ve_lost_your_mind_more_times_than_they-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1928779475-Sometimes_you_bloom_after_breaking._Sometimes_you_fly_because_you_ve_fallen_eno-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929287105-Touched_by_Madness__Guarded_by_Grace__video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929527042-I_didn_t_slay_the_beast._I_became_one__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1929627824-Glimpse__video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930056824-_____________________video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930196191-__Crawled_through_static_video1-1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930426969-Through_distortion_I_found_direction_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930637676-The_Artist_Ascends__video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1930793807-Rebel_With_a_Reason__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931168006-Sacred_Signal_Lost__video1-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1931786381359022156-THIS_ISN_T_JUST_ART_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932244337150074941-The_Path_Rewritten__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932642718741663902-____________________________________video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1932863281057980796-Paint_on_my_hands._Noise_in_my_head._Art_was_the_only_way_out_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933280855419486289-This_isn_t_flight_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1933640548180471837-When_the_world_breaks_the_artists_build_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1934009686254043187-Peace_begins_in_the_mind._Art_is_my_protest_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935102292564525541-The_Rhythm_of_Chaos__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935684868232384584-GMgm_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935754155995389973-From_the_fracture_came_the_flow._The_glitch_didn_t_break_me_it_rewired_my_soul_to_shine_in_frequenci_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1935879024464519468-They_thought_I_was_sitting_still_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936167330746077484-Just_Scratched_the_Surface__video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936240435053142289-Through_my_art_I_wear_my_heart_on_the_canvas_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936603206697558509-Holy_shit_i_love_this__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1936967925186863439-The_bloom_broke_through_the_static_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937037809526755825-You_can_t_paint_over_what_was_born_to_burn_through_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937338798351749525-The_shadows_get_louder_the_brighter_you_burn_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937565090506539345-Lost_Myself_Found_Myself__video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937680145336201579-Everything_is_everything_until_nothing_makes_sense_but_the_art_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1937856494772293634-In_a_world_that_forgets_how_to_feel_be_the_glitch_that_remembers_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1938245075475304542-Till_death__we_do_art_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1938797718593229067-So_I_zoomed_in_and_what_do_I_see___My_piece_titled___________._Shout_out_to_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1939346174760169596-Moment_of_Clarity__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940183930767835217-Believe_you_can_and_you_re_halfway_there_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940800334286471378-Do_not_go_where_the_path_may_lead__go_instead_where_there_is_no_path_and_leave_a_trail_video4-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1940953945368891445-You_have_to_believe_in_yourself_when_no_one_else_does_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1941507954810945564-I_planted_hope_in_the_dark_and_now_it_s_starting_to_bloom_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1942300997423976585-Beyond_the_cracks_of_this_world__a_golden_silence_waits__reflecting_what_we_ve_lost__and_what_we_re_video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943002784019697694-Beyond_Words__video2-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943107828085866888-You_have_the_power_to_fold_reality_like_paper_crafting_it_into_something_only_you_could_imagine_video3-lossy.webp',
+            '/nft-gallery/ManIcArt_/webp/ManIcArt_-1943136418600976437-Did_you_move_to_Africa__video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -400,6 +371,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

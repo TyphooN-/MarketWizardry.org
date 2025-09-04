@@ -17,31 +17,97 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - RedruMxART">
     <meta name="twitter:description" content="Red-tinted digital fever dreams for people who think regular colors are too mainstream. Art that's literally in the name, because subtlety is dead.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/RedruMxART/webp/RedruMxART-1926032450-Let_s_talk_Squigs-video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1926351578-I_see_you-video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928122943-4_5_auctions_kicked_off_in_the_first_30mins__Absolutely_beyond_stoked_with_tha-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928158246-A_grail_has_found_a_new_home_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928158892-_Blue_Chip__video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928172733-I_regretfully_present_to_you_the_final_addition_to_the_C_NCLAVE_for_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928217426-Micro_Drip_Dropped_ART_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928386593-After_an_intense_bid_war__Impasto_finds_a_lovely_home_with_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928436540-food_bank_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928840852-Empire_Things_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929273282827587615-zero_issues_with_people_purely_trading_art_like_it_s_a_commodity..._just_don_t_larp_as_an_art_collec_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929281179-Metamorphosis_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929975880-Opened_the_timeline..._closed_the_timeline_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929991613-One_box._One_Android._Infinite_outcomes_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1930176264-Should_we_go_ahead_and_curate_an_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1930266169-Clones_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1930361386-8NAP_art_is_committed_to_amazing_art_and_cultivating_a_community_of_collectors-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935087548063232002-Amazing_set_of_fantastic_artworks._Congrats_to_everyone_involved_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935423528427237877-just_a_clown_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935430891771420977-No_time_to_rest_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935660705077686388-Gristle_RGB_ART_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1940456781261820274-Should_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1940499490487914652-what_a_milestone__i_m_deeply_grateful_to_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1940706101328232558-It_s_a_marathon__not_a_sprint_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1942490861406650758-I_ve_been_collecting_art_digitally_for_over_4_years_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943063201379422293-Feed_on_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943063238230577357-Feed_on_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943087718969282845-We_are_back_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943222931510706641-No_one_wants_to_buy_it_when_it_s_cheap_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943328642743890269-Octopus_Game_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943454052270117202-New_Profile_Dick_Pic_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,113 +216,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1926032450-Let_s_talk_Squigs-video1-lossy.webp" alt="RedruMxART-1926032450-Let_s_talk_Squigs-video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1926351578-I_see_you-video2-lossy.webp" alt="RedruMxART-1926351578-I_see_you-video2-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928122943-4_5_auctions_kicked_off_in_the_first_30mins__Absolutely_beyond_stoked_with_tha-lossy.webp" alt="RedruMxART-1928122943-4_5_auctions_kicked_off_in_the_first_30mins__Absolutely_beyond_stoked_with_tha-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928158246-A_grail_has_found_a_new_home_video1-lossy.webp" alt="RedruMxART-1928158246-A_grail_has_found_a_new_home_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928158892-_Blue_Chip__video3-lossy.webp" alt="RedruMxART-1928158892-_Blue_Chip__video3-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928172733-I_regretfully_present_to_you_the_final_addition_to_the_C_NCLAVE_for_video1-lossy.webp" alt="RedruMxART-1928172733-I_regretfully_present_to_you_the_final_addition_to_the_C_NCLAVE_for_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928217426-Micro_Drip_Dropped_ART_video1-lossy.webp" alt="RedruMxART-1928217426-Micro_Drip_Dropped_ART_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928386593-After_an_intense_bid_war__Impasto_finds_a_lovely_home_with_video1-lossy.webp" alt="RedruMxART-1928386593-After_an_intense_bid_war__Impasto_finds_a_lovely_home_with_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928436540-food_bank_video1-lossy.webp" alt="RedruMxART-1928436540-food_bank_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video2-lossy.webp" alt="RedruMxART-1928449681-K_by_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video4-lossy.webp" alt="RedruMxART-1928449681-K_by_video4-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1928840852-Empire_Things_video1-lossy.webp" alt="RedruMxART-1928840852-Empire_Things_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1929273282827587615-zero_issues_with_people_purely_trading_art_like_it_s_a_commodity..._just_don_t_larp_as_an_art_collec_video1-lossy.webp" alt="RedruMxART-1929273282827587615-zero_issues_with_people_purely_trading_art_like_it_s_a_commodity..._just_don_t_larp_as_an_art_collec_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1929281179-Metamorphosis_video2-lossy.webp" alt="RedruMxART-1929281179-Metamorphosis_video2-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1929975880-Opened_the_timeline..._closed_the_timeline_video1-lossy.webp" alt="RedruMxART-1929975880-Opened_the_timeline..._closed_the_timeline_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video1-lossy.webp" alt="RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video2-lossy.webp" alt="RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video2-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1929991613-One_box._One_Android._Infinite_outcomes_video1-lossy.webp" alt="RedruMxART-1929991613-One_box._One_Android._Infinite_outcomes_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1930176264-Should_we_go_ahead_and_curate_an_video1-lossy.webp" alt="RedruMxART-1930176264-Should_we_go_ahead_and_curate_an_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1930266169-Clones_video1-lossy.webp" alt="RedruMxART-1930266169-Clones_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1930361386-8NAP_art_is_committed_to_amazing_art_and_cultivating_a_community_of_collectors-lossy.webp" alt="RedruMxART-1930361386-8NAP_art_is_committed_to_amazing_art_and_cultivating_a_community_of_collectors-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1935087548063232002-Amazing_set_of_fantastic_artworks._Congrats_to_everyone_involved_video4-lossy.webp" alt="RedruMxART-1935087548063232002-Amazing_set_of_fantastic_artworks._Congrats_to_everyone_involved_video4-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1935423528427237877-just_a_clown_video4-lossy.webp" alt="RedruMxART-1935423528427237877-just_a_clown_video4-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1935430891771420977-No_time_to_rest_video3-lossy.webp" alt="RedruMxART-1935430891771420977-No_time_to_rest_video3-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1935660705077686388-Gristle_RGB_ART_video3-lossy.webp" alt="RedruMxART-1935660705077686388-Gristle_RGB_ART_video3-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1940456781261820274-Should_video4-lossy.webp" alt="RedruMxART-1940456781261820274-Should_video4-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1940499490487914652-what_a_milestone__i_m_deeply_grateful_to_video3-lossy.webp" alt="RedruMxART-1940499490487914652-what_a_milestone__i_m_deeply_grateful_to_video3-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1940706101328232558-It_s_a_marathon__not_a_sprint_video3-lossy.webp" alt="RedruMxART-1940706101328232558-It_s_a_marathon__not_a_sprint_video3-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1942490861406650758-I_ve_been_collecting_art_digitally_for_over_4_years_video2-lossy.webp" alt="RedruMxART-1942490861406650758-I_ve_been_collecting_art_digitally_for_over_4_years_video2-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1943063201379422293-Feed_on_video3-lossy.webp" alt="RedruMxART-1943063201379422293-Feed_on_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1943063238230577357-Feed_on_video4-lossy.webp" alt="RedruMxART-1943063238230577357-Feed_on_video4-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1943087718969282845-We_are_back_video3-lossy.webp" alt="RedruMxART-1943087718969282845-We_are_back_video3-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1943222931510706641-No_one_wants_to_buy_it_when_it_s_cheap_video2-lossy.webp" alt="RedruMxART-1943222931510706641-No_one_wants_to_buy_it_when_it_s_cheap_video2-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1943328642743890269-Octopus_Game_video3-lossy.webp" alt="RedruMxART-1943328642743890269-Octopus_Game_video3-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RedruMxART/webp/RedruMxART-1943454052270117202-New_Profile_Dick_Pic_video3-lossy.webp" alt="RedruMxART-1943454052270117202-New_Profile_Dick_Pic_video3-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -268,9 +230,56 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/RedruMxART/webp/RedruMxART-1926032450-Let_s_talk_Squigs-video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1926351578-I_see_you-video2-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928122943-4_5_auctions_kicked_off_in_the_first_30mins__Absolutely_beyond_stoked_with_tha-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928158246-A_grail_has_found_a_new_home_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928158892-_Blue_Chip__video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928172733-I_regretfully_present_to_you_the_final_addition_to_the_C_NCLAVE_for_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928217426-Micro_Drip_Dropped_ART_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928386593-After_an_intense_bid_war__Impasto_finds_a_lovely_home_with_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928436540-food_bank_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video2-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video4-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1928840852-Empire_Things_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1929273282827587615-zero_issues_with_people_purely_trading_art_like_it_s_a_commodity..._just_don_t_larp_as_an_art_collec_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1929281179-Metamorphosis_video2-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1929975880-Opened_the_timeline..._closed_the_timeline_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video2-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1929991613-One_box._One_Android._Infinite_outcomes_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1930176264-Should_we_go_ahead_and_curate_an_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1930266169-Clones_video1-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1930361386-8NAP_art_is_committed_to_amazing_art_and_cultivating_a_community_of_collectors-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1935087548063232002-Amazing_set_of_fantastic_artworks._Congrats_to_everyone_involved_video4-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1935423528427237877-just_a_clown_video4-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1935430891771420977-No_time_to_rest_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1935660705077686388-Gristle_RGB_ART_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1940456781261820274-Should_video4-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1940499490487914652-what_a_milestone__i_m_deeply_grateful_to_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1940706101328232558-It_s_a_marathon__not_a_sprint_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1942490861406650758-I_ve_been_collecting_art_digitally_for_over_4_years_video2-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1943063201379422293-Feed_on_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1943063238230577357-Feed_on_video4-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1943087718969282845-We_are_back_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1943222931510706641-No_one_wants_to_buy_it_when_it_s_cheap_video2-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1943328642743890269-Octopus_Game_video3-lossy.webp',\n            '/nft-gallery/RedruMxART/webp/RedruMxART-1943454052270117202-New_Profile_Dick_Pic_video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/RedruMxART/webp/RedruMxART-1926032450-Let_s_talk_Squigs-video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1926351578-I_see_you-video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928122943-4_5_auctions_kicked_off_in_the_first_30mins__Absolutely_beyond_stoked_with_tha-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928158246-A_grail_has_found_a_new_home_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928158892-_Blue_Chip__video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928172733-I_regretfully_present_to_you_the_final_addition_to_the_C_NCLAVE_for_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928217426-Micro_Drip_Dropped_ART_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928386593-After_an_intense_bid_war__Impasto_finds_a_lovely_home_with_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928436540-food_bank_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928449681-K_by_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1928840852-Empire_Things_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929273282827587615-zero_issues_with_people_purely_trading_art_like_it_s_a_commodity..._just_don_t_larp_as_an_art_collec_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929281179-Metamorphosis_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929975880-Opened_the_timeline..._closed_the_timeline_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1929991613-One_box._One_Android._Infinite_outcomes_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1930176264-Should_we_go_ahead_and_curate_an_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1930266169-Clones_video1-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1930361386-8NAP_art_is_committed_to_amazing_art_and_cultivating_a_community_of_collectors-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935087548063232002-Amazing_set_of_fantastic_artworks._Congrats_to_everyone_involved_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935423528427237877-just_a_clown_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935430891771420977-No_time_to_rest_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1935660705077686388-Gristle_RGB_ART_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1940456781261820274-Should_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1940499490487914652-what_a_milestone__i_m_deeply_grateful_to_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1940706101328232558-It_s_a_marathon__not_a_sprint_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1942490861406650758-I_ve_been_collecting_art_digitally_for_over_4_years_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943063201379422293-Feed_on_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943063238230577357-Feed_on_video4-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943087718969282845-We_are_back_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943222931510706641-No_one_wants_to_buy_it_when_it_s_cheap_video2-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943328642743890269-Octopus_Game_video3-lossy.webp',
+            '/nft-gallery/RedruMxART/webp/RedruMxART-1943454052270117202-New_Profile_Dick_Pic_video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -286,6 +295,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

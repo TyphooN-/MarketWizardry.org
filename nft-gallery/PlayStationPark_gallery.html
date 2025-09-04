@@ -17,31 +17,174 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - PlayStationPark">
     <meta name="twitter:description" content="PlayStationPark's nostalgic gaming aesthetics for collectors who think childhood memories deserve blockchain validation. Digital playgrounds for grown-ups who never grew up.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/PlayStationPark/webp/PlayStationPark-1925177820-Slippery_When_Wet-video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925207716-Gotta_Jet_-video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925331858-Gut_Punch_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925902623-Stampede__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926341794-Flying_High_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926374303-Tank_Takedown_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926704219-Bombing_Run_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926781417-Charged_Up_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927461986-Catching_Up_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927760331-New_video_post_on_PlayStation_Park_on_Tumblr__https___ift.tt_z2VHMpK_vide-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927791706-Stance_Sketch_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927824412-Ouch_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927869591-Spindash_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927894772-Big_Logo_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928077181-Watching_the_sunset_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928107454-Tricky_Stuff_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928186724-Spinny_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928232001-Roo_Slam_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928257091-Reiko_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928469824-Hop_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928594480-Do_A_Flip__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928832192-Zooming_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928878752-_Is_that_what_you_wanted___video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928956831-Missiles_Ready_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928981995-Old_Man_Moves_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video1-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video2-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video3-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929194609-Spinning_Bird_Kick_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929273947-Elbow_To_Face_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929319080-Leaping_Lava_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929344372-_Um_Jammer_Lammy__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929564463-Swing_Up_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929640776-Smashy_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929721873-Dragon_Fortress_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929892571-Getting_Wet_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929958423-Under_The_Sea_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088005-Overcast_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088102-Outta_My_Way_Tiny__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088177-Money_Conversion_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930309236-Back_Crack_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930318248-Explosive_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930361022-Shhh__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930406289-Blanka_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930614041-Cait_Sith_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930644068-Back_Away_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930723456-On_The_Ship_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930793885-Zapped_video1-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931701196-Copter_Crash_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1933330631133421881-Delara_wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1933875471743058224-Old_Road_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934055323490259414-Do_The_Hero_Thing_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934347319677214963-Water_Flip_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934392639211573584-Dino_Venger_Wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934417747938513087-Left___Right_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934630317492506688-Wiggly_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934780103403184613-Up_And_Down_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934962628238987499-Minecart_Mania_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935039414213771578-Got_Ya__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935117298953601372-Double_Flip_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935324977491767740-Going_Inside_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935355281770234244-Yatta__video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935687312635015406-Zasalamel_Wins___video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935717530879807889-Work_On_Your_Aim_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935764190511149337-Pullum_Wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1936049729390915739-There_s_A_Snake_In_My.._Kitchen__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940112817513771030-Choosing_Coco_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940553247065776583-Car_Hopping_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940870204956856741-Doodads_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940915614312227024-Pipe_Travel_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941153449933943084-Skid_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941199966501736730-Wendy_Won_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941232760363827398-Lizard_Man_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941277977838313780-Hammer_Bop_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941485636759720217-City_Sights_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941640342022848856-Fantasy_Knight_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941847900994036027-Diving_Down_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941957374949908789-Saved__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942210397735383480-Cornering_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942287067104387579-Car_Combat_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942572836180177212-Slammed_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942935088360005992-Spinnin_In_Space_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943044778985206064-Rolling_Around_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943297523977777464-Show_Off_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943327720064122963-Pile_Up_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943374460116959484-Al_s_Toy_Barn_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943406934150836364-Mokujin_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943409416100823213-Yuna_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943452238371852692-Night_vision_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943659923017015776-Coulder_Dash_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,344 +293,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1925177820-Slippery_When_Wet-video1-lossy.webp" alt="PlayStationPark-1925177820-Slippery_When_Wet-video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1925207716-Gotta_Jet_-video1-lossy.webp" alt="PlayStationPark-1925207716-Gotta_Jet_-video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1925331858-Gut_Punch_video1-lossy.webp" alt="PlayStationPark-1925331858-Gut_Punch_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1925902623-Stampede__video2-lossy.webp" alt="PlayStationPark-1925902623-Stampede__video2-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video2-lossy.webp" alt="PlayStationPark-1926294822-Rotating_Platforms_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video3-lossy.webp" alt="PlayStationPark-1926294822-Rotating_Platforms_video3-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926341794-Flying_High_video1-lossy.webp" alt="PlayStationPark-1926341794-Flying_High_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926374303-Tank_Takedown_video2-lossy.webp" alt="PlayStationPark-1926374303-Tank_Takedown_video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video2-lossy.webp" alt="PlayStationPark-1926627348-Kasumi_Wins_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video3-lossy.webp" alt="PlayStationPark-1926627348-Kasumi_Wins_video3-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926704219-Bombing_Run_video1-lossy.webp" alt="PlayStationPark-1926704219-Bombing_Run_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1926781417-Charged_Up_video1-lossy.webp" alt="PlayStationPark-1926781417-Charged_Up_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1927461986-Catching_Up_video1-lossy.webp" alt="PlayStationPark-1927461986-Catching_Up_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1927760331-New_video_post_on_PlayStation_Park_on_Tumblr__https___ift.tt_z2VHMpK_vide-lossy.webp" alt="PlayStationPark-1927760331-New_video_post_on_PlayStation_Park_on_Tumblr__https___ift.tt_z2VHMpK_vide-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1927791706-Stance_Sketch_video3-lossy.webp" alt="PlayStationPark-1927791706-Stance_Sketch_video3-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1927824412-Ouch_video1-lossy.webp" alt="PlayStationPark-1927824412-Ouch_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1927869591-Spindash_video1-lossy.webp" alt="PlayStationPark-1927869591-Spindash_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1927894772-Big_Logo_video1-lossy.webp" alt="PlayStationPark-1927894772-Big_Logo_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928077181-Watching_the_sunset_video1-lossy.webp" alt="PlayStationPark-1928077181-Watching_the_sunset_video1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928107454-Tricky_Stuff_video1-lossy.webp" alt="PlayStationPark-1928107454-Tricky_Stuff_video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928186724-Spinny_video1-lossy.webp" alt="PlayStationPark-1928186724-Spinny_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928232001-Roo_Slam_video1-lossy.webp" alt="PlayStationPark-1928232001-Roo_Slam_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928257091-Reiko_video1-lossy.webp" alt="PlayStationPark-1928257091-Reiko_video1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928469824-Hop_video1-lossy.webp" alt="PlayStationPark-1928469824-Hop_video1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928594480-Do_A_Flip__video1-lossy.webp" alt="PlayStationPark-1928594480-Do_A_Flip__video1-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video1-lossy.webp" alt="PlayStationPark-1928801945-Mystique_Intro_video1-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video2-lossy.webp" alt="PlayStationPark-1928801945-Mystique_Intro_video2-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928832192-Zooming_video1-lossy.webp" alt="PlayStationPark-1928832192-Zooming_video1-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928878752-_Is_that_what_you_wanted___video1-lossy.webp" alt="PlayStationPark-1928878752-_Is_that_what_you_wanted___video1-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928956831-Missiles_Ready_video1-lossy.webp" alt="PlayStationPark-1928956831-Missiles_Ready_video1-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1928981995-Old_Man_Moves_video1-lossy.webp" alt="PlayStationPark-1928981995-Old_Man_Moves_video1-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video1-1-lossy.webp" alt="PlayStationPark-1929164466-Solid_Snake_Charmer_video1-1-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video2-1-lossy.webp" alt="PlayStationPark-1929164466-Solid_Snake_Charmer_video2-1-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video3-1-lossy.webp" alt="PlayStationPark-1929164466-Solid_Snake_Charmer_video3-1-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929194609-Spinning_Bird_Kick_video1-lossy.webp" alt="PlayStationPark-1929194609-Spinning_Bird_Kick_video1-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929273947-Elbow_To_Face_video1-lossy.webp" alt="PlayStationPark-1929273947-Elbow_To_Face_video1-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929319080-Leaping_Lava_video1-lossy.webp" alt="PlayStationPark-1929319080-Leaping_Lava_video1-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929344372-_Um_Jammer_Lammy__video1-lossy.webp" alt="PlayStationPark-1929344372-_Um_Jammer_Lammy__video1-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929564463-Swing_Up_video1-lossy.webp" alt="PlayStationPark-1929564463-Swing_Up_video1-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929640776-Smashy_video1-lossy.webp" alt="PlayStationPark-1929640776-Smashy_video1-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929721873-Dragon_Fortress_video1-lossy.webp" alt="PlayStationPark-1929721873-Dragon_Fortress_video1-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929892571-Getting_Wet_video1-lossy.webp" alt="PlayStationPark-1929892571-Getting_Wet_video1-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1929958423-Under_The_Sea_video2-lossy.webp" alt="PlayStationPark-1929958423-Under_The_Sea_video2-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088005-Overcast_video1-lossy.webp" alt="PlayStationPark-1930088005-Overcast_video1-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088102-Outta_My_Way_Tiny__video1-lossy.webp" alt="PlayStationPark-1930088102-Outta_My_Way_Tiny__video1-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088177-Money_Conversion_video1-lossy.webp" alt="PlayStationPark-1930088177-Money_Conversion_video1-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video2-lossy.webp" alt="PlayStationPark-1930257318-Whirlwind_video2-lossy.webp" onclick="openImage(46)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video3-lossy.webp" alt="PlayStationPark-1930257318-Whirlwind_video3-lossy.webp" onclick="openImage(47)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930309236-Back_Crack_video1-lossy.webp" alt="PlayStationPark-1930309236-Back_Crack_video1-lossy.webp" onclick="openImage(48)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930318248-Explosive_video1-lossy.webp" alt="PlayStationPark-1930318248-Explosive_video1-lossy.webp" onclick="openImage(49)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930361022-Shhh__video1-lossy.webp" alt="PlayStationPark-1930361022-Shhh__video1-lossy.webp" onclick="openImage(50)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930406289-Blanka_video1-lossy.webp" alt="PlayStationPark-1930406289-Blanka_video1-lossy.webp" onclick="openImage(51)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video1-lossy.webp" alt="PlayStationPark-1930431547-Nina_video1-lossy.webp" onclick="openImage(52)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video2-lossy.webp" alt="PlayStationPark-1930431547-Nina_video2-lossy.webp" onclick="openImage(53)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930614041-Cait_Sith_video2-lossy.webp" alt="PlayStationPark-1930614041-Cait_Sith_video2-lossy.webp" onclick="openImage(54)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930644068-Back_Away_video1-lossy.webp" alt="PlayStationPark-1930644068-Back_Away_video1-lossy.webp" onclick="openImage(55)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930723456-On_The_Ship_video1-lossy.webp" alt="PlayStationPark-1930723456-On_The_Ship_video1-lossy.webp" onclick="openImage(56)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video1-lossy.webp" alt="PlayStationPark-1930768711-Keep_On_Track_video1-lossy.webp" onclick="openImage(57)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video3-lossy.webp" alt="PlayStationPark-1930768711-Keep_On_Track_video3-lossy.webp" onclick="openImage(58)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1930793885-Zapped_video1-1-lossy.webp" alt="PlayStationPark-1930793885-Zapped_video1-1-lossy.webp" onclick="openImage(59)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video2-lossy.webp" alt="PlayStationPark-1931338779-Mother_video2-lossy.webp" onclick="openImage(60)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video3-lossy.webp" alt="PlayStationPark-1931338779-Mother_video3-lossy.webp" onclick="openImage(61)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1931701196-Copter_Crash_video1-lossy.webp" alt="PlayStationPark-1931701196-Copter_Crash_video1-lossy.webp" onclick="openImage(62)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1933330631133421881-Delara_wins_video2-lossy.webp" alt="PlayStationPark-1933330631133421881-Delara_wins_video2-lossy.webp" onclick="openImage(63)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1933875471743058224-Old_Road_video2-lossy.webp" alt="PlayStationPark-1933875471743058224-Old_Road_video2-lossy.webp" onclick="openImage(64)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934055323490259414-Do_The_Hero_Thing_video4-lossy.webp" alt="PlayStationPark-1934055323490259414-Do_The_Hero_Thing_video4-lossy.webp" onclick="openImage(65)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934347319677214963-Water_Flip_video2-lossy.webp" alt="PlayStationPark-1934347319677214963-Water_Flip_video2-lossy.webp" onclick="openImage(66)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934392639211573584-Dino_Venger_Wins_video2-lossy.webp" alt="PlayStationPark-1934392639211573584-Dino_Venger_Wins_video2-lossy.webp" onclick="openImage(67)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934417747938513087-Left___Right_video3-lossy.webp" alt="PlayStationPark-1934417747938513087-Left___Right_video3-lossy.webp" onclick="openImage(68)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934630317492506688-Wiggly_video2-lossy.webp" alt="PlayStationPark-1934630317492506688-Wiggly_video2-lossy.webp" onclick="openImage(69)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934780103403184613-Up_And_Down_video2-lossy.webp" alt="PlayStationPark-1934780103403184613-Up_And_Down_video2-lossy.webp" onclick="openImage(70)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1934962628238987499-Minecart_Mania_video2-lossy.webp" alt="PlayStationPark-1934962628238987499-Minecart_Mania_video2-lossy.webp" onclick="openImage(71)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935039414213771578-Got_Ya__video2-lossy.webp" alt="PlayStationPark-1935039414213771578-Got_Ya__video2-lossy.webp" onclick="openImage(72)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935117298953601372-Double_Flip_video2-lossy.webp" alt="PlayStationPark-1935117298953601372-Double_Flip_video2-lossy.webp" onclick="openImage(73)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935324977491767740-Going_Inside_video2-lossy.webp" alt="PlayStationPark-1935324977491767740-Going_Inside_video2-lossy.webp" onclick="openImage(74)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935355281770234244-Yatta__video3-lossy.webp" alt="PlayStationPark-1935355281770234244-Yatta__video3-lossy.webp" onclick="openImage(75)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video3-lossy.webp" alt="PlayStationPark-1935479811033403554-Going_Ape_video3-lossy.webp" onclick="openImage(76)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video4-lossy.webp" alt="PlayStationPark-1935479811033403554-Going_Ape_video4-lossy.webp" onclick="openImage(77)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935687312635015406-Zasalamel_Wins___video2-lossy.webp" alt="PlayStationPark-1935687312635015406-Zasalamel_Wins___video2-lossy.webp" onclick="openImage(78)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935717530879807889-Work_On_Your_Aim_video3-lossy.webp" alt="PlayStationPark-1935717530879807889-Work_On_Your_Aim_video3-lossy.webp" onclick="openImage(79)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1935764190511149337-Pullum_Wins_video2-lossy.webp" alt="PlayStationPark-1935764190511149337-Pullum_Wins_video2-lossy.webp" onclick="openImage(80)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1936049729390915739-There_s_A_Snake_In_My.._Kitchen__video2-lossy.webp" alt="PlayStationPark-1936049729390915739-There_s_A_Snake_In_My.._Kitchen__video2-lossy.webp" onclick="openImage(81)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1940112817513771030-Choosing_Coco_video2-lossy.webp" alt="PlayStationPark-1940112817513771030-Choosing_Coco_video2-lossy.webp" onclick="openImage(82)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1940553247065776583-Car_Hopping_video2-lossy.webp" alt="PlayStationPark-1940553247065776583-Car_Hopping_video2-lossy.webp" onclick="openImage(83)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1940870204956856741-Doodads_video2-lossy.webp" alt="PlayStationPark-1940870204956856741-Doodads_video2-lossy.webp" onclick="openImage(84)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1940915614312227024-Pipe_Travel_video2-lossy.webp" alt="PlayStationPark-1940915614312227024-Pipe_Travel_video2-lossy.webp" onclick="openImage(85)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941153449933943084-Skid_video3-lossy.webp" alt="PlayStationPark-1941153449933943084-Skid_video3-lossy.webp" onclick="openImage(86)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941199966501736730-Wendy_Won_video2-lossy.webp" alt="PlayStationPark-1941199966501736730-Wendy_Won_video2-lossy.webp" onclick="openImage(87)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941232760363827398-Lizard_Man_video2-lossy.webp" alt="PlayStationPark-1941232760363827398-Lizard_Man_video2-lossy.webp" onclick="openImage(88)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941277977838313780-Hammer_Bop_video2-lossy.webp" alt="PlayStationPark-1941277977838313780-Hammer_Bop_video2-lossy.webp" onclick="openImage(89)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941485636759720217-City_Sights_video2-lossy.webp" alt="PlayStationPark-1941485636759720217-City_Sights_video2-lossy.webp" onclick="openImage(90)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video3-lossy.webp" alt="PlayStationPark-1941595135076086067-Turnover_video3-lossy.webp" onclick="openImage(91)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video4-lossy.webp" alt="PlayStationPark-1941595135076086067-Turnover_video4-lossy.webp" onclick="openImage(92)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941640342022848856-Fantasy_Knight_video2-lossy.webp" alt="PlayStationPark-1941640342022848856-Fantasy_Knight_video2-lossy.webp" onclick="openImage(93)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941847900994036027-Diving_Down_video2-lossy.webp" alt="PlayStationPark-1941847900994036027-Diving_Down_video2-lossy.webp" onclick="openImage(94)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1941957374949908789-Saved__video2-lossy.webp" alt="PlayStationPark-1941957374949908789-Saved__video2-lossy.webp" onclick="openImage(95)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942210397735383480-Cornering_video2-lossy.webp" alt="PlayStationPark-1942210397735383480-Cornering_video2-lossy.webp" onclick="openImage(96)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video3-lossy.webp" alt="PlayStationPark-1942264071795138616-How_s_My_Hair__video3-lossy.webp" onclick="openImage(97)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video4-lossy.webp" alt="PlayStationPark-1942264071795138616-How_s_My_Hair__video4-lossy.webp" onclick="openImage(98)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942287067104387579-Car_Combat_video3-lossy.webp" alt="PlayStationPark-1942287067104387579-Car_Combat_video3-lossy.webp" onclick="openImage(99)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942572836180177212-Slammed_video2-lossy.webp" alt="PlayStationPark-1942572836180177212-Slammed_video2-lossy.webp" onclick="openImage(100)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video3-lossy.webp" alt="PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video3-lossy.webp" onclick="openImage(101)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video4-lossy.webp" alt="PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video4-lossy.webp" onclick="openImage(102)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1942935088360005992-Spinnin_In_Space_video2-lossy.webp" alt="PlayStationPark-1942935088360005992-Spinnin_In_Space_video2-lossy.webp" onclick="openImage(103)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943044778985206064-Rolling_Around_video3-lossy.webp" alt="PlayStationPark-1943044778985206064-Rolling_Around_video3-lossy.webp" onclick="openImage(104)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943297523977777464-Show_Off_video2-lossy.webp" alt="PlayStationPark-1943297523977777464-Show_Off_video2-lossy.webp" onclick="openImage(105)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943327720064122963-Pile_Up_video3-lossy.webp" alt="PlayStationPark-1943327720064122963-Pile_Up_video3-lossy.webp" onclick="openImage(106)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943374460116959484-Al_s_Toy_Barn_video3-lossy.webp" alt="PlayStationPark-1943374460116959484-Al_s_Toy_Barn_video3-lossy.webp" onclick="openImage(107)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943406934150836364-Mokujin_video2-lossy.webp" alt="PlayStationPark-1943406934150836364-Mokujin_video2-lossy.webp" onclick="openImage(108)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943409416100823213-Yuna_video2-lossy.webp" alt="PlayStationPark-1943409416100823213-Yuna_video2-lossy.webp" onclick="openImage(109)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943452238371852692-Night_vision_video2-lossy.webp" alt="PlayStationPark-1943452238371852692-Night_vision_video2-lossy.webp" onclick="openImage(110)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PlayStationPark/webp/PlayStationPark-1943659923017015776-Coulder_Dash_video2-lossy.webp" alt="PlayStationPark-1943659923017015776-Coulder_Dash_video2-lossy.webp" onclick="openImage(111)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -499,9 +307,133 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/PlayStationPark/webp/PlayStationPark-1925177820-Slippery_When_Wet-video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925207716-Gotta_Jet_-video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925331858-Gut_Punch_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925902623-Stampede__video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926341794-Flying_High_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926374303-Tank_Takedown_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926704219-Bombing_Run_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926781417-Charged_Up_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927461986-Catching_Up_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927760331-New_video_post_on_PlayStation_Park_on_Tumblr__https___ift.tt_z2VHMpK_vide-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927791706-Stance_Sketch_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927824412-Ouch_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927869591-Spindash_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927894772-Big_Logo_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928077181-Watching_the_sunset_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928107454-Tricky_Stuff_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928186724-Spinny_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928232001-Roo_Slam_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928257091-Reiko_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928469824-Hop_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928594480-Do_A_Flip__video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928832192-Zooming_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928878752-_Is_that_what_you_wanted___video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928956831-Missiles_Ready_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928981995-Old_Man_Moves_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video1-1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video2-1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video3-1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929194609-Spinning_Bird_Kick_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929273947-Elbow_To_Face_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929319080-Leaping_Lava_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929344372-_Um_Jammer_Lammy__video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929564463-Swing_Up_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929640776-Smashy_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929721873-Dragon_Fortress_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929892571-Getting_Wet_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929958423-Under_The_Sea_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088005-Overcast_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088102-Outta_My_Way_Tiny__video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088177-Money_Conversion_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930309236-Back_Crack_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930318248-Explosive_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930361022-Shhh__video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930406289-Blanka_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930614041-Cait_Sith_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930644068-Back_Away_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930723456-On_The_Ship_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930793885-Zapped_video1-1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931701196-Copter_Crash_video1-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1933330631133421881-Delara_wins_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1933875471743058224-Old_Road_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934055323490259414-Do_The_Hero_Thing_video4-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934347319677214963-Water_Flip_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934392639211573584-Dino_Venger_Wins_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934417747938513087-Left___Right_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934630317492506688-Wiggly_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934780103403184613-Up_And_Down_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934962628238987499-Minecart_Mania_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935039414213771578-Got_Ya__video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935117298953601372-Double_Flip_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935324977491767740-Going_Inside_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935355281770234244-Yatta__video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video4-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935687312635015406-Zasalamel_Wins___video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935717530879807889-Work_On_Your_Aim_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935764190511149337-Pullum_Wins_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1936049729390915739-There_s_A_Snake_In_My.._Kitchen__video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940112817513771030-Choosing_Coco_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940553247065776583-Car_Hopping_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940870204956856741-Doodads_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940915614312227024-Pipe_Travel_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941153449933943084-Skid_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941199966501736730-Wendy_Won_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941232760363827398-Lizard_Man_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941277977838313780-Hammer_Bop_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941485636759720217-City_Sights_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video4-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941640342022848856-Fantasy_Knight_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941847900994036027-Diving_Down_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941957374949908789-Saved__video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942210397735383480-Cornering_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video4-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942287067104387579-Car_Combat_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942572836180177212-Slammed_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video4-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942935088360005992-Spinnin_In_Space_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943044778985206064-Rolling_Around_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943297523977777464-Show_Off_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943327720064122963-Pile_Up_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943374460116959484-Al_s_Toy_Barn_video3-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943406934150836364-Mokujin_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943409416100823213-Yuna_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943452238371852692-Night_vision_video2-lossy.webp',\n            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943659923017015776-Coulder_Dash_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/PlayStationPark/webp/PlayStationPark-1925177820-Slippery_When_Wet-video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925207716-Gotta_Jet_-video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925331858-Gut_Punch_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1925902623-Stampede__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926341794-Flying_High_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926374303-Tank_Takedown_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926704219-Bombing_Run_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1926781417-Charged_Up_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927461986-Catching_Up_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927760331-New_video_post_on_PlayStation_Park_on_Tumblr__https___ift.tt_z2VHMpK_vide-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927791706-Stance_Sketch_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927824412-Ouch_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927869591-Spindash_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1927894772-Big_Logo_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928077181-Watching_the_sunset_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928107454-Tricky_Stuff_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928186724-Spinny_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928232001-Roo_Slam_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928257091-Reiko_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928469824-Hop_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928594480-Do_A_Flip__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928832192-Zooming_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928878752-_Is_that_what_you_wanted___video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928956831-Missiles_Ready_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1928981995-Old_Man_Moves_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video1-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video2-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video3-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929194609-Spinning_Bird_Kick_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929273947-Elbow_To_Face_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929319080-Leaping_Lava_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929344372-_Um_Jammer_Lammy__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929564463-Swing_Up_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929640776-Smashy_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929721873-Dragon_Fortress_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929892571-Getting_Wet_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1929958423-Under_The_Sea_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088005-Overcast_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088102-Outta_My_Way_Tiny__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930088177-Money_Conversion_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930309236-Back_Crack_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930318248-Explosive_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930361022-Shhh__video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930406289-Blanka_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930431547-Nina_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930614041-Cait_Sith_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930644068-Back_Away_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930723456-On_The_Ship_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1930793885-Zapped_video1-1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931338779-Mother_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1931701196-Copter_Crash_video1-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1933330631133421881-Delara_wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1933875471743058224-Old_Road_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934055323490259414-Do_The_Hero_Thing_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934347319677214963-Water_Flip_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934392639211573584-Dino_Venger_Wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934417747938513087-Left___Right_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934630317492506688-Wiggly_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934780103403184613-Up_And_Down_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1934962628238987499-Minecart_Mania_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935039414213771578-Got_Ya__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935117298953601372-Double_Flip_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935324977491767740-Going_Inside_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935355281770234244-Yatta__video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935687312635015406-Zasalamel_Wins___video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935717530879807889-Work_On_Your_Aim_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1935764190511149337-Pullum_Wins_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1936049729390915739-There_s_A_Snake_In_My.._Kitchen__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940112817513771030-Choosing_Coco_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940553247065776583-Car_Hopping_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940870204956856741-Doodads_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1940915614312227024-Pipe_Travel_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941153449933943084-Skid_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941199966501736730-Wendy_Won_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941232760363827398-Lizard_Man_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941277977838313780-Hammer_Bop_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941485636759720217-City_Sights_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941640342022848856-Fantasy_Knight_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941847900994036027-Diving_Down_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1941957374949908789-Saved__video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942210397735383480-Cornering_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942287067104387579-Car_Combat_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942572836180177212-Slammed_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video4-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1942935088360005992-Spinnin_In_Space_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943044778985206064-Rolling_Around_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943297523977777464-Show_Off_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943327720064122963-Pile_Up_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943374460116959484-Al_s_Toy_Barn_video3-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943406934150836364-Mokujin_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943409416100823213-Yuna_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943452238371852692-Night_vision_video2-lossy.webp',
+            '/nft-gallery/PlayStationPark/webp/PlayStationPark-1943659923017015776-Coulder_Dash_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -517,6 +449,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

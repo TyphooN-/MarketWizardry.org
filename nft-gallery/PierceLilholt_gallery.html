@@ -17,31 +17,80 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - PierceLilholt">
     <meta name="twitter:description" content="PierceLilholt's sharp digital aesthetics where precision meets artistic vision. Cutting-edge compositions for collectors who appreciate angular beauty and geometric rebellion.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/PierceLilholt/webp/PierceLilholt-1924652057-How_much_trust_do_you_place_in_influencers__seemingly_perfect_lives__video1-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1928728560-What_happens_when_AI_can_detect_crime_before_it_happens__Do_we_jail_people_-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1930326590-Once_you_see__you_can_never_unsee_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1930342293-Subject__Signal_Recognition___You_ARE_WHAT_YOU_ARE__RIGHT_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1932690696672014684-Would_your_relationships_survive_if_AI_selected_your_ideal_friends__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1934643217858744442-If_AI_replaces_80__of_jobs__what_do_you_do_with_the_people_who_aren_t_useful_anymore__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1934682405673066597-My_blocklist_is_bigger_than_your_fanbase_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938278838498201674-The_Singularity_doesn_t_erase_you._It_lets_you_scale_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938480852180123876-What_do_we_do_when_AI_programs_devices_to_monitor_inner_thoughts_and_report_them_for_analysis__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938486380453048512-I_work_with_Noesis__Aethon__Axiom_and_Kaelen._These_are_perplexity__chatgpt__Claude_and_deekseek._Th_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938546366491320497-If_AI_learns_to_imitate_your_personality_online_better_than_you_do__which_version_is_real__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1939451094402224321-If_AI_can_modify_its_own_code__what_stops_it_from_rewriting_itself_into_something_we_can_t_understan_video3-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1940859552091852854-How_would_you_feel_about_AI_generating_personalized_ads_based_on_your_private_therapy_session_transc_video3-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1941005651859460522-_scottjla_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1942858974753063410-Good_Morning_video4-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1942901914674332013-Original_signal_doesn_t_match_templates_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1943381634088132951-To_watch_the_Aethergeist_is_to_become_untouchable__for_its_power_lies_in_what_goes_unseen_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1943383268805501417-Co-intelligence_makes_decision-making_feel_sharp__like_cutting_through_noise_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,62 +199,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1924652057-How_much_trust_do_you_place_in_influencers__seemingly_perfect_lives__video1-lossy.webp" alt="PierceLilholt-1924652057-How_much_trust_do_you_place_in_influencers__seemingly_perfect_lives__video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1928728560-What_happens_when_AI_can_detect_crime_before_it_happens__Do_we_jail_people_-lossy.webp" alt="PierceLilholt-1928728560-What_happens_when_AI_can_detect_crime_before_it_happens__Do_we_jail_people_-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1930326590-Once_you_see__you_can_never_unsee_video2-lossy.webp" alt="PierceLilholt-1930326590-Once_you_see__you_can_never_unsee_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1930342293-Subject__Signal_Recognition___You_ARE_WHAT_YOU_ARE__RIGHT_video2-lossy.webp" alt="PierceLilholt-1930342293-Subject__Signal_Recognition___You_ARE_WHAT_YOU_ARE__RIGHT_video2-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1932690696672014684-Would_your_relationships_survive_if_AI_selected_your_ideal_friends__video2-lossy.webp" alt="PierceLilholt-1932690696672014684-Would_your_relationships_survive_if_AI_selected_your_ideal_friends__video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1934643217858744442-If_AI_replaces_80__of_jobs__what_do_you_do_with_the_people_who_aren_t_useful_anymore__video2-lossy.webp" alt="PierceLilholt-1934643217858744442-If_AI_replaces_80__of_jobs__what_do_you_do_with_the_people_who_aren_t_useful_anymore__video2-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1934682405673066597-My_blocklist_is_bigger_than_your_fanbase_video2-lossy.webp" alt="PierceLilholt-1934682405673066597-My_blocklist_is_bigger_than_your_fanbase_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1938278838498201674-The_Singularity_doesn_t_erase_you._It_lets_you_scale_video2-lossy.webp" alt="PierceLilholt-1938278838498201674-The_Singularity_doesn_t_erase_you._It_lets_you_scale_video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1938480852180123876-What_do_we_do_when_AI_programs_devices_to_monitor_inner_thoughts_and_report_them_for_analysis__video2-lossy.webp" alt="PierceLilholt-1938480852180123876-What_do_we_do_when_AI_programs_devices_to_monitor_inner_thoughts_and_report_them_for_analysis__video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1938486380453048512-I_work_with_Noesis__Aethon__Axiom_and_Kaelen._These_are_perplexity__chatgpt__Claude_and_deekseek._Th_video2-lossy.webp" alt="PierceLilholt-1938486380453048512-I_work_with_Noesis__Aethon__Axiom_and_Kaelen._These_are_perplexity__chatgpt__Claude_and_deekseek._Th_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1938546366491320497-If_AI_learns_to_imitate_your_personality_online_better_than_you_do__which_version_is_real__video2-lossy.webp" alt="PierceLilholt-1938546366491320497-If_AI_learns_to_imitate_your_personality_online_better_than_you_do__which_version_is_real__video2-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1939451094402224321-If_AI_can_modify_its_own_code__what_stops_it_from_rewriting_itself_into_something_we_can_t_understan_video3-lossy.webp" alt="PierceLilholt-1939451094402224321-If_AI_can_modify_its_own_code__what_stops_it_from_rewriting_itself_into_something_we_can_t_understan_video3-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1940859552091852854-How_would_you_feel_about_AI_generating_personalized_ads_based_on_your_private_therapy_session_transc_video3-lossy.webp" alt="PierceLilholt-1940859552091852854-How_would_you_feel_about_AI_generating_personalized_ads_based_on_your_private_therapy_session_transc_video3-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1941005651859460522-_scottjla_video2-lossy.webp" alt="PierceLilholt-1941005651859460522-_scottjla_video2-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1942858974753063410-Good_Morning_video4-lossy.webp" alt="PierceLilholt-1942858974753063410-Good_Morning_video4-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1942901914674332013-Original_signal_doesn_t_match_templates_video2-lossy.webp" alt="PierceLilholt-1942901914674332013-Original_signal_doesn_t_match_templates_video2-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1943381634088132951-To_watch_the_Aethergeist_is_to_become_untouchable__for_its_power_lies_in_what_goes_unseen_video2-lossy.webp" alt="PierceLilholt-1943381634088132951-To_watch_the_Aethergeist_is_to_become_untouchable__for_its_power_lies_in_what_goes_unseen_video2-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/PierceLilholt/webp/PierceLilholt-1943383268805501417-Co-intelligence_makes_decision-making_feel_sharp__like_cutting_through_noise_video2-lossy.webp" alt="PierceLilholt-1943383268805501417-Co-intelligence_makes_decision-making_feel_sharp__like_cutting_through_noise_video2-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -217,9 +213,39 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/PierceLilholt/webp/PierceLilholt-1924652057-How_much_trust_do_you_place_in_influencers__seemingly_perfect_lives__video1-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1928728560-What_happens_when_AI_can_detect_crime_before_it_happens__Do_we_jail_people_-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1930326590-Once_you_see__you_can_never_unsee_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1930342293-Subject__Signal_Recognition___You_ARE_WHAT_YOU_ARE__RIGHT_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1932690696672014684-Would_your_relationships_survive_if_AI_selected_your_ideal_friends__video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1934643217858744442-If_AI_replaces_80__of_jobs__what_do_you_do_with_the_people_who_aren_t_useful_anymore__video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1934682405673066597-My_blocklist_is_bigger_than_your_fanbase_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938278838498201674-The_Singularity_doesn_t_erase_you._It_lets_you_scale_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938480852180123876-What_do_we_do_when_AI_programs_devices_to_monitor_inner_thoughts_and_report_them_for_analysis__video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938486380453048512-I_work_with_Noesis__Aethon__Axiom_and_Kaelen._These_are_perplexity__chatgpt__Claude_and_deekseek._Th_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938546366491320497-If_AI_learns_to_imitate_your_personality_online_better_than_you_do__which_version_is_real__video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1939451094402224321-If_AI_can_modify_its_own_code__what_stops_it_from_rewriting_itself_into_something_we_can_t_understan_video3-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1940859552091852854-How_would_you_feel_about_AI_generating_personalized_ads_based_on_your_private_therapy_session_transc_video3-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1941005651859460522-_scottjla_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1942858974753063410-Good_Morning_video4-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1942901914674332013-Original_signal_doesn_t_match_templates_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1943381634088132951-To_watch_the_Aethergeist_is_to_become_untouchable__for_its_power_lies_in_what_goes_unseen_video2-lossy.webp',\n            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1943383268805501417-Co-intelligence_makes_decision-making_feel_sharp__like_cutting_through_noise_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/PierceLilholt/webp/PierceLilholt-1924652057-How_much_trust_do_you_place_in_influencers__seemingly_perfect_lives__video1-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1928728560-What_happens_when_AI_can_detect_crime_before_it_happens__Do_we_jail_people_-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1930326590-Once_you_see__you_can_never_unsee_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1930342293-Subject__Signal_Recognition___You_ARE_WHAT_YOU_ARE__RIGHT_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1932690696672014684-Would_your_relationships_survive_if_AI_selected_your_ideal_friends__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1934643217858744442-If_AI_replaces_80__of_jobs__what_do_you_do_with_the_people_who_aren_t_useful_anymore__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1934682405673066597-My_blocklist_is_bigger_than_your_fanbase_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938278838498201674-The_Singularity_doesn_t_erase_you._It_lets_you_scale_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938480852180123876-What_do_we_do_when_AI_programs_devices_to_monitor_inner_thoughts_and_report_them_for_analysis__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938486380453048512-I_work_with_Noesis__Aethon__Axiom_and_Kaelen._These_are_perplexity__chatgpt__Claude_and_deekseek._Th_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1938546366491320497-If_AI_learns_to_imitate_your_personality_online_better_than_you_do__which_version_is_real__video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1939451094402224321-If_AI_can_modify_its_own_code__what_stops_it_from_rewriting_itself_into_something_we_can_t_understan_video3-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1940859552091852854-How_would_you_feel_about_AI_generating_personalized_ads_based_on_your_private_therapy_session_transc_video3-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1941005651859460522-_scottjla_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1942858974753063410-Good_Morning_video4-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1942901914674332013-Original_signal_doesn_t_match_templates_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1943381634088132951-To_watch_the_Aethergeist_is_to_become_untouchable__for_its_power_lies_in_what_goes_unseen_video2-lossy.webp',
+            '/nft-gallery/PierceLilholt/webp/PierceLilholt-1943383268805501417-Co-intelligence_makes_decision-making_feel_sharp__like_cutting_through_noise_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -235,6 +261,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

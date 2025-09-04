@@ -17,31 +17,104 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - rightclickdead">
     <meta name="twitter:description" content="rightclickdead's digital art collection - Right-click is dead, but unfortunately, this art lived. This collection explores what happens when copyright protection meets artistic incompetence. Save-as recommended, viewing not advised.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/rightclickdead/webp/rightclickdead-1919135318-EARLY_GM-video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920444550-congrats_to_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920537421592043904-_window_still_life_101101001001__video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920545335-Both_auctions_kicked_off_by_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920886292193149307-That_moment_when_you_blame_yourself_for_not_aping_into__BTC_with_all_your_fiat_10_years_ago____-video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1921913624-_flames_on_me__exclusively_minted_for__objkt4objkt_event_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1922009835-________________________________________.__video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1922403787-learn_to_grow_w__the_problems_you_can_t_solve_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1922424535-So_what_s_the_thing_swinging_sround_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925618329-Gotta_live_these_patterns_bd-video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video3-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925985209-a_little_tribute_to_Laszlo_Hanyecz_known_for_purchasing_two_pizzas_for_10K-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1926655584-Ha_luv_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1926782191-Whats_the_mechanical_concept_behind_this_mechanism_called__video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1927714984-whoa__apparently_we_passed_10M_views_on_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1928204799-still_available_on_.666_w__a_physical__link_on_sight_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1928971506-The_best_notification_of_the_night__video2-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930215643-carpal_tunnel_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930406441-feel_in_progress_video1-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video1-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1934316882904957033-ahah_nice__video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1934588130885058705-Beauty_lies_in_simplicity_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1934649495653842978-now_you_can_collect__THE_OBSERVER_PROTOCOL__along_w__the_other_55_ARTWORKS_from_legendary_artists_as_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1935014934959526331-Feels_like_every_artist_is_dropping_a_big_collection_this_month._Are_we_back__video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1936361413460775398-FOURTY_FOUR_YEARS_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1936416952605618318-_purgatory_room_X__from_video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1937179150843863505-your_favorite_1-bit_PFP_project_on_tezos_oTHErs_has_a_brand_new_batch_ready_to_be_collected_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1937286160822530393-Just_found_out_my_arts_going_to_be_displayed_in_Times_Square_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1937828471960391734-_CATARAX__now_available_via__manifoldxyz_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1939984205745721503-Second_edition_pickup_of_the_day_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1940825379104870660-New_Masters__Chapter_One_is_SOLD_OUT_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1941148837097402737-_zhupercycle__1_1_by_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1943035350412034272-Nice__Love_how_well_that_red_fits_into_there_video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,134 +223,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1919135318-EARLY_GM-video2-lossy.webp" alt="rightclickdead-1919135318-EARLY_GM-video2-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1920444550-congrats_to_video1-lossy.webp" alt="rightclickdead-1920444550-congrats_to_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1920537421592043904-_window_still_life_101101001001__video1-lossy.webp" alt="rightclickdead-1920537421592043904-_window_still_life_101101001001__video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1920545335-Both_auctions_kicked_off_by_video2-lossy.webp" alt="rightclickdead-1920545335-Both_auctions_kicked_off_by_video2-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1920886292193149307-That_moment_when_you_blame_yourself_for_not_aping_into__BTC_with_all_your_fiat_10_years_ago____-video1-lossy.webp" alt="rightclickdead-1920886292193149307-That_moment_when_you_blame_yourself_for_not_aping_into__BTC_with_all_your_fiat_10_years_ago____-video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1921913624-_flames_on_me__exclusively_minted_for__objkt4objkt_event_video1-lossy.webp" alt="rightclickdead-1921913624-_flames_on_me__exclusively_minted_for__objkt4objkt_event_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1922009835-________________________________________.__video2-lossy.webp" alt="rightclickdead-1922009835-________________________________________.__video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1922403787-learn_to_grow_w__the_problems_you_can_t_solve_video1-lossy.webp" alt="rightclickdead-1922403787-learn_to_grow_w__the_problems_you_can_t_solve_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1922424535-So_what_s_the_thing_swinging_sround_video1-lossy.webp" alt="rightclickdead-1922424535-So_what_s_the_thing_swinging_sround_video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video1-lossy.webp" alt="rightclickdead-1925229464-waves_can_whisper_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video2-lossy.webp" alt="rightclickdead-1925229464-waves_can_whisper_video2-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video1-lossy.webp" alt="rightclickdead-1925238380-today_im_turning_38_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video2-lossy.webp" alt="rightclickdead-1925238380-today_im_turning_38_video2-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925618329-Gotta_live_these_patterns_bd-video1-lossy.webp" alt="rightclickdead-1925618329-Gotta_live_these_patterns_bd-video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video2-lossy.webp" alt="rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video2-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video3-1-lossy.webp" alt="rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video3-1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video4-lossy.webp" alt="rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video4-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1925985209-a_little_tribute_to_Laszlo_Hanyecz_known_for_purchasing_two_pizzas_for_10K-lossy.webp" alt="rightclickdead-1925985209-a_little_tribute_to_Laszlo_Hanyecz_known_for_purchasing_two_pizzas_for_10K-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1926655584-Ha_luv_video2-lossy.webp" alt="rightclickdead-1926655584-Ha_luv_video2-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1926782191-Whats_the_mechanical_concept_behind_this_mechanism_called__video1-lossy.webp" alt="rightclickdead-1926782191-Whats_the_mechanical_concept_behind_this_mechanism_called__video1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1927714984-whoa__apparently_we_passed_10M_views_on_video1-lossy.webp" alt="rightclickdead-1927714984-whoa__apparently_we_passed_10M_views_on_video1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1928204799-still_available_on_.666_w__a_physical__link_on_sight_video1-lossy.webp" alt="rightclickdead-1928204799-still_available_on_.666_w__a_physical__link_on_sight_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1928971506-The_best_notification_of_the_night__video2-1-lossy.webp" alt="rightclickdead-1928971506-The_best_notification_of_the_night__video2-1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1930215643-carpal_tunnel_video1-lossy.webp" alt="rightclickdead-1930215643-carpal_tunnel_video1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1930406441-feel_in_progress_video1-1-lossy.webp" alt="rightclickdead-1930406441-feel_in_progress_video1-1-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video1-1-lossy.webp" alt="rightclickdead-1930942954-thanks_to_video1-1-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video2-lossy.webp" alt="rightclickdead-1930942954-thanks_to_video2-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1934316882904957033-ahah_nice__video4-lossy.webp" alt="rightclickdead-1934316882904957033-ahah_nice__video4-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1934588130885058705-Beauty_lies_in_simplicity_video3-lossy.webp" alt="rightclickdead-1934588130885058705-Beauty_lies_in_simplicity_video3-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1934649495653842978-now_you_can_collect__THE_OBSERVER_PROTOCOL__along_w__the_other_55_ARTWORKS_from_legendary_artists_as_video3-lossy.webp" alt="rightclickdead-1934649495653842978-now_you_can_collect__THE_OBSERVER_PROTOCOL__along_w__the_other_55_ARTWORKS_from_legendary_artists_as_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1935014934959526331-Feels_like_every_artist_is_dropping_a_big_collection_this_month._Are_we_back__video2-lossy.webp" alt="rightclickdead-1935014934959526331-Feels_like_every_artist_is_dropping_a_big_collection_this_month._Are_we_back__video2-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1936361413460775398-FOURTY_FOUR_YEARS_video3-lossy.webp" alt="rightclickdead-1936361413460775398-FOURTY_FOUR_YEARS_video3-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1936416952605618318-_purgatory_room_X__from_video4-lossy.webp" alt="rightclickdead-1936416952605618318-_purgatory_room_X__from_video4-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1937179150843863505-your_favorite_1-bit_PFP_project_on_tezos_oTHErs_has_a_brand_new_batch_ready_to_be_collected_video3-lossy.webp" alt="rightclickdead-1937179150843863505-your_favorite_1-bit_PFP_project_on_tezos_oTHErs_has_a_brand_new_batch_ready_to_be_collected_video3-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1937286160822530393-Just_found_out_my_arts_going_to_be_displayed_in_Times_Square_video2-lossy.webp" alt="rightclickdead-1937286160822530393-Just_found_out_my_arts_going_to_be_displayed_in_Times_Square_video2-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1937828471960391734-_CATARAX__now_available_via__manifoldxyz_video2-lossy.webp" alt="rightclickdead-1937828471960391734-_CATARAX__now_available_via__manifoldxyz_video2-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video3-lossy.webp" alt="rightclickdead-1939323624361542131-happy_pride_video3-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video4-lossy.webp" alt="rightclickdead-1939323624361542131-happy_pride_video4-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1939984205745721503-Second_edition_pickup_of_the_day_video3-lossy.webp" alt="rightclickdead-1939984205745721503-Second_edition_pickup_of_the_day_video3-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1940825379104870660-New_Masters__Chapter_One_is_SOLD_OUT_video3-lossy.webp" alt="rightclickdead-1940825379104870660-New_Masters__Chapter_One_is_SOLD_OUT_video3-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1941148837097402737-_zhupercycle__1_1_by_video3-lossy.webp" alt="rightclickdead-1941148837097402737-_zhupercycle__1_1_by_video3-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/rightclickdead/webp/rightclickdead-1943035350412034272-Nice__Love_how_well_that_red_fits_into_there_video3-lossy.webp" alt="rightclickdead-1943035350412034272-Nice__Love_how_well_that_red_fits_into_there_video3-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -289,9 +237,63 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/rightclickdead/webp/rightclickdead-1919135318-EARLY_GM-video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1920444550-congrats_to_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1920537421592043904-_window_still_life_101101001001__video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1920545335-Both_auctions_kicked_off_by_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1920886292193149307-That_moment_when_you_blame_yourself_for_not_aping_into__BTC_with_all_your_fiat_10_years_ago____-video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1921913624-_flames_on_me__exclusively_minted_for__objkt4objkt_event_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1922009835-________________________________________.__video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1922403787-learn_to_grow_w__the_problems_you_can_t_solve_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1922424535-So_what_s_the_thing_swinging_sround_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925618329-Gotta_live_these_patterns_bd-video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video3-1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video4-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1925985209-a_little_tribute_to_Laszlo_Hanyecz_known_for_purchasing_two_pizzas_for_10K-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1926655584-Ha_luv_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1926782191-Whats_the_mechanical_concept_behind_this_mechanism_called__video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1927714984-whoa__apparently_we_passed_10M_views_on_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1928204799-still_available_on_.666_w__a_physical__link_on_sight_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1928971506-The_best_notification_of_the_night__video2-1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1930215643-carpal_tunnel_video1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1930406441-feel_in_progress_video1-1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video1-1-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1934316882904957033-ahah_nice__video4-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1934588130885058705-Beauty_lies_in_simplicity_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1934649495653842978-now_you_can_collect__THE_OBSERVER_PROTOCOL__along_w__the_other_55_ARTWORKS_from_legendary_artists_as_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1935014934959526331-Feels_like_every_artist_is_dropping_a_big_collection_this_month._Are_we_back__video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1936361413460775398-FOURTY_FOUR_YEARS_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1936416952605618318-_purgatory_room_X__from_video4-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1937179150843863505-your_favorite_1-bit_PFP_project_on_tezos_oTHErs_has_a_brand_new_batch_ready_to_be_collected_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1937286160822530393-Just_found_out_my_arts_going_to_be_displayed_in_Times_Square_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1937828471960391734-_CATARAX__now_available_via__manifoldxyz_video2-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video4-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1939984205745721503-Second_edition_pickup_of_the_day_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1940825379104870660-New_Masters__Chapter_One_is_SOLD_OUT_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1941148837097402737-_zhupercycle__1_1_by_video3-lossy.webp',\n            '/nft-gallery/rightclickdead/webp/rightclickdead-1943035350412034272-Nice__Love_how_well_that_red_fits_into_there_video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/rightclickdead/webp/rightclickdead-1919135318-EARLY_GM-video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920444550-congrats_to_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920537421592043904-_window_still_life_101101001001__video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920545335-Both_auctions_kicked_off_by_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1920886292193149307-That_moment_when_you_blame_yourself_for_not_aping_into__BTC_with_all_your_fiat_10_years_ago____-video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1921913624-_flames_on_me__exclusively_minted_for__objkt4objkt_event_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1922009835-________________________________________.__video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1922403787-learn_to_grow_w__the_problems_you_can_t_solve_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1922424535-So_what_s_the_thing_swinging_sround_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925229464-waves_can_whisper_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925238380-today_im_turning_38_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925618329-Gotta_live_these_patterns_bd-video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video3-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925643991-share_your_app_and_3_arts_you_made_with_it_video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1925985209-a_little_tribute_to_Laszlo_Hanyecz_known_for_purchasing_two_pizzas_for_10K-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1926655584-Ha_luv_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1926782191-Whats_the_mechanical_concept_behind_this_mechanism_called__video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1927714984-whoa__apparently_we_passed_10M_views_on_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1928204799-still_available_on_.666_w__a_physical__link_on_sight_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1928971506-The_best_notification_of_the_night__video2-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930215643-carpal_tunnel_video1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930406441-feel_in_progress_video1-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video1-1-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1930942954-thanks_to_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1934316882904957033-ahah_nice__video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1934588130885058705-Beauty_lies_in_simplicity_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1934649495653842978-now_you_can_collect__THE_OBSERVER_PROTOCOL__along_w__the_other_55_ARTWORKS_from_legendary_artists_as_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1935014934959526331-Feels_like_every_artist_is_dropping_a_big_collection_this_month._Are_we_back__video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1936361413460775398-FOURTY_FOUR_YEARS_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1936416952605618318-_purgatory_room_X__from_video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1937179150843863505-your_favorite_1-bit_PFP_project_on_tezos_oTHErs_has_a_brand_new_batch_ready_to_be_collected_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1937286160822530393-Just_found_out_my_arts_going_to_be_displayed_in_Times_Square_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1937828471960391734-_CATARAX__now_available_via__manifoldxyz_video2-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1939323624361542131-happy_pride_video4-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1939984205745721503-Second_edition_pickup_of_the_day_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1940825379104870660-New_Masters__Chapter_One_is_SOLD_OUT_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1941148837097402737-_zhupercycle__1_1_by_video3-lossy.webp',
+            '/nft-gallery/rightclickdead/webp/rightclickdead-1943035350412034272-Nice__Love_how_well_that_red_fits_into_there_video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -307,6 +309,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

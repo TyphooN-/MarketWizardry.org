@@ -17,31 +17,82 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - RemikzT">
     <meta name="twitter:description" content="Digital remixes of existential dread. Because original concepts are overrated when you can just distort someone else's nightmare into blockchain gold.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1932089212003827723-sold_out_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1932331903895650746-gm_fam_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934901553464516766-W_L__R_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1935058797057478867-Good_night_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1936294374444584990-Another_collab_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video4-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1941609258426224729-4_5_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,68 +201,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp" alt="RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp" alt="RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp" alt="RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1932089212003827723-sold_out_video3-lossy.webp" alt="RemikzT-1932089212003827723-sold_out_video3-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1932331903895650746-gm_fam_video2-lossy.webp" alt="RemikzT-1932331903895650746-gm_fam_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1934901553464516766-W_L__R_video2-lossy.webp" alt="RemikzT-1934901553464516766-W_L__R_video2-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp" alt="RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp" alt="RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp" alt="RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1935058797057478867-Good_night_video2-lossy.webp" alt="RemikzT-1935058797057478867-Good_night_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp" alt="RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp" alt="RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1936294374444584990-Another_collab_video3-lossy.webp" alt="RemikzT-1936294374444584990-Another_collab_video3-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video3-lossy.webp" alt="RemikzT-1937376027342508455-G_M_video3-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video4-lossy.webp" alt="RemikzT-1937376027342508455-G_M_video4-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp" alt="RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp" alt="RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1941609258426224729-4_5_video3-lossy.webp" alt="RemikzT-1941609258426224729-4_5_video3-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp" alt="RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/RemikzT/webp/RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp" alt="RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -223,9 +215,41 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1932089212003827723-sold_out_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1932331903895650746-gm_fam_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1934901553464516766-W_L__R_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1935058797057478867-Good_night_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1936294374444584990-Another_collab_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video4-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1941609258426224729-4_5_video3-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp',\n            '/nft-gallery/RemikzT/webp/RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1932089212003827723-sold_out_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1932331903895650746-gm_fam_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934901553464516766-W_L__R_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1935058797057478867-Good_night_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1936294374444584990-Another_collab_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video4-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1941609258426224729-4_5_video3-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp',
+            '/nft-gallery/RemikzT/webp/RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -241,6 +265,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

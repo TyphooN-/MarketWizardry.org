@@ -17,31 +17,74 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - matheusfxavier">
     <meta name="twitter:description" content="matheusfxavier's digital art collection - Mathematics meets artistry in a beautiful equation of disappointment. This collection solves for X, where X equals 'why did I click on this?' Advanced calculus couldn't calculate this level of regret.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/matheusfxavier/webp/matheusfxavier-1921673548-Happy_Mother_s_Day_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1924587399-The_Thinker_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1925703964-Night_Window_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1926065406-Open_Eyes_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1926827654-gn_video1-1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1930976707-The_Door_of_Perception_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1931367996-Restart_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1934737623198601300-Free_Mind_video4-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1935095339167756705-Electrical_signals_interpreted_by_your_brain_video3-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1936535599181451293-Road_To_Knowhere_video2-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1937502533968175384-Into_The_Mirror_video4-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1942244178920169882-_Daily_Synesthesia__video3-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,44 +193,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1921673548-Happy_Mother_s_Day_video1-lossy.webp" alt="matheusfxavier-1921673548-Happy_Mother_s_Day_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1924587399-The_Thinker_video1-lossy.webp" alt="matheusfxavier-1924587399-The_Thinker_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1925703964-Night_Window_video1-lossy.webp" alt="matheusfxavier-1925703964-Night_Window_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1926065406-Open_Eyes_video1-lossy.webp" alt="matheusfxavier-1926065406-Open_Eyes_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1926827654-gn_video1-1-lossy.webp" alt="matheusfxavier-1926827654-gn_video1-1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1930976707-The_Door_of_Perception_video1-lossy.webp" alt="matheusfxavier-1930976707-The_Door_of_Perception_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1931367996-Restart_video1-lossy.webp" alt="matheusfxavier-1931367996-Restart_video1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1934737623198601300-Free_Mind_video4-lossy.webp" alt="matheusfxavier-1934737623198601300-Free_Mind_video4-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1935095339167756705-Electrical_signals_interpreted_by_your_brain_video3-lossy.webp" alt="matheusfxavier-1935095339167756705-Electrical_signals_interpreted_by_your_brain_video3-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1936535599181451293-Road_To_Knowhere_video2-lossy.webp" alt="matheusfxavier-1936535599181451293-Road_To_Knowhere_video2-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1937502533968175384-Into_The_Mirror_video4-lossy.webp" alt="matheusfxavier-1937502533968175384-Into_The_Mirror_video4-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/matheusfxavier/webp/matheusfxavier-1942244178920169882-_Daily_Synesthesia__video3-lossy.webp" alt="matheusfxavier-1942244178920169882-_Daily_Synesthesia__video3-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -199,9 +207,33 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/matheusfxavier/webp/matheusfxavier-1921673548-Happy_Mother_s_Day_video1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1924587399-The_Thinker_video1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1925703964-Night_Window_video1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1926065406-Open_Eyes_video1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1926827654-gn_video1-1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1930976707-The_Door_of_Perception_video1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1931367996-Restart_video1-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1934737623198601300-Free_Mind_video4-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1935095339167756705-Electrical_signals_interpreted_by_your_brain_video3-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1936535599181451293-Road_To_Knowhere_video2-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1937502533968175384-Into_The_Mirror_video4-lossy.webp',\n            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1942244178920169882-_Daily_Synesthesia__video3-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/matheusfxavier/webp/matheusfxavier-1921673548-Happy_Mother_s_Day_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1924587399-The_Thinker_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1925703964-Night_Window_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1926065406-Open_Eyes_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1926827654-gn_video1-1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1930976707-The_Door_of_Perception_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1931367996-Restart_video1-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1934737623198601300-Free_Mind_video4-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1935095339167756705-Electrical_signals_interpreted_by_your_brain_video3-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1936535599181451293-Road_To_Knowhere_video2-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1937502533968175384-Into_The_Mirror_video4-lossy.webp',
+            '/nft-gallery/matheusfxavier/webp/matheusfxavier-1942244178920169882-_Daily_Synesthesia__video3-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -217,6 +249,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

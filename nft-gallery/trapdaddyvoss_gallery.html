@@ -17,31 +17,125 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - trapdaddyvoss">
     <meta name="twitter:description" content="trapdaddyvoss's digital art collection - Trap music meets daddy issues in a visual catastrophe. This collection proves that bass drops and artistic standards often fall together. Turn down for what? Turn down for this.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927706510-Gm_Gm_GBANDO_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927805705-Hi_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927945183-The__MATCHA_is_green__video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927947601-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_cryp-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928065185-Gm_Gm_family_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video2-1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___vid-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530378752506-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928655318-Late_night_degen_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928974166-DEGEN_CULT_CLUB_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928997725-XMONSTERX1_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929069486-I_ll_choose_a_masterpiece_of_the_day_from_the_replies_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929218853-Fuck_you_I_love_making_and_collecting_Skull_glitch_art_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video1-1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929413320-Soon_you_ll_be_able_to_get_this_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929936363-Skull_JPEGS_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929989032-Just_had_confirmation__BALL_is_real_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930092638-One_of_my_fav_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093003-One_of_my_favorite_pieces_of_many_from_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093676-This_one_is_a_favorite_as_well_by_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930224438-Gm_Gm_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930428919-I_don_t_care_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930618330-You_may_be_alone__but_not_more_than_she_was__video2-1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930637424-I_m_listening_to_a_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930702753-I_ll_have_SpongeBob_beating_my_mop_like_this_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930703273-She_be_like_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931078525-My_dawg_sounding_like_early_youngThug_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931420829-07-2011_house_music_is_one_of_a_kind___Thank_you_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931549652790161887-Hello_911_I_d_like_to_report_a_murder_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931609717765255387-THE_CREATOR_OF_MEMES_RUGGED_US_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931690464807149670-Those_who_know_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931692131539689574-What_does_this_15th-century_oil_painting_of_a_Vatican_pope_depict__video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931732339090174384-Meanwhile_over_North_America_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931825204994744403-Liberal_influencers_are_now_going_around_to_theme_parks_and_SLAMMING_the_ones_that_don_t_have__plus_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932133844-One_of_those_came_out_of_my_ass_when_I_got_sick_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932879802370838829-be_sure_to_put__USDUC_on_your_watchlist_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933555942366335251-Smells_like_bottom_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933590512050589997-asked_a_woman_out_yesterday_and_she_responded__aw_thanks__video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933912625252802708-Solana_is_once_again_for_the_poor___yall_nighas_can_t_hold_shit___you_streamers_are_gay_af_for_clipp_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1934618839901491294-I_need_a_cabin_getaway_asap___Real_life_is_kicking_my_ass_smh_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1935734202248372577-True_Detective_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1936589671334842842-Pepe_Trenches_going_to_war_smh_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939346834134093905-The_US_in_the_movies_vs._the_US_in_real_life_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939849839111778310-Just_got_this_new_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940049899262804066-Did_anyone_else_grow_up_with_basically_unrestricted_access_to_the_internet__video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940477327424868804-What_is_a_character_death_that_really_upset_you__video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940510229999112416-just_keep_swimming_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940525225931952605-Y_all_be_letting_anyone_train_y_all_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942317706252018174-What_movie_scared_you_as_an_adult__video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942445660881441262-Niggas_wasn_t_there_in_the_functions_when_New_Boyz_came_on___a_jerk_off_commenced_video2-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,197 +244,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927706510-Gm_Gm_GBANDO_video1-lossy.webp" alt="trapdaddyvoss-1927706510-Gm_Gm_GBANDO_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927805705-Hi_video1-lossy.webp" alt="trapdaddyvoss-1927805705-Hi_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927945183-The__MATCHA_is_green__video1-lossy.webp" alt="trapdaddyvoss-1927945183-The__MATCHA_is_green__video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927947601-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_cryp-lossy.webp" alt="trapdaddyvoss-1927947601-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_cryp-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928065185-Gm_Gm_family_video1-lossy.webp" alt="trapdaddyvoss-1928065185-Gm_Gm_family_video1-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video1-lossy.webp" alt="trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video2-1-lossy.webp" alt="trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video2-1-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video2-lossy.webp" alt="trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video3-lossy.webp" alt="trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video3-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video1-lossy.webp" alt="trapdaddyvoss-1928543121-Cracked_Tube_video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video2-lossy.webp" alt="trapdaddyvoss-1928543121-Cracked_Tube_video2-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video4-lossy.webp" alt="trapdaddyvoss-1928543121-Cracked_Tube_video4-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___vid-lossy.webp" alt="trapdaddyvoss-1928593530-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___vid-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530378752506-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___video2-lossy.webp" alt="trapdaddyvoss-1928593530378752506-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___video2-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928655318-Late_night_degen_video1-lossy.webp" alt="trapdaddyvoss-1928655318-Late_night_degen_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928974166-DEGEN_CULT_CLUB_video1-lossy.webp" alt="trapdaddyvoss-1928974166-DEGEN_CULT_CLUB_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928997725-XMONSTERX1_video1-lossy.webp" alt="trapdaddyvoss-1928997725-XMONSTERX1_video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929069486-I_ll_choose_a_masterpiece_of_the_day_from_the_replies_video3-lossy.webp" alt="trapdaddyvoss-1929069486-I_ll_choose_a_masterpiece_of_the_day_from_the_replies_video3-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929218853-Fuck_you_I_love_making_and_collecting_Skull_glitch_art_video3-lossy.webp" alt="trapdaddyvoss-1929218853-Fuck_you_I_love_making_and_collecting_Skull_glitch_art_video3-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video1-1-lossy.webp" alt="trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video1-1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video2-lossy.webp" alt="trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video2-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929413320-Soon_you_ll_be_able_to_get_this_video1-lossy.webp" alt="trapdaddyvoss-1929413320-Soon_you_ll_be_able_to_get_this_video1-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929936363-Skull_JPEGS_video4-lossy.webp" alt="trapdaddyvoss-1929936363-Skull_JPEGS_video4-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929989032-Just_had_confirmation__BALL_is_real_video2-lossy.webp" alt="trapdaddyvoss-1929989032-Just_had_confirmation__BALL_is_real_video2-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930092638-One_of_my_fav_video1-lossy.webp" alt="trapdaddyvoss-1930092638-One_of_my_fav_video1-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093003-One_of_my_favorite_pieces_of_many_from_video1-lossy.webp" alt="trapdaddyvoss-1930093003-One_of_my_favorite_pieces_of_many_from_video1-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093676-This_one_is_a_favorite_as_well_by_video1-lossy.webp" alt="trapdaddyvoss-1930093676-This_one_is_a_favorite_as_well_by_video1-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930224438-Gm_Gm_video1-lossy.webp" alt="trapdaddyvoss-1930224438-Gm_Gm_video1-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video1-lossy.webp" alt="trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video1-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video2-lossy.webp" alt="trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video2-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930428919-I_don_t_care_video2-lossy.webp" alt="trapdaddyvoss-1930428919-I_don_t_care_video2-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video1-lossy.webp" alt="trapdaddyvoss-1930465676-Twin_video1-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video2-lossy.webp" alt="trapdaddyvoss-1930465676-Twin_video2-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930618330-You_may_be_alone__but_not_more_than_she_was__video2-1-lossy.webp" alt="trapdaddyvoss-1930618330-You_may_be_alone__but_not_more_than_she_was__video2-1-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930637424-I_m_listening_to_a_video1-lossy.webp" alt="trapdaddyvoss-1930637424-I_m_listening_to_a_video1-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930702753-I_ll_have_SpongeBob_beating_my_mop_like_this_video1-lossy.webp" alt="trapdaddyvoss-1930702753-I_ll_have_SpongeBob_beating_my_mop_like_this_video1-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930703273-She_be_like_video1-lossy.webp" alt="trapdaddyvoss-1930703273-She_be_like_video1-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931078525-My_dawg_sounding_like_early_youngThug_video1-lossy.webp" alt="trapdaddyvoss-1931078525-My_dawg_sounding_like_early_youngThug_video1-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931420829-07-2011_house_music_is_one_of_a_kind___Thank_you_video1-lossy.webp" alt="trapdaddyvoss-1931420829-07-2011_house_music_is_one_of_a_kind___Thank_you_video1-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931549652790161887-Hello_911_I_d_like_to_report_a_murder_video3-lossy.webp" alt="trapdaddyvoss-1931549652790161887-Hello_911_I_d_like_to_report_a_murder_video3-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931609717765255387-THE_CREATOR_OF_MEMES_RUGGED_US_video2-lossy.webp" alt="trapdaddyvoss-1931609717765255387-THE_CREATOR_OF_MEMES_RUGGED_US_video2-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931690464807149670-Those_who_know_video3-lossy.webp" alt="trapdaddyvoss-1931690464807149670-Those_who_know_video3-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931692131539689574-What_does_this_15th-century_oil_painting_of_a_Vatican_pope_depict__video3-lossy.webp" alt="trapdaddyvoss-1931692131539689574-What_does_this_15th-century_oil_painting_of_a_Vatican_pope_depict__video3-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931732339090174384-Meanwhile_over_North_America_video3-lossy.webp" alt="trapdaddyvoss-1931732339090174384-Meanwhile_over_North_America_video3-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931825204994744403-Liberal_influencers_are_now_going_around_to_theme_parks_and_SLAMMING_the_ones_that_don_t_have__plus_video1-lossy.webp" alt="trapdaddyvoss-1931825204994744403-Liberal_influencers_are_now_going_around_to_theme_parks_and_SLAMMING_the_ones_that_don_t_have__plus_video1-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932133844-One_of_those_came_out_of_my_ass_when_I_got_sick_video1-lossy.webp" alt="trapdaddyvoss-1932133844-One_of_those_came_out_of_my_ass_when_I_got_sick_video1-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932879802370838829-be_sure_to_put__USDUC_on_your_watchlist_video2-lossy.webp" alt="trapdaddyvoss-1932879802370838829-be_sure_to_put__USDUC_on_your_watchlist_video2-lossy.webp" onclick="openImage(46)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933555942366335251-Smells_like_bottom_video4-lossy.webp" alt="trapdaddyvoss-1933555942366335251-Smells_like_bottom_video4-lossy.webp" onclick="openImage(47)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933590512050589997-asked_a_woman_out_yesterday_and_she_responded__aw_thanks__video3-lossy.webp" alt="trapdaddyvoss-1933590512050589997-asked_a_woman_out_yesterday_and_she_responded__aw_thanks__video3-lossy.webp" onclick="openImage(48)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933912625252802708-Solana_is_once_again_for_the_poor___yall_nighas_can_t_hold_shit___you_streamers_are_gay_af_for_clipp_video2-lossy.webp" alt="trapdaddyvoss-1933912625252802708-Solana_is_once_again_for_the_poor___yall_nighas_can_t_hold_shit___you_streamers_are_gay_af_for_clipp_video2-lossy.webp" onclick="openImage(49)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1934618839901491294-I_need_a_cabin_getaway_asap___Real_life_is_kicking_my_ass_smh_video2-lossy.webp" alt="trapdaddyvoss-1934618839901491294-I_need_a_cabin_getaway_asap___Real_life_is_kicking_my_ass_smh_video2-lossy.webp" onclick="openImage(50)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1935734202248372577-True_Detective_video4-lossy.webp" alt="trapdaddyvoss-1935734202248372577-True_Detective_video4-lossy.webp" onclick="openImage(51)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1936589671334842842-Pepe_Trenches_going_to_war_smh_video2-lossy.webp" alt="trapdaddyvoss-1936589671334842842-Pepe_Trenches_going_to_war_smh_video2-lossy.webp" onclick="openImage(52)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video3-lossy.webp" alt="trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video3-lossy.webp" onclick="openImage(53)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video4-lossy.webp" alt="trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video4-lossy.webp" onclick="openImage(54)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939346834134093905-The_US_in_the_movies_vs._the_US_in_real_life_video3-lossy.webp" alt="trapdaddyvoss-1939346834134093905-The_US_in_the_movies_vs._the_US_in_real_life_video3-lossy.webp" onclick="openImage(55)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939849839111778310-Just_got_this_new_video4-lossy.webp" alt="trapdaddyvoss-1939849839111778310-Just_got_this_new_video4-lossy.webp" onclick="openImage(56)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940049899262804066-Did_anyone_else_grow_up_with_basically_unrestricted_access_to_the_internet__video3-lossy.webp" alt="trapdaddyvoss-1940049899262804066-Did_anyone_else_grow_up_with_basically_unrestricted_access_to_the_internet__video3-lossy.webp" onclick="openImage(57)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940477327424868804-What_is_a_character_death_that_really_upset_you__video2-lossy.webp" alt="trapdaddyvoss-1940477327424868804-What_is_a_character_death_that_really_upset_you__video2-lossy.webp" onclick="openImage(58)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940510229999112416-just_keep_swimming_video4-lossy.webp" alt="trapdaddyvoss-1940510229999112416-just_keep_swimming_video4-lossy.webp" onclick="openImage(59)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940525225931952605-Y_all_be_letting_anyone_train_y_all_video3-lossy.webp" alt="trapdaddyvoss-1940525225931952605-Y_all_be_letting_anyone_train_y_all_video3-lossy.webp" onclick="openImage(60)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942317706252018174-What_movie_scared_you_as_an_adult__video4-lossy.webp" alt="trapdaddyvoss-1942317706252018174-What_movie_scared_you_as_an_adult__video4-lossy.webp" onclick="openImage(61)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942445660881441262-Niggas_wasn_t_there_in_the_functions_when_New_Boyz_came_on___a_jerk_off_commenced_video2-lossy.webp" alt="trapdaddyvoss-1942445660881441262-Niggas_wasn_t_there_in_the_functions_when_New_Boyz_came_on___a_jerk_off_commenced_video2-lossy.webp" onclick="openImage(62)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -352,9 +258,84 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927706510-Gm_Gm_GBANDO_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927805705-Hi_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927945183-The__MATCHA_is_green__video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927947601-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_cryp-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928065185-Gm_Gm_family_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video2-1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___vid-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530378752506-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928655318-Late_night_degen_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928974166-DEGEN_CULT_CLUB_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928997725-XMONSTERX1_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929069486-I_ll_choose_a_masterpiece_of_the_day_from_the_replies_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929218853-Fuck_you_I_love_making_and_collecting_Skull_glitch_art_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video1-1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929413320-Soon_you_ll_be_able_to_get_this_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929936363-Skull_JPEGS_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929989032-Just_had_confirmation__BALL_is_real_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930092638-One_of_my_fav_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093003-One_of_my_favorite_pieces_of_many_from_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093676-This_one_is_a_favorite_as_well_by_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930224438-Gm_Gm_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930428919-I_don_t_care_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930618330-You_may_be_alone__but_not_more_than_she_was__video2-1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930637424-I_m_listening_to_a_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930702753-I_ll_have_SpongeBob_beating_my_mop_like_this_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930703273-She_be_like_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931078525-My_dawg_sounding_like_early_youngThug_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931420829-07-2011_house_music_is_one_of_a_kind___Thank_you_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931549652790161887-Hello_911_I_d_like_to_report_a_murder_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931609717765255387-THE_CREATOR_OF_MEMES_RUGGED_US_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931690464807149670-Those_who_know_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931692131539689574-What_does_this_15th-century_oil_painting_of_a_Vatican_pope_depict__video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931732339090174384-Meanwhile_over_North_America_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931825204994744403-Liberal_influencers_are_now_going_around_to_theme_parks_and_SLAMMING_the_ones_that_don_t_have__plus_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932133844-One_of_those_came_out_of_my_ass_when_I_got_sick_video1-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932879802370838829-be_sure_to_put__USDUC_on_your_watchlist_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933555942366335251-Smells_like_bottom_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933590512050589997-asked_a_woman_out_yesterday_and_she_responded__aw_thanks__video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933912625252802708-Solana_is_once_again_for_the_poor___yall_nighas_can_t_hold_shit___you_streamers_are_gay_af_for_clipp_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1934618839901491294-I_need_a_cabin_getaway_asap___Real_life_is_kicking_my_ass_smh_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1935734202248372577-True_Detective_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1936589671334842842-Pepe_Trenches_going_to_war_smh_video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939346834134093905-The_US_in_the_movies_vs._the_US_in_real_life_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939849839111778310-Just_got_this_new_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940049899262804066-Did_anyone_else_grow_up_with_basically_unrestricted_access_to_the_internet__video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940477327424868804-What_is_a_character_death_that_really_upset_you__video2-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940510229999112416-just_keep_swimming_video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940525225931952605-Y_all_be_letting_anyone_train_y_all_video3-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942317706252018174-What_movie_scared_you_as_an_adult__video4-lossy.webp',\n            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942445660881441262-Niggas_wasn_t_there_in_the_functions_when_New_Boyz_came_on___a_jerk_off_commenced_video2-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927706510-Gm_Gm_GBANDO_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927805705-Hi_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927945183-The__MATCHA_is_green__video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1927947601-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_cryp-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928065185-Gm_Gm_family_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928122457-Good_morning_I_got_my_Matcha_and_it_s_green_____video2-1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928283862-Fuck_you_I_like_skull_art_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928543121-Cracked_Tube_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___vid-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928593530378752506-This_was_my_first_piece_I_ever_made_and_minted_on_chain_few_years_ago___video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928655318-Late_night_degen_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928974166-DEGEN_CULT_CLUB_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1928997725-XMONSTERX1_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929069486-I_ll_choose_a_masterpiece_of_the_day_from_the_replies_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929218853-Fuck_you_I_love_making_and_collecting_Skull_glitch_art_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video1-1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929233936-My_back_it_s_killing_me_today_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929413320-Soon_you_ll_be_able_to_get_this_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929936363-Skull_JPEGS_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1929989032-Just_had_confirmation__BALL_is_real_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930092638-One_of_my_fav_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093003-One_of_my_favorite_pieces_of_many_from_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930093676-This_one_is_a_favorite_as_well_by_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930224438-Gm_Gm_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930352719-Advice_to_new_Digital_Artists_-_X_and_Marketplaces_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930428919-I_don_t_care_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930465676-Twin_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930618330-You_may_be_alone__but_not_more_than_she_was__video2-1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930637424-I_m_listening_to_a_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930702753-I_ll_have_SpongeBob_beating_my_mop_like_this_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1930703273-She_be_like_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931078525-My_dawg_sounding_like_early_youngThug_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931420829-07-2011_house_music_is_one_of_a_kind___Thank_you_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931549652790161887-Hello_911_I_d_like_to_report_a_murder_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931609717765255387-THE_CREATOR_OF_MEMES_RUGGED_US_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931690464807149670-Those_who_know_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931692131539689574-What_does_this_15th-century_oil_painting_of_a_Vatican_pope_depict__video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931732339090174384-Meanwhile_over_North_America_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1931825204994744403-Liberal_influencers_are_now_going_around_to_theme_parks_and_SLAMMING_the_ones_that_don_t_have__plus_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932133844-One_of_those_came_out_of_my_ass_when_I_got_sick_video1-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1932879802370838829-be_sure_to_put__USDUC_on_your_watchlist_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933555942366335251-Smells_like_bottom_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933590512050589997-asked_a_woman_out_yesterday_and_she_responded__aw_thanks__video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1933912625252802708-Solana_is_once_again_for_the_poor___yall_nighas_can_t_hold_shit___you_streamers_are_gay_af_for_clipp_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1934618839901491294-I_need_a_cabin_getaway_asap___Real_life_is_kicking_my_ass_smh_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1935734202248372577-True_Detective_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1936589671334842842-Pepe_Trenches_going_to_war_smh_video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1937218644523794795-Hey___You_idiots_are_doing_a_great_job_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939346834134093905-The_US_in_the_movies_vs._the_US_in_real_life_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1939849839111778310-Just_got_this_new_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940049899262804066-Did_anyone_else_grow_up_with_basically_unrestricted_access_to_the_internet__video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940477327424868804-What_is_a_character_death_that_really_upset_you__video2-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940510229999112416-just_keep_swimming_video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1940525225931952605-Y_all_be_letting_anyone_train_y_all_video3-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942317706252018174-What_movie_scared_you_as_an_adult__video4-lossy.webp',
+            '/nft-gallery/trapdaddyvoss/webp/trapdaddyvoss-1942445660881441262-Niggas_wasn_t_there_in_the_functions_when_New_Boyz_came_on___a_jerk_off_commenced_video2-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -370,6 +351,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

@@ -17,31 +17,80 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - chroma_visions">
     <meta name="twitter:description" content="Color-saturated hallucinations for the digitally delusional. Chromatic seizures disguised as artistic vision for pixel prophets.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,62 +199,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp" alt="chroma_visions-1791251161-time_experiment_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp" alt="chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp" alt="chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp" alt="chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp" alt="chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp" alt="chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp" alt="chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp" alt="chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp" alt="chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp" alt="chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp" alt="chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp" alt="chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp" alt="chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp" alt="chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp" alt="chroma_visions-1853509825-Tropical_depression_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp" alt="chroma_visions-1868390318-_night_spirits_video1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp" alt="chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp" alt="chroma_visions-1905289866-Ether_video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -217,9 +213,39 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp',\n            '/nft-gallery/chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp',
+            '/nft-gallery/chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -235,6 +261,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

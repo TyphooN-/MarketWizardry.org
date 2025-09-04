@@ -17,31 +17,114 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - _1mposter">
     <meta name="twitter:description" content="Imposter syndrome made manifest in digital form. Self-aware fraud art for people who know they don't belong but minted anyway.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
+        <script>
+        const allImagePaths = ['/nft-gallery/_1mposter/webp/_1mposter-1920195779-wishing_you_were_here_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923370513-Warp_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923475319-Energy_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923745745-Happy_caturday_friends_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923842593-Happy_caturday_friends_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925270234-A_T_H_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925538193-Happy_pizza_day_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1926013514-Day_of_the_glitch_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1927909289-So_many_things__so_little_time_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1928492919-Art_is_back__never_really_left__video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1928831814-Open_Call___video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video2-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930380912-Spell_video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video3-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930714891-Never_stop_video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1931726116529594841-Full_sail_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1931733594650956058-Last_5_hours______video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1932142045293904188-New_piece_tomorrow_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933165705454567888-Iteration_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933528975935951349-The_weight_of_the_world_will_crush_you_if_you_let_it_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933568054719402030-The_weight_of_the_world_will_crush_you_if_you_let_it_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1934332281633509443-Out_of_all_file_formats__the_.gif_is_my_favorite_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1934608870531575863-I_have_just_collected_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1934811429091098921-Unveiling_a_new_work_this_week__video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935018394568245390-Unveiling_a_new_work_this_week__video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935122122000707690-Hang_in_there_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1936072039535665176-Friday_is_the_most_emotional_day_of_the_week_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1936166171771895950-Friday_is_the_most_emotional_day_of_the_week_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1938974916776202735-Respect_the_Caturday_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1939674493372506266-Time_to_climb_again_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1940127033138266197-_Try_laughing._Then_whatever_scares_you_will_go_away.__video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1940821967122452629-6_years_ago__this__space__didn_t_exist_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1942639545679319434-My_Way_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video4-lossy.webp'];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
         }
         
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        function openImage(index) {
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
     <style>
         body {
@@ -150,164 +233,9 @@
 
     <div class="crt-divider"></div>
 
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1920195779-wishing_you_were_here_video1-lossy.webp" alt="_1mposter-1920195779-wishing_you_were_here_video1-lossy.webp" onclick="openImage(0)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1923370513-Warp_video1-lossy.webp" alt="_1mposter-1923370513-Warp_video1-lossy.webp" onclick="openImage(1)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1923475319-Energy_video1-lossy.webp" alt="_1mposter-1923475319-Energy_video1-lossy.webp" onclick="openImage(2)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1923745745-Happy_caturday_friends_video1-lossy.webp" alt="_1mposter-1923745745-Happy_caturday_friends_video1-lossy.webp" onclick="openImage(3)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1923842593-Happy_caturday_friends_video2-lossy.webp" alt="_1mposter-1923842593-Happy_caturday_friends_video2-lossy.webp" onclick="openImage(4)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video1-lossy.webp" alt="_1mposter-1924996602-One_at_a_time_video1-lossy.webp" onclick="openImage(5)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video2-lossy.webp" alt="_1mposter-1924996602-One_at_a_time_video2-lossy.webp" onclick="openImage(6)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video1-lossy.webp" alt="_1mposter-1925195841-Known_pleasures_video1-lossy.webp" onclick="openImage(7)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video2-lossy.webp" alt="_1mposter-1925195841-Known_pleasures_video2-lossy.webp" onclick="openImage(8)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video3-lossy.webp" alt="_1mposter-1925195841-Known_pleasures_video3-lossy.webp" onclick="openImage(9)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video4-lossy.webp" alt="_1mposter-1925195841-Known_pleasures_video4-lossy.webp" onclick="openImage(10)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1925270234-A_T_H_video1-lossy.webp" alt="_1mposter-1925270234-A_T_H_video1-lossy.webp" onclick="openImage(11)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1925538193-Happy_pizza_day_video1-lossy.webp" alt="_1mposter-1925538193-Happy_pizza_day_video1-lossy.webp" onclick="openImage(12)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1926013514-Day_of_the_glitch_video1-lossy.webp" alt="_1mposter-1926013514-Day_of_the_glitch_video1-lossy.webp" onclick="openImage(13)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1927909289-So_many_things__so_little_time_video1-lossy.webp" alt="_1mposter-1927909289-So_many_things__so_little_time_video1-lossy.webp" onclick="openImage(14)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1928492919-Art_is_back__never_really_left__video1-1-lossy.webp" alt="_1mposter-1928492919-Art_is_back__never_really_left__video1-1-lossy.webp" onclick="openImage(15)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1928831814-Open_Call___video1-lossy.webp" alt="_1mposter-1928831814-Open_Call___video1-lossy.webp" onclick="openImage(16)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video1-lossy.webp" alt="_1mposter-1929185812-__________video1-lossy.webp" onclick="openImage(17)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video2-1-lossy.webp" alt="_1mposter-1929185812-__________video2-1-lossy.webp" onclick="openImage(18)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1930380912-Spell_video1-1-lossy.webp" alt="_1mposter-1930380912-Spell_video1-1-lossy.webp" onclick="openImage(19)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video1-1-lossy.webp" alt="_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video1-1-lossy.webp" onclick="openImage(20)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video2-lossy.webp" alt="_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video2-lossy.webp" onclick="openImage(21)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video3-1-lossy.webp" alt="_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video3-1-lossy.webp" onclick="openImage(22)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1930714891-Never_stop_video1-1-lossy.webp" alt="_1mposter-1930714891-Never_stop_video1-1-lossy.webp" onclick="openImage(23)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1931726116529594841-Full_sail_video4-lossy.webp" alt="_1mposter-1931726116529594841-Full_sail_video4-lossy.webp" onclick="openImage(24)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1931733594650956058-Last_5_hours______video4-lossy.webp" alt="_1mposter-1931733594650956058-Last_5_hours______video4-lossy.webp" onclick="openImage(25)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1932142045293904188-New_piece_tomorrow_video4-lossy.webp" alt="_1mposter-1932142045293904188-New_piece_tomorrow_video4-lossy.webp" onclick="openImage(26)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1933165705454567888-Iteration_video4-lossy.webp" alt="_1mposter-1933165705454567888-Iteration_video4-lossy.webp" onclick="openImage(27)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1933528975935951349-The_weight_of_the_world_will_crush_you_if_you_let_it_video4-lossy.webp" alt="_1mposter-1933528975935951349-The_weight_of_the_world_will_crush_you_if_you_let_it_video4-lossy.webp" onclick="openImage(28)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1933568054719402030-The_weight_of_the_world_will_crush_you_if_you_let_it_video3-lossy.webp" alt="_1mposter-1933568054719402030-The_weight_of_the_world_will_crush_you_if_you_let_it_video3-lossy.webp" onclick="openImage(29)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video3-lossy.webp" alt="_1mposter-1933912334197522433-_Iteration__video3-lossy.webp" onclick="openImage(30)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video4-lossy.webp" alt="_1mposter-1933912334197522433-_Iteration__video4-lossy.webp" onclick="openImage(31)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1934332281633509443-Out_of_all_file_formats__the_.gif_is_my_favorite_video4-lossy.webp" alt="_1mposter-1934332281633509443-Out_of_all_file_formats__the_.gif_is_my_favorite_video4-lossy.webp" onclick="openImage(32)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1934608870531575863-I_have_just_collected_video2-lossy.webp" alt="_1mposter-1934608870531575863-I_have_just_collected_video2-lossy.webp" onclick="openImage(33)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1934811429091098921-Unveiling_a_new_work_this_week__video4-lossy.webp" alt="_1mposter-1934811429091098921-Unveiling_a_new_work_this_week__video4-lossy.webp" onclick="openImage(34)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1935018394568245390-Unveiling_a_new_work_this_week__video3-lossy.webp" alt="_1mposter-1935018394568245390-Unveiling_a_new_work_this_week__video3-lossy.webp" onclick="openImage(35)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1935122122000707690-Hang_in_there_video3-lossy.webp" alt="_1mposter-1935122122000707690-Hang_in_there_video3-lossy.webp" onclick="openImage(36)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video3-lossy.webp" alt="_1mposter-1935825275054702631-Hopeful_video3-lossy.webp" onclick="openImage(37)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video4-lossy.webp" alt="_1mposter-1935825275054702631-Hopeful_video4-lossy.webp" onclick="openImage(38)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1936072039535665176-Friday_is_the_most_emotional_day_of_the_week_video2-lossy.webp" alt="_1mposter-1936072039535665176-Friday_is_the_most_emotional_day_of_the_week_video2-lossy.webp" onclick="openImage(39)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1936166171771895950-Friday_is_the_most_emotional_day_of_the_week_video4-lossy.webp" alt="_1mposter-1936166171771895950-Friday_is_the_most_emotional_day_of_the_week_video4-lossy.webp" onclick="openImage(40)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video3-lossy.webp" alt="_1mposter-1937860030474117295-Feels_Good_video3-lossy.webp" onclick="openImage(41)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video4-lossy.webp" alt="_1mposter-1937860030474117295-Feels_Good_video4-lossy.webp" onclick="openImage(42)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1938974916776202735-Respect_the_Caturday_video3-lossy.webp" alt="_1mposter-1938974916776202735-Respect_the_Caturday_video3-lossy.webp" onclick="openImage(43)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1939674493372506266-Time_to_climb_again_video4-lossy.webp" alt="_1mposter-1939674493372506266-Time_to_climb_again_video4-lossy.webp" onclick="openImage(44)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1940127033138266197-_Try_laughing._Then_whatever_scares_you_will_go_away.__video2-lossy.webp" alt="_1mposter-1940127033138266197-_Try_laughing._Then_whatever_scares_you_will_go_away.__video2-lossy.webp" onclick="openImage(45)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1940821967122452629-6_years_ago__this__space__didn_t_exist_video4-lossy.webp" alt="_1mposter-1940821967122452629-6_years_ago__this__space__didn_t_exist_video4-lossy.webp" onclick="openImage(46)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video3-lossy.webp" alt="_1mposter-1941214907187462600-Freedom_video3-lossy.webp" onclick="openImage(47)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video4-lossy.webp" alt="_1mposter-1941214907187462600-Freedom_video4-lossy.webp" onclick="openImage(48)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1942639545679319434-My_Way_video3-lossy.webp" alt="_1mposter-1942639545679319434-My_Way_video3-lossy.webp" onclick="openImage(49)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video3-lossy.webp" alt="_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video3-lossy.webp" onclick="openImage(50)" loading="lazy">
-        </div>
-        <div class="image-container">
-            <img class="thumbnail" src="/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video4-lossy.webp" alt="_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video4-lossy.webp" onclick="openImage(51)" loading="lazy">
-        </div>
+        <!-- Images will be inserted here by JavaScript -->
     </div>
     
     <!-- Modal -->
@@ -319,9 +247,73 @@
         </div>
     </div>
 
-    <script>
-        const allImagePaths = ['/nft-gallery/_1mposter/webp/_1mposter-1920195779-wishing_you_were_here_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1923370513-Warp_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1923475319-Energy_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1923745745-Happy_caturday_friends_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1923842593-Happy_caturday_friends_video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1925270234-A_T_H_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1925538193-Happy_pizza_day_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1926013514-Day_of_the_glitch_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1927909289-So_many_things__so_little_time_video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1928492919-Art_is_back__never_really_left__video1-1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1928831814-Open_Call___video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video2-1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1930380912-Spell_video1-1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video1-1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video3-1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1930714891-Never_stop_video1-1-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1931726116529594841-Full_sail_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1931733594650956058-Last_5_hours______video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1932142045293904188-New_piece_tomorrow_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1933165705454567888-Iteration_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1933528975935951349-The_weight_of_the_world_will_crush_you_if_you_let_it_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1933568054719402030-The_weight_of_the_world_will_crush_you_if_you_let_it_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1934332281633509443-Out_of_all_file_formats__the_.gif_is_my_favorite_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1934608870531575863-I_have_just_collected_video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1934811429091098921-Unveiling_a_new_work_this_week__video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1935018394568245390-Unveiling_a_new_work_this_week__video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1935122122000707690-Hang_in_there_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1936072039535665176-Friday_is_the_most_emotional_day_of_the_week_video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1936166171771895950-Friday_is_the_most_emotional_day_of_the_week_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1938974916776202735-Respect_the_Caturday_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1939674493372506266-Time_to_climb_again_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1940127033138266197-_Try_laughing._Then_whatever_scares_you_will_go_away.__video2-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1940821967122452629-6_years_ago__this__space__didn_t_exist_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video4-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1942639545679319434-My_Way_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video3-lossy.webp',\n            '/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video4-lossy.webp'];
+        <script>
+        const allImagePaths = ['/nft-gallery/_1mposter/webp/_1mposter-1920195779-wishing_you_were_here_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923370513-Warp_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923475319-Energy_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923745745-Happy_caturday_friends_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1923842593-Happy_caturday_friends_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1924996602-One_at_a_time_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925195841-Known_pleasures_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925270234-A_T_H_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1925538193-Happy_pizza_day_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1926013514-Day_of_the_glitch_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1927909289-So_many_things__so_little_time_video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1928492919-Art_is_back__never_really_left__video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1928831814-Open_Call___video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1929185812-__________video2-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930380912-Spell_video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video3-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1930714891-Never_stop_video1-1-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1931726116529594841-Full_sail_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1931733594650956058-Last_5_hours______video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1932142045293904188-New_piece_tomorrow_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933165705454567888-Iteration_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933528975935951349-The_weight_of_the_world_will_crush_you_if_you_let_it_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933568054719402030-The_weight_of_the_world_will_crush_you_if_you_let_it_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1934332281633509443-Out_of_all_file_formats__the_.gif_is_my_favorite_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1934608870531575863-I_have_just_collected_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1934811429091098921-Unveiling_a_new_work_this_week__video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935018394568245390-Unveiling_a_new_work_this_week__video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935122122000707690-Hang_in_there_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1936072039535665176-Friday_is_the_most_emotional_day_of_the_week_video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1936166171771895950-Friday_is_the_most_emotional_day_of_the_week_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1938974916776202735-Respect_the_Caturday_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1939674493372506266-Time_to_climb_again_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1940127033138266197-_Try_laughing._Then_whatever_scares_you_will_go_away.__video2-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1940821967122452629-6_years_ago__this__space__didn_t_exist_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1941214907187462600-Freedom_video4-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1942639545679319434-My_Way_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video3-lossy.webp',
+            '/nft-gallery/_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video4-lossy.webp'];
         console.log("Image paths loaded:", allImagePaths.length);
+        
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.alt = path.split('/').pop();
+            img.loading = 'lazy';
+            img.onclick = function() { openImage(index); };
+            imgContainer.appendChild(img);
+            document.getElementById('imageGrid').appendChild(imgContainer);
+        }
         
         function openImage(index) {
             const modalImg = document.querySelector('.full-image');
@@ -337,6 +329,14 @@
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
+        
+        // Load all images when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Loading", allImagePaths.length, "images");
+            allImagePaths.forEach((path, index) => {
+                loadImage(path, index);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
