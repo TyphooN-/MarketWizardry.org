@@ -90,8 +90,8 @@
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
             /* display: flex; Use flexbox for centering */
-            align-items: center;
-            justify-content: center;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
         .modal-content {
             position: relative;
@@ -303,7 +303,9 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Keyboard navigation
