@@ -345,26 +345,38 @@ def extract_title_and_summary(content, filename):
     title = "Market Analysis"
     section_title = "📊 MARKET ANALYSIS"
     
-    for line in lines[:20]:  # Check first 20 lines
+    # Check the entire content for keywords, not just first 20 lines
+    content_lower = content.lower()
+    
+    # First, check filename for patterns
+    if 'darwinex' in filename.lower() and 'outlier' in filename.lower():
+        title = "Claude x Darwinex Outlier Analysis"
+        section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
+    elif 'investment' in filename.lower():
+        title = f"Investment Analysis - {date_str}" if date_str else "Investment Analysis"  
+        section_title = "📊 INVESTMENT RECOMMENDATIONS"
+    # Then check content for patterns
+    elif 'darwinex' in content_lower and 'outlier' in content_lower:
+        title = "Claude x Darwinex Outlier Analysis"
+        section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
+    elif 'investment' in content_lower and any(word in content_lower for word in ['recommendation', 'analysis', 'buying', 'selling']):
+        title = f"Investment Analysis - {date_str}" if date_str else "Investment Analysis"
+        section_title = "📊 INVESTMENT RECOMMENDATIONS"
+    
+    # Fallback: check first 20 lines for bullet points or other patterns
+    for line in lines[:20]:
         line = line.strip()
         if not line:
             continue
             
-        # Look for various title patterns
-        if any(keyword in line.lower() for keyword in ['executive summary', 'comprehensive', 'analysis', 'investment']):
-            if 'outlier' in line.lower() and 'darwinex' in line.lower():
-                title = "Claude x Darwinex Outlier Analysis"
-                section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
-            elif 'investment' in line.lower():
-                title = f"Investment Analysis - {date_str}" if date_str else "Investment Analysis"
-                section_title = "📊 INVESTMENT RECOMMENDATIONS"
-            break
-        elif line.startswith('●') and len(line) > 10:
-            # Use first bullet point as title
+        # Look for bullet points that could be titles (but skip commands)
+        if line.startswith('●') and len(line) > 10:
             clean_line = line.replace('●', '').strip()
-            if len(clean_line) < 80:
-                title = clean_line
-                break
+            # Skip if it looks like a command or technical output
+            if not any(cmd in clean_line.lower() for cmd in ['bash(', 'read(', '⎿', 'ls -', 'find ', 'grep ', 'python ']):
+                if len(clean_line) < 80 and not clean_line.startswith('I'):
+                    title = clean_line
+                    break
     
     # Generate witty summary based on content
     summary = generate_witty_description(content, filename, title)
