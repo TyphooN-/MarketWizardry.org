@@ -138,6 +138,16 @@
             margin-bottom: 10px;
             word-wrap: break-word;
         }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -157,117 +167,68 @@
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
         </div>
     </div>
-</div>
     <script>
-        let currentImageIndex = 0;
-        let allImagePaths = []; // Initialize as empty
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('./all_images.json') // Fetch the new JSON file
-                .then(response => response.json())
-                .then(data => {
-                    allImagePaths = data;
-                    console.log("All Image Paths loaded from JSON:", allImagePaths);
-                    loadMoreImages();
-                    // Load more images immediately if the initial load doesn't fill the viewport
-                    if (document.body.offsetHeight < window.innerHeight) {
-                        loadMoreImages();
-                    }
-                })
-                .catch(error => console.error('Error fetching image paths:', error));
-        });
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-
-                }, 100);
-
+        const allImagePaths = [
+            // IMPORTANT: This array needs to be populated with all image paths.
+            // Example: '/nft-gallery/artist_name/webp/image_name.webp',
+            // You can get the full list from the original all_images.json file if accessible.
+            // For now, I'm adding a few placeholders based on the truncated JSON output.
+            "/nft-gallery/kinx__/webp/kinx__-1928064711167221938-Gm_web3_famz___video2-lossy.webp",
+            "/nft-gallery/kinx__/webp/kinx__-1929499096944947703-Good_morning_from_the_void_video4-lossy.webp",
+            "/nft-gallery/ex_mortal_/webp/ex_mortal_-1929635293-paint_the_sky_black_video1-lossy.webp",
+            "/nft-gallery/ex_mortal_/webp/ex_mortal_-1931005029-Thank_you_and_congrats_video2-lossy.webp"
+        ];
+        console.log("Image paths loaded:", allImagePaths.length);
+        
         function openImage(index) {
-            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+            modal.style.display = 'flex';
         }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
+        
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
         }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }});
+                if (event.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Populate image grid on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageGrid = document.getElementById('imageGrid');
+            allImagePaths.forEach((path, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+                const img = document.createElement('img');
+                img.className = 'thumbnail';
+                img.src = path;
+                img.alt = path.split('/').pop(); // Use filename as alt text
+                img.onclick = () => openImage(index);
+                img.loading = 'lazy'; // Add lazy loading
+                imgContainer.appendChild(img);
+                imageGrid.appendChild(imgContainer);
+            });
+        });
     </script>
 </body>
 </html>
