@@ -59,7 +59,7 @@
         }
         .file-grid {
             display: grid;
-            gap: 10px;
+            gap: 20px;
         }
         .file-entry {
             cursor: pointer;
@@ -260,7 +260,7 @@
             fileEntry.textContent = fileName;
             fileGrid.appendChild(fileEntry);
             tempDiv.textContent = fileName;
-            maxFileNameWidth = Math.max(maxFileNameWidth, tempDiv.offsetWidth);
+            maxFileNameWidth = Math.max(maxFileNameWidth+1, tempDiv.offsetWidth);
         });
         // Clean up temporary element
         document.body.removeChild(tempDiv);
