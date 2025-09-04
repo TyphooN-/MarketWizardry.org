@@ -522,7 +522,9 @@
 
         window.addEventListener("click", function(event) {
             if (event.target == modal) {
-                modal.style.display = "none";});
+                modal.style.display = "none";
+            }
+        });
 
         window.addEventListener("keydown", function(event) {
             if (modal.style.display === "block") {
@@ -534,7 +536,9 @@
                 } else if (event.key === "ArrowRight") {
                     currentIndex = (currentIndex < fileEntryLinks.length - 1) ? currentIndex + 1 : 0;
                     openModalAtIndex(currentIndex);
-                }});
+                }
+            }
+        });
     </script>
 </body>
 </html>
