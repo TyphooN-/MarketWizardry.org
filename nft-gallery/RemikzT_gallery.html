@@ -171,26 +171,26 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp',
-            './RemikzT/webp/RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1932089212003827723-sold_out_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1932331903895650746-gm_fam_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1934901553464516766-W_L__R_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp',
-            './RemikzT/webp/RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1935058797057478867-Good_night_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1936294374444584990-Another_collab_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1937376027342508455-G_M_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1937376027342508455-G_M_video4-lossy.webp',
-            './RemikzT/webp/RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1941609258426224729-4_5_video3-lossy.webp',
-            './RemikzT/webp/RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp',
-            './RemikzT/webp/RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1929618713680269350-GOOD_NIGHT_video4-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1929800596971835704-GM__TEZOSTUESDAY_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1932089212003827723-sold_out_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1932331903895650746-gm_fam_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1934901553464516766-W_L__R_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1934941092937715937-Drop_a_skull_from_your_gallery_video4-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1934974500308918299-Gm_artists__patrons__degens__video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1935058797057478867-Good_night_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1935247375158890869-GM_FAM_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1935567325245456506-GM_WEB3_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1936294374444584990-Another_collab_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1937376027342508455-G_M_video4-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1940422440167018594-Too_much_noise_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1940777739713491027-I_think_we_often_forget_that_directly_buying_an_artist_s_work_isn_t_the_only_way_to_support_them_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1941609258426224729-4_5_video3-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1941765269392966127-GM_ART_FAM_video2-lossy.webp',
+            'nft-gallery/RemikzT/webp/RemikzT-1942840261706670359-Gm_fam_video2-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
