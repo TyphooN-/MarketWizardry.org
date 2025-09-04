@@ -140,9 +140,12 @@
     </div>
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
-    	<img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="filename-display" id="modalFilename"></div>
+            <div class="crt-divider"></div>
+            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+        </div>
     </div>
-</div>
     <script>
         let currentImageIndex = 0;
         // Generate images dynamically
@@ -162,24 +165,28 @@
             const img = document.querySelectorAll('.thumbnail')[index];
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename'); // Get the filename display element
             
             modalImg.src = img.src;
-            modal.style.display = 'block';
+            modalFilename.textContent = img.alt; // Use alt text as filename
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
                 currentImageIndex--;
                 openImage(currentImageIndex);
+            }
         }
         function nextImage() {
             const images = document.querySelectorAll('.thumbnail');
             if (currentImageIndex < images.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
+            }
         }
     	function closeModal() {
         	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'block') {
+        	if (modal.style.display === 'flex') { // Check for flex display
             		modal.style.display = 'none';
         	}
     	}
@@ -188,12 +195,12 @@
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
             	closeModal();
-        }
-    };
+        	}
+    	};
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'block') {
+            if (modal.style.display === 'flex') {
                 switch(event.key) {
                     case 'ArrowLeft':
                         previousImage();
@@ -206,7 +213,9 @@
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-                }});
+                }
+            }
+        });
     </script>
 </body>
 </html>

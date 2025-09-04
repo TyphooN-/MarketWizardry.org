@@ -38,16 +38,17 @@
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-            } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;}
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -101,9 +102,9 @@
             margin-bottom: 10px;
         }
         .close-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+            position: absolute; /* Changed from fixed */
+            top: 10px; /* Adjusted for absolute positioning */
+            right: 10px; /* Adjusted for absolute positioning */
             color: #f00;
             border: none;
             padding: 10px;
@@ -155,8 +156,6 @@
                 max-width: 100%;}
     </style>
 
-    <!-- Resource hints -->
-    <link rel="dns-prefetch" href="//ollama.com">
     </head>
 <body>
     <h2>AI Musings</h2>
@@ -214,16 +213,6 @@ on real events and/or speculation.  For further information contact the author (
         tempDiv.style.position = 'absolute';
         tempDiv.style.visibility = 'hidden';
         document.body.appendChild(tempDiv);
-        // Function to calculate max width
-        function calculateMaxWidth() {
-            Object.values(files).forEach(fileName => {
-                tempDiv.textContent = fileName;
-                const width = tempDiv.offsetWidth;
-                if (width > maxFileNameWidth) {
-                    maxFileNameWidth = width;
-                }
-            });
-        }
         // Create file entries and measure widths
         Object.values(files).forEach(fileName => {
             const fileEntry = document.createElement('div');
@@ -285,7 +274,9 @@ on real events and/or speculation.  For further information contact the author (
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                closeModal();});
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
