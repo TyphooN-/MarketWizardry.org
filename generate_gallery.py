@@ -403,7 +403,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             for file in files:
                 if fnmatch.fnmatch(file, search_pattern):
                     relative_path = os.path.relpath(os.path.join(root, file), os.path.join(os.getcwd(), 'nft-gallery'))
-                    image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
+                    image_paths.append(f"'/nft-gallery/{relative_path.replace(os.sep, '/')}'")
 
     image_paths_str = ',\n            '.join(image_paths)
     final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
@@ -702,7 +702,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                     for file in files:
                         if fnmatch.fnmatch(file, search_pattern):
                             relative_path = os.path.relpath(os.path.join(root, file), nft_gallery_path)
-                            all_image_paths.append(f"./{relative_path.replace(os.sep, '/')}")
+                            all_image_paths.append(f"/nft-gallery/{relative_path.replace(os.sep, '/')}")
 
     # Write the JSON file
     json_output_file = os.path.join('nft-gallery', 'all_images.json')
