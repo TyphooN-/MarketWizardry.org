@@ -171,24 +171,24 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp',
+        const allImagePaths = ['./chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp',
             './chroma_visions/webp/chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp',
             './chroma_visions/webp/chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp']; // All image paths from Python
+            './chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp',
+            './chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
