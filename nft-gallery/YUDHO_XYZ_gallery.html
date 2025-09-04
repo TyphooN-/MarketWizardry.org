@@ -61,6 +61,7 @@
             '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937835894263959973-Minting_today__25th_June_9AM_EST_video2-lossy.webp',
             '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1941091586596905352-gm_from_aura_farming_kid_video3-lossy.webp',
             '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1942922158369390739-Recently_got_some_art_by_video3-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -77,6 +78,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -85,10 +87,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -103,8 +120,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });
@@ -282,6 +309,7 @@
             '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1937835894263959973-Minting_today__25th_June_9AM_EST_video2-lossy.webp',
             '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1941091586596905352-gm_from_aura_farming_kid_video3-lossy.webp',
             '/nft-gallery/YUDHO_XYZ/webp/YUDHO_XYZ-1942922158369390739-Recently_got_some_art_by_video3-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -298,6 +326,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -306,10 +335,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -324,8 +368,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });

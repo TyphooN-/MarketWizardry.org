@@ -78,6 +78,7 @@
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943256046002115040-Generative_art_comes_in_many_forms_video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943263768135504118-wen_a_1_petabyte_digital_artwork__video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943277271185317955-Gm._Burnout_wrapped_in_ambition_is_a_hell_of_a_strategy_video2-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -94,6 +95,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -102,10 +104,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -120,8 +137,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });
@@ -316,6 +343,7 @@
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943256046002115040-Generative_art_comes_in_many_forms_video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943263768135504118-wen_a_1_petabyte_digital_artwork__video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943277271185317955-Gm._Burnout_wrapped_in_ambition_is_a_hell_of_a_strategy_video2-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -332,6 +360,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -340,10 +369,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -358,8 +402,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });

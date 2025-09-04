@@ -64,6 +64,7 @@
             '/nft-gallery/trillobyteart/webp/trillobyteart-1931333435-return_the_energy_video1-lossy.webp',
             '/nft-gallery/trillobyteart/webp/trillobyteart-1940579419657327052-LIQUIFIED_video4-lossy.webp',
             '/nft-gallery/trillobyteart/webp/trillobyteart-1942555775550804226-H_A_L_L_W_A_V_E_S_video4-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -80,6 +81,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -88,10 +90,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -106,8 +123,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });
@@ -288,6 +315,7 @@
             '/nft-gallery/trillobyteart/webp/trillobyteart-1931333435-return_the_energy_video1-lossy.webp',
             '/nft-gallery/trillobyteart/webp/trillobyteart-1940579419657327052-LIQUIFIED_video4-lossy.webp',
             '/nft-gallery/trillobyteart/webp/trillobyteart-1942555775550804226-H_A_L_L_W_A_V_E_S_video4-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -304,6 +332,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -312,10 +341,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -330,8 +374,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });

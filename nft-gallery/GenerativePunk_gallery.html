@@ -64,6 +64,7 @@
             '/nft-gallery/GenerativePunk/webp/GenerativePunk-1941963512760221871-Of_my_200_gifs_on_HEN__2_remain_in_unique_edition_on_http___objkt.com_on_primary_market_video2-lossy.webp',
             '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942708475567694110-Gif_Perfect_loop_with_code_based_generative_animation___p5js__video2-lossy.webp',
             '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942915021605884013-f_0_draw_____createCanvas_W_500_W_WEBGL__rotateX_-PI_8__rotateY_f___.01__for_j_28_j--__for_c_99_s_co_video2-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -80,6 +81,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -88,10 +90,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -106,8 +123,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });
@@ -288,6 +315,7 @@
             '/nft-gallery/GenerativePunk/webp/GenerativePunk-1941963512760221871-Of_my_200_gifs_on_HEN__2_remain_in_unique_edition_on_http___objkt.com_on_primary_market_video2-lossy.webp',
             '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942708475567694110-Gif_Perfect_loop_with_code_based_generative_animation___p5js__video2-lossy.webp',
             '/nft-gallery/GenerativePunk/webp/GenerativePunk-1942915021605884013-f_0_draw_____createCanvas_W_500_W_WEBGL__rotateX_-PI_8__rotateY_f___.01__for_j_28_j--__for_c_99_s_co_video2-lossy.webp'];
+        let currentImageIndex = 0;
         console.log("Image paths loaded:", allImagePaths.length);
         
         function loadImage(path, index) {
@@ -304,6 +332,7 @@
         }
         
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
@@ -312,10 +341,25 @@
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
             modal.style.display = 'flex';
         }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
         }
         
         // Load all images when DOM is ready
@@ -330,8 +374,18 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
                 }
             }
         });
