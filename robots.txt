@@ -1,0 +1,45 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://marketwizardry.org/sitemap.xml
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block access to sensitive files and directories
+Disallow: /.git/
+Disallow: /.claude/
+Disallow: /files/
+Disallow: /*.py$
+Disallow: /*.sh$
+Disallow: /*.bak$
+Disallow: /CLAUDE.md
+Disallow: /README.md
+Disallow: /LICENSE
+
+# Allow important pages for indexing
+Allow: /index.html
+Allow: /blog.html
+Allow: /blog/
+Allow: /about.html
+Allow: /market-wizardry.html
+Allow: /var-cult.html
+Allow: /var-explorer.html
+Allow: /ev-explorer.html
+Allow: /atr-explorer.html
+Allow: /ai-art.html
+Allow: /ai-musings.html
+Allow: /nft-gallery.html
+Allow: /nft-gallery/
+Allow: /affiliates.html
+Allow: /donate.html
+Allow: /terms.html
+Allow: /img/
+
+# Crawl delay (optional - prevents overwhelming your server)
+Crawl-delay: 1
