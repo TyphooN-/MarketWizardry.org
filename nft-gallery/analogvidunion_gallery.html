@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - analogvidunion</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Retro video nostalgia meets digital labor organization. VHS-era aesthetics unionized for collective bargaining against pixelated oppression.</div>
+    <div class="flavor-text">Analog Vid Union's nostalgic digital archaeology where past technologies become future art. Retro-futurism for collectors who appreciate temporal paradox.</div>
 
     <div class="crt-divider"></div>
 
@@ -198,9 +197,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

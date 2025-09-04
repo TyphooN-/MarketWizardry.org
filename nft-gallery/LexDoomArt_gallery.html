@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - LexDoomArt</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">LexDoomArt's apocalyptic visions where digital doom becomes artistic bloom. Dark futures rendered beautifully for collectors who appreciate dystopian aesthetics.</div>
+    <div class="flavor-text">Lex Doom's apocalyptic digital visions where endings become beginnings. Eschatological artistry for collectors who find hope in digital destruction.</div>
 
     <div class="crt-divider"></div>
 
@@ -261,9 +260,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

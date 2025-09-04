@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - ripcache</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">A digital ghost in the machine. Ripcache's work is a collection of fragmented memories and corrupted data, a beautiful and haunting look at the fragility of digital information. It's a reminder that nothing lasts forever, especially on the internet.</div>
+    <div class="flavor-text">ripcache's memory-torn digital fragments where forgetting becomes art form. Amnesia aesthetics for collectors who appreciate beautiful memory loss.</div>
 
     <div class="crt-divider"></div>
 
@@ -216,9 +215,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - 6taccc</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">6taccc's pixelated symphonies where digital noise becomes visual music. Structured complexity for collectors who appreciate the art of organized disorder.</div>
+    <div class="flavor-text">6taccc's systematic digital arrangements where order creates beauty. Structured artistry for collectors who find harmony in organized complexity.</div>
 
     <div class="crt-divider"></div>
 
@@ -225,9 +224,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

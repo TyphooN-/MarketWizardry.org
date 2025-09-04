@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - Polygon1993</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Polygon1993's retro-futuristic visions where 90s aesthetics meet timeless appeal. Nostalgic perfection for collectors who remember when the future looked different.</div>
+    <div class="flavor-text">Polygon1993's geometric digital archaeology where angular becomes emotional. Mathematical beauty for collectors who appreciate when shapes have souls.</div>
 
     <div class="crt-divider"></div>
 
@@ -264,9 +263,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

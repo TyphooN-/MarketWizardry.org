@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - HughesMichi</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">HughesMichi's visual poetry where simplicity speaks volumes. Elegant statements for collectors who believe less can indeed be more.</div>
+    <div class="flavor-text">Hughes Michi's architectural digital blueprints where structure becomes sculpture. Engineering artistry for collectors who appreciate when function follows beauty.</div>
 
     <div class="crt-divider"></div>
 
@@ -189,9 +188,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

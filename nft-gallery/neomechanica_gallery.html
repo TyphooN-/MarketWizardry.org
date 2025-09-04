@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - neomechanica</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">neomechanica's digital art collection - Neo meets mechanical in a dystopian fusion of cyberpunk dreams and steampunk nightmares. This collection proves that sometimes the future should stay in the past.</div>
+    <div class="flavor-text">neomechanica's cybernetic digital organisms where machines learn to dream. Mechanical poetry for collectors who appreciate when technology develops soul.</div>
 
     <div class="crt-divider"></div>
 
@@ -315,9 +314,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

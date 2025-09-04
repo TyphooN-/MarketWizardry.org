@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - s0mfay</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">s0mfay's digital art collection - Some fay magic, all disappointment. This collection proves that even fairy magic can't fix bad artistic judgment. Tinkerbell called - she wants her reputation back.</div>
+    <div class="flavor-text">s0mfay's somehow digital solutions where impossible becomes inevitable. Paradox art for collectors who appreciate when logic takes vacation.</div>
 
     <div class="crt-divider"></div>
 
@@ -201,9 +200,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - RenatoxMarini</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Renato Marini's sophisticated digital compositions where technique serves vision. Masterful artistry for collectors who appreciate when skill meets soul.</div>
+    <div class="flavor-text">Renato Marini's renaissance digital mastery where classical meets computational. Timeless artistry for collectors who appreciate when tradition teaches technology.</div>
 
     <div class="crt-divider"></div>
 
@@ -246,9 +245,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

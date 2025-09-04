@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - mickrenders</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">mickrenders's digital art collection - Mick renders disappointment in high definition. This collection proves that just because you CAN render something doesn't mean you SHOULD. 4K resolution can't fix fundamental taste problems.</div>
+    <div class="flavor-text">mickrenders's rendered digital realities where 3D becomes 4D consciousness. Dimensional art for collectors who appreciate depth perception.</div>
 
     <div class="crt-divider"></div>
 
@@ -195,9 +194,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - Bombadiluss</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Bombadiluss's explosive visual experiments where destruction becomes creation. Dynamic digital energy for collectors who appreciate controlled creative detonation.</div>
+    <div class="flavor-text">Bombadiluss's whimsical digital adventures where playfulness meets profundity. Joyful artistry for collectors who appreciate when serious art doesn't take itself seriously.</div>
 
     <div class="crt-divider"></div>
 
@@ -195,9 +194,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

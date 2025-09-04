@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - AINTNOTHINxart</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">AINTNOTHINxart's minimalist statements where absence creates presence. Existential expressions for collectors who understand that void has substance.</div>
+    <div class="flavor-text">AINTNOTHINxart's raw digital authenticity where genuine expression cuts through algorithmic noise. Unfiltered creativity for collectors who value artistic honesty.</div>
 
     <div class="crt-divider"></div>
 
@@ -360,9 +359,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

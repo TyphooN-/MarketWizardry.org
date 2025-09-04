@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - cameron16tv</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Television nostalgia from 2016 meets digital identity crisis. Broadcast static art for people who miss when screens made sense.</div>
+    <div class="flavor-text">cameron16tv's broadcast digital dreams where static becomes signal. Television-age artistry for collectors who remember when screens glowed differently.</div>
 
     <div class="crt-divider"></div>
 
@@ -210,9 +209,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

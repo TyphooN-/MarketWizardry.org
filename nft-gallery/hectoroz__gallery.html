@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - hectoroz_</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">hectoroz_'s digital art collection - Like Hector of Troy, but if he fought with pixels instead of swords and lost every battle. This collection documents the fall of artistic standards with the passion of a discount mythology textbook.</div>
+    <div class="flavor-text">hectoroz's digital wizardry where magic meets mathematics. Algorithmic sorcery for collectors who believe in computational conjuring.</div>
 
     <div class="crt-divider"></div>
 
@@ -366,9 +365,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

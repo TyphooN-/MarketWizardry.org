@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - _1mposter</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Imposter syndrome made manifest in digital form. Self-aware fraud art for people who know they don't belong but minted anyway.</div>
+    <div class="flavor-text">1mposter's digital identity games where authenticity becomes performance. Meta-artistic commentary for collectors who question everything (especially themselves).</div>
 
     <div class="crt-divider"></div>
 
@@ -336,9 +335,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

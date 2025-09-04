@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - ____elbi</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Quadruple underscore minimalism meets existential username crisis. When even your digital identity needs excessive punctuation to feel special.</div>
+    <div class="flavor-text">elbi's enigmatic digital presence where mystery enhances meaning. Cryptic artistry for collectors who prefer their art with extra intrigue.</div>
 
     <div class="crt-divider"></div>
 
@@ -267,9 +266,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

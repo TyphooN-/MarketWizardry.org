@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - cemhah</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">Mysterious vowel-consonant combinations hiding digital confusion. Alphabet soup usernames for people who gave up on pronunciation.</div>
+    <div class="flavor-text">cemhah's digital calligraphy where pixels learn to write poetry. Textual art for collectors who appreciate when language becomes visual.</div>
 
     <div class="crt-divider"></div>
 
@@ -282,9 +281,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation

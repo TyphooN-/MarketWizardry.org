@@ -89,9 +89,8 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            /* display: flex; Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
             position: relative;
@@ -147,7 +146,7 @@
     <h2>NFT (Not For Trade) Gallery - petersonsart</h2>
     <div class="crt-divider"></div>
 
-    <div class="flavor-text">petersonsart's digital art collection - Not to be confused with Jordan Peterson, this Peterson also has strong opinions about chaos and order. Unfortunately, chaos won and took over the entire artistic process.</div>
+    <div class="flavor-text">Peterson's digital craftsmanship where traditional meets technological. Artisanal pixels for collectors who appreciate handmade digital goods.</div>
 
     <div class="crt-divider"></div>
 
@@ -189,9 +188,7 @@
         
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+            modal.style.display = 'none';
         }
         
         // Keyboard navigation
