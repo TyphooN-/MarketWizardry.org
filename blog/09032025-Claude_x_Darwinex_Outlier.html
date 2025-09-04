@@ -213,22 +213,122 @@
         .modal[tabindex="0"]:focus {
             outline: none;
         }
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 8px;
             }
-            .modal-content {
-                width: 95%;
+            
+            .container {
+                padding: 5px;
             }
+            
             .content-section {
-                padding: 15px;}
+                padding: 12px;
+                margin: 10px 0;
+            }
+            
+            .content-section h2 {
+                font-size: 1.1em;
+            }
+            
+            .modal {
+                padding-top: 10px;
+            }
+            
+            .modal-content {
+                margin: 2% auto;
+                width: 96%;
+                max-height: 95vh;
+                overflow-y: auto;
+                padding: 8px;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 8px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+            
+            .close-button {
+                position: absolute !important;
+                top: 8px;
+                right: 12px;
+                font-size: 20px !important;
+                padding: 2px 6px !important;
+            }
+            
+            .modal-body {
+                font-size: 0.8em;
+                line-height: 1.4;
+                max-height: 75vh;
+                overflow-y: auto;
+                padding: 8px;
+            }
+            
+            #downloadButton {
+                font-size: 0.9em;
+                padding: 8px 15px;
+                margin: 8px 0;
+                display: block;
+                text-align: center;
+            }
+        }
+        
         @media (max-width: 480px) {
             body {
-                padding: 10px;
+                padding: 5px;
             }
+            
+            .container {
+                padding: 3px;
+            }
+            
+            .content-section {
+                padding: 10px;
+                margin: 8px 0;
+            }
+            
+            .content-section h2 {
+                font-size: 1em;
+            }
+            
+            .content-section .summary {
+                font-size: 0.8em;
+            }
+            
             .modal-content {
-                width: 95%;
-                margin: 10px auto;}
+                margin: 1% auto;
+                width: 98%;
+                padding: 5px;
+            }
+            
+            .modal-header h2 {
+                font-size: 0.9em;
+            }
+            
+            .modal-body {
+                font-size: 0.7em;
+                padding: 5px;
+                max-height: 70vh;
+            }
+            
+            .close-button {
+                top: 5px;
+                right: 8px;
+                font-size: 18px !important;
+            }
+            
+            #downloadButton {
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+        }
     </style>
 
     <!-- Resource hints -->

@@ -120,18 +120,103 @@
             transform: scale(1.05);
             opacity: 0.9;
         }
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
+            body {
+                padding: 8px;
+            }
+            
+            .container {
+                padding: 5px;
+            }
+            
             .image-gallery {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
+            
+            .image-item {
+                margin: 0;
+            }
+            
+            .modal {
+                padding-top: 10px;
+            }
+            
             .modal-content {
-                width: 90%;}
+                margin: 2% auto;
+                width: 96%;
+                max-height: 95vh;
+                overflow-y: auto;
+                padding: 8px;
+            }
+            
+            .modal-top {
+                flex-direction: column;
+            }
+            
+            .modal-image, .modal-intro-text {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .modal-intro-text {
+                max-height: 30vh;
+                font-size: 0.9em;
+                padding: 8px;
+            }
+            
+            .modal-text {
+                font-size: 0.8em;
+                padding: 10px;
+                max-height: 60vh;
+            }
+            
+            .close {
+                position: absolute !important;
+                top: 8px;
+                right: 12px;
+                font-size: 24px !important;
+            }
+        }
+        
         @media (max-width: 480px) {
             body {
-                padding: 10px;
+                padding: 5px;
             }
+            
+            .container {
+                padding: 3px;
+            }
+            
+            .image-gallery {
+                gap: 10px;
+            }
+            
             .modal-content {
-                width: 95%;}
+                margin: 1% auto;
+                width: 98%;
+                padding: 5px;
+            }
+            
+            .modal-intro-text {
+                max-height: 25vh;
+                font-size: 0.8em;
+                padding: 5px;
+            }
+            
+            .modal-text {
+                font-size: 0.7em;
+                padding: 8px;
+                max-height: 55vh;
+            }
+            
+            .close {
+                top: 5px;
+                right: 8px;
+                font-size: 20px !important;
+            }
+        }
         .modal {
             display: none;
             position: fixed;

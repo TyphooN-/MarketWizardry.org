@@ -212,6 +212,68 @@
 	    border-right: 2px solid #00ff00;
 	    background-color: black; /* Assuming you want a dark background for the menu */
 	}
+
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+            }
+            
+            .menu {
+                width: 100%;
+                max-height: 40vh;
+                overflow-y: auto;
+                border-right: none;
+                border-bottom: 2px solid #00ff00;
+                padding: 10px;
+            }
+            
+            .header-container {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .menu-item {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 2px;
+                font-size: 12px;
+            }
+            
+            .image-item {
+                display: none; /* Hide the large image on mobile to save space */
+            }
+            
+            .content-frame {
+                flex: 1;
+                height: auto;
+                padding: 10px;
+            }
+        }
+
+        /* Extra small mobile devices */
+        @media screen and (max-width: 480px) {
+            .menu {
+                max-height: 35vh;
+                padding: 8px;
+            }
+            
+            .menu-item {
+                padding: 6px 10px;
+                margin: 1px;
+                font-size: 11px;
+            }
+            
+            .header-container {
+                font-size: 12px;
+            }
+            
+            .content-frame {
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
