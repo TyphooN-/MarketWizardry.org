@@ -23,11 +23,31 @@ def get_existing_flavor_text(username):
 def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[]):
     html_content = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NFT (Not For Trade) Gallery</title>
+    <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT (Not For Trade) Gallery | MarketWizardry.org</title>
+    <link rel="canonical" href="https://marketwizardry.org/nft-gallery.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="NFT Gallery - MarketWizardry.org">
+    <meta property="og:description" content="Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NFT Gallery - MarketWizardry.org">
+    <meta name="twitter:description" content="Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
@@ -130,12 +150,32 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
 
 def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.webp'):
     html_template = """
-<!-- user_gallery.html -->
+<!-- Simple gallery.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</title>
-    <script>
+    <title>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER | MarketWizardry.org</title>
+    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/USERNAME_PLACEHOLDER_gallery.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FLAVOR_TEXT_PLACEHOLDER">
+    <meta property="og:title" content="NFT Gallery - USERNAME_PLACEHOLDER">
+    <meta property="og:description" content="FLAVOR_TEXT_PLACEHOLDER">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/USERNAME_PLACEHOLDER_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NFT Gallery - USERNAME_PLACEHOLDER">
+    <meta name="twitter:description" content="FLAVOR_TEXT_PLACEHOLDER">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+        <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
             const viewport = document.createElement('meta');
