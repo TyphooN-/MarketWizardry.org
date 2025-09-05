@@ -52,7 +52,7 @@ def create_simple_gallery(artist_name):
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>NFT (Not For Trade) Gallery - {artist_name} | MarketWizardry.org</title>
+    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - {artist_name}</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/{artist_name}_gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">

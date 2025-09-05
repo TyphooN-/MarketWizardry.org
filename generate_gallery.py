@@ -467,7 +467,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NFT (Not For Trade) Gallery - All Images</title>
+    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - All Images</title>
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {

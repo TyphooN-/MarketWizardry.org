@@ -26,7 +26,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>NFT Gallery</title>
+    <title>MarketWizardry.org | NFT Gallery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         // Redirect to index.html if accessed directly (not in iframe)
@@ -133,7 +133,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NFT Gallery - USERNAME_PLACEHOLDER</title>
+    <title>MarketWizardry.org | NFT Gallery - USERNAME_PLACEHOLDER</title>
     <style>
         body {
             background-color: #000;
@@ -398,7 +398,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NFT Gallery - All Images</title>
+    <title>MarketWizardry.org | NFT Gallery - All Images</title>
     <style>
         body {
             background-color: #000;
