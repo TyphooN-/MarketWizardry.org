@@ -225,10 +225,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
+            z-index: 999999;
             overflow-y: auto;
         }
         .modal-content {
@@ -347,8 +347,8 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOMContentLoaded fired, initializing modal...');
+    // Ensure modal functionality works in iframe context
+    function initializeModal() {
         const modal = document.getElementById("myModal");
         const images = document.querySelectorAll(".image-item img");
         const imageItems = document.querySelectorAll(".image-item");
@@ -356,8 +356,6 @@
         const modalIntroText = modal.querySelector('.modal-intro-text');
         const modalText = modal.querySelector('.modal-text');
         const closeBtn = document.querySelector('.close');
-
-        console.log('Found elements:', { modal, images: images.length, imageItems: imageItems.length, modalImage, modalIntroText, modalText, closeBtn });
 
         if (!modal || !modalImage || !modalIntroText || !modalText || !closeBtn) {
             console.error('Modal elements not found:', { modal, modalImage, modalIntroText, modalText, closeBtn });
@@ -564,7 +562,14 @@
 
         window.addEventListener('resize', () => {
             if (modal.style.display === "block" && currentImageIndex >= 0) {
-                openModal(currentImageIndex);});
+                openModal(currentImageIndex);
+            }
+        });
+    }
+
+    // Initialize modal on DOM ready and with a slight delay to ensure iframe context is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initializeModal, 50);
     });
 </script>
 </body>
