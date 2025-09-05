@@ -17,7 +17,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
+    <title>MarketWizardry.org | {title}</title>
     <!-- Standard Meta Tags -->
     <meta name="description" content="{description}">
     <!-- Open Graph Meta Tags -->

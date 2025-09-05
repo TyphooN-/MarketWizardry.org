@@ -28,7 +28,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
     <meta charset="UTF-8">
     <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT (Not For Trade) Gallery | MarketWizardry.org</title>
+    <title>MarketWizardry.org | NFT (Not For Trade) Gallery</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
@@ -154,7 +154,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER | MarketWizardry.org</title>
+    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</title>
     <link rel="canonical" href="https://marketwizardry.org/nft-gallery/USERNAME_PLACEHOLDER_gallery.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
