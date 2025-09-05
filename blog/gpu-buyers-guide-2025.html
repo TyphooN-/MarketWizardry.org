@@ -352,14 +352,14 @@
         const modal = document.getElementById("myModal");
         const images = document.querySelectorAll(".image-item img");
         const imageItems = document.querySelectorAll(".image-item");
-        const modalImage = modal.querySelector('.modal-image');
-        const modalIntroText = modal.querySelector('.modal-intro-text');
-        const modalText = modal.querySelector('.modal-text');
+        const modalImage = modal?.querySelector('.modal-image');
+        const modalIntroText = modal?.querySelector('.modal-intro-text');
+        const modalText = modal?.querySelector('.modal-text');
         const closeBtn = document.querySelector('.close');
 
         if (!modal || !modalImage || !modalIntroText || !modalText || !closeBtn) {
-            console.error('Modal elements not found:', { modal, modalImage, modalIntroText, modalText, closeBtn });
-            return;
+            console.error('Modal elements not found - modal setup failed');
+            return false;
         }
 
         modal.style.display = "none";
@@ -519,13 +519,21 @@
         imageItems.forEach((item, index) => {
             item.addEventListener('click', (event) => {
                 try {
-                    console.log('Image item click detected, index:', index);
                     clearHoverEffects();
                     item.classList.add('hovered');
                     openModal(index);
                 } catch (error) {
                     console.error('Image item click handler error:', error);
                 }
+            });
+            
+            // Add hover events
+            item.addEventListener('mouseenter', () => {
+                item.classList.add('hovered');
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('hovered');
             });
         });
 
@@ -546,7 +554,9 @@
                     break;
                 case 'ArrowRight':
                     if (currentImageIndex < imageItems.length - 1) openModal(currentImageIndex + 1);
-                    break;});
+                    break;
+            }
+        });
 
         modalText.addEventListener('keydown', (event) => {
             if (modal.style.display !== "block") return;
@@ -556,7 +566,9 @@
                 modalText.scrollTop -= scrollAmount;
             } else if (event.key === 'ArrowDown') {
                 event.preventDefault();
-                modalText.scrollTop += scrollAmount;});
+                modalText.scrollTop += scrollAmount;
+            }
+        });
 
         modalText.setAttribute('tabindex', '0');
 
@@ -565,12 +577,19 @@
                 openModal(currentImageIndex);
             }
         });
+        
+        return true;
     }
 
     // Initialize modal on DOM ready and with a slight delay to ensure iframe context is ready
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(initializeModal, 50);
     });
+
+    // Backup initialization in case DOMContentLoaded already fired
+    if (document.readyState !== 'loading') {
+        setTimeout(initializeModal, 10);
+    }
 </script>
 </body>
 </html>

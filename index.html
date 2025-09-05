@@ -323,7 +323,7 @@
                 return;
             }
             // Add active class to clicked menu item only if event exists (user clicked)
-            if (event && event.target) {
+            if (event && event.target && event.target.classList) {
                 event.target.classList.add('active');
             }
         }
