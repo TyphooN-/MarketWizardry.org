@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <title>EV Explorer | MarketWizardry.org</title>
-    <link rel="canonical" href="https://marketwizardry.org/ev-explorer.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <title>EV Explorer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Enterprise Value calculations for wannabe Gordon Gekkos who think spreadsheets make them Warren Buffett. Your MBA tears taste delicious.">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
@@ -19,20 +13,20 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
             }, 100);
         }
     </script>
@@ -176,59 +170,30 @@
             .grid {
                 grid-template-columns: 1fr;
             }
-            
-            .modal {
-                padding-top: 20px; /* Reduce top padding on mobile */
-            }
-            
             .modal-content {
-                margin: 2% auto; /* Much smaller top margin for mobile */
-                width: 95%; /* Almost full width */
-                max-height: 90vh; /* Limit height to viewport */
-                overflow-y: auto; /* Enable scrolling */
+                margin: 10% auto;
+                width: 90%;
             }
-            
-            .modal-header {
-                flex-direction: column; /* Stack header elements vertically */
-                text-align: center;
-                padding: 10px 5px;
-            }
-            
-            .modal-header h2 {
-                font-size: 1em; /* Smaller title */
-                margin-bottom: 10px;
-            }
-            
-            .modal-header a {
-                font-size: 0.9em; /* Smaller links */
-                margin: 5px 0;
-                padding: 5px 10px;
-                border: 1px solid #00ff00;
-                display: inline-block;
-            }
-            
-            .close-button {
-                position: absolute !important;
-                top: 10px;
-                right: 15px;
-                font-size: 24px !important;
-            }
-            
             .modal-body {
-                font-size: 0.7em; /* Slightly larger than before */
-                max-height: 60vh; /* More reasonable height */
-                padding: 10px;
-                line-height: 1.3; /* Better readability */
+                font-size: 0.6em;
             }
         }
     </style>
-        <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
     <div class="container">
         <h1>EV Explorer</h1>
         <div class="grid">
+            <div class="file-entry">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV.csv">
+                    Darwinex-Live (Stocks) - 2025-09-04 (EV Outlier)
+                </a>
+            </div>
+            <div class="file-entry">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV.csv">
+                    Darwinex-Live (Stocks) - 2025-09-04 (EV VaR Outlier)
+                </a>
+            </div>
             <div class="file-entry">
                 <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV.csv">
                     Darwinex-Live (Stocks) - 2025-09-03 (EV Outlier)
