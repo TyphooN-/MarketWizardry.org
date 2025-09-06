@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,115 +15,40 @@
     <meta property="og:description" content="ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/ozbren_xyz_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ozbren_xyz">
     <meta name="twitter:description" content="ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1774136799-big_week_for_me___4_1_1s_found_new_homes__3_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1781734866629058585-The_project_I_ve_been_helping_to_build_for_6_months_will_finally_launch_in_a_couple_of_days__video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video2-1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1933902813719097836-you_can_just_do_whatever_you_want_in_Blender_lol_video4-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -141,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -150,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -165,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -174,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -224,73 +153,101 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - ozbren_xyz</h1>
-
+    <h1>NFT (Not For Trade) Gallery - ozbren_xyz</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">ozbren.xyz's domain-specific digital territories where URL becomes artistic statement. Internet geography for collectors who map cyberspace.</div>
-
+    <div class="flavor-text">ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp',
+</div>
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
             '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video2-lossy.webp',
             '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1774136799-big_week_for_me___4_1_1s_found_new_homes__3_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
             '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1781734866629058585-The_project_I_ve_been_helping_to_build_for_6_months_will_finally_launch_in_a_couple_of_days__video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
             '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video2-1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
             '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1933902813719097836-you_can_just_do_whatever_you_want_in_Blender_lol_video4-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
+            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -298,8 +255,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -307,29 +264,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -349,14 +302,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>

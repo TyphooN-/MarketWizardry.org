@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,148 +15,40 @@
     <meta property="og:description" content="haydiroket's digital art collection - Rocket science this ain't. This collection launched straight into the ground with the precision of a drunk astronaut. NASA called - they want their disappointment back.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/haydiroket_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - haydiroket">
     <meta name="twitter:description" content="haydiroket's digital art collection - Rocket science this ain't. This collection launched straight into the ground with the precision of a drunk astronaut. NASA called - they want their disappointment back.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/haydiroket/webp/haydiroket-1869814281-iTs_NoW_sAfE_tO_tUrN_oFf_YoUr_CoMpUtEr.___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1870560313-sUp_DuX___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1870937465-sO_fUnNy__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1872045522-yEs__-video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1873515415-wHaT______video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1877890729-_-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1879695070-sUpEr_SuPeR_sUpEr___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1885454726877069721-kIx___video1-1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1887250448-2222___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1888968450-rIp__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1890515726-mErRy_XmAs__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1891542417-sEe___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1892644764962508933-oNlY_gM___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1892718787-420___7___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1892928447522939138-fRi___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1893779346-cHkDsK___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1903186071-yOu_KnOw__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video1-1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1905255968121700386-it_is_a_good_day..._despite_it_having_been_a_very_hard_day._KEEP_LIVING_THE_DREAM_Y_ALL_video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1912264097-rEaLiTy___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921329438668538163-bUg___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921329733-nIcE__-video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921329733-nIcE___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921700744400445784-wOoOw___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921701964-qUiCkDiSk__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921701964-qUiCkDiSk___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923393577-tIxExIt___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1924209942-999___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1924209942921138497-999___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1927079217-__video1-2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1930743846-tOpShItAlLdAy___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931069136-zErOpUnK___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931466879702274050-2_pEt___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931863017375088980-mAgIc___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931874476305862783-0242___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1934749722113171617-nO__tHaNx___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1934756192212930613-mAx_MoTiOn___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1934766340990030100-hApPy_MeAl___video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1936506924754944205-__--__http___objkt.com_tokens_hicetnunc_545681___--_video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1937652124235534535-pOcObElLI_fOrEvEr___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1938296258520609097-6___video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1941222542225895803-tOtAlLy_AlIeN___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1942298449354874930-dOs______video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1942353464614420581-__video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1943046555545821219-______________X_____video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1943046555545821219-______________X_____video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1943306997937406395-gM_fRoM_tHe_SoUrCe___video3-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -174,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -183,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -198,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -207,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -257,106 +153,134 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - haydiroket</h1>
-
+    <h1>NFT (Not For Trade) Gallery - haydiroket</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">haydiroket's rocket-fueled digital journeys where art achieves escape velocity. Interstellar creativity for collectors ready to leave Earth's gravity.</div>
-
+    <div class="flavor-text">haydiroket's digital art collection - Rocket science this ain't. This collection launched straight into the ground with the precision of a drunk astronaut. NASA called - they want their disappointment back.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/haydiroket/webp/haydiroket-1869814281-iTs_NoW_sAfE_tO_tUrN_oFf_YoUr_CoMpUtEr.___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1870560313-sUp_DuX___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1870937465-sO_fUnNy__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1872045522-yEs__-video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1873515415-wHaT______video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1877890729-_-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1879695070-sUpEr_SuPeR_sUpEr___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1885454726877069721-kIx___video1-1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1887250448-2222___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1888968450-rIp__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1890515726-mErRy_XmAs__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1891542417-sEe___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1892644764962508933-oNlY_gM___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1892718787-420___7___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1892928447522939138-fRi___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1893779346-cHkDsK___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1903186071-yOu_KnOw__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video1-1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1905255968121700386-it_is_a_good_day..._despite_it_having_been_a_very_hard_day._KEEP_LIVING_THE_DREAM_Y_ALL_video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1912264097-rEaLiTy___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921329438668538163-bUg___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921329733-nIcE__-video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921329733-nIcE___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921700744400445784-wOoOw___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921701964-qUiCkDiSk__-video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1921701964-qUiCkDiSk___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923393577-tIxExIt___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1924209942-999___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1924209942921138497-999___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1927079217-__video1-2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1930743846-tOpShItAlLdAy___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931069136-zErOpUnK___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931466879702274050-2_pEt___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931863017375088980-mAgIc___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1931874476305862783-0242___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1934749722113171617-nO__tHaNx___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1934756192212930613-mAx_MoTiOn___video1-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1934766340990030100-hApPy_MeAl___video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1936506924754944205-__--__http___objkt.com_tokens_hicetnunc_545681___--_video2-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1937652124235534535-pOcObElLI_fOrEvEr___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1938296258520609097-6___video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1941222542225895803-tOtAlLy_AlIeN___video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1942298449354874930-dOs______video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1942353464614420581-__video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1943046555545821219-______________X_____video3-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1943046555545821219-______________X_____video4-lossy.webp',
-            '/nft-gallery/haydiroket/webp/haydiroket-1943306997937406395-gM_fRoM_tHe_SoUrCe___video3-lossy.webp'];
+</div>
+    <script>
         let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+        const allImagePaths = ['/nft-gallery/haydiroket/webp/haydiroket-1931874476305862783-0242___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1877890729-_-video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1934749722113171617-nO__tHaNx___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1879695070-sUpEr_SuPeR_sUpEr___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1890515726-mErRy_XmAs__-video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1934766340990030100-hApPy_MeAl___video4-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1921329733-nIcE__-video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1870937465-sO_fUnNy__-video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1924209942921138497-999___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1912264097-rEaLiTy___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1942298449354874930-dOs______video4-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1937652124235534535-pOcObElLI_fOrEvEr___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1931466879702274050-2_pEt___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1921701964-qUiCkDiSk__-video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1921329438668538163-bUg___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1941222542225895803-tOtAlLy_AlIeN___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1931069136-zErOpUnK___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1921700744400445784-wOoOw___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1887250448-2222___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1893779346-cHkDsK___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1924209942-999___video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1930743846-tOpShItAlLdAy___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1892644764962508933-oNlY_gM___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1927079217-__video1-2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1885454726877069721-kIx___video1-1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1931863017375088980-mAgIc___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1873515415-wHaT______video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video1-1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1921701964-qUiCkDiSk___video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1869814281-iTs_NoW_sAfE_tO_tUrN_oFf_YoUr_CoMpUtEr.___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1921329733-nIcE___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1903186071-yOu_KnOw__-video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1888968450-rIp__-video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1892928447522939138-fRi___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1870560313-sUp_DuX___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1892718787-420___7___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1891542417-sEe___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1905255968121700386-it_is_a_good_day..._despite_it_having_been_a_very_hard_day._KEEP_LIVING_THE_DREAM_Y_ALL_video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1936506924754944205-__--__http___objkt.com_tokens_hicetnunc_545681___--_video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1872045522-yEs__-video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1923393577-tIxExIt___video2-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1942353464614420581-__video4-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1934756192212930613-mAx_MoTiOn___video1-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video4-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1938296258520609097-6___video4-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1943046555545821219-______________X_____video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1943306997937406395-gM_fRoM_tHe_SoUrCe___video3-lossy.webp',
+            '/nft-gallery/haydiroket/webp/haydiroket-1943046555545821219-______________X_____video4-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -364,8 +288,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -373,29 +297,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -415,14 +335,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>

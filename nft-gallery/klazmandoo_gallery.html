@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,150 +15,40 @@
     <meta property="og:description" content="klazmandoo's digital art collection - Klazma meets doom in a spectacular collision of incompetence. This artist managed to turn plasma physics into plasma disappointment. Einstein is rolling in his grave faster than these frames render.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/klazmandoo_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - klazmandoo">
     <meta name="twitter:description" content="klazmandoo's digital art collection - Klazma meets doom in a spectacular collision of incompetence. This artist managed to turn plasma physics into plasma disappointment. Einstein is rolling in his grave faster than these frames render.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/klazmandoo/webp/klazmandoo-1917671116-Composition_447_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1917901016-Describe_your_NFT_journey_in_one_gif_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1918295748-Composition_449_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1918295748-Composition_449_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1919488801-Composition_453_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1919490487-Congrats_Sonic___this_must_have_been_fastest_snipe_ever_lol__-video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1919742296-Composition_454_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920570666-Composition_455_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920753880-Composition_456_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920811094-Composition_457_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920930411-zzzomppplolz_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921293448-Composition_458_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921508525-Composition_459_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921627741-Congrats_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921643329-Composition_460_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921898637-Composition_461_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1922024555-Composition_462_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1922228236-Composition_463_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1923104044-Composition_464_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1923433600-Composition_465_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1924552825-Composition_466_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1924786388-Composition_467_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1925629307-Composition_469_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1925897913-Composition_470_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1926752944-Composition_471_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927096875-Composition_472_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927312566-Composition_473_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927461052-Composition_474_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927464176-I_have_just_collected__Composition_474__by_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927688951-Composition_475_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929608454-Composition_476_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929859015-Composition_477_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929960050-Cheers_Zlaser_for_collecting___video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929967879-Composition_478_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930727253-Composition_479_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930958124-Composition_480_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930958124-Composition_480_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930974888-Composition_481_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930974888-Composition_481_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1931826708887249168-Thanks_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1933256414283129269-Composition_489_video4-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1933437687941509504-Composition_490_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1936520628707738068-Composition_496_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1936707081072988406-Composition_497_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1938145119200322011-Thanks_Perfectloop___video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1938183651197366615-Composition_499_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1939610471029469248-_Mini_series___they_said_video4-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1940842050070696314-Congrats_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1940842050070696314-Congrats_video4-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1941054832644915242-Composition_507_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1942312323328385191-Composition_510_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1942528709401141660-Composition_511_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1942907402157777165-Composition_513_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943047487872209208-Composition_514_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943269098726588820-I_asked_Grok_what_he_would_look_like_if_he_had_to_physically_represent_himself_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943408468087406641-Composition_516_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943592674927206674-Supersonic_Sonic_strikes_again___video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943592674927206674-Supersonic_Sonic_strikes_again___video4-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -176,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -185,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -200,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -209,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -259,108 +153,136 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - klazmandoo</h1>
-
+    <h1>NFT (Not For Trade) Gallery - klazmandoo</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">klazmandoo's chaotic digital symphonies where disorder finds its rhythm. Organized noise for collectors who dance to different frequencies.</div>
-
+    <div class="flavor-text">klazmandoo's digital art collection - Klazma meets doom in a spectacular collision of incompetence. This artist managed to turn plasma physics into plasma disappointment. Einstein is rolling in his grave faster than these frames render.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/klazmandoo/webp/klazmandoo-1917671116-Composition_447_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1917901016-Describe_your_NFT_journey_in_one_gif_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1918295748-Composition_449_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1918295748-Composition_449_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1919488801-Composition_453_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1919490487-Congrats_Sonic___this_must_have_been_fastest_snipe_ever_lol__-video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1919742296-Composition_454_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920570666-Composition_455_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920753880-Composition_456_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920811094-Composition_457_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1920930411-zzzomppplolz_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921293448-Composition_458_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921508525-Composition_459_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921627741-Congrats_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921643329-Composition_460_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1921898637-Composition_461_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1922024555-Composition_462_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1922228236-Composition_463_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1923104044-Composition_464_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1923433600-Composition_465_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1924552825-Composition_466_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1924786388-Composition_467_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1925629307-Composition_469_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1925897913-Composition_470_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1926752944-Composition_471_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927096875-Composition_472_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927312566-Composition_473_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927461052-Composition_474_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927464176-I_have_just_collected__Composition_474__by_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1927688951-Composition_475_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929608454-Composition_476_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929859015-Composition_477_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929960050-Cheers_Zlaser_for_collecting___video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1929967879-Composition_478_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930727253-Composition_479_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930958124-Composition_480_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930958124-Composition_480_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930974888-Composition_481_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1930974888-Composition_481_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1931826708887249168-Thanks_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1933256414283129269-Composition_489_video4-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1933437687941509504-Composition_490_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1936520628707738068-Composition_496_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1936707081072988406-Composition_497_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1938145119200322011-Thanks_Perfectloop___video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1938183651197366615-Composition_499_video1-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1939610471029469248-_Mini_series___they_said_video4-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1940842050070696314-Congrats_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1940842050070696314-Congrats_video4-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1941054832644915242-Composition_507_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1942312323328385191-Composition_510_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1942528709401141660-Composition_511_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1942907402157777165-Composition_513_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943047487872209208-Composition_514_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943269098726588820-I_asked_Grok_what_he_would_look_like_if_he_had_to_physically_represent_himself_video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943408468087406641-Composition_516_video2-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943592674927206674-Supersonic_Sonic_strikes_again___video3-lossy.webp',
-            '/nft-gallery/klazmandoo/webp/klazmandoo-1943592674927206674-Supersonic_Sonic_strikes_again___video4-lossy.webp'];
+</div>
+    <script>
         let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+        const allImagePaths = ['/nft-gallery/klazmandoo/webp/klazmandoo-1941054832644915242-Composition_507_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1924552825-Composition_466_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1931826708887249168-Thanks_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1943047487872209208-Composition_514_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1922228236-Composition_463_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1938183651197366615-Composition_499_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1929859015-Composition_477_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1938145119200322011-Thanks_Perfectloop___video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1917901016-Describe_your_NFT_journey_in_one_gif_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1930727253-Composition_479_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1927096875-Composition_472_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1920753880-Composition_456_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1927312566-Composition_473_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1936520628707738068-Composition_496_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1917671116-Composition_447_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1930958124-Composition_480_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1943592674927206674-Supersonic_Sonic_strikes_again___video3-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1919488801-Composition_453_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1921293448-Composition_458_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1943269098726588820-I_asked_Grok_what_he_would_look_like_if_he_had_to_physically_represent_himself_video3-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1925629307-Composition_469_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1930974888-Composition_481_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1921643329-Composition_460_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1933437687941509504-Composition_490_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1927461052-Composition_474_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1929608454-Composition_476_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1927464176-I_have_just_collected__Composition_474__by_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1923433600-Composition_465_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1929967879-Composition_478_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1943592674927206674-Supersonic_Sonic_strikes_again___video4-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1918295748-Composition_449_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1936707081072988406-Composition_497_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1943408468087406641-Composition_516_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1924786388-Composition_467_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1942312323328385191-Composition_510_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1920570666-Composition_455_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1939610471029469248-_Mini_series___they_said_video4-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1918295748-Composition_449_video3-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1940842050070696314-Congrats_video3-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1919742296-Composition_454_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1923104044-Composition_464_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1940842050070696314-Congrats_video4-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1921898637-Composition_461_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1921627741-Congrats_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1927688951-Composition_475_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1920811094-Composition_457_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1929960050-Cheers_Zlaser_for_collecting___video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1942528709401141660-Composition_511_video3-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1920930411-zzzomppplolz_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1933256414283129269-Composition_489_video4-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1926752944-Composition_471_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1942907402157777165-Composition_513_video2-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1922024555-Composition_462_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1919490487-Congrats_Sonic___this_must_have_been_fastest_snipe_ever_lol__-video3-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1930958124-Composition_480_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1925897913-Composition_470_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1921508525-Composition_459_video1-lossy.webp',
+            '/nft-gallery/klazmandoo/webp/klazmandoo-1930974888-Composition_481_video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -368,8 +290,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -377,29 +299,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -419,14 +337,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>

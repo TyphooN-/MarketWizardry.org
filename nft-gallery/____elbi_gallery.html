@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,121 +15,40 @@
     <meta property="og:description" content="Quadruple underscore minimalism meets existential username crisis. When even your digital identity needs excessive punctuation to feel special.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/____elbi_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ____elbi">
     <meta name="twitter:description" content="Quadruple underscore minimalism meets existential username crisis. When even your digital identity needs excessive punctuation to feel special.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video2-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -147,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -156,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -171,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -180,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -230,79 +153,107 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - ____elbi</h1>
-
+    <h1>NFT (Not For Trade) Gallery - ____elbi</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">elbi's enigmatic digital presence where mystery enhances meaning. Cryptic artistry for collectors who prefer their art with extra intrigue.</div>
-
+    <div class="flavor-text">Quadruple underscore minimalism meets existential username crisis. When even your digital identity needs excessive punctuation to feel special.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp',
+</div>
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp',
             '/nft-gallery/____elbi/webp/____elbi-1907553346774278180-Th3_Fl0or__s_L_v__video1-1-lossy.webp',
             '/nft-gallery/____elbi/webp/____elbi-1907649621-https___objkt.com_tokens_KT1PeWmogd5D7ixwkygFuVSw5oAQjFHHwEpN_11__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907175757-Where_I_Post_From_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp',
             '/nft-gallery/____elbi/webp/____elbi-1911103809-Another_1_1_added_to_the_collection_of_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1912134013-VIDEO_PIRACY_IS_A_CRIME_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1918357031-Constant_Headache_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1924887832-unnamed_video1-1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp',
             '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1912570454-LOST_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1920852987-M05WX_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906882927-wwwow_made_to_the_hottest_collections_on_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1922033378-TV_PARTY_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907161296014876917-desktop_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906706263-30_minutes_to_launch_of__wwwow__by_video2-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1920272583-Shill_tezos_art_pls_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1909314521-DODGE_THIS__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1906718373-T_tl3__cr33n_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1919396043-GM_video3-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1907790471-GM_video1-1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928123665-_Till_Tape_Do_Us_Part__video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1916699855-The_Tide_Of_Time_video1-lossy.webp',
+            '/nft-gallery/____elbi/webp/____elbi-1928472529-Dope___video1-lossy.webp',
             '/nft-gallery/____elbi/webp/____elbi-1930752443312189497-shoutout_to_video1-1-lossy.webp',
             '/nft-gallery/____elbi/webp/____elbi-1934993481321087381-How_tf_did_you_make_this___Awesome_piece_video4-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1937557908897583549-_CONNECTION__video4-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1940072237916180915-w95_mouse_path_-_1_1_on_video2-lossy.webp',
-            '/nft-gallery/____elbi/webp/____elbi-1940429168724107661-are_you_at_home_again__I_thing_elbi_is_hidden_in_the_residency_home_video2-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+            '/nft-gallery/____elbi/webp/____elbi-1919544168-C0ngr_tu1_t_0n__video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -310,8 +261,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -319,29 +270,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -361,14 +308,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>

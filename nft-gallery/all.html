@@ -33,21 +33,21 @@
             document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-                // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -62,6 +62,10 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -151,11 +155,9 @@
     </style>
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - All Images</h1>
-
+    <h1>NFT (Not For Trade) Gallery - All Images</h1>
     <div class="crt-divider"></div>
-    <div class="flavor-text">Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.</div>
+    <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
     <div class="crt-divider"></div>
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -166,9 +168,10 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
+</div>
     <script>
         let currentImageIndex = 0;
         let allImagePaths = []; // Initialize as empty

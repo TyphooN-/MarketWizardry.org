@@ -305,7 +305,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     </style>
 </head>
 <body>
-    <h2>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</h2>
+    <h1>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</h1>
     <div class="crt-divider"></div>
     <div class="flavor-text">FLAVOR_TEXT_PLACEHOLDER</div>
     <div class="crt-divider"></div>
@@ -468,9 +468,29 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     html_template = """
 <!-- all.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketWizardry.org | NFT (Not For Trade) Gallery - All Images</title>
+    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/all.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="All NFT Gallery - MarketWizardry.org">
+    <meta property="og:description" content="Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/all.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="All NFT Gallery - MarketWizardry.org">
+    <meta name="twitter:description" content="Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {
@@ -602,7 +622,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     </style>
 </head>
 <body>
-    <h2>NFT (Not For Trade) Gallery - All Images</h2>
+    <h1>NFT (Not For Trade) Gallery - All Images</h1>
     <div class="crt-divider"></div>
     <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
     <div class="crt-divider"></div>

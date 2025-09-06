@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,133 +15,40 @@
     <meta property="og:description" content="Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/Kirokaze_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - Kirokaze">
     <meta name="twitter:description" content="Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/Kirokaze/webp/Kirokaze-1722036732-gunpoint__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1729923168-Mech_crawler__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1734997312-Dungeon_Crawler_Quest__Pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1747302762-I_started_a_Ko-Fi_page__You_can_support_me_at__video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1768684141-Yellow_Taxi_goes_cyberpunk__pixelart__gamedev_-_Collab_with_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1770876281-Space_Fighter__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1783196707-Robo_Trailing__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1795499535-Quiet_Balcony__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1801676413-ARC_SEED_SD__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1805679750-Chilling_in_Valley_Peaks_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1831754527-MASTER_BOOT_RECORD_-_CPU__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1852030930-No_answer__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1856385915-War_Tactics__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1860389755-Leviathan_s_Crossing_-_Gamersupps__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1874131647-Robo_snow__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1877398318-Analog_Memories__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1877775289-Alley_Rain__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1878501751-Beggar__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1880687093-Photo_Group__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1882132711-Robo_Trip__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1882472463-Gundam_Rest__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1889350014-Gundam__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1889722105-Gundam_Rest_process__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1899503599-Night_mirror__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1909650399-Night_Ride__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1915108784-Endless_Rain__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1915491136-Arcade_Date__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1916879181-Night_Session__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1917262643-After_School_Fight__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1918383015-Pastime__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video3-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -159,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -168,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -183,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -192,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -242,91 +153,119 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - Kirokaze</h1>
-
+    <h1>NFT (Not For Trade) Gallery - Kirokaze</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">Kirokaze's nostalgic digital memories where past and future collide in perfect pixels. Retro-futurism for collectors who appreciate temporal paradox.</div>
-
+    <div class="flavor-text">Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/Kirokaze/webp/Kirokaze-1722036732-gunpoint__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1729923168-Mech_crawler__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1734997312-Dungeon_Crawler_Quest__Pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1747302762-I_started_a_Ko-Fi_page__You_can_support_me_at__video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1768684141-Yellow_Taxi_goes_cyberpunk__pixelart__gamedev_-_Collab_with_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1770876281-Space_Fighter__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1783196707-Robo_Trailing__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1795499535-Quiet_Balcony__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1801676413-ARC_SEED_SD__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1805679750-Chilling_in_Valley_Peaks_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1831754527-MASTER_BOOT_RECORD_-_CPU__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1852030930-No_answer__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1856385915-War_Tactics__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1860389755-Leviathan_s_Crossing_-_Gamersupps__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1874131647-Robo_snow__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1877398318-Analog_Memories__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1877775289-Alley_Rain__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1878501751-Beggar__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1880687093-Photo_Group__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1882132711-Robo_Trip__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1882472463-Gundam_Rest__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1889350014-Gundam__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1889722105-Gundam_Rest_process__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1899503599-Night_mirror__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1909650399-Night_Ride__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1915108784-Endless_Rain__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1915491136-Arcade_Date__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1916879181-Night_Session__pixelart_video1-lossy.webp',
+</div>
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['/nft-gallery/Kirokaze/webp/Kirokaze-1877775289-Alley_Rain__pixelart_______video1-lossy.webp',
             '/nft-gallery/Kirokaze/webp/Kirokaze-1917262643-After_School_Fight__pixelart_______video1-lossy.webp',
             '/nft-gallery/Kirokaze/webp/Kirokaze-1918383015-Pastime__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video1-lossy.webp',
             '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video3-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1880687093-Photo_Group__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1899503599-Night_mirror__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1889350014-Gundam__pixelart_video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video2-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1856385915-War_Tactics__pixelart_video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1882132711-Robo_Trip__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1770876281-Space_Fighter__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1877398318-Analog_Memories__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1831754527-MASTER_BOOT_RECORD_-_CPU__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1795499535-Quiet_Balcony__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1783196707-Robo_Trailing__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video2-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1915491136-Arcade_Date__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1729923168-Mech_crawler__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video2-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1909650399-Night_Ride__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1801676413-ARC_SEED_SD__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1852030930-No_answer__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1805679750-Chilling_in_Valley_Peaks_video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1878501751-Beggar__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1768684141-Yellow_Taxi_goes_cyberpunk__pixelart__gamedev_-_Collab_with_video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1874131647-Robo_snow__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video3-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1860389755-Leviathan_s_Crossing_-_Gamersupps__pixelart_video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1882472463-Gundam_Rest__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video2-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1889722105-Gundam_Rest_process__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1916879181-Night_Session__pixelart_video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1747302762-I_started_a_Ko-Fi_page__You_can_support_me_at__video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1915108784-Endless_Rain__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1722036732-gunpoint__pixelart_______video1-lossy.webp',
+            '/nft-gallery/Kirokaze/webp/Kirokaze-1734997312-Dungeon_Crawler_Quest__Pixelart_video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -334,8 +273,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -343,29 +282,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -385,14 +320,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>

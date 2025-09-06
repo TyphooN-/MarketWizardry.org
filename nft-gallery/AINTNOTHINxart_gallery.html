@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,152 +15,40 @@
     <meta property="og:description" content="AINTNOTHINxart's exploration of digital minimalism where less becomes more. Existential expressions for collectors who understand that sometimes nothing says everything.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/AINTNOTHINxart_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - AINTNOTHINxart">
     <meta name="twitter:description" content="AINTNOTHINxart's exploration of digital minimalism where less becomes more. Existential expressions for collectors who understand that sometimes nothing says everything.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925202828-Buenos_Dias_Y_Happy_Wise_Beard_Wednesday_Familia__-video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925501462-Gm_everybody_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925501462-Gm_everybody_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926041234-I_m_emotional_in_such_a_good_way._Tears_of_joy___I_don_t_even_have_the_exa-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926451776-Wen_hard_visuals_szn_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926455554-What_then_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927340312-gm_neo_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927340312-gm_neo_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927361343-Gm__video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927826677-Candyland_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927826677-Candyland_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928041111-gm_frens_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928067333-gm._selling_art_to_create_art_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928067333-gm._selling_art_to_create_art_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928096076302618862-First__mid__and_latest_mint_over_4_years._It_s_been_a_wild_ride._Style_came_naturally_as_I_explored_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928171927-Sold_out___now_off_to_buy_art__acquisition__1_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928242260-Gn_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928406151500062897-3_seconds_after_you_left_the_White_House_administration_to_fly_to_Mars_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928444056-gm._heres_my_contribution_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928564417-one_last_cigarette_before_bed._by_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928754719-the_process_def_added_a_solid_25__value_to_the_piece_fs_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928804796-gm_video2-1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928825126-ALPHA_MALE_COKEHEAD_DOUCHEBAG_AT_THE_STRIP_CLUB_minted_three_years_ago_tod-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930007520-Great_to_see_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930020768-Taste_won_t_save_you__cooking_will_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930040798-15_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930329641-first_1_1_drop_of_2025._unique___________visuals_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930329641-first_1_1_drop_of_2025._unique___________visuals_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930445108-from_the_future_w_love_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1934660413649469543-Memecoins_are_fast_food_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1934705873127133486-24_HOURS_OF_ART_June_16__2025_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935084579502563522-I_see_meat_ppl_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935090382041141723-Trusting_in_JPEGs_since_2021._MUTANT_TRA_H_has_been_glitching_through_the_chain_for_almost_3_years_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935097440652128699-so_fkn_insanely_amazing_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935107440372027680-for_all_these_years_opensea_was__a_marketplace_without_a_soul_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935277940738023858-_gristle_buddeez_worldwide__by_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935300718350455213-who_was_here_for_this__video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935752554530361626-edition_minted_by_the_great_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935761707772637337-happy_gif_anniversary_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935777159747948802-Amazing__video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935777159747948802-Amazing__video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1938790221480448325-Instant_coin_checkouts._Now_live_on_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940019446128464150-most_people_tend_to_overthink_what_goes_into_a_great_meme__or_don_t_understand_what_a_meme_is_at_all_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940126238724829346-Gm_friends_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940183361366237296-Artists_supporting_artists_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940356929660076392-Gm__Are_you_collecting_works_that_shape_the_visual_language_of_our_time__art_that_engages_deeply_wit_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940356929660076392-Gm__Are_you_collecting_works_that_shape_the_visual_language_of_our_time__art_that_engages_deeply_wit_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940542707510006221-Surrounded_by_art_24_7._couldn_t_ask_for_more_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1941624641333633234-searching_for_new_ways_to_say_the_same_old_ache._to_deliver_it._not_polished__but_alive_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942362164217483547-_______________________video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942371291627151595-Not_a_rebel_take._People_buy_people._They_buy_a_brand._They_buy_how_it_makes_them_feel._They_buy_som_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942371291627151595-Not_a_rebel_take._People_buy_people._They_buy_a_brand._They_buy_how_it_makes_them_feel._They_buy_som_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942682419448131899-I_ve_been_in_this_space_for_4y___and_it_feels_like_one_of_the_main_keys_to_success_is_becoming_an_ar_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942682419448131899-I_ve_been_in_this_space_for_4y___and_it_feels_like_one_of_the_main_keys_to_success_is_becoming_an_ar_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942750556444897646-Dad_strength_is_real_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942941331971530975-art_is_for_life_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943251133444579823-flirting_with_1_000_pieces_collected_on_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943256046002115040-Generative_art_comes_in_many_forms_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943263768135504118-wen_a_1_petabyte_digital_artwork__video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943277271185317955-Gm._Burnout_wrapped_in_ambition_is_a_hell_of_a_strategy_video2-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -178,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -187,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -202,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -211,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -261,110 +153,138 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - AINTNOTHINxart</h1>
-
+    <h1>NFT (Not For Trade) Gallery - AINTNOTHINxart</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">AINTNOTHINxart's raw digital authenticity where genuine expression cuts through algorithmic noise. Unfiltered creativity for collectors who value artistic honesty.</div>
-
+    <div class="flavor-text">AINTNOTHINxart's exploration of digital minimalism where less becomes more. Existential expressions for collectors who understand that sometimes nothing says everything.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925202828-Buenos_Dias_Y_Happy_Wise_Beard_Wednesday_Familia__-video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925501462-Gm_everybody_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925501462-Gm_everybody_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926041234-I_m_emotional_in_such_a_good_way._Tears_of_joy___I_don_t_even_have_the_exa-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926451776-Wen_hard_visuals_szn_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926455554-What_then_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927340312-gm_neo_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927340312-gm_neo_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927361343-Gm__video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927826677-Candyland_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927826677-Candyland_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928041111-gm_frens_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928067333-gm._selling_art_to_create_art_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928067333-gm._selling_art_to_create_art_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928096076302618862-First__mid__and_latest_mint_over_4_years._It_s_been_a_wild_ride._Style_came_naturally_as_I_explored_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928171927-Sold_out___now_off_to_buy_art__acquisition__1_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928242260-Gn_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928406151500062897-3_seconds_after_you_left_the_White_House_administration_to_fly_to_Mars_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928444056-gm._heres_my_contribution_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928564417-one_last_cigarette_before_bed._by_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928754719-the_process_def_added_a_solid_25__value_to_the_piece_fs_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928804796-gm_video2-1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928825126-ALPHA_MALE_COKEHEAD_DOUCHEBAG_AT_THE_STRIP_CLUB_minted_three_years_ago_tod-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930007520-Great_to_see_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930020768-Taste_won_t_save_you__cooking_will_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930040798-15_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930329641-first_1_1_drop_of_2025._unique___________visuals_video1-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930329641-first_1_1_drop_of_2025._unique___________visuals_video2-lossy.webp',
+</div>
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940356929660076392-Gm__Are_you_collecting_works_that_shape_the_visual_language_of_our_time__art_that_engages_deeply_wit_video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930445108-from_the_future_w_love_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1934660413649469543-Memecoins_are_fast_food_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1934705873127133486-24_HOURS_OF_ART_June_16__2025_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935084579502563522-I_see_meat_ppl_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935090382041141723-Trusting_in_JPEGs_since_2021._MUTANT_TRA_H_has_been_glitching_through_the_chain_for_almost_3_years_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935097440652128699-so_fkn_insanely_amazing_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935107440372027680-for_all_these_years_opensea_was__a_marketplace_without_a_soul_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935277940738023858-_gristle_buddeez_worldwide__by_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935300718350455213-who_was_here_for_this__video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935752554530361626-edition_minted_by_the_great_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935761707772637337-happy_gif_anniversary_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935777159747948802-Amazing__video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935777159747948802-Amazing__video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1938790221480448325-Instant_coin_checkouts._Now_live_on_video3-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940019446128464150-most_people_tend_to_overthink_what_goes_into_a_great_meme__or_don_t_understand_what_a_meme_is_at_all_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928041111-gm_frens_video2-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940126238724829346-Gm_friends_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940183361366237296-Artists_supporting_artists_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928444056-gm._heres_my_contribution_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930329641-first_1_1_drop_of_2025._unique___________visuals_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942362164217483547-_______________________video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943256046002115040-Generative_art_comes_in_many_forms_video4-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942941331971530975-art_is_for_life_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928754719-the_process_def_added_a_solid_25__value_to_the_piece_fs_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927826677-Candyland_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935097440652128699-so_fkn_insanely_amazing_video3-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940356929660076392-Gm__Are_you_collecting_works_that_shape_the_visual_language_of_our_time__art_that_engages_deeply_wit_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940356929660076392-Gm__Are_you_collecting_works_that_shape_the_visual_language_of_our_time__art_that_engages_deeply_wit_video4-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928096076302618862-First__mid__and_latest_mint_over_4_years._It_s_been_a_wild_ride._Style_came_naturally_as_I_explored_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925501462-Gm_everybody_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925202828-Buenos_Dias_Y_Happy_Wise_Beard_Wednesday_Familia__-video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928242260-Gn_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927361343-Gm__video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942371291627151595-Not_a_rebel_take._People_buy_people._They_buy_a_brand._They_buy_how_it_makes_them_feel._They_buy_som_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930007520-Great_to_see_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935752554530361626-edition_minted_by_the_great_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926451776-Wen_hard_visuals_szn_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928564417-one_last_cigarette_before_bed._by_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927340312-gm_neo_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928067333-gm._selling_art_to_create_art_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942371291627151595-Not_a_rebel_take._People_buy_people._They_buy_a_brand._They_buy_how_it_makes_them_feel._They_buy_som_video4-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1934705873127133486-24_HOURS_OF_ART_June_16__2025_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935761707772637337-happy_gif_anniversary_video4-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943263768135504118-wen_a_1_petabyte_digital_artwork__video4-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1938790221480448325-Instant_coin_checkouts._Now_live_on_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940183361366237296-Artists_supporting_artists_video2-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1940542707510006221-Surrounded_by_art_24_7._couldn_t_ask_for_more_video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1941624641333633234-searching_for_new_ways_to_say_the_same_old_ache._to_deliver_it._not_polished__but_alive_video2-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942362164217483547-_______________________video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942371291627151595-Not_a_rebel_take._People_buy_people._They_buy_a_brand._They_buy_how_it_makes_them_feel._They_buy_som_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942371291627151595-Not_a_rebel_take._People_buy_people._They_buy_a_brand._They_buy_how_it_makes_them_feel._They_buy_som_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942682419448131899-I_ve_been_in_this_space_for_4y___and_it_feels_like_one_of_the_main_keys_to_success_is_becoming_an_ar_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930040798-15_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1934660413649469543-Memecoins_are_fast_food_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935107440372027680-for_all_these_years_opensea_was__a_marketplace_without_a_soul_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927826677-Candyland_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1925501462-Gm_everybody_video2-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942682419448131899-I_ve_been_in_this_space_for_4y___and_it_feels_like_one_of_the_main_keys_to_success_is_becoming_an_ar_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942750556444897646-Dad_strength_is_real_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942941331971530975-art_is_for_life_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1927340312-gm_neo_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935084579502563522-I_see_meat_ppl_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928804796-gm_video2-1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942682419448131899-I_ve_been_in_this_space_for_4y___and_it_feels_like_one_of_the_main_keys_to_success_is_becoming_an_ar_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926041234-I_m_emotional_in_such_a_good_way._Tears_of_joy___I_don_t_even_have_the_exa-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930329641-first_1_1_drop_of_2025._unique___________visuals_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935090382041141723-Trusting_in_JPEGs_since_2021._MUTANT_TRA_H_has_been_glitching_through_the_chain_for_almost_3_years_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935300718350455213-who_was_here_for_this__video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928825126-ALPHA_MALE_COKEHEAD_DOUCHEBAG_AT_THE_STRIP_CLUB_minted_three_years_ago_tod-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928406151500062897-3_seconds_after_you_left_the_White_House_administration_to_fly_to_Mars_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928067333-gm._selling_art_to_create_art_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1928171927-Sold_out___now_off_to_buy_art__acquisition__1_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935777159747948802-Amazing__video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1930020768-Taste_won_t_save_you__cooking_will_video1-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935777159747948802-Amazing__video4-lossy.webp',
             '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943251133444579823-flirting_with_1_000_pieces_collected_on_video3-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943256046002115040-Generative_art_comes_in_many_forms_video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943263768135504118-wen_a_1_petabyte_digital_artwork__video4-lossy.webp',
-            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943277271185317955-Gm._Burnout_wrapped_in_ambition_is_a_hell_of_a_strategy_video2-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1926455554-What_then_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1943277271185317955-Gm._Burnout_wrapped_in_ambition_is_a_hell_of_a_strategy_video2-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1942750556444897646-Dad_strength_is_real_video3-lossy.webp',
+            '/nft-gallery/AINTNOTHINxart/webp/AINTNOTHINxart-1935277940738023858-_gristle_buddeez_worldwide__by_video3-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -372,8 +292,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -381,29 +301,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -423,14 +339,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <!-- Simple gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,137 +15,40 @@
     <meta property="og:description" content="davidvnun's digital art collection - Because apparently glitch art and existential crisis go hand in hand. Watch this artist slowly descend into madness through Twin Peaks references and brain-melting visuals that'll make you question reality itself.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/davidvnun_gallery.html">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - davidvnun">
     <meta name="twitter:description" content="davidvnun's digital art collection - Because apparently glitch art and existential crisis go hand in hand. Watch this artist slowly descend into madness through Twin Peaks references and brain-melting visuals that'll make you question reality itself.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
         <script>
-        const allImagePaths = ['/nft-gallery/davidvnun/webp/davidvnun-1925590666-2_HOURS_LEFT_ON_THE_BRAINGLITCH_AUCTIONS_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1925674977-AUCTIONS_CONCLUDED_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927182467-BRAINWVRMZ_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927766028-The_4_horsemen_are_about_to_land_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927795926-CONQUEST_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927795926-CONQUEST_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928076150-POWER_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928157405-pestilence_affliction_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928432894-BLOBLOBOBLOOBOOBLO_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928471951875444990-David_is_the_type_of_artists_that_if_started_to_get_cherished_and_appreciated_by_the_market_would_br_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928822018-skull_art_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928926592-all_my_glitches_are_fake_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1929231561-LONGTEETH_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1929946136-what_did_u_expect_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930324012-If_inteligence___artificial_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930329409-shill_me_your_money_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930658870-go_on_a_walk_today_video2-1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930666402-Remember_if_anyone_ever_asks_you_why_Tezos__don_t_go_into_any_details__just_ans-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930743158-BloBJKT_fAKt0Ry_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1931029617-AWOOOOOOOOO_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1931077590-its_joever_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1931820679-bluobLBUUOO_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1932277862-_me_kerrias_si_un_d_a_me_convierto_en_flan__video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1932457126-Toy_ain_t_nun_davib_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1933004128201969747-trust_the_bagel_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1933174828179083754-listen_to_ur_heart_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1934635011900071968-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1935490395078898054-NiceCatch_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1936096341454729718-current_bit_0_ETH_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1936462175834714165-Uncontrollable_Invasive_Frogs__2024__video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1936989469770477803-The_best_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1937172206351507704-i_love_cheese_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1937329934210367545-DeepDream_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1937933677243088978-Am_I_a_fucking_joke_to_u__video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1938063778807001478-i_love_twin_peaks_so_fucking_much_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1939701767458963598-The_space_has_shrunk_and_remaining_ppl_are_intensely_debating_if_or_not__Cabals__exist._The_matter_i_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1940127940664287513-1._what_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1941144065808208311-GM_TEZFREAKZ_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1942242550149947753-demonic_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1942641578343850073-Fun_fact_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1942701469108482127-do_the_shuffle_video3-lossy.webp'];
-        let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
         }
         
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
                 }
-            }
-        });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
+            }, 100);
+        }
     </script>
     <style>
         body {
@@ -163,6 +67,7 @@
             text-align: center;
             padding-bottom: 10px;
         }
+        /* Image grid styles */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -172,7 +77,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
         }
         .thumbnail {
@@ -187,6 +92,7 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -196,28 +102,29 @@
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-        .modal-content {
-            position: relative;
-            background-color: #000;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            text-align: center;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-        }
-        .full-image {
-            max-width: 100%;
-            max-height: 80vh;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 90vw; /* Limit modal width */
+	    max-height: 90vh; /* Limit modal height */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -246,95 +153,123 @@
             opacity: 0.9;
         }
     </style>
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-        <div class="image-container">
-        <h1>NFT (Not For Trade) Gallery - davidvnun</h1>
-
+    <h1>NFT (Not For Trade) Gallery - davidvnun</h1>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">David Vnun's contemplative digital meditations where silence speaks volumes. Peaceful artistry for collectors who find zen in pixels.</div>
-
+    <div class="flavor-text">davidvnun's digital art collection - Because apparently glitch art and existential crisis go hand in hand. Watch this artist slowly descend into madness through Twin Peaks references and brain-melting visuals that'll make you question reality itself.</div>
     <div class="crt-divider"></div>
-
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-
-        <script>
-        const allImagePaths = ['/nft-gallery/davidvnun/webp/davidvnun-1925590666-2_HOURS_LEFT_ON_THE_BRAINGLITCH_AUCTIONS_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1925674977-AUCTIONS_CONCLUDED_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927182467-BRAINWVRMZ_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927766028-The_4_horsemen_are_about_to_land_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927795926-CONQUEST_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927795926-CONQUEST_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928076150-POWER_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928157405-pestilence_affliction_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928432894-BLOBLOBOBLOOBOOBLO_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928471951875444990-David_is_the_type_of_artists_that_if_started_to_get_cherished_and_appreciated_by_the_market_would_br_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928822018-skull_art_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1928926592-all_my_glitches_are_fake_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1929231561-LONGTEETH_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1929946136-what_did_u_expect_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930324012-If_inteligence___artificial_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930329409-shill_me_your_money_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930658870-go_on_a_walk_today_video2-1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930666402-Remember_if_anyone_ever_asks_you_why_Tezos__don_t_go_into_any_details__just_ans-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1930743158-BloBJKT_fAKt0Ry_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1931029617-AWOOOOOOOOO_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1931077590-its_joever_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1931820679-bluobLBUUOO_video1-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1932277862-_me_kerrias_si_un_d_a_me_convierto_en_flan__video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1932457126-Toy_ain_t_nun_davib_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1933004128201969747-trust_the_bagel_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1933174828179083754-listen_to_ur_heart_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1934635011900071968-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1935490395078898054-NiceCatch_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video4-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1936096341454729718-current_bit_0_ETH_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1936462175834714165-Uncontrollable_Invasive_Frogs__2024__video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1936989469770477803-The_best_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1937172206351507704-i_love_cheese_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1937329934210367545-DeepDream_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1937933677243088978-Am_I_a_fucking_joke_to_u__video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1938063778807001478-i_love_twin_peaks_so_fucking_much_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1939701767458963598-The_space_has_shrunk_and_remaining_ppl_are_intensely_debating_if_or_not__Cabals__exist._The_matter_i_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1940127940664287513-1._what_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1941144065808208311-GM_TEZFREAKZ_video2-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1942242550149947753-demonic_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1942641578343850073-Fun_fact_video3-lossy.webp',
-            '/nft-gallery/davidvnun/webp/davidvnun-1942701469108482127-do_the_shuffle_video3-lossy.webp'];
+</div>
+    <script>
         let currentImageIndex = 0;
-        console.log("Image paths loaded:", allImagePaths.length);
-        
+        const allImagePaths = ['/nft-gallery/davidvnun/webp/davidvnun-1942242550149947753-demonic_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1938063778807001478-i_love_twin_peaks_so_fucking_much_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1942641578343850073-Fun_fact_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1940127940664287513-1._what_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1937172206351507704-i_love_cheese_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1936462175834714165-Uncontrollable_Invasive_Frogs__2024__video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1931077590-its_joever_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1936989469770477803-The_best_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1927795926-CONQUEST_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1930329409-shill_me_your_money_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video4-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1941144065808208311-GM_TEZFREAKZ_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1932277862-_me_kerrias_si_un_d_a_me_convierto_en_flan__video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1928157405-pestilence_affliction_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1930658870-go_on_a_walk_today_video2-1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1933004128201969747-trust_the_bagel_video4-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1934635011900071968-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1931820679-bluobLBUUOO_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1928926592-all_my_glitches_are_fake_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1927182467-BRAINWVRMZ_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1928822018-skull_art_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1932457126-Toy_ain_t_nun_davib_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1942701469108482127-do_the_shuffle_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1925674977-AUCTIONS_CONCLUDED_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1939701767458963598-The_space_has_shrunk_and_remaining_ppl_are_intensely_debating_if_or_not__Cabals__exist._The_matter_i_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1937933677243088978-Am_I_a_fucking_joke_to_u__video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1925590666-2_HOURS_LEFT_ON_THE_BRAINGLITCH_AUCTIONS_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1936096341454729718-current_bit_0_ETH_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1928471951875444990-David_is_the_type_of_artists_that_if_started_to_get_cherished_and_appreciated_by_the_market_would_br_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1927795926-CONQUEST_video3-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1930743158-BloBJKT_fAKt0Ry_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1930666402-Remember_if_anyone_ever_asks_you_why_Tezos__don_t_go_into_any_details__just_ans-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1935490395078898054-NiceCatch_video4-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1930324012-If_inteligence___artificial_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1927766028-The_4_horsemen_are_about_to_land_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1933174828179083754-listen_to_ur_heart_video4-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1929946136-what_did_u_expect_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1931029617-AWOOOOOOOOO_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1937329934210367545-DeepDream_video2-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1928432894-BLOBLOBOBLOOBOOBLO_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1929231561-LONGTEETH_video1-lossy.webp',
+            '/nft-gallery/davidvnun/webp/davidvnun-1928076150-POWER_video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
         function loadImage(path, index) {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.alt = path.split('/').pop();
-            img.loading = 'lazy';
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
             img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
-            document.getElementById('imageGrid').appendChild(imgContainer);
+            imageGrid.appendChild(imgContainer);
         }
-        
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
         function openImage(index) {
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
@@ -342,8 +277,8 @@
             const modalFilename = document.getElementById('modalFilename');
             
             modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-            modal.style.display = 'flex';
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            modal.style.display = 'flex'; // Use flex to center modal content
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -351,29 +286,25 @@
                 openImage(currentImageIndex);
             }
         }
-        
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
             }
         }
-        
-        function closeModal() {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
         }
-        
-        // Load all images when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Loading", allImagePaths.length, "images");
-            allImagePaths.forEach((path, index) => {
-                loadImage(path, index);
-            });
-        });
-        
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -393,14 +324,6 @@
                 }
             }
         });
-        
-        // Click outside modal to close
-        window.onclick = function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
     </script>
 </body>
 </html>
