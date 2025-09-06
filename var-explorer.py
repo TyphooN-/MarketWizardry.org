@@ -120,8 +120,6 @@ html_content = f"""<!DOCTYPE html>
         }}
         h1 {{
             text-align: center;
-            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
-            padding-bottom: 10px;
         }}
         .crt-divider {{
             width: 100%;
