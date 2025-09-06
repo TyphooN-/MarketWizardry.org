@@ -55,11 +55,31 @@ files.sort(key=lambda x: x[1], reverse=True)
 
 # Generate HTML content
 html_content = f"""<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MarketWizardry.org | ATR Explorer</title>
+    <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketWizardry.org | ATR Explorer</title>
+    <link rel="canonical" href="https://marketwizardry.org/atr-explorer.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ATR Explorer - MarketWizardry.org">
+    <meta property="og:description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
+    <meta property="og:url" content="https://marketwizardry.org/atr-explorer.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ATR Explorer - MarketWizardry.org">
+    <meta name="twitter:description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {{
