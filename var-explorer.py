@@ -123,6 +123,28 @@ html_content = f"""<!DOCTYPE html>
             border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
         }}
+        .crt-divider {{
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }}
+        @keyframes scan {{
+            0% {{ opacity: 1; width: 0%; }}
+            50% {{ opacity: 0.5; }}
+            100% {{ opacity: 1; width: 100%; }}
+        }}
+        .flavor-text {{
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+        }}
         .grid {{
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -259,6 +281,9 @@ html_content = f"""<!DOCTYPE html>
 <body>
     <div class="container">
         <h1>VaR Explorer</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.</div>
+        <div class="crt-divider"></div>
         <div class="grid">"""
 
 # Add each file as an entry in the HTML
