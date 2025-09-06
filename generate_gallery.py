@@ -88,7 +88,6 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         }
         h1 {
             text-align: center;
-            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
         }
         .grid {
@@ -213,6 +212,10 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -506,6 +509,10 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
