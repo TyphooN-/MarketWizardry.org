@@ -629,8 +629,8 @@ def update_blog_index(all_new_entries):
         if 'summary' in entry and entry['summary']:
             description_html = f'<div class="entry-description">{entry["summary"]}</div>'
         
-        entry_html = f'''            <div class="blog-entry">
-                <a href="https://marketwizardry.org/blog/{entry['filename']}">{entry['title']}</a>
+        entry_html = f'''            <div class="blog-entry" onclick="window.open('https://marketwizardry.org/blog/{entry['filename']}', '_blank')">
+                <a href="https://marketwizardry.org/blog/{entry['filename']}" onclick="event.stopPropagation()">{entry['title']}</a>
                 <span class="date">Posted: {entry['date']}</span>{description_html}
             </div>'''
         entries_html.append(entry_html)
