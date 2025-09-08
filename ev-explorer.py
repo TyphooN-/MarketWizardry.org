@@ -62,6 +62,7 @@ html_content = f"""<!DOCTYPE html>
     <meta name="twitter:description" content="EV calculations for gambling addicts who pretend they're investors. Statistically validate your financial suicide with mathematical precision.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {{

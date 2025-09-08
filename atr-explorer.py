@@ -80,6 +80,7 @@ html_content = f"""<!DOCTYPE html>
     <meta name="twitter:description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <script>
         // Set viewport immediately for mobile scaling
         if (!document.querySelector('meta[name="viewport"]')) {{
