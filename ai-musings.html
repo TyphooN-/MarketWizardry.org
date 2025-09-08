@@ -228,6 +228,11 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
         .disclaimer-container {
             display: flex;
             justify-content: space-between;
@@ -261,6 +266,7 @@
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
         }
     </style>
 

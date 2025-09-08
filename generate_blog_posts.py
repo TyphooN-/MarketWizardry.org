@@ -4,6 +4,7 @@ Script to generate HTML blog posts from text files and update blog.html
 """
 import os
 import re
+import random
 from datetime import datetime
 from pathlib import Path
 
@@ -672,18 +673,134 @@ def extract_title_from_html(html_file):
         return Path(html_file).stem.replace('-', ' ').title()
 
 def generate_flavor_text(title, filename):
-    """Generate sarcastic flavor text based on content type"""
+    """Generate sarcastic flavor text based on content type with RNG variety"""
     title_lower = title.lower()
     filename_lower = filename.lower()
     
+    # Sam Hyde-esque outlier analysis flavor texts (100+ variations)
+    outlier_texts = [
+        "VaR analysis for degenerates who think risk management is just another word for 'hedging your bets on financial suicide'.",
+        "Statistical validation that your portfolio is absolutely fucked, presented with the clinical precision of a medical examiner.",
+        "Outlier detection for those who enjoy watching their life savings dance on the edge of mathematical oblivion.",
+        "Risk metrics for people whose idea of diversification is losing money in multiple asset classes simultaneously.",
+        "Mathematical proof that your trading strategy is about as effective as a chocolate teapot in a house fire.",
+        "Quantitative analysis for masochists who need spreadsheets to confirm their financial death spiral.",
+        "VaR calculations for the kind of person who thinks 'YOLO' is a legitimate investment philosophy.",
+        "Statistical evidence that your portfolio management skills peaked in kindergarten sandbox trading.",
+        "Risk assessment for degenerates who confuse 'high-frequency trading' with 'frequently losing money'.",
+        "Outlier analysis proving that your investment decisions violate several laws of physics and common sense.",
+        "Mathematical validation that your portfolio's performance makes a broken slot machine look profitable.",
+        "VaR metrics for people who think 'cutting losses' means selling their remaining kidney.",
+        "Risk analysis for the financially suicidal who mistake volatility for opportunity.",
+        "Statistical proof that your trading algorithm was coded by a caffeinated hamster with commitment issues.",
+        "Outlier detection for those whose investment strategy resembles a toddler throwing darts at a board blindfolded.",
+        "VaR calculations confirming that your portfolio's trajectory violates basic laws of gravity and decency.",
+        "Risk metrics for people who think 'diamond hands' is medical advice for arthritic grip strength.",
+        "Mathematical evidence that your financial advisor is either incompetent or secretly your worst enemy.",
+        "Statistical analysis proving your investment choices have the accuracy of a storm trooper's aim.",
+        "Outlier assessment for degenerates who confuse market volatility with their own emotional instability.",
+        "VaR analysis for those who believe 'buy high, sell low' is a revolutionary contrarian strategy.",
+        "Risk calculations that make Russian roulette look like a conservative investment approach.",
+        "Mathematical proof that your portfolio diversification strategy consists of losing money in different currencies.",
+        "Statistical validation that your trading skills are surpassed only by your ability to rationalize failure.",
+        "Outlier detection for people whose risk tolerance is inversely proportional to their actual income.",
+        "VaR metrics proving that your investment timeline is measured in regret rather than returns.",
+        "Risk analysis for those who think 'hedge fund' refers to gardening equipment financing.",
+        "Mathematical evidence that your portfolio's performance makes a burning dumpster look like a sound investment.",
+        "Statistical proof that your financial planning involves more hope than a terminal cancer patient.",
+        "Outlier analysis for degenerates who mistake market manipulation for personal skill.",
+        "VaR calculations demonstrating that your risk management strategy is about as effective as a screen door on a submarine.",
+        "Risk metrics for people who think 'stop loss' is what happens when you run out of money.",
+        "Mathematical validation that your investment philosophy was inspired by a fever dream and bad mushrooms.",
+        "Statistical analysis proving your portfolio allocation resembles abstract art more than financial planning.",
+        "Outlier detection for those whose trading decisions are influenced more by astrology than analytics.",
+        "VaR analysis confirming that your risk-adjusted returns are negative in multiple dimensions.",
+        "Risk calculations for people who confuse 'market timing' with 'being late to everything'.",
+        "Mathematical proof that your investment strategy violates the Geneva Convention on financial cruelty.",
+        "Statistical evidence that your portfolio management makes a blindfolded monkey throwing shit look professional.",
+        "Outlier assessment for degenerates whose idea of due diligence is checking if the stock ticker is spelled correctly.",
+        "VaR metrics proving that your financial decisions have the consistency of liquid nitrogen.",
+        "Risk analysis for those who think 'compound interest' is what banks charge for complicated questions.",
+        "Mathematical validation that your trading algorithm was written in crayon by a sugar-high 8-year-old.",
+        "Statistical proof that your investment timeline operates in reverse chronological order.",
+        "Outlier detection for people whose risk assessment skills peaked at evaluating playground equipment.",
+        "VaR calculations demonstrating that your portfolio's volatility makes bipolar disorder look stable.",
+        "Risk metrics for degenerates who think 'liquidity' refers to how much they've been drinking.",
+        "Mathematical evidence that your financial planning involves more wishful thinking than a Disney movie.",
+        "Statistical analysis proving your investment choices are guided by the same logic as flat-earth theory.",
+        "Outlier analysis for those whose portfolio diversification means owning different colors of the same worthless stock.",
+        "VaR metrics confirming that your risk tolerance is higher than your IQ.",
+        "Risk calculations for people who confuse 'market correction' with their own need for psychological help.",
+        "Mathematical proof that your investment strategy was conceived during a psychotic break.",
+        "Statistical validation that your trading skills are surpassed only by your capacity for self-delusion.",
+        "Outlier detection for degenerates whose financial advice comes from fortune cookies and Reddit comments.",
+        "VaR analysis proving that your portfolio performance makes a trainwreck look like efficient transportation.",
+        "Risk metrics for those who think 'asset allocation' means hiding money under different mattresses.",
+        "Mathematical evidence that your investment philosophy was inspired by a lobotomized economics textbook.",
+        "Statistical proof that your financial decision-making process involves more coin flips than analysis.",
+        "Outlier assessment for people whose idea of risk management is wearing a helmet while trading.",
+        "VaR calculations demonstrating that your portfolio's trajectory defies physics and common sense.",
+        "Risk analysis for degenerates who mistake gambling addiction for investment enthusiasm.",
+        "Mathematical validation that your trading strategy has the precision of a shotgun blast in the dark.",
+        "Statistical evidence that your investment timeline is measured in stages of grief rather than quarters.",
+        "Outlier detection for those whose portfolio allocation resembles a Pollock painting after a seizure.",
+        "VaR metrics proving that your risk assessment skills make a blind person look like a sharpshooter.",
+        "Risk calculations for people who think 'blue chip stocks' are colored gambling tokens.",
+        "Mathematical proof that your investment decisions are influenced more by lunar cycles than market cycles.",
+        "Statistical analysis proving your portfolio management makes a house fire look like controlled burning.",
+        "Outlier analysis for degenerates whose financial planning horizon extends to next week's lottery drawing.",
+        "VaR calculations confirming that your trading algorithm was coded by a drunk programmer having an existential crisis.",
+        "Risk metrics for those who confuse 'market volatility' with their own emotional instability.",
+        "Mathematical evidence that your investment strategy violates several international treaties on financial war crimes.",
+        "Statistical validation that your portfolio diversification strategy involves different ways to lose the same money.",
+        "Outlier detection for people whose risk tolerance is inversely related to their understanding of basic math.",
+        "VaR analysis proving that your financial advisor either hates you or is secretly working for your enemies.",
+        "Risk calculations that make playing chicken with freight trains look like conservative risk management.",
+        "Mathematical proof that your investment philosophy was developed by someone who failed kindergarten counting.",
+        "Statistical evidence that your trading decisions are guided by the same principles as reality TV.",
+        "Outlier assessment for degenerates who think 'portfolio rebalancing' means drinking until the numbers look better.",
+        "VaR metrics demonstrating that your risk management strategy has the effectiveness of a chocolate firewall.",
+        "Risk analysis for those whose investment timeline is measured in units of regret and self-loathing.",
+        "Mathematical validation that your financial planning makes a Ponzi scheme look legitimate.",
+        "Statistical proof that your portfolio allocation was determined by a magic 8-ball with trust issues.",
+        "Outlier detection for people whose investment strategy resembles a toddler's attempt at abstract art.",
+        "VaR calculations proving that your risk-adjusted returns exist in a parallel universe where math doesn't work.",
+        "Risk metrics for degenerates who confuse 'market research' with reading horoscopes.",
+        "Mathematical evidence that your trading algorithm was inspired by a broken random number generator.",
+        "Statistical analysis proving your investment choices have the logic of a fever-induced hallucination.",
+        "Outlier analysis for those whose financial decision-making process involves more prayer than analysis.",
+        "VaR metrics confirming that your portfolio's performance makes a dumpster fire look like a growth investment.",
+        "Risk calculations for people who think 'due diligence' is what you owe after being late to meetings.",
+        "Mathematical proof that your investment strategy was conceived by someone allergic to money.",
+        "Statistical validation that your trading skills are exceeded only by your ability to rationalize catastrophic failure.",
+        "Outlier detection for degenerates whose risk assessment involves asking their pet goldfish for financial advice.",
+        "VaR analysis proving that your portfolio management makes abstract expressionism look structured.",
+        "Risk metrics for those who confuse 'compound growth' with the interest on their therapy bills.",
+        "Mathematical evidence that your financial planning was outsourced to a committee of caffeinated squirrels.",
+        "Statistical proof that your investment timeline operates on geological rather than fiscal years.",
+        "Outlier assessment for people whose idea of diversification is losing money in both stocks AND crypto.",
+        "VaR calculations demonstrating that your trading strategy has the precision of a blindfolded surgeon.",
+        "Risk analysis for degenerates who think 'liquidity management' refers to their drinking problem.",
+        "Mathematical validation that your portfolio allocation was determined by throwing darts at a spinning wheel.",
+        "Statistical evidence that your investment philosophy makes flat-earth theory look scientifically rigorous.",
+        "Outlier detection for those whose financial advisor is either a complete fraud or suffering from severe head trauma.",
+        "VaR metrics proving that your risk management approach makes Russian roulette look like a pension plan.",
+        "Risk calculations for people who confuse 'market timing' with showing up late to their own financial funeral.",
+        "Mathematical proof that your investment decisions violate the basic principles of logic and human decency.",
+        "Statistical analysis proving your portfolio performance makes a controlled demolition look accidental.",
+        "Outlier analysis for degenerates whose trading strategy was inspired by watching paint dry and finding it too exciting.",
+        "VaR calculations confirming that your financial planning makes a house of cards look structurally sound.",
+        "Risk metrics for those who think 'asset protection' means hiding under their desk during market hours."
+    ]
+    
     if 'srpt' in filename_lower or 'biotech' in title_lower:
         return "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis."
-    elif 'outlier' in title_lower or 'var' in title_lower:
-        return "VaR analysis for masochists who enjoy quantifying exactly how their portfolios will implode. Because ignorance was never bliss in finance."
+    elif 'outlier' in title_lower or 'var' in title_lower or 'claude' in title_lower:
+        # Use filename as seed for consistent but varied selection
+        random.seed(hash(filename) % 1000000)
+        return random.choice(outlier_texts)
     elif 'gpu' in title_lower or 'buyers' in title_lower:
         return "Hardware analysis for degenerates who confuse graphics cards with investment vehicles. Your wallet's funeral service."
-    elif 'claude' in title_lower:
-        return "AI-assisted market analysis for humans too lazy to lose money manually. Automation at its most destructive."
     else:
         return "Financial analysis for masochists who enjoy watching their net worth evaporate with mathematical precision."
 
