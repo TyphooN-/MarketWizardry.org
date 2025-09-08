@@ -291,9 +291,57 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 def generate_witty_description(content, filename, title):
     """Generate witty Sam Hyde-esque meta descriptions for blog posts"""
     content_lower = content.lower()
+    filename_lower = filename.lower()
     
-    # Base witty descriptions based on content analysis
-    witty_descriptions = [
+    # Extract stock ticker from filename if present (e.g., SRPT from 09082025-SRPT.txt)
+    import re
+    stock_ticker = None
+    upper_filename = filename.upper()
+    
+    # First try regex pattern
+    ticker_match = re.search(r'-([A-Z]{2,5})\.txt$', upper_filename)
+    if ticker_match:
+        stock_ticker = ticker_match.group(1)
+    else:
+        # Fallback: manual parsing for patterns like 09082025-SRPT.txt
+        if upper_filename.endswith('.TXT') and '-' in upper_filename:
+            parts = upper_filename.split('-')
+            if len(parts) >= 2:
+                last_part = parts[-1].replace('.TXT', '')
+                if last_part.isalpha() and 2 <= len(last_part) <= 5:
+                    stock_ticker = last_part
+    
+    # Single stock analysis patterns
+    single_stock_patterns = [
+        "Deep-dive stock analysis for traders who confuse due diligence with gambling addiction. Your 401k's worst enemy.",
+        "Individual stock analysis - because diversification is for cowards and your risk tolerance knows no bounds.",
+        "Stock picking guide for aspiring Warren Buffetts who lack both the patience and capital. Delusions of grandeur included.",
+        "Singular equity obsession - turning one ticker into your entire personality since market open. Side effects include financial ruin.",
+        "Solo stock analysis for those who believe they can outsmart the market with pure autism and determination.",
+        "Individual stock breakdown - because putting all your eggs in one basket makes the inevitable crash more dramatic.",
+        "Transforming sound investment strategy into pure gambling since whenever this was written."
+    ]
+    
+    # Biotech-specific commentary
+    biotech_patterns = [
+        "Biotech gambling for pharmaceutical degenerates who think FDA approval odds are better than casino blackjack. They're not.",
+        "Gene therapy speculation - because traditional investing wasn't risky enough for your taste in financial suicide.",
+        "Pharmaceutical stock analysis for biotech junkies who mistake clinical trial phases for investment strategies.",
+        "Drug development lottery tickets masquerading as investment opportunities. Your portfolio's medical emergency.",
+        "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis.",
+        "Medical stock breakdown - turning healthcare innovation into speculative gambling since the FDA existed."
+    ]
+    
+    # Tech stock patterns  
+    tech_patterns = [
+        "Tech stock analysis for silicon valley worshippers who think disruption equals guaranteed returns. Plot twist: it doesn't.",
+        "Technology company breakdown - because someone needs to validate your FAANG obsession with pseudo-intellectual analysis.",
+        "Tech equity deep-dive for those who mistake venture capital FOMO for legitimate investment research.",
+        "Digital transformation stock pick - turning technological buzzwords into portfolio destruction since the dot-com bubble."
+    ]
+    
+    # Base witty descriptions for general content
+    general_descriptions = [
         "Market autism dissected with surgical precision for your viewing displeasure. Because someone needs to document the financial apocalypse in real-time.",
         "Statistical anomaly hunting for degenerate traders who think patterns in chaos make them Warren Buffett. Spoiler: they don't.",
         "VaR analysis for masochists who enjoy quantifying exactly how their portfolios will implode. Because ignorance was never bliss in finance.",
@@ -304,8 +352,21 @@ def generate_witty_description(content, filename, title):
         "Market wizardry that separates actionable opportunities from close-only traps in the statistical anomaly wasteland of modern trading.",
     ]
     
-    # Content-specific descriptions based on keywords
-    if 'darwinex' in content_lower and 'outlier' in content_lower:
+    # Smart content-specific detection
+    if stock_ticker and len(stock_ticker) <= 5:
+        # It's likely a single stock analysis
+        if any(biotech_word in content_lower for biotech_word in ['gene therapy', 'fda', 'clinical trial', 'biotech', 'pharmaceutical', 'drug', 'therapy']):
+            import random
+            return random.choice(biotech_patterns)
+        elif any(tech_word in content_lower for tech_word in ['software', 'saas', 'cloud', 'ai', 'artificial intelligence', 'tech', 'platform']):
+            import random
+            return random.choice(tech_patterns)
+        else:
+            import random 
+            return random.choice(single_stock_patterns)
+    
+    # Content-specific descriptions for non-single-stock analysis
+    elif 'darwinex' in content_lower and 'outlier' in content_lower:
         return "Deep dive into Darwinex VaR/Ask outlier analysis - separating actionable opportunities from close-only traps in the statistical anomaly wasteland."
     elif 'investment' in content_lower and 'recommendation' in content_lower:
         return "Investment recommendations from the digital wasteland where mathematical precision meets portfolio carnage. Your risk manager's worst nightmare."
@@ -318,9 +379,9 @@ def generate_witty_description(content, filename, title):
     elif 'statistical' in content_lower or 'outlier' in content_lower:
         return "Statistical anomaly hunting for degenerate traders who think patterns in chaos make them Warren Buffett. Reality check included."
     else:
-        # Fallback: pick a random witty description
+        # Fallback: pick a random general description
         import random
-        return random.choice(witty_descriptions)
+        return random.choice(general_descriptions)
 
 
 def extract_title_and_summary(content, filename):
@@ -338,6 +399,23 @@ def extract_title_and_summary(content, filename):
         except:
             date_str = date_raw
     
+    # Extract stock ticker from filename if present (e.g., SRPT from 09082025-SRPT.txt)
+    stock_ticker = None
+    upper_filename = filename.upper()
+    
+    # First try regex pattern  
+    ticker_match = re.search(r'-([A-Z]{2,5})\.txt$', upper_filename)
+    if ticker_match:
+        stock_ticker = ticker_match.group(1)
+    else:
+        # Fallback: manual parsing for patterns like 09082025-SRPT.txt
+        if upper_filename.endswith('.TXT') and '-' in upper_filename:
+            parts = upper_filename.split('-')
+            if len(parts) >= 2:
+                last_part = parts[-1].replace('.TXT', '')
+                if last_part.isalpha() and 2 <= len(last_part) <= 5:
+                    stock_ticker = last_part
+    
     # Look for title patterns in content
     title = "Market Analysis"
     section_title = "📊 MARKET ANALYSIS"
@@ -345,8 +423,40 @@ def extract_title_and_summary(content, filename):
     # Check the entire content for keywords, not just first 20 lines
     content_lower = content.lower()
     
-    # First, check filename for patterns
-    if 'darwinex' in filename.lower() and 'outlier' in filename.lower():
+    # Individual stock analysis detection (highest priority)
+    if stock_ticker and len(stock_ticker) <= 5:
+        # Look for company name in first few lines
+        company_name = None
+        for line in lines[:10]:
+            line_clean = line.strip().upper()
+            if stock_ticker in line_clean and '-' in line_clean:
+                # Extract company name after ticker
+                parts = line_clean.split('-', 1)
+                if len(parts) > 1:
+                    company_name = parts[1].strip().title()
+                    # Clean up common formatting
+                    company_name = company_name.replace(':', '').strip()
+                    break
+        
+        if company_name:
+            title = f"{stock_ticker} - {company_name} Analysis"
+            # Determine sector-specific emoji and section title
+            if any(biotech_word in content_lower for biotech_word in ['gene therapy', 'fda', 'clinical trial', 'biotech', 'pharmaceutical', 'drug', 'therapy']):
+                section_title = f"🧬 {stock_ticker} BIOTECH DEEP DIVE"
+            elif any(tech_word in content_lower for tech_word in ['software', 'saas', 'cloud', 'ai', 'artificial intelligence', 'tech', 'platform']):
+                section_title = f"💻 {stock_ticker} TECH ANALYSIS"
+            elif any(finance_word in content_lower for finance_word in ['bank', 'financial', 'credit', 'lending', 'fintech']):
+                section_title = f"🏦 {stock_ticker} FINANCIAL BREAKDOWN"
+            elif any(energy_word in content_lower for energy_word in ['oil', 'gas', 'energy', 'renewable', 'solar', 'wind']):
+                section_title = f"⚡ {stock_ticker} ENERGY ANALYSIS"
+            else:
+                section_title = f"📈 {stock_ticker} INDIVIDUAL STOCK ANALYSIS"
+        else:
+            title = f"{stock_ticker} Stock Analysis - {date_str}" if date_str else f"{stock_ticker} Stock Analysis"
+            section_title = f"📈 {stock_ticker} INDIVIDUAL STOCK ANALYSIS"
+    
+    # Darwinex outlier analysis
+    elif 'darwinex' in filename.lower() and 'outlier' in filename.lower():
         title = "Claude x Darwinex Outlier Analysis"
         section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
     elif 'investment' in filename.lower():
@@ -361,19 +471,20 @@ def extract_title_and_summary(content, filename):
         section_title = "📊 INVESTMENT RECOMMENDATIONS"
     
     # Fallback: check first 20 lines for bullet points or other patterns
-    for line in lines[:20]:
-        line = line.strip()
-        if not line:
-            continue
-            
-        # Look for bullet points that could be titles (but skip commands)
-        if line.startswith('●') and len(line) > 10:
-            clean_line = line.replace('●', '').strip()
-            # Skip if it looks like a command or technical output
-            if not any(cmd in clean_line.lower() for cmd in ['bash(', 'read(', '⎿', 'ls -', 'find ', 'grep ', 'python ']):
-                if len(clean_line) < 80 and not clean_line.startswith('I'):
-                    title = clean_line
-                    break
+    if title == "Market Analysis":  # Only if we haven't found a better title yet
+        for line in lines[:20]:
+            line = line.strip()
+            if not line:
+                continue
+                
+            # Look for bullet points that could be titles (but skip commands)
+            if line.startswith('●') and len(line) > 10:
+                clean_line = line.replace('●', '').strip()
+                # Skip if it looks like a command or technical output
+                if not any(cmd in clean_line.lower() for cmd in ['bash(', 'read(', '⎿', 'ls -', 'find ', 'grep ', 'python ']):
+                    if len(clean_line) < 80 and not clean_line.startswith('I'):
+                        title = clean_line
+                        break
     
     # Generate witty summary based on content
     summary = generate_witty_description(content, filename, title)
