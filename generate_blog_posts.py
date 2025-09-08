@@ -241,20 +241,40 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     <div class="modal-content">
         <div class="modal-header">
             <h2>{title}</h2>
-            <a id="downloadButton" href="{txt_filename}">Download Report</a>
+            <a id="downloadButton" href="{txt_filename}" download="{txt_filename}">Download Report</a>
             <span class="close-button" onclick="closeModal()">&times;</span>
         </div>
-        <div class="modal-text" tabindex="0">{content}</div>
+        <div class="modal-text" tabindex="0" id="analysisContent"></div>
     </div>
 </div>
 
 <script>
     function openModal() {{
         const modal = document.getElementById("analysisModal");
+        const analysisContent = document.getElementById("analysisContent");
+        const txtUrl = "{txt_filename}";
         
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
-        modal.focus();
+        // Load content dynamically like explorers do
+        fetch(txtUrl)
+            .then(response => {{
+                if (!response.ok) {{
+                    throw new Error(`HTTP error! status: ${{response.status}}`);
+                }}
+                return response.text();
+            }})
+            .then(data => {{
+                analysisContent.textContent = data;
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+                modal.focus();
+            }})
+            .catch(error => {{
+                console.error("Error fetching analysis:", error);
+                analysisContent.textContent = "Error loading analysis content.";
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+                modal.focus();
+            }});
     }}
 
     function closeModal() {{
@@ -523,7 +543,6 @@ def generate_html_from_txt(txt_path):
         filename=html_file.name,
         section_title=section_title,
         summary=summary,
-        content=content,
         txt_filename=txt_file.name
     )
     
