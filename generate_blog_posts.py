@@ -592,9 +592,24 @@ def update_blog_index(new_txt_entries):
     # Generate entries HTML for all entries
     entries_html = []
     for entry in all_entries:
+        # Check if this is a single stock analysis entry and add description
+        description_html = ""
+        if 'summary' in entry and entry['summary']:
+            # For single stock analyses, include the witty commentary
+            filename = entry['filename']
+            if filename and ('-' in filename and filename.upper().endswith('.HTML')):
+                # Check if it looks like a stock ticker pattern
+                import re
+                base_filename = filename.replace('.html', '.txt')
+                upper_filename = base_filename.upper()
+                ticker_match = re.search(r'-([A-Z]{2,5})\.txt$', upper_filename)
+                if ticker_match or (upper_filename.endswith('.TXT') and '-' in upper_filename):
+                    # This is likely a single stock analysis, add the description
+                    description_html = f'<div class="entry-description">{entry["summary"]}</div>'
+        
         entry_html = f'''            <div class="blog-entry">
                 <a href="https://marketwizardry.org/blog/{entry['filename']}">{entry['title']}</a>
-                <span class="date">Posted: {entry['date']}</span>
+                <span class="date">Posted: {entry['date']}</span>{description_html}
             </div>'''
         entries_html.append(entry_html)
     
