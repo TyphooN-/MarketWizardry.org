@@ -604,34 +604,17 @@ def parse_existing_blog_entries():
         return []
 
 
-def update_blog_index(new_txt_entries):
-    """Update blog.html with new entries, preserving existing ones"""
-    
-    # Get existing entries from blog.html
-    existing_entries = parse_existing_blog_entries()
-    
-    # Create a set of existing filenames to avoid duplicates
-    existing_filenames = {entry['filename'] for entry in existing_entries}
-    
-    # Add only new entries that don't already exist
-    new_entries_added = []
-    for entry in new_txt_entries:
-        if entry['filename'] not in existing_filenames:
-            entry['source'] = 'txt-generated'
-            new_entries_added.append(entry)
-            print(f"Adding new entry: {entry['title']}")
-        else:
-            print(f"Skipping duplicate entry: {entry['title']}")
-    
-    # Combine all entries
-    all_entries = existing_entries + new_entries_added
+def update_blog_index(all_new_entries):
+    """Update blog.html with all entries (replaces existing ones with updated flavor text)"""
     
     # Sort by date (newest first)
-    all_entries.sort(key=lambda x: x['date'], reverse=True)
+    all_new_entries.sort(key=lambda x: x['date'], reverse=True)
     
-    if not new_entries_added:
-        print("No new entries to add")
-        return
+    print(f"Updating blog with {len(all_new_entries)} total entries")
+    
+    # All entries now have flavor text, so we use them all
+    all_entries = all_new_entries
+    
     
     # Read current blog.html
     with open(BLOG_INDEX, 'r', encoding='utf-8') as f:
@@ -640,20 +623,10 @@ def update_blog_index(new_txt_entries):
     # Generate entries HTML for all entries
     entries_html = []
     for entry in all_entries:
-        # Check if this is a single stock analysis entry and add description
+        # Add flavor text description for ALL entries
         description_html = ""
         if 'summary' in entry and entry['summary']:
-            # For single stock analyses, include the witty commentary
-            filename = entry['filename']
-            if filename and ('-' in filename and filename.upper().endswith('.HTML')):
-                # Check if it looks like a stock ticker pattern
-                import re
-                base_filename = filename.replace('.html', '.txt')
-                upper_filename = base_filename.upper()
-                ticker_match = re.search(r'-([A-Z]{2,5})\.txt$', upper_filename)
-                if ticker_match or (upper_filename.endswith('.TXT') and '-' in upper_filename):
-                    # This is likely a single stock analysis, add the description
-                    description_html = f'<div class="entry-description">{entry["summary"]}</div>'
+            description_html = f'<div class="entry-description">{entry["summary"]}</div>'
         
         entry_html = f'''            <div class="blog-entry">
                 <a href="https://marketwizardry.org/blog/{entry['filename']}">{entry['title']}</a>
@@ -673,49 +646,115 @@ def update_blog_index(new_txt_entries):
     with open(BLOG_INDEX, 'w', encoding='utf-8') as f:
         f.write(new_content)
     
-    print(f"Updated {BLOG_INDEX}: {len(existing_entries)} existing + {len(new_entries_added)} new = {len(all_entries)} total entries")
+    print(f"Updated {BLOG_INDEX} with {len(all_entries)} total entries (all with flavor text)")
 
 
-def main():
-    """Main function to process all text files and update blog"""
-    blog_entries = []
-    
-    # Find all .txt files in blog directory
-    blog_path = Path(BLOG_DIR)
-    txt_files = list(blog_path.glob('*.txt'))
-    
-    if not txt_files:
-        print("No .txt files found in blog directory")
-        return
-    
-    print(f"Found {len(txt_files)} text files to process")
-    
-    # Process each text file
-    for txt_file in txt_files:
-        html_file = generate_html_from_txt(txt_file)
-        
-        # Extract metadata for blog index
-        with open(txt_file, 'r', encoding='utf-8') as f:
+def extract_title_from_html(html_file):
+    """Extract title from existing HTML file"""
+    try:
+        with open(html_file, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        title, summary, _ = extract_title_and_summary(content, txt_file.name)
+        # Try to extract title from <title> tag
+        title_match = re.search(r'<title[^>]*>MarketWizardry\.org \| ([^<]+)</title>', content)
+        if title_match:
+            return title_match.group(1)
+        
+        # Fallback to h1 tag
+        h1_match = re.search(r'<h1[^>]*>([^<]+)</h1>', content)
+        if h1_match:
+            return h1_match.group(1)
+        
+        # Last resort - use filename
+        return Path(html_file).stem.replace('-', ' ').title()
+    except Exception as e:
+        print(f"Error extracting title from {html_file}: {e}")
+        return Path(html_file).stem.replace('-', ' ').title()
+
+def generate_flavor_text(title, filename):
+    """Generate sarcastic flavor text based on content type"""
+    title_lower = title.lower()
+    filename_lower = filename.lower()
+    
+    if 'srpt' in filename_lower or 'biotech' in title_lower:
+        return "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis."
+    elif 'outlier' in title_lower or 'var' in title_lower:
+        return "VaR analysis for masochists who enjoy quantifying exactly how their portfolios will implode. Because ignorance was never bliss in finance."
+    elif 'gpu' in title_lower or 'buyers' in title_lower:
+        return "Hardware analysis for degenerates who confuse graphics cards with investment vehicles. Your wallet's funeral service."
+    elif 'claude' in title_lower:
+        return "AI-assisted market analysis for humans too lazy to lose money manually. Automation at its most destructive."
+    else:
+        return "Financial analysis for masochists who enjoy watching their net worth evaporate with mathematical precision."
+
+def main():
+    """Main function to process all files and update blog"""
+    blog_entries = []
+    blog_path = Path(BLOG_DIR)
+    
+    # Find all existing HTML files
+    html_files = list(blog_path.glob('*.html'))
+    print(f"Found {len(html_files)} existing HTML files")
+    
+    # Process existing HTML files
+    for html_file in html_files:
+        title = extract_title_from_html(html_file)
         
         # Extract date from filename
-        date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
+        date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
         if date_match:
             month, day, year = date_match.groups()
             date_str = f"{year}-{month}-{day}"
+        elif 'gpu' in html_file.name:
+            date_str = "2025-03-07"  # Set known date for GPU guide
         else:
             date_str = datetime.now().strftime("%Y-%m-%d")
         
+        flavor_text = generate_flavor_text(title, html_file.name)
+        
         blog_entries.append({
-            'filename': Path(html_file).name,
+            'filename': html_file.name,
             'title': title,
             'date': date_str,
-            'summary': summary
+            'summary': flavor_text
         })
     
-    # Update blog index (now preserves existing entries)
+    # Find .txt files that don't have corresponding HTML files
+    txt_files = list(blog_path.glob('*.txt'))
+    for txt_file in txt_files:
+        html_name = txt_file.stem + '.html'
+        html_path = blog_path / html_name
+        
+        if not html_path.exists():
+            print(f"Generating HTML for {txt_file.name}")
+            html_file = generate_html_from_txt(txt_file)
+            
+            # Extract metadata for blog index
+            with open(txt_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            title, _, _ = extract_title_and_summary(content, txt_file.name)
+            
+            # Extract date from filename
+            date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
+            if date_match:
+                month, day, year = date_match.groups()
+                date_str = f"{year}-{month}-{day}"
+            else:
+                date_str = datetime.now().strftime("%Y-%m-%d")
+            
+            flavor_text = generate_flavor_text(title, txt_file.name)
+            
+            blog_entries.append({
+                'filename': Path(html_file).name,
+                'title': title,
+                'date': date_str,
+                'summary': flavor_text
+            })
+    
+    print(f"Total blog entries: {len(blog_entries)}")
+    
+    # Update blog index
     update_blog_index(blog_entries)
     
     print("Blog generation complete!")
