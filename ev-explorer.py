@@ -297,8 +297,8 @@ html_content += """
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
-                <a id="downloadOutlierLink" href="#" download>Download Report</a>
-                <a id="downloadCsvLink" href="#" download>Download Original CSV</a>
+                <a id="downloadOutlierLink" href="#" download onclick="forceDownload(event, this)">Download Report</a>
+                <a id="downloadCsvLink" href="#" download onclick="forceDownload(event, this)">Download Original CSV</a>
                 <span class="close-button">&times;</span>
             </div>
             <pre id="outlierContent" class="modal-body"></pre>
@@ -306,6 +306,28 @@ html_content += """
     </div>
 
     <script>
+        // Force download function
+        function forceDownload(event, link) {
+            event.preventDefault();
+            const url = link.href;
+            const filename = link.download || url.split('/').pop();
+            
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = downloadUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(downloadUrl);
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('Download failed:', error));
+        }
+        
         const modal = document.getElementById("outlierModal");
         const closeButton = document.getElementsByClassName("close-button")[0];
         const modalTitle = document.getElementById("modalTitle");

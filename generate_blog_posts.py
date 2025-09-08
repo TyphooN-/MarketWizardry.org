@@ -241,7 +241,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     <div class="modal-content">
         <div class="modal-header">
             <h2>{title}</h2>
-            <a id="downloadButton" href="{txt_filename}" download="{txt_filename}">Download Report</a>
+            <a id="downloadButton" href="{txt_filename}" download="{txt_filename}" onclick="forceDownload(event, this)">Download Report</a>
             <span class="close-button" onclick="closeModal()">&times;</span>
         </div>
         <div class="modal-text" tabindex="0" id="analysisContent"></div>
@@ -249,6 +249,28 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 </div>
 
 <script>
+    // Force download function
+    function forceDownload(event, link) {{
+        event.preventDefault();
+        const url = link.href;
+        const filename = link.download || url.split('/').pop();
+        
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {{
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = downloadUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(downloadUrl);
+                document.body.removeChild(a);
+            }})
+            .catch(error => console.error('Download failed:', error));
+    }}
+    
     function openModal() {{
         const modal = document.getElementById("analysisModal");
         const analysisContent = document.getElementById("analysisContent");
