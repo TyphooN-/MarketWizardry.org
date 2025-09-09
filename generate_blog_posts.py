@@ -689,10 +689,67 @@ def extract_title_from_html(html_file):
         print(f"Error extracting title from {html_file}: {e}")
         return Path(html_file).stem.replace('-', ' ').title()
 
+def detect_position_content(title, filename, txt_content=""):
+    """Detect if blog post contains active position recommendations"""
+    content = f"{title} {filename} {txt_content}".lower()
+    
+    # Position-related keywords that indicate active trading recommendations
+    position_keywords = [
+        'actionable position', 'buy', 'sell', 'long', 'short', 'entry', 'exit',
+        'target allocation', 'immediate buy', 'staged entry', 'risk management',
+        'stop loss', 'take profit', 'position size', 'hedge', 'portfolio allocation',
+        'trading opportunity', 'investment thesis', 'price target', 'upside potential'
+    ]
+    
+    # Count position-related keywords
+    position_score = sum(1 for keyword in position_keywords if keyword in content)
+    
+    # Strong indicators of position content
+    strong_indicators = ['actionable', 'buy recommendation', 'sell recommendation', 'position']
+    has_strong_indicators = any(indicator in content for indicator in strong_indicators)
+    
+    return position_score >= 3 or has_strong_indicators
+
 def generate_flavor_text(title, filename):
     """Generate sarcastic flavor text based on content type with RNG variety"""
     title_lower = title.lower()
     filename_lower = filename.lower()
+    
+    # Check if we can read the txt content for better position detection
+    txt_content = ""
+    try:
+        txt_file = str(filename).replace('.html', '.txt')
+        if not txt_file.endswith('.txt'):
+            txt_file = f"blog/{filename.replace('.html', '.txt')}"
+        
+        if os.path.exists(txt_file):
+            with open(txt_file, 'r', encoding='utf-8') as f:
+                txt_content = f.read()[:2000]  # First 2000 chars for detection
+    except Exception:
+        pass
+    
+    # Check for active position content first (highest priority)
+    if detect_position_content(title_lower, filename_lower, txt_content):
+        position_texts = [
+            "Active trading recommendations for degenerates who think financial advice from internet strangers is a solid life strategy.",
+            "Position analysis for people whose idea of risk management is asking their magic 8-ball before clicking 'buy'.",
+            "Trading signals for masochists who enjoy watching their account balance perform interpretive dance.",
+            "Investment thesis for those who confuse 'due diligence' with reading the first paragraph of a Reddit post.",
+            "Position sizing guide for people whose portfolio allocation strategy resembles a toddler's crayon drawing.",
+            "Entry and exit strategies for investors whose market timing has the accuracy of a broken sundial.",
+            "Trading opportunities for those who think 'diversification' means losing money in multiple stupid ways simultaneously.",
+            "Position management for degenerates whose stop-loss discipline rivals that of a gambling addict at 3 AM.",
+            "Active positions for people who treat their brokerage account like a high-stakes video game with real consequences.",
+            "Trading recommendations for those whose investment philosophy was developed during a particularly bad acid trip.",
+            "Position analysis proving your trade execution skills have the precision of a drunk surgeon with Parkinson's.",
+            "Investment signals for people who confuse 'market volatility' with their own emotional instability.",
+            "Trading thesis for those whose risk tolerance was calibrated by someone who considers Russian roulette conservative.",
+            "Position recommendations for investors who think 'hedge' refers to the bush they'll be living behind after bankruptcy.",
+            "Active trading strategies for people whose portfolio performance makes casino gamblers look financially responsible."
+        ]
+        # Use filename for consistent RNG seeding
+        random.seed(hash(filename) % 1000000)
+        return random.choice(position_texts)
     
     # Industry/Sector-specific Sam Hyde-esque flavor texts
     sector_texts = {
