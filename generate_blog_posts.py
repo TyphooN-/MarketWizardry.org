@@ -677,6 +677,212 @@ def generate_flavor_text(title, filename):
     title_lower = title.lower()
     filename_lower = filename.lower()
     
+    # Industry/Sector-specific Sam Hyde-esque flavor texts
+    sector_texts = {
+        'biotech': [
+            "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis.",
+            "Pharmaceutical gambling for people who confuse FDA rejection with personal validation.",
+            "Drug development analysis for masochists who enjoy watching molecules burn through cash faster than a crackhead.",
+            "Biotech investment guide for degenerates who think 'clinical trial' means experimenting with their life savings.",
+            "Medical research funding analysis that makes Russian roulette look like a conservative retirement strategy.",
+            "Biotechnology reports for people whose idea of diversification is losing money in multiple drug trials simultaneously.",
+            "Pharmaceutical sector breakdown for those who think 'peer review' means asking their dealer for investment advice.",
+            "Biotech market analysis for investors whose risk tolerance rivals a lab rat's survival instinct.",
+            "Drug development metrics for people who confuse 'phase trials' with the stages of financial grief.",
+            "Medical sector evaluation that proves your biotech picks have the success rate of a blindfolded surgeon.",
+            "Pharmaceutical investment thesis for those who think 'compassionate use' refers to their broker's pity.",
+            "Biotech analysis proving your due diligence involves reading WebMD and calling it research.",
+            "Medical device evaluation for people who think 'regulatory approval' is what their therapist gives them.",
+            "Pharmaceutical sector deep-dive for investors whose portfolio strategy resembles human experimentation.",
+            "Biotech market research that makes gambling addiction look like responsible financial planning."
+        ],
+        'tech': [
+            "Technology sector analysis for people who think 'cloud computing' means doing math while high.",
+            "Software company evaluation for degenerates who confuse 'user experience' with their own existential crisis.",
+            "Tech stock breakdown for investors whose coding knowledge stops at HTML and their investment knowledge doesn't start.",
+            "Technology market analysis proving your startup picks have the longevity of a TikTok trend.",
+            "Software sector research for people who think 'agile methodology' describes their mental gymnastics.",
+            "Tech investment guide for those whose idea of disruption is losing money in innovative ways.",
+            "Technology company assessment for investors who think 'scalability' means how badly they can fuck up.",
+            "Software market evaluation that demonstrates your tech picks age worse than milk in Arizona.",
+            "Technology sector deep-dive for people who confuse 'machine learning' with their own inability to learn.",
+            "Tech stock analysis for investors whose understanding of 'blockchain' rivals a boomer's grasp of Instagram.",
+            "Software company research proving your venture capital instincts have the accuracy of autocorrect.",
+            "Technology market breakdown for those who think 'artificial intelligence' describes their investment strategy.",
+            "Tech sector evaluation for people whose portfolio diversification means losing money across different apps.",
+            "Software investment analysis that makes dot-com bubble investors look like financial geniuses.",
+            "Technology company metrics for those who think 'going viral' is an IPO strategy."
+        ],
+        'energy': [
+            "Energy sector analysis for people who think 'renewable' describes their ability to lose money repeatedly.",
+            "Oil and gas evaluation for investors whose environmental consciousness stops at their portfolio's carbon footprint.",
+            "Energy market breakdown proving your fossil fuel picks have the future prospects of a coal-powered iPhone.",
+            "Renewable energy analysis for those who think 'solar power' refers to the brightness of their financial losses.",
+            "Energy company assessment for investors who confuse 'fracking' with what they're doing to their retirement fund.",
+            "Oil sector research that demonstrates your energy picks have less stability than a meth lab.",
+            "Energy investment guide for people whose idea of green energy is the color of their portfolio losses.",
+            "Power sector evaluation for those who think 'grid stability' describes their mental state during market crashes.",
+            "Energy market analysis proving your utility investments are about as reliable as Texas power grid.",
+            "Renewable sector breakdown for investors who think 'wind power' means the hot air from their financial advisor.",
+            "Energy company research for those whose carbon footprint is smaller than their investment losses.",
+            "Oil and gas metrics that make Enron executives look like ethical role models.",
+            "Energy sector deep-dive for people who confuse 'pipeline' with their dealer's supply chain.",
+            "Renewable energy evaluation proving your ESG investments are as sustainable as a paper straw in a hurricane.",
+            "Power sector analysis for investors whose energy portfolio burns cleaner than their money."
+        ],
+        'finance': [
+            "Financial sector analysis for people who think 'compound interest' is what banks charge for complicated questions.",
+            "Banking evaluation for investors whose credit score has more stability than their stock picks.",
+            "Financial services breakdown proving your fintech investments have the innovation of a rotary phone.",
+            "Banking sector research for those who confuse 'liquid assets' with their drinking problem.",
+            "Financial company assessment that demonstrates your bank picks have less security than a screen door.",
+            "Insurance sector analysis for people whose risk management strategy is 'hope and pray'.",
+            "Financial services evaluation proving your investment banking knowledge comes from Wolf of Wall Street.",
+            "Banking market research for those who think 'derivatives' are what you get from calculus class.",
+            "Financial sector deep-dive for investors whose portfolio diversification resembles a Ponzi scheme.",
+            "Insurance company metrics that make AIG executives look like conservative risk managers.",
+            "Banking analysis for people who confuse 'mortgage backed securities' with home improvement loans.",
+            "Financial services breakdown for those whose credit union investments are union with poverty.",
+            "Banking sector evaluation proving your fintech picks are as revolutionary as digital pet rocks.",
+            "Financial company research for investors whose money laundering knowledge is purely theoretical.",
+            "Insurance sector analysis that makes Bernie Madoff look like a legitimate financial advisor."
+        ],
+        'retail': [
+            "Retail sector analysis for people who think 'brick and mortar' describes their investment foundation.",
+            "Consumer goods evaluation for investors whose shopping addiction funds their portfolio losses.",
+            "Retail market breakdown proving your e-commerce picks have the longevity of a mall in 2024.",
+            "Consumer sector research for those who confuse 'market penetration' with their own financial violation.",
+            "Retail company assessment demonstrating your fashion picks have less style than a Walmart clearance rack.",
+            "Consumer goods analysis for people whose brand loyalty extends only to their loss-making stocks.",
+            "Retail investment guide for those who think 'omnichannel' means losing money everywhere simultaneously.",
+            "Consumer market evaluation proving your luxury brand picks are as exclusive as a Dollar Tree inventory.",
+            "Retail sector deep-dive for investors whose consumer insight comes from TikTok shopping hauls.",
+            "Consumer goods metrics that make retail apocalypse survivors look like Warren Buffett.",
+            "Retail analysis for people who confuse 'supply chain disruption' with their own life choices.",
+            "Consumer sector breakdown for those whose idea of market research is reading Yelp reviews.",
+            "Retail company evaluation proving your department store picks have the future of a Blockbuster franchise.",
+            "Consumer goods research for investors whose retail therapy bankrolls their investment trauma.",
+            "Retail market analysis that makes GameStop squeeze participants look like seasoned professionals."
+        ],
+        'semiconductor': [
+            "Semiconductor analysis for people who think 'chip shortage' describes their investment portfolio's intellectual capacity.",
+            "Microprocessor market evaluation for investors whose understanding of silicon rivals their understanding of success.",
+            "Semiconductor sector breakdown proving your chip picks have less processing power than a potato battery.",
+            "Silicon valley analysis for those who confuse 'wafer fabrication' with cooking show terminology.",
+            "Chip manufacturer assessment demonstrating your semiconductor investments are about as cutting-edge as a Nokia 3310.",
+            "Microelectronics research for people whose idea of Moore's Law is 'more losses, more problems'.",
+            "Semiconductor market deep-dive for investors who think 'nanometer process' describes their portfolio's growth trajectory.",
+            "Silicon sector evaluation proving your tech hardware picks have the lifespan of a fruit fly.",
+            "Chip industry analysis for those whose semiconductor knowledge comes from watching Iron Man movies.",
+            "Microprocessor investment guide that makes Intel's Pentium FDIV bug look like a minor arithmetic error.",
+            "Semiconductor company metrics for people who confuse 'yield' with what they're lacking in returns.",
+            "Silicon market breakdown for investors whose chip investments are about as stable as overclocked hardware.",
+            "Semiconductor sector research proving your foundry picks have less production value than a TikTok video.",
+            "Microelectronics evaluation for those who think 'photolithography' is an Instagram filter.",
+            "Chip manufacturer analysis that makes the dot-com crash look like a minor technical glitch."
+        ],
+        'healthcare': [
+            "Healthcare analysis for people who think 'managed care' describes their portfolio's life support.",
+            "Medical sector evaluation for investors whose health insurance costs less than their investment losses.",
+            "Healthcare market breakdown proving your hospital picks have worse patient outcomes than your stock picks.",
+            "Medical services research for those who confuse 'clinical trials' with their own investment experiments.",
+            "Healthcare company assessment demonstrating your pharma investments spread faster than hospital infections.",
+            "Medical sector deep-dive for people whose idea of preventive care is stop-loss orders.",
+            "Healthcare investment guide for those who think 'healthcare reform' means reformatting their portfolio.",
+            "Medical industry analysis proving your healthcare picks have less healing power than essential oils.",
+            "Healthcare services evaluation for investors whose medical knowledge comes from WebMD searches.",
+            "Medical sector breakdown that makes healthcare.gov's launch look like a smooth operation.",
+            "Healthcare company metrics for people who confuse 'patient care' with their own need for financial therapy.",
+            "Medical market research for those whose healthcare investments are sicker than their actual health.",
+            "Healthcare sector analysis proving your medical picks have the prognosis of a terminal diagnosis.",
+            "Medical services evaluation for investors whose healthcare portfolio needs more intensive care than they do.",
+            "Healthcare industry breakdown for people whose medical investments have worse side effects than the drugs they produce."
+        ],
+        'automotive': [
+            "Automotive analysis for people who think 'electric vehicle' describes the shock they get from their portfolio.",
+            "Car manufacturer evaluation for investors whose driving skills exceed their stock-picking abilities.",
+            "Automotive market breakdown proving your EV picks have less range than a golf cart with dead batteries.",
+            "Vehicle sector research for those who confuse 'autonomous driving' with their own autopilot investment losses.",
+            "Automotive company assessment demonstrating your car picks have more recalls than a defective memory.",
+            "Auto industry deep-dive for people whose idea of fuel efficiency is burning money at a sustainable rate.",
+            "Automotive investment guide for those who think 'hybrid technology' means mixing winning and losing strategies.",
+            "Vehicle market evaluation proving your automotive picks accelerate losses faster than a Formula 1 car.",
+            "Automotive sector analysis for investors whose car industry knowledge comes from Fast & Furious movies.",
+            "Auto manufacturer metrics that make Volkswagen's emissions scandal look like a minor exhaust issue.",
+            "Automotive company research for people who confuse 'crash test ratings' with their portfolio performance.",
+            "Vehicle sector breakdown for those whose automotive investments have worse mileage than a Hummer H1.",
+            "Automotive market analysis proving your car picks are about as reliable as a 1970s British Leyland vehicle.",
+            "Auto industry evaluation for investors whose vehicle investments are always stuck in reverse.",
+            "Automotive sector research that makes the Pinto's safety record look acceptable by comparison."
+        ],
+        'real_estate': [
+            "Real estate analysis for people who think 'market bubble' describes their living situation.",
+            "Property investment evaluation for those who confuse 'underwater mortgage' with their portfolio's current depth.",
+            "Real estate market breakdown proving your REIT picks have less foundation than a house of cards.",
+            "Property sector research for people whose idea of location is 'wherever the losses are'.",
+            "Real estate company assessment demonstrating your property investments depreciate faster than a trailer park.",
+            "Property market deep-dive for those who think 'closing costs' refer to their brokerage account's final moments.",
+            "Real estate investment guide for people whose property knowledge comes from HGTV reruns.",
+            "Property sector evaluation proving your real estate picks have less structural integrity than a sandcastle.",
+            "Real estate analysis for investors whose property investments are as stable as a California hillside.",
+            "Property market metrics that make the 2008 housing crisis look like a minor correction.",
+            "Real estate company research for people who confuse 'property management' with damage control.",
+            "Property sector breakdown for those whose real estate investments are always in need of major repairs.",
+            "Real estate market analysis proving your property picks are about as valuable as swampland in Florida.",
+            "Property investment evaluation for people whose real estate portfolio is zoned for disappointment.",
+            "Real estate sector research that makes subprime mortgage lenders look like conservative bankers."
+        ]
+    }
+    
+    # Check for sector-specific content and use appropriate flavor texts
+    def detect_sector(title, filename):
+        content = f"{title} {filename}".lower()
+        
+        # Biotech/Pharmaceutical keywords
+        if any(word in content for word in ['biotech', 'pharma', 'drug', 'clinical', 'fda', 'medical device', 'therapeutic', 'srpt']):
+            return 'biotech'
+        
+        # Technology keywords  
+        elif any(word in content for word in ['tech', 'software', 'app', 'cloud', 'saas', 'ai', 'blockchain', 'crypto']):
+            return 'tech'
+            
+        # Semiconductor keywords
+        elif any(word in content for word in ['semiconductor', 'chip', 'silicon', 'intel', 'amd', 'nvidia', 'tsmc', 'micron']):
+            return 'semiconductor'
+            
+        # Energy keywords
+        elif any(word in content for word in ['energy', 'oil', 'gas', 'solar', 'renewable', 'wind', 'power', 'utility']):
+            return 'energy'
+            
+        # Finance keywords
+        elif any(word in content for word in ['bank', 'finance', 'credit', 'loan', 'insurance', 'fintech', 'payment']):
+            return 'finance'
+            
+        # Healthcare keywords  
+        elif any(word in content for word in ['health', 'hospital', 'medical', 'diagnostic', 'care', 'hmo']):
+            return 'healthcare'
+            
+        # Retail keywords
+        elif any(word in content for word in ['retail', 'consumer', 'store', 'shopping', 'ecommerce', 'brand']):
+            return 'retail'
+            
+        # Automotive keywords
+        elif any(word in content for word in ['auto', 'car', 'vehicle', 'electric vehicle', 'ev', 'tesla', 'ford', 'gm']):
+            return 'automotive'
+            
+        # Real Estate keywords
+        elif any(word in content for word in ['real estate', 'reit', 'property', 'housing', 'mortgage', 'construction']):
+            return 'real_estate'
+            
+        return None
+    
+    # Detect sector and use appropriate flavor text
+    detected_sector = detect_sector(title, filename)
+    if detected_sector and detected_sector in sector_texts:
+        # Use filename for consistent RNG seeding
+        random.seed(hash(filename) % 1000000)
+        return random.choice(sector_texts[detected_sector])
+    
     # Sam Hyde-esque outlier analysis flavor texts (100+ variations)
     outlier_texts = [
         "VaR analysis for degenerates who think risk management is just another word for 'hedging your bets on financial suicide'.",
