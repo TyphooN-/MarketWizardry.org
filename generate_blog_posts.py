@@ -5,12 +5,52 @@ Script to generate HTML blog posts from text files and update blog.html
 import os
 import re
 import random
+import pandas as pd
+import glob
 from datetime import datetime
 from pathlib import Path
 
 # Configuration
 BLOG_DIR = "blog"
 BLOG_INDEX = "blog.html"
+
+def load_darwinex_symbols():
+    """Load all symbols from Darwinex CSV exports for position detection"""
+    all_symbols = set()
+    
+    # Find all Darwinex CSV files
+    csv_patterns = [
+        "*/SymbolsExport-Darwinex-Live-*.csv",
+        "var-explorer/SymbolsExport-Darwinex-Live-*.csv",
+        "SymbolsExport-Darwinex-Live-*.csv"
+    ]
+    
+    csv_files = []
+    for pattern in csv_patterns:
+        csv_files.extend(glob.glob(pattern))
+    
+    for csv_file in csv_files[:3]:  # Limit to first 3 files for performance
+        try:
+            df = pd.read_csv(csv_file, delimiter=';')
+            if 'Symbol' in df.columns:
+                symbols = df['Symbol'].dropna().unique()
+                all_symbols.update(symbol.lower() for symbol in symbols)
+        except Exception as e:
+            print(f"Warning: Could not load {csv_file}: {e}")
+            continue
+    
+    # Fallback list if CSV loading fails
+    if not all_symbols:
+        all_symbols = {
+            'aapl', 'msft', 'googl', 'goog', 'amzn', 'meta', 'tsla', 'nvda', 'nflx', 'adbe',
+            'jpm', 'bac', 'wfc', 'gs', 'ms', 'c', 'v', 'ma', 'pypl', 'skx', 'gtls', 'arcc',
+            'roku', 'idxx', 'aal', 'chgg', 'clf', 'coty', 'srpt', 'biib', 'snap', 'mdb'
+        }
+    
+    return list(all_symbols)
+
+# Load symbols once at startup
+DARWINEX_SYMBOLS = load_darwinex_symbols()
 
 # HTML template for individual blog posts
 BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
@@ -691,24 +731,31 @@ def extract_title_from_html(html_file):
 
 def detect_position_content(title, filename, txt_content=""):
     """Detect if blog post contains active position recommendations"""
-    content = f"{title} {filename} {txt_content}".lower()
+    filename_lower = filename.lower()
     
-    # Position-related keywords that indicate active trading recommendations
-    position_keywords = [
-        'actionable position', 'buy', 'sell', 'long', 'short', 'entry', 'exit',
-        'target allocation', 'immediate buy', 'staged entry', 'risk management',
-        'stop loss', 'take profit', 'position size', 'hedge', 'portfolio allocation',
-        'trading opportunity', 'investment thesis', 'price target', 'upside potential'
-    ]
+    # Primary detection: Check for "Active_Positions" in filename
+    if "active_positions" in filename_lower:
+        return True
     
-    # Count position-related keywords
-    position_score = sum(1 for keyword in position_keywords if keyword in content)
+    # Secondary detection: Scan for stock symbols in content if we have txt content
+    if txt_content:
+        content_lower = txt_content.lower()
+        # Use comprehensive Darwinex symbols for detection
+        symbol_count = sum(1 for symbol in DARWINEX_SYMBOLS if symbol in content_lower)
+        
+        # If multiple symbols mentioned + position keywords, likely active positions
+        position_keywords = [
+            'actionable', 'buy', 'sell', 'target', 'upside', 'position', 'allocation',
+            'entry', 'exit', 'recommendation', 'thesis', 'catalyst', 'price target'
+        ]
+        
+        position_keyword_count = sum(1 for keyword in position_keywords if keyword in content_lower)
+        
+        # Multiple symbols + position language = active positions
+        if symbol_count >= 3 and position_keyword_count >= 2:
+            return True
     
-    # Strong indicators of position content
-    strong_indicators = ['actionable', 'buy recommendation', 'sell recommendation', 'position']
-    has_strong_indicators = any(indicator in content for indicator in strong_indicators)
-    
-    return position_score >= 3 or has_strong_indicators
+    return False
 
 def generate_flavor_text(title, filename):
     """Generate sarcastic flavor text based on content type with RNG variety"""
