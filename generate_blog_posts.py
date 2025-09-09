@@ -264,11 +264,42 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
                 margin: 10px auto;
             }}
         }}
+        .crt-divider {{
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }}
+        @keyframes scan {{
+            0% {{ opacity: 1; width: 0%; }}
+            50% {{ opacity: 0.5; }}
+            100% {{ opacity: 1; width: 100%; }}
+        }}
+        @keyframes flicker {{
+            0% {{ opacity: 1; }}
+            50% {{ opacity: 0.8; }}
+            100% {{ opacity: 1; }}
+        }}
+        .flavor-text {{
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+            animation: flicker 1s infinite;
+        }}
     </style>
 </head>
 <body>
 <div class="container">
     <header><h1>{title}</h1></header>
+    <div class="crt-divider"></div>
+    <div class="flavor-text">{description}</div>
+    <div class="crt-divider"></div>
     
     <div class="content-section" onclick="openModal()">
         <h2>{section_title}</h2>
@@ -599,10 +630,13 @@ def generate_html_from_txt(txt_path):
     # Extract metadata
     title, summary, section_title = extract_title_and_summary(content, txt_file.name)
     
+    # Generate position-specific flavor text for this blog post
+    flavor_text = generate_flavor_text(title, html_file.name)
+    
     # Generate HTML
     html_content = BLOG_POST_TEMPLATE.format(
         title=title,
-        description=summary,
+        description=flavor_text,  # Use position-specific flavor text instead of generic summary
         filename=html_file.name,
         section_title=section_title,
         summary=summary,
@@ -778,21 +812,26 @@ def generate_flavor_text(title, filename):
     # Check for active position content first (highest priority)
     if detect_position_content(title_lower, filename_lower, txt_content):
         position_texts = [
-            "Active trading recommendations for degenerates who think financial advice from internet strangers is a solid life strategy.",
-            "Position analysis for people whose idea of risk management is asking their magic 8-ball before clicking 'buy'.",
-            "Trading signals for masochists who enjoy watching their account balance perform interpretive dance.",
-            "Investment thesis for those who confuse 'due diligence' with reading the first paragraph of a Reddit post.",
-            "Position sizing guide for people whose portfolio allocation strategy resembles a toddler's crayon drawing.",
-            "Entry and exit strategies for investors whose market timing has the accuracy of a broken sundial.",
-            "Trading opportunities for those who think 'diversification' means losing money in multiple stupid ways simultaneously.",
-            "Position management for degenerates whose stop-loss discipline rivals that of a gambling addict at 3 AM.",
-            "Active positions for people who treat their brokerage account like a high-stakes video game with real consequences.",
-            "Trading recommendations for those whose investment philosophy was developed during a particularly bad acid trip.",
-            "Position analysis proving your trade execution skills have the precision of a drunk surgeon with Parkinson's.",
-            "Investment signals for people who confuse 'market volatility' with their own emotional instability.",
-            "Trading thesis for those whose risk tolerance was calibrated by someone who considers Russian roulette conservative.",
-            "Position recommendations for investors who think 'hedge' refers to the bush they'll be living behind after bankruptcy.",
-            "Active trading strategies for people whose portfolio performance makes casino gamblers look financially responsible."
+            "Trading signals for ICT cultists who think 'liquidity pools' are where their money goes to drown.",
+            "Position analysis for YouTube signal followers whose risk management strategy is copying random Discord screenshots.",
+            "Active positions for people who pay $2000 to learn that 'supply and demand' exists, then act surprised when they lose money.",
+            "Investment signals for degenerates who think following Tori Trades makes them professional futures traders.",
+            "Trading recommendations for signal sheep whose market analysis consists of waiting for uncle ICT's next tweet.",
+            "Position management for fake guru disciples who believe 'market structure' is a mystical concept worth $5000 courses.",
+            "Active trading strategies for people whose entire education comes from YouTube thumbnails with red arrows and shocked faces.",
+            "Investment thesis for signal followers who think 'Smart Money' is an actual person sending them buy alerts.",
+            "Trading opportunities for ICT zombies who recite 'order blocks' like religious mantras while hemorrhaging cash.",
+            "Position analysis for course buyers who spent more on trading education than actual trading capital.",
+            "Active positions for people who think copying signals from @FakeGuru69 on Telegram constitutes a business plan.",
+            "Trading signals for degenerates who confuse backtested results on demo accounts with actual profitability.",
+            "Investment recommendations for signal chasers whose portfolio performance makes lottery tickets look like sound investments.",
+            "Position management for people who believe every 20-pip winner screenshot on Instagram represents sustainable trading.",
+            "Active trading guide for signal followers who think 'risk management' means only risking money they can afford to lose to scammers.",
+            "Trading thesis for ICT disciples whose understanding of market manipulation comes from YouTube conspiracy videos.",
+            "Position analysis for fake guru victims who pay monthly subscriptions to lose money more efficiently.",
+            "Investment signals for people who think 'order flow' is the queue at their local unemployment office.",
+            "Active positions for signal sheep who mistake correlation between red arrows and account liquidation for causation.",
+            "Trading recommendations for course addicts who collect more certificates than profitable trades."
         ]
         # Use filename for consistent RNG seeding
         random.seed(hash(filename) % 1000000)
