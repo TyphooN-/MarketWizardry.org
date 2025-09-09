@@ -166,6 +166,8 @@ html_content = f"""<!DOCTYPE html>
         .file-entry:hover {{
             background-color: #001100;
             color: #00ff00;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }}
 
         a {{
@@ -351,6 +353,34 @@ html_content += """
                     document.body.removeChild(a);
                 }})
                 .catch(error => console.error('Download failed:', error));
+        }}
+        
+        function openModalWithFile(outlierFile, csvUrl, linkText) {{
+            const outlierUrl = location.pathname.replace('.html', '/') + outlierFile;
+            const csvFileName = csvUrl.split('/').pop();
+            
+            modalTitle.textContent = "Report for " + linkText;
+            downloadOutlierLink.href = outlierUrl;
+            downloadOutlierLink.download = outlierFile;
+            downloadCsvLink.href = csvUrl;
+            downloadCsvLink.download = csvFileName;
+
+            fetch(outlierUrl)
+                .then(response => {{
+                    if (!response.ok) {{
+                        throw new Error(`HTTP error! status: ${{response.status}}`);
+                    }}
+                    return response.text();
+                }})
+                .then(data => {{
+                    outlierContent.textContent = data;
+                    modal.style.display = "block";
+                }})
+                .catch(error => {{
+                    console.error("Error fetching outlier report:", error);
+                    outlierContent.textContent = "Error loading report.";
+                    modal.style.display = "block";
+                }});
         }}
         
         const modal = document.getElementById("outlierModal");

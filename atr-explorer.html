@@ -78,6 +78,11 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
         .flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
@@ -87,6 +92,7 @@
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
         }
         .grid {
             display: grid;
@@ -482,8 +488,7 @@
                 .catch(error => console.error('Download failed:', error));
         }}
         
-        
-        function openModalWithFile(outlierFile, csvUrl, linkText) {
+        function openModalWithFile(outlierFile, csvUrl, linkText) {{
             const outlierUrl = location.pathname.replace('.html', '/') + outlierFile;
             const csvFileName = csvUrl.split('/').pop();
             
@@ -494,22 +499,22 @@
             downloadCsvLink.download = csvFileName;
 
             fetch(outlierUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                .then(response => {{
+                    if (!response.ok) {{
+                        throw new Error(`HTTP error! status: ${{response.status}}`);
+                    }}
                     return response.text();
-                })
-                .then(data => {
+                }})
+                .then(data => {{
                     outlierContent.textContent = data;
                     modal.style.display = "block";
-                })
-                .catch(error => {
+                }})
+                .catch(error => {{
                     console.error("Error fetching outlier report:", error);
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
-                });
-        }
+                }});
+        }}
         
         const modal = document.getElementById("outlierModal");
         const closeButton = document.getElementsByClassName("close-button")[0];
