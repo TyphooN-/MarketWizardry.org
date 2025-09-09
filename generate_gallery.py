@@ -118,11 +118,42 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         a:hover {
             text-decoration: underline;
         }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+            animation: flicker 1s infinite;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>NFT (Not For Trade) Gallery</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.</div>
+        <div class="crt-divider"></div>
         <div class="grid">
             <div class="file-entry">
                 <a href="nft-gallery/all.html">ALL USERS - WARNING, may cause lag!</a>
@@ -301,6 +332,12 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
@@ -618,6 +655,12 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
     </style>
 </head>

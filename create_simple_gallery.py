@@ -187,6 +187,12 @@ def create_simple_gallery(artist_name):
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
+        }}
+        @keyframes flicker {{
+            0% {{ opacity: 1; }}
+            50% {{ opacity: 0.8; }}
+            100% {{ opacity: 1; }}
         }}
     </style>
     <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
