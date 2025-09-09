@@ -848,6 +848,23 @@ def generate_flavor_text(title, filename):
             "Real estate market analysis proving your property picks are about as valuable as swampland in Florida.",
             "Property investment evaluation for people whose real estate portfolio is zoned for disappointment.",
             "Real estate sector research that makes subprime mortgage lenders look like conservative bankers."
+        ],
+        'industrials': [
+            "Industrial sector analysis for people who think 'manufacturing efficiency' describes their ability to produce consistent losses.",
+            "Heavy machinery evaluation for investors whose construction knowledge comes from playing with Legos.",
+            "Industrial market breakdown proving your aerospace picks have less lift than a lead balloon.",
+            "Manufacturing sector research for those who confuse 'assembly line' with their series of investment mistakes.",
+            "Industrial company assessment demonstrating your defense picks have less strategic value than a rubber knife.",
+            "Heavy industry deep-dive for people whose idea of logistics is moving money from savings to losses.",
+            "Industrial investment guide for those who think 'supply chain management' means managing their supply of excuses.",
+            "Manufacturing market evaluation proving your industrial picks rust faster than a car in Detroit.",
+            "Industrial sector analysis for investors whose machinery investments break down more than a 1980s Yugo.",
+            "Construction company metrics that make the Leaning Tower of Pisa look structurally sound.",
+            "Industrial research for people who confuse 'quality control' with their own lack of control.",
+            "Manufacturing sector breakdown for those whose production investments have negative efficiency ratings.",
+            "Industrial market analysis proving your construction picks have the stability of a house of cards in a earthquake.",
+            "Heavy machinery evaluation for investors whose industrial knowledge comes from Discovery Channel reruns.",
+            "Industrial sector research that makes Soviet-era manufacturing look like a model of efficiency."
         ]
     }
     
@@ -855,41 +872,67 @@ def generate_flavor_text(title, filename):
     def detect_sector(title, filename):
         content = f"{title} {filename}".lower()
         
-        # Biotech/Pharmaceutical keywords
-        if any(word in content for word in ['biotech', 'pharma', 'drug', 'clinical', 'fda', 'medical device', 'therapeutic', 'srpt']):
+        # Comprehensive Darwinex-based symbol detection
+        
+        # Biotech/Pharmaceutical symbols and keywords
+        biotech_symbols = ['srpt', 'biib', 'gild', 'amgn', 'bmrn', 'alny', 'arwr', 'apls', 'ions', 'rare', 'blue', 'fold', 'crsp', 'edit', 'ntla', 'beam', 'prime', 'fate', 'sgmo', 'xlrn']
+        biotech_keywords = ['biotech', 'pharma', 'drug', 'clinical', 'fda', 'medical device', 'therapeutic', 'biotechnology', 'drugs manufacturers', 'gene therapy', 'clinical trial']
+        if any(symbol in content for symbol in biotech_symbols) or any(word in content for word in biotech_keywords):
             return 'biotech'
         
-        # Technology keywords  
-        elif any(word in content for word in ['tech', 'software', 'app', 'cloud', 'saas', 'ai', 'blockchain', 'crypto']):
+        # Technology symbols and keywords
+        tech_symbols = ['aapl', 'msft', 'googl', 'goog', 'amzn', 'meta', 'nflx', 'adbe', 'crm', 'orcl', 'nvda', 'amd', 'intc', 'crwd', 'snow', 'pltr', 'tsla']
+        tech_keywords = ['tech', 'software', 'app', 'cloud', 'saas', 'ai', 'artificial intelligence', 'blockchain', 'crypto', 'technology', 'internet', 'computer']
+        if any(symbol in content for symbol in tech_symbols) or any(word in content for word in tech_keywords):
             return 'tech'
             
-        # Semiconductor keywords
-        elif any(word in content for word in ['semiconductor', 'chip', 'silicon', 'intel', 'amd', 'nvidia', 'tsmc', 'micron']):
+        # Semiconductor symbols and keywords
+        semiconductor_symbols = ['nvda', 'amd', 'intc', 'tsm', 'mu', 'avgo', 'qcom', 'txn', 'asml', 'lrcx', 'klac', 'amat', 'mrvl', 'mchp', 'swks']
+        semiconductor_keywords = ['semiconductor', 'chip', 'silicon', 'processors', 'semiconductor equipment', 'materials']
+        if any(symbol in content for symbol in semiconductor_symbols) or any(word in content for word in semiconductor_keywords):
             return 'semiconductor'
             
-        # Energy keywords
-        elif any(word in content for word in ['energy', 'oil', 'gas', 'solar', 'renewable', 'wind', 'power', 'utility']):
+        # Energy symbols and keywords
+        energy_symbols = ['xom', 'cvx', 'cop', 'slb', 'eog', 'pxd', 'mpc', 'vlo', 'hes', 'oxy', 'dvn', 'fang', 'mrg', 'hal', 'bkr']
+        energy_keywords = ['energy', 'oil', 'gas', 'solar', 'renewable', 'wind', 'power', 'utility', 'petroleum', 'drilling', 'refining', 'utilities']
+        if any(symbol in content for symbol in energy_symbols) or any(word in content for word in energy_keywords):
             return 'energy'
             
-        # Finance keywords (including major bank tickers)
-        elif any(word in content for word in ['bank', 'finance', 'credit', 'loan', 'insurance', 'fintech', 'payment', 'citigroup', 'jpmorgan', 'wells fargo', 'goldman sachs', '-c.html']):
+        # Finance symbols and keywords (comprehensive bank and finance tickers)
+        finance_symbols = ['c', 'jpm', 'bac', 'wfc', 'gs', 'ms', 'blk', 'schw', 'usb', 'pnc', 'truist', 'cof', 'aig', 'met', 'pru', 'all', 'cme', 'ice', 'spgi', 'mcg', 'cb']
+        finance_keywords = ['bank', 'finance', 'credit', 'loan', 'insurance', 'fintech', 'payment', 'citigroup', 'jpmorgan', 'wells fargo', 'goldman sachs', 'morgan stanley', 'blackrock', 'financial', 'banking', 'asset management']
+        if any(symbol in content for symbol in finance_symbols) or any(word in content for word in finance_keywords) or '-c.html' in content:
             return 'finance'
             
-        # Healthcare keywords  
-        elif any(word in content for word in ['health', 'hospital', 'medical', 'diagnostic', 'care', 'hmo']):
+        # Healthcare symbols and keywords
+        healthcare_symbols = ['jnj', 'pfr', 'unh', 'mrk', 'abbv', 'tmo', 'dhr', 'abt', 'isrg', 'vrtx', 'ci', 'cvs', 'hum', 'antm', 'bmy', 'lly']
+        healthcare_keywords = ['health', 'hospital', 'medical', 'diagnostic', 'care', 'hmo', 'healthcare', 'medical devices', 'pharmaceutical', 'medical care facilities']
+        if any(symbol in content for symbol in healthcare_symbols) or any(word in content for word in healthcare_keywords):
             return 'healthcare'
             
-        # Retail keywords
-        elif any(word in content for word in ['retail', 'consumer', 'store', 'shopping', 'ecommerce', 'brand']):
+        # Retail/Consumer symbols and keywords
+        retail_symbols = ['amzn', 'wmt', 'hd', 'tgt', 'low', 'cost', 'dg', 'dltr', 'tjx', 'ross', 'gps', 'anf', 'rl', 'nke', 'sbux', 'mcd', 'yum']
+        retail_keywords = ['retail', 'consumer', 'store', 'shopping', 'ecommerce', 'brand', 'consumer cyclical', 'consumer defensive', 'restaurants', 'specialty retail']
+        if any(symbol in content for symbol in retail_symbols) or any(word in content for word in retail_keywords):
             return 'retail'
             
-        # Automotive keywords
-        elif any(word in content for word in ['auto', 'car', 'vehicle', 'electric vehicle', 'ev', 'tesla', 'ford', 'gm']):
+        # Automotive symbols and keywords
+        automotive_symbols = ['tsla', 'f', 'gm', 'fcau', 'tm', 'hmc', 'aal', 'dal', 'ual', 'luv', 'jblu', 'save']
+        automotive_keywords = ['auto', 'car', 'vehicle', 'electric vehicle', 'ev', 'tesla', 'ford', 'gm', 'automotive', 'auto manufacturers', 'auto parts', 'airlines']
+        if any(symbol in content for symbol in automotive_symbols) or any(word in content for word in automotive_keywords):
             return 'automotive'
             
-        # Real Estate keywords
-        elif any(word in content for word in ['real estate', 'reit', 'property', 'housing', 'mortgage', 'construction']):
+        # Real Estate symbols and keywords
+        real_estate_symbols = ['are', 'pld', 'cxw', 'eqix', 'dlr', 'spg', 'o', 'eit', 'avb', 'eqr', 'ess', 'udr', 'cpr', 'hcp', 'ventas']
+        real_estate_keywords = ['real estate', 'reit', 'property', 'housing', 'mortgage', 'construction', 'reits', 'residential', 'commercial']
+        if any(symbol in content for symbol in real_estate_symbols) or any(word in content for word in real_estate_keywords):
             return 'real_estate'
+        
+        # Industrial symbols and keywords
+        industrials_symbols = ['ba', 'cat', 'de', 'ge', 'mmm', 'hon', 'ups', 'fedx', 'rtx', 'lmt', 'noc', 'gd', 'etn', 'emr', 'itt']
+        industrials_keywords = ['industrial', 'manufacturing', 'construction', 'machinery', 'aerospace', 'defense', 'transportation', 'logistics', 'industrials']
+        if any(symbol in content for symbol in industrials_symbols) or any(word in content for word in industrials_keywords):
+            return 'industrials'
             
         return None
     
