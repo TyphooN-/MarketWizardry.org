@@ -651,7 +651,7 @@ def update_blog_index(all_new_entries):
 
 
 def extract_title_from_html(html_file):
-    """Extract title from existing HTML file"""
+    """Extract title from existing HTML file, with enhanced company detection"""
     try:
         with open(html_file, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -659,7 +659,24 @@ def extract_title_from_html(html_file):
         # Try to extract title from <title> tag
         title_match = re.search(r'<title[^>]*>MarketWizardry\.org \| ([^<]+)</title>', content)
         if title_match:
-            return title_match.group(1)
+            title = title_match.group(1)
+            # Check if we have a generic title but specific ticker content
+            if title == "Market Analysis":
+                # Check for corresponding .txt file for more specific context
+                txt_file = str(html_file).replace('.html', '.txt')
+                if os.path.exists(txt_file):
+                    try:
+                        with open(txt_file, 'r', encoding='utf-8') as tf:
+                            txt_content = tf.read()[:500]  # First 500 chars
+                            # Look for company names in text content
+                            if 'citigroup' in txt_content.lower() or 'CITIGROUP' in txt_content:
+                                return "Citigroup Analysis"
+                            elif 'sarepta' in txt_content.lower() or 'SRPT' in txt_content:
+                                return "SRPT - Sarepta Therapeutics Analysis"  
+                            # Add more company detection as needed
+                    except:
+                        pass
+            return title
         
         # Fallback to h1 tag
         h1_match = re.search(r'<h1[^>]*>([^<]+)</h1>', content)
@@ -854,8 +871,8 @@ def generate_flavor_text(title, filename):
         elif any(word in content for word in ['energy', 'oil', 'gas', 'solar', 'renewable', 'wind', 'power', 'utility']):
             return 'energy'
             
-        # Finance keywords
-        elif any(word in content for word in ['bank', 'finance', 'credit', 'loan', 'insurance', 'fintech', 'payment']):
+        # Finance keywords (including major bank tickers)
+        elif any(word in content for word in ['bank', 'finance', 'credit', 'loan', 'insurance', 'fintech', 'payment', 'citigroup', 'jpmorgan', 'wells fargo', 'goldman sachs', '-c.html']):
             return 'finance'
             
         # Healthcare keywords  
