@@ -326,7 +326,7 @@ html_content += """
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
-                <a id="downloadOutlierLink" href="#" download onclick="forceDownload(event, this)">Download Outlier Report</a>
+                <a id="downloadOutlierLink" href="#" download onclick="forceDownload(event, this)">Download Report</a>
                 <a id="downloadCsvLink" href="#" download onclick="forceDownload(event, this)">Download Original CSV</a>
                 <span class="close-button">&times;</span>
             </div>
@@ -401,8 +401,9 @@ html_content += """
             const outlierUrl = 'atr-explorer/' + outlierFileName;
             const fileName = link.textContent.trim();
 
-            modalTitle.textContent = "ATR Outlier Report for " + fileName;
+            modalTitle.textContent = "ATR Report for " + fileName;
             downloadCsvLink.href = csvUrl;
+            downloadCsvLink.download = csvUrl.split('/').pop();
             downloadOutlierLink.href = outlierUrl;
             downloadOutlierLink.download = outlierFileName;
 
