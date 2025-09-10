@@ -18,15 +18,19 @@ def extract_tweet_info(filename):
             tweet_id = parts[1]
             # Verify tweet_id is numeric
             if tweet_id.isdigit():
-                return username, tweet_id
+                # Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                if len(tweet_id) < 15:
+                    print(f"Warning: Tweet ID {tweet_id} appears to be shortened (only {len(tweet_id)} digits)")
+                    return username, tweet_id, True  # Return flag indicating shortened ID
+                return username, tweet_id, False  # Full-length ID
     except Exception as e:
         print(f"Error extracting tweet info from {filename}: {e}")
     
-    return None, None
+    return None, None, False
 
-def generate_twitter_url(username, tweet_id):
+def generate_twitter_url(username, tweet_id, is_shortened=False):
     """Generate Twitter URL from username and tweet ID"""
-    if username and tweet_id:
+    if username and tweet_id and not is_shortened:
         return f"https://twitter.com/{username}/status/{tweet_id}"
     return None
 
@@ -133,7 +137,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         <h1>NFT Gallery</h1>
         <div class="grid">
             <div class="file-entry">
-                <a href="all.html">ALL USERS - WARNING, may cause lag!</a>
+                <a href="nft-gallery/all.html">ALL USERS - WARNING, may cause lag!</a>
             </div>
             USER_LINKS_PLACEHOLDER
         </div>
@@ -768,27 +772,88 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 
 
 if __name__ == "__main__":
+    # Check if we're running from root directory
+    if os.path.exists('nft-gallery') and os.path.isdir('nft-gallery'):
+        # We're in root directory, change to nft-gallery subdirectory
+        nft_gallery_dir = 'nft-gallery'
+        print(f"Running NFT gallery generation in {nft_gallery_dir}/ directory")
+        
+        # Save current directory
+        original_dir = os.getcwd()
+        
+        try:
+            # Change to nft-gallery directory
+            os.chdir(nft_gallery_dir)
+            
+            # Generate all.html first
+            generate_all_html()
 
-    # Generate all.html first
-    generate_all_html()
+            # Dynamically find user directories
+            current_directory = os.getcwd()
+            all_entries = os.listdir(current_directory)
+            
+            user_directories = []
+            for entry in all_entries:
+                full_path = os.path.join(current_directory, entry)
+                # Check if it's a directory and contains a 'webp' subdirectory
+                if os.path.isdir(full_path) and os.path.isdir(os.path.join(full_path, "webp")):
+                    user_directories.append(entry)
 
-    # Dynamically find user directories
-    current_directory = os.getcwd()
-    all_entries = os.listdir(current_directory)
-    
-    user_directories = []
-    for entry in all_entries:
-        full_path = os.path.join(current_directory, entry)
-        # Check if it's a directory and contains a 'webp' subdirectory
-        if os.path.isdir(full_path) and os.path.isdir(os.path.join(full_path, "webp")):
-            user_directories.append(entry)
+            # Generate user galleries and collect valid user links
+            valid_user_links = []
+            for user in user_directories:
+                output_file = f'{user}_gallery.html'
+                if generate_user_gallery_html(user, output_file):
+                    valid_user_links.append(user) # Add user to list if gallery was generated
 
-    # Generate user galleries and collect valid user links
-    valid_user_links = []
-    for user in user_directories:
-        output_file = f'{user}_gallery.html'
-        if generate_user_gallery_html(user, output_file):
-            valid_user_links.append(user) # Add user to list if gallery was generated
+            # Generate nft-gallery.html with only valid user links
+            generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=valid_user_links)
+            
+            # Copy the main nft-gallery.html to root directory with corrected paths
+            import shutil
+            
+            # Read the generated nft-gallery.html
+            with open('nft-gallery.html', 'r') as f:
+                content = f.read()
+            
+            # Update all gallery links to include nft-gallery/ prefix
+            import re
+            content = re.sub(r'href="([^/][^"]*_gallery\.html)"', r'href="nft-gallery/\1"', content)
+            
+            # Write to root directory with corrected paths
+            with open('../nft-gallery.html', 'w') as f:
+                f.write(content)
+            
+            print("Copied nft-gallery.html to root directory with corrected paths")
+            
+        finally:
+            # Always return to original directory
+            os.chdir(original_dir)
+            
+    else:
+        # We're already in the nft-gallery directory, run normally
+        print("Running NFT gallery generation in current directory")
+        
+        # Generate all.html first
+        generate_all_html()
 
-    # Generate nft-gallery.html with only valid user links
-    generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=valid_user_links)
+        # Dynamically find user directories
+        current_directory = os.getcwd()
+        all_entries = os.listdir(current_directory)
+        
+        user_directories = []
+        for entry in all_entries:
+            full_path = os.path.join(current_directory, entry)
+            # Check if it's a directory and contains a 'webp' subdirectory
+            if os.path.isdir(full_path) and os.path.isdir(os.path.join(full_path, "webp")):
+                user_directories.append(entry)
+
+        # Generate user galleries and collect valid user links
+        valid_user_links = []
+        for user in user_directories:
+            output_file = f'{user}_gallery.html'
+            if generate_user_gallery_html(user, output_file):
+                valid_user_links.append(user) # Add user to list if gallery was generated
+
+        # Generate nft-gallery.html with only valid user links
+        generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=valid_user_links)

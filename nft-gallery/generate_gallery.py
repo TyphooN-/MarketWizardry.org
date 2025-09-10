@@ -18,15 +18,19 @@ def extract_tweet_info(filename):
             tweet_id = parts[1]
             # Verify tweet_id is numeric
             if tweet_id.isdigit():
-                return username, tweet_id
+                # Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                if len(tweet_id) < 15:
+                    print(f"Warning: Tweet ID {tweet_id} appears to be shortened (only {len(tweet_id)} digits)")
+                    return username, tweet_id, True  # Return flag indicating shortened ID
+                return username, tweet_id, False  # Full-length ID
     except Exception as e:
         print(f"Error extracting tweet info from {filename}: {e}")
     
-    return None, None
+    return None, None, False
 
-def generate_twitter_url(username, tweet_id):
+def generate_twitter_url(username, tweet_id, is_shortened=False):
     """Generate Twitter URL from username and tweet ID"""
-    if username and tweet_id:
+    if username and tweet_id and not is_shortened:
         return f"https://twitter.com/{username}/status/{tweet_id}"
     return None
 
@@ -355,9 +359,17 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             
             // Extract Twitter info from filename
             const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
                 const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
                 twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
                 twitterLinkContainer.style.display = 'block';
             } else {
                 twitterLinkContainer.style.display = 'none';
@@ -380,13 +392,18 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
                     if (/^\d+$/.test(tweetId)) {
-                        return { username, tweetId };
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
                     }
                 }
             } catch (e) {
                 console.log('Could not extract tweet info from filename:', filename);
             }
-            return { username: null, tweetId: null };
+            return { username: null, tweetId: null, isShortened: false };
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -664,9 +681,17 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             
             // Extract Twitter info from filename
             const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
                 const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
                 twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
                 twitterLinkContainer.style.display = 'block';
             } else {
                 twitterLinkContainer.style.display = 'none';
@@ -689,13 +714,18 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
                     if (/^\d+$/.test(tweetId)) {
-                        return { username, tweetId };
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
                     }
                 }
             } catch (e) {
                 console.log('Could not extract tweet info from filename:', filename);
             }
-            return { username: null, tweetId: null };
+            return { username: null, tweetId: null, isShortened: false };
         }
         function previousImage() {
             if (currentImageIndex > 0) {
