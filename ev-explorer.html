@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expected Value Calculator | EV for Financial Gambling Addicts - MarketWizardry.org</title>
+    <title>MarketWizardry.org | EV Explorer</title>
     <link rel="canonical" href="https://marketwizardry.org/ev-explorer.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- SEO Keywords -->
-    <meta name="keywords" content="expected value calculator, EV analysis, probability calculator, statistical analysis, trading expected value, investment probability, risk reward analysis, quantitative trading">
     <!-- Standard Meta Tags -->
-    <meta name="description" content="EV calculations for gambling addicts who pretend they're investors. Expected value calculator to statistically validate your financial suicide with mathematical precision.">
+    <meta name="description" content="EV calculations for gambling addicts who pretend they're investors. Statistically validate your financial suicide with mathematical precision.">
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Expected Value Calculator | EV for Financial Gambling Addicts - MarketWizardry.org">
-    <meta property="og:description" content="EV calculations for gambling addicts who pretend they're investors. Expected value calculator to statistically validate your financial suicide with mathematical precision.">
+    <meta property="og:title" content="EV Explorer - MarketWizardry.org">
+    <meta property="og:description" content="EV calculations for gambling addicts who pretend they're investors. Statistically validate your financial suicide with mathematical precision.">
     <meta property="og:url" content="https://marketwizardry.org/ev-explorer.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -80,6 +78,11 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
         .flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
@@ -90,11 +93,6 @@
             font-weight: bold;
             opacity: 0.9;
             animation: flicker 1s infinite;
-        }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
         }
         .grid {
             display: grid;
@@ -240,253 +238,263 @@
         <div class="flavor-text">Enterprise Value calculations for gamblers who pretend they're investors. Because statistical delusions make losing money feel more professional.</div>
         <div class="crt-divider"></div>
         <div class="grid">
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-08 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-09 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV.csv" onclick="event.stopPropagation()">
+                    Darwinex-Live (Stocks) - 2025-09-09 (EV Outlier)
+                </a>
+            </div>
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-09 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.09-EV.csv" onclick="event.stopPropagation()">
+                    Darwinex-Live (Stocks) - 2025-09-09 (EV VaR Outlier)
+                </a>
+            </div>
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-08 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-08 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-08 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-08 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.08-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-08 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-05 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-05 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-05 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-05 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-05 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.05-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-05 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-04 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-04 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-04 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-04 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-04 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.04-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-04 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-03 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-03 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-03 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-03 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-03 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.03-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-03 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-02 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-02 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-02 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-09-02 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV.csv', 'Darwinex-Live (Stocks) - 2025-09-02 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.09.02-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-09-02 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-29 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-29 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-29 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-29 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-29 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.29-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-29 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-28 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-28 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-28 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-28 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-28 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.28-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-28 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-27 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-27 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-27 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-27 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-27 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.27-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-27 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-26 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-26 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-26 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-26 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-26 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.26-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-26 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-25 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-25 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-25 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-25 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-25 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.25-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-25 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-21 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-21 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-21 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-21 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-21 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.21-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-21 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-20 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-20 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-20 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-20 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-20 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.20-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-20 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-19 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-19 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-19 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-19 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-19 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.19-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-19 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-18 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-18 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-18 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-18 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-18 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.18-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-18 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-15 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-15 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-15 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-15 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-15 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-15 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-14 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-14 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-14 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-14 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-14 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.14-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-14 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-13 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-13 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-13 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-13 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-13 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.13-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-13 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-12 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-12 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-12 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-12 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-12 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.12-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-12 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-11 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-11 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-11 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-11 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-11 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.11-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-11 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-08 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-08 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-08 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-08 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-08 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.08-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-08 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-07 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-07 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-07 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-07 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-07 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.07-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-07 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-06 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-06 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-06 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-06 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-06 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-06 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-05 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-05 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-05 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-05 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-05 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.05-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-05 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-04 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-04 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-04 (EV Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-04 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-04 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.04-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-04 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_var_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-01 (EV VaR Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_var_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-01 (EV VaR Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_var_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-01 (EV VaR Outlier)
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_outlier.txt', '#', 'Darwinex-Live (Stocks) - 2025-08-01 (EV Outlier)')">
-                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_outlier.txt" onclick="event.stopPropagation()">
+            <div class="file-entry" onclick="openModalWithFile('SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV.csv', 'Darwinex-Live (Stocks) - 2025-08-01 (EV Outlier)')">
+                <a href="#" data-outlier-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV-ev_outlier.txt" data-csv-file="SymbolsExport-Darwinex-Live-Stocks-2025.08.01-EV.csv" onclick="event.stopPropagation()">
                     Darwinex-Live (Stocks) - 2025-08-01 (EV Outlier)
                 </a>
             </div>
@@ -529,7 +537,6 @@
                 })
                 .catch(error => console.error('Download failed:', error));
         }
-        
         
         function openModalWithFile(outlierFile, csvUrl, linkText) {
             const outlierUrl = location.pathname.replace('.html', '/') + outlierFile;
