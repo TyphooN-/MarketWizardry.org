@@ -1,55 +1,9 @@
 
-<!-- Simple gallery.html -->
+<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - baladasathar</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/baladasathar_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Medieval quest names meet modern digital desperation. Epic usernames for legendary pixel adventures that nobody asked for.">
-    <meta property="og:title" content="NFT Gallery - baladasathar">
-    <meta property="og:description" content="Medieval quest names meet modern digital desperation. Epic usernames for legendary pixel adventures that nobody asked for.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/baladasathar_gallery.html">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - baladasathar">
-    <meta name="twitter:description" content="Medieval quest names meet modern digital desperation. Epic usernames for legendary pixel adventures that nobody asked for.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-        <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - baladasathar</title>
     <style>
         body {
             background-color: #000;
@@ -62,10 +16,6 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -155,7 +105,7 @@
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - baladasathar</h1>
+    <h2>NFT Gallery - baladasathar</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">Medieval quest names meet modern digital desperation. Epic usernames for legendary pixel adventures that nobody asked for.</div>
     <div class="crt-divider"></div>
@@ -167,6 +117,11 @@
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -174,48 +129,48 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/baladasathar/webp/baladasathar-1924492497-48-hour_auction_on_Bitcoin_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1928853625071132985-superrare_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1934250350585991555-_________The_Creation_Of_AI_video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1941128664198140350-JPEG_Fighters___6529_sub-mission_video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1927988840-there_is_no_cabal__there_are_hundreds_of_them_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1941128664198140350-JPEG_Fighters___6529_sub-mission_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1924486417-48-hour_auction_on_Bitcoin_video2-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1938614860767780900-wfh_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1926803122-One_piece_remains_in_the_collection_video2-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1923761221-________________is_now_saved_forever_on_the_right_collector_s_vault_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1935635564809818366-6_hours_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1920461166-1_1_-________________video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1935333662549291029-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1936063103185437003-Hidden_Self_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1940694663008342072-Thank_you_for_all_the_love_for_this_work._i_m_beyond_happy_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1926621103-______________________video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1940694663008342072-Thank_you_for_all_the_love_for_this_work._i_m_beyond_happy_video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1920815999-1_solid_on-chain_collaborative_work_video2-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1928431650-48-hour_auction_is_now_live_on_Gamma._io_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1931426754-Already_12_bids_in_video2-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1920815999-1_solid_on-chain_collaborative_work_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1930649418-_AbrahannyR_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1942880315082670307-No_words__just_Memes_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1937181903096025399-VITRUVIAN_ARMS__The_Geometry_of_War_video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1929553404-I_think_Eth_has_the_potential_to_go_on_a_tear_soon_if_it_asserts_dominance_h-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1935043749526258046-Got_my_buddee__965._Nice_doing_business_with_you_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1931068194-Agent__ETH__B_W__for_all_bidders_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1933512278986658241-Last_Call_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1923386044-_________video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1924486417-48-hour_auction_on_Bitcoin_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1937537981981814819-in_blue_video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1935338028127732068-Not_much_time_left_for_a_chance_like_this_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1934957439318966419-Deffo_Sathar_is_an_Alien_video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1934194123936047509-gm_from_Basel__video3-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1929164297952772520-I_m_beyond_happy__two_of_my_pieces_on_the_Bitcoin_chain_are_now_united_forever_in_one_vault_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1924460231-up_up_down_down_left_right_left_right_B_A_start_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1930730360-BIG_BEAUTIFUL_BRAWL_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1924486417-48-hour_auction_on_Bitcoin_video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1925268420-Congratulations_to_video1-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1942607395974439019-I_made_it__video4-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1931163208-or_NOPEPE_video2-lossy.webp',
-            '/nft-gallery/baladasathar/webp/baladasathar-1934957439318966419-Deffo_Sathar_is_an_Alien_video4-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./baladasathar/webp/baladasathar-1924492497-48-hour_auction_on_Bitcoin_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1928853625071132985-superrare_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1934250350585991555-_________The_Creation_Of_AI_video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1941128664198140350-JPEG_Fighters___6529_sub-mission_video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1927988840-there_is_no_cabal__there_are_hundreds_of_them_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1941128664198140350-JPEG_Fighters___6529_sub-mission_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1924486417-48-hour_auction_on_Bitcoin_video2-lossy.webp',
+            './baladasathar/webp/baladasathar-1938614860767780900-wfh_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1926803122-One_piece_remains_in_the_collection_video2-lossy.webp',
+            './baladasathar/webp/baladasathar-1923761221-________________is_now_saved_forever_on_the_right_collector_s_vault_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1935635564809818366-6_hours_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1920461166-1_1_-________________video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1935333662549291029-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1936063103185437003-Hidden_Self_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1940694663008342072-Thank_you_for_all_the_love_for_this_work._i_m_beyond_happy_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1926621103-______________________video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1940694663008342072-Thank_you_for_all_the_love_for_this_work._i_m_beyond_happy_video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1920815999-1_solid_on-chain_collaborative_work_video2-lossy.webp',
+            './baladasathar/webp/baladasathar-1928431650-48-hour_auction_is_now_live_on_Gamma._io_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1931426754-Already_12_bids_in_video2-lossy.webp',
+            './baladasathar/webp/baladasathar-1920815999-1_solid_on-chain_collaborative_work_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1930649418-_AbrahannyR_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1942880315082670307-No_words__just_Memes_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1937181903096025399-VITRUVIAN_ARMS__The_Geometry_of_War_video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1929553404-I_think_Eth_has_the_potential_to_go_on_a_tear_soon_if_it_asserts_dominance_h-lossy.webp',
+            './baladasathar/webp/baladasathar-1935043749526258046-Got_my_buddee__965._Nice_doing_business_with_you_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1931068194-Agent__ETH__B_W__for_all_bidders_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1933512278986658241-Last_Call_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1923386044-_________video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1924486417-48-hour_auction_on_Bitcoin_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1937537981981814819-in_blue_video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1935338028127732068-Not_much_time_left_for_a_chance_like_this_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1934957439318966419-Deffo_Sathar_is_an_Alien_video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1934194123936047509-gm_from_Basel__video3-lossy.webp',
+            './baladasathar/webp/baladasathar-1929164297952772520-I_m_beyond_happy__two_of_my_pieces_on_the_Bitcoin_chain_are_now_united_forever_in_one_vault_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1924460231-up_up_down_down_left_right_left_right_B_A_start_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1930730360-BIG_BEAUTIFUL_BRAWL_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1924486417-48-hour_auction_on_Bitcoin_video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1925268420-Congratulations_to_video1-lossy.webp',
+            './baladasathar/webp/baladasathar-1942607395974439019-I_made_it__video4-lossy.webp',
+            './baladasathar/webp/baladasathar-1931163208-or_NOPEPE_video2-lossy.webp',
+            './baladasathar/webp/baladasathar-1934957439318966419-Deffo_Sathar_is_an_Alien_video4-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -272,10 +227,49 @@
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {

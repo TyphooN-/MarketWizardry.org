@@ -1,55 +1,9 @@
 
-<!-- Simple gallery.html -->
+<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - 5tr4n0</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/5tr4n0_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.">
-    <meta property="og:title" content="NFT Gallery - 5tr4n0">
-    <meta property="og:description" content="5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/5tr4n0_gallery.html">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - 5tr4n0">
-    <meta name="twitter:description" content="5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-        <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - 5tr4n0</title>
     <style>
         body {
             background-color: #000;
@@ -62,10 +16,6 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -155,7 +105,7 @@
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - 5tr4n0</h1>
+    <h2>NFT Gallery - 5tr4n0</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">5tr4n0's corrupted digital landscapes where glitch becomes art form. Embracing digital entropy as aesthetic choice for collectors who understand that chaos has value.</div>
     <div class="crt-divider"></div>
@@ -167,6 +117,11 @@
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -174,67 +129,67 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1942924400384266335-br0ken_video2-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp',
-            '/nft-gallery/5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942924400384266335-br0ken_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -291,10 +246,49 @@
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {

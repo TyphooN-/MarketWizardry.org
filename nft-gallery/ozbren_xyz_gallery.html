@@ -1,55 +1,9 @@
 
-<!-- Simple gallery.html -->
+<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - ozbren_xyz</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/ozbren_xyz_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.">
-    <meta property="og:title" content="NFT Gallery - ozbren_xyz">
-    <meta property="og:description" content="ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/ozbren_xyz_gallery.html">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - ozbren_xyz">
-    <meta name="twitter:description" content="ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-        <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - ozbren_xyz</title>
     <style>
         body {
             background-color: #000;
@@ -62,10 +16,6 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -155,7 +105,7 @@
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - ozbren_xyz</h1>
+    <h2>NFT Gallery - ozbren_xyz</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.</div>
     <div class="crt-divider"></div>
@@ -167,6 +117,11 @@
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -174,29 +129,29 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1774136799-big_week_for_me___4_1_1s_found_new_homes__3_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1781734866629058585-The_project_I_ve_been_helping_to_build_for_6_months_will_finally_launch_in_a_couple_of_days__video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video2-1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1933902813719097836-you_can_just_do_whatever_you_want_in_Blender_lol_video4-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
-            '/nft-gallery/ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1774136799-big_week_for_me___4_1_1s_found_new_homes__3_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1781734866629058585-The_project_I_ve_been_helping_to_build_for_6_months_will_finally_launch_in_a_couple_of_days__video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video2-1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1933902813719097836-you_can_just_do_whatever_you_want_in_Blender_lol_video4-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -253,10 +208,49 @@
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {

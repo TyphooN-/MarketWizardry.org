@@ -1,55 +1,9 @@
 
-<!-- Simple gallery.html -->
+<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - LexDoomArt</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/LexDoomArt_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LexDoomArt's apocalyptic visions monetized for people who think the end times need better marketing. Digital doomsday scenarios with blockchain receipts.">
-    <meta property="og:title" content="NFT Gallery - LexDoomArt">
-    <meta property="og:description" content="LexDoomArt's apocalyptic visions monetized for people who think the end times need better marketing. Digital doomsday scenarios with blockchain receipts.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/LexDoomArt_gallery.html">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - LexDoomArt">
-    <meta name="twitter:description" content="LexDoomArt's apocalyptic visions monetized for people who think the end times need better marketing. Digital doomsday scenarios with blockchain receipts.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-        <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - LexDoomArt</title>
     <style>
         body {
             background-color: #000;
@@ -62,10 +16,6 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -155,7 +105,7 @@
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - LexDoomArt</h1>
+    <h2>NFT Gallery - LexDoomArt</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">LexDoomArt's apocalyptic visions monetized for people who think the end times need better marketing. Digital doomsday scenarios with blockchain receipts.</div>
     <div class="crt-divider"></div>
@@ -167,6 +117,11 @@
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -174,33 +129,33 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/LexDoomArt/webp/LexDoomArt-1929635459-You_missed_your_chance_to_collect__The_Explorer__by_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1921933903-Gmx_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1925933763-_surrender_to_the_bull__video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1930395805-Death_used_to_speak_in_riddles._Soon__he_whispers_in_satoshis_video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1930399621-Death_used_to_speak_in_riddles._Soon__he_whispers_in_satoshis_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1942226970084844001-gm._back_to_work_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1925340585-HEADS_UP_video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1919238069-No_joke_had_a_dream__or_nightmare__last_night_that_XTZ_dropped_to_0.32_.._Can_-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1928476164-Thrilled_to_see_the_warm_reception_on_heavenfall_from_you_all_It_s_a_rare_time-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1932809883847455137-gmx_video4-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1925933763-_surrender_to_the_bull__video4-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1920511178-the_block_is_hot________video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1927501456090824749-We_are_just_a_few_days_away_now_from_the_first_exhibit__Excited_to_bring_all_of_these_amazing_artwor_video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1917987246-I_have_just_collected__100_vs_1__by-video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1927487542-We_are_just_a_few_days_away_now_from_the_first_exhibit__Excited_to_bring_all_o-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1932809883847455137-gmx_video3-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1920153767-gmx_video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1935459688772206604-Late__gifartday_drop_on_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1935773238103056862-I_have_just_collected__objkt_Art_Pack__by_video3-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1930663485-gmx_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1928102878-GMX_video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1919237549689586052-No_joke_had_a_dream__or_nightmare__last_night_that_XTZ_dropped_to_0.32_.._Can_tell_Tezos_means_a_lot_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1939705910978302252-gmx._back_from_a_long_weekend_in_vegas_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1922109320-Aw_man__I_didn_t_even_realize_it_was_OBJKT4OBJKT_video1-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1932143509210894814-A_busy_week_with_IRL_projects_but_hoping_to_get_back_to_creating_and_collecting_here_by_end_of_week_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1933201984380887071-Bathxrs_at_Asnixrxs_video2-lossy.webp',
-            '/nft-gallery/LexDoomArt/webp/LexDoomArt-1921745511-GN_video1-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./LexDoomArt/webp/LexDoomArt-1929635459-You_missed_your_chance_to_collect__The_Explorer__by_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1921933903-Gmx_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1925933763-_surrender_to_the_bull__video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1930395805-Death_used_to_speak_in_riddles._Soon__he_whispers_in_satoshis_video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1930399621-Death_used_to_speak_in_riddles._Soon__he_whispers_in_satoshis_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1942226970084844001-gm._back_to_work_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1925340585-HEADS_UP_video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1919238069-No_joke_had_a_dream__or_nightmare__last_night_that_XTZ_dropped_to_0.32_.._Can_-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1928476164-Thrilled_to_see_the_warm_reception_on_heavenfall_from_you_all_It_s_a_rare_time-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1932809883847455137-gmx_video4-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1925933763-_surrender_to_the_bull__video4-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1920511178-the_block_is_hot________video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1927501456090824749-We_are_just_a_few_days_away_now_from_the_first_exhibit__Excited_to_bring_all_of_these_amazing_artwor_video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1917987246-I_have_just_collected__100_vs_1__by-video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1927487542-We_are_just_a_few_days_away_now_from_the_first_exhibit__Excited_to_bring_all_o-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1932809883847455137-gmx_video3-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1920153767-gmx_video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1935459688772206604-Late__gifartday_drop_on_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1935773238103056862-I_have_just_collected__objkt_Art_Pack__by_video3-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1930663485-gmx_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1928102878-GMX_video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1919237549689586052-No_joke_had_a_dream__or_nightmare__last_night_that_XTZ_dropped_to_0.32_.._Can_tell_Tezos_means_a_lot_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1939705910978302252-gmx._back_from_a_long_weekend_in_vegas_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1922109320-Aw_man__I_didn_t_even_realize_it_was_OBJKT4OBJKT_video1-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1932143509210894814-A_busy_week_with_IRL_projects_but_hoping_to_get_back_to_creating_and_collecting_here_by_end_of_week_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1933201984380887071-Bathxrs_at_Asnixrxs_video2-lossy.webp',
+            './LexDoomArt/webp/LexDoomArt-1921745511-GN_video1-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -257,10 +212,49 @@
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {

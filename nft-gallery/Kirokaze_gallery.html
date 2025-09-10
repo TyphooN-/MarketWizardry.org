@@ -1,55 +1,9 @@
 
-<!-- Simple gallery.html -->
+<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - Kirokaze</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/Kirokaze_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.">
-    <meta property="og:title" content="NFT Gallery - Kirokaze">
-    <meta property="og:description" content="Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/Kirokaze_gallery.html">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - Kirokaze">
-    <meta name="twitter:description" content="Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-        <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - Kirokaze</title>
     <style>
         body {
             background-color: #000;
@@ -62,10 +16,6 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -155,7 +105,7 @@
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - Kirokaze</h1>
+    <h2>NFT Gallery - Kirokaze</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">Kirokaze's pixel art nostalgia for people who think 8-bit graphics deserve six-figure price tags. Retro digital artifacts for collectors stuck in the past.</div>
     <div class="crt-divider"></div>
@@ -167,6 +117,11 @@
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -174,47 +129,47 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['/nft-gallery/Kirokaze/webp/Kirokaze-1877775289-Alley_Rain__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1917262643-After_School_Fight__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1918383015-Pastime__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1880687093-Photo_Group__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1899503599-Night_mirror__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1889350014-Gundam__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1856385915-War_Tactics__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1882132711-Robo_Trip__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1770876281-Space_Fighter__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1877398318-Analog_Memories__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1831754527-MASTER_BOOT_RECORD_-_CPU__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1795499535-Quiet_Balcony__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1783196707-Robo_Trailing__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1915491136-Arcade_Date__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1729923168-Mech_crawler__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1909650399-Night_Ride__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1801676413-ARC_SEED_SD__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1852030930-No_answer__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1805679750-Chilling_in_Valley_Peaks_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1878501751-Beggar__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1768684141-Yellow_Taxi_goes_cyberpunk__pixelart__gamedev_-_Collab_with_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1874131647-Robo_snow__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video3-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1860389755-Leviathan_s_Crossing_-_Gamersupps__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1882472463-Gundam_Rest__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video2-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1889722105-Gundam_Rest_process__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1916879181-Night_Session__pixelart_video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1747302762-I_started_a_Ko-Fi_page__You_can_support_me_at__video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1915108784-Endless_Rain__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1722036732-gunpoint__pixelart_______video1-lossy.webp',
-            '/nft-gallery/Kirokaze/webp/Kirokaze-1734997312-Dungeon_Crawler_Quest__Pixelart_video1-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./Kirokaze/webp/Kirokaze-1877775289-Alley_Rain__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1917262643-After_School_Fight__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1918383015-Pastime__pixelart_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video2-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1880687093-Photo_Group__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1899503599-Night_mirror__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1889350014-Gundam__pixelart_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video2-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1856385915-War_Tactics__pixelart_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1882132711-Robo_Trip__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1770876281-Space_Fighter__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1877398318-Analog_Memories__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1831754527-MASTER_BOOT_RECORD_-_CPU__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1795499535-Quiet_Balcony__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1783196707-Robo_Trailing__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video2-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1915491136-Arcade_Date__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1729923168-Mech_crawler__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1741503152-Balcony_Night__pixelart_______video2-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1909650399-Night_Ride__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1881390629-Photo_Taken__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1801676413-ARC_SEED_SD__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1852030930-No_answer__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1805679750-Chilling_in_Valley_Peaks_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1878501751-Beggar__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1768684141-Yellow_Taxi_goes_cyberpunk__pixelart__gamedev_-_Collab_with_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1874131647-Robo_snow__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1754577172-Digital_Memory__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1927408852-Code_Inspector__pixelart_______video3-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1860389755-Leviathan_s_Crossing_-_Gamersupps__pixelart_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1882472463-Gundam_Rest__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1824508388-Passing_Lights__pixelart_______video2-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1889722105-Gundam_Rest_process__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1916879181-Night_Session__pixelart_video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1747302762-I_started_a_Ko-Fi_page__You_can_support_me_at__video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1915108784-Endless_Rain__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1722036732-gunpoint__pixelart_______video1-lossy.webp',
+            './Kirokaze/webp/Kirokaze-1734997312-Dungeon_Crawler_Quest__Pixelart_video1-lossy.webp']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -271,10 +226,49 @@
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {

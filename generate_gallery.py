@@ -1,10 +1,38 @@
 import os
 import fnmatch
 import random
+import re
+
+def extract_tweet_info(filename):
+    """Extract username and tweet ID from filename format: username-tweetid-description"""
+    try:
+        # Remove file extension
+        base_name = os.path.splitext(filename)[0]
+        # Remove -lossy suffix if present
+        base_name = base_name.replace('-lossy', '')
+        
+        # Split by dash and extract first two parts
+        parts = base_name.split('-')
+        if len(parts) >= 2:
+            username = parts[0]
+            tweet_id = parts[1]
+            # Verify tweet_id is numeric
+            if tweet_id.isdigit():
+                return username, tweet_id
+    except Exception as e:
+        print(f"Error extracting tweet info from {filename}: {e}")
+    
+    return None, None
+
+def generate_twitter_url(username, tweet_id):
+    """Generate Twitter URL from username and tweet ID"""
+    if username and tweet_id:
+        return f"https://twitter.com/{username}/status/{tweet_id}"
+    return None
 
 def get_existing_flavor_text(username):
     """Extract existing flavor text from the user's gallery HTML file meta description"""
-    gallery_file = f"nft-gallery/{username}_gallery.html"
+    gallery_file = f"{username}_gallery.html"
     if os.path.exists(gallery_file):
         try:
             with open(gallery_file, 'r', encoding='utf-8') as f:
@@ -23,55 +51,24 @@ def get_existing_flavor_text(username):
 def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[]):
     html_content = """
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
+    <title>MarketWizardry.org | NFT Gallery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="NFT Gallery - MarketWizardry.org">
-    <meta property="og:description" content="Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - MarketWizardry.org">
-    <meta name="twitter:description" content="Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
     <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, redirect to the actual file
+                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+            } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+            }
         }
     </script>
     <style>
@@ -88,6 +85,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         }
         h1 {
             text-align: center;
+            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
         }
         .grid {
@@ -118,23 +116,6 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         a:hover {
             text-decoration: underline;
         }
-        .crt-divider {
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 30px 0;
-        }
-        @keyframes scan {
-            0% { opacity: 1; width: 0%; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
-        }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
         .flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
@@ -144,19 +125,15 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-            animation: flicker 1s infinite;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>NFT (Not For Trade) Gallery</h1>
-        <div class="crt-divider"></div>
-        <div class="flavor-text">Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.</div>
-        <div class="crt-divider"></div>
+        <h1>NFT Gallery</h1>
         <div class="grid">
             <div class="file-entry">
-                <a href="nft-gallery/all.html">ALL USERS - WARNING, may cause lag!</a>
+                <a href="all.html">ALL USERS - WARNING, may cause lag!</a>
             </div>
             USER_LINKS_PLACEHOLDER
         </div>
@@ -167,7 +144,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
 
     user_links = []
     for user in valid_user_names:
-        user_gallery_file = f'nft-gallery/{user}_gallery.html'
+        user_gallery_file = f'{user}_gallery.html'
         if os.path.exists(user_gallery_file):
             user_links.append(f'<div class="file-entry"><a href="{user_gallery_file}">{user}</a></div>')
     
@@ -180,57 +157,11 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
 
 def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.webp'):
     html_template = """
-<!-- Simple gallery.html -->
+<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/USERNAME_PLACEHOLDER_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FLAVOR_TEXT_PLACEHOLDER">
-    <meta property="og:title" content="NFT Gallery - USERNAME_PLACEHOLDER">
-    <meta property="og:description" content="FLAVOR_TEXT_PLACEHOLDER">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/USERNAME_PLACEHOLDER_gallery.html">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFT Gallery - USERNAME_PLACEHOLDER">
-    <meta name="twitter:description" content="FLAVOR_TEXT_PLACEHOLDER">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-        <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - USERNAME_PLACEHOLDER</title>
     <style>
         body {
             background-color: #000;
@@ -243,10 +174,6 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -332,17 +259,11 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-            animation: flicker 1s infinite;
-        }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - USERNAME_PLACEHOLDER</h1>
+    <h2>NFT Gallery - USERNAME_PLACEHOLDER</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">FLAVOR_TEXT_PLACEHOLDER</div>
     <div class="crt-divider"></div>
@@ -354,6 +275,11 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -418,10 +344,49 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/\'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/\'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -477,13 +442,13 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", flavor_text)
 
     image_paths = []
-    user_webp_dir = os.path.join('nft-gallery', username, "webp")
+    user_webp_dir = os.path.join(username, "webp")
     if os.path.isdir(user_webp_dir):
         for root, _, files in os.walk(user_webp_dir):
             for file in files:
                 if fnmatch.fnmatch(file, search_pattern):
-                    relative_path = os.path.relpath(os.path.join(root, file), os.path.join(os.getcwd(), 'nft-gallery'))
-                    image_paths.append(f"'/nft-gallery/{relative_path.replace(os.sep, '/')}'")
+                    relative_path = os.path.relpath(os.path.join(root, file), '.')
+                    image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
     image_paths_str = ',\n            '.join(image_paths)
     final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
@@ -499,61 +464,13 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         print(f"Generated {output_file} with {len(image_paths)} images for user {username}.")
         return True
 
-import json
-
 def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     html_template = """
 <!-- all.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - All Images</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/all.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="All NFT Gallery - MarketWizardry.org">
-    <meta property="og:description" content="Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.">
-    <meta property="og:url" content="https://marketwizardry.org/nft-gallery/all.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="All NFT Gallery - MarketWizardry.org">
-    <meta name="twitter:description" content="Every digital nightmare in one convenient location. Complete collection of blockchain suffering for people who need their existential crisis comprehensive.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+    <title>MarketWizardry.org | NFT Gallery - All Images</title>
     <style>
         body {
             background-color: #000;
@@ -566,10 +483,6 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -655,17 +568,11 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-            animation: flicker 1s infinite;
-        }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>NFT (Not For Trade) Gallery - All Images</h1>
+    <h2>NFT Gallery - All Images</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
     <div class="crt-divider"></div>
@@ -677,6 +584,11 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
+            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+                    🐦 View Original Tweet
+                </a>
+            </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
@@ -684,7 +596,8 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 </div>
     <script>
         let currentImageIndex = 0;
-        let allImagePaths = []; // Initialize as empty
+        const allImagePaths = [IMAGE_PATHS_PLACEHOLDER]; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
         const imageGrid = document.getElementById('imageGrid');
@@ -721,18 +634,11 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 
         // Initial load
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('./all_images.json') // Fetch the new JSON file
-                .then(response => response.json())
-                .then(data => {
-                    allImagePaths = data;
-                    console.log("All Image Paths loaded from JSON:", allImagePaths);
-                    loadMoreImages();
-                    // Load more images immediately if the initial load doesn't fill the viewport
-                    if (document.body.offsetHeight < window.innerHeight) {
-                        loadMoreImages();
-                    }
-                })
-                .catch(error => console.error('Error fetching image paths:', error));
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
         });
 
         // Scroll event for lazy loading
@@ -747,10 +653,49 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
             
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/\'/g, ''); // Extract filename and clean quotes
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/\'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
             modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\\d+$/.test(tweetId)) {
+                        return { username, tweetId };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null };
         }
         function previousImage() {
             if (currentImageIndex > 0) {
@@ -802,53 +747,46 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 """
 
     all_image_paths = []
-    nft_gallery_path = os.path.join(os.getcwd(), 'nft-gallery')
-    if os.path.isdir(nft_gallery_path):
-        for user_entry in os.listdir(nft_gallery_path):
-            user_dir_path = os.path.join(nft_gallery_path, user_entry)
-            user_webp_dir = os.path.join(user_dir_path, "webp")
-            if os.path.isdir(user_webp_dir):
-                for root, _, files in os.walk(user_webp_dir):
-                    for file in files:
-                        if fnmatch.fnmatch(file, search_pattern):
-                            relative_path = os.path.relpath(os.path.join(root, file), nft_gallery_path)
-                            all_image_paths.append(f"/nft-gallery/{relative_path.replace(os.sep, '/')}")
+    current_directory = os.getcwd()
+    all_entries = os.listdir(current_directory)
 
-    # Write the JSON file
-    json_output_file = os.path.join('nft-gallery', 'all_images.json')
-    with open(json_output_file, 'w') as f:
-        json.dump(all_image_paths, f)
-    print(f"Generated {json_output_file} with {len(all_image_paths)} images.")
+    for entry in all_entries:
+        user_webp_dir = os.path.join(current_directory, entry, "webp")
+        if os.path.isdir(user_webp_dir):
+            for root, _, files in os.walk(user_webp_dir):
+                for file in files:
+                    if fnmatch.fnmatch(file, search_pattern):
+                        relative_path = os.path.relpath(os.path.join(root, file), current_directory)
+                        all_image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
-    # Write the HTML file
+    image_paths_str = ',\n            '.join(all_image_paths)
+    final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
+
     with open(output_file, 'w') as f:
-        f.write(html_template)
-    print(f"Generated {output_file}.")
+        f.write(final_html)
+    print(f"Generated {output_file} with {len(all_image_paths)} images.")
 
 
 if __name__ == "__main__":
 
-    # Ensure the nft-gallery directory exists
-    os.makedirs('nft-gallery', exist_ok=True)
-
     # Generate all.html first
-    generate_all_html(output_file='nft-gallery/all.html')
+    generate_all_html()
 
-    # Dynamically find user directories within the 'nft-gallery' directory
-    nft_gallery_path = os.path.join(os.getcwd(), 'nft-gallery')
+    # Dynamically find user directories
+    current_directory = os.getcwd()
+    all_entries = os.listdir(current_directory)
+    
     user_directories = []
-    if os.path.isdir(nft_gallery_path):
-        all_entries = os.listdir(nft_gallery_path)
-        for entry in all_entries:
-            full_path = os.path.join(nft_gallery_path, entry)
-            # Check if it's a directory and contains a 'webp' subdirectory
-            if os.path.isdir(full_path) and os.path.isdir(os.path.join(full_path, "webp")):
-                user_directories.append(entry)
+    for entry in all_entries:
+        full_path = os.path.join(current_directory, entry)
+        # Check if it's a directory and contains a 'webp' subdirectory
+        if os.path.isdir(full_path) and os.path.isdir(os.path.join(full_path, "webp")):
+            user_directories.append(entry)
 
     # Generate user galleries and collect valid user links
     valid_user_links = []
     for user in user_directories:
-        output_file = f'nft-gallery/{user}_gallery.html'
+        output_file = f'{user}_gallery.html'
         if generate_user_gallery_html(user, output_file):
             valid_user_links.append(user) # Add user to list if gallery was generated
 
