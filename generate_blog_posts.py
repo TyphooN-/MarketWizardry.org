@@ -7,12 +7,93 @@ import re
 import random
 import pandas as pd
 import glob
+import json
+import argparse
 from datetime import datetime
 from pathlib import Path
 
 # Configuration
 BLOG_DIR = "blog"
 BLOG_INDEX = "blog.html"
+FLAVOR_TEXT_CACHE = "flavor_text_used.json"
+BLOG_FLAVOR_MAPPING = "blog_flavor_mapping.json"
+
+# Global tracking for used flavor texts
+used_flavor_texts = set()
+blog_flavor_mapping = {}
+
+def load_used_flavor_texts():
+    """Load previously used flavor texts from cache file"""
+    global used_flavor_texts, blog_flavor_mapping
+    try:
+        if os.path.exists(FLAVOR_TEXT_CACHE):
+            with open(FLAVOR_TEXT_CACHE, 'r', encoding='utf-8') as f:
+                used_flavor_texts = set(json.load(f))
+        else:
+            used_flavor_texts = set()
+        print(f"Loaded {len(used_flavor_texts)} previously used flavor texts")
+        
+        # Load blog flavor mapping
+        if os.path.exists(BLOG_FLAVOR_MAPPING):
+            with open(BLOG_FLAVOR_MAPPING, 'r', encoding='utf-8') as f:
+                blog_flavor_mapping = json.load(f)
+        else:
+            blog_flavor_mapping = {}
+        print(f"Loaded flavor text mapping for {len(blog_flavor_mapping)} blog posts")
+    except Exception as e:
+        print(f"Error loading flavor text cache: {e}")
+        used_flavor_texts = set()
+        blog_flavor_mapping = {}
+
+def save_used_flavor_texts():
+    """Save used flavor texts to cache file"""
+    try:
+        with open(FLAVOR_TEXT_CACHE, 'w', encoding='utf-8') as f:
+            json.dump(list(used_flavor_texts), f, indent=2, ensure_ascii=False)
+        print(f"Saved {len(used_flavor_texts)} used flavor texts to cache")
+        
+        # Save blog flavor mapping
+        with open(BLOG_FLAVOR_MAPPING, 'w', encoding='utf-8') as f:
+            json.dump(blog_flavor_mapping, f, indent=2, ensure_ascii=False)
+        print(f"Saved flavor text mapping for {len(blog_flavor_mapping)} blog posts")
+    except Exception as e:
+        print(f"Error saving flavor text cache: {e}")
+
+def select_unused_flavor_text(flavor_list, fallback_text="Default flavor text for when all options are exhausted."):
+    """Select a flavor text that hasn't been used before"""
+    global used_flavor_texts
+    
+    # Find unused options
+    available_options = [text for text in flavor_list if text not in used_flavor_texts]
+    
+    # If all options are used, reset the tracking and start over
+    if not available_options:
+        print(f"All {len(flavor_list)} flavor texts in this category have been used. Resetting...")
+        # Remove all texts from this category from used_flavor_texts
+        used_flavor_texts = used_flavor_texts - set(flavor_list)
+        available_options = flavor_list.copy()
+    
+    # Select randomly from available options
+    if available_options:
+        selected_text = random.choice(available_options)
+        used_flavor_texts.add(selected_text)
+        return selected_text
+    else:
+        # Fallback in case something goes wrong
+        return fallback_text
+
+def get_consistent_flavor_text(filename, title):
+    """Get or generate consistent flavor text for a blog post"""
+    global blog_flavor_mapping
+    
+    # Check if we already have flavor text for this blog post
+    if filename in blog_flavor_mapping:
+        return blog_flavor_mapping[filename]
+    
+    # Generate new flavor text and store it
+    flavor_text = generate_flavor_text(title, filename)
+    blog_flavor_mapping[filename] = flavor_text
+    return flavor_text
 
 def load_darwinex_symbols():
     """Load all symbols from Darwinex CSV exports for position detection"""
@@ -440,7 +521,55 @@ def generate_witty_description(content, filename, title):
         "Singular equity obsession - turning one ticker into your entire personality since market open. Side effects include financial ruin.",
         "Solo stock analysis for those who believe they can outsmart the market with pure autism and determination.",
         "Individual stock breakdown - because putting all your eggs in one basket makes the inevitable crash more dramatic.",
-        "Transforming sound investment strategy into pure gambling since whenever this was written."
+        "Transforming sound investment strategy into pure gambling since whenever this was written.",
+        "Single stock deep-dive for people whose portfolio diversification strategy is buying the same stock across multiple brokers.",
+        "Individual equity analysis proving that concentration builds character and bankruptcy builds humility.",
+        "Solo ticker obsession for traders who think correlation equals causation and Reddit DD equals research.",
+        "Stock-specific breakdown for those who mistake YOLO investing for legitimate financial planning.",
+        "Individual company analysis for people whose risk management involves prayer and positive thinking.",
+        "Single equity examination proving your stock-picking skills peaked in a high school economics simulation.",
+        "Focused stock analysis for traders who confuse conviction with delusion and speculation with strategy.",
+        "Individual ticker deep-dive for those whose investment thesis fits on a cocktail napkin with room to spare.",
+        "Solo stock evaluation proving that your fundamental analysis consists of checking if the logo looks cool.",
+        "Single company breakdown for investors whose due diligence involves reading the company name twice.",
+        "Individual equity assessment demonstrating why your stock picks have the longevity of mayflies.",
+        "Concentrated stock analysis for people who think diversification is a French word for weakness.",
+        "Single ticker investigation proving your investment research methodology involves coin flips and astrology.",
+        "Individual stock examination for traders whose portfolio allocation resembles Russian roulette with extra bullets.",
+        "Solo equity analysis demonstrating that your stock selection process violates multiple laws of probability.",
+        "Single company deep-dive for those who confuse market timing with being chronically late to everything.",
+        "Individual ticker breakdown proving your investment strategy was conceived during a mental health episode.",
+        "Focused stock evaluation for people whose idea of risk assessment is asking their barista for financial advice.",
+        "Solo equity examination demonstrating that your stock picks age worse than milk in Death Valley.",
+        "Individual company analysis for traders who think fundamental analysis means checking if the building still exists.",
+        "Single stock deep-dive proving your investment decisions are influenced more by memes than metrics.",
+        "Concentrated equity breakdown for those whose portfolio management resembles abstract expressionism.",
+        "Individual ticker analysis demonstrating that your stock-picking intuition has the accuracy of a broken compass.",
+        "Solo stock investigation for people whose investment timeline operates on geological scales.",
+        "Single company evaluation proving your equity selection process involves more hope than analysis.",
+        "Individual stock assessment for traders whose due diligence consists of googling the ticker symbol once.",
+        "Focused equity deep-dive demonstrating that your stock picks have the predictability of quantum mechanics.",
+        "Solo ticker breakdown for those who confuse market volatility with their own emotional instability.",
+        "Individual company analysis proving your investment philosophy was inspired by lottery ticket strategies.",
+        "Single stock examination for people whose portfolio concentration makes a black hole look diversified.",
+        "Concentrated equity evaluation demonstrating that your stock selection has the precision of a shotgun blast.",
+        "Individual ticker deep-dive for traders whose risk tolerance exceeds their understanding of basic math.",
+        "Solo stock analysis proving your equity picks have the structural integrity of a house of cards in a hurricane.",
+        "Single company breakdown for those whose investment research involves more wishful thinking than Warren Buffett.",
+        "Individual stock investigation demonstrating that your ticker selection process defies logic and common sense.",
+        "Focused equity analysis for people whose stock-picking method involves throwing darts at a spinning wheel blindfolded.",
+        "Solo ticker evaluation proving your individual stock obsession makes cult members look mentally stable.",
+        "Single company deep-dive for traders whose equity analysis involves more prayer than a Sunday service.",
+        "Individual stock assessment demonstrating that your ticker selection has the randomness of radioactive decay.",
+        "Concentrated equity breakdown for those whose stock picks require more faith than organized religion.",
+        "Solo stock investigation proving your individual equity analysis makes tarot card readings look scientific.",
+        "Single ticker examination for people whose investment conviction exceeds their actual knowledge by several orders of magnitude.",
+        "Individual company evaluation demonstrating that your stock selection process was designed by caffeinated chimpanzees.",
+        "Focused stock deep-dive for traders whose equity picks have the consistency of quantum superposition.",
+        "Solo ticker analysis proving your individual stock obsession violates the Geneva Convention on financial cruelty.",
+        "Single company breakdown for those whose stock selection methodology involves interpreting bird flight patterns.",
+        "Individual equity investigation demonstrating that your ticker analysis makes conspiracy theories look peer-reviewed.",
+        "Concentrated stock evaluation for people whose investment decisions are guided by fever dreams and bad mushrooms."
     ]
     
     # Biotech-specific commentary
@@ -450,7 +579,47 @@ def generate_witty_description(content, filename, title):
         "Pharmaceutical stock analysis for biotech junkies who mistake clinical trial phases for investment strategies.",
         "Drug development lottery tickets masquerading as investment opportunities. Your portfolio's medical emergency.",
         "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis.",
-        "Medical stock breakdown - turning healthcare innovation into speculative gambling since the FDA existed."
+        "Medical stock breakdown - turning healthcare innovation into speculative gambling since the FDA existed.",
+        "Pharmaceutical investment guide for people who confuse 'compassionate use' with what their therapist provides.",
+        "Biotech sector analysis proving your drug development picks have worse success rates than medieval medicine.",
+        "Gene therapy evaluation for investors whose understanding of DNA rivals their portfolio's structural integrity.",
+        "Medical device analysis for those who think 'clinical trial' means experimenting with their retirement fund.",
+        "Pharmaceutical gambling that makes Russian roulette look like a conservative pension strategy.",
+        "Biotech investment breakdown for people whose idea of due diligence is watching House MD reruns.",
+        "Drug development analysis proving your biotech picks have the approval odds of a flat-earth petition.",
+        "Medical sector deep-dive for investors who confuse 'peer review' with asking their dealer for stock tips.",
+        "Pharmaceutical company evaluation demonstrating that your biotech investments spread faster than hospital infections.",
+        "Biotech stock analysis for those whose medical knowledge comes from WebMD and investment strategy from Reddit.",
+        "Gene therapy investment guide proving your biotech picks have less scientific basis than essential oils.",
+        "Medical device breakdown for people who think 'FDA approval' is what their parole officer gives them.",
+        "Pharmaceutical sector research that makes thalidomide look like sound investment advice.",
+        "Biotech analysis for investors whose drug development timeline operates on geological scales.",
+        "Medical stock evaluation proving your pharmaceutical picks have worse side effects than the diseases they treat.",
+        "Drug development deep-dive for those who confuse 'molecule' with their dealer's latest product offering.",
+        "Biotech investment assessment demonstrating that your medical picks require more faith than faith healing.",
+        "Pharmaceutical company analysis for people whose biotech portfolio is sicker than their actual health conditions.",
+        "Gene therapy breakdown proving your biotech investments have the stability of radioactive isotopes.",
+        "Medical sector investigation for traders whose pharmaceutical knowledge peaked at aspirin commercials.",
+        "Biotech stock deep-dive demonstrating that your drug development picks age worse than expired medications.",
+        "Pharmaceutical investment evaluation for those whose medical research consists of googling symptoms once.",
+        "Medical device analysis proving your biotech selections have the precision of medieval surgical instruments.",
+        "Drug development breakdown for investors whose pharmaceutical timeline resembles archaeological dating methods.",
+        "Biotech sector assessment that makes snake oil salesmen look like legitimate healthcare providers.",
+        "Gene therapy analysis for people whose biotech investments require more miracles than Lourdes.",
+        "Medical stock investigation proving your pharmaceutical picks have worse outcomes than placebo treatments.",
+        "Biotech investment deep-dive for those who think 'double-blind study' means investing while intoxicated twice.",
+        "Pharmaceutical company evaluation demonstrating that your medical picks have the efficacy of homeopathic remedies.",
+        "Drug development analysis for investors whose biotech research methodology involves crystal healing techniques.",
+        "Medical device breakdown proving your pharmaceutical investments have less scientific support than astrology.",
+        "Biotech stock assessment for people whose gene therapy knowledge comes from science fiction movies.",
+        "Pharmaceutical sector deep-dive demonstrating that your medical picks violate the Hippocratic Oath of investing.",
+        "Gene therapy investment investigation for those whose biotech strategy involves more hope than actual medicine.",
+        "Medical stock evaluation proving your pharmaceutical selections have the approval rate of perpetual motion machines.",
+        "Biotech analysis for investors whose drug development picks make medieval bloodletting look evidence-based.",
+        "Pharmaceutical company breakdown demonstrating that your medical investments have worse survival rates than their patients.",
+        "Medical device deep-dive for people whose biotech portfolio requires intensive care more than they do.",
+        "Drug development assessment proving your pharmaceutical picks have the longevity of mayflies with terminal illnesses.",
+        "Biotech sector investigation for those whose gene therapy investments are more experimental than the treatments themselves."
     ]
     
     # Tech stock patterns  
@@ -458,7 +627,48 @@ def generate_witty_description(content, filename, title):
         "Tech stock analysis for silicon valley worshippers who think disruption equals guaranteed returns. Plot twist: it doesn't.",
         "Technology company breakdown - because someone needs to validate your FAANG obsession with pseudo-intellectual analysis.",
         "Tech equity deep-dive for those who mistake venture capital FOMO for legitimate investment research.",
-        "Digital transformation stock pick - turning technological buzzwords into portfolio destruction since the dot-com bubble."
+        "Digital transformation stock pick - turning technological buzzwords into portfolio destruction since the dot-com bubble.",
+        "Software company evaluation for people who think 'cloud computing' means doing math while high on optimism.",
+        "Technology sector analysis proving your startup picks have the longevity of TikTok trends and half the substance.",
+        "Tech stock breakdown for investors whose coding knowledge stops at HTML and investment knowledge never starts.",
+        "Silicon Valley deep-dive for those who confuse 'user experience' with their own existential crisis management.",
+        "Technology company assessment proving your tech picks age faster than smartphone batteries.",
+        "Software sector evaluation for people who think 'agile methodology' describes their mental gymnastics.",
+        "Tech investment guide demonstrating that your digital transformation picks transform money into digital nothing.",
+        "Technology market analysis for those whose idea of disruption is losing money in innovative ways.",
+        "Software company research proving your SaaS investments are about as scalable as a paper airplane.",
+        "Tech stock investigation for investors who think 'machine learning' describes their own inability to learn from mistakes.",
+        "Silicon Valley breakdown for people whose understanding of blockchain rivals their grasp of quantum physics.",
+        "Technology sector deep-dive proving your AI investments have less intelligence than the artificial kind.",
+        "Software market evaluation for those who confuse 'big data' with their investment losses.",
+        "Tech company analysis demonstrating that your platform plays have the stability of a house of cards in an earthquake.",
+        "Technology investment assessment for people whose venture capital instincts have the accuracy of autocorrect.",
+        "Silicon Valley stock evaluation proving your tech picks have worse compatibility than Windows Vista.",
+        "Software sector breakdown for investors whose cloud investments evaporate faster than morning dew.",
+        "Technology company deep-dive for those who think 'going viral' is an actual business model.",
+        "Tech stock analysis proving your digital innovation picks are about as revolutionary as digital pet rocks.",
+        "Software market investigation for people whose cybersecurity investments are less secure than public WiFi.",
+        "Technology sector assessment demonstrating that your fintech picks are about as disruptive as a polite cough.",
+        "Silicon Valley evaluation for investors whose social media stock picks are more antisocial than social.",
+        "Tech company breakdown proving your cryptocurrency investments have the stability of a manic-depressive.",
+        "Software sector deep-dive for those whose e-commerce picks have worse delivery than the postal service.",
+        "Technology investment analysis demonstrating that your gaming stocks are more of a gamble than the games themselves.",
+        "Tech stock evaluation for people whose semiconductor picks conduct electricity better than they conduct profits.",
+        "Silicon Valley investigation proving your biotechnology investments are sicker than their target diseases.",
+        "Software company assessment for investors whose telecommunications picks communicate losses more than data.",
+        "Technology sector breakdown demonstrating that your renewable energy tech picks are about as sustainable as fossil fuels.",
+        "Tech market deep-dive for those whose electric vehicle investments have less range than a golf cart.",
+        "Software sector evaluation proving your autonomous driving picks are more autonomous from profits than from human drivers.",
+        "Technology company analysis for people whose virtual reality investments exist only in virtual portfolios.",
+        "Silicon Valley breakdown demonstrating that your augmented reality picks augment nothing but your disappointment.",
+        "Tech stock investigation for investors whose internet-of-things picks connect to everything except profitability.",
+        "Software market assessment proving your 5G investments have worse connectivity than dial-up modems.",
+        "Technology sector deep-dive for those whose quantum computing picks exist in a superposition of loss and greater loss.",
+        "Tech company evaluation demonstrating that your space technology investments are more spaced out than space-bound.",
+        "Silicon Valley analysis proving your drone investments crash more often than actual drones.",
+        "Software sector investigation for people whose robotics picks are more robotic than the actual robots.",
+        "Technology investment breakdown demonstrating that your nanotechnology picks have macro-sized losses.",
+        "Tech stock deep-dive for those whose 3D printing investments exist only in two dimensions: width and loss."
     ]
     
     # Base witty descriptions for general content
@@ -471,20 +681,54 @@ def generate_witty_description(content, filename, title):
         "Deep dive into market mechanics for traders who mistake spreadsheet autism for genuine market insight. Results may vary drastically.",
         "Financial analysis weaponized for maximum psychological damage. Watch your investment thesis crumble in real-time algorithmic glory.",
         "Market wizardry that separates actionable opportunities from close-only traps in the statistical anomaly wasteland of modern trading.",
+        "Investment strategy deconstruction for people whose portfolio allocation resembles abstract expressionist art.",
+        "Financial market dissection proving that your trading algorithm was coded by caffeinated hamsters with commitment issues.",
+        "Market analysis for degenerates who confuse correlation with causation and think backtesting equals prophecy.",
+        "Investment research that makes peer review look like a popularity contest among the intellectually disabled.",
+        "Trading strategy breakdown for people whose risk management consists of prayer and positive affirmations.",
+        "Financial sector analysis demonstrating that your investment philosophy violates several laws of physics.",
+        "Market evaluation for those whose portfolio diversification strategy involves different ways to lose money.",
+        "Investment opportunity assessment proving your due diligence methodology involves coin flips and astrology.",
+        "Trading analysis for people who think fundamental analysis means checking if the company name sounds familiar.",
+        "Financial market research that makes conspiracy theories look peer-reviewed and evidence-based.",
+        "Investment strategy evaluation for those whose market timing has the accuracy of a broken sundial.",
+        "Market sector breakdown proving your asset allocation was determined by throwing darts at a spinning wheel.",
+        "Financial analysis for investors whose economic forecasting involves reading tea leaves and chicken entrails.",
+        "Trading opportunity investigation demonstrating that your investment decisions are guided by fever dreams.",
+        "Market research for people whose portfolio rebalancing involves drinking until the numbers look better.",
+        "Investment evaluation proving your financial planning makes a Ponzi scheme look structurally sound.",
+        "Trading strategy assessment for those whose risk tolerance exceeds their understanding by several orders of magnitude.",
+        "Financial sector deep-dive demonstrating that your market analysis involves more hope than actual analysis.",
+        "Investment research breakdown for people whose economic theory was inspired by a lobotomized textbook.",
+        "Market analysis for traders whose investment timeline operates on geological rather than fiscal years.",
+        "Financial evaluation proving your trading strategy has the precision of a shotgun blast in complete darkness.",
+        "Investment opportunity dissection for those whose portfolio management makes abstract art look structured.",
+        "Trading analysis demonstrating that your market predictions have the accuracy of a blindfolded meteorologist.",
+        "Financial research for people whose investment philosophy was conceived during a psychotic episode.",
+        "Market sector evaluation proving your economic insights have the depth of a puddle in Death Valley.",
+        "Investment strategy investigation for those whose financial decision-making process involves more coin flips than analysis.",
+        "Trading opportunity breakdown demonstrating that your market research consists of asking your pet for advice.",
+        "Financial analysis for investors whose economic understanding peaked at lemonade stand operations.",
+        "Market evaluation proving your investment approach violates the Geneva Convention on financial cruelty.",
+        "Trading strategy deep-dive for people whose portfolio allocation resembles a toddler's finger painting.",
+        "Financial sector assessment demonstrating that your market timing has the effectiveness of a chocolate teapot.",
+        "Investment research for those whose economic forecasting makes weather prediction look scientifically rigorous.",
+        "Market analysis proving your trading decisions are influenced more by lunar cycles than market cycles.",
+        "Financial evaluation for people whose investment strategy was outsourced to a committee of caffeinated squirrels.",
+        "Trading opportunity investigation demonstrating that your market insights have the credibility of flat-earth theory.",
+        "Investment strategy breakdown for those whose financial planning horizon extends to next week's lottery drawing.",
+        "Market research proving your economic analysis makes medieval alchemy look like modern chemistry."
     ]
     
     # Smart content-specific detection
     if stock_ticker and len(stock_ticker) <= 5:
         # It's likely a single stock analysis
         if any(biotech_word in content_lower for biotech_word in ['gene therapy', 'fda', 'clinical trial', 'biotech', 'pharmaceutical', 'drug', 'therapy']):
-            import random
-            return random.choice(biotech_patterns)
+            return select_unused_flavor_text(biotech_patterns, "Biotech analysis for pharmaceutical degenerates who think FDA approval odds are better than casino blackjack.")
         elif any(tech_word in content_lower for tech_word in ['software', 'saas', 'cloud', 'ai', 'artificial intelligence', 'tech', 'platform']):
-            import random
-            return random.choice(tech_patterns)
+            return select_unused_flavor_text(tech_patterns, "Tech stock analysis for silicon valley worshippers who think disruption equals guaranteed returns.")
         else:
-            import random 
-            return random.choice(single_stock_patterns)
+            return select_unused_flavor_text(single_stock_patterns, "Individual stock analysis - because diversification is for cowards and your risk tolerance knows no bounds.")
     
     # Content-specific descriptions for non-single-stock analysis
     elif 'darwinex' in content_lower and 'outlier' in content_lower:
@@ -501,8 +745,7 @@ def generate_witty_description(content, filename, title):
         return "Statistical anomaly hunting for degenerate traders who think patterns in chaos make them Warren Buffett. Reality check included."
     else:
         # Fallback: pick a random general description
-        import random
-        return random.choice(general_descriptions)
+        return select_unused_flavor_text(general_descriptions, "Market autism dissected with surgical precision for your viewing displeasure.")
 
 
 def extract_title_and_summary(content, filename):
@@ -613,13 +856,13 @@ def extract_title_and_summary(content, filename):
     return title, summary, section_title
 
 
-def generate_html_from_txt(txt_path):
+def generate_html_from_txt(txt_path, force_regenerate=False):
     """Generate HTML file from text file"""
     txt_file = Path(txt_path)
     html_file = txt_file.with_suffix('.html')
     
-    # Skip if HTML already exists and is newer
-    if html_file.exists() and html_file.stat().st_mtime > txt_file.stat().st_mtime:
+    # Skip if HTML already exists and is newer (unless force regeneration)
+    if not force_regenerate and html_file.exists() and html_file.stat().st_mtime > txt_file.stat().st_mtime:
         print(f"Skipping {txt_file.name} - HTML is up to date")
         return str(html_file)
     
@@ -630,8 +873,8 @@ def generate_html_from_txt(txt_path):
     # Extract metadata
     title, summary, section_title = extract_title_and_summary(content, txt_file.name)
     
-    # Generate position-specific flavor text for this blog post
-    flavor_text = generate_flavor_text(title, html_file.name)
+    # Generate consistent flavor text for this blog post
+    flavor_text = get_consistent_flavor_text(html_file.name, title)
     
     # Generate HTML
     html_content = BLOG_POST_TEMPLATE.format(
@@ -831,11 +1074,54 @@ def generate_flavor_text(title, filename):
             "Position analysis for fake guru victims who pay monthly subscriptions to lose money more efficiently.",
             "Investment signals for people who think 'order flow' is the queue at their local unemployment office.",
             "Active positions for signal sheep who mistake correlation between red arrows and account liquidation for causation.",
-            "Trading recommendations for course addicts who collect more certificates than profitable trades."
+            "Trading recommendations for course addicts who collect more certificates than profitable trades.",
+            "Position signals for algorithmic trading wannabes whose Python skills peaked at print('Hello World').",
+            "Active trading analysis for people who think 'backtesting' means testing how far back their losses go.",
+            "Investment positions for signal chasers who confuse Discord notifications with divine intervention.",
+            "Trading opportunities for retail traders whose institutional knowledge comes from TikTok influencers.",
+            "Position management for people who think 'drawdown' is what happens when they withdraw money.",
+            "Active signals for forex degenerates who believe leverage is just another word for 'easy money'.",
+            "Trading analysis for signal followers whose market timing has the accuracy of a broken stopwatch.",
+            "Investment positions for course junkies who think 'paper trading' means trading on actual paper.",
+            "Position signals for people whose trading psychology involves more therapy than their actual therapist provides.",
+            "Active trading guide for signal sheep whose risk-reward ratio is consistently negative infinity.",
+            "Trading opportunities for fake guru disciples who pay for signals like they're paying for salvation.",
+            "Investment analysis for signal chasers whose portfolio diversification means following multiple scammers.",
+            "Position management for people who think 'stop loss' is what happens when they run out of money.",
+            "Active signals for trading addicts whose withdrawal symptoms involve checking charts every 30 seconds.",
+            "Trading recommendations for signal followers who confuse volatility with opportunity and disaster with learning experience.",
+            "Investment positions for people whose trading journal reads like a suicide note with charts.",
+            "Position analysis for signal sheep whose market research involves reading YouTube comments sections.",
+            "Active trading strategies for people who think 'diamond hands' is medical advice for arthritic grip strength.",
+            "Trading signals for retail degenerates whose institutional connections extend to following banks on Twitter.",
+            "Investment opportunities for signal chasers who mistake FOMO for fundamental analysis.",
+            "Position management for people whose trading plan involves prayer and positive affirmations.",
+            "Active signals for course buyers whose education costs exceed their net worth by several orders of magnitude.",
+            "Trading analysis for signal followers whose market predictions have the accuracy of weather forecasting in chaos theory.",
+            "Investment positions for people who think 'market makers' are the people who make markets at grocery stores.",
+            "Position signals for trading enthusiasts whose understanding of economics peaked at supply and demand graphs.",
+            "Active trading guide for signal sheep whose portfolio allocation resembles a toddler's crayon drawing.",
+            "Trading opportunities for fake guru victims whose financial advisor is a YouTube algorithm.",
+            "Investment analysis for signal chasers who confuse correlation with causation and luck with skill.",
+            "Position management for people whose risk assessment involves asking Magic 8-Balls for financial advice.",
+            "Active signals for trading degenerates whose market timing strategy involves astrological consultations.",
+            "Trading recommendations for signal followers who think 'due diligence' is what they owe after being late.",
+            "Investment positions for people whose trading education involves more YouTube ads than actual content.",
+            "Position analysis for signal sheep whose market analysis involves interpreting candlestick patterns like tea leaves.",
+            "Active trading strategies for people whose portfolio performance makes gambling addiction look profitable.",
+            "Trading signals for signal chasers who mistake screenshots of profits for actual business plans.",
+            "Investment opportunities for fake guru disciples whose trading account is smaller than their course payment receipts.",
+            "Position management for people who think 'margin call' is when their dealer demands payment.",
+            "Active signals for trading addicts whose investment timeline is measured in dopamine hits rather than fiscal quarters.",
+            "Trading analysis for signal followers whose market research consists of copying and pasting from Telegram groups.",
+            "Investment positions for people whose trading psychology requires more medication than their actual mental health.",
+            "Position signals for signal sheep whose understanding of market manipulation comes from conspiracy theory forums.",
+            "Active trading guide for people whose risk management strategy involves hiding money under different mattresses.",
+            "Trading opportunities for signal chasers whose portfolio diversification means losing money in multiple currencies simultaneously.",
+            "Investment analysis for fake guru victims whose trading education is more expensive than their actual trading capital.",
+            "Position management for people who confuse 'bull market' with the livestock they're about to be financially slaughtered like."
         ]
-        # Use filename for consistent RNG seeding
-        random.seed(hash(filename) % 1000000)
-        return random.choice(position_texts)
+        return select_unused_flavor_text(position_texts, "Trading signals for ICT cultists who think 'liquidity pools' are where their money goes to drown.")
     
     # Industry/Sector-specific Sam Hyde-esque flavor texts
     sector_texts = {
@@ -854,7 +1140,33 @@ def generate_flavor_text(title, filename):
             "Biotech analysis proving your due diligence involves reading WebMD and calling it research.",
             "Medical device evaluation for people who think 'regulatory approval' is what their therapist gives them.",
             "Pharmaceutical sector deep-dive for investors whose portfolio strategy resembles human experimentation.",
-            "Biotech market research that makes gambling addiction look like responsible financial planning."
+            "Biotech market research that makes gambling addiction look like responsible financial planning.",
+            "Gene therapy investment guide for people whose DNA understanding rivals their portfolio's structural integrity.",
+            "Pharmaceutical sector evaluation proving your biotech picks have worse side effects than the diseases they treat.",
+            "Medical device analysis for investors whose surgical precision in stock picking resembles medieval bloodletting.",
+            "Biotech company assessment that makes snake oil salesmen look like legitimate healthcare providers.",
+            "Drug development deep-dive for those whose molecular knowledge comes from high school chemistry nightmares.",
+            "Pharmaceutical market breakdown proving your biotech investments spread faster than antibiotic-resistant infections.",
+            "Medical research analysis for people whose lab safety involves more hope than actual protective equipment.",
+            "Biotech sector investigation for investors whose clinical understanding peaked at band-aid application.",
+            "Pharmaceutical investment evaluation proving your drug picks have the approval odds of perpetual motion machines.",
+            "Medical device sector analysis for those whose biotech strategy requires more miracles than faith healing.",
+            "Gene therapy market research demonstrating that your pharmaceutical picks violate the Hippocratic Oath.",
+            "Biotech investment breakdown for people whose medical knowledge comes from watching Grey's Anatomy reruns.",
+            "Drug development sector evaluation proving your biotech selections have the efficacy of homeopathic remedies.",
+            "Pharmaceutical company deep-dive for investors whose regulatory understanding involves crystal healing techniques.",
+            "Medical device market analysis that makes medieval medical practices look evidence-based.",
+            "Biotech sector assessment for people whose gene therapy investments are more experimental than the treatments.",
+            "Pharmaceutical investment investigation proving your medical picks have worse survival rates than their patients.",
+            "Drug development analysis for investors whose biotech portfolio requires intensive care units.",
+            "Medical research sector breakdown demonstrating that your pharmaceutical timeline operates on archaeological scales.",
+            "Biotech market evaluation for people whose clinical trials involve more gambling than actual science.",
+            "Pharmaceutical sector deep-dive proving your drug development picks age worse than expired medications.",
+            "Medical device investment analysis for those whose biotech research methodology involves tarot cards.",
+            "Gene therapy sector evaluation demonstrating that your pharmaceutical investments have the stability of radioactive waste.",
+            "Biotech company investigation for people whose medical device knowledge comes from horror movie props.",
+            "Drug development market analysis proving your pharmaceutical picks have the precision of medieval surgical tools.",
+            "Medical research investment breakdown for investors whose biotech education peaked at first aid certification."
         ],
         'tech': [
             "Technology sector analysis for people who think 'cloud computing' means doing math while high.",
@@ -871,7 +1183,33 @@ def generate_flavor_text(title, filename):
             "Technology market breakdown for those who think 'artificial intelligence' describes their investment strategy.",
             "Tech sector evaluation for people whose portfolio diversification means losing money across different apps.",
             "Software investment analysis that makes dot-com bubble investors look like financial geniuses.",
-            "Technology company metrics for those who think 'going viral' is an IPO strategy."
+            "Technology company metrics for those who think 'going viral' is an IPO strategy.",
+            "Silicon Valley analysis for people whose platform plays have the stability of a house of cards in an earthquake.",
+            "Software sector breakdown proving your SaaS investments are about as scalable as a paper airplane.",
+            "Technology investment evaluation for those whose digital transformation picks transform money into digital nothing.",
+            "Tech company deep-dive for investors who think 'big data' refers to their investment losses.",
+            "Software market investigation proving your cybersecurity picks are less secure than public WiFi passwords.",
+            "Technology sector assessment demonstrating that your fintech investments are about as disruptive as a polite cough.",
+            "Silicon Valley breakdown for people whose social media stock picks are more antisocial than social.",
+            "Software company analysis proving your cryptocurrency investments have the stability of a manic episode.",
+            "Tech market evaluation for investors whose e-commerce picks have worse delivery than the postal service.",
+            "Technology investment deep-dive demonstrating that your gaming stocks are more of a gamble than the games themselves.",
+            "Software sector investigation for people whose semiconductor picks conduct electricity better than profits.",
+            "Tech company assessment proving your telecommunications picks communicate losses more effectively than data.",
+            "Technology market breakdown for investors whose renewable energy tech picks are about as sustainable as fossil fuels.",
+            "Silicon Valley evaluation demonstrating that your electric vehicle investments have less range than golf cart batteries.",
+            "Software sector deep-dive for people whose autonomous driving picks are more autonomous from profits than passengers.",
+            "Technology company investigation proving your virtual reality investments exist only in virtual portfolios.",
+            "Tech market analysis for investors whose augmented reality picks augment nothing but disappointment levels.",
+            "Software investment breakdown demonstrating that your internet-of-things picks connect to everything except profitability.",
+            "Technology sector evaluation for people whose 5G investments have worse connectivity than dial-up modems.",
+            "Silicon Valley deep-dive proving your quantum computing picks exist in superposition of loss and greater loss.",
+            "Software company assessment for investors whose space technology picks are more spaced out than space-bound.",
+            "Tech sector investigation demonstrating that your drone investments crash more often than actual drones.",
+            "Technology market evaluation for people whose robotics picks are more robotic than the actual robots.",
+            "Software investment analysis proving your nanotechnology picks have macro-sized losses and nano-sized returns.",
+            "Tech company breakdown for investors whose 3D printing picks exist only in two dimensions: width and loss.",
+            "Silicon Valley assessment demonstrating that your biotech software picks are sicker than their target diseases."
         ],
         'energy': [
             "Energy sector analysis for people who think 'renewable' describes their ability to lose money repeatedly.",
@@ -888,7 +1226,24 @@ def generate_flavor_text(title, filename):
             "Oil and gas metrics that make Enron executives look like ethical role models.",
             "Energy sector deep-dive for people who confuse 'pipeline' with their dealer's supply chain.",
             "Renewable energy evaluation proving your ESG investments are as sustainable as a paper straw in a hurricane.",
-            "Power sector analysis for investors whose energy portfolio burns cleaner than their money."
+            "Power sector analysis for investors whose energy portfolio burns cleaner than their money.",
+            "Solar energy investment guide for people whose renewable picks have less efficiency than actual photosynthesis.",
+            "Oil company breakdown proving your petroleum investments leak value faster than the Exxon Valdez.",
+            "Energy sector investigation for investors whose nuclear picks are more toxic than actual radioactive waste.",
+            "Wind power analysis demonstrating that your renewable investments blow harder than hurricane-force losses.",
+            "Energy market deep-dive for people whose utility picks have less power than a dying smartphone battery.",
+            "Oil and gas sector evaluation proving your extraction investments extract losses more efficiently than crude.",
+            "Renewable energy breakdown for investors whose green technology picks are about as eco-friendly as coal plants.",
+            "Energy company assessment demonstrating that your power investments have less current than broken electrical outlets.",
+            "Solar sector investigation for people whose photovoltaic picks convert sunlight to losses with remarkable efficiency.",
+            "Energy investment analysis proving your hydroelectric selections have the flow rate of constipated rivers.",
+            "Oil sector deep-dive for investors whose refinery picks process crude more slowly than their own mental processing.",
+            "Energy market evaluation demonstrating that your geothermal investments are hotter garbage than actual geothermal vents.",
+            "Renewable sector breakdown for people whose biofuel picks are more organic than their investment strategy.",
+            "Energy company investigation proving your natural gas selections are more volatile than the actual commodity.",
+            "Power sector analysis for investors whose energy storage picks hold value about as well as leaky batteries.",
+            "Oil and gas market assessment demonstrating that your exploration investments discover losses more than oil reserves.",
+            "Energy investment deep-dive for people whose clean energy picks are dirtier than the industries they replace."
         ],
         'finance': [
             "Financial sector analysis for people who think 'compound interest' is what banks charge for complicated questions.",
@@ -1082,9 +1437,8 @@ def generate_flavor_text(title, filename):
     # Detect sector and use appropriate flavor text
     detected_sector = detect_sector(title, filename)
     if detected_sector and detected_sector in sector_texts:
-        # Use filename for consistent RNG seeding
-        random.seed(hash(filename) % 1000000)
-        return random.choice(sector_texts[detected_sector])
+        fallback_text = sector_texts[detected_sector][0] if sector_texts[detected_sector] else "Sector analysis for financial masochists."
+        return select_unused_flavor_text(sector_texts[detected_sector], fallback_text)
     
     # Sam Hyde-esque outlier analysis flavor texts (100+ variations)
     outlier_texts = [
@@ -1205,9 +1559,7 @@ def generate_flavor_text(title, filename):
     if 'srpt' in filename_lower or 'biotech' in title_lower:
         return "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis."
     elif 'outlier' in title_lower or 'var' in title_lower or 'claude' in title_lower:
-        # Use filename as seed for consistent but varied selection
-        random.seed(hash(filename) % 1000000)
-        return random.choice(outlier_texts)
+        return select_unused_flavor_text(outlier_texts, "VaR analysis for degenerates who think risk management is just another word for 'hedging your bets on financial suicide'.")
     elif 'gpu' in title_lower or 'buyers' in title_lower:
         return "Hardware analysis for degenerates who confuse graphics cards with investment vehicles. Your wallet's funeral service."
     else:
@@ -1215,6 +1567,21 @@ def generate_flavor_text(title, filename):
 
 def main():
     """Main function to process all files and update blog"""
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Generate HTML blog posts from text files')
+    parser.add_argument('--regenerate-html', action='store_true',
+                      help='Force regeneration of all HTML files from .txt files (updates flavor text)')
+    args = parser.parse_args()
+    
+    # Load previously used flavor texts
+    load_used_flavor_texts()
+    
+    # Clear flavor text mapping if regenerating to get fresh flavor texts
+    if args.regenerate_html:
+        global blog_flavor_mapping
+        blog_flavor_mapping = {}
+        print("Regeneration mode: Clearing existing flavor text mappings for fresh generation")
+    
     blog_entries = []
     blog_path = Path(BLOG_DIR)
     
@@ -1222,38 +1589,15 @@ def main():
     html_files = list(blog_path.glob('*.html'))
     print(f"Found {len(html_files)} existing HTML files")
     
-    # Process existing HTML files
-    for html_file in html_files:
-        title = extract_title_from_html(html_file)
+    if args.regenerate_html:
+        # Regeneration mode: Process all .txt files and force HTML regeneration
+        print("REGENERATION MODE: Regenerating all HTML files from .txt files...")
+        txt_files = list(blog_path.glob('*.txt'))
+        print(f"Found {len(txt_files)} .txt files to process")
         
-        # Extract date from filename
-        date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
-        if date_match:
-            month, day, year = date_match.groups()
-            date_str = f"{year}-{month}-{day}"
-        elif 'gpu' in html_file.name:
-            date_str = "2025-03-07"  # Set known date for GPU guide
-        else:
-            date_str = datetime.now().strftime("%Y-%m-%d")
-        
-        flavor_text = generate_flavor_text(title, html_file.name)
-        
-        blog_entries.append({
-            'filename': html_file.name,
-            'title': title,
-            'date': date_str,
-            'summary': flavor_text
-        })
-    
-    # Find .txt files that don't have corresponding HTML files
-    txt_files = list(blog_path.glob('*.txt'))
-    for txt_file in txt_files:
-        html_name = txt_file.stem + '.html'
-        html_path = blog_path / html_name
-        
-        if not html_path.exists():
-            print(f"Generating HTML for {txt_file.name}")
-            html_file = generate_html_from_txt(txt_file)
+        for txt_file in txt_files:
+            print(f"Regenerating HTML for {txt_file.name}")
+            html_file = generate_html_from_txt(txt_file, force_regenerate=True)
             
             # Extract metadata for blog index
             with open(txt_file, 'r', encoding='utf-8') as f:
@@ -1269,7 +1613,7 @@ def main():
             else:
                 date_str = datetime.now().strftime("%Y-%m-%d")
             
-            flavor_text = generate_flavor_text(title, txt_file.name)
+            flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
             
             blog_entries.append({
                 'filename': Path(html_file).name,
@@ -1278,10 +1622,71 @@ def main():
                 'summary': flavor_text
             })
     
+    else:
+        # Normal mode: Process existing HTML files and new .txt files
+        # Process existing HTML files
+        for html_file in html_files:
+            title = extract_title_from_html(html_file)
+            
+            # Extract date from filename
+            date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
+            if date_match:
+                month, day, year = date_match.groups()
+                date_str = f"{year}-{month}-{day}"
+            elif 'gpu' in html_file.name:
+                date_str = "2025-03-07"  # Set known date for GPU guide
+            else:
+                date_str = datetime.now().strftime("%Y-%m-%d")
+            
+            flavor_text = get_consistent_flavor_text(html_file.name, title)
+            
+            blog_entries.append({
+                'filename': html_file.name,
+                'title': title,
+                'date': date_str,
+                'summary': flavor_text
+            })
+        
+        # Find .txt files that don't have corresponding HTML files
+        txt_files = list(blog_path.glob('*.txt'))
+        for txt_file in txt_files:
+            html_name = txt_file.stem + '.html'
+            html_path = blog_path / html_name
+            
+            if not html_path.exists():
+                print(f"Generating HTML for {txt_file.name}")
+                html_file = generate_html_from_txt(txt_file)
+                
+                # Extract metadata for blog index
+                with open(txt_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                title, _, _ = extract_title_and_summary(content, txt_file.name)
+                
+                # Extract date from filename
+                date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
+                if date_match:
+                    month, day, year = date_match.groups()
+                    date_str = f"{year}-{month}-{day}"
+                else:
+                    date_str = datetime.now().strftime("%Y-%m-%d")
+                
+                flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
+                
+                blog_entries.append({
+                    'filename': Path(html_file).name,
+                    'title': title,
+                    'date': date_str,
+                    'summary': flavor_text
+                })
+    
     print(f"Total blog entries: {len(blog_entries)}")
     
     # Update blog index
     update_blog_index(blog_entries)
+    
+    # Save the updated flavor text cache
+    save_used_flavor_texts()
     
     print("Blog generation complete!")
 
