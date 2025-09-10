@@ -12,6 +12,15 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 
+# Load symbol to sector/industry mapping
+try:
+    with open('symbol_sector_mapping.json', 'r') as f:
+        SYMBOL_SECTOR_MAPPING = json.load(f)
+    print(f"Loaded sector mapping for {len(SYMBOL_SECTOR_MAPPING)} symbols")
+except FileNotFoundError:
+    SYMBOL_SECTOR_MAPPING = {}
+    print("Warning: symbol_sector_mapping.json not found, using fallback detection")
+
 # Configuration
 BLOG_DIR = "blog"
 BLOG_INDEX = "blog.html"
@@ -1051,6 +1060,10 @@ def generate_flavor_text(title, filename):
                 txt_content = f.read()[:2000]  # First 2000 chars for detection
     except Exception:
         pass
+    
+    # Check for GPU content first (highest priority for hardware analysis)
+    if 'gpu' in title_lower or 'gpu' in filename_lower or ('buyers' in title_lower and 'guide' in title_lower):
+        return "Hardware analysis for degenerates who confuse graphics cards with investment vehicles. Your wallet's funeral service."
     
     # Check for active position content first (highest priority)
     if detect_position_content(title_lower, filename_lower, txt_content):
