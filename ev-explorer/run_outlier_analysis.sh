@@ -41,6 +41,12 @@ process_file() {
         python3 ev_var_outlier.py "$file" > "$output_file_ev_var"
         echo "Finished processing $file with ev_var_outlier.py."
     fi
+    
+    # Remove the source EV CSV file after successful processing of both scripts
+    if [ -f "$output_file_ev" ] && [ -f "$output_file_ev_var" ]; then
+        rm "$file"
+        echo "Removed source EV file: $file"
+    fi
 }
 
 # --- Main Execution ---

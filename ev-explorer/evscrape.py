@@ -94,6 +94,10 @@ def scrape_from_csv(csv_path):
         output_filename = f"{os.path.splitext(csv_path)[0]}-EV.csv"
         df.to_csv(output_filename, index=False, sep=';')
         print(f"\nResults saved to {output_filename}")
+        
+        # Remove the source CSV file after successful processing
+        os.remove(csv_path)
+        print(f"Removed source file: {csv_path}")
 
     except FileNotFoundError:
         print(f"Error: The file '{csv_path}' was not found.")
