@@ -296,7 +296,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="grid">"""
 
 # Add each file as an entry in the HTML
-for filename, date_str, file_type in files:
+for i, (filename, date_str, file_type) in enumerate(files):
     file_type = ""
     if "Stocks" in filename:
         file_type = "Stocks"
@@ -308,7 +308,7 @@ for filename, date_str, file_type in files:
     outlier_filename = f"{filename.replace('.csv', '')}-outlier.txt"
     
     file_entry = f'''
-            <div class="file-entry" onclick="openModalWithFile('{outlier_filename}', 'atr-explorer/{filename}', 'Darwinex-Live ({file_type}) - {date_str}')">
+            <div class="file-entry" onclick="openModalAtIndex({i})">
                 <a href="#" data-outlier-file="{outlier_filename}" data-csv-file="{filename}" onclick="event.stopPropagation()">
                     Darwinex-Live ({file_type}) - {date_str}
                 </a>
@@ -396,9 +396,10 @@ html_content += """
 
         function openModalAtIndex(index) {{
             const link = fileEntryLinks[index];
-            const csvUrl = link.href;
             const outlierFileName = link.dataset.outlierFile;
+            const csvFileName = link.dataset.csvFile;
             const outlierUrl = 'atr-explorer/' + outlierFileName;
+            const csvUrl = 'atr-explorer/' + csvFileName;
             const fileName = link.textContent.trim();
 
             modalTitle.textContent = "ATR Report for " + fileName;
