@@ -243,40 +243,41 @@
             
             .menu {
                 width: 100%;
-                max-height: 40vh;
+                max-height: 25vh;
                 overflow-y: auto;
                 border-right: none;
                 border-bottom: 2px solid #00ff00;
-                padding: 10px;
+                padding: 5px;
                 display: flex;
                 flex-direction: column;
             }
             
             .header-container {
-                font-size: 14px;
-                margin-bottom: 10px;
+                font-size: 12px;
+                margin-bottom: 5px;
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 5px;
                 flex-wrap: wrap;
             }
             
             .mobile-logo {
-                width: 60px;
+                width: 50px;
                 height: auto;
                 flex-shrink: 0;
             }
             
             .header-text {
-                flex: 1;
-                min-width: 120px;
+                flex: 0 0 auto;
+                font-size: 10px;
+                margin-right: 5px;
             }
             
             .header-menu-items {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 2px;
-                flex-shrink: 0;
+                gap: 1px;
+                flex: 1;
             }
             
             .menu-items-container {
@@ -287,9 +288,10 @@
             
             .menu-item {
                 display: inline-block;
-                padding: 8px 12px;
-                margin: 2px;
-                font-size: 12px;
+                padding: 4px 8px;
+                margin: 1px;
+                font-size: 10px;
+                white-space: nowrap;
             }
             
             .image-item {
