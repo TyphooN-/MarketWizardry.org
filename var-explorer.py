@@ -306,7 +306,7 @@ for filename, date_str, file_type in files:
     outlier_filename = f"{filename.replace('.csv', '')}-outlier.txt"
     
     file_entry = f'''
-            <div class="file-entry" onclick="openModalWithFile('{outlier_filename}', 'https://marketwizardry.org//var-explorer/{filename}', 'Darwinex-Live ({file_type}) - {date_str}')">
+            <div class="file-entry" onclick="openModalWithFile('{outlier_filename}', 'var-explorer/{filename}', 'Darwinex-Live ({file_type}) - {date_str}')">
                 <a href="#" data-outlier-file="{outlier_filename}" data-csv-file="{filename}" onclick="event.stopPropagation()">
                     Darwinex-Live ({file_type}) - {date_str}
                 </a>
