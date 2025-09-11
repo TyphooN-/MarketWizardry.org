@@ -383,8 +383,8 @@
             entry.style.width = `${maxFileNameWidth}px`;
         });
 
-        // Update grid to use max width
-        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
+        // Update grid to use max width with tight packing
+        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, ${maxFileNameWidth}px)`;
         // Add click event listeners to file entries
         fileEntries.forEach((entry, index) => {
             entry.addEventListener('click', () => {
