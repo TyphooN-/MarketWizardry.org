@@ -336,14 +336,14 @@ html_content += """
 
     <script>
         // Force download function
-        function forceDownload(event, link) {{
+        function forceDownload(event, link) {
             event.preventDefault();
             const url = link.href;
             const filename = link.download || url.split('/').pop();
             
             fetch(url)
                 .then(response => response.blob())
-                .then(blob => {{
+                .then(blob => {
                     const downloadUrl = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.style.display = 'none';
@@ -353,11 +353,11 @@ html_content += """
                     a.click();
                     window.URL.revokeObjectURL(downloadUrl);
                     document.body.removeChild(a);
-                }})
+                })
                 .catch(error => console.error('Download failed:', error));
-        }}
+        }
         
-        function openModalWithFile(outlierFile, csvUrl, linkText) {{
+        function openModalWithFile(outlierFile, csvUrl, linkText) {
             const outlierUrl = location.pathname.replace('.html', '/') + outlierFile;
             const csvFileName = csvUrl.split('/').pop();
             
@@ -368,22 +368,22 @@ html_content += """
             downloadCsvLink.download = csvFileName;
 
             fetch(outlierUrl)
-                .then(response => {{
-                    if (!response.ok) {{
+                .then(response => {
+                    if (!response.ok) {
                         throw new Error(`HTTP error! status: ${{response.status}}`);
-                    }}
+                    }
                     return response.text();
-                }})
-                .then(data => {{
+                })
+                .then(data => {
                     outlierContent.textContent = data;
                     modal.style.display = "block";
-                }})
-                .catch(error => {{
+                })
+                .catch(error => {
                     console.error("Error fetching outlier report:", error);
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
-                }});
-        }}
+                });
+        }
         
         const modal = document.getElementById("outlierModal");
         const closeButton = document.getElementsByClassName("close-button")[0];
@@ -409,54 +409,54 @@ html_content += """
             downloadOutlierLink.download = outlierFileName;
 
             fetch(outlierUrl)
-                .then(response => {{
-                    if (!response.ok) {{
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }}
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${{response.status}}`);
+                    }
                     return response.text();
-                }})
-                .then(data => {{
+                })
+                .then(data => {
                     outlierContent.textContent = data;
                     modal.style.display = "block";
                     currentIndex = index;
-                }})
-                .catch(error => {{
+                })
+                .catch(error => {
                     console.error("Error fetching outlier report:", error);
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
-                }});
+                });
         }}
 
-        fileEntryLinks.forEach((link, index) => {{
-            link.addEventListener("click", function(event) {{
+        fileEntryLinks.forEach((link, index) => {
+            link.addEventListener("click", function(event) {
                 event.preventDefault();
                 openModalAtIndex(index);
-            }});
-        }});
+            });
+        });
 
-        closeButton.addEventListener("click", function() {{
+        closeButton.addEventListener("click", function() {
             modal.style.display = "none";
-        }});
+        });
 
-        window.addEventListener("click", function(event) {{
-            if (event.target == modal) {{
+        window.addEventListener("click", function(event) {
+            if (event.target == modal) {
                 modal.style.display = "none";
-            }}
-        }});
+            }
+        });
 
-        window.addEventListener("keydown", function(event) {{
-            if (modal.style.display === "block") {{
-                if (event.key === "Escape") {{
+        window.addEventListener("keydown", function(event) {
+            if (modal.style.display === "block") {
+                if (event.key === "Escape") {
                     modal.style.display = "none";
-                }} else if (event.key === "ArrowLeft") {{
+                } else if (event.key === "ArrowLeft") {
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : fileEntryLinks.length - 1;
                     openModalAtIndex(currentIndex);
-                }} else if (event.key === "ArrowRight") {{
+                } else if (event.key === "ArrowRight") {
                     currentIndex = (currentIndex < fileEntryLinks.length - 1) ? currentIndex + 1 : 0;
                     openModalAtIndex(currentIndex);
-                }}
-            }}
-        }});
+                }
+            }
+        });
     </script>
 </body>
 </html>"""
