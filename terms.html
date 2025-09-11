@@ -87,6 +87,7 @@
         .file-grid {
             display: grid;
             gap: 20px;
+            justify-content: center;
         }
         .file-entry {
             cursor: pointer;
@@ -379,12 +380,13 @@
         document.body.removeChild(tempDiv);
         // Set fixed width for all elements and update grid layout
         const fileEntries = document.querySelectorAll('.file-entry');
+        const finalWidth = maxFileNameWidth + 20;
         fileEntries.forEach(entry => {
-            entry.style.width = `${maxFileNameWidth}px`;
+            entry.style.width = `${finalWidth}px`;
         });
 
-        // Update grid to use max width with tight packing
-        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, ${maxFileNameWidth}px)`;
+        // Update grid to use single column layout
+        fileGrid.style.gridTemplateColumns = `${finalWidth}px`;
         // Add click event listeners to file entries
         fileEntries.forEach((entry, index) => {
             entry.addEventListener('click', () => {
