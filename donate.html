@@ -71,7 +71,7 @@
             padding: 5px;
         }
 
-        .image-container img,
+        .image-container img:not(.donate-item img),
         iframe {
             max-width: 300px;
             width: auto;
@@ -132,6 +132,7 @@
             padding: 15px;
             border-radius: 5px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .donate-item:hover {
@@ -159,12 +160,12 @@
         <div class="crt-divider"></div>
         
         <div class="donate-grid">
-            <div class="donate-item">
-                <h3>Ko-fi</h3>
-                <a href="https://ko-fi.com/marketwizardry" rel="noopener noreferrer">
+            <a href="https://ko-fi.com/marketwizardry" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="donate-item">
+                    <h3>Ko-fi</h3>
                     <img src="https://marketwizardry.org/img/ko-fi.png" alt="Support MarketWizardry on Ko-fi" loading="lazy">
-                </a>
-            </div>
+                </div>
+            </a>
             
             <div class="donate-item">
                 <h3>Bitcoin</h3>
@@ -183,11 +184,6 @@
         </div>
     </div>
 
-    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-    <script type='text/javascript'>
-        kofiwidget2.init('Support me on Ko-fi', '#333333', 'marketwizardry');
-        kofiwidget2.draw();
-    </script>
 </body>
 </html>
 
