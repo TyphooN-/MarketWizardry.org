@@ -233,8 +233,46 @@
 	    background-color: black; /* Assuming you want a dark background for the menu */
 	}
 
+        /* Desktop layout styles */
+        .desktop-header {
+            display: block;
+            text-align: center;
+        }
+        
+        .desktop-menu-items {
+            display: block;
+        }
+        
+        .desktop-menu-items .menu-item {
+            display: block;
+            padding: 15px;
+            margin: 5px 0;
+            text-align: center;
+        }
+        
+        /* Hide mobile elements on desktop */
+        .mobile-logo,
+        .header-text,
+        .header-menu-items,
+        .menu-items-container {
+            display: none;
+        }
+
         /* Mobile Responsive Styles */
         @media screen and (max-width: 768px) {
+            /* Hide desktop elements on mobile */
+            .desktop-header,
+            .desktop-menu-items {
+                display: none !important;
+            }
+            
+            /* Show mobile elements */
+            .mobile-logo,
+            .header-text,
+            .header-menu-items,
+            .menu-items-container {
+                display: flex !important;
+            }
             .container {
                 display: flex;
                 flex-direction: column;
@@ -333,6 +371,7 @@
         <!-- Menu -->
         <div class="menu crt">        
             <div class="header-container">
+                <div class="desktop-header">MARKETWIZARDRY.ORG</div>
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" 
                      alt="MarketWizardry Logo" 
                      class="mobile-logo" 
@@ -351,6 +390,23 @@
             </div>
             <div class="image-item" onclick="loadContent('market-wizardry')">
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="xicojam-prompt-mod" style="max-width: 100%; height: auto;" loading="lazy">
+            </div>
+            <div class="desktop-menu-items">
+                <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
+                <div class="menu-item" onclick="loadContent('code')">CODE</div>
+                <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
+                <div class="menu-item" onclick="loadContent('blog')">BLOG EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('var-explorer')">VaR EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('ev-explorer')">EV EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('atr-explorer')">ATR EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('ai-art')">AI ART</div>
+                <div class="menu-item" onclick="loadContent('ai-musings')">AI MUSINGS</div>
+                <div class="menu-item" onclick="loadContent('nft-gallery')">NFT GALLERY</div>
+                <div class="menu-item" onclick="loadContent('affiliates')">AFFILIATES</div>
+                <div class="menu-item" onclick="loadContent('donate')">DONATE</div>
+                <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
+                <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
+                <div class="menu-item" onclick="loadContent('terms')">TERMS</div>
             </div>
             <div class="menu-items-container">
                 <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
