@@ -248,11 +248,32 @@
                 border-right: none;
                 border-bottom: 2px solid #00ff00;
                 padding: 10px;
+                display: flex;
+                flex-direction: column;
             }
             
             .header-container {
                 font-size: 14px;
                 margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .mobile-logo {
+                width: 60px;
+                height: auto;
+                flex-shrink: 0;
+            }
+            
+            .header-text {
+                flex: 1;
+            }
+            
+            .menu-items-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
             }
             
             .menu-item {
@@ -301,25 +322,34 @@
     <div class="container">
         <!-- Menu -->
         <div class="menu crt">        
-       <div class="header-container"> MARKETWIZARDRY.ORG</div>
+            <div class="header-container">
+                <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" 
+                     alt="MarketWizardry Logo" 
+                     class="mobile-logo" 
+                     onclick="loadContent('market-wizardry')" 
+                     loading="lazy">
+                <div class="header-text">MARKETWIZARDRY.ORG</div>
+            </div>
             <div class="image-item" onclick="loadContent('market-wizardry')">
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="xicojam-prompt-mod" style="max-width: 100%; height: auto;" loading="lazy">
             </div>
-            <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
-            <div class="menu-item" onclick="loadContent('code')">CODE</div>
-            <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
-            <div class="menu-item " onclick="loadContent('blog')">BLOG EXPLORER</div>
-            <div class="menu-item" onclick="loadContent('var-explorer')">VaR EXPLORER</div>
-            <div class="menu-item" onclick="loadContent('ev-explorer')">EV EXPLORER</div>
-            <div class="menu-item" onclick="loadContent('atr-explorer')">ATR EXPLORER</div>
-            <div class="menu-item" onclick="loadContent('ai-art')">AI ART</div>
-            <div class="menu-item" onclick="loadContent('ai-musings')">AI MUSINGS</div>
-            <div class="menu-item" onclick="loadContent('nft-gallery')">NFT GALLERY</div>
-            <div class="menu-item" onclick="loadContent('affiliates')">AFFILIATES</div>
-            <div class="menu-item" onclick="loadContent('donate')">DONATE</div>
-            <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
-            <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
-            <div class="menu-item" onclick="loadContent('terms')">TERMS</div>
+            <div class="menu-items-container">
+                <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
+                <div class="menu-item" onclick="loadContent('code')">CODE</div>
+                <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
+                <div class="menu-item " onclick="loadContent('blog')">BLOG EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('var-explorer')">VaR EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('ev-explorer')">EV EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('atr-explorer')">ATR EXPLORER</div>
+                <div class="menu-item" onclick="loadContent('ai-art')">AI ART</div>
+                <div class="menu-item" onclick="loadContent('ai-musings')">AI MUSINGS</div>
+                <div class="menu-item" onclick="loadContent('nft-gallery')">NFT GALLERY</div>
+                <div class="menu-item" onclick="loadContent('affiliates')">AFFILIATES</div>
+                <div class="menu-item" onclick="loadContent('donate')">DONATE</div>
+                <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
+                <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
+                <div class="menu-item" onclick="loadContent('terms')">TERMS</div>
+            </div>
         </div>                        
         <!-- Content Frame -->
         <div class="content-frame">
