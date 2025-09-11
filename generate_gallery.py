@@ -130,11 +130,26 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             font-weight: bold;
             opacity: 0.9;
         }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 10px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>NFT Gallery</h1>
+        <h1>NFT (Not For Trade) Gallery</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.</div>
+        <div class="crt-divider"></div>
         <div class="grid">
             <div class="file-entry">
                 <a href="nft-gallery/all.html">ALL USERS - WARNING, may cause lag!</a>
