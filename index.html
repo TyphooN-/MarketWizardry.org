@@ -258,6 +258,7 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                flex-wrap: wrap;
             }
             
             .mobile-logo {
@@ -268,6 +269,14 @@
             
             .header-text {
                 flex: 1;
+                min-width: 120px;
+            }
+            
+            .header-menu-items {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+                flex-shrink: 0;
             }
             
             .menu-items-container {
@@ -329,15 +338,17 @@
                      onclick="loadContent('market-wizardry')" 
                      loading="lazy">
                 <div class="header-text">MARKETWIZARDRY.ORG</div>
+                <div class="header-menu-items">
+                    <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
+                    <div class="menu-item" onclick="loadContent('code')">CODE</div>
+                    <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
+                    <div class="menu-item" onclick="loadContent('blog')">BLOG EXPLORER</div>
+                </div>
             </div>
             <div class="image-item" onclick="loadContent('market-wizardry')">
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="xicojam-prompt-mod" style="max-width: 100%; height: auto;" loading="lazy">
             </div>
             <div class="menu-items-container">
-                <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
-                <div class="menu-item" onclick="loadContent('code')">CODE</div>
-                <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
-                <div class="menu-item " onclick="loadContent('blog')">BLOG EXPLORER</div>
                 <div class="menu-item" onclick="loadContent('var-explorer')">VaR EXPLORER</div>
                 <div class="menu-item" onclick="loadContent('ev-explorer')">EV EXPLORER</div>
                 <div class="menu-item" onclick="loadContent('atr-explorer')">ATR EXPLORER</div>
