@@ -143,7 +143,7 @@
             background-color: #000;
             font-family: "Courier New", monospace;
             color: #00ff00;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         /* CRT screen effect */
         .crt {
@@ -337,15 +337,16 @@
             
             .content-frame {
                 flex: 1;
-                height: auto;
+                height: calc(100vh - 120px);
                 padding: 10px;
+                overflow-y: auto;
             }
         }
 
         /* Extra small mobile devices */
         @media screen and (max-width: 480px) {
             .menu {
-                max-height: 35vh;
+                max-height: 50vh;
                 padding: 8px;
             }
             

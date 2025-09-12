@@ -470,8 +470,28 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             body {{
                 padding: 10px;
             }}
+            .modal {{
+                padding-top: 20px;
+            }}
             .modal-content {{
                 width: 95%;
+                margin: 2% auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }}
+            .modal-header {{
+                flex-wrap: wrap;
+                gap: 8px;
+            }}
+            .modal-header h2 {{
+                font-size: 1em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }}
+            .modal-header a {{
+                font-size: 0.8em;
+                padding: 4px 8px;
+                margin: 2px;
             }}
             .content-section {{
                 padding: 15px;

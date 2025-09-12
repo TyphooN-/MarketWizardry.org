@@ -246,12 +246,13 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         .modal-body {{
-            white-space: pre; /* Preserve whitespace and do not wrap text */
+            white-space: pre-wrap; /* Preserve whitespace but allow text wrapping */
             max-height: 70vh; /* Limit height and enable scrolling */
             overflow-y: auto;
             color: #00ff00;
             font-size: 1.2em;
             padding: 15px;
+            word-break: break-word;
         }}
 
         /* Add Animation */
@@ -265,16 +266,39 @@ html_content = f"""<!DOCTYPE html>
             to {{top:0; opacity:1}}
         }}
 
-        @media screen and (max-width: 600px) {{
+        @media screen and (max-width: 768px) {{
             .grid {{
                 grid-template-columns: 1fr;
             }}
+            .modal {{
+                padding-top: 20px;
+            }}
             .modal-content {{
-                margin: 10% auto;
-                width: 90%;
+                margin: 2% auto;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }}
+            .modal-header {{
+                flex-wrap: wrap;
+                gap: 8px;
+            }}
+            .modal-header h2 {{
+                font-size: 1em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }}
+            .modal-header a {{
+                font-size: 0.8em;
+                padding: 4px 8px;
+                margin: 2px;
             }}
             .modal-body {{
-                font-size: 0.6em;
+                font-size: 0.75em;
+                white-space: pre-wrap;
+                word-break: break-word;
+                max-height: calc(90vh - 120px);
+                padding: 10px;
             }}
         }}
     </style>
