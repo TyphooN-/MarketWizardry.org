@@ -58,14 +58,6 @@ def fix_python_redirect_template(file_path):
     # Correct replacement with proper closing - adjust braces based on file format
     if uses_double_braces:
         correct_replacement = '''<script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {{
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }}
-        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {{
             // Small delay to ensure viewport takes effect on mobile
@@ -85,14 +77,6 @@ def fix_python_redirect_template(file_path):
     </script>'''
     else:
         correct_replacement = '''<script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile

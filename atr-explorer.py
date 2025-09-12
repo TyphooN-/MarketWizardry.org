@@ -82,14 +82,6 @@ html_content = f"""<!DOCTYPE html>
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {{
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }}
-        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {{
             // Small delay to ensure viewport takes effect on mobile

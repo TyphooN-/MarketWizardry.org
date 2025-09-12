@@ -68,14 +68,6 @@ def create_simple_gallery(artist_name):
     <meta name="twitter:title" content="NFT Gallery - {artist_name}">
     <meta name="twitter:description" content="{flavor_text}">
     <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {{
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }}
-        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {{
             // Small delay to ensure viewport takes effect on mobile
