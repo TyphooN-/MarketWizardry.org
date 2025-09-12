@@ -254,8 +254,14 @@
         .mobile-logo,
         .header-text,
         .header-menu-items,
-        .menu-items-container {
+        .menu-items-container,
+        .mobile-menu-toggle {
             display: none;
+        }
+
+        .mobile-menu-container.show-menu {
+            display: flex !important;
+            flex-direction: column;
         }
 
         /* Mobile Responsive Styles */
@@ -266,12 +272,25 @@
                 display: none !important;
             }
             
-            /* Show mobile elements */
             .mobile-logo,
             .header-text,
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .mobile-menu-container {
+                display: none !important;
+            }
+
             .header-menu-items,
             .menu-items-container {
                 display: flex !important;
+            }
+
+            .mobile-menu-toggle {
+                font-size: 24px;
+                cursor: pointer;
+                margin-left: auto;
             }
             .container {
                 display: flex;
@@ -370,7 +389,7 @@
     <div class="scanlines"></div>
     <div class="container">
         <!-- Menu -->
-        <div class="menu crt">        
+        <div class="menu crt">
             <div class="header-container">
                 <div class="desktop-header">MARKETWIZARDRY.ORG</div>
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" 
@@ -379,6 +398,9 @@
                      onclick="loadContent('market-wizardry')" 
                      loading="lazy">
                 <div class="header-text">MARKETWIZARDRY.ORG</div>
+                <div class="mobile-menu-toggle">&#9776;</div>
+            </div>
+            <div class="mobile-menu-container">
                 <div class="header-menu-items">
                     <div class="menu-item" onclick="loadContent('about')">ABOUT</div>
                     <div class="menu-item" onclick="loadContent('code')">CODE</div>
@@ -387,6 +409,16 @@
                     <div class="menu-item" onclick="loadContent('terms')">TERMS</div>
                     <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
                     <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
+                </div>
+                <div class="menu-items-container">
+                    <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
+                    <div class="menu-item" onclick="loadContent('blog')">BLOG EXPLORER</div>
+                    <div class="menu-item" onclick="loadContent('var-explorer')">VaR EXPLORER</div>
+                    <div class="menu-item" onclick="loadContent('ev-explorer')">EV EXPLORER</div>
+                    <div class="menu-item" onclick="loadContent('atr-explorer')">ATR EXPLORER</div>
+                    <div class="menu-item" onclick="loadContent('ai-musings')">AI MUSINGS</div>
+                    <div class="menu-item" onclick="loadContent('nft-gallery')">NFT GALLERY</div>
+                    <div class="menu-item" onclick="loadContent('affiliates')">AFFILIATES</div>
                 </div>
             </div>
             <div class="image-item" onclick="loadContent('market-wizardry')">
@@ -408,16 +440,6 @@
                 <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
                 <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
                 <div class="menu-item" onclick="loadContent('terms')">TERMS</div>
-            </div>
-            <div class="menu-items-container">
-                <div class="menu-item" onclick="loadContent('var-cult')">VaR CULT</div>
-                <div class="menu-item" onclick="loadContent('blog')">BLOG EXPLORER</div>
-                <div class="menu-item" onclick="loadContent('var-explorer')">VaR EXPLORER</div>
-                <div class="menu-item" onclick="loadContent('ev-explorer')">EV EXPLORER</div>
-                <div class="menu-item" onclick="loadContent('atr-explorer')">ATR EXPLORER</div>
-                <div class="menu-item" onclick="loadContent('ai-musings')">AI MUSINGS</div>
-                <div class="menu-item" onclick="loadContent('nft-gallery')">NFT GALLERY</div>
-                <div class="menu-item" onclick="loadContent('affiliates')">AFFILIATES</div>
             </div>
         </div>                        
         <!-- Content Frame -->
@@ -452,6 +474,13 @@
             const pageParam = urlParams.get('page');
             const targetPage = pageParam || 'market-wizardry';
             loadContent(targetPage);
+
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenuContainer.classList.toggle('show-menu');
+            });
         });
     </script>
 </body>
