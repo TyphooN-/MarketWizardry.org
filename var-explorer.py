@@ -145,59 +145,90 @@ html_content = f"""<!DOCTYPE html>
             transform: scale(1.02);
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }}
-        .file-entry a {{
-            color: inherit;
+
+        a {{
+            color: #00ff00;
             text-decoration: none;
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
         }}
-        .file-entry:hover a {{
-            color: #00ff00;
+        a:hover {{
+            text-decoration: underline;
         }}
+
+        /* Modal Styles */
         .modal {{
-            display: none;
-            position: fixed;
-            z-index: 1;
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.9);
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            padding-top: 60px;
         }}
+
         .modal-content {{
             background-color: #000;
-            margin: 5% auto;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            width: 90%;
-            max-width: 800px;
-            text-align: center;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 10px; /* Reduced padding */
+            border: 2px solid #00ff00; /* Green border */
+            max-width: fit-content; /* Adjust width to content */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
         }}
+
+        .modal-header {{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px; /* Reduced padding */
+            margin-bottom: 5px; /* Reduced margin */
+        }}
+
+        .modal-header h2 {{
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em; /* Smaller header font size */
+        }}
+
+        .modal-header a {{
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 2px 5px;
+            margin-left: 10px;
+        }}
+
+        .modal-header a:hover {{
+            text-decoration: underline;
+        }}
+
         .close-button {{
-            color: #aaa;
-            float: right;
+            color: #00ff00;
             font-size: 28px;
             font-weight: bold;
-            cursor: pointer;
-            background: none;
-            border: none;
-            margin-top: -10px;
-            margin-right: -10px;
+            border: 2px solid #00ff00;
+            padding: 0 5px;
+            line-height: 1;
         }}
+
         .close-button:hover,
         .close-button:focus {{
             color: #00ff00;
             text-decoration: none;
+            cursor: pointer;
+            background-color: #001100;
         }}
-        .modal-header {{
-            margin-bottom: 20px;
-        }}
+
         .modal-body {{
-            white-space: pre-wrap; /* Allow wrapping on desktop */
+            white-space: pre; /* Preserve whitespace, no text wrapping */
             max-height: 60vh; /* Reduced to leave space for navigation buttons */
             overflow-y: auto;
             overflow-x: auto; /* Enable horizontal scrolling */
@@ -248,18 +279,47 @@ html_content = f"""<!DOCTYPE html>
             font-size: 0.9em;
         }}
 
+        /* Add Animation */
+        @-webkit-keyframes animatetop {{
+            from {{top:-300px; opacity:0}}
+            to {{top:0; opacity:1}}
+        }}
+
+        @keyframes animatetop {{
+            from {{top:-300px; opacity:0}}
+            to {{top:0; opacity:1}}
+        }}
+
         @media screen and (max-width: 768px) {{
             .grid {{
                 grid-template-columns: 1fr;
             }}
+            .modal {{
+                padding-top: 20px;
+            }}
             .modal-content {{
-                width: 95%;
                 margin: 2% auto;
-                padding: 10px;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }}
+            .modal-header {{
+                flex-wrap: wrap;
+                gap: 8px;
+            }}
+            .modal-header h2 {{
+                font-size: 1em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }}
+            .modal-header a {{
+                font-size: 0.7em;
+                padding: 4px 8px;
+                margin: 2px;
             }}
             .modal-body {{
                 font-size: 0.65em;
-                white-space: pre; /* Force horizontal scrolling on mobile */
+                white-space: pre;
                 overflow-x: auto;
                 max-height: calc(90vh - 160px);
                 padding: 10px;
