@@ -1868,11 +1868,13 @@ def main():
         print(f"Regenerating HTML for {txt_file.name}")
         html_file = generate_html_from_txt(txt_file, force_regenerate=True)
 
-        # Extract metadata for blog index
-        with open(txt_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-
-        title, _, _ = extract_title_and_summary(content, txt_file.name)
+        # Extract metadata for blog index from generated HTML file
+        title = extract_title_from_html(Path(html_file))
+        if not title:
+            # Fallback to extracting from content if HTML extraction fails
+            with open(txt_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            title, _, _ = extract_title_and_summary(content, txt_file.name)
 
         # Extract date from filename
         date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
