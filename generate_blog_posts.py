@@ -495,6 +495,10 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             .content-section {{
                 padding: 15px;
             }}
+            .modal-text {{
+                font-size: 0.75em;
+                padding: 15px;
+            }}
         }}
         @media (max-width: 480px) {{
             body {{
@@ -503,6 +507,10 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             .modal-content {{
                 width: 95%;
                 margin: 10px auto;
+            }}
+            .modal-text {{
+                font-size: 0.65em;
+                padding: 10px;
             }}
         }}
         .crt-divider {{
