@@ -1877,20 +1877,13 @@ def verify_flavor_text_sync(blog_entries):
 
 def main():
     """Main function to process all files and update blog"""
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description='Generate HTML blog posts from text files')
-    parser.add_argument('--regenerate-html', action='store_true',
-                      help='Force regeneration of all HTML files from .txt files (updates flavor text)')
-    args = parser.parse_args()
-    
     # Load previously used flavor texts
     load_used_flavor_texts()
     
     # Clear flavor text mapping if regenerating to get fresh flavor texts
-    if args.regenerate_html:
-        global blog_flavor_mapping
-        blog_flavor_mapping = {}
-        print("Regeneration mode: Clearing existing flavor text mappings for fresh generation")
+    global blog_flavor_mapping
+    blog_flavor_mapping = {}
+    print("Regeneration mode: Clearing existing flavor text mappings for fresh generation")
     
     blog_entries = []
     blog_path = Path(BLOG_DIR)
@@ -1899,137 +1892,76 @@ def main():
     html_files = list(blog_path.glob('*.html'))
     print(f"Found {len(html_files)} existing HTML files")
     
-    if args.regenerate_html:
-        # Regeneration mode: Process all .txt files and force HTML regeneration
-        print("REGENERATION MODE: Regenerating all HTML files from .txt files...")
-        txt_files = list(blog_path.glob('*.txt'))
-        print(f"Found {len(txt_files)} .txt files to process")
+    # Regeneration mode: Process all .txt files and force HTML regeneration
+    print("REGENERATION MODE: Regenerating all HTML files from .txt files...")
+    txt_files = list(blog_path.glob('*.txt'))
+    print(f"Found {len(txt_files)} .txt files to process")
 
-        for txt_file in txt_files:
-            print(f"Regenerating HTML for {txt_file.name}")
-            html_file = generate_html_from_txt(txt_file, force_regenerate=True)
+    for txt_file in txt_files:
+        print(f"Regenerating HTML for {txt_file.name}")
+        html_file = generate_html_from_txt(txt_file, force_regenerate=True)
 
-            # Extract metadata for blog index
-            with open(txt_file, 'r', encoding='utf-8') as f:
-                content = f.read()
+        # Extract metadata for blog index
+        with open(txt_file, 'r', encoding='utf-8') as f:
+            content = f.read()
 
-            title, _, _ = extract_title_and_summary(content, txt_file.name)
+        title, _, _ = extract_title_and_summary(content, txt_file.name)
 
-            # Extract date from filename
-            date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
-            if date_match:
-                month, day, year = date_match.groups()
-                date_str = f"{year}-{month}-{day}"
-            else:
-                date_str = datetime.now().strftime("%Y-%m-%d")
+        # Extract date from filename
+        date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
+        if date_match:
+            month, day, year = date_match.groups()
+            date_str = f"{year}-{month}-{day}"
+        else:
+            date_str = datetime.now().strftime("%Y-%m-%d")
 
-            flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
+        flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
 
-            blog_entries.append({
-                'filename': Path(html_file).name,
-                'title': title,
-                'date': date_str,
-                'summary': flavor_text
-            })
+        blog_entries.append({
+            'filename': Path(html_file).name,
+            'title': title,
+            'date': date_str,
+            'summary': flavor_text
+        })
 
-        # Also include manually created HTML files (like gpu-buyers-guide)
-        txt_stems = {txt_file.stem for txt_file in txt_files}
-        manual_html_files = [f for f in html_files if f.stem not in txt_stems]
-        print(f"Found {len(manual_html_files)} manually created HTML files to include")
+    # Also include manually created HTML files (like gpu-buyers-guide)
+    txt_stems = {txt_file.stem for txt_file in txt_files}
+    manual_html_files = [f for f in html_files if f.stem not in txt_stems]
+    print(f"Found {len(manual_html_files)} manually created HTML files to include")
 
-        for html_file in manual_html_files:
-            print(f"Including manual HTML file: {html_file.name}")
-            title = extract_title_from_html(html_file)
+    for html_file in manual_html_files:
+        print(f"Including manual HTML file: {html_file.name}")
+        title = extract_title_from_html(html_file)
 
-            # Extract date from filename
-            date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
-            if date_match:
-                month, day, year = date_match.groups()
-                date_str = f"{year}-{month}-{day}"
-            elif 'gpu' in html_file.name:
-                date_str = "2025-03-07"  # Set known date for GPU guide
-            else:
-                date_str = datetime.now().strftime("%Y-%m-%d")
+        # Extract date from filename
+        date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
+        if date_match:
+            month, day, year = date_match.groups()
+            date_str = f"{year}-{month}-{day}"
+        elif 'gpu' in html_file.name:
+            date_str = "2025-03-07"  # Set known date for GPU guide
+        else:
+            date_str = datetime.now().strftime("%Y-%m-%d")
 
-            flavor_text = get_consistent_flavor_text(html_file.name, title)
+        flavor_text = get_consistent_flavor_text(html_file.name, title)
 
-            blog_entries.append({
-                'filename': html_file.name,
-                'title': title,
-                'date': date_str,
-                'summary': flavor_text
-            })
+        blog_entries.append({
+            'filename': html_file.name,
+            'title': title,
+            'date': date_str,
+            'summary': flavor_text
+        })
     
-    else:
-        # Normal mode: Process existing HTML files and new .txt files
-        # Process existing HTML files
-        for html_file in html_files:
-            title = extract_title_from_html(html_file)
-            
-            # Extract date from filename
-            date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
-            if date_match:
-                month, day, year = date_match.groups()
-                date_str = f"{year}-{month}-{day}"
-            elif 'gpu' in html_file.name:
-                date_str = "2025-03-07"  # Set known date for GPU guide
-            else:
-                date_str = datetime.now().strftime("%Y-%m-%d")
-            
-            flavor_text = get_consistent_flavor_text(html_file.name, title)
-            
-            blog_entries.append({
-                'filename': html_file.name,
-                'title': title,
-                'date': date_str,
-                'summary': flavor_text
-            })
-        
-        # Find .txt files that don't have corresponding HTML files
-        txt_files = list(blog_path.glob('*.txt'))
-        for txt_file in txt_files:
-            html_name = txt_file.stem + '.html'
-            html_path = blog_path / html_name
-            
-            if not html_path.exists():
-                print(f"Generating HTML for {txt_file.name}")
-                html_file = generate_html_from_txt(txt_file)
-                
-                # Extract metadata for blog index
-                with open(txt_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                
-                title, _, _ = extract_title_and_summary(content, txt_file.name)
-                
-                # Extract date from filename
-                date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
-                if date_match:
-                    month, day, year = date_match.groups()
-                    date_str = f"{year}-{month}-{day}"
-                else:
-                    date_str = datetime.now().strftime("%Y-%m-%d")
-                
-                flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
-                
-                blog_entries.append({
-                    'filename': Path(html_file).name,
-                    'title': title,
-                    'date': date_str,
-                    'summary': flavor_text
-                })
-    
-    print(f"Total blog entries: {len(blog_entries)}")
-    
-    # Update blog index
+    # Update the blog index
     update_blog_index(blog_entries)
     
-    # Save the updated flavor text cache
+    # Save the used flavor texts
     save_used_flavor_texts()
-
-    # Verify flavor text JSON is in sync with actual generated files
+    
+    # Verify flavor text sync
     print("\n=== FLAVOR TEXT VERIFICATION ===")
     verify_flavor_text_sync(blog_entries)
-
+    
     print("Blog generation complete!")
 
 
