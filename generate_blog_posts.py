@@ -958,6 +958,16 @@ def extract_title_and_summary(content, filename):
         title = title.replace(date_match.group(1) + '-', '')
     title = title.replace('-', ' ').replace('_', ' ').title()
 
+    # Add acronyms for educational posts
+    if 'what-is-value-at-risk' in filename.lower():
+        title = title.replace('Var', '(VaR)')
+    elif 'what-is-average-true-range' in filename.lower():
+        title = title.replace('Atr', '(ATR)')
+    elif 'what-is-enterprise-value' in filename.lower():
+        title = title.replace('Ev', '(EV)')
+    elif 'understanding-iqr' in filename.lower():
+        title = title.replace('Iqr', 'IQR')
+
     section_title = f"📊 {title}"
 
     # Generate witty summary based on content
@@ -986,12 +996,16 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     # Generate consistent flavor text for this blog post
     flavor_text = get_consistent_flavor_text(html_file.name, title)
     
-    # Generate breadcrumb title (cleaner version for breadcrumbs)
+    # Generate breadcrumb title (cleaner version for breadcrumbs, only for educational posts)
     breadcrumb_title = title
-    if title.lower().startswith("what is "):
-        breadcrumb_title = title[8:]  # Remove "What is " prefix
-    elif title.lower().startswith("understanding "):
-        breadcrumb_title = title[14:]  # Remove "Understanding " prefix
+    educational_keywords = ['what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value', 'what-is-darwinex', 'understanding-iqr', 'var-rubber-band']
+    is_educational = any(keyword in html_file.name.lower() for keyword in educational_keywords)
+
+    if is_educational:
+        if title.lower().startswith("what is "):
+            breadcrumb_title = title[8:]  # Remove "What is " prefix
+        elif title.lower().startswith("understanding "):
+            breadcrumb_title = title[14:]  # Remove "Understanding " prefix
 
     # Generate HTML
     html_content = BLOG_POST_TEMPLATE.format(
