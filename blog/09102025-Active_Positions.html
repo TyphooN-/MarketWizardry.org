@@ -26,14 +26,6 @@
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
@@ -149,10 +141,9 @@
             max-width: 100%;
             flex-grow: 1;
             overflow-y: scroll;
-            overflow-x: hidden;
+            overflow-x: auto;
             font-family: "Courier New", monospace;
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
+            white-space: pre;
             border: 2px solid #00ff00;
             padding: 20px;
             border-radius: 5px;
@@ -193,8 +184,28 @@
             body {
                 padding: 10px;
             }
+            .modal {
+                padding-top: 20px;
+            }
             .modal-content {
                 width: 95%;
+                margin: 2% auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-header {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .modal-header h2 {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }
+            .modal-header a {
+                font-size: 0.7em;
+                padding: 4px 8px;
+                margin: 2px;
             }
             .content-section {
                 padding: 15px;
@@ -248,7 +259,7 @@
     
     <div class="content-section" onclick="openModal()">
         <h2>📊 INVESTMENT RECOMMENDATIONS</h2>
-        <p class="summary">Investment recommendations from the digital wasteland where mathematical precision meets portfolio carnage. Your risk manager's worst nightmare.</p>
+        <p class="summary">Market autism dissected with surgical precision for your viewing displeasure. Because someone needs to document the financial apocalypse.</p>
         <p class="summary"><strong>Click to read full analysis</strong></p>
     </div>
 

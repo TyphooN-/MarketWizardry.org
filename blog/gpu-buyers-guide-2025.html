@@ -303,6 +303,42 @@
         .modal[tabindex="0"]:focus {
             outline: none;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .image-counter {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+        }
         @media (max-width: 768px) {
             .modal-top {
                 flex-direction: column;
@@ -312,7 +348,20 @@
                 max-width: none;
             }
             .modal-intro-text {
-                max-height: 200px;}
+                max-height: 200px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .image-counter {
+                font-size: 12px;
+            }
+            .nav-buttons {
+                margin-top: 10px;
+                gap: 5px;
+            }
     </style>
 </head>
 <body>
@@ -344,6 +393,11 @@
             <div class="modal-intro-text"></div>
         </div>
         <div class="modal-text" tabindex="0"></div>
+        <div class="nav-buttons">
+            <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+            <span class="image-counter" id="imageCounter"></span>
+            <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+        </div>
     </div>
 </div>
 <script>
@@ -436,6 +490,9 @@
                 console.log('Modal display set to block');
                 document.body.style.overflow = "hidden";
                 modal.focus();
+
+                // Update navigation buttons and counter
+                updateNavigationButtons();
             });
         }
 
@@ -444,6 +501,30 @@
             document.body.style.overflow = "auto";
             currentImageIndex = -1;
             imageItems.forEach(item => item.classList.remove('hovered'));
+        }
+
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            if (prevButton && nextButton && imageCounter) {
+                prevButton.disabled = currentImageIndex <= 0;
+                nextButton.disabled = currentImageIndex >= imageItems.length - 1;
+                imageCounter.textContent = `${currentImageIndex + 1} / ${imageItems.length}`;
+            }
+        }
+
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                openModal(currentImageIndex - 1);
+            }
+        }
+
+        function nextImage() {
+            if (currentImageIndex < imageItems.length - 1) {
+                openModal(currentImageIndex + 1);
+            }
         }
 
         function clearHoverEffects() {

@@ -130,6 +130,84 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             font-weight: bold;
             opacity: 0.9;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+            .full-image {
+                max-height: 55vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .twitter-link-container {
+                margin: 5px 0;
+            }
+            .twitter-link-container a {
+                font-size: 0.8em;
+                padding: 3px 6px;
+            }
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -241,13 +319,13 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 	    border-radius: 5px;
 	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
 	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
+	    max-width: 95vw; /* Increased modal width for mobile */
+	    max-height: 95vh; /* Increased modal height for mobile */
 	    overflow: auto; /* Enable scrolling if content exceeds modal size */
 	}
 	.full-image {
 	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    max-height: 65vh; /* Reduced to leave space for navigation buttons */
 	    display: block;
 	    margin: 0 auto;
 	    object-fit: contain;
@@ -279,6 +357,84 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             font-weight: bold;
             opacity: 0.9;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+            .full-image {
+                max-height: 55vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .twitter-link-container {
+                margin: 5px 0;
+            }
+            .twitter-link-container a {
+                font-size: 0.8em;
+                padding: 3px 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -293,6 +449,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeModal()">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
                 <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
@@ -301,6 +458,11 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+            </div>
         </div>
     </div>
 </div>
@@ -382,6 +544,15 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                 twitterLinkContainer.style.display = 'none';
             }
             
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
             modal.style.display = 'flex'; // Use flex to center modal content
         }
         
@@ -550,13 +721,13 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 	    border-radius: 5px;
 	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
 	    text-align: center;
-	    max-width: 90vw; /* Limit modal width */
-	    max-height: 90vh; /* Limit modal height */
+	    max-width: 95vw; /* Increased modal width for mobile */
+	    max-height: 95vh; /* Increased modal height for mobile */
 	    overflow: auto; /* Enable scrolling if content exceeds modal size */
 	}
 	.full-image {
 	    max-width: 100%;
-	    max-height: 80vh; /* Adjust as needed to leave space for filename */
+	    max-height: 65vh; /* Reduced to leave space for navigation buttons */
 	    display: block;
 	    margin: 0 auto;
 	    object-fit: contain;
@@ -588,6 +759,84 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             font-weight: bold;
             opacity: 0.9;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+            .full-image {
+                max-height: 55vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .twitter-link-container {
+                margin: 5px 0;
+            }
+            .twitter-link-container a {
+                font-size: 0.8em;
+                padding: 3px 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -602,6 +851,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeModal()">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
                 <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
@@ -610,6 +860,11 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             </div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+            </div>
         </div>
     </div>
 </div>
@@ -691,6 +946,15 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                 twitterLinkContainer.style.display = 'none';
             }
             
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
             modal.style.display = 'flex'; // Use flex to center modal content
         }
         

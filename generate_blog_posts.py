@@ -426,10 +426,9 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             max-width: 100%;
             flex-grow: 1;
             overflow-y: scroll;
-            overflow-x: hidden;
+            overflow-x: auto;
             font-family: "Courier New", monospace;
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
+            white-space: pre;
             border: 2px solid #00ff00;
             padding: 20px;
             border-radius: 5px;
@@ -484,12 +483,12 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
                 gap: 8px;
             }}
             .modal-header h2 {{
-                font-size: 1em;
+                font-size: 0.9em;
                 margin-bottom: 8px;
                 flex: 1 0 100%;
             }}
             .modal-header a {{
-                font-size: 0.8em;
+                font-size: 0.7em;
                 padding: 4px 8px;
                 margin: 2px;
             }}
