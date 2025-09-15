@@ -1223,7 +1223,75 @@ def generate_flavor_text(title, filename):
     # Check for GPU content first (highest priority for hardware analysis)
     if 'gpu' in title_lower or 'gpu' in filename_lower or ('buyers' in title_lower and 'guide' in title_lower):
         return "Hardware analysis for degenerates who confuse graphics cards with investment vehicles. Your wallet's funeral service."
-    
+
+    # Educational content detection (second highest priority)
+    educational_texts = {
+        'var': [
+            "Risk measurement education for gambling addicts who pretend statistical models can predict when they'll lose everything.",
+            "Value at Risk tutorials for degenerates who need mathematical confirmation that their portfolio is doomed.",
+            "VaR methodology guide for masochists who enjoy quantifying exactly how much they can lose in precise percentiles.",
+            "Risk management education for people who think confidence intervals provide actual confidence about their finances.",
+            "Statistical risk analysis for those who want to measure their financial suicide with scientific precision.",
+            "VaR calculation guide for investors whose risk tolerance is exceeded only by their capacity for self-deception."
+        ],
+        'atr': [
+            "Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.",
+            "Average True Range tutorials for people who need technical indicators to confirm that markets are insane.",
+            "ATR methodology guide for volatility junkies who think measuring chaos somehow makes it profitable.",
+            "Technical analysis education for traders whose risk management involves more hope than mathematics.",
+            "Volatility indicators for those who want to quantify exactly how much the market hates their positions.",
+            "ATR calculation guide for people who confuse measuring volatility with actually managing it profitably."
+        ],
+        'enterprise_value': [
+            "Corporate valuation education for fundamental analysts who think enterprise value calculations can predict stock prices.",
+            "EV methodology guide for value investors whose idea of deep analysis involves more spreadsheets than insight.",
+            "Enterprise value tutorials for people who mistake accounting precision for investment wisdom.",
+            "Valuation education for analysts who think complex formulas compensate for poor judgment.",
+            "EV calculation guide for investors whose fundamental analysis produces consistently wrong conclusions.",
+            "Corporate finance education for those who confuse mathematical sophistication with actual competence."
+        ],
+        'darwinex': [
+            "Algorithmic trading platform education for signal followers who think technology can replace trading skill.",
+            "DARWIN marketplace guide for investors who want institutional-grade access to retail-grade disappointment.",
+            "Darwinex tutorial for people who believe copying other traders' strategies guarantees their success.",
+            "Risk engine education for those who think automated risk management eliminates the need for personal judgment.",
+            "Trading platform guide for signal chasers who confuse technological sophistication with investment returns.",
+            "Algorithmic asset management education for people whose trading automation automates their losses more efficiently."
+        ],
+        'iqr': [
+            "Statistical analysis education for data miners who think robust statistics can make unreliable data reliable.",
+            "Interquartile range tutorials for outlier hunters whose data cleaning resembles financial money laundering.",
+            "IQR methodology guide for people who want to ignore inconvenient data points with mathematical justification.",
+            "Robust statistics education for analysts whose data analysis skills are exceeded by their capacity for rationalization.",
+            "Outlier detection tutorials for those who think removing extreme observations removes extreme losses.",
+            "Statistical robustness guide for people whose financial models are about as robust as wet cardboard."
+        ]
+    }
+
+    # Check for educational content with specific matching
+    if 'what-is-value-at-risk-var' in filename_lower or 'value at risk' in title_lower:
+        return select_unused_flavor_text(educational_texts['var'], "Risk measurement education for gambling addicts who pretend statistical models can predict when they'll lose everything.")
+    elif 'what-is-average-true-range-atr' in filename_lower or 'average true range' in title_lower:
+        return select_unused_flavor_text(educational_texts['atr'], "Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.")
+    elif 'what-is-enterprise-value-ev' in filename_lower or 'enterprise value' in title_lower:
+        return select_unused_flavor_text(educational_texts['enterprise_value'], "Corporate valuation education for fundamental analysts who think enterprise value calculations can predict stock prices.")
+    elif 'what-is-darwinex' in filename_lower or ('what' in title_lower and 'darwinex' in title_lower):
+        return select_unused_flavor_text(educational_texts['darwinex'], "Algorithmic trading platform education for signal followers who think technology can replace trading skill.")
+    elif 'understanding-iqr-analysis' in filename_lower or 'iqr analysis' in title_lower:
+        return select_unused_flavor_text(educational_texts['iqr'], "Statistical analysis education for data miners who think robust statistics can make unreliable data reliable.")
+
+    # Check for rubber band effect content
+    if 'rubber' in title_lower or 'band' in title_lower or ('var' in title_lower and 'darwinex' in title_lower):
+        rubber_band_texts = [
+            "Advanced risk arbitrage for degenerates who think gaming Darwinex's VaR engine is easier than actual trading.",
+            "Systematic exploitation guide for people who believe finding platform inefficiencies beats developing actual skill.",
+            "Risk engine arbitrage for those who want to profit from statistical models rather than market movements.",
+            "VaR gaming strategies for algorithmic wannabes whose understanding of rubber band effects exceeds their trading ability.",
+            "Platform exploitation education for people who think arbitraging risk calculations is a sustainable business model.",
+            "Systematic inefficiency hunting for those who confuse temporary edges with permanent competitive advantages."
+        ]
+        return select_unused_flavor_text(rubber_band_texts, "Risk arbitrage education for people who think gaming VaR calculations is easier than learning to trade.")
+
     # Extract symbols from title, filename, and content for symbol-based detection
     detected_symbols = extract_symbols_from_content(title, filename, txt_content)
     detected_industry, detected_sector = get_industry_and_sector_from_symbols(detected_symbols)
@@ -1746,6 +1814,7 @@ def generate_flavor_text(title, filename):
         "Risk metrics for those who think 'asset protection' means hiding under their desk during market hours."
     ]
     
+
     if 'srpt' in filename_lower or 'biotech' in title_lower:
         return "Biotech analysis for those who think playing roulette with regulatory approval is a sound investment thesis."
     elif 'outlier' in title_lower or 'var' in title_lower or 'claude' in title_lower:

@@ -1,0 +1,190 @@
+What is Average True Range (ATR)?
+
+Average True Range (ATR) is a volatility indicator that measures the average range of price movement over a specified period. Unlike other volatility measures that focus on closing prices, ATR captures the full range of price action within each period, including gaps.
+
+Developed by J. Welles Wilder Jr. in 1978, ATR has become a cornerstone of technical analysis and risk management systems.
+
+Understanding True Range
+
+Before calculating ATR, you need to understand True Range (TR), which is the greatest of:
+1. Current High - Current Low
+2. |Current High - Previous Close|
+3. |Current Low - Previous Close|
+
+True Range captures the largest price movement for that period, accounting for gaps between sessions.
+
+ATR Calculation
+
+ATR = Moving Average of True Range over N periods
+
+Traditional calculation uses Wilder's smoothing:
+ATR(today) = [(ATR(yesterday) × (N-1)) + TR(today)] / N
+
+Where N is typically 14 periods (Wilder's original setting).
+
+Modern implementations often use:
+- Simple Moving Average (SMA)
+- Exponential Moving Average (EMA)
+- Hull Moving Average (HMA)
+
+Interpreting ATR Values
+
+High ATR indicates:
+- Increased volatility
+- Wider price swings
+- Higher uncertainty
+- Potential trend changes
+- Increased risk
+
+Low ATR suggests:
+- Reduced volatility
+- Consolidation phases
+- Market equilibrium
+- Lower risk periods
+- Potential breakout setup
+
+ATR is absolute, not relative—a $100 stock with ATR of 2 is less volatile (2%) than a $10 stock with ATR of 1 (10%).
+
+Trading Applications
+
+1. Position Sizing
+   - Risk per trade = Account Risk % / (ATR × multiplier)
+   - Higher ATR = smaller position size
+   - Maintains consistent risk across different volatility regimes
+
+2. Stop Loss Placement
+   - Stop distance = ATR × multiplier (typically 1.5-3x)
+   - Adapts to market volatility
+   - Reduces noise-based stop-outs
+
+3. Profit Target Setting
+   - Target = Entry ± (ATR × reward ratio)
+   - Risk-reward ratios based on volatility
+   - Dynamic target adjustment
+
+4. Trend Strength Assessment
+   - Rising ATR + strong trend = momentum continuation
+   - Falling ATR + weak trend = potential reversal
+   - ATR divergence signals weakening moves
+
+5. Breakout Validation
+   - High ATR breakouts more likely to follow through
+   - Low ATR breakouts often false signals
+   - Volume + ATR confirmation
+
+Advanced ATR Strategies
+
+ATR Bands:
+- Upper Band = Price + (ATR × multiplier)
+- Lower Band = Price - (ATR × multiplier)
+- Dynamic support/resistance levels
+
+ATR Percentage:
+- ATR% = (ATR / Close) × 100
+- Normalizes ATR across different price levels
+- Better for cross-asset comparison
+
+ATR Squeeze:
+- Identify periods of low volatility
+- Anticipate volatility expansion
+- Pre-position for breakout moves
+
+Multi-Timeframe ATR:
+- Compare daily, weekly, monthly ATR
+- Understand volatility context
+- Scale position sizing appropriately
+
+ATR Limitations
+
+1. Lagging Indicator
+   ATR responds to volatility changes, doesn't predict them
+
+2. No Direction Bias
+   ATR measures magnitude, not direction of moves
+
+3. Smoothing Effects
+   Moving averages create lag in volatility detection
+
+4. Market Regime Dependency
+   ATR patterns vary across bull/bear/sideways markets
+
+5. Outlier Sensitivity
+   Single extreme moves can skew ATR for extended periods
+
+ATR vs Other Volatility Measures
+
+Standard Deviation:
+- Uses closing prices only
+- ATR captures intraday range
+- ATR more practical for stop placement
+
+Bollinger Bands:
+- Based on standard deviation
+- ATR provides absolute volatility measure
+- Complementary rather than competing
+
+VIX (Implied Volatility):
+- Forward-looking volatility expectations
+- ATR measures historical realized volatility
+- Different time horizons and perspectives
+
+Common ATR Settings
+
+Period Selection:
+- 14 periods (Wilder's original)
+- 21 periods (monthly cycle)
+- 10 periods (faster response)
+- 50+ periods (long-term volatility)
+
+Multipliers:
+- 1.0x ATR: Tight stops, more whipsaws
+- 2.0x ATR: Balanced approach
+- 3.0x ATR: Loose stops, fewer false signals
+
+Timeframes:
+- Scalping: 1-5 minute charts
+- Day trading: 15-60 minute charts
+- Swing trading: Daily charts
+- Position trading: Weekly/monthly charts
+
+The MarketWizardry ATR Explorer
+
+Our ATR calculator provides:
+- Multiple moving average methods
+- ATR percentile analysis
+- Multi-timeframe ATR comparison
+- Position sizing calculators
+- Risk-adjusted stop levels
+- Volatility regime classification
+
+ATR Best Practices
+
+1. Adapt to Market Conditions
+   - Increase multipliers in choppy markets
+   - Decrease in trending markets
+   - Adjust periods for different timeframes
+
+2. Combine with Other Indicators
+   - Trend direction (EMAs, MACD)
+   - Momentum (RSI, Stochastic)
+   - Volume confirmation
+
+3. Regular Recalibration
+   - Monitor ATR effectiveness
+   - Adjust parameters based on performance
+   - Account for changing market structure
+
+4. Risk Management Integration
+   - Link position size to ATR
+   - Scale into positions based on volatility
+   - Use ATR for portfolio heat adjustment
+
+The Reality Check
+
+ATR won't make you rich overnight, but it will help you stay in the game longer. It's a tool for managing the chaos, not eliminating it.
+
+Markets are bipolar entities that swing between catatonic boredom and manic episodes. ATR helps you identify which mood the market is in and adjust your risk accordingly.
+
+Use ATR as part of a comprehensive trading system. It's the speedometer for market volatility—useful information, but you still need to decide where you're driving and how fast you want to get there.
+
+Remember: The market's job is to separate you from your money. ATR's job is to help you keep enough of it to fight another day.

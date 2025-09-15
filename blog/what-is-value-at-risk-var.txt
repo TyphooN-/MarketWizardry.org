@@ -1,0 +1,113 @@
+What is Value at Risk (VaR)?
+
+Value at Risk (VaR) is a statistical measure that quantifies the potential loss of an investment or portfolio over a specific time period, given a certain confidence level. It answers the question: "What's the worst loss I can expect with X% confidence over Y days?"
+
+How VaR Works
+
+VaR is expressed as a dollar amount or percentage and consists of three components:
+- Time horizon (e.g., 1 day, 10 days, 1 month)
+- Confidence level (e.g., 95%, 99%)
+- The potential loss amount
+
+For example, a 1-day 95% VaR of $10,000 means: "There's a 95% chance that the portfolio won't lose more than $10,000 tomorrow."
+
+VaR Calculation Methods
+
+1. Historical Simulation
+   - Uses historical price data to simulate potential losses
+   - Simple but assumes past patterns will repeat
+   - No distribution assumptions required
+
+2. Parametric (Normal Distribution)
+   - Assumes returns follow a normal distribution
+   - Faster to calculate but may underestimate tail risks
+   - Formula: VaR = μ - (Z × σ × √t)
+
+3. Monte Carlo Simulation
+   - Generates thousands of random scenarios
+   - Most flexible but computationally intensive
+   - Can model complex portfolios and dependencies
+
+VaR Limitations
+
+Critical weaknesses every trader should understand:
+
+1. Tail Risk Blindness
+   VaR tells you nothing about losses beyond the confidence level. A 99% VaR ignores the catastrophic 1% of scenarios.
+
+2. Model Risk
+   VaR is only as good as its underlying assumptions. Black swan events regularly violate these assumptions.
+
+3. False Security
+   VaR can create overconfidence. Just because you have a 95% VaR doesn't mean the other 5% won't bankrupt you.
+
+4. Non-Additive
+   Portfolio VaR ≠ Sum of individual position VaRs due to correlations and diversification effects.
+
+Practical Applications
+
+Risk Management:
+- Set position sizing limits
+- Determine portfolio exposure
+- Stress test strategies
+- Regulatory compliance (Basel III)
+
+Trading Applications:
+- Stop-loss level setting
+- Capital allocation decisions
+- Performance attribution
+- Risk-adjusted returns calculation
+
+VaR vs Other Risk Metrics
+
+Expected Shortfall (ES):
+- Measures average loss beyond VaR threshold
+- Better for tail risk assessment
+- More coherent risk measure
+
+Maximum Drawdown:
+- Historical worst peak-to-trough loss
+- Backward-looking vs VaR's forward-looking nature
+- Useful for understanding pain tolerance
+
+Standard Deviation:
+- Measures total volatility (up and down)
+- VaR focuses only on downside risk
+- Complementary metrics
+
+Common VaR Mistakes
+
+1. Over-reliance on historical data
+2. Ignoring regime changes and structural breaks
+3. Using inappropriate time horizons
+4. Misunderstanding confidence intervals
+5. Failing to backtest VaR models
+
+Industry Standards
+
+Typical confidence levels:
+- 95% for internal risk management
+- 99% for regulatory capital requirements
+- 99.9% for extreme stress testing
+
+Time horizons:
+- 1-day for active trading
+- 10-day for regulatory purposes
+- Monthly/quarterly for strategic allocation
+
+The MarketWizardry VaR Explorer
+
+Our VaR calculator implements multiple methodologies and provides:
+- Historical simulation with customizable lookback periods
+- Parametric VaR with distribution fitting
+- Portfolio-level risk aggregation
+- Stress testing scenarios
+- Risk decomposition by asset class
+
+Remember: VaR is a tool, not a crystal ball. It provides estimates based on historical patterns and mathematical models. In volatile markets, these patterns can break down spectacularly.
+
+The goal isn't to predict the future perfectly—it's to quantify uncertainty so you can make informed decisions about how much risk you're willing to accept for potential returns.
+
+Use VaR as one input among many in your risk management framework. Combine it with stress testing, scenario analysis, and good old-fashioned common sense.
+
+Because in the end, the market doesn't care about your VaR calculations when it decides to have a nervous breakdown.

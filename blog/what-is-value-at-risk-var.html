@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketWizardry.org | VAR Stock Analysis</title>
+    <link rel="canonical" href="https://marketwizardry.org/blog/what-is-value-at-risk-var.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="VaR methodology guide for masochists who enjoy quantifying exactly how much they can lose in precise percentiles.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MarketWizardry.org | VAR Stock Analysis">
+    <meta property="og:description" content="VaR methodology guide for masochists who enjoy quantifying exactly how much they can lose in precise percentiles.">
+    <meta property="og:url" content="https://marketwizardry.org/blog/what-is-value-at-risk-var.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VAR Stock Analysis">
+    <meta name="twitter:description" content="VaR methodology guide for masochists who enjoy quantifying exactly how much they can lose in precise percentiles.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+            overflow-y: auto;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            min-height: 100vh;
+        }
+        header {
+            text-align: left;
+            color: #00ff00;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .content-section {
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            padding: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .content-section:hover {
+            background-color: #001100;
+            transform: scale(1.02);
+        }
+        .content-section h2 {
+            color: #00ff00;
+            margin: 0 0 10px 0;
+        }
+        .content-section .summary {
+            color: #00cc00;
+            font-size: 0.9em;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            overflow-y: auto;
+        }
+        .modal-content {
+            margin: 20px auto;
+            padding: 10px;
+            width: 90%;
+            max-width: 1200px;
+            background-color: #000;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            touch-action: pan-y;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em;
+        }
+        .modal-header a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 2px 5px;
+            margin-left: 10px;
+        }
+        .modal-header a:hover {
+            text-decoration: underline;
+            background-color: #001100;
+        }
+        .modal-text {
+            width: 100%;
+            max-width: 100%;
+            flex-grow: 1;
+            overflow-y: scroll;
+            overflow-x: auto;
+            font-family: "Courier New", monospace;
+            white-space: pre;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            border-radius: 5px;
+            color: #00ff00;
+        }
+        .modal-text::-webkit-scrollbar {
+            width: 12px;
+        }
+        .modal-text::-webkit-scrollbar-track {
+            background: #000;
+        }
+        .modal-text::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border: 2px solid #000;
+        }
+        .modal-text::-webkit-scrollbar-thumb:hover {
+            background: #00cc00;
+        }
+        .close-button {
+            color: #00ff00;
+            font-size: 28px;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 0 5px;
+            line-height: 1;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: #001100;
+        }
+        .modal[tabindex="0"]:focus {
+            outline: none;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .modal {
+                padding-top: 20px;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-header {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .modal-header h2 {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }
+            .modal-header a {
+                font-size: 0.7em;
+                padding: 4px 8px;
+                margin: 2px;
+            }
+            .content-section {
+                padding: 15px;
+            }
+            .modal-text {
+                font-size: 0.75em;
+                padding: 15px;
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 10px auto;
+            }
+            .modal-text {
+                font-size: 0.65em;
+                padding: 10px;
+            }
+        }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+            animation: flicker 1s infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header><h1>VAR Stock Analysis</h1></header>
+    <div class="crt-divider"></div>
+    <div class="flavor-text">VaR methodology guide for masochists who enjoy quantifying exactly how much they can lose in precise percentiles.</div>
+    <div class="crt-divider"></div>
+    
+    <div class="content-section" onclick="openModal()">
+        <h2>📈 VAR INDIVIDUAL STOCK ANALYSIS</h2>
+        <p class="summary">Technology sector analysis proving your startup picks have the longevity of TikTok trends and half the substance.</p>
+        <p class="summary"><strong>Click to read full analysis</strong></p>
+    </div>
+
+</div>
+
+<div id="analysisModal" class="modal" tabindex="0">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>VAR Stock Analysis</h2>
+            <a id="downloadButton" href="what-is-value-at-risk-var.txt" download="what-is-value-at-risk-var.txt" onclick="forceDownload(event, this)">Download Report</a>
+            <span class="close-button" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-text" tabindex="0" id="analysisContent"></div>
+    </div>
+</div>
+
+<script>
+    // Force download function
+    function forceDownload(event, link) {
+        event.preventDefault();
+        const url = link.href;
+        const filename = link.download || url.split('/').pop();
+        
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = downloadUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(downloadUrl);
+                document.body.removeChild(a);
+            })
+            .catch(error => console.error('Download failed:', error));
+    }
+    
+    function openModal() {
+        const modal = document.getElementById("analysisModal");
+        const analysisContent = document.getElementById("analysisContent");
+        const txtUrl = "what-is-value-at-risk-var.txt";
+        
+        // Load content dynamically like explorers do
+        fetch(txtUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                analysisContent.textContent = data;
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+                modal.focus();
+            })
+            .catch(error => {
+                console.error("Error fetching analysis:", error);
+                analysisContent.textContent = "Error loading analysis content.";
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+                modal.focus();
+            });
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("analysisModal");
+        
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    // Close modal when clicking outside content
+    document.getElementById("analysisModal").addEventListener('click', (event) => {
+        if (event.target === event.currentTarget) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && document.getElementById("analysisModal").style.display === "block") {
+            closeModal();
+        }
+    });
+
+    // Scroll controls for modal text
+    const modalText = document.querySelector('.modal-text');
+    modalText.addEventListener('keydown', (event) => {
+        const scrollAmount = 50;
+        if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            modalText.scrollTop -= scrollAmount;
+        } else if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            modalText.scrollTop += scrollAmount;
+        }
+    });
+</script>
+</body>
+</html>
