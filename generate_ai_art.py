@@ -1,0 +1,447 @@
+#!/usr/bin/env python3
+"""
+AI Art Gallery Generator
+
+Automatically generates ai-art.html by scanning the ai-art/ directory for images.
+This replaces the need to manually maintain the image paths in the HTML file.
+"""
+
+import os
+import glob
+import re
+from pathlib import Path
+
+def scan_ai_art_images(ai_art_dir='ai-art'):
+    """Scan the ai-art directory for webp images and return sorted paths"""
+    if not os.path.exists(ai_art_dir):
+        print(f"Error: {ai_art_dir} directory not found!")
+        return []
+
+    # Find all .webp files in the ai-art directory
+    pattern = os.path.join(ai_art_dir, '*.webp')
+    image_files = glob.glob(pattern)
+
+    # Sort them naturally (00001.webp, 00002.webp, etc.)
+    def natural_sort_key(path):
+        filename = os.path.basename(path)
+        # Extract numbers from filename for proper sorting
+        numbers = re.findall(r'\d+', filename)
+        return [int(num) for num in numbers] if numbers else [0]
+
+    image_files.sort(key=natural_sort_key)
+
+    # Convert to relative paths with forward slashes
+    relative_paths = []
+    for file_path in image_files:
+        # Convert to relative path and use forward slashes
+        relative_path = file_path.replace(os.sep, '/')
+        if not relative_path.startswith('/'):
+            relative_path = '/' + relative_path
+        relative_paths.append(relative_path)
+
+    return relative_paths
+
+def generate_ai_art_html(output_file='ai-art.html'):
+    """Generate the complete ai-art.html file"""
+
+    # Scan for images
+    image_paths = scan_ai_art_images()
+
+    if not image_paths:
+        print("No images found in ai-art directory!")
+        return False
+
+    print(f"Found {len(image_paths)} images in ai-art directory")
+
+    # Convert paths to JavaScript array format
+    js_image_paths = ',\n            '.join(f'"{path}"' for path in image_paths)
+
+    # HTML template
+    html_template = '''<!-- ai-art.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketWizardry.org | AI Art</title>
+    <link rel="canonical" href="https://marketwizardry.org/ai-art.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="AI Art - MarketWizardry.org">
+    <meta property="og:description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
+    <meta property="og:url" content="https://marketwizardry.org/ai-art.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Art - MarketWizardry.org">
+    <meta name="twitter:description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <script>
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+
+                // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, pass full path
+                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+        } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
+        }
+                }, 100);
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        /* Image grid styles */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Maximum size of the container */
+            cursor: pointer;
+        }
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+	.modal-content {
+	    position: relative;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    transform: none;
+	}
+	.full-image {
+	    width: auto;
+	    height: auto;
+	    max-width: 90vw;
+	    max-height: 90vh;
+	    margin: 0 auto;
+	    display: block;
+	    border: 2px solid rgba(0, 255, 0, 0.5);
+	}
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+            animation: flicker 1s infinite;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        .filename-display {
+            color: #00ff00;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+            font-size: 0.9em;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+            }
+            .full-image {
+                max-width: 98vw;
+                max-height: 75vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .nav-buttons {
+                margin-top: 5px;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Art</h1>
+    <div class="crt-divider"></div>
+    <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
+    <div class="crt-divider"></div>
+    <div class="image-grid" id="imageGrid">
+        <!-- Images will be inserted here by JavaScript -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="fullscreenModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeModal()">&times;</button>
+            <div class="filename-display" id="modalFilename"></div>
+            <div class="crt-divider"></div>
+            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const allImagePaths = [
+            {IMAGE_PATHS_PLACEHOLDER}
+        ];
+        console.log("Image paths loaded:", allImagePaths.length);
+
+        let currentImageIndex = 0;
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+
+            modalImg.src = allImagePaths[index];
+            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+
+            // Update navigation buttons and counter
+            updateNavigationButtons();
+
+            modal.style.display = 'flex';
+        }
+
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            if (prevButton && nextButton && imageCounter) {
+                prevButton.disabled = currentImageIndex <= 0;
+                nextButton.disabled = currentImageIndex >= allImagePaths.length - 1;
+                imageCounter.textContent = `${currentImageIndex + 1} / ${allImagePaths.length}`;
+            }
+        }
+
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                openImage(currentImageIndex - 1);
+            }
+        }
+
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                openImage(currentImageIndex + 1);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.display = 'none';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        closeModal();
+                        break;
+                }
+            }
+        });
+
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Populate image grid on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageGrid = document.getElementById('imageGrid');
+            allImagePaths.forEach((path, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+
+                const img = document.createElement('img');
+                img.className = 'thumbnail';
+                img.src = path;
+                img.alt = `AI Art ${index + 1}`;
+                img.loading = 'lazy';
+                img.onclick = () => openImage(index);
+
+                imgContainer.appendChild(img);
+                imageGrid.appendChild(imgContainer);
+            });
+        });
+    </script>
+</body>
+</html>'''
+
+    # Replace the placeholder with actual image paths
+    final_html = html_template.replace('{IMAGE_PATHS_PLACEHOLDER}', js_image_paths)
+
+    # Write the file
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(final_html)
+        print(f"✓ Generated {output_file} with {len(image_paths)} images")
+        return True
+    except Exception as e:
+        print(f"Error writing {output_file}: {e}")
+        return False
+
+def main():
+    """Main function"""
+    print("AI Art Gallery Generator")
+    print("=" * 50)
+
+    # Generate the HTML file
+    success = generate_ai_art_html()
+
+    if success:
+        print("AI Art gallery generation complete!")
+    else:
+        print("AI Art gallery generation failed!")
+
+if __name__ == "__main__":
+    main()
