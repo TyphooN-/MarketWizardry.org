@@ -930,94 +930,15 @@ def extract_title_and_summary(content, filename):
             date_str = date_obj.strftime('%B %d, %Y')
         except:
             date_str = date_raw
-    
-    # Extract stock ticker from filename if present (e.g., SRPT from 09082025-SRPT.txt)
-    stock_ticker = None
-    upper_filename = filename.upper()
-    
-    # First try regex pattern  
-    ticker_match = re.search(r'-([A-Z]{2,5})\.txt$', upper_filename)
-    if ticker_match:
-        stock_ticker = ticker_match.group(1)
-    else:
-        # Fallback: manual parsing for patterns like 09082025-SRPT.txt
-        if upper_filename.endswith('.TXT') and '-' in upper_filename:
-            parts = upper_filename.split('-')
-            if len(parts) >= 2:
-                last_part = parts[-1].replace('.TXT', '')
-                if last_part.isalpha() and 2 <= len(last_part) <= 5:
-                    stock_ticker = last_part
-    
-    # Look for title patterns in content
-    title = "Market Analysis"
-    section_title = "📊 MARKET ANALYSIS"
-    
-    # Check the entire content for keywords, not just first 20 lines
-    content_lower = content.lower()
-    
-    # Individual stock analysis detection (highest priority)
-    if stock_ticker and len(stock_ticker) <= 5:
-        # Look for company name in first few lines
-        company_name = None
-        for line in lines[:10]:
-            line_clean = line.strip().upper()
-            if stock_ticker in line_clean and '-' in line_clean:
-                # Extract company name after ticker
-                parts = line_clean.split('-', 1)
-                if len(parts) > 1:
-                    company_name = parts[1].strip().title()
-                    # Clean up common formatting
-                    company_name = company_name.replace(':', '').strip()
-                    break
-        
-        if company_name:
-            title = f"{stock_ticker} - {company_name} Analysis"
-            # Determine sector-specific emoji and section title
-            if any(biotech_word in content_lower for biotech_word in ['gene therapy', 'fda', 'clinical trial', 'biotech', 'pharmaceutical', 'drug', 'therapy']):
-                section_title = f"🧬 {stock_ticker} BIOTECH DEEP DIVE"
-            elif any(tech_word in content_lower for tech_word in ['software', 'saas', 'cloud', 'ai', 'artificial intelligence', 'tech', 'platform']):
-                section_title = f"💻 {stock_ticker} TECH ANALYSIS"
-            elif any(finance_word in content_lower for finance_word in ['bank', 'financial', 'credit', 'lending', 'fintech']):
-                section_title = f"🏦 {stock_ticker} FINANCIAL BREAKDOWN"
-            elif any(energy_word in content_lower for energy_word in ['oil', 'gas', 'energy', 'renewable', 'solar', 'wind']):
-                section_title = f"⚡ {stock_ticker} ENERGY ANALYSIS"
-            else:
-                section_title = f"📈 {stock_ticker} INDIVIDUAL STOCK ANALYSIS"
-        else:
-            title = f"{stock_ticker} Stock Analysis - {date_str}" if date_str else f"{stock_ticker} Stock Analysis"
-            section_title = f"📈 {stock_ticker} INDIVIDUAL STOCK ANALYSIS"
-    
-    # Darwinex outlier analysis
-    elif 'darwinex' in filename.lower() and 'outlier' in filename.lower():
-        title = "Claude x Darwinex Outlier Analysis"
-        section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
-    elif 'investment' in filename.lower():
-        title = f"Investment Analysis - {date_str}" if date_str else "Investment Analysis"  
-        section_title = "📊 INVESTMENT RECOMMENDATIONS"
-    # Then check content for patterns
-    elif 'darwinex' in content_lower and 'outlier' in content_lower:
-        title = "Claude x Darwinex Outlier Analysis"
-        section_title = "🎯 REVISED DARWINEX UNIVERSE INVESTMENT RECOMMENDATIONS"
-    elif 'investment' in content_lower and any(word in content_lower for word in ['recommendation', 'analysis', 'buying', 'selling']):
-        title = f"Investment Analysis - {date_str}" if date_str else "Investment Analysis"
-        section_title = "📊 INVESTMENT RECOMMENDATIONS"
-    
-    # Fallback: check first 20 lines for bullet points or other patterns
-    if title == "Market Analysis":  # Only if we haven't found a better title yet
-        for line in lines[:20]:
-            line = line.strip()
-            if not line:
-                continue
-                
-            # Look for bullet points that could be titles (but skip commands)
-            if line.startswith('●') and len(line) > 10:
-                clean_line = line.replace('●', '').strip()
-                # Skip if it looks like a command or technical output
-                if not any(cmd in clean_line.lower() for cmd in ['bash(', 'read(', '⎿', 'ls -', 'find ', 'grep ', 'python ']):
-                    if len(clean_line) < 80 and not clean_line.startswith('I'):
-                        title = clean_line
-                        break
-    
+
+    # Generate title from filename
+    title = Path(filename).stem
+    if date_match:
+        title = title.replace(date_match.group(1) + '-', '')
+    title = title.replace('-', ' ').replace('_', ' ').title()
+
+    section_title = f"📊 {title}"
+
     # Generate witty summary based on content
     summary = generate_witty_description(content, filename, title)
     
