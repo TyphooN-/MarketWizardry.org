@@ -1,4 +1,4 @@
-<!-- art.html -->
+<!-- ai-art.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +34,7 @@
             viewport.content = 'width=device-width, initial-scale=1.0';
             document.head.insertBefore(viewport, document.head.firstChild);
         }
-        
+
                 // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
@@ -150,77 +150,268 @@
             opacity: 0.9;
             animation: flicker 1s infinite;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        .filename-display {
+            color: #00ff00;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+            font-size: 0.9em;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+            }
+            .full-image {
+                max-width: 98vw;
+                max-height: 75vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .nav-buttons {
+                margin-top: 5px;
+                gap: 5px;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>AI Art</h1>
     <div class="crt-divider"></div>
-
     <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
-
     <div class="crt-divider"></div>
-
-    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
-    
+
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeModal()">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+            </div>
         </div>
     </div>
 
     <script>
         const allImagePaths = [
-            "/ai-art/00001.webp", "/ai-art/00002.webp", "/ai-art/00003.webp", "/ai-art/00004.webp", "/ai-art/00005.webp",
-            "/ai-art/00006.webp", "/ai-art/00007.webp", "/ai-art/00008.webp", "/ai-art/00009.webp", "/ai-art/00010.webp",
-            "/ai-art/00011.webp", "/ai-art/00012.webp", "/ai-art/00013.webp", "/ai-art/00014.webp", "/ai-art/00015.webp",
-            "/ai-art/00016.webp", "/ai-art/00017.webp", "/ai-art/00018.webp", "/ai-art/00019.webp", "/ai-art/00020.webp",
-            "/ai-art/00021.webp", "/ai-art/00022.webp", "/ai-art/00023.webp", "/ai-art/00024.webp", "/ai-art/00025.webp",
-            "/ai-art/00026.webp", "/ai-art/00027.webp", "/ai-art/00028.webp", "/ai-art/00029.webp", "/ai-art/00030.webp",
-            "/ai-art/00031.webp", "/ai-art/00032.webp", "/ai-art/00033.webp", "/ai-art/00034.webp", "/ai-art/00035.webp",
-            "/ai-art/00036.webp", "/ai-art/00037.webp", "/ai-art/00038.webp", "/ai-art/00039.webp", "/ai-art/00040.webp",
-            "/ai-art/00041.webp", "/ai-art/00042.webp", "/ai-art/00043.webp", "/ai-art/00044.webp", "/ai-art/00045.webp",
-            "/ai-art/00046.webp", "/ai-art/00047.webp", "/ai-art/00048.webp", "/ai-art/00049.webp", "/ai-art/00050.webp",
-            "/ai-art/00051.webp", "/ai-art/00052.webp", "/ai-art/00053.webp", "/ai-art/00054.webp", "/ai-art/00055.webp",
-            "/ai-art/00056.webp", "/ai-art/00057.webp", "/ai-art/00058.webp", "/ai-art/00059.webp", "/ai-art/00060.webp",
-            "/ai-art/00061.webp", "/ai-art/00062.webp", "/ai-art/00063.webp", "/ai-art/00064.webp", "/ai-art/00065.webp",
-            "/ai-art/00066.webp", "/ai-art/00067.webp", "/ai-art/00068.webp", "/ai-art/00069.webp", "/ai-art/00070.webp",
-            "/ai-art/00071.webp", "/ai-art/00072.webp", "/ai-art/00073.webp", "/ai-art/00074.webp", "/ai-art/00075.webp",
-            "/ai-art/00076.webp", "/ai-art/00077.webp", "/ai-art/00078.webp", "/ai-art/00079.webp", "/ai-art/00080.webp",
-            "/ai-art/00081.webp", "/ai-art/00082.webp", "/ai-art/00083.webp", "/ai-art/00084.webp", "/ai-art/00085.webp"
+            "/ai-art/00001.webp",
+            "/ai-art/00002.webp",
+            "/ai-art/00003.webp",
+            "/ai-art/00004.webp",
+            "/ai-art/00005.webp",
+            "/ai-art/00006.webp",
+            "/ai-art/00007.webp",
+            "/ai-art/00008.webp",
+            "/ai-art/00009.webp",
+            "/ai-art/00010.webp",
+            "/ai-art/00011.webp",
+            "/ai-art/00012.webp",
+            "/ai-art/00013.webp",
+            "/ai-art/00014.webp",
+            "/ai-art/00015.webp",
+            "/ai-art/00016.webp",
+            "/ai-art/00017.webp",
+            "/ai-art/00018.webp",
+            "/ai-art/00019.webp",
+            "/ai-art/00020.webp",
+            "/ai-art/00021.webp",
+            "/ai-art/00022.webp",
+            "/ai-art/00023.webp",
+            "/ai-art/00024.webp",
+            "/ai-art/00025.webp",
+            "/ai-art/00026.webp",
+            "/ai-art/00027.webp",
+            "/ai-art/00028.webp",
+            "/ai-art/00029.webp",
+            "/ai-art/00030.webp",
+            "/ai-art/00031.webp",
+            "/ai-art/00032.webp",
+            "/ai-art/00033.webp",
+            "/ai-art/00034.webp",
+            "/ai-art/00035.webp",
+            "/ai-art/00036.webp",
+            "/ai-art/00037.webp",
+            "/ai-art/00038.webp",
+            "/ai-art/00039.webp",
+            "/ai-art/00040.webp",
+            "/ai-art/00041.webp",
+            "/ai-art/00042.webp",
+            "/ai-art/00043.webp",
+            "/ai-art/00044.webp",
+            "/ai-art/00045.webp",
+            "/ai-art/00046.webp",
+            "/ai-art/00047.webp",
+            "/ai-art/00048.webp",
+            "/ai-art/00049.webp",
+            "/ai-art/00050.webp",
+            "/ai-art/00051.webp",
+            "/ai-art/00052.webp",
+            "/ai-art/00053.webp",
+            "/ai-art/00054.webp",
+            "/ai-art/00055.webp",
+            "/ai-art/00056.webp",
+            "/ai-art/00057.webp",
+            "/ai-art/00058.webp",
+            "/ai-art/00059.webp",
+            "/ai-art/00060.webp",
+            "/ai-art/00061.webp",
+            "/ai-art/00062.webp",
+            "/ai-art/00063.webp",
+            "/ai-art/00064.webp",
+            "/ai-art/00065.webp",
+            "/ai-art/00066.webp",
+            "/ai-art/00067.webp",
+            "/ai-art/00068.webp",
+            "/ai-art/00069.webp",
+            "/ai-art/00070.webp",
+            "/ai-art/00071.webp",
+            "/ai-art/00072.webp",
+            "/ai-art/00073.webp",
+            "/ai-art/00074.webp",
+            "/ai-art/00075.webp",
+            "/ai-art/00076.webp",
+            "/ai-art/00077.webp",
+            "/ai-art/00078.webp",
+            "/ai-art/00079.webp",
+            "/ai-art/00080.webp",
+            "/ai-art/00081.webp",
+            "/ai-art/00082.webp",
+            "/ai-art/00083.webp",
+            "/ai-art/00084.webp",
+            "/ai-art/00085.webp"
         ];
         console.log("Image paths loaded:", allImagePaths.length);
-        
+
+        let currentImageIndex = 0;
+
         function openImage(index) {
+            currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
             const modalFilename = document.getElementById('modalFilename');
-            
+
             modalImg.src = allImagePaths[index];
             modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
+
+            // Update navigation buttons and counter
+            updateNavigationButtons();
+
             modal.style.display = 'flex';
         }
-        
+
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            if (prevButton && nextButton && imageCounter) {
+                prevButton.disabled = currentImageIndex <= 0;
+                nextButton.disabled = currentImageIndex >= allImagePaths.length - 1;
+                imageCounter.textContent = `${currentImageIndex + 1} / ${allImagePaths.length}`;
+            }
+        }
+
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                openImage(currentImageIndex - 1);
+            }
+        }
+
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                openImage(currentImageIndex + 1);
+            }
+        }
+
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
-        
+
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (modal.style.display === 'flex') {
-                if (event.key === 'Escape') {
-                    modal.style.display = 'none';
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        closeModal();
+                        break;
                 }
             }
         });
-        
+
         // Click outside modal to close
         window.onclick = function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -235,12 +426,14 @@
             allImagePaths.forEach((path, index) => {
                 const imgContainer = document.createElement('div');
                 imgContainer.className = 'image-container';
+
                 const img = document.createElement('img');
                 img.className = 'thumbnail';
                 img.src = path;
-                img.alt = path.split('/').pop(); // Use filename as alt text
+                img.alt = `AI Art ${index + 1}`;
+                img.loading = 'lazy';
                 img.onclick = () => openImage(index);
-                img.loading = 'lazy'; // Add lazy loading
+
                 imgContainer.appendChild(img);
                 imageGrid.appendChild(imgContainer);
             });
