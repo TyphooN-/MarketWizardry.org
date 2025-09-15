@@ -247,12 +247,54 @@ html_content = f"""<!DOCTYPE html>
 
         .modal-body {{
             white-space: pre; /* Preserve whitespace, no text wrapping */
-            max-height: 70vh; /* Limit height and enable scrolling */
+            max-height: 60vh; /* Reduced to leave space for navigation buttons */
             overflow-y: auto;
             overflow-x: auto; /* Enable horizontal scrolling */
             color: #00ff00;
             font-size: 1.2em;
             padding: 15px;
+        }}
+
+        .nav-buttons {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+            padding: 0 15px;
+        }}
+
+        .nav-button {{
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }}
+
+        .nav-button:hover {{
+            background-color: #001100;
+            color: #00ff00;
+        }}
+
+        .nav-button:disabled {{
+            opacity: 0.5;
+            cursor: not-allowed;
+        }}
+
+        .nav-button:disabled:hover {{
+            background-color: #000;
+        }}
+
+        .nav-counter {{
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
         }}
 
         /* Add Animation */
@@ -297,8 +339,16 @@ html_content = f"""<!DOCTYPE html>
                 font-size: 0.65em;
                 white-space: pre;
                 overflow-x: auto;
-                max-height: calc(90vh - 120px);
+                max-height: calc(90vh - 160px);
                 padding: 10px;
+            }}
+            .nav-button {{
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }}
+            .nav-counter {{
+                font-size: 0.8em;
             }}
         }}
     </style>
@@ -347,6 +397,11 @@ html_content += """
                 <span class="close-button">&times;</span>
             </div>
             <pre id="outlierContent" class="modal-body"></pre>
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton" onclick="navigatePrevious()">← Previous</button>
+                <span class="nav-counter" id="navCounter"></span>
+                <button class="nav-button" id="nextButton" onclick="navigateNext()">Next →</button>
+            </div>
         </div>
     </div>
 
@@ -441,6 +496,33 @@ html_content += """
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
                 });
+            updateNavigationButtons();
+        }}
+
+        function updateNavigationButtons() {{
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const navCounter = document.getElementById('navCounter');
+
+            if (prevButton && nextButton && navCounter) {{
+                prevButton.disabled = currentIndex <= 0;
+                nextButton.disabled = currentIndex >= fileEntryLinks.length - 1;
+                navCounter.textContent = `${{currentIndex + 1}} / ${{fileEntryLinks.length}}`;
+            }}
+        }}
+
+        function navigatePrevious() {{
+            if (currentIndex > 0) {{
+                currentIndex--;
+                openModalAtIndex(currentIndex);
+            }}
+        }}
+
+        function navigateNext() {{
+            if (currentIndex < fileEntryLinks.length - 1) {{
+                currentIndex++;
+                openModalAtIndex(currentIndex);
+            }}
         }}
 
         fileEntryLinks.forEach((link, index) => {
@@ -465,11 +547,9 @@ html_content += """
                 if (event.key === "Escape") {
                     modal.style.display = "none";
                 } else if (event.key === "ArrowLeft") {
-                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : fileEntryLinks.length - 1;
-                    openModalAtIndex(currentIndex);
+                    navigatePrevious();
                 } else if (event.key === "ArrowRight") {
-                    currentIndex = (currentIndex < fileEntryLinks.length - 1) ? currentIndex + 1 : 0;
-                    openModalAtIndex(currentIndex);
+                    navigateNext();
                 }
             }
         });
