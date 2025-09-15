@@ -2,53 +2,35 @@
 """
 ATR Explorer Generator - MarketWizardry.org
 
-ATR analysis for psychopaths who think standard deviation is too mainstream.
-Find out which stocks are having mental breakdowns in real-time.
+ATR calculations for volatility junkies who mistake chaos for opportunity.
+Turn market turbulence into a statistical weapon of financial self-destruction.
 
-Because nothing says 'professional trader' like obsessing over average true range
-while your portfolio slowly bleeds to death.
+Converting average true range into averaged true devastation
+since whenever this script was first written.
 """
 
 import os
-import stat
 import re
 
 # Define the directory containing CSV files and output HTML file path
 directory = './atr-explorer/'
 output_html_file = 'atr-explorer.html'
 
-# Path to the outlier analysis script
-outlier_script_path = os.path.join(directory, 'run_outlier_analysis.sh')
-
 # --- Ensure the script is executable and run it ---
-if os.path.exists(outlier_script_path):
-    # Check if the script has execute permissions
-    if not os.access(outlier_script_path, os.X_OK):
-        print(f"Script at {outlier_script_path} is not executable. Adding execute permissions...")
-        # Add execute permissions (owner and group)
-        os.chmod(outlier_script_path, os.stat(outlier_script_path).st_mode | stat.S_IXUSR | stat.S_IXGRP)
-    
-    # Run the outlier analysis script
-    print(f"Running outlier analysis script: {outlier_script_path}")
-    original_cwd = os.getcwd()
-    os.chdir(directory) # Change to the directory where the script expects to find files
-    os.system(f"bash {os.path.basename(outlier_script_path)}") # Execute the script by its name
-    os.chdir(original_cwd) # Change back to the original working directory
-    print("Outlier analysis script finished.")
-else:
-    print(f"Warning: Outlier script not found at {outlier_script_path}")
+# Note: The outlier script execution part is removed as per user request.
 
-# Pattern for matching file names (e.g., start with "SymbolsExport-Darwinex-Live")
-pattern = re.compile(r"SymbolsExport-Darwinex-Live-(CFD|Stocks|Futures)-(\d{4}\.\d{2}\.\d{2})\.csv")
+# Pattern for matching file names
+pattern = re.compile(r"SymbolsExport-Darwinex-Live-(CFD|Futures|Stocks)-(\d{4}\.\d{2}\.\d{2})-outlier\.txt")
 
-# Collect all .csv files in the directory that match the naming pattern
+# Collect all .txt files in the directory that match the naming patterns
 files = []
 for filename in os.listdir(directory):
     match = pattern.match(filename)
     if match:
-        file_type = match.group(1)
+        asset_type = match.group(1)
         date_part = match.group(2)
-        files.append((filename, date_part, file_type))
+        csv_filename = f"SymbolsExport-Darwinex-Live-{asset_type}-{date_part}.csv"
+        files.append((filename, date_part, csv_filename, asset_type))
 
 # Sort files by the extracted dates for display order
 files.sort(key=lambda x: x[1], reverse=True)
@@ -65,10 +47,10 @@ html_content = f"""<!DOCTYPE html>
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
     <!-- Standard Meta Tags -->
-    <meta name="description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
+    <meta name="description" content="ATR calculations for volatility junkies who mistake chaos for opportunity. Turn market turbulence into a statistical weapon of financial self-destruction.">
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="ATR Explorer - MarketWizardry.org">
-    <meta property="og:description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
+    <meta property="og:description" content="ATR calculations for volatility junkies who mistake chaos for opportunity. Turn market turbulence into a statistical weapon of financial self-destruction.">
     <meta property="og:url" content="https://marketwizardry.org/atr-explorer.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -77,7 +59,7 @@ html_content = f"""<!DOCTYPE html>
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ATR Explorer - MarketWizardry.org">
-    <meta name="twitter:description" content="ATR analysis for psychopaths who think standard deviation is too mainstream. Find out which stocks are having mental breakdowns in real-time.">
+    <meta name="twitter:description" content="ATR calculations for volatility junkies who mistake chaos for opportunity. Turn market turbulence into a statistical weapon of financial self-destruction.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -163,88 +145,57 @@ html_content = f"""<!DOCTYPE html>
             transform: scale(1.02);
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }}
-
-        a {{
-            color: #00ff00;
+        .file-entry a {{
+            color: inherit;
             text-decoration: none;
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
         }}
-        a:hover {{
-            text-decoration: underline;
+        .file-entry:hover a {{
+            color: #00ff00;
         }}
-
-        /* Modal Styles */
         .modal {{
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-            padding-top: 60px;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
         }}
-
         .modal-content {{
             background-color: #000;
-            margin: 5% auto; /* 15% from the top and centered */
-            padding: 10px; /* Reduced padding */
-            border: 2px solid #00ff00; /* Green border */
-            max-width: fit-content; /* Adjust width to content */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            animation-name: animatetop;
-            animation-duration: 0.4s
-        }}
-
-        .modal-header {{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
-            padding-bottom: 5px; /* Reduced padding */
-            margin-bottom: 5px; /* Reduced margin */
-        }}
-
-        .modal-header h2 {{
-            margin: 0;
-            color: #00ff00;
-            font-size: 1.2em; /* Smaller header font size */
-        }}
-
-        .modal-header a {{
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
+            margin: 5% auto;
+            padding: 20px;
             border: 2px solid #00ff00;
-            padding: 2px 5px;
-            margin-left: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
         }}
-
-        .modal-header a:hover {{
-            text-decoration: underline;
-        }}
-
         .close-button {{
-            color: #00ff00;
+            color: #aaa;
+            float: right;
             font-size: 28px;
             font-weight: bold;
-            border: 2px solid #00ff00;
-            padding: 0 5px;
-            line-height: 1;
+            cursor: pointer;
+            background: none;
+            border: none;
+            margin-top: -10px;
+            margin-right: -10px;
         }}
-
         .close-button:hover,
         .close-button:focus {{
             color: #00ff00;
             text-decoration: none;
-            cursor: pointer;
-            background-color: #001100;
         }}
-
+        .modal-header {{
+            margin-bottom: 20px;
+        }}
         .modal-body {{
             white-space: pre; /* Preserve whitespace, no text wrapping */
             max-height: 60vh; /* Reduced to leave space for navigation buttons */
@@ -297,43 +248,14 @@ html_content = f"""<!DOCTYPE html>
             font-size: 0.9em;
         }}
 
-        /* Add Animation */
-        @-webkit-keyframes animatetop {{
-            from {{top:-300px; opacity:0}}
-            to {{top:0; opacity:1}}
-        }}
-
-        @keyframes animatetop {{
-            from {{top:-300px; opacity:0}}
-            to {{top:0; opacity:1}}
-        }}
-
         @media screen and (max-width: 768px) {{
             .grid {{
                 grid-template-columns: 1fr;
             }}
-            .modal {{
-                padding-top: 20px;
-            }}
             .modal-content {{
-                margin: 2% auto;
                 width: 95%;
-                max-height: 90vh;
-                overflow-y: auto;
-            }}
-            .modal-header {{
-                flex-wrap: wrap;
-                gap: 8px;
-            }}
-            .modal-header h2 {{
-                font-size: 1em;
-                margin-bottom: 8px;
-                flex: 1 0 100%;
-            }}
-            .modal-header a {{
-                font-size: 0.7em;
-                padding: 4px 8px;
-                margin: 2px;
+                margin: 2% auto;
+                padding: 10px;
             }}
             .modal-body {{
                 font-size: 0.65em;
@@ -357,44 +279,37 @@ html_content = f"""<!DOCTYPE html>
     <div class="container">
         <h1>ATR Explorer</h1>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Average True Range: measuring market mood swings like a therapist for psychotic price action. Because volatility needs quantification, obviously.</div>
+        <div class="flavor-text">ATR calculations for volatility junkies who mistake chaos for opportunity. Turn market turbulence into a statistical weapon of financial self-destruction.</div>
         <div class="crt-divider"></div>
-        <div class="grid">"""
+        <div class="grid">
+"""
 
-# Add each file as an entry in the HTML
-for i, (filename, date_str, file_type) in enumerate(files):
-    file_type = ""
-    if "Stocks" in filename:
-        file_type = "Stocks"
-    elif "Futures" in filename:
-        file_type = "Futures"
-    elif "CFD" in filename:
-        file_type = "CFD"
+# Generate file entries
+for filename, date_part, csv_filename, asset_type in files:
+    # Format the date for display
+    formatted_date = date_part.replace('.', '-')
+    display_name = f"Darwinex-Live ({asset_type}) - {formatted_date}"
 
-    outlier_filename = f"{filename.replace('.csv', '')}-outlier.txt"
-    
-    file_entry = f'''
-            <div class="file-entry" onclick="openModalWithFile('{outlier_filename}', 'atr-explorer/{filename}', 'Darwinex-Live ({file_type}) - {date_str}')">
-                <a href="#" data-outlier-file="{outlier_filename}" data-csv-file="{filename}" onclick="event.stopPropagation()">
-                    Darwinex-Live ({file_type}) - {date_str}
+    html_content += f"""            <div class="file-entry" onclick="openModalWithFile('{filename}', 'atr-explorer/{csv_filename}', '{display_name}')">
+                <a href="#" data-outlier-file="{filename}" data-csv-file="{csv_filename}" onclick="event.stopPropagation()">
+                    {display_name}
                 </a>
-            </div>'''
-    html_content += file_entry
+            </div>
+"""
 
-# Close the HTML tags and add modal structure and script
-html_content += """
-        </div>
+html_content += """        </div>
     </div>
 
-    <!-- The Modal -->
+    <!-- Modal -->
     <div id="outlierModal" class="modal">
-        <!-- Modal content -->
         <div class="modal-content">
+            <button class="close-button">&times;</button>
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
-                <a id="downloadOutlierLink" href="#" download onclick="forceDownload(event, this)">Download Report</a>
-                <a id="downloadCsvLink" href="#" download onclick="forceDownload(event, this)">Download Original CSV</a>
-                <span class="close-button">&times;</span>
+                <div style="margin-top: 10px;">
+                    <a id="downloadOutlierLink" download style="color: #00ff00; margin-right: 20px;">Download Report</a>
+                    <a id="downloadCsvLink" download style="color: #00ff00;">Download CSV</a>
+                </div>
             </div>
             <pre id="outlierContent" class="modal-body"></pre>
             <div class="nav-buttons">
@@ -406,14 +321,14 @@ html_content += """
     </div>
 
     <script>
-        // Force download function
-        function forceDownload(event, link) {
-            event.preventDefault();
-            const url = link.href;
-            const filename = link.download || url.split('/').pop();
-            
+        function downloadData(url, filename) {
             fetch(url)
-                .then(response => response.blob())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.blob();
+                })
                 .then(blob => {
                     const downloadUrl = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -448,27 +363,11 @@ html_content += """
                 .then(data => {
                     outlierContent.textContent = data;
                     modal.style.display = "block";
-                    // Find and set current index for navigation
-                    for (let i = 0; i < fileEntryLinks.length; i++) {
-                        if (fileEntryLinks[i].dataset.outlierFile === outlierFile) {
-                            currentIndex = i;
-                            break;
-                        }
-                    }
-                    updateNavigationButtons();
                 })
                 .catch(error => {
                     console.error("Error fetching outlier report:", error);
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
-                    // Find and set current index for navigation (even on error)
-                    for (let i = 0; i < fileEntryLinks.length; i++) {
-                        if (fileEntryLinks[i].dataset.outlierFile === outlierFile) {
-                            currentIndex = i;
-                            break;
-                        }
-                    }
-                    updateNavigationButtons();
                 });
         }
 
@@ -476,13 +375,12 @@ html_content += """
         const closeButton = document.getElementsByClassName("close-button")[0];
         const modalTitle = document.getElementById("modalTitle");
         const outlierContent = document.getElementById("outlierContent");
-        const downloadCsvLink = document.getElementById("downloadCsvLink");
         const downloadOutlierLink = document.getElementById("downloadOutlierLink");
+        const downloadCsvLink = document.getElementById("downloadCsvLink");
         const fileEntryLinks = document.querySelectorAll(".file-entry a");
         let currentIndex = 0;
 
-
-        function openModalAtIndex(index) {{
+        function openModalAtIndex(index) {
             const link = fileEntryLinks[index];
             const outlierFileName = link.dataset.outlierFile;
             const csvFileName = link.dataset.csvFile;
@@ -491,10 +389,10 @@ html_content += """
             const fileName = link.textContent.trim();
 
             modalTitle.textContent = "ATR Report for " + fileName;
-            downloadCsvLink.href = csvUrl;
-            downloadCsvLink.download = csvUrl.split('/').pop();
             downloadOutlierLink.href = outlierUrl;
             downloadOutlierLink.download = outlierFileName;
+            downloadCsvLink.href = csvUrl;
+            downloadCsvLink.download = csvFileName;
 
             fetch(outlierUrl)
                 .then(response => {
@@ -507,57 +405,52 @@ html_content += """
                     outlierContent.textContent = data;
                     modal.style.display = "block";
                     currentIndex = index;
-                })
-                .catch(error => {
-                    console.error("Error fetching outlier report:", error);
-                    outlierContent.textContent = "Error loading report.";
-                    modal.style.display = "block";
                 });
             updateNavigationButtons();
-        }}
+        }
 
-        function updateNavigationButtons() {{
+        function updateNavigationButtons() {
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
             const navCounter = document.getElementById('navCounter');
 
-            if (prevButton && nextButton && navCounter) {{
+            if (prevButton && nextButton && navCounter) {
                 prevButton.disabled = currentIndex <= 0;
                 nextButton.disabled = currentIndex >= fileEntryLinks.length - 1;
-                navCounter.textContent = `${{currentIndex + 1}} / ${{fileEntryLinks.length}}`;
-            }}
-        }}
+                navCounter.textContent = `${currentIndex + 1} / ${fileEntryLinks.length}`;
+            }
+        }
 
-        function navigatePrevious() {{
-            if (currentIndex > 0) {{
+        function navigatePrevious() {
+            if (currentIndex > 0) {
                 currentIndex--;
                 openModalAtIndex(currentIndex);
-            }}
-        }}
+            }
+        }
 
-        function navigateNext() {{
-            if (currentIndex < fileEntryLinks.length - 1) {{
+        function navigateNext() {
+            if (currentIndex < fileEntryLinks.length - 1) {
                 currentIndex++;
                 openModalAtIndex(currentIndex);
-            }}
-        }}
+            }
+        }
 
         fileEntryLinks.forEach((link, index) => {
-            link.addEventListener("click", function(event) {
+            link.addEventListener("click", (event) => {
                 event.preventDefault();
                 openModalAtIndex(index);
             });
         });
 
-        closeButton.addEventListener("click", function() {
+        closeButton.onclick = function() {
             modal.style.display = "none";
-        });
+        };
 
-        window.addEventListener("click", function(event) {
+        window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        });
+        };
 
         window.addEventListener("keydown", function(event) {
             if (modal.style.display === "block") {
@@ -574,8 +467,8 @@ html_content += """
 </body>
 </html>"""
 
-# Write to the output HTML file
-with open(output_html_file, 'w') as f:
-    f.write(html_content)
+# Write the HTML content to the file
+with open(output_html_file, 'w') as file:
+    file.write(html_content)
 
-print(f"HTML generated and saved to {output_html_file}")
+print(f"Generated {output_html_file} with {len(files)} files")
