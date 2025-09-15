@@ -159,11 +159,53 @@
         .modal-body {
             white-space: pre-wrap;
             word-wrap: break-word;
-            max-height: 70vh;
+            max-height: 60vh;
             overflow-y: auto;
             color: #00ff00;
             font-size: 1.2em;
             padding: 15px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+            padding: 0 15px;
+        }
+
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+
+        .nav-counter {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
         }
 
         @keyframes animatetop {
@@ -225,6 +267,14 @@
                 max-height: 60vh;
                 padding: 10px;
                 line-height: 1.3;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .nav-counter {
+                font-size: 0.8em;
             }
         }
         .crt-divider {
@@ -302,6 +352,11 @@
                 <span class="close-button">&times;</span>
             </div>
             <pre id="textContent" class="modal-body"></pre>
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton" onclick="navigatePrevious()">← Previous</button>
+                <span class="nav-counter" id="navCounter"></span>
+                <button class="nav-button" id="nextButton" onclick="navigateNext()">Next →</button>
+            </div>
         </div>
     </div>
     <div class="crt-divider"></div>
@@ -325,72 +380,20 @@ on real events and/or speculation.  For further information contact the author (
     </div>
     <script>
     const files = {
-        1: 'monero_adoption.txt',
-        2: 'financial_advice.txt',
-        3: 'snoop_fire_spaghetti.txt',
-        4: 'terry_davis_quest.txt',
-        5: 'the_great_wall_showdown.txt',
-        6: 'elon_antichrist.txt',
-        7: 'gpu_inferno.txt',
-        8: 'the_cost_of_pixels.txt',
-        9: 'jensen_huang_goodguy.txt',
-        10: 'ICT_1.txt',
-        11: 'ICT_2.txt',
-        12: 'nvidia_missing_ROPs.txt',
-        13: 'nvidia_snake_oil.txt',
-        };
-        // Initialize file grid
-        const fileGrid = document.getElementById('fileGrid');
-        let maxFileNameWidth = 0;
-        // Create temporary elements to measure widths
-        const tempDiv = document.createElement('div');
-        tempDiv.style.position = 'absolute';
-        tempDiv.style.visibility = 'hidden';
-        document.body.appendChild(tempDiv);
-        // Create file entries and measure widths
-        Object.values(files).forEach(fileName => {
-            const fileEntry = document.createElement('div');
-            fileEntry.className = 'file-entry';
-            fileEntry.textContent = fileName;
-            fileGrid.appendChild(fileEntry);
-            tempDiv.textContent = fileName;
-            maxFileNameWidth = Math.max(maxFileNameWidth+1, tempDiv.offsetWidth);
-        });
-        // Clean up temporary element
-        document.body.removeChild(tempDiv);
-        // Set fixed width for all elements and update grid layout
-        const fileEntries = document.querySelectorAll('.file-entry');
-        fileEntries.forEach(entry => {
-            entry.style.width = `${maxFileNameWidth}px`;
-        });
-        // Update grid to use max width
-        fileGrid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${maxFileNameWidth}px, 1fr))`;
-        // Add click event listeners to file entries
-        fileEntries.forEach((entry, index) => {
-            entry.addEventListener('click', () => {
-                const fileName = entry.textContent;
-                currentFileIndex = index;
-                loadFile(fileName);
-            });
-        });
-        function loadFile(fileName) {
-            // Update this path if needed
-            const filePath = `./ai-musings/${fileName}`;
-            fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to load file');
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    displayText(text, fileName);
-                })
-                .catch(error => {
-                    console.error('Error loading file:', error);
-                    alert(`Failed to load file: ${fileName}`);
-                });
-        }
+        'ICT_1': 'ICT_1.txt',
+        'financial_advice': 'financial_advice.txt',
+        'monero_adoption': 'monero_adoption.txt',
+        'the_cost_of_pixels': 'the_cost_of_pixels.txt',
+        'elon_antichrist': 'elon_antichrist.txt',
+        'gpu_inferno': 'gpu_inferno.txt',
+        'jensen_huang_goodguy': 'jensen_huang_goodguy.txt',
+        'the_great_wall_showdown': 'the_great_wall_showdown.txt',
+        'terry_davis_quest': 'terry_davis_quest.txt',
+        'nvidia_snake_oil': 'nvidia_snake_oil.txt',
+        'nvidia_missing_ROPs': 'nvidia_missing_ROPs.txt',
+        'snoop_fire_spaghetti': 'snoop_fire_spaghetti.txt',
+        'ICT_2': 'ICT_2.txt',
+    };
         let currentFileIndex = 0;
         let currentFileContent = '';
         
@@ -406,8 +409,29 @@ on real events and/or speculation.  For further information contact the author (
             downloadLink.download = fileName + '.txt';
             
             document.getElementById('textModal').style.display = 'block';
+            updateNavCounter();
         }
-        
+
+        function navigatePrevious() {
+            const fileKeys = Object.keys(files);
+            currentFileIndex = currentFileIndex > 0 ? currentFileIndex - 1 : fileKeys.length - 1;
+            loadFile(files[fileKeys[currentFileIndex]]);
+        }
+
+        function navigateNext() {
+            const fileKeys = Object.keys(files);
+            currentFileIndex = currentFileIndex < fileKeys.length - 1 ? currentFileIndex + 1 : 0;
+            loadFile(files[fileKeys[currentFileIndex]]);
+        }
+
+        function updateNavCounter() {
+            const fileKeys = Object.keys(files);
+            const navCounter = document.getElementById('navCounter');
+            if (navCounter) {
+                navCounter.textContent = `${currentFileIndex + 1} / ${fileKeys.length}`;
+            }
+        }
+
         function closeModal() {
             document.getElementById('textModal').style.display = 'none';
             // Clean up blob URL
@@ -423,15 +447,9 @@ on real events and/or speculation.  For further information contact the author (
                 if (event.key === 'Escape') {
                     closeModal();
                 } else if (event.key === 'ArrowLeft') {
-                    // Navigate to previous file
-                    const fileKeys = Object.keys(files);
-                    currentFileIndex = currentFileIndex > 0 ? currentFileIndex - 1 : fileKeys.length - 1;
-                    loadFile(files[fileKeys[currentFileIndex]]);
+                    navigatePrevious();
                 } else if (event.key === 'ArrowRight') {
-                    // Navigate to next file
-                    const fileKeys = Object.keys(files);
-                    currentFileIndex = currentFileIndex < fileKeys.length - 1 ? currentFileIndex + 1 : 0;
-                    loadFile(files[fileKeys[currentFileIndex]]);
+                    navigateNext();
                 } else if (event.key === 'd' && (event.ctrlKey || event.metaKey)) {
                     // Ctrl+D or Cmd+D to download
                     event.preventDefault();

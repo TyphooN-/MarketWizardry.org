@@ -1,18 +1,26 @@
 import re
+import os
+import glob
 
-def generate_new_files_entries():
+def generate_ai_musings_files():
     """
-    Generates the content for the files object.
+    Generates the files object by scanning the ai-musings directory.
     Returns:
         str: The entries as a string formatted for JavaScript.
     """
-    # Example entries, replace with your actual data
-    entries = [
-        "'index.html': { title: 'Home Page', description: 'Main page' },",
-        "'about.html': { title: 'About Us', description: 'Company information' },"
-        # Add more entries as needed
-    ]
-    return '\n'.join('  ' + entry for entry in entries)
+    ai_musings_dir = './ai-musings'
+    files = []
+
+    if os.path.exists(ai_musings_dir):
+        # Get all files in the ai-musings directory
+        for file_path in glob.glob(os.path.join(ai_musings_dir, '*')):
+            if os.path.isfile(file_path):
+                filename = os.path.basename(file_path)
+                # Use filename without extension as key, full filename as value
+                key = os.path.splitext(filename)[0]
+                files.append(f"        '{key}': '{filename}',")
+
+    return '\n'.join(files) if files else '        // No files found'
 
 def update_files_object(html_file_path):
     # Read all lines from the HTML file
@@ -52,16 +60,10 @@ def update_files_object(html_file_path):
         return
     
     # Update the lines array with new content
-    new_files_content = "const files = {\n" + generate_new_files_entries() + "\n};\n"
+    new_files_content = "    const files = {\n" + generate_ai_musings_files() + "\n    };\n"
     
-    new_lines = []
-    for i in range(len(lines)):
-        if i < start_index:
-            new_lines.append(lines[i])
-        elif i >= start_index and i <= end_index:
-            new_lines.append(new_files_content)
-        else:
-            new_lines.append(lines[i])
+    # Replace the content between start_index and end_index (inclusive)
+    new_lines = lines[:start_index] + [new_files_content] + lines[end_index + 1:]
     
     # Write the updated lines back to the file
     with open(html_file_path, 'w', encoding='utf-8') as f:
