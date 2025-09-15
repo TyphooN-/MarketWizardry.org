@@ -1747,6 +1747,57 @@ def generate_flavor_text(title, filename):
     else:
         return "Financial analysis for masochists who enjoy watching their net worth evaporate with mathematical precision."
 
+def verify_flavor_text_sync(blog_entries):
+    """Verify that flavor text JSON is in sync with actual generated files"""
+    global blog_flavor_mapping, used_flavor_texts
+
+    # Get actual blog files from the entries
+    actual_files = {entry['filename'] for entry in blog_entries}
+
+    # Get files referenced in flavor text mapping
+    mapped_files = set(blog_flavor_mapping.keys())
+
+    # Check for orphaned entries in flavor mapping
+    orphaned_in_mapping = mapped_files - actual_files
+    if orphaned_in_mapping:
+        print(f"WARNING: Found {len(orphaned_in_mapping)} orphaned entries in flavor mapping:")
+        for file in sorted(orphaned_in_mapping):
+            print(f"  - {file} (not in actual blog entries)")
+            # Remove orphaned entries
+            del blog_flavor_mapping[file]
+
+        print("Cleaned up orphaned entries from flavor mapping")
+
+    # Check for missing entries in flavor mapping
+    missing_in_mapping = actual_files - mapped_files
+    if missing_in_mapping:
+        print(f"WARNING: Found {len(missing_in_mapping)} files missing from flavor mapping:")
+        for file in sorted(missing_in_mapping):
+            print(f"  - {file} (exists in blog but not in mapping)")
+
+    # Verify used flavor texts are all accounted for
+    mapped_flavor_texts = set(blog_flavor_mapping.values())
+    orphaned_used_texts = used_flavor_texts - mapped_flavor_texts
+    if orphaned_used_texts:
+        print(f"WARNING: Found {len(orphaned_used_texts)} orphaned used flavor texts:")
+        for text in sorted(orphaned_used_texts):
+            print(f"  - '{text[:50]}...' (marked as used but not assigned to any file)")
+            used_flavor_texts.discard(text)
+
+        print("Cleaned up orphaned used flavor texts")
+
+    if not orphaned_in_mapping and not missing_in_mapping and not orphaned_used_texts:
+        print("✓ Flavor text JSON is in sync with generated files")
+    else:
+        print("✓ Flavor text JSON has been cleaned up and synchronized")
+        # Save the cleaned up data
+        save_used_flavor_texts()
+
+    print(f"✓ Total blog entries: {len(blog_entries)}")
+    print(f"✓ Total flavor text mappings: {len(blog_flavor_mapping)}")
+    print(f"✓ Total used flavor texts: {len(used_flavor_texts)}")
+
+
 def main():
     """Main function to process all files and update blog"""
     # Parse command line arguments
@@ -1776,17 +1827,17 @@ def main():
         print("REGENERATION MODE: Regenerating all HTML files from .txt files...")
         txt_files = list(blog_path.glob('*.txt'))
         print(f"Found {len(txt_files)} .txt files to process")
-        
+
         for txt_file in txt_files:
             print(f"Regenerating HTML for {txt_file.name}")
             html_file = generate_html_from_txt(txt_file, force_regenerate=True)
-            
+
             # Extract metadata for blog index
             with open(txt_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-            
+
             title, _, _ = extract_title_and_summary(content, txt_file.name)
-            
+
             # Extract date from filename
             date_match = re.search(r'(\d{2})(\d{2})(\d{4})', txt_file.name)
             if date_match:
@@ -1794,11 +1845,39 @@ def main():
                 date_str = f"{year}-{month}-{day}"
             else:
                 date_str = datetime.now().strftime("%Y-%m-%d")
-            
+
             flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
-            
+
             blog_entries.append({
                 'filename': Path(html_file).name,
+                'title': title,
+                'date': date_str,
+                'summary': flavor_text
+            })
+
+        # Also include manually created HTML files (like gpu-buyers-guide)
+        txt_stems = {txt_file.stem for txt_file in txt_files}
+        manual_html_files = [f for f in html_files if f.stem not in txt_stems]
+        print(f"Found {len(manual_html_files)} manually created HTML files to include")
+
+        for html_file in manual_html_files:
+            print(f"Including manual HTML file: {html_file.name}")
+            title = extract_title_from_html(html_file)
+
+            # Extract date from filename
+            date_match = re.search(r'(\d{2})(\d{2})(\d{4})', html_file.name)
+            if date_match:
+                month, day, year = date_match.groups()
+                date_str = f"{year}-{month}-{day}"
+            elif 'gpu' in html_file.name:
+                date_str = "2025-03-07"  # Set known date for GPU guide
+            else:
+                date_str = datetime.now().strftime("%Y-%m-%d")
+
+            flavor_text = get_consistent_flavor_text(html_file.name, title)
+
+            blog_entries.append({
+                'filename': html_file.name,
                 'title': title,
                 'date': date_str,
                 'summary': flavor_text
@@ -1869,7 +1948,11 @@ def main():
     
     # Save the updated flavor text cache
     save_used_flavor_texts()
-    
+
+    # Verify flavor text JSON is in sync with actual generated files
+    print("\n=== FLAVOR TEXT VERIFICATION ===")
+    verify_flavor_text_sync(blog_entries)
+
     print("Blog generation complete!")
 
 
