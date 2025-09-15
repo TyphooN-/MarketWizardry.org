@@ -163,23 +163,28 @@ def generate_ai_art_html(output_file='ai-art.html'):
             height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1000;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
 	.modal-content {
 	    position: relative;
-	    width: 100%;
-	    height: 100%;
-	    top: 0;
-	    left: 0;
-	    transform: none;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 95vw; /* Increased modal width for mobile */
+	    max-height: 95vh; /* Increased modal height for mobile */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
 	}
 	.full-image {
-	    width: auto;
-	    height: auto;
-	    max-width: 90vw;
-	    max-height: 90vh;
-	    margin: 0 auto;
+	    max-width: 100%;
+	    max-height: 65vh; /* Reduced to leave space for navigation buttons */
 	    display: block;
-	    border: 2px solid rgba(0, 255, 0, 0.5);
+	    margin: 0 auto;
+	    object-fit: contain;
 	}
         .crt-divider {
             width: 100%;
@@ -264,10 +269,11 @@ def generate_ai_art_html(output_file='ai-art.html'):
         @media screen and (max-width: 768px) {
             .modal-content {
                 padding: 5px;
+                max-width: 98vw;
+                max-height: 98vh;
             }
             .full-image {
-                max-width: 98vw;
-                max-height: 75vh;
+                max-height: 55vh;
             }
             .filename-display {
                 font-size: 0.7em;
