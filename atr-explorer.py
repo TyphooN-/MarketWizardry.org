@@ -429,9 +429,17 @@ html_content += """
         }
         
         function openModalWithFile(outlierFile, csvUrl, linkText) {
+            // Find the index of the clicked item for navigation
+            for (let i = 0; i < fileEntryLinks.length; i++) {
+                if (fileEntryLinks[i].dataset.outlierFile === outlierFile) {
+                    currentIndex = i;
+                    break;
+                }
+            }
+
             const outlierUrl = location.pathname.replace('.html', '/') + outlierFile;
             const csvFileName = csvUrl.split('/').pop();
-            
+
             modalTitle.textContent = "Report for " + linkText;
             downloadOutlierLink.href = outlierUrl;
             downloadOutlierLink.download = outlierFile;
@@ -448,11 +456,13 @@ html_content += """
                 .then(data => {
                     outlierContent.textContent = data;
                     modal.style.display = "block";
+                    updateNavigationButtons();
                 })
                 .catch(error => {
                     console.error("Error fetching outlier report:", error);
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
+                    updateNavigationButtons();
                 });
         }
         
