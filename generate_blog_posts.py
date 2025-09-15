@@ -1087,12 +1087,38 @@ def update_blog_index(all_new_entries):
         entries_html.append(entry_html)
     
     entries_section = '\n'.join(entries_html)
-    
-    # Replace the grid content
-    pattern = r'(<div class="grid">)(.*?)(</div>\s*</div>\s*</body>)'
-    replacement = f'\1\n{entries_section}\n        \3'
-    
-    new_content = re.sub(pattern, replacement, current_content, flags=re.DOTALL)
+
+    # Replace the grid content or create it if it doesn't exist
+    grid_pattern = r'(<div class="grid">)(.*?)(</div>\s*</div>\s*</body>)'
+
+    # Try to find existing grid wrapper first
+    grid_match = re.search(grid_pattern, current_content, flags=re.DOTALL)
+    if grid_match:
+        print("Found existing grid wrapper, replacing content...")
+        replacement = f'\1\n{entries_section}\n        \3'
+        new_content = re.sub(grid_pattern, replacement, current_content, flags=re.DOTALL)
+    else:
+        print("No grid wrapper found, creating new structure...")
+        # Find everything after the second crt-divider and replace with grid
+        # More flexible pattern that works with current structure
+        after_divider_pattern = r'(        <div class="crt-divider"></div>\s*\n        \n)(.*?)(        \n</html>)'
+        after_match = re.search(after_divider_pattern, current_content, flags=re.DOTALL)
+        if after_match:
+            print("Found pattern after divider, replacing...")
+            replacement = f'\1        <div class="grid">\n{entries_section}\n        </div>\n        \3'
+            new_content = re.sub(after_divider_pattern, replacement, current_content, flags=re.DOTALL)
+        else:
+            print("Pattern not found, trying fallback...")
+            # Even more aggressive fallback - replace everything from the last divider to end
+            simple_pattern = r'(</div>\s*\n        \n)(.*?)(</html>)'
+            simple_match = re.search(simple_pattern, current_content, flags=re.DOTALL)
+            if simple_match:
+                print("Using simple pattern replacement...")
+                replacement = f'\1        <div class="grid">\n{entries_section}\n        </div>\n        \n\\3'
+                new_content = re.sub(simple_pattern, replacement, current_content, flags=re.DOTALL)
+            else:
+                print("All patterns failed, keeping current content...")
+                new_content = current_content
     
     # Write updated blog.html
     with open(BLOG_INDEX, 'w', encoding='utf-8') as f:
