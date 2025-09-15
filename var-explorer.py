@@ -427,15 +427,24 @@ html_content += """
                 })
                 .catch(error => console.error('Download failed:', error));
         }
-        
-        function openModalWithFile(outlierFile, csvUrl, linkText) {
+
+        const modal = document.getElementById("outlierModal");
+        const closeButton = document.getElementsByClassName("close-button")[0];
+        const modalTitle = document.getElementById("modalTitle");
+        const outlierContent = document.getElementById("outlierContent");
+        const downloadCsvLink = document.getElementById("downloadCsvLink");
+        const downloadOutlierLink = document.getElementById("downloadOutlierLink");
+        const fileEntryLinks = document.querySelectorAll(".file-entry a");
+        let currentIndex = 0;
+
+        function openModalWithFile(outlierFile, csvUrl, linkText) {{
             // Find the index of the clicked item for navigation
-            for (let i = 0; i < fileEntryLinks.length; i++) {
-                if (fileEntryLinks[i].dataset.outlierFile === outlierFile) {
+            for (let i = 0; i < fileEntryLinks.length; i++) {{
+                if (fileEntryLinks[i].dataset.outlierFile === outlierFile) {{
                     currentIndex = i;
                     break;
-                }
-            }
+                }}
+            }}
 
             const outlierUrl = location.pathname.replace('.html', '/') + outlierFile;
             const csvFileName = csvUrl.split('/').pop();
@@ -447,33 +456,24 @@ html_content += """
             downloadCsvLink.download = csvFileName;
 
             fetch(outlierUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                .then(response => {{
+                    if (!response.ok) {{
+                        throw new Error(`HTTP error! status: ${{response.status}}`);
+                    }}
                     return response.text();
-                })
-                .then(data => {
+                }})
+                .then(data => {{
                     outlierContent.textContent = data;
                     modal.style.display = "block";
                     updateNavigationButtons();
-                })
-                .catch(error => {
+                }})
+                .catch(error => {{
                     console.error("Error fetching outlier report:", error);
                     outlierContent.textContent = "Error loading report.";
                     modal.style.display = "block";
                     updateNavigationButtons();
-                });
-        }
-        
-        const modal = document.getElementById("outlierModal");
-        const closeButton = document.getElementsByClassName("close-button")[0];
-        const modalTitle = document.getElementById("modalTitle");
-        const outlierContent = document.getElementById("outlierContent");
-        const downloadCsvLink = document.getElementById("downloadCsvLink");
-        const downloadOutlierLink = document.getElementById("downloadOutlierLink");
-        const fileEntryLinks = document.querySelectorAll(".file-entry a");
-        let currentIndex = 0;
+                }});
+        }}
 
         function openModalAtIndex(index) {{
             const link = fileEntryLinks[index];
