@@ -197,7 +197,7 @@ html_content = f"""<!DOCTYPE html>
             margin-bottom: 20px;
         }}
         .modal-body {{
-            white-space: pre; /* Preserve whitespace, no text wrapping */
+            white-space: pre-wrap; /* Allow wrapping on desktop */
             max-height: 60vh; /* Reduced to leave space for navigation buttons */
             overflow-y: auto;
             overflow-x: auto; /* Enable horizontal scrolling */
@@ -259,7 +259,7 @@ html_content = f"""<!DOCTYPE html>
             }}
             .modal-body {{
                 font-size: 0.65em;
-                white-space: pre;
+                white-space: pre; /* Force horizontal scrolling on mobile */
                 overflow-x: auto;
                 max-height: calc(90vh - 160px);
                 padding: 10px;
