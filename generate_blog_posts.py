@@ -11,6 +11,7 @@ import json
 import argparse
 from datetime import datetime
 from pathlib import Path
+import textwrap
 
 # Load symbol to sector/industry mapping
 try:
@@ -345,6 +346,23 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             margin: auto;
             min-height: 100vh;
         }}
+        .breadcrumbs {{
+            font-size: 0.8em;
+            margin-bottom: 20px;
+            color: #00cc00;
+        }}
+        .breadcrumbs a {{
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }}
+        .breadcrumbs a:hover {{
+            border-bottom: 1px solid #00ff00;
+        }}
+        .breadcrumbs span {{
+            color: #00cc00;
+            margin: 0 5px;
+        }}
         header {{
             text-align: left;
             color: #00ff00;
@@ -428,7 +446,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             overflow-y: scroll;
             overflow-x: auto;
             font-family: "Courier New", monospace;
-            white-space: pre;
+            white-space: pre-wrap;
             border: 2px solid #00ff00;
             padding: 20px;
             border-radius: 5px;
@@ -545,6 +563,9 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 </head>
 <body>
 <div class="container">
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> <span>></span> <a href="/blog.html">Blog</a> <span>></span> {breadcrumb_title}
+    </nav>
     <header><h1>{title}</h1></header>
     <div class="crt-divider"></div>
     <div class="flavor-text">{description}</div>
@@ -965,9 +986,17 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     # Generate consistent flavor text for this blog post
     flavor_text = get_consistent_flavor_text(html_file.name, title)
     
+    # Generate breadcrumb title (cleaner version for breadcrumbs)
+    breadcrumb_title = title
+    if title.lower().startswith("what is "):
+        breadcrumb_title = title[8:]  # Remove "What is " prefix
+    elif title.lower().startswith("understanding "):
+        breadcrumb_title = title[14:]  # Remove "Understanding " prefix
+
     # Generate HTML
     html_content = BLOG_POST_TEMPLATE.format(
         title=title,
+        breadcrumb_title=breadcrumb_title,
         description=flavor_text,  # Use position-specific flavor text instead of generic summary
         filename=html_file.name,
         section_title=section_title,
@@ -1035,17 +1064,19 @@ def update_blog_index(all_new_entries):
         if 'summary' in entry and entry['summary']:
             description_html = f'<div class="entry-description">{entry["summary"]}</div>'
         
-        entry_html = f'''            <div class="blog-entry" onclick="parent.loadContent('blog/{entry['filename']}')">
-                <a href="#" onclick="event.stopPropagation(); parent.loadContent('blog/{entry['filename']}');">{entry['title']}</a>
-                <span class="date">Posted: {entry['date']}</span>{description_html}
-            </div>'''
+        entry_html = (
+            f'            <div class="blog-entry" onclick="parent.loadContent(\'blog/{entry["filename"]}\');">\n'
+            f'                <a href="#" onclick="event.stopPropagation(); parent.loadContent(\'blog/{entry["filename"]}\');">{entry["title"]}</a>\n'
+            f'                <span class="date">Posted: {entry["date"]}</span>{description_html}\n'
+            f'            </div>'
+        )
         entries_html.append(entry_html)
     
     entries_section = '\n'.join(entries_html)
     
     # Replace the grid content
     pattern = r'(<div class="grid">)(.*?)(</div>\s*</div>\s*</body>)'
-    replacement = f'\\1\n{entries_section}\n        \\3'
+    replacement = f'\1\n{entries_section}\n        \3'
     
     new_content = re.sub(pattern, replacement, current_content, flags=re.DOTALL)
     
@@ -1054,6 +1085,7 @@ def update_blog_index(all_new_entries):
         f.write(new_content)
     
     print(f"Updated {BLOG_INDEX} with {len(all_entries)} total entries (all with flavor text)")
+
 
 
 def extract_title_from_html(html_file):
