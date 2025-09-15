@@ -452,6 +452,15 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             border-radius: 5px;
             color: #00ff00;
         }}
+        .modal-text a {{
+            color: #00ff00;
+            text-decoration: underline;
+            font-weight: bold;
+        }}
+        .modal-text a:hover {{
+            color: #00cc00;
+            background-color: #001100;
+        }}
         .modal-text::-webkit-scrollbar {{
             width: 12px;
         }}
