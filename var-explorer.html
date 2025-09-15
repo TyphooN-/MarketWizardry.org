@@ -2005,13 +2005,11 @@
     <!-- Modal -->
     <div id="outlierModal" class="modal">
         <div class="modal-content">
-            <button class="close-button">&times;</button>
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
-                <div style="margin-top: 10px;">
-                    <a id="downloadOutlierLink" download style="color: #00ff00; margin-right: 20px;">Download Report</a>
-                    <a id="downloadCsvLink" download style="color: #00ff00;">Download CSV</a>
-                </div>
+                <a id="downloadOutlierLink" href="#" download onclick="forceDownload(event, this)">Download Report</a>
+                <a id="downloadCsvLink" href="#" download onclick="forceDownload(event, this)">Download Original CSV</a>
+                <span class="close-button">&times;</span>
             </div>
             <pre id="outlierContent" class="modal-body"></pre>
             <div class="nav-buttons">
@@ -2135,6 +2133,27 @@
                 currentIndex++;
                 openModalAtIndex(currentIndex);
             }
+        }
+
+        function forceDownload(event, link) {
+            event.preventDefault();
+            const url = link.href;
+            const filename = link.download || url.split('/').pop();
+
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = downloadUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(downloadUrl);
+                    document.body.removeChild(a);
+                })
+                .catch(err => console.error('Download failed:', err));
         }
 
         fileEntryLinks.forEach((link, index) => {
