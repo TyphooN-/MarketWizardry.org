@@ -947,6 +947,25 @@ def generate_witty_description(content, filename, title):
         return select_unused_flavor_text(general_descriptions, "Market autism dissected with surgical precision for your viewing displeasure.")
 
 
+def ensure_var_capitalization(title):
+    """Ensure proper VaR capitalization in titles"""
+    # Replace common variations of VaR with proper capitalization
+    # Use word boundaries to avoid replacing parts of other words
+    import re
+
+    # Replace standalone "Var" with "VaR" (but not part of other words)
+    title = re.sub(r'\bVar\b', 'VaR', title)
+    title = re.sub(r'\bvar\b', 'VaR', title)
+    title = re.sub(r'\bVAR\b', 'VaR', title)
+
+    # Handle specific phrases
+    title = title.replace('Var Rubber Band', 'VaR Rubber Band')
+    title = title.replace('var rubber band', 'VaR Rubber Band')
+    title = title.replace('VAR Rubber Band', 'VaR Rubber Band')
+
+    return title
+
+
 def extract_title_and_summary(content, filename):
     """Extract title and summary from content"""
     lines = content.split('\n')
@@ -975,9 +994,12 @@ def extract_title_and_summary(content, filename):
     elif filename == 'understanding-iqr-analysis.txt':
         title = "Understanding IQR (Interquartile Range) Analysis"
 
-    # Add acronyms for educational posts
-    if 'what-is-value-at-risk' in filename.lower():
-        title = title.replace('Var', '(VaR)')
+    # Ensure proper VaR capitalization first
+    title = ensure_var_capitalization(title)
+
+    # Add acronyms for educational posts (only if not already present)
+    if 'what-is-value-at-risk' in filename.lower() and '(VaR)' not in title:
+        title = title.replace('Value At Risk', 'Value At Risk (VaR)')
     elif 'what-is-average-true-range' in filename.lower():
         title = title.replace('Atr', '(ATR)')
     elif 'what-is-enterprise-value' in filename.lower():
@@ -1110,35 +1132,37 @@ def update_blog_index(all_new_entries):
     entries_section = '\n'.join(entries_html)
 
     # Replace the grid content or create it if it doesn't exist
-    grid_pattern = r'(        <div class="grid">)(.*?)(        </div>\s*    </div>\s*</body>\s*</html>)'
+    # More robust approach: Find content between flavor text and end, replace with grid structure
 
-    # Try to find existing grid wrapper first
-    grid_match = re.search(grid_pattern, current_content, flags=re.DOTALL)
-    if grid_match:
-        print("Found existing grid wrapper, replacing content...")
-        replacement = f'\1\n{entries_section}\n\3'
-        new_content = re.sub(grid_pattern, replacement, current_content, flags=re.DOTALL)
+    # Pattern to match from after second crt-divider to end of file
+    # This pattern matches the actual structure in blog.html
+    content_pattern = r'(        <div class="crt-divider"></div>\s*\n        \n        \n        <div class="grid">\s*\n)(.*?)(\n        </div>\s*\n    </div>\s*\n</body>\s*\n</html>)'
+    content_match = re.search(content_pattern, current_content, flags=re.DOTALL)
+
+    if content_match:
+        print("Found content area, replacing with grid structure...")
+        # Create proper grid structure with entries and closing tags
+        replacement = f'\1{entries_section}\3'
+        new_content = re.sub(content_pattern, replacement, current_content, flags=re.DOTALL)
     else:
-        print("No grid wrapper found, creating new structure...")
-        # Find everything after the second crt-divider and replace with grid
-        # More flexible pattern that works with current structure
-        after_divider_pattern = r'(        <div class="crt-divider"></div>\s*\n        \n)(.*?)(        \n</html>)'
-        after_match = re.search(after_divider_pattern, current_content, flags=re.DOTALL)
-        if after_match:
-            print("Found pattern after divider, replacing...")
-            replacement = f'\1        <div class="grid">\n{entries_section}\n        </div>\n        \3'
-            new_content = re.sub(after_divider_pattern, replacement, current_content, flags=re.DOTALL)
+        print("Content pattern not found, trying grid wrapper pattern...")
+        # Try to find existing grid wrapper
+        grid_pattern = r'(        <div class="grid">)(.*?)(        </div>\s*    </div>\s*</body>\s*</html>)'
+        grid_match = re.search(grid_pattern, current_content, flags=re.DOTALL)
+        if grid_match:
+            print("Found existing grid wrapper, replacing content...")
+            replacement = f'\1\n{entries_section}\n\3'
+            new_content = re.sub(grid_pattern, replacement, current_content, flags=re.DOTALL)
         else:
-            print("Pattern not found, trying fallback...")
-            # Even more aggressive fallback - replace everything from the last divider to end
-            simple_pattern = r'(</div>\s*\n        \n)(.*?)(</html>)'
-            simple_match = re.search(simple_pattern, current_content, flags=re.DOTALL)
-            if simple_match:
-                print("Using simple pattern replacement...")
-                replacement = f'\1        <div class="grid">\n{entries_section}\n        </div>\n        \n\\3'
-                new_content = re.sub(simple_pattern, replacement, current_content, flags=re.DOTALL)
+            print("All patterns failed, creating complete structure...")
+            # Last resort: find the container div and replace everything after flavor text
+            container_pattern = r'(.*<div class="flavor-text">.*?</div>\s*\n        <div class="crt-divider"></div>\s*\n        \n)(.*?)($)'
+            container_match = re.search(container_pattern, current_content, flags=re.DOTALL)
+            if container_match:
+                replacement = f'\1        <div class="grid">\n{entries_section}\n        </div>\n    </div>\n</body>\n</html>'
+                new_content = re.sub(container_pattern, replacement, current_content, flags=re.DOTALL)
             else:
-                print("All patterns failed, keeping current content...")
+                print("Complete fallback: keeping existing content...")
                 new_content = current_content
     
     # Write updated blog.html
