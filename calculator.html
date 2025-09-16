@@ -331,8 +331,17 @@
                         <input type="number" id="sl-position-size" placeholder="100">
                     </div>
                     <div class="input-group">
-                        <label for="sl-risk-percent">Risk Percentage (%)</label>
-                        <input type="number" id="sl-risk-percent" step="0.1" placeholder="2.0">
+                        <label for="sl-risk-mode">Risk Mode</label>
+                        <select id="sl-risk-mode" onchange="toggleStopLossMode()">
+                            <option value="percent">Risk Percentage (%)</option>
+                            <option value="var">VaR Percentage Target (%)</option>
+                            <option value="dollar">Dollar Amount ($)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="sl-risk-value" id="sl-risk-label">Risk Percentage (%)</label>
+                        <input type="number" id="sl-risk-value" step="0.1" placeholder="2.0">
+                        <small id="sl-risk-hint" style="color: #00aa00; font-size: 0.8em;">📊 Percentage of portfolio to risk on this trade</small>
                     </div>
                     <div class="input-group">
                         <label for="sl-timeframe">Trading Timeframe</label>
@@ -370,8 +379,22 @@
                         <input type="number" id="ps-account-size" placeholder="10000">
                     </div>
                     <div class="input-group">
-                        <label for="ps-risk-percent">Risk per Trade (%)</label>
-                        <input type="number" id="ps-risk-percent" step="0.1" placeholder="1.0">
+                        <label for="ps-risk-mode">Position Sizing Mode</label>
+                        <select id="ps-risk-mode" onchange="togglePositionSizeMode()">
+                            <option value="risk">Risk Percentage (%)</option>
+                            <option value="var">VaR Target (%)</option>
+                            <option value="dollar">Dollar Risk ($)</option>
+                            <option value="shares">Target Shares (#)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="ps-risk-value" id="ps-risk-label">Risk per Trade (%)</label>
+                        <input type="number" id="ps-risk-value" step="0.1" placeholder="1.0">
+                        <small id="ps-risk-hint" style="color: #00aa00; font-size: 0.8em;">📊 Percentage of account to risk on this trade</small>
+                    </div>
+                    <div class="input-group">
+                        <label for="ps-symbol">Symbol (for VaR mode)</label>
+                        <input type="text" id="ps-symbol" placeholder="AAPL, CC, AMD..." style="text-transform: uppercase;">
                     </div>
                     <div class="input-group">
                         <label for="ps-entry-price">Entry Price ($)</label>
@@ -433,6 +456,7 @@
                         <th>Price ($)</th>
                         <th>Value ($)</th>
                         <th>VaR ($)</th>
+                        <th>VaR (%)</th>
                         <th>Weight (%)</th>
                         <th>Asset Class</th>
                         <th>Action</th>
@@ -445,6 +469,7 @@
                         <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" onchange="updatePositionValue(this)"></td>
                         <td class="value-display">-</td>
                         <td class="var-display">-</td>
+                        <td class="var-percent-display" style="font-size: 0.9em; color: #ffaa00;">-</td>
                         <td class="weight-display">-</td>
                         <td class="asset-class-display" style="font-size: 0.8em; color: #00aa00;">-</td>
                         <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
@@ -497,7 +522,10 @@
                 <div>
                     <div class="input-group">
                         <label for="lookup-symbol">Advanced Symbol Search</label>
-                        <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" style="text-transform: uppercase;" onchange="performAdvancedSearch()">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" style="text-transform: uppercase; flex: 1;" onchange="performAdvancedSearch()">
+                            <button class="calculate-btn" onclick="performAdvancedSearch()" style="margin-top: 0; padding: 8px 15px;">Search</button>
+                        </div>
                         <small style="color: #00aa00; font-size: 0.8em;">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
                     </div>
                     <div class="input-group">
@@ -608,20 +636,68 @@
             }
         }
 
+        function toggleStopLossMode() {
+            const mode = document.getElementById('sl-risk-mode').value;
+            const label = document.getElementById('sl-risk-label');
+            const input = document.getElementById('sl-risk-value');
+            const hint = document.getElementById('sl-risk-hint');
+
+            switch(mode) {
+                case 'percent':
+                    label.textContent = 'Risk Percentage (%)';
+                    input.placeholder = '2.0';
+                    hint.textContent = '📊 Percentage of portfolio to risk on this trade';
+                    break;
+                case 'var':
+                    label.textContent = 'VaR Target (%)';
+                    input.placeholder = '5.0';
+                    hint.textContent = '🎯 Target VaR percentage of position value';
+                    break;
+                case 'dollar':
+                    label.textContent = 'Risk Amount ($)';
+                    input.placeholder = '500.00';
+                    hint.textContent = '💰 Dollar amount willing to risk on this trade';
+                    break;
+            }
+        }
+
         function calculateStopLoss() {
             const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
             const positionSize = parseInt(document.getElementById('sl-position-size').value);
-            const riskPercent = parseFloat(document.getElementById('sl-risk-percent').value);
+            const riskValue = parseFloat(document.getElementById('sl-risk-value').value);
+            const riskMode = document.getElementById('sl-risk-mode').value;
             const atr = parseFloat(document.getElementById('sl-atr').value);
             const timeframe = document.getElementById('sl-timeframe').value;
+            const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
 
-            if (!entryPrice || !positionSize || !riskPercent) {
+            if (!entryPrice || !positionSize || !riskValue) {
                 alert('Please fill in all required fields');
                 return;
             }
 
             const positionValue = entryPrice * positionSize;
-            const riskAmount = positionValue * (riskPercent / 100);
+            let riskAmount, riskPercent;
+
+            // Calculate risk amount based on selected mode
+            if (riskMode === 'percent') {
+                riskPercent = riskValue;
+                riskAmount = positionValue * (riskValue / 100);
+            } else if (riskMode === 'var') {
+                // VaR percentage mode - target VaR as % of position
+                if (symbol && varData[symbol]) {
+                    const varPerShare = varData[symbol].var;
+                    const targetVarAmount = positionValue * (riskValue / 100);
+                    riskAmount = targetVarAmount;
+                    riskPercent = riskValue; // This is VaR%, not risk%
+                } else {
+                    alert('VaR mode requires a valid symbol. Please enter a symbol or switch to percentage mode.');
+                    return;
+                }
+            } else if (riskMode === 'dollar') {
+                riskAmount = riskValue;
+                riskPercent = (riskAmount / positionValue) * 100;
+            }
+
             const riskPerShare = riskAmount / positionSize;
 
             // Timeframe-specific ATR multiplier recommendations
@@ -756,20 +832,84 @@
             document.getElementById('sl-results').classList.add('show');
         }
 
+        function togglePositionSizeMode() {
+            const mode = document.getElementById('ps-risk-mode').value;
+            const label = document.getElementById('ps-risk-label');
+            const input = document.getElementById('ps-risk-value');
+            const hint = document.getElementById('ps-risk-hint');
+
+            switch(mode) {
+                case 'risk':
+                    label.textContent = 'Risk per Trade (%)';
+                    input.placeholder = '1.0';
+                    hint.textContent = '📊 Percentage of account to risk on this trade';
+                    break;
+                case 'var':
+                    label.textContent = 'VaR Target (%)';
+                    input.placeholder = '5.0';
+                    hint.textContent = '🎯 Target VaR as percentage of position value';
+                    break;
+                case 'dollar':
+                    label.textContent = 'Dollar Risk ($)';
+                    input.placeholder = '100.00';
+                    hint.textContent = '💰 Dollar amount willing to risk on this trade';
+                    break;
+                case 'shares':
+                    label.textContent = 'Target Shares (#)';
+                    input.placeholder = '100';
+                    hint.textContent = '📈 Number of shares you want to buy';
+                    break;
+            }
+        }
+
         function calculatePositionSize() {
             const accountSize = parseFloat(document.getElementById('ps-account-size').value);
-            const riskPercent = parseFloat(document.getElementById('ps-risk-percent').value);
+            const riskValue = parseFloat(document.getElementById('ps-risk-value').value);
+            const riskMode = document.getElementById('ps-risk-mode').value;
             const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
             const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
+            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
 
-            if (!accountSize || !riskPercent || !entryPrice || !stopLoss) {
+            if (!accountSize || !riskValue || !entryPrice || (riskMode !== 'shares' && !stopLoss)) {
                 alert('Please fill in all required fields');
                 return;
             }
 
-            const riskAmount = accountSize * (riskPercent / 100);
+            let riskAmount, positionSize, riskPercent;
             const riskPerShare = Math.abs(entryPrice - stopLoss);
-            const positionSize = Math.floor(riskAmount / riskPerShare);
+
+            // Calculate based on selected mode
+            if (riskMode === 'risk') {
+                riskPercent = riskValue;
+                riskAmount = accountSize * (riskValue / 100);
+                positionSize = riskAmount / riskPerShare;
+            } else if (riskMode === 'var') {
+                // VaR targeting mode
+                if (!symbol || !varData[symbol]) {
+                    alert('VaR mode requires a valid symbol. Please enter a symbol.');
+                    return;
+                }
+
+                // Calculate position size to achieve target VaR percentage
+                const varPerShare = varData[symbol].var;
+                const targetVarPercent = riskValue / 100; // Convert % to decimal
+
+                // For VaR targeting: positionSize * varPerShare / (positionSize * entryPrice) = targetVarPercent
+                // Simplified: varPerShare / entryPrice = targetVarPercent
+                // We need to size the position so VaR is targetVarPercent of position value
+                positionSize = (accountSize * targetVarPercent * entryPrice) / (varPerShare * entryPrice);
+                riskAmount = positionSize * riskPerShare;
+                riskPercent = (riskAmount / accountSize) * 100;
+            } else if (riskMode === 'dollar') {
+                riskAmount = riskValue;
+                positionSize = riskAmount / riskPerShare;
+                riskPercent = (riskAmount / accountSize) * 100;
+            } else if (riskMode === 'shares') {
+                positionSize = riskValue;
+                riskAmount = positionSize * riskPerShare;
+                riskPercent = (riskAmount / accountSize) * 100;
+            }
+
             const positionValue = positionSize * entryPrice;
             const actualRisk = positionSize * riskPerShare;
 
@@ -1783,6 +1923,7 @@
                 <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" onchange="updatePositionValue(this)"></td>
                 <td class="value-display">-</td>
                 <td class="var-display">-</td>
+                <td class="var-percent-display" style="font-size: 0.9em; color: #ffaa00;">-</td>
                 <td class="weight-display">-</td>
                 <td class="asset-class-display" style="font-size: 0.8em; color: #00aa00;">-</td>
                 <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
@@ -1799,6 +1940,7 @@
 
             const valueDisplay = row.querySelector('.value-display');
             const varDisplay = row.querySelector('.var-display');
+            const varPercentDisplay = row.querySelector('.var-percent-display');
             const assetClassDisplay = row.querySelector('.asset-class-display');
 
             const value = shares * price;
@@ -1808,6 +1950,11 @@
             if (symbol && varData[symbol]) {
                 const positionVar = shares * varData[symbol].var;
                 varDisplay.textContent = `$${positionVar.toFixed(2)}`;
+
+                // Calculate VaR percentage (VaR / Position Value * 100)
+                const varPercent = value > 0 ? (positionVar / value * 100) : 0;
+                const varColor = varPercent > 10 ? '#ff0000' : varPercent > 5 ? '#ff8800' : '#ffaa00';
+                varPercentDisplay.innerHTML = `<span style="color: ${varColor};">${varPercent.toFixed(2)}%</span>`;
 
                 // Show asset class with appropriate styling
                 const assetClass = varData[symbol].asset_class;
@@ -1836,8 +1983,10 @@
                 }
             } else if (symbol) {
                 varDisplay.textContent = 'Unknown';
+                varPercentDisplay.innerHTML = '<span style="color: #ff0000;">Unknown</span>';
                 assetClassDisplay.innerHTML = '<span style="color: #ff0000;">Unknown</span>';
             } else {
+                varPercentDisplay.textContent = '-';
                 assetClassDisplay.textContent = '-';
             }
         }
