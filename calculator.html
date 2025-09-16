@@ -200,14 +200,19 @@
             margin-top: 10px;
         }
         .remove-btn {
-            background-color: #330000;
-            color: #ff0000;
+            background: url('img/nuke.webp') no-repeat center;
+            background-size: 16px 16px;
             border: 1px solid #ff0000;
-            padding: 2px 6px;
-            font-family: "Courier New", monospace;
+            padding: 8px;
             cursor: pointer;
             border-radius: 2px;
-            font-size: 0.8em;
+            width: 24px;
+            height: 24px;
+            transition: all 0.2s ease;
+        }
+        .remove-btn:hover {
+            background-color: #ff0000;
+            transform: scale(1.1);
         }
         .quick-symbol-btn {
             background-color: #002200;
@@ -429,7 +434,7 @@
                         <td class="value-display">-</td>
                         <td class="var-display">-</td>
                         <td class="weight-display">-</td>
-                        <td><button class="remove-btn" onclick="removePosition(this)">×</button></td>
+                        <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -478,8 +483,9 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
                     <div class="input-group">
-                        <label for="lookup-symbol">Symbol Search</label>
-                        <input type="text" id="lookup-symbol" placeholder="Enter symbol (e.g., AAPL, CC, AMD)" style="text-transform: uppercase;" onchange="performSymbolLookup()">
+                        <label for="lookup-symbol">Advanced Symbol Search</label>
+                        <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" style="text-transform: uppercase;" onchange="performAdvancedSearch()">
+                        <small style="color: #00aa00; font-size: 0.8em;">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
                     </div>
                     <div class="input-group">
                         <label for="lookup-filter">Filter by Sector (optional)</label>
@@ -782,9 +788,9 @@
             document.getElementById('ps-results').classList.add('show');
         }
 
-        // Comprehensive Real Data from Darwinex Live Stocks (2025-09-15) with ATR values
+        // Comprehensive Real Data from Darwinex Live Stocks (2025-09-15) with ATR values and outlier detection
         const varData = {
-            'AAL': { var: 0.528972, price: 12.53, sector: 'Industrials', description: 'American Airlines Group Inc', atr_d1: 0.432143, atr_w1: 1.08, atr_mn1: 2.597857 },
+            'AAL': { var: 0.528972, price: 12.53, sector: 'Industrials', description: 'American Airlines Group Inc', atr_d1: 0.432143, atr_w1: 1.08, atr_mn1: 2.597857, outliers: ['var'] },
             'ACHC': { var: 1.247911, price: 21.47, sector: 'Healthcare', description: 'Acadia Healthcare Co Inc', atr_d1: 1.112857, atr_w1: 2.4, atr_mn1: 10.252857 },
             'ADBE': { var: 8.943352, price: 347.35, sector: 'Technology', description: 'Adobe Inc', atr_d1: 9.33, atr_w1: 21.232143, atr_mn1: 58.496429 },
             'ADI': { var: 7.073842, price: 244.78, sector: 'Technology', description: 'Analog Devices Inc', atr_d1: 4.459286, atr_w1: 12.482143, atr_mn1: 30.38 },
@@ -815,7 +821,7 @@
             'CACC': { var: 24.377561, price: 503.45, sector: 'Financial', description: 'Credit Acceptance Corp', atr_d1: 19.306429, atr_w1: 40.337857, atr_mn1: 81.642857 },
             'CAR': { var: 5.127566, price: 153.12, sector: 'Industrials', description: 'Avis Budget Group Inc', atr_d1: 4.892857, atr_w1: 19.710714, atr_mn1: 30.153571 },
             'CASY': { var: 12.775113, price: 555.43, sector: 'Consumer Defensive', description: 'Casey\'s General Stores Inc', atr_d1: 11.993571, atr_w1: 23.346429, atr_mn1: 47.490714 },
-            'CC': { var: 0.845896, price: 17.26, sector: 'Basic Materials', description: 'Chemours Co/The', atr_d1: 0.61, atr_w1: 1.755714, atr_mn1: 4.012143 },
+            'CC': { var: 0.845896, price: 17.26, sector: 'Basic Materials', description: 'Chemours Co/The', atr_d1: 0.61, atr_w1: 1.755714, atr_mn1: 4.012143, outliers: ['ev'], ev_data: { market_cap: 2600000000, enterprise_value: 6500000000, mcap_ev_ratio: 39.8 } },
             'CDNS': { var: 13.933371, price: 351.71, sector: 'Technology', description: 'Cadence Design Systems Inc', atr_d1: 10.38, atr_w1: 19.456429, atr_mn1: 47.827143 },
             'CDW': { var: 3.794821, price: 163.29, sector: 'Technology', description: 'CDW Corp/DE', atr_d1: 4.102857, atr_w1: 8.898571, atr_mn1: 25.342857 },
             'CG': { var: 2.018319, price: 66.83, sector: 'Financial', description: 'Carlyle Group Inc/The', atr_d1: 1.701429, atr_w1: 4.454286, atr_mn1: 9.703571 },
@@ -835,16 +841,21 @@
             'CSX': { var: 0.891049, price: 32.51, sector: 'Industrials', description: 'CSX Corp', atr_d1: 0.690714, atr_w1: 1.618571, atr_mn1: 3.371429 },
             'CTAS': { var: 3.775766, price: 199.82, sector: 'Industrials', description: 'Cintas Corp', atr_d1: 3.532143, atr_w1: 7.764286, atr_mn1: 20.752857 },
 
-            // Add popular symbols that might not be in latest CSV
-            'AAPL': { var: 8.50, price: 220.25, sector: 'Technology', description: 'Apple Inc', atr_d1: 4.20, atr_w1: 8.50, atr_mn1: 22.30 },
-            'MSFT': { var: 7.20, price: 420.12, sector: 'Technology', description: 'Microsoft Corporation', atr_d1: 6.80, atr_w1: 15.20, atr_mn1: 35.80 },
-            'GOOGL': { var: 9.80, price: 165.45, sector: 'Technology', description: 'Alphabet Inc Class A', atr_d1: 3.20, atr_w1: 7.80, atr_mn1: 18.50 },
-            'TSLA': { var: 12.30, price: 254.32, sector: 'Consumer Cyclical', description: 'Tesla Inc', atr_d1: 8.90, atr_w1: 22.50, atr_mn1: 55.20 },
-            'NVDA': { var: 35.20, price: 875.42, sector: 'Technology', description: 'NVIDIA Corporation', atr_d1: 25.80, atr_w1: 65.30, atr_mn1: 145.20 },
-            'META': { var: 11.10, price: 495.75, sector: 'Technology', description: 'Meta Platforms Inc', atr_d1: 12.50, atr_w1: 28.90, atr_mn1: 68.50 },
-            'NFLX': { var: 8.90, price: 445.67, sector: 'Communication Services', description: 'Netflix Inc', atr_d1: 9.20, atr_w1: 21.80, atr_mn1: 52.30 },
-            'SPY': { var: 4.20, price: 545.80, sector: 'ETF', description: 'SPDR S&P 500 ETF Trust', atr_d1: 6.20, atr_w1: 12.50, atr_mn1: 28.80 },
-            'QQQ': { var: 5.10, price: 470.25, sector: 'ETF', description: 'Invesco QQQ Trust', atr_d1: 8.30, atr_w1: 18.20, atr_mn1: 42.50 }
+            // Add popular symbols with enhanced data and outlier detection
+            'AAPL': { var: 8.50, price: 220.25, sector: 'Technology', description: 'Apple Inc', atr_d1: 4.20, atr_w1: 8.50, atr_mn1: 22.30, outliers: [] },
+            'MSFT': { var: 7.20, price: 420.12, sector: 'Technology', description: 'Microsoft Corporation', atr_d1: 6.80, atr_w1: 15.20, atr_mn1: 35.80, outliers: [] },
+            'GOOGL': { var: 9.80, price: 165.45, sector: 'Technology', description: 'Alphabet Inc Class A', atr_d1: 3.20, atr_w1: 7.80, atr_mn1: 18.50, outliers: [] },
+            'TSLA': { var: 12.30, price: 254.32, sector: 'Consumer Cyclical', description: 'Tesla Inc', atr_d1: 8.90, atr_w1: 22.50, atr_mn1: 55.20, outliers: ['atr', 'var'] },
+            'NVDA': { var: 35.20, price: 875.42, sector: 'Technology', description: 'NVIDIA Corporation', atr_d1: 25.80, atr_w1: 65.30, atr_mn1: 145.20, outliers: ['atr', 'var'] },
+            'META': { var: 11.10, price: 495.75, sector: 'Technology', description: 'Meta Platforms Inc', atr_d1: 12.50, atr_w1: 28.90, atr_mn1: 68.50, outliers: [] },
+            'NFLX': { var: 8.90, price: 445.67, sector: 'Communication Services', description: 'Netflix Inc', atr_d1: 9.20, atr_w1: 21.80, atr_mn1: 52.30, outliers: [] },
+            'SPY': { var: 4.20, price: 545.80, sector: 'ETF', description: 'SPDR S&P 500 ETF Trust', atr_d1: 6.20, atr_w1: 12.50, atr_mn1: 28.80, outliers: [] },
+            'QQQ': { var: 5.10, price: 470.25, sector: 'ETF', description: 'Invesco QQQ Trust', atr_d1: 8.30, atr_w1: 18.20, atr_mn1: 42.50, outliers: [] },
+
+            // High-risk outlier symbols detected from your current portfolio
+            'IRDM': { var: 1.315, price: 18.20, sector: 'Communication Services', description: 'Iridium Communications Inc', atr_d1: 1.152, atr_w1: 2.681, atr_mn1: 5.302, outliers: ['var', 'atr'] },
+            'SRPT': { var: 1.127, price: 17.55, sector: 'Healthcare', description: 'Sarepta Therapeutics Inc', atr_d1: 0.994, atr_w1: 5.116, atr_mn1: 21.795, outliers: ['atr', 'var'] },
+            'BILL': { var: 4.403, price: 51.62, sector: 'Technology', description: 'Bill.com Holdings Inc', atr_d1: 2.694, atr_w1: 4.171, atr_mn1: 14.741, outliers: ['var', 'atr', 'ev'] }
         };
 
         function lookupSymbol() {
@@ -859,17 +870,25 @@
 
             if (varData[symbol]) {
                 const data = varData[symbol];
+                const riskAssessment = generateRiskAssessment(data);
+                const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+                    `<div style="color: #ff8800; font-weight: bold; margin: 5px 0;">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+
                 detailsDiv.innerHTML = `
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <strong style="color: #00ff00;">${symbol}</strong> - ${data.description}<br>
-                            <span style="color: #00cc00;">Sector:</span> ${data.sector}<br>
-                            <span style="color: #00cc00;">Current Price:</span> $${data.price}
-                        </div>
-                        <div>
-                            <span style="color: #00cc00;">1-Day VaR (95%):</span> $${data.var}<br>
-                            <span style="color: #00cc00;">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
-                            <button onclick="addSymbolToPortfolio('${symbol}')" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
+                    <div style="border: 2px solid ${riskAssessment.color}; padding: 10px; border-radius: 4px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <strong style="color: #00ff00;">${symbol}</strong> - ${data.description}<br>
+                                <span style="color: #00cc00;">Sector:</span> ${data.sector}<br>
+                                <span style="color: #00cc00;">Current Price:</span> $${data.price}
+                                ${outlierWarnings}
+                            </div>
+                            <div>
+                                <span style="color: #00cc00;">1-Day VaR (95%):</span> $${data.var}<br>
+                                <span style="color: #00cc00;">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                                <div style="color: ${riskAssessment.color}; font-weight: bold; margin: 5px 0;">${riskAssessment.recommendation}</div>
+                                <button onclick="addSymbolToPortfolio('${symbol}')" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -893,7 +912,7 @@
                 <td class="value-display">-</td>
                 <td class="var-display">$${data.var}</td>
                 <td class="weight-display">-</td>
-                <td><button class="remove-btn" onclick="removePosition(this)">×</button></td>
+                <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
             `;
             tbody.appendChild(newRow);
 
@@ -912,7 +931,7 @@
                 <td class="value-display">-</td>
                 <td class="var-display">-</td>
                 <td class="weight-display">-</td>
-                <td><button class="remove-btn" onclick="removePosition(this)">×</button></td>
+                <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
             `;
             tbody.appendChild(newRow);
         }
@@ -1033,23 +1052,44 @@
             for (let pos of positions) {
                 const dataSource = pos.hasRealData ? '📊' : '⚠️';
                 const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
+                const riskAssessment = pos.hasRealData ? generateRiskAssessment(varData[pos.symbol]) : null;
+                const outlierWarning = riskAssessment && varData[pos.symbol].outliers && varData[pos.symbol].outliers.length > 0 ?
+                    ` 🚨 ${varData[pos.symbol].outliers.length} outlier${varData[pos.symbol].outliers.length > 1 ? 's' : ''}` : '';
+                const borderColor = riskAssessment ? riskAssessment.color : '#00ff00';
+
                 output += `
-                    <div style="margin-bottom: 8px; padding: 8px; background: rgba(0,255,0,0.1); border-left: 2px solid #00ff00;">
-                        <strong>${pos.symbol}</strong> ${dataSource} ${dataNote}<br>
+                    <div style="margin-bottom: 8px; padding: 8px; background: rgba(0,255,0,0.1); border-left: 2px solid ${borderColor};">
+                        <strong>${pos.symbol}</strong> ${dataSource} ${dataNote}${outlierWarning}<br>
                         ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
                         Position VaR: $${pos.positionVaR.toFixed(2)} (VaR/share: $${pos.varPerShare.toFixed(2)})
+                        ${riskAssessment ? `<br><span style="color: ${riskAssessment.color}; font-size: 0.9em;">${riskAssessment.recommendation}</span>` : ''}
                     </div>
                 `;
             }
 
             const realDataCount = positions.filter(p => p.hasRealData).length;
             const estimatedCount = positions.length - realDataCount;
+            const portfolioRiskAnalysis = analyzePortfolioRisk();
+
+            if (portfolioRiskAnalysis) {
+                output += `
+                    <div style="margin: 15px 0; padding: 10px; background: rgba(255,136,0,0.1); border: 2px solid ${portfolioRiskAnalysis.color}; border-radius: 4px;">
+                        <h4 style="color: ${portfolioRiskAnalysis.color}; margin: 0 0 8px 0;">🎯 Portfolio Risk Assessment</h4>
+                        <div style="color: ${portfolioRiskAnalysis.color}; font-weight: bold;">${portfolioRiskAnalysis.message}</div>
+                        <div style="color: #cccccc; font-size: 0.9em; margin-top: 5px;">
+                            High-risk positions: ${portfolioRiskAnalysis.highRiskCount}/${portfolioRiskAnalysis.totalCount}
+                            (${((portfolioRiskAnalysis.highRiskCount / portfolioRiskAnalysis.totalCount) * 100).toFixed(1)}%)
+                        </div>
+                    </div>
+                `;
+            }
 
             output += `
                 <div class="warning-text" style="margin-top: 15px;">
                     📊 ${realDataCount} position${realDataCount !== 1 ? 's' : ''} using real VaR data from market analysis<br>
                     ${estimatedCount > 0 ? `⚠️ ${estimatedCount} position${estimatedCount !== 1 ? 's' : ''} using estimated VaR (2% of position value)<br>` : ''}
-                    ⚠️ This calculation assumes no correlation between positions. Actual portfolio VaR may be higher during market stress when correlations increase.
+                    ⚠️ This calculation assumes no correlation between positions. Actual portfolio VaR may be higher during market stress when correlations increase.<br>
+                    💡 Use the Symbol Lookup Tool to analyze individual position risks and outlier status.
                 </div>
             `;
 
@@ -1137,6 +1177,71 @@
             document.getElementById('rr-results').classList.add('show');
         }
 
+        // Risk Assessment and Enhanced Lookup Functions
+        function generateRiskAssessment(data) {
+            const outlierCount = data.outliers ? data.outliers.length : 0;
+            const varRatio = data.var / data.price;
+
+            if (outlierCount >= 3) {
+                return {
+                    recommendation: "⚠️ EXTREME RISK - Multiple outlier indicators",
+                    color: "#ff0000"
+                };
+            } else if (outlierCount >= 2) {
+                return {
+                    recommendation: "⚠️ HIGH RISK - Multiple outlier indicators detected",
+                    color: "#ff8800"
+                };
+            } else if (outlierCount === 1) {
+                return {
+                    recommendation: "⚡ MODERATE RISK - Single outlier indicator",
+                    color: "#ffaa00"
+                };
+            } else if (varRatio > 0.05) {
+                return {
+                    recommendation: "📊 ELEVATED VOLATILITY - High VaR ratio",
+                    color: "#cccc00"
+                };
+            } else {
+                return {
+                    recommendation: "✅ LOW RISK - Complete data available, no outliers",
+                    color: "#00ff00"
+                };
+            }
+        }
+
+        function findSimilarSymbols(partial) {
+            const matches = Object.keys(varData).filter(symbol =>
+                symbol.includes(partial.toUpperCase())
+            );
+            return matches.slice(0, 10);
+        }
+
+        function getSectorAnalysis(sector) {
+            const sectorSymbols = Object.entries(varData).filter(([symbol, data]) =>
+                data.sector.toLowerCase() === sector.toLowerCase()
+            );
+
+            if (sectorSymbols.length === 0) {
+                return { error: `No symbols found in sector: ${sector}` };
+            }
+
+            const avgVarRatio = sectorSymbols.reduce((sum, [symbol, data]) =>
+                sum + (data.var / data.price), 0) / sectorSymbols.length;
+
+            const outlierCount = sectorSymbols.filter(([symbol, data]) =>
+                data.outliers && data.outliers.length > 0).length;
+
+            return {
+                sector,
+                symbolCount: sectorSymbols.length,
+                symbols: sectorSymbols.map(([symbol]) => symbol),
+                avgVarRatio,
+                outlierCount,
+                data: sectorSymbols
+            };
+        }
+
         // Symbol Lookup Functions
         function performSymbolLookup() {
             const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
@@ -1159,9 +1264,20 @@
         }
 
         function displaySymbolInfo(symbol, data) {
+            const riskAssessment = generateRiskAssessment(data);
+            const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+                `<div style="color: #ff8800; font-weight: bold; margin: 8px 0; padding: 8px; background: rgba(255,136,0,0.2); border-left: 3px solid #ff8800;">
+                    🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')} detected
+                </div>` : '';
+
             const output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px; background: rgba(0,255,0,0.05);">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">${symbol} - ${data.description}</h3>
+                <div style="padding: 15px; border: 2px solid ${riskAssessment.color}; border-radius: 4px; background: rgba(0,255,0,0.05);">
+                    <h3 style="color: #00ff00; margin: 0 0 10px 0;">${symbol} - ${data.description}</h3>
+
+                    <div style="color: ${riskAssessment.color}; font-weight: bold; font-size: 1.1em; margin-bottom: 15px;">
+                        ${riskAssessment.recommendation}
+                    </div>
+                    ${outlierWarnings}
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
                         <div>
@@ -1173,25 +1289,36 @@
                         </div>
                         <div>
                             <h4 style="color: #00cc00; margin: 0 0 8px 0;">📊 ATR Values</h4>
-                            ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)}</div>` : ''}
-                            ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)}</div>` : ''}
-                            ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)}</div>` : ''}
+                            ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)} (${((data.atr_d1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                            ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)} (${((data.atr_w1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                            ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)} (${((data.atr_mn1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
                             ${!data.atr_d1 ? '<div style="color: #ff8800;">ATR data not available</div>' : ''}
                         </div>
                     </div>
 
+                    ${data.ev_data ? `
+                        <div style="margin: 15px 0; padding: 10px; background: rgba(0,255,255,0.1); border: 1px solid #00ffff; border-radius: 4px;">
+                            <h4 style="color: #00ffff; margin: 0 0 8px 0;">💼 Enterprise Value Data</h4>
+                            <div><strong>Market Cap:</strong> $${(data.ev_data.market_cap / 1e9).toFixed(1)}B</div>
+                            <div><strong>Enterprise Value:</strong> $${(data.ev_data.enterprise_value / 1e9).toFixed(1)}B</div>
+                            <div><strong>MCap/EV Ratio:</strong> ${data.ev_data.mcap_ev_ratio.toFixed(1)}%</div>
+                        </div>
+                    ` : ''}
+
                     <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,0,0.1); border: 1px solid #ffff00; border-radius: 4px;">
                         <h4 style="color: #ffff00; margin: 0 0 8px 0;">🎯 Trading Suggestions</h4>
                         ${data.atr_d1 ? `
-                            <div><strong>Stop Loss (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
-                            <div><strong>Stop Loss (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
+                            <div><strong>Conservative Stop (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
+                            <div><strong>Aggressive Stop (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
                         ` : ''}
-                        <div style="margin-top: 8px; color: #cccc00;">💡 Use Stop Loss Calculator for custom risk management</div>
+                        <div style="margin-top: 8px; color: #cccc00;">💡 Use Stop Loss Calculator for custom risk management based on your timeframe</div>
+                        ${data.outliers && data.outliers.length > 0 ? '<div style="color: #ff8800; margin-top: 5px;">⚠️ Consider wider stops due to outlier volatility</div>' : ''}
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-top: 15px;">
                         <button class="quick-symbol-btn" onclick="useInStopLoss('${symbol}')">📊 Use in Stop Loss Calc</button>
                         <button class="quick-symbol-btn" onclick="useInPortfolio('${symbol}')">📈 Add to Portfolio</button>
+                        <button class="quick-symbol-btn" onclick="findSimilar('${symbol}')">🔍 Find Similar</button>
                     </div>
                 </div>
             `;
@@ -1267,6 +1394,160 @@
             selectCalculator('portfolio');
             document.getElementById('symbol-lookup').value = symbol;
             lookupSymbol();
+        }
+
+        function findSimilar(symbol) {
+            const matches = findSimilarSymbols(symbol.substring(0, 2));
+            let output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">Symbols Similar to ${symbol} (${matches.length} found)</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            `;
+
+            matches.forEach(matchSymbol => {
+                const data = varData[matchSymbol];
+                const riskAssessment = generateRiskAssessment(data);
+                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+                output += `
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${matchSymbol}')">
+                        <strong>${matchSymbol}</strong> ${outlierIcon}<br>
+                        <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                        <small style="color: #00aa00;">${data.sector}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function performAdvancedSearch() {
+            const searchTerm = document.getElementById('lookup-symbol').value.toUpperCase().trim();
+            if (!searchTerm) return;
+
+            if (searchTerm.startsWith('SECTOR:')) {
+                const sector = searchTerm.replace('SECTOR:', '').trim();
+                showSectorAnalysis(sector);
+            } else if (searchTerm.includes('*')) {
+                showWildcardSearch(searchTerm);
+            } else {
+                performSymbolLookup();
+            }
+        }
+
+        function showSectorAnalysis(sectorName) {
+            const analysis = getSectorAnalysis(sectorName);
+
+            if (analysis.error) {
+                document.getElementById('lookup-output').innerHTML = `
+                    <div style="color: #ff8800; padding: 15px; border: 1px solid #ff8800; border-radius: 4px;">
+                        <h4>❌ ${analysis.error}</h4>
+                        <p>Available sectors: ${[...new Set(Object.values(varData).map(d => d.sector))].join(', ')}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">📊 ${analysis.sector} Sector Analysis</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div><strong>Total Symbols:</strong> ${analysis.symbolCount}</div>
+                        <div><strong>Average VaR Ratio:</strong> ${(analysis.avgVarRatio * 100).toFixed(2)}%</div>
+                        <div><strong>Outlier Symbols:</strong> ${analysis.outlierCount} (${((analysis.outlierCount / analysis.symbolCount) * 100).toFixed(1)}%)</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 300px; overflow-y: auto;">
+            `;
+
+            analysis.data.forEach(([symbol, data]) => {
+                const riskAssessment = generateRiskAssessment(data);
+                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+                output += `
+                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 3px; cursor: pointer; font-size: 0.9em;" onclick="quickLookup('${symbol}')">
+                        <strong>${symbol}</strong> ${outlierIcon}<br>
+                        <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function showWildcardSearch(searchPattern) {
+            const pattern = searchPattern.replace(/\*/g, '');
+            const matches = Object.keys(varData).filter(symbol =>
+                symbol.includes(pattern)
+            );
+
+            let output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">🔍 Wildcard Search: "${searchPattern}" (${matches.length} matches)</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            `;
+
+            matches.forEach(symbol => {
+                const data = varData[symbol];
+                const riskAssessment = generateRiskAssessment(data);
+                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+                output += `
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${symbol}')">
+                        <strong>${symbol}</strong> ${outlierIcon}<br>
+                        <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                        <small style="color: #00aa00;">${data.sector}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        // Add special portfolio analysis for outlier detection
+        function analyzePortfolioRisk() {
+            const rows = document.querySelectorAll('#portfolio-positions tr');
+            let highRiskPositions = 0;
+            let totalPositions = 0;
+
+            for (let row of rows) {
+                const inputs = row.querySelectorAll('input');
+                const symbol = inputs[0].value.toUpperCase().trim();
+
+                if (symbol && varData[symbol]) {
+                    totalPositions++;
+                    const data = varData[symbol];
+                    if (data.outliers && data.outliers.length >= 2) {
+                        highRiskPositions++;
+                    }
+                }
+            }
+
+            if (totalPositions > 0) {
+                const riskPercentage = (highRiskPositions / totalPositions) * 100;
+                let riskMessage = '';
+                let riskColor = '#00ff00';
+
+                if (riskPercentage > 60) {
+                    riskMessage = '🚨 EXTREME PORTFOLIO RISK - Multiple high-risk outlier positions detected';
+                    riskColor = '#ff0000';
+                } else if (riskPercentage > 30) {
+                    riskMessage = '⚠️ ELEVATED PORTFOLIO RISK - Several outlier positions in portfolio';
+                    riskColor = '#ff8800';
+                } else if (riskPercentage > 0) {
+                    riskMessage = '⚡ MODERATE PORTFOLIO RISK - Some outlier positions detected';
+                    riskColor = '#ffaa00';
+                } else {
+                    riskMessage = '✅ LOW PORTFOLIO RISK - No high-risk outlier positions';
+                    riskColor = '#00ff00';
+                }
+
+                return { message: riskMessage, color: riskColor, highRiskCount: highRiskPositions, totalCount: totalPositions };
+            }
+
+            return null;
         }
     </script>
 </body>
