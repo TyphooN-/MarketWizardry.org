@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="TyphooN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketWizardry.org | Financial Calculator Suite</title>
+    <link rel="canonical" href="https://marketwizardry.org/calculator.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="Multi-modal financial calculator suite for VaR, stop losses, position sizing, and portfolio risk management. Mathematical precision for your trading disasters.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Financial Calculator Suite - MarketWizardry.org">
+    <meta property="og:description" content="Multi-modal financial calculator suite for VaR, stop losses, position sizing, and portfolio risk management. Mathematical precision for your trading disasters.">
+    <meta property="og:url" content="https://marketwizardry.org/calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Financial Calculator Suite - MarketWizardry.org">
+    <meta name="twitter:description" content="Multi-modal financial calculator suite for VaR, stop losses, position sizing, and portfolio risk management. Mathematical precision for your trading disasters.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <script>
+        // Redirect to index.html if accessed directly (not in iframe)
+        if (window === window.top) {
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 10px;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        h2 {
+            color: #00ff00;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 5px;
+        }
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .calculator-card {
+            background-color: #001100;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .calculator-card:hover {
+            background-color: #002200;
+            border-color: #00ff00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+        }
+        .calculator-card.active {
+            background-color: #002200;
+            border-color: #00ff00;
+        }
+        .calculator-content {
+            display: none;
+            background-color: #001100;
+            border: 2px solid #00ff00;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .calculator-content.active {
+            display: block;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            color: #00cc00;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 8px;
+            background-color: #000;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            border-radius: 4px;
+        }
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #00cc00;
+            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        .calculate-btn {
+            background-color: #003300;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        .calculate-btn:hover {
+            background-color: #004400;
+            transform: scale(1.02);
+        }
+        .result-box {
+            background-color: #000;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        .result-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-label {
+            color: #00cc00;
+            font-weight: bold;
+        }
+        .result-value {
+            color: #00ff00;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .warning-text {
+            color: #ffaa00;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .portfolio-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .portfolio-table th, .portfolio-table td {
+            border: 1px solid #00ff00;
+            padding: 8px;
+            text-align: left;
+        }
+        .portfolio-table th {
+            background-color: #003300;
+            color: #00ff00;
+        }
+        .portfolio-table td {
+            background-color: #001100;
+        }
+        .add-position-btn {
+            background-color: #002200;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px 10px;
+            font-family: "Courier New", monospace;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .remove-btn {
+            background-color: #330000;
+            color: #ff0000;
+            border: 1px solid #ff0000;
+            padding: 2px 6px;
+            font-family: "Courier New", monospace;
+            cursor: pointer;
+            border-radius: 2px;
+            font-size: 0.8em;
+        }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px 0;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        .flavor-text {
+            color: #00ff00;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+            animation: flicker 1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Financial Calculator Suite</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Mathematical precision for financial degenerates who need calculated confirmation of their doom.</div>
+        <div class="crt-divider"></div>
+
+        <!-- Calculator Selection Grid -->
+        <div class="calculator-grid">
+            <div class="calculator-card" onclick="selectCalculator('stoploss')">
+                <h2>🛑 Stop Loss Calculator</h2>
+                <p>Calculate optimal stop loss levels based on volatility, risk tolerance, and position size. Because knowing exactly where you'll get stopped out is half the battle.</p>
+            </div>
+
+            <div class="calculator-card" onclick="selectCalculator('position')">
+                <h2>⚖️ Position Size Calculator</h2>
+                <p>Determine position sizes based on account risk, volatility, and stop loss levels. Scientific precision for your inevitable losses.</p>
+            </div>
+
+            <div class="calculator-card" onclick="selectCalculator('portfolio')">
+                <h2>📊 Portfolio VaR Calculator</h2>
+                <p>Calculate portfolio Value at Risk using multiple positions with correlation adjustments. Watch your diversification fail mathematically.</p>
+            </div>
+
+            <div class="calculator-card" onclick="selectCalculator('riskreturn')">
+                <h2>📈 Risk/Return Calculator</h2>
+                <p>Analyze risk-adjusted returns, Sharpe ratios, and drawdown metrics. Quantify exactly how much you're underperforming.</p>
+            </div>
+        </div>
+
+        <!-- Stop Loss Calculator -->
+        <div id="stoploss-calculator" class="calculator-content">
+            <h2>🛑 Stop Loss Calculator</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <div class="input-group">
+                        <label for="sl-entry-price">Entry Price ($)</label>
+                        <input type="number" id="sl-entry-price" step="0.01" placeholder="100.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="sl-position-size">Position Size (shares)</label>
+                        <input type="number" id="sl-position-size" placeholder="100">
+                    </div>
+                    <div class="input-group">
+                        <label for="sl-risk-percent">Risk Percentage (%)</label>
+                        <input type="number" id="sl-risk-percent" step="0.1" placeholder="2.0">
+                    </div>
+                    <div class="input-group">
+                        <label for="sl-atr">ATR (Average True Range)</label>
+                        <input type="number" id="sl-atr" step="0.01" placeholder="2.50">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateStopLoss()">Calculate Stop Loss</button>
+                </div>
+                <div id="sl-results" class="result-box">
+                    <div class="result-label">Stop Loss Calculations:</div>
+                    <div id="sl-output"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Position Size Calculator -->
+        <div id="position-calculator" class="calculator-content">
+            <h2>⚖️ Position Size Calculator</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <div class="input-group">
+                        <label for="ps-account-size">Account Size ($)</label>
+                        <input type="number" id="ps-account-size" placeholder="10000">
+                    </div>
+                    <div class="input-group">
+                        <label for="ps-risk-percent">Risk per Trade (%)</label>
+                        <input type="number" id="ps-risk-percent" step="0.1" placeholder="1.0">
+                    </div>
+                    <div class="input-group">
+                        <label for="ps-entry-price">Entry Price ($)</label>
+                        <input type="number" id="ps-entry-price" step="0.01" placeholder="100.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="ps-stop-loss">Stop Loss Price ($)</label>
+                        <input type="number" id="ps-stop-loss" step="0.01" placeholder="95.00">
+                    </div>
+                    <button class="calculate-btn" onclick="calculatePositionSize()">Calculate Position Size</button>
+                </div>
+                <div id="ps-results" class="result-box">
+                    <div class="result-label">Position Size Calculations:</div>
+                    <div id="ps-output"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio VaR Calculator -->
+        <div id="portfolio-calculator" class="calculator-content">
+            <h2>📊 Portfolio VaR Calculator</h2>
+            <div class="input-group">
+                <label for="pf-confidence">Confidence Level (%)</label>
+                <select id="pf-confidence">
+                    <option value="95">95%</option>
+                    <option value="99">99%</option>
+                    <option value="99.9">99.9%</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="pf-time-horizon">Time Horizon (days)</label>
+                <select id="pf-time-horizon">
+                    <option value="1">1 Day</option>
+                    <option value="5">5 Days</option>
+                    <option value="10">10 Days</option>
+                    <option value="22">1 Month</option>
+                </select>
+            </div>
+
+            <h3>Portfolio Positions</h3>
+            <table class="portfolio-table" id="portfolio-table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Value ($)</th>
+                        <th>Volatility (%)</th>
+                        <th>Weight (%)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="portfolio-positions">
+                    <tr>
+                        <td><input type="text" placeholder="AAPL" style="width: 60px;"></td>
+                        <td><input type="number" placeholder="5000" style="width: 80px;"></td>
+                        <td><input type="number" placeholder="25.0" step="0.1" style="width: 60px;"></td>
+                        <td class="weight-display">-</td>
+                        <td><button class="remove-btn" onclick="removePosition(this)">×</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="add-position-btn" onclick="addPosition()">+ Add Position</button>
+            <button class="calculate-btn" onclick="calculatePortfolioVaR()">Calculate Portfolio VaR</button>
+
+            <div id="pf-results" class="result-box">
+                <div class="result-label">Portfolio VaR Results:</div>
+                <div id="pf-output"></div>
+            </div>
+        </div>
+
+        <!-- Risk/Return Calculator -->
+        <div id="riskreturn-calculator" class="calculator-content">
+            <h2>📈 Risk/Return Calculator</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <div class="input-group">
+                        <label for="rr-returns">Returns (% per period, comma-separated)</label>
+                        <textarea id="rr-returns" style="height: 100px; resize: vertical;" placeholder="2.5, -1.2, 3.1, 0.8, -0.5, 1.9, -2.1"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="rr-risk-free">Risk-Free Rate (% annually)</label>
+                        <input type="number" id="rr-risk-free" step="0.01" placeholder="3.5">
+                    </div>
+                    <div class="input-group">
+                        <label for="rr-periods">Periods per Year</label>
+                        <select id="rr-periods">
+                            <option value="252">Daily (252)</option>
+                            <option value="52">Weekly (52)</option>
+                            <option value="12">Monthly (12)</option>
+                        </select>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateRiskReturn()">Calculate Metrics</button>
+                </div>
+                <div id="rr-results" class="result-box">
+                    <div class="result-label">Risk/Return Metrics:</div>
+                    <div id="rr-output"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let activeCalculator = null;
+
+        function selectCalculator(calculatorType) {
+            // Hide all calculators
+            const calculators = document.querySelectorAll('.calculator-content');
+            calculators.forEach(calc => calc.classList.remove('active'));
+
+            // Remove active class from all cards
+            const cards = document.querySelectorAll('.calculator-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Show selected calculator
+            document.getElementById(calculatorType + '-calculator').classList.add('active');
+
+            // Add active class to selected card
+            event.currentTarget.classList.add('active');
+
+            activeCalculator = calculatorType;
+        }
+
+        function calculateStopLoss() {
+            const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
+            const positionSize = parseInt(document.getElementById('sl-position-size').value);
+            const riskPercent = parseFloat(document.getElementById('sl-risk-percent').value);
+            const atr = parseFloat(document.getElementById('sl-atr').value);
+
+            if (!entryPrice || !positionSize || !riskPercent) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const positionValue = entryPrice * positionSize;
+            const riskAmount = positionValue * (riskPercent / 100);
+            const riskPerShare = riskAmount / positionSize;
+
+            // Calculate different stop loss methods
+            const percentageStop = entryPrice - riskPerShare;
+            const atrStop = atr ? entryPrice - (atr * 2) : null;
+            const atrStop15 = atr ? entryPrice - (atr * 1.5) : null;
+
+            let output = `
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Position Value:</div>
+                    <div class="result-value">$${positionValue.toLocaleString()}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Maximum Risk Amount:</div>
+                    <div class="result-value">$${riskAmount.toFixed(2)}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Percentage-Based Stop Loss:</div>
+                    <div class="result-value">$${percentageStop.toFixed(2)} (${((entryPrice - percentageStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
+                </div>
+            `;
+
+            if (atr) {
+                output += `
+                    <div style="margin-bottom: 15px;">
+                        <div class="result-label">ATR-Based Stop (2x ATR):</div>
+                        <div class="result-value">$${atrStop.toFixed(2)} (${((entryPrice - atrStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <div class="result-label">ATR-Based Stop (1.5x ATR):</div>
+                        <div class="result-value">$${atrStop15.toFixed(2)} (${((entryPrice - atrStop15) / entryPrice * 100).toFixed(2)}% below entry)</div>
+                    </div>
+                `;
+            }
+
+            output += `<div class="warning-text">⚠️ Remember: Stop losses don't guarantee execution at your desired price during gaps or high volatility.</div>`;
+
+            document.getElementById('sl-output').innerHTML = output;
+            document.getElementById('sl-results').classList.add('show');
+        }
+
+        function calculatePositionSize() {
+            const accountSize = parseFloat(document.getElementById('ps-account-size').value);
+            const riskPercent = parseFloat(document.getElementById('ps-risk-percent').value);
+            const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
+            const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
+
+            if (!accountSize || !riskPercent || !entryPrice || !stopLoss) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const riskAmount = accountSize * (riskPercent / 100);
+            const riskPerShare = Math.abs(entryPrice - stopLoss);
+            const positionSize = Math.floor(riskAmount / riskPerShare);
+            const positionValue = positionSize * entryPrice;
+            const actualRisk = positionSize * riskPerShare;
+
+            const output = `
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Risk Amount:</div>
+                    <div class="result-value">$${riskAmount.toFixed(2)}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Risk per Share:</div>
+                    <div class="result-value">$${riskPerShare.toFixed(2)}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Recommended Position Size:</div>
+                    <div class="result-value">${positionSize.toLocaleString()} shares</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Position Value:</div>
+                    <div class="result-value">$${positionValue.toLocaleString()}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Actual Risk:</div>
+                    <div class="result-value">$${actualRisk.toFixed(2)} (${(actualRisk/accountSize*100).toFixed(2)}% of account)</div>
+                </div>
+                <div class="warning-text">⚠️ This assumes perfect execution at your stop loss price. Market gaps can increase actual losses.</div>
+            `;
+
+            document.getElementById('ps-output').innerHTML = output;
+            document.getElementById('ps-results').classList.add('show');
+        }
+
+        function addPosition() {
+            const tbody = document.getElementById('portfolio-positions');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="SYMBOL" style="width: 60px;"></td>
+                <td><input type="number" placeholder="5000" style="width: 80px;"></td>
+                <td><input type="number" placeholder="25.0" step="0.1" style="width: 60px;"></td>
+                <td class="weight-display">-</td>
+                <td><button class="remove-btn" onclick="removePosition(this)">×</button></td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function removePosition(button) {
+            const row = button.closest('tr');
+            if (document.getElementById('portfolio-positions').children.length > 1) {
+                row.remove();
+            }
+        }
+
+        function calculatePortfolioVaR() {
+            const confidence = parseFloat(document.getElementById('pf-confidence').value);
+            const timeHorizon = parseInt(document.getElementById('pf-time-horizon').value);
+            const rows = document.querySelectorAll('#portfolio-positions tr');
+
+            let positions = [];
+            let totalValue = 0;
+
+            for (let row of rows) {
+                const inputs = row.querySelectorAll('input');
+                const symbol = inputs[0].value.trim();
+                const value = parseFloat(inputs[1].value);
+                const volatility = parseFloat(inputs[2].value);
+
+                if (symbol && value && volatility) {
+                    positions.push({ symbol, value, volatility });
+                    totalValue += value;
+                }
+            }
+
+            if (positions.length === 0) {
+                alert('Please add at least one position');
+                return;
+            }
+
+            // Update weights display
+            positions.forEach((pos, index) => {
+                const weight = (pos.value / totalValue * 100).toFixed(1);
+                rows[index].querySelector('.weight-display').textContent = weight + '%';
+                pos.weight = weight;
+            });
+
+            // Calculate portfolio volatility (simplified - assumes no correlation)
+            let portfolioVariance = 0;
+            for (let pos of positions) {
+                const weight = pos.value / totalValue;
+                portfolioVariance += Math.pow(weight * pos.volatility / 100, 2);
+            }
+            const portfolioVolatility = Math.sqrt(portfolioVariance) * 100;
+
+            // Calculate VaR
+            const zScore = confidence === 95 ? 1.645 : confidence === 99 ? 2.326 : 3.09;
+            const timeAdjustment = Math.sqrt(timeHorizon);
+            const dailyVaR = totalValue * (portfolioVolatility / 100) * zScore / Math.sqrt(252);
+            const periodVaR = dailyVaR * timeAdjustment;
+
+            let output = `
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Total Portfolio Value:</div>
+                    <div class="result-value">$${totalValue.toLocaleString()}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Portfolio Volatility (annualized):</div>
+                    <div class="result-value">${portfolioVolatility.toFixed(2)}%</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">${timeHorizon}-Day ${confidence}% VaR:</div>
+                    <div class="result-value">$${periodVaR.toFixed(2)} (${(periodVaR/totalValue*100).toFixed(2)}% of portfolio)</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Daily ${confidence}% VaR:</div>
+                    <div class="result-value">$${dailyVaR.toFixed(2)} (${(dailyVaR/totalValue*100).toFixed(2)}% of portfolio)</div>
+                </div>
+            `;
+
+            output += `<h4>Position Breakdown:</h4>`;
+            for (let pos of positions) {
+                output += `<div>${pos.symbol}: ${pos.weight}% (${pos.volatility}% vol)</div>`;
+            }
+
+            output += `<div class="warning-text">⚠️ This calculation assumes no correlation between positions. Actual VaR may be higher during market stress when correlations increase.</div>`;
+
+            document.getElementById('pf-output').innerHTML = output;
+            document.getElementById('pf-results').classList.add('show');
+        }
+
+        function calculateRiskReturn() {
+            const returnsText = document.getElementById('rr-returns').value;
+            const riskFreeRate = parseFloat(document.getElementById('rr-risk-free').value) || 0;
+            const periodsPerYear = parseInt(document.getElementById('rr-periods').value);
+
+            if (!returnsText) {
+                alert('Please enter returns data');
+                return;
+            }
+
+            const returns = returnsText.split(',').map(r => parseFloat(r.trim())).filter(r => !isNaN(r));
+
+            if (returns.length < 2) {
+                alert('Please enter at least 2 return values');
+                return;
+            }
+
+            // Calculate metrics
+            const meanReturn = returns.reduce((a, b) => a + b, 0) / returns.length;
+            const variance = returns.reduce((sum, r) => sum + Math.pow(r - meanReturn, 2), 0) / (returns.length - 1);
+            const stdDev = Math.sqrt(variance);
+
+            // Annualized metrics
+            const annualizedReturn = meanReturn * periodsPerYear;
+            const annualizedVolatility = stdDev * Math.sqrt(periodsPerYear);
+            const excessReturn = annualizedReturn - riskFreeRate;
+            const sharpeRatio = excessReturn / annualizedVolatility;
+
+            // Drawdown calculation
+            let peak = returns[0];
+            let maxDrawdown = 0;
+            let currentDrawdown = 0;
+
+            for (let i = 1; i < returns.length; i++) {
+                const cumReturn = returns.slice(0, i+1).reduce((a, b) => a + b, 0);
+                if (cumReturn > peak) {
+                    peak = cumReturn;
+                    currentDrawdown = 0;
+                } else {
+                    currentDrawdown = peak - cumReturn;
+                    maxDrawdown = Math.max(maxDrawdown, currentDrawdown);
+                }
+            }
+
+            const output = `
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Sample Size:</div>
+                    <div class="result-value">${returns.length} periods</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Mean Return (per period):</div>
+                    <div class="result-value">${meanReturn.toFixed(3)}%</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Volatility (per period):</div>
+                    <div class="result-value">${stdDev.toFixed(3)}%</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Annualized Return:</div>
+                    <div class="result-value">${annualizedReturn.toFixed(2)}%</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Annualized Volatility:</div>
+                    <div class="result-value">${annualizedVolatility.toFixed(2)}%</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Sharpe Ratio:</div>
+                    <div class="result-value">${sharpeRatio.toFixed(3)}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div class="result-label">Maximum Drawdown:</div>
+                    <div class="result-value">${maxDrawdown.toFixed(2)}%</div>
+                </div>
+                <div class="warning-text">⚠️ Past performance does not guarantee future results. These metrics are based on historical data only.</div>
+            `;
+
+            document.getElementById('rr-output').innerHTML = output;
+            document.getElementById('rr-results').classList.add('show');
+        }
+    </script>
+</body>
+</html>
