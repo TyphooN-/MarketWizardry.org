@@ -180,45 +180,72 @@ class PortfolioCalculator:
         self._load_data()
         self.lookup_tool = SymbolLookupTool(self)
 
-    def _find_latest_files(self) -> Dict[str, str]:
-        """Find the latest CSV files for each asset type."""
+    def _find_latest_files(self) -> Dict[str, List[str]]:
+        """Find the latest CSV files for all asset types (Stocks, CFDs, Futures)."""
         latest_files = {}
 
-        # VaR files
-        var_files = glob.glob("var-explorer/SymbolsExport-Darwinex-Live-*.csv")
+        # VaR files - get latest for each asset type
+        var_patterns = [
+            "var-explorer/SymbolsExport-Darwinex-Live-Stocks-*.csv",
+            "var-explorer/SymbolsExport-Darwinex-Live-CFD-*.csv",
+            "var-explorer/SymbolsExport-Darwinex-Live-Futures-*.csv"
+        ]
+
+        var_files = []
+        for pattern in var_patterns:
+            files = glob.glob(pattern)
+            if files:
+                latest = max(files, key=lambda x: os.path.getctime(x))
+                var_files.append(latest)
+
         if var_files:
-            latest_files['var'] = max(var_files, key=lambda x: os.path.getctime(x))
+            latest_files['var'] = var_files
 
-        # ATR files
-        atr_files = glob.glob("atr-explorer/SymbolsExport-Darwinex-Live-*.csv")
+        # ATR files - get latest for each asset type
+        atr_patterns = [
+            "atr-explorer/SymbolsExport-Darwinex-Live-Stocks-*.csv",
+            "atr-explorer/SymbolsExport-Darwinex-Live-CFD-*.csv",
+            "atr-explorer/SymbolsExport-Darwinex-Live-Futures-*.csv"
+        ]
+
+        atr_files = []
+        for pattern in atr_patterns:
+            files = glob.glob(pattern)
+            if files:
+                latest = max(files, key=lambda x: os.path.getctime(x))
+                atr_files.append(latest)
+
         if atr_files:
-            latest_files['atr'] = max(atr_files, key=lambda x: os.path.getctime(x))
+            latest_files['atr'] = atr_files
 
-        # EV files
-        ev_files = glob.glob("ev-explorer/SymbolsExport-Darwinex-Live-*-EV.csv")
+        # EV files - only stocks available
+        ev_files = glob.glob("ev-explorer/SymbolsExport-Darwinex-Live-Stocks-*-EV.csv")
         if ev_files:
-            latest_files['ev'] = max(ev_files, key=lambda x: os.path.getctime(x))
+            latest_files['ev'] = [max(ev_files, key=lambda x: os.path.getctime(x))]
 
         return latest_files
 
     def _load_data(self):
-        """Load data from the latest CSV files."""
+        """Load data from all latest CSV files (Stocks, CFDs, Futures)."""
         print("🔄 Loading latest market data...")
 
-        # Load VaR data
+        # Load VaR data from all asset types
         if 'var' in self.latest_files:
-            print(f"📊 Loading VaR data from: {self.latest_files['var']}")
-            self._load_var_data(self.latest_files['var'])
+            for filename in self.latest_files['var']:
+                print(f"📊 Loading VaR data from: {os.path.basename(filename)}")
+                self._load_var_data(filename)
 
-        # Load ATR data
+        # Load ATR data from all asset types
         if 'atr' in self.latest_files:
-            print(f"📈 Loading ATR data from: {self.latest_files['atr']}")
-            self._load_atr_data(self.latest_files['atr'])
+            for filename in self.latest_files['atr']:
+                print(f"📈 Loading ATR data from: {os.path.basename(filename)}")
+                self._load_atr_data(filename)
 
         # Load EV data
         if 'ev' in self.latest_files:
-            print(f"💰 Loading EV data from: {self.latest_files['ev']}")
-            self._load_ev_data(self.latest_files['ev'])
+            for filename in self.latest_files['ev']:
+                print(f"💰 Loading EV data from: {os.path.basename(filename)}")
+                self._load_ev_data(filename)
 
     def _load_var_data(self, filename: str):
         """Load VaR data from CSV."""
