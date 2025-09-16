@@ -967,6 +967,13 @@ def extract_title_and_summary(content, filename):
         title = title.replace(date_match.group(1) + '-', '')
     title = title.replace('-', ' ').replace('_', ' ').title()
 
+    if filename == '09092025-C.txt':
+        title = "Citigroup Analysis"
+    elif filename == '09082025-SRPT.txt':
+        title = "SRPT - Sarepta Therapeutics High-Volatility Biotech Opportunity Analysis"
+    elif filename == 'understanding-iqr-analysis.txt':
+        title = "Understanding IQR (Interquartile Range) Analysis"
+
     # Add acronyms for educational posts
     if 'what-is-value-at-risk' in filename.lower():
         title = title.replace('Var', '(VaR)')
@@ -974,8 +981,6 @@ def extract_title_and_summary(content, filename):
         title = title.replace('Atr', '(ATR)')
     elif 'what-is-enterprise-value' in filename.lower():
         title = title.replace('Ev', '(EV)')
-    elif 'understanding-iqr' in filename.lower():
-        title = title.replace('Iqr', 'IQR')
 
     section_title = f"📊 {title}"
 
@@ -983,6 +988,7 @@ def extract_title_and_summary(content, filename):
     summary = generate_witty_description(content, filename, title)
     
     return title, summary, section_title
+
 
 
 def generate_html_from_txt(txt_path, force_regenerate=False):
