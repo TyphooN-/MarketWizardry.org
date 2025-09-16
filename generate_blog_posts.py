@@ -982,6 +982,11 @@ def extract_title_and_summary(content, filename):
     elif 'what-is-enterprise-value' in filename.lower():
         title = title.replace('Ev', '(EV)')
 
+    # Add question marks to question word titles
+    question_words = ['What ', 'When ', 'Who ', 'Why ', 'How ']
+    if any(title.startswith(word) for word in question_words):
+        title = title + '?'
+
     section_title = f"📊 {title}"
 
     # Generate witty summary based on content
@@ -1104,13 +1109,13 @@ def update_blog_index(all_new_entries):
     entries_section = '\n'.join(entries_html)
 
     # Replace the grid content or create it if it doesn't exist
-    grid_pattern = r'(<div class="grid">)(.*?)(</div>\s*</div>\s*</body>)'
+    grid_pattern = r'(        <div class="grid">)(.*?)(        </div>\s*</html>)'
 
     # Try to find existing grid wrapper first
     grid_match = re.search(grid_pattern, current_content, flags=re.DOTALL)
     if grid_match:
         print("Found existing grid wrapper, replacing content...")
-        replacement = f'\1\n{entries_section}\n        \3'
+        replacement = f'\1\n{entries_section}\n\3'
         new_content = re.sub(grid_pattern, replacement, current_content, flags=re.DOTALL)
     else:
         print("No grid wrapper found, creating new structure...")
