@@ -1288,6 +1288,36 @@ def generate_flavor_text(title, filename):
     elif 'understanding-iqr-analysis' in filename_lower or 'iqr analysis' in title_lower:
         return select_unused_flavor_text(educational_texts['iqr'], "Statistical analysis education for data miners who think robust statistics can make unreliable data reliable.")
 
+    # Check for Darwinex/Exchange-specific content
+    darwinex_texts = {
+        'rating_cap': [
+            "Rating system analysis for traders who think Darwinex algorithms are more predictable than their ex-wives.",
+            "Darwinex rating mechanics for people who optimize metrics instead of profits and wonder why investors flee.",
+            "Platform rating breakdown proving your five-star strategy performs worse than penny stock recommendations.",
+            "Darwinex allocation algorithm education for traders whose ratings look better than their actual returns.",
+            "Rating cap analysis for people who think gaming platform metrics beats generating actual alpha."
+        ],
+        'proactive_risk': [
+            "Risk management education for Darwinex traders who think VaR targeting beats actual trading discipline.",
+            "Platform risk engine guide for people who blame allocation algorithms for their lack of consistency.",
+            "Darwinex VaR management for traders who optimize for platform metrics while ignoring market reality.",
+            "Risk corridor education proving your proactive management is about as proactive as reactive arthritis."
+        ],
+        'general_darwinex': [
+            "Darwinex platform analysis for signal providers who confuse technology with competence.",
+            "Algorithmic trading platform education for copy-trading victims who think diversification equals Darwin selection.",
+            "Trading platform guide for signal chasers who confuse technological sophistication with investment returns.",
+            "Darwinex ecosystem breakdown for those who think platform optimization beats market understanding."
+        ]
+    }
+
+    if 'rating' in filename_lower and 'cap' in filename_lower:
+        return select_unused_flavor_text(darwinex_texts['rating_cap'], "Rating system analysis for traders who think Darwinex algorithms are more predictable than their ex-wives.")
+    elif 'proactive-risk-management' in filename_lower or ('proactive' in title_lower and 'risk' in title_lower):
+        return select_unused_flavor_text(darwinex_texts['proactive_risk'], "Risk management education for Darwinex traders who think VaR targeting beats actual trading discipline.")
+    elif 'darwinex' in filename_lower or 'darwinex' in title_lower:
+        return select_unused_flavor_text(darwinex_texts['general_darwinex'], "Darwinex platform analysis for signal providers who confuse technology with competence.")
+
     # Check for rubber band effect content
     if 'rubber' in title_lower or 'band' in title_lower or ('var' in title_lower and 'darwinex' in title_lower):
         rubber_band_texts = [

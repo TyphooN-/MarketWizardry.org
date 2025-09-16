@@ -9,8 +9,8 @@ The DARWIN Concept
 DARWIN = A tradeable asset that tracks a trader's strategy
 
 Key characteristics:
-- Risk-adjusted to 6.5% VaR (Value at Risk)
-- VaR corridor of 3.25% to 6.5%
+- Risk-adjusted to 6.5% Target VaR (Value at Risk)
+- VaR corridor maintained between 3.25% and 6.5%
 - Standardized leverage across all DARWINs
 - Real money, real trades, real results
 - No simulation or paper trading
@@ -37,7 +37,7 @@ The Risk Engine Magic
 Darwinex's proprietary risk engine is the secret sauce:
 
 VaR Normalization:
-- All DARWINs adjusted to 6.5% monthly VaR
+- All DARWINs adjusted to 6.5% Target VaR monthly
 - The VaR corridor is maintained between 3.25% and 6.5%
 - Removes leverage differences between traders
 - Creates apples-to-apples comparisons
@@ -121,7 +121,7 @@ The VaR Rubber Band Effect
 Here's where it gets interesting for savvy investors...
 
 Price-VaR Relationship:
-When DARWIN prices move significantly, the underlying VaR may temporarily deviate from the 10% target. This creates a "rubber band" effect where the risk engine must adjust leverage to bring VaR back to target.
+When DARWIN prices move significantly, the underlying VaR may temporarily deviate from the 6.5% target. This creates a "rubber band" effect where the risk engine must adjust leverage to bring VaR back to target.
 
 Lucrative Opportunities:
 1. Mean Reversion Plays: Large price moves often overshoot, creating reversion opportunities

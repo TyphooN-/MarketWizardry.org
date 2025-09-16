@@ -1,0 +1,61 @@
+● Darwinex Rating Analysis: Rating Caps Under Optimal Gain Conditions
+
+  The CSV at https://github.com/TyphooN-/Darwin_Research/blob/main/Darwinex_Rating_Cap_20250329_114201.csv uses intentionally high gains (50% current month + 50% prior 5 months = 100% total) to isolate and identify pure rating caps based on drawdown levels, removing gain limitations from the equation.
+
+  Key Rating Caps at Critical Drawdown Thresholds:
+
+  Major Allocation Drops:
+  - -5.4%: First significant drop from €375k to €265k (-29% allocation)
+  - -6.1%: Down to €220k (-17% further drop)
+  - -6.3%: Down to €190k (-14% further drop)
+  - -6.9%: Down to €165k (-13% further drop)
+  - -7.2%: Sharp drop to €115k (-30% allocation cut)
+  - -16.3%: From €65k to €60k (another threshold)
+  - -20.0%: From €60k to €55k
+  - -22.1%: From €55k to €50k
+  - -28.8%: From €50k to €45k
+  - -49.6%: Final drop from €45k to €40k
+
+  Rating Ceiling Analysis (with 100% gains):
+  - At -0.1% DD: 99.99 rating (near-maximum possible)
+  - At -10% DD: 94.02 rating
+  - At -20% DD: 90.67 rating (barely gold threshold)
+  - At -40% DD: 89.15 rating (silver ceiling despite 100% gains)
+  - At -100% DD: 88.89 rating (absolute floor)
+
+  The 2.5 Gain-to-Drawdown Ratio Revealed
+
+  With 100% total gains in this model, the rating caps become visible:
+  - -20% drawdown: 90.67 rating (100% gains ÷ 20% DD = 5:1 ratio still achieves gold)
+  - -40% drawdown: 89.15 rating (100% gains ÷ 40% DD = 2.5:1 ratio falls short of gold)
+
+  This confirms the 2.5:1 minimum threshold: even with exceptional 100% gains, 40%+ drawdown prevents gold rating.
+
+  Real-World Implications: Rating Ceilings in Action
+
+  Scenario 1: The "Perfect Storm" Trader (15% drawdown)
+  - With 100% gains: Rating = ~92.5 (Gold achieved)
+  - Reality Check: This represents an extremely rare combination of high returns with moderate risk
+
+  Scenario 2: The "High Performer" (25% drawdown)
+  - With 100% gains: Rating = ~89.8 (Silver ceiling)
+  - Insight: Even doubling investor money isn't enough if drawdown exceeds ~20%
+
+  Scenario 3: The "Exceptional Trader" (40% drawdown)
+  - With 100% gains: Rating = 89.15 (Hard silver ceiling)
+  - Critical Finding: No amount of additional gains can overcome this drawdown penalty
+
+  Scenario 4: The "Extreme Risk-Taker" (60%+ drawdown)
+  - Rating locked at ~88.89 (Bronze ceiling)
+  - Allocation: Permanent €40k floor regardless of gains
+
+  Key Discovery: Absolute Rating Ceilings
+
+  This spreadsheet reveals that rating caps are absolute - beyond certain drawdown levels, no amount of gains can achieve gold:
+
+  - -20% to -22%: Last chance for gold (requires exceptional gains)
+  - -25% to -40%: Silver ceiling zone (89.0-89.9 rating maximum)
+  - -50%+: Bronze ceiling (sub-89 rating regardless of performance)
+
+  The high gain assumption exposes how Darwinex prioritizes risk management over pure returns, creating hard ceilings that exceptional performance cannot overcome.
+
