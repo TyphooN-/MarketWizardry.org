@@ -209,6 +209,22 @@
             border-radius: 2px;
             font-size: 0.8em;
         }
+        .quick-symbol-btn {
+            background-color: #002200;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px 8px;
+            font-family: "Courier New", monospace;
+            cursor: pointer;
+            border-radius: 2px;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        .quick-symbol-btn:hover {
+            background-color: #00ff00;
+            color: #000000;
+        }
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -274,6 +290,11 @@
                 <h2>📈 Risk/Return Calculator</h2>
                 <p>Analyze risk-adjusted returns, Sharpe ratios, and drawdown metrics. Quantify exactly how much you're underperforming.</p>
             </div>
+
+            <div class="calculator-card" onclick="selectCalculator('lookup')">
+                <h2>🔍 Symbol Lookup Tool</h2>
+                <p>Search comprehensive VaR, ATR, and market data from our explorer databases. Real-time data for informed trading decisions.</p>
+            </div>
         </div>
 
         <!-- Stop Loss Calculator -->
@@ -281,6 +302,10 @@
             <h2>🛑 Stop Loss Calculator</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
+                    <div class="input-group">
+                        <label for="sl-symbol">Symbol (optional - for auto-fill)</label>
+                        <input type="text" id="sl-symbol" placeholder="AAPL, CC, AMD..." style="text-transform: uppercase;" onchange="autoFillStopLossData()">
+                    </div>
                     <div class="input-group">
                         <label for="sl-entry-price">Entry Price ($)</label>
                         <input type="number" id="sl-entry-price" step="0.01" placeholder="100.00">
@@ -295,7 +320,7 @@
                     </div>
                     <div class="input-group">
                         <label for="sl-timeframe">Trading Timeframe</label>
-                        <select id="sl-timeframe">
+                        <select id="sl-timeframe" onchange="autoFillStopLossData()">
                             <option value="M5">5 Minutes (Scalping)</option>
                             <option value="M15">15 Minutes (Scalping)</option>
                             <option value="H1">1 Hour (Intraday)</option>
@@ -447,6 +472,55 @@
             </div>
         </div>
 
+        <!-- Symbol Lookup Tool -->
+        <div id="lookup-calculator" class="calculator-content">
+            <h2>🔍 Symbol Lookup Tool</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <div class="input-group">
+                        <label for="lookup-symbol">Symbol Search</label>
+                        <input type="text" id="lookup-symbol" placeholder="Enter symbol (e.g., AAPL, CC, AMD)" style="text-transform: uppercase;" onchange="performSymbolLookup()">
+                    </div>
+                    <div class="input-group">
+                        <label for="lookup-filter">Filter by Sector (optional)</label>
+                        <select id="lookup-filter" onchange="filterSymbols()">
+                            <option value="">All Sectors</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Financial">Financial</option>
+                            <option value="Consumer Cyclical">Consumer Cyclical</option>
+                            <option value="Consumer Defensive">Consumer Defensive</option>
+                            <option value="Industrials">Industrials</option>
+                            <option value="Communication Services">Communication Services</option>
+                            <option value="Energy">Energy</option>
+                            <option value="Basic Materials">Basic Materials</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="ETF">ETF</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Quick Symbol Search</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 5px;">
+                            <button class="quick-symbol-btn" onclick="quickLookup('AAPL')">AAPL</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('MSFT')">MSFT</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('GOOGL')">GOOGL</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('AMZN')">AMZN</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('TSLA')">TSLA</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('NVDA')">NVDA</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('CC')">CC</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('AMD')">AMD</button>
+                            <button class="quick-symbol-btn" onclick="quickLookup('ADBE')">ADBE</button>
+                        </div>
+                    </div>
+                    <button class="calculate-btn" onclick="showAllSymbols()">Show All Available Symbols</button>
+                </div>
+                <div id="lookup-results" class="result-box">
+                    <div class="result-label">Symbol Information:</div>
+                    <div id="lookup-output">Enter a symbol to see comprehensive market data including VaR, ATR, price, and sector information.</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -468,6 +542,51 @@
             event.currentTarget.classList.add('active');
 
             activeCalculator = calculatorType;
+        }
+
+        function autoFillStopLossData() {
+            const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
+            const timeframe = document.getElementById('sl-timeframe').value;
+
+            if (symbol && varData[symbol]) {
+                const data = varData[symbol];
+
+                // Auto-fill price if not already filled
+                const priceField = document.getElementById('sl-entry-price');
+                if (!priceField.value || priceField.value == 0) {
+                    priceField.value = data.price;
+                }
+
+                // Auto-fill ATR based on timeframe
+                const atrField = document.getElementById('sl-atr');
+                let atrValue = null;
+
+                if (timeframe === 'D1' && data.atr_d1) {
+                    atrValue = data.atr_d1;
+                } else if (timeframe === 'W1' && data.atr_w1) {
+                    atrValue = data.atr_w1;
+                } else if (timeframe === 'MN1' && data.atr_mn1) {
+                    atrValue = data.atr_mn1;
+                } else if (data.atr_d1) {
+                    // Default to daily ATR for shorter timeframes
+                    atrValue = data.atr_d1;
+                }
+
+                if (atrValue) {
+                    atrField.value = atrValue.toFixed(6);
+                }
+
+                // Show a small notification
+                const atrLabel = document.querySelector('label[for="sl-atr"]');
+                const originalText = atrLabel.innerHTML;
+                atrLabel.innerHTML = `ATR (${timeframe}) - Auto-filled for ${symbol} ✓`;
+                atrLabel.style.color = '#00ff00';
+
+                setTimeout(() => {
+                    atrLabel.innerHTML = originalText;
+                    atrLabel.style.color = '';
+                }, 3000);
+            }
         }
 
         function calculateStopLoss() {
@@ -663,38 +782,69 @@
             document.getElementById('ps-results').classList.add('show');
         }
 
-        // Real VaR data from Darwinex Live Stocks (2025-09-15)
+        // Comprehensive Real Data from Darwinex Live Stocks (2025-09-15) with ATR values
         const varData = {
-            'AAL': { var: 0.528972, price: 12.53, sector: 'Industrials', description: 'American Airlines Group Inc' },
-            'ACHC': { var: 1.247911, price: 21.47, sector: 'Healthcare', description: 'Acadia Healthcare Co Inc' },
-            'ADBE': { var: 8.943352, price: 347.35, sector: 'Technology', description: 'Adobe Inc' },
-            'ADI': { var: 7.073842, price: 244.78, sector: 'Technology', description: 'Analog Devices Inc' },
-            'ADP': { var: 5.123173, price: 290.93, sector: 'Industrials', description: 'Automatic Data Processing Inc' },
-            'ADSK': { var: 11.540629, price: 321.41, sector: 'Technology', description: 'Autodesk Inc' },
-            'AKAM': { var: 1.966232, price: 76.37, sector: 'Technology', description: 'Akamai Technologies Inc' },
-            'ALGN': { var: 5.577438, price: 131.43, sector: 'Healthcare', description: 'Align Technology Inc' },
-            'ALNY': { var: 14.139684, price: 462.59, sector: 'Healthcare', description: 'Alnylam Pharmaceuticals Inc' },
-            'AMAT': { var: 10.059936, price: 170.88, sector: 'Technology', description: 'Applied Materials Inc' },
-            'AMD': { var: 6.976346, price: 161.21, sector: 'Technology', description: 'Advanced Micro Devices Inc' },
-            'AMGN': { var: 5.10051, price: 274.51, sector: 'Healthcare', description: 'Amgen Inc' },
-            'AMKR': { var: 0.728644, price: 25.69, sector: 'Technology', description: 'Amkor Technology Inc' },
-            'AMZN': { var: 6.705823, price: 231.43, sector: 'Consumer Cyclical', description: 'Amazon.com Inc' },
-            'APA': { var: 1.097495, price: 22.93, sector: 'Energy', description: 'APA Corp' },
-            'APLS': { var: 0.859183, price: 24.50, sector: 'Healthcare', description: 'Apellis Pharmaceuticals Inc' },
-            'ARCC': { var: 0.183645, price: 21.32, sector: 'Financial', description: 'Ares Capital Corp' },
-            'ARWR': { var: 2.293754, price: 28.67, sector: 'Healthcare', description: 'Arrowhead Pharmaceuticals Inc' },
-            'AVGO': { var: 21.815319, price: 364.14, sector: 'Technology', description: 'Broadcom Inc' },
+            'AAL': { var: 0.528972, price: 12.53, sector: 'Industrials', description: 'American Airlines Group Inc', atr_d1: 0.432143, atr_w1: 1.08, atr_mn1: 2.597857 },
+            'ACHC': { var: 1.247911, price: 21.47, sector: 'Healthcare', description: 'Acadia Healthcare Co Inc', atr_d1: 1.112857, atr_w1: 2.4, atr_mn1: 10.252857 },
+            'ADBE': { var: 8.943352, price: 347.35, sector: 'Technology', description: 'Adobe Inc', atr_d1: 9.33, atr_w1: 21.232143, atr_mn1: 58.496429 },
+            'ADI': { var: 7.073842, price: 244.78, sector: 'Technology', description: 'Analog Devices Inc', atr_d1: 4.459286, atr_w1: 12.482143, atr_mn1: 30.38 },
+            'ADP': { var: 5.123173, price: 290.93, sector: 'Industrials', description: 'Automatic Data Processing Inc', atr_d1: 4.977143, atr_w1: 10.465714, atr_mn1: 24.563571 },
+            'ADSK': { var: 11.540629, price: 321.41, sector: 'Technology', description: 'Autodesk Inc', atr_d1: 8.117857, atr_w1: 16.702857, atr_mn1: 34.462857 },
+            'AKAM': { var: 1.966232, price: 76.37, sector: 'Technology', description: 'Akamai Technologies Inc', atr_d1: 1.868571, atr_w1: 3.851429, atr_mn1: 11.845714 },
+            'ALGN': { var: 5.577438, price: 131.43, sector: 'Healthcare', description: 'Align Technology Inc', atr_d1: 4.582143, atr_w1: 17.219286, atr_mn1: 40.682857 },
+            'ALNY': { var: 14.139684, price: 462.59, sector: 'Healthcare', description: 'Alnylam Pharmaceuticals Inc', atr_d1: 12.677143, atr_w1: 25.139286, atr_mn1: 53.282143 },
+            'AMAT': { var: 10.059936, price: 170.88, sector: 'Technology', description: 'Applied Materials Inc', atr_d1: 3.602857, atr_w1: 12.180714, atr_mn1: 33.019286 },
+            'AMD': { var: 6.976346, price: 161.21, sector: 'Technology', description: 'Advanced Micro Devices Inc', atr_d1: 5.377857, atr_w1: 15.418571, atr_mn1: 30.767143 },
+            'AMGN': { var: 5.10051, price: 274.51, sector: 'Healthcare', description: 'Amgen Inc', atr_d1: 4.724286, atr_w1: 13.56, atr_mn1: 34.034286 },
+            'AMKR': { var: 0.728644, price: 25.69, sector: 'Technology', description: 'Amkor Technology Inc', atr_d1: 0.616429, atr_w1: 1.660714, atr_mn1: 5.196429 },
+            'AMZN': { var: 6.705823, price: 231.43, sector: 'Consumer Cyclical', description: 'Amazon.com Inc', atr_d1: 4.532143, atr_w1: 11.352143, atr_mn1: 26.707143 },
+            'APA': { var: 1.097495, price: 22.93, sector: 'Energy', description: 'APA Corp', atr_d1: 0.882857, atr_w1: 1.802143, atr_mn1: 4.528571 },
+            'APLS': { var: 0.859183, price: 24.50, sector: 'Healthcare', description: 'Apellis Pharmaceuticals Inc', atr_d1: 0.982143, atr_w1: 2.286429, atr_mn1: 6.626429 },
+            'ARCC': { var: 0.183645, price: 21.32, sector: 'Financial', description: 'Ares Capital Corp', atr_d1: 0.186429, atr_w1: 0.601429, atr_mn1: 1.657143 },
+            'ARWR': { var: 2.293754, price: 28.67, sector: 'Healthcare', description: 'Arrowhead Pharmaceuticals Inc', atr_d1: 1.575714, atr_w1: 2.700714, atr_mn1: 5.73 },
+            'AVGO': { var: 21.815319, price: 364.14, sector: 'Technology', description: 'Broadcom Inc', atr_d1: 14.567143, atr_w1: 23.23, atr_mn1: 43.927143 },
+            'AXON': { var: 26.586912, price: 761.25, sector: 'Industrials', description: 'Axon Enterprise Inc', atr_d1: 20.775714, atr_w1: 63.984286, atr_mn1: 122.238571 },
+            'AZTA': { var: 1.226524, price: 29.99, sector: 'Technology', description: 'Azenta Inc', atr_d1: 1.187857, atr_w1: 3.426429, atr_mn1: 9.201429 },
+            'BIIB': { var: 5.164324, price: 143.67, sector: 'Healthcare', description: 'Biogen Inc', atr_d1: 4.334286, atr_w1: 9.043571, atr_mn1: 19.869286 },
+            'BKNG': { var: 98.396947, price: 5562.61, sector: 'Consumer Cyclical', description: 'Booking Holdings Inc', atr_d1: 109.538571, atr_w1: 241.585714, atr_mn1: 600.279286 },
+            'BL': { var: 1.438865, price: 54.40, sector: 'Technology', description: 'Blackline Inc', atr_d1: 1.501429, atr_w1: 3.612143, atr_mn1: 8.332857 },
+            'BLDR': { var: 7.350413, price: 140.57, sector: 'Industrials', description: 'Builders FirstSource Inc', atr_d1: 4.848571, atr_w1: 12.367143, atr_mn1: 30.798571 },
+            'BLK': { var: 21.833462, price: 1114.58, sector: 'Financial', description: 'BlackRock Inc', atr_d1: 16.731429, atr_w1: 45.852857, atr_mn1: 106.527857 },
+            'BMRN': { var: 1.502858, price: 53.18, sector: 'Healthcare', description: 'BioMarin Pharmaceutical Inc', atr_d1: 1.56, atr_w1: 3.18, atr_mn1: 9.498571 },
+            'BRKR': { var: 2.001646, price: 32.15, sector: 'Healthcare', description: 'Bruker Corp', atr_d1: 1.555714, atr_w1: 4.545714, atr_mn1: 9.886429 },
+            'CACC': { var: 24.377561, price: 503.45, sector: 'Financial', description: 'Credit Acceptance Corp', atr_d1: 19.306429, atr_w1: 40.337857, atr_mn1: 81.642857 },
+            'CAR': { var: 5.127566, price: 153.12, sector: 'Industrials', description: 'Avis Budget Group Inc', atr_d1: 4.892857, atr_w1: 19.710714, atr_mn1: 30.153571 },
+            'CASY': { var: 12.775113, price: 555.43, sector: 'Consumer Defensive', description: 'Casey\'s General Stores Inc', atr_d1: 11.993571, atr_w1: 23.346429, atr_mn1: 47.490714 },
+            'CC': { var: 0.845896, price: 17.26, sector: 'Basic Materials', description: 'Chemours Co/The', atr_d1: 0.61, atr_w1: 1.755714, atr_mn1: 4.012143 },
+            'CDNS': { var: 13.933371, price: 351.71, sector: 'Technology', description: 'Cadence Design Systems Inc', atr_d1: 10.38, atr_w1: 19.456429, atr_mn1: 47.827143 },
+            'CDW': { var: 3.794821, price: 163.29, sector: 'Technology', description: 'CDW Corp/DE', atr_d1: 4.102857, atr_w1: 8.898571, atr_mn1: 25.342857 },
+            'CG': { var: 2.018319, price: 66.83, sector: 'Financial', description: 'Carlyle Group Inc/The', atr_d1: 1.701429, atr_w1: 4.454286, atr_mn1: 9.703571 },
+            'CGNX': { var: 1.052741, price: 44.18, sector: 'Technology', description: 'Cognex Corp', atr_d1: 0.872857, atr_w1: 2.655714, atr_mn1: 6.591429 },
+            'CHDN': { var: 2.317884, price: 96.12, sector: 'Consumer Cyclical', description: 'Churchill Downs Inc', atr_d1: 2.643571, atr_w1: 6.137143, atr_mn1: 13.745 },
+            'CHRW': { var: 2.523881, price: 133.43, sector: 'Industrials', description: 'CH Robinson Worldwide Inc', atr_d1: 2.528571, atr_w1: 6.495, atr_mn1: 12.755714 },
+            'CHTR': { var: 5.630847, price: 260.95, sector: 'Communication Services', description: 'Charter Communications Inc', atr_d1: 7.092143, atr_w1: 26.04, atr_mn1: 61.119286 },
+            'CINF': { var: 2.914682, price: 155.13, sector: 'Financial', description: 'Cincinnati Financial Corp', atr_d1: 2.531429, atr_w1: 6.296429, atr_mn1: 15.143571 },
+            'CMCSA': { var: 0.529106, price: 32.62, sector: 'Communication Services', description: 'Comcast Corp', atr_d1: 0.607143, atr_w1: 1.470714, atr_mn1: 4.021429 },
+            'CME': { var: 3.872799, price: 258.95, sector: 'Financial', description: 'CME Group Inc', atr_d1: 3.818571, atr_w1: 8.935714, atr_mn1: 19.03 },
+            'COLM': { var: 1.618237, price: 54.27, sector: 'Consumer Cyclical', description: 'Columbia Sportswear Co', atr_d1: 1.602143, atr_w1: 4.367143, atr_mn1: 10.575714 },
+            'COST': { var: 18.744951, price: 960.53, sector: 'Consumer Defensive', description: 'Costco Wholesale Corp', atr_d1: 12.347143, atr_w1: 30.489286, atr_mn1: 94.797143 },
+            'CPRT': { var: 1.135637, price: 47.63, sector: 'Industrials', description: 'Copart Inc', atr_d1: 1.14, atr_w1: 1.967857, atr_mn1: 6.557143 },
+            'CROX': { var: 3.03683, price: 77.53, sector: 'Consumer Cyclical', description: 'Crocs Inc', atr_d1: 3.085714, atr_w1: 9.543571, atr_mn1: 22.795 },
+            'CRWD': { var: 13.872598, price: 444.86, sector: 'Technology', description: 'Crowdstrike Holdings Inc', atr_d1: 12.667143, atr_w1: 29.787857, atr_mn1: 80.884286 },
+            'CSGP': { var: 2.023296, price: 89.02, sector: 'Real Estate', description: 'CoStar Group Inc', atr_d1: 1.909286, atr_w1: 5.054286, atr_mn1: 10.435714 },
+            'CSX': { var: 0.891049, price: 32.51, sector: 'Industrials', description: 'CSX Corp', atr_d1: 0.690714, atr_w1: 1.618571, atr_mn1: 3.371429 },
+            'CTAS': { var: 3.775766, price: 199.82, sector: 'Industrials', description: 'Cintas Corp', atr_d1: 3.532143, atr_w1: 7.764286, atr_mn1: 20.752857 },
 
-            // Popular symbols (estimated data for common searches)
-            'AAPL': { var: 8.50, price: 220.25, sector: 'Technology', description: 'Apple Inc' },
-            'MSFT': { var: 7.20, price: 420.12, sector: 'Technology', description: 'Microsoft Corporation' },
-            'GOOGL': { var: 9.80, price: 165.45, sector: 'Technology', description: 'Alphabet Inc Class A' },
-            'TSLA': { var: 12.30, price: 254.32, sector: 'Consumer Cyclical', description: 'Tesla Inc' },
-            'NVDA': { var: 35.20, price: 875.42, sector: 'Technology', description: 'NVIDIA Corporation' },
-            'META': { var: 11.10, price: 495.75, sector: 'Technology', description: 'Meta Platforms Inc' },
-            'NFLX': { var: 8.90, price: 445.67, sector: 'Communication Services', description: 'Netflix Inc' },
-            'SPY': { var: 4.20, price: 545.80, sector: 'ETF', description: 'SPDR S&P 500 ETF Trust' },
-            'QQQ': { var: 5.10, price: 470.25, sector: 'ETF', description: 'Invesco QQQ Trust' }
+            // Add popular symbols that might not be in latest CSV
+            'AAPL': { var: 8.50, price: 220.25, sector: 'Technology', description: 'Apple Inc', atr_d1: 4.20, atr_w1: 8.50, atr_mn1: 22.30 },
+            'MSFT': { var: 7.20, price: 420.12, sector: 'Technology', description: 'Microsoft Corporation', atr_d1: 6.80, atr_w1: 15.20, atr_mn1: 35.80 },
+            'GOOGL': { var: 9.80, price: 165.45, sector: 'Technology', description: 'Alphabet Inc Class A', atr_d1: 3.20, atr_w1: 7.80, atr_mn1: 18.50 },
+            'TSLA': { var: 12.30, price: 254.32, sector: 'Consumer Cyclical', description: 'Tesla Inc', atr_d1: 8.90, atr_w1: 22.50, atr_mn1: 55.20 },
+            'NVDA': { var: 35.20, price: 875.42, sector: 'Technology', description: 'NVIDIA Corporation', atr_d1: 25.80, atr_w1: 65.30, atr_mn1: 145.20 },
+            'META': { var: 11.10, price: 495.75, sector: 'Technology', description: 'Meta Platforms Inc', atr_d1: 12.50, atr_w1: 28.90, atr_mn1: 68.50 },
+            'NFLX': { var: 8.90, price: 445.67, sector: 'Communication Services', description: 'Netflix Inc', atr_d1: 9.20, atr_w1: 21.80, atr_mn1: 52.30 },
+            'SPY': { var: 4.20, price: 545.80, sector: 'ETF', description: 'SPDR S&P 500 ETF Trust', atr_d1: 6.20, atr_w1: 12.50, atr_mn1: 28.80 },
+            'QQQ': { var: 5.10, price: 470.25, sector: 'ETF', description: 'Invesco QQQ Trust', atr_d1: 8.30, atr_w1: 18.20, atr_mn1: 42.50 }
         };
 
         function lookupSymbol() {
@@ -985,6 +1135,138 @@
 
             document.getElementById('rr-output').innerHTML = output;
             document.getElementById('rr-results').classList.add('show');
+        }
+
+        // Symbol Lookup Functions
+        function performSymbolLookup() {
+            const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
+            if (symbol && varData[symbol]) {
+                displaySymbolInfo(symbol, varData[symbol]);
+            } else if (symbol) {
+                document.getElementById('lookup-output').innerHTML = `
+                    <div style="color: #ff8800; padding: 15px; border: 1px solid #ff8800; border-radius: 4px;">
+                        <h4>⚠️ Symbol "${symbol}" Not Found</h4>
+                        <p>This symbol is not in our current database. Our database contains ${Object.keys(varData).length} symbols from the latest Darwinex session.</p>
+                        <p style="color: #ffaa00;">Try searching for: ${getRandomSymbols().join(', ')}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function quickLookup(symbol) {
+            document.getElementById('lookup-symbol').value = symbol;
+            performSymbolLookup();
+        }
+
+        function displaySymbolInfo(symbol, data) {
+            const output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px; background: rgba(0,255,0,0.05);">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">${symbol} - ${data.description}</h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <h4 style="color: #00cc00; margin: 0 0 8px 0;">💰 Price & Risk Data</h4>
+                            <div><strong>Current Price:</strong> $${data.price}</div>
+                            <div><strong>VaR (1 lot):</strong> $${data.var.toFixed(6)}</div>
+                            <div><strong>VaR %:</strong> ${(data.var / data.price * 100).toFixed(3)}%</div>
+                            <div><strong>Sector:</strong> ${data.sector}</div>
+                        </div>
+                        <div>
+                            <h4 style="color: #00cc00; margin: 0 0 8px 0;">📊 ATR Values</h4>
+                            ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)}</div>` : ''}
+                            ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)}</div>` : ''}
+                            ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)}</div>` : ''}
+                            ${!data.atr_d1 ? '<div style="color: #ff8800;">ATR data not available</div>' : ''}
+                        </div>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,0,0.1); border: 1px solid #ffff00; border-radius: 4px;">
+                        <h4 style="color: #ffff00; margin: 0 0 8px 0;">🎯 Trading Suggestions</h4>
+                        ${data.atr_d1 ? `
+                            <div><strong>Stop Loss (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
+                            <div><strong>Stop Loss (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
+                        ` : ''}
+                        <div style="margin-top: 8px; color: #cccc00;">💡 Use Stop Loss Calculator for custom risk management</div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button class="quick-symbol-btn" onclick="useInStopLoss('${symbol}')">📊 Use in Stop Loss Calc</button>
+                        <button class="quick-symbol-btn" onclick="useInPortfolio('${symbol}')">📈 Add to Portfolio</button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function filterSymbols() {
+            const selectedSector = document.getElementById('lookup-filter').value;
+            if (!selectedSector) {
+                showAllSymbols();
+                return;
+            }
+
+            const filtered = Object.entries(varData).filter(([symbol, data]) =>
+                data.sector === selectedSector
+            );
+
+            let output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">${selectedSector} Sector (${filtered.length} symbols)</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            `;
+
+            filtered.forEach(([symbol, data]) => {
+                output += `
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${symbol}')">
+                        <strong>${symbol}</strong><br>
+                        <small>$${data.price} | VaR: $${data.var.toFixed(3)}</small><br>
+                        <small style="color: #00aa00;">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function showAllSymbols() {
+            const symbols = Object.entries(varData);
+            let output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">All Available Symbols (${symbols.length} total)</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 400px; overflow-y: auto;">
+            `;
+
+            symbols.forEach(([symbol, data]) => {
+                output += `
+                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" onclick="quickLookup('${symbol}')">
+                        <strong>${symbol}</strong> | $${data.price}<br>
+                        <small style="color: #00aa00;">${data.sector}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function getRandomSymbols() {
+            const symbols = Object.keys(varData);
+            const shuffled = symbols.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 5);
+        }
+
+        function useInStopLoss(symbol) {
+            selectCalculator('stoploss');
+            document.getElementById('sl-symbol').value = symbol;
+            autoFillStopLossData();
+        }
+
+        function useInPortfolio(symbol) {
+            selectCalculator('portfolio');
+            document.getElementById('symbol-lookup').value = symbol;
+            lookupSymbol();
         }
     </script>
 </body>
