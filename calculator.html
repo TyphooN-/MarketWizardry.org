@@ -341,11 +341,6 @@
                 <p>Calculate portfolio Value at Risk using multiple positions with correlation adjustments. Watch your diversification fail mathematically.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('riskreturn')">
-                <h2>📈 Risk/Return Calculator</h2>
-                <p>Analyze risk-adjusted returns, Sharpe ratios, and drawdown metrics. Quantify exactly how much you're underperforming.</p>
-            </div>
-
             <div class="calculator-card" onclick="selectCalculator('lookup')">
                 <h2>🔍 Symbol Lookup Tool</h2>
                 <p>Search comprehensive VaR, ATR, and market data from our explorer databases. Real-time data for informed trading decisions.</p>
@@ -521,36 +516,6 @@
             <div id="pf-results" class="result-box">
                 <div class="result-label">Portfolio VaR Results:</div>
                 <div id="pf-output"></div>
-            </div>
-        </div>
-
-        <!-- Risk/Return Calculator -->
-        <div id="riskreturn-calculator" class="calculator-content">
-            <h2>📈 Risk/Return Calculator</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div>
-                    <div class="input-group">
-                        <label for="rr-returns">Returns (% per period, comma-separated)</label>
-                        <textarea id="rr-returns" style="height: 100px; resize: vertical;" placeholder="2.5, -1.2, 3.1, 0.8, -0.5, 1.9, -2.1"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label for="rr-risk-free">Risk-Free Rate (% annually)</label>
-                        <input type="number" id="rr-risk-free" step="0.01" placeholder="3.5">
-                    </div>
-                    <div class="input-group">
-                        <label for="rr-periods">Periods per Year</label>
-                        <select id="rr-periods">
-                            <option value="252">Daily (252)</option>
-                            <option value="52">Weekly (52)</option>
-                            <option value="12">Monthly (12)</option>
-                        </select>
-                    </div>
-                    <button class="calculate-btn" onclick="calculateRiskReturn()">Calculate Metrics</button>
-                </div>
-                <div id="rr-results" class="result-box">
-                    <div class="result-label">Risk/Return Metrics:</div>
-                    <div id="rr-output"></div>
-                </div>
             </div>
         </div>
 
@@ -2386,16 +2351,18 @@
         // Symbol Lookup Functions
         function performSymbolLookup() {
             const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
-            if (symbol && varData[symbol]) {
+            if (symbol && filteredVarData[symbol]) {
+                displaySymbolInfo(symbol, filteredVarData[symbol]);
+            } else if (symbol && varData[symbol]) {
+                // Fall back to full dataset if not in filtered view
                 displaySymbolInfo(symbol, varData[symbol]);
-            } else if (symbol) {
-                document.getElementById('lookup-output').innerHTML = `
-                    <div style="color: #ff8800; padding: 15px; border: 1px solid #ff8800; border-radius: 4px;">
-                        <h4>⚠️ Symbol "${symbol}" Not Found</h4>
-                        <p>This symbol is not in our current database. Our database contains ${Object.keys(varData).length} symbols from the latest Darwinex session.</p>
-                        <p style="color: #ffaa00;">Try searching for: ${getRandomSymbols().join(', ')}</p>
+                document.getElementById('lookup-output').innerHTML += `
+                    <div style="color: #ffaa00; padding: 10px; margin-top: 10px; border: 1px solid #ffaa00; border-radius: 4px;">
+                        <p>💡 This symbol was found in the full database but not in the current ${getDatasetDisplayName()} filter.</p>
                     </div>
                 `;
+            } else if (symbol) {
+                showNotFound(symbol);
             }
         }
 
@@ -2911,25 +2878,7 @@
             return shuffled.slice(0, 5);
         }
 
-        // Update portfolio functions to also respect dataset filtering
-        const originalAddPosition = addPosition;
-        window.addPosition = function() {
-            const symbol = document.getElementById('portfolio-symbol').value.trim().toUpperCase();
-
-            if (!symbol) {
-                alert('Please enter a symbol');
-                return;
-            }
-
-            // Check in filtered dataset first, then fall back to full dataset for flexibility
-            if (!filteredVarData[symbol] && !varData[symbol]) {
-                alert(`Symbol ${symbol} not found in database. Available in ${getDatasetDisplayName()}: ${Object.keys(filteredVarData).length} symbols.`);
-                return;
-            }
-
-            // Use original function logic but with awareness of dataset selection
-            return originalAddPosition();
-        };
+        // Portfolio functions work with full dataset for flexibility
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
