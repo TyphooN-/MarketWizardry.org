@@ -9,10 +9,10 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
     <!-- Standard Meta Tags -->
-    <meta name="description" content="Darwinex platform analysis for signal providers who confuse technology with competence.">
+    <meta name="description" content="Algorithmic trading platform education for copy-trading victims who think diversification equals Darwin selection.">
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="MarketWizardry.org | Claude X Darwinex Outlier">
-    <meta property="og:description" content="Darwinex platform analysis for signal providers who confuse technology with competence.">
+    <meta property="og:description" content="Algorithmic trading platform education for copy-trading victims who think diversification equals Darwin selection.">
     <meta property="og:url" content="https://marketwizardry.org/blog/09052025-Claude_x_Darwinex_Outlier.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -21,7 +21,7 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Claude X Darwinex Outlier">
-    <meta name="twitter:description" content="Darwinex platform analysis for signal providers who confuse technology with competence.">
+    <meta name="twitter:description" content="Algorithmic trading platform education for copy-trading victims who think diversification equals Darwin selection.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -59,23 +59,6 @@
             max-width: 1200px;
             margin: auto;
             min-height: 100vh;
-        }
-        .breadcrumbs {
-            font-size: 0.8em;
-            margin-bottom: 20px;
-            color: #00cc00;
-        }
-        .breadcrumbs a {
-            color: #00ff00;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-        }
-        .breadcrumbs a:hover {
-            border-bottom: 1px solid #00ff00;
-        }
-        .breadcrumbs span {
-            color: #00cc00;
-            margin: 0 5px;
         }
         header {
             text-align: left;
@@ -286,12 +269,9 @@
 </head>
 <body>
 <div class="container">
-    <nav class="breadcrumbs">
-        <a href="/">Home</a> <span>></span> <a href="/blog.html">Blog</a> <span>></span> Claude X Darwinex Outlier
-    </nav>
     <header><h1>Claude X Darwinex Outlier</h1></header>
     <div class="crt-divider"></div>
-    <div class="flavor-text">Darwinex platform analysis for signal providers who confuse technology with competence.</div>
+    <div class="flavor-text">Algorithmic trading platform education for copy-trading victims who think diversification equals Darwin selection.</div>
     <div class="crt-divider"></div>
     
     <div class="content-section" onclick="openModal()">
@@ -335,7 +315,28 @@
             })
             .catch(error => console.error('Download failed:', error));
     }
-    
+
+    function convertUrlsToLinks(text) {
+        // Escape HTML first to prevent XSS
+        const escapeHtml = (unsafe) => {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
+
+        // URL detection regex that matches http:// and https://
+        const urlRegex = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
+
+        // Escape HTML first
+        let escapedText = escapeHtml(text);
+
+        // Convert URLs to clickable links
+        return escapedText.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
     function openModal() {
         const modal = document.getElementById("analysisModal");
         const analysisContent = document.getElementById("analysisContent");
@@ -350,7 +351,7 @@
                 return response.text();
             })
             .then(data => {
-                analysisContent.textContent = data;
+                analysisContent.innerHTML = convertUrlsToLinks(data);
                 modal.style.display = "block";
                 document.body.style.overflow = "hidden";
                 modal.focus();

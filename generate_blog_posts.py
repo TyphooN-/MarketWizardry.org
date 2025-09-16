@@ -346,23 +346,6 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             margin: auto;
             min-height: 100vh;
         }}
-        .breadcrumbs {{
-            font-size: 0.8em;
-            margin-bottom: 20px;
-            color: #00cc00;
-        }}
-        .breadcrumbs a {{
-            color: #00ff00;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-        }}
-        .breadcrumbs a:hover {{
-            border-bottom: 1px solid #00ff00;
-        }}
-        .breadcrumbs span {{
-            color: #00cc00;
-            margin: 0 5px;
-        }}
         header {{
             text-align: left;
             color: #00ff00;
@@ -572,9 +555,6 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 </head>
 <body>
 <div class="container">
-    <nav class="breadcrumbs">
-        <a href="/">Home</a> <span>></span> <a href="/blog.html">Blog</a> <span>></span> {breadcrumb_title}
-    </nav>
     <header><h1>{title}</h1></header>
     <div class="crt-divider"></div>
     <div class="flavor-text">{description}</div>
@@ -621,7 +601,28 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             }})
             .catch(error => console.error('Download failed:', error));
     }}
-    
+
+    function convertUrlsToLinks(text) {{
+        // Escape HTML first to prevent XSS
+        const escapeHtml = (unsafe) => {{
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }};
+
+        // URL detection regex that matches http:// and https://
+        const urlRegex = /(https?:\\/\\/[^\\s<>"{{}}|\\\\^`\\[\\]]+)/g;
+
+        // Escape HTML first
+        let escapedText = escapeHtml(text);
+
+        // Convert URLs to clickable links
+        return escapedText.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    }}
+
     function openModal() {{
         const modal = document.getElementById("analysisModal");
         const analysisContent = document.getElementById("analysisContent");
@@ -636,7 +637,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
                 return response.text();
             }})
             .then(data => {{
-                analysisContent.textContent = data;
+                analysisContent.innerHTML = convertUrlsToLinks(data);
                 modal.style.display = "block";
                 document.body.style.overflow = "hidden";
                 modal.focus();

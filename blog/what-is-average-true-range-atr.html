@@ -9,10 +9,10 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
     <!-- Standard Meta Tags -->
-    <meta name="description" content="Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.">
+    <meta name="description" content="ATR methodology guide for volatility junkies who think measuring chaos somehow makes it profitable.">
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="MarketWizardry.org | What Is Average True Range (ATR)?">
-    <meta property="og:description" content="Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.">
+    <meta property="og:description" content="ATR methodology guide for volatility junkies who think measuring chaos somehow makes it profitable.">
     <meta property="og:url" content="https://marketwizardry.org/blog/what-is-average-true-range-atr.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -21,7 +21,7 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="What Is Average True Range (ATR)?">
-    <meta name="twitter:description" content="Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.">
+    <meta name="twitter:description" content="ATR methodology guide for volatility junkies who think measuring chaos somehow makes it profitable.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -59,23 +59,6 @@
             max-width: 1200px;
             margin: auto;
             min-height: 100vh;
-        }
-        .breadcrumbs {
-            font-size: 0.8em;
-            margin-bottom: 20px;
-            color: #00cc00;
-        }
-        .breadcrumbs a {
-            color: #00ff00;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-        }
-        .breadcrumbs a:hover {
-            border-bottom: 1px solid #00ff00;
-        }
-        .breadcrumbs span {
-            color: #00cc00;
-            margin: 0 5px;
         }
         header {
             text-align: left;
@@ -286,17 +269,14 @@
 </head>
 <body>
 <div class="container">
-    <nav class="breadcrumbs">
-        <a href="/">Home</a> <span>></span> <a href="/blog.html">Blog</a> <span>></span> Average True Range (ATR)?
-    </nav>
     <header><h1>What Is Average True Range (ATR)?</h1></header>
     <div class="crt-divider"></div>
-    <div class="flavor-text">Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.</div>
+    <div class="flavor-text">ATR methodology guide for volatility junkies who think measuring chaos somehow makes it profitable.</div>
     <div class="crt-divider"></div>
     
     <div class="content-section" onclick="openModal()">
         <h2>📊 What Is Average True Range (ATR)?</h2>
-        <p class="summary">Software sector breakdown for investors whose cloud investments evaporate faster than morning dew.</p>
+        <p class="summary">Software sector deep-dive for those whose e-commerce picks have worse delivery than the postal service.</p>
         <p class="summary"><strong>Click to read full analysis</strong></p>
     </div>
 
@@ -335,7 +315,28 @@
             })
             .catch(error => console.error('Download failed:', error));
     }
-    
+
+    function convertUrlsToLinks(text) {
+        // Escape HTML first to prevent XSS
+        const escapeHtml = (unsafe) => {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
+
+        // URL detection regex that matches http:// and https://
+        const urlRegex = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
+
+        // Escape HTML first
+        let escapedText = escapeHtml(text);
+
+        // Convert URLs to clickable links
+        return escapedText.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
     function openModal() {
         const modal = document.getElementById("analysisModal");
         const analysisContent = document.getElementById("analysisContent");
@@ -350,7 +351,7 @@
                 return response.text();
             })
             .then(data => {
-                analysisContent.textContent = data;
+                analysisContent.innerHTML = convertUrlsToLinks(data);
                 modal.style.display = "block";
                 document.body.style.overflow = "hidden";
                 modal.focus();
