@@ -1110,7 +1110,7 @@ def update_blog_index(all_new_entries):
     entries_section = '\n'.join(entries_html)
 
     # Replace the grid content or create it if it doesn't exist
-    grid_pattern = r'(        <div class="grid">)(.*?)(        </div>\s*</html>)'
+    grid_pattern = r'(<div class="grid">)(.*?)(        </div>\s*    </div>\s*</body>\s*</html>)'
 
     # Try to find existing grid wrapper first
     grid_match = re.search(grid_pattern, current_content, flags=re.DOTALL)
