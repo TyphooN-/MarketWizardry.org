@@ -34,8 +34,36 @@ A DARWIN's capacity is determined by its ability to take on investor capital wit
 
 This has a direct impact on performance fees. The more investor capital a DARWIN can attract, the higher the potential performance fees for the trader. By proactively managing their risk and maintaining a stable VaR, traders can increase their capacity and, in turn, their earning potential, even with the same trading performance.
 
-### Conclusion
+### A Tale of Two Traders: A Scenario
 
-While fixed lot size trading is a simple approach to risk management, it's ultimately a flawed one. It leads to inconsistent risk exposure and can be disastrous in volatile markets. Proactive VaR management, as implemented by Darwinex, is a far superior approach. It provides consistent risk exposure, dynamic leverage adjustment, and improved risk-adjusted returns. And, as we've seen, it can also have a significant impact on a trader's capacity and performance fees.
+Let's illustrate this with a scenario. We have two swing traders, Trader 1 (the "Steady Hand") and Trader 2 (the "High Tilt" trader). Both start with a $1,000,000 account, and both trade the same instrument, holding a single trade for an entire quarter.
 
-For any serious trader looking to attract investor capital, the message is clear: ditch the fixed lot sizes and embrace proactive risk management. Your portfolio, and your wallet, will thank you for it.
+**Trader 1: The Steady Hand**
+
+Trader 1 employs a low-leverage strategy, aiming for steady, consistent gains. At the end of the quarter, they have a 10% gain on their signal account, bringing their balance to $1,100,000. Because they are trading within Darwinex's risk parameters, their DARWIN's performance mirrors their signal account, also showing a 10% gain.
+
+**Trader 2: The High Tilt Trader**
+
+Trader 2, on the other hand, uses high leverage, aiming for massive returns. They get what they want: a 500% gain on their signal account, bringing their balance to a whopping $6,000,000. However, their DARWIN tells a different story.
+
+Because of their high leverage, Trader 2's VaR is constantly hitting the 6.5% ceiling. The Darwinex risk engine is constantly intervening, reducing the leverage of the DARWIN to keep it within the target VaR. As a result, the DARWIN's performance is a fraction of the signal account's performance.
+
+**The DARWIN Lot Size Difference**
+
+Here's where it gets interesting. Let's say both DARWINs have $1,000,000 in investor capital allocated to them.
+
+*   **Trader 1's DARWIN:** Because of the stable VaR, it has a high capacity. The risk engine allows it to use a larger lot size, let's say 10 lots.
+*   **Trader 2's DARWIN:** Because of the volatile VaR, it has a low capacity. The risk engine restricts its lot size to, say, 2 lots.
+
+**The Performance Fee Paradox**
+
+Now, let's look at the performance fees. For simplicity, let's assume the underlying instrument moves in their favor by 100 pips.
+
+*   **Trader 1:** 10 lots * 100 pips * $10/pip = $10,000 profit for investors. Trader 1 earns 15% of this, which is **$1,500**.
+*   **Trader 2:** 2 lots * 100 pips * $10/pip = $2,000 profit for investors. Trader 2 earns 15% of this, which is **$300**.
+
+Despite a 500% gain on their signal account, Trader 2 earns significantly less in performance fees than Trader 1. This is the power of proactive risk management and the VaR rubberbanding effect.
+
+**Conclusion**
+
+While the allure of high returns with high leverage is strong, on a platform like Darwinex, it's a losing game. The risk engine will always bring your VaR back in line, and your capacity to take on investor capital will be severely limited. The key to long-term success and profitability on Darwinex is not to chase massive returns, but to focus on consistent risk management and a stable VaR. By doing so, you'll not only protect your own capital, but you'll also attract more investor capital and earn higher performance fees.
