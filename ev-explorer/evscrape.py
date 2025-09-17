@@ -64,7 +64,7 @@ def scrape_from_csv(csv_path):
     """
     try:
         df = pd.read_csv(csv_path, delimiter=';')
-        
+
         # Initialize new columns with NaN
         df['Enterprise Value'] = None
         df['Market Cap'] = None
@@ -78,12 +78,12 @@ def scrape_from_csv(csv_path):
             symbol = row['Symbol']
             print(f"Scraping {symbol}...")
             enterprise_value, market_cap, next_earnings_date, next_dividend_date = get_financial_data(symbol)
-            
+
             df.loc[index, 'Enterprise Value'] = enterprise_value
             df.loc[index, 'Market Cap'] = market_cap
             df.loc[index, 'Next Earnings Date'] = next_earnings_date
             df.loc[index, 'Next Dividend Date'] = next_dividend_date
-            
+
             if enterprise_value is not None and market_cap is not None and enterprise_value != 0:
                 df.loc[index, 'MCap/EV (%)'] = (market_cap / enterprise_value) * 100
             else:
@@ -94,7 +94,7 @@ def scrape_from_csv(csv_path):
         output_filename = f"{os.path.splitext(csv_path)[0]}-EV.csv"
         df.to_csv(output_filename, index=False, sep=';')
         print(f"\nResults saved to {output_filename}")
-        
+
         # Remove the source CSV file after successful processing
         os.remove(csv_path)
         print(f"Removed source file: {csv_path}")
@@ -108,5 +108,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Scrape enterprise value, market cap, earnings, and dividend dates for stocks in a CSV file.')
     parser.add_argument('csv_file', type=str, help='The path to the input CSV file.')
     args = parser.parse_args()
-    
+
     scrape_from_csv(args.csv_file)

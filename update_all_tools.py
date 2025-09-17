@@ -82,41 +82,53 @@ class FinancialToolsUpdater:
             return False
 
     def process_ev_data(self):
-        """Process EV data using evscrape.py"""
+        """Process EV data using evscrape.py within the ev-explorer directory"""
         print("💰 Processing EV data...")
 
-        stocks_file = f"var-explorer/SymbolsExport-Darwinex-Live-Stocks-{self.date_str}.csv"
-        if not os.path.exists(stocks_file):
+        temp_csv_name = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}.csv"
+        source_csv_path = f"var-explorer/{temp_csv_name}"
+        temp_csv_path = f"ev-explorer/{temp_csv_name}"
+
+        if not os.path.exists(source_csv_path):
             print("⚠️ Warning: No stocks CSV available for EV processing")
             return False
 
         try:
-            # Copy stocks file to root directory for EV processing
-            shutil.copy(stocks_file, './')
+            # Copy stocks file to ev-explorer directory for processing
+            shutil.copy(source_csv_path, temp_csv_path)
 
-            # Run EV scraping in root directory
-            ev_csv = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}.csv"
-            result = subprocess.run(['python3', 'evscrape.py', ev_csv],
-                                  capture_output=True, text=True)
+            # Run EV scraping in ev-explorer directory
+            result = subprocess.run(['python3', 'evscrape.py', temp_csv_name],
+                                  cwd='ev-explorer', capture_output=True, text=True)
 
             if result.returncode != 0:
                 print(f"❌ EV scraping failed: {result.stderr}")
+                # The temp file might still exist if evscrape fails before removing it
+                if os.path.exists(temp_csv_path):
+                    os.remove(temp_csv_path)
                 return False
 
-            # Run EV outlier analysis in root directory
-            ev_processed = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV.csv"
-            if os.path.exists(ev_processed):
-                subprocess.run(['python3', 'ev_outlier.py', ev_processed],
-                             capture_output=True, text=True)
-                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed],
-                             capture_output=True, text=True)
+            # evscrape.py removes the source file (temp_csv_path), so no need to remove it here if successful
+
+            # Run EV outlier analysis in ev-explorer directory
+            ev_processed_name = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV.csv"
+            ev_processed_path = f"ev-explorer/{ev_processed_name}"
+
+            if os.path.exists(ev_processed_path):
+                subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=True, text=True)
+                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=True, text=True)
 
             self.data_summary['ev_processed'] = True
-            print("✅ EV data processed successfully")
+            print("✅ EV data processed successfully within ev-explorer/")
             return True
 
         except Exception as e:
             print(f"❌ Error processing EV data: {e}")
+            # Clean up any temporary files
+            if os.path.exists(temp_csv_path):
+                os.remove(temp_csv_path)
             return False
 
     def process_atr_data(self):
@@ -172,23 +184,356 @@ class FinancialToolsUpdater:
         print("✅ Financial data processing completed")
         return data
 
-    def _get_outlier_file_list(self):
-        """Get list of available outlier files for display"""
+    def _scan_historical_files(self, directory, pattern='-outlier.txt'):
+        """Scan directory for historical analysis files and generate grid entries"""
         try:
-            outlier_files = [f for f in os.listdir('var-explorer') if f.endswith('-outlier.txt') and self.date_str in f]
-            if outlier_files:
-                file_list = ""
-                for file in sorted(outlier_files):
-                    file_list += f"<li>{file}</li>\n                "
-                return file_list
-            else:
-                return "<li>No outlier files found for this date</li>"
-        except Exception:
-            return "<li>Error reading outlier files</li>"
+            files = []
+            for file in os.listdir(directory):
+                if pattern in file:
+                    # Extract date and asset type from filename
+                    # Format: SymbolsExport-Darwinex-Live-{AssetType}-{Date}-outlier.txt
+                    parts = file.replace('-outlier.txt', '').split('-')
+                    if len(parts) >= 5:
+                        asset_type = parts[3]  # CFD, Stocks, Futures
+                        date_str = parts[4]    # 2025.09.17
+
+                        # Look for corresponding CSV file
+                        csv_file = file.replace('-outlier.txt', '.csv')
+                        csv_path = f"{directory}/{csv_file}"
+
+                        files.append({
+                            'outlier_file': file,
+                            'csv_file': csv_file if os.path.exists(csv_path) else None,
+                            'asset_type': asset_type,
+                            'date': date_str,
+                            'display_name': f"Darwinex-Live ({asset_type}) - {date_str}",
+                            'directory': directory
+                        })
+
+            # Sort by date descending (newest first)
+            files.sort(key=lambda x: x['date'], reverse=True)
+            return files[:60]  # Limit to 60 most recent files
+
+        except Exception as e:
+            print(f"Error scanning historical files: {e}")
+            return []
+
+    def _scan_ev_historical_files(self, directory):
+        """Scan EV directory for historical analysis files with special EV naming pattern"""
+        try:
+            files = []
+            for file in os.listdir(directory):
+                if 'ev_outlier.txt' in file and 'EV-' in file:
+                    # EV files have format: SymbolsExport-Darwinex-Live-Stocks-{Date}-EV-ev_outlier.txt
+                    parts = file.split('-')
+                    if len(parts) >= 6:
+                        date_str = parts[4]  # 2025.09.17
+                        asset_type = parts[3]  # Stocks
+
+                        # Look for corresponding CSV file
+                        csv_file = file.replace('-ev_outlier.txt', '.csv').replace('-EV', '-EV')
+                        csv_path = f"{directory}/{csv_file}"
+
+                        # Also look for the var outlier file
+                        var_file = file.replace('ev_outlier.txt', 'ev_var_outlier.txt')
+                        var_path = f"{directory}/{var_file}"
+
+                        files.append({
+                            'outlier_file': file,
+                            'csv_file': csv_file if os.path.exists(csv_path) else None,
+                            'var_file': var_file if os.path.exists(var_path) else None,
+                            'asset_type': asset_type,
+                            'date': date_str,
+                            'display_name': f"EV Analysis ({asset_type}) - {date_str}",
+                            'directory': directory
+                        })
+
+            # Sort by date descending (newest first)
+            files.sort(key=lambda x: x['date'], reverse=True)
+            return files[:60]  # Limit to 60 most recent files
+
+        except Exception as e:
+            print(f"Error scanning EV historical files: {e}")
+            return []
+
+    def _generate_file_grid_entries(self, files):
+        """Generate HTML grid entries for file listings"""
+        grid_html = ""
+        for file_info in files:
+            outlier_path = f"{file_info['directory']}/{file_info['outlier_file']}"
+            csv_path = f"{file_info['directory']}/{file_info['csv_file']}" if file_info['csv_file'] else ""
+
+            grid_html += f'''
+            <div class="file-entry" onclick="openModalWithFile('{outlier_path}', '{csv_path}', '{file_info['display_name']}')">
+                <a href="#" data-outlier-file="{outlier_path}" data-csv-file="{csv_path}" onclick="event.stopPropagation()">
+                    {file_info['display_name']}
+                </a>
+            </div>'''
+
+        return grid_html
+
+    def _generate_modal_system_css(self):
+        """Generate complete modal system CSS"""
+        return '''
+        /* Grid Styles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .file-entry {
+            background-color: #001100;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .file-entry:hover {
+            background-color: #002200;
+            border-color: rgba(0, 255, 0, 0.6);
+            color: #00ff00;
+        }
+        .file-entry a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .file-entry a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #000;
+            margin: 5% auto;
+            padding: 10px;
+            border: 2px solid #00ff00;
+            max-width: fit-content;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em;
+        }
+        .modal-header a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 2px 5px;
+            margin-left: 10px;
+        }
+        .modal-header a:hover {
+            text-decoration: underline;
+        }
+        .close-button {
+            color: #00ff00;
+            font-size: 28px;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 0 5px;
+            line-height: 1;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: #001100;
+        }
+        .modal-body {
+            white-space: pre;
+            max-height: 60vh;
+            overflow-y: auto;
+            overflow-x: auto;
+            color: #00ff00;
+            font-size: 1.2em;
+            padding: 15px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+            padding: 0 15px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            transition: all 0.2s ease;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+        }
+        .nav-counter {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+
+        @media screen and (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding-top: 20px;
+            }
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-header {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .modal-header h2 {
+                font-size: 1em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }
+            .modal-header a {
+                font-size: 0.7em;
+                padding: 4px 8px;
+                margin: 2px;
+            }
+            .modal-body {
+                font-size: 0.65em;
+                white-space: pre;
+                overflow-x: auto;
+                max-height: calc(90vh - 160px);
+                padding: 10px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .nav-counter {
+                font-size: 0.8em;
+            }
+        }'''
+
+    def _generate_modal_javascript(self):
+        """Generate complete modal system JavaScript"""
+        return '''
+        let currentFileIndex = 0;
+        let filesList = [];
+
+        function openModalWithFile(outlierFile, csvFile, title) {
+            // Find current file index
+            for (let i = 0; i < filesList.length; i++) {
+                if (filesList[i].outlier === outlierFile) {
+                    currentFileIndex = i;
+                    break;
+                }
+            }
+
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('csv-link').href = csvFile;
+            document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
+            document.getElementById('outlier-modal').style.display = 'block';
+            updateNavCounter();
+
+            // Load outlier file content
+            fetch(outlierFile)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('outlier-content').textContent = data;
+                })
+                .catch(error => {
+                    document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;
+                });
+        }
+
+        function closeModal() {
+            document.getElementById('outlier-modal').style.display = 'none';
+        }
+
+        function previousFile() {
+            if (currentFileIndex > 0) {
+                currentFileIndex--;
+                const file = filesList[currentFileIndex];
+                openModalWithFile(file.outlier, file.csv, file.title);
+            }
+        }
+
+        function nextFile() {
+            if (currentFileIndex < filesList.length - 1) {
+                currentFileIndex++;
+                const file = filesList[currentFileIndex];
+                openModalWithFile(file.outlier, file.csv, file.title);
+            }
+        }
+
+        function updateNavCounter() {
+            document.getElementById('nav-counter').textContent =
+                `${currentFileIndex + 1} of ${filesList.length}`;
+        }
+
+        // Initialize files list from grid entries
+        document.addEventListener('DOMContentLoaded', function() {
+            const entries = document.querySelectorAll('.file-entry a');
+            filesList = Array.from(entries).map(entry => ({
+                outlier: entry.getAttribute('data-outlier-file'),
+                csv: entry.getAttribute('data-csv-file'),
+                title: entry.textContent
+            }));
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('outlier-modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }'''
 
     def generate_var_explorer(self, data):
-        """Generate VaR Explorer page"""
+        """Generate VaR Explorer page with full modal functionality"""
         print("🔧 Generating VaR Explorer...")
+
+        # Scan for historical VaR files
+        historical_files = self._scan_historical_files('var-explorer')
+        grid_entries = self._generate_file_grid_entries(historical_files)
+        modal_css = self._generate_modal_system_css()
+        modal_js = self._generate_modal_javascript()
 
         var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': '📊 VaR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(var_breadcrumbs)
@@ -198,7 +543,7 @@ class FinancialToolsUpdater:
         page_config = {
             'title': 'VaR Explorer - MarketWizardry.org',
             'canonical_url': 'https://marketwizardry.org/var-explorer.html',
-            'description': 'Value at Risk analysis that quantifies exactly how much your portfolio wants to hurt you. Mathematical precision for financial masochists.',
+            'description': 'Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.',
             'keywords': PAGE_CONFIGS['explorer']['keywords_base'],
             'og_title': 'VaR Explorer - MarketWizardry.org',
             'og_description': 'Advanced Value at Risk analysis tools for professional traders and risk managers.',
@@ -214,14 +559,6 @@ class FinancialToolsUpdater:
         html_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VaR Explorer - MarketWizardry.org</title>
-    <link rel="canonical" href="https://marketwizardry.org/var-explorer.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-
 {meta_tags}
 
     {REDIRECT_SCRIPT_TEMPLATE}
@@ -273,43 +610,62 @@ class FinancialToolsUpdater:
             100% {{ opacity: 1; }}
         }}
 {breadcrumb_css}
+{modal_css}
     </style>
 </head>
 <body>
 {breadcrumbs_html}
 
     <div class="container">
-        <h1>📊 VaR Explorer</h1>
+        <h1>VaR Explorer</h1>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Value at Risk analysis that quantifies exactly how much your portfolio wants to hurt you. Mathematical precision for financial masochists.</div>
+        <div class="flavor-text">Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.</div>
         <div class="crt-divider"></div>
 
-        <div class="tool-content">
-            <p style="color: #00aa00; text-align: center;">📊 VaR Analysis for {data.get('date_processed', 'Unknown Date')}</p>
-            <p style="color: #00aa00; text-align: center;">Outlier files generated: {data.get('var_data', 0)}</p>
-            <p style="color: #00aa00; text-align: center;">Last updated: {data.get('last_updated', 'Unknown')}</p>
+        <div class="grid">
+            {grid_entries}
+        </div>
+    </div>
 
-            <!-- Display available outlier files -->
-            <div style="margin-top: 20px; color: #00aa00;">
-                <h3>Available Analysis Files:</h3>
-                <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-                {self._get_outlier_file_list()}
-                </ul>
+    <!-- Modal Structure -->
+    <div id="outlier-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">File Analysis</h2>
+                <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                <span class="close-button" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <pre id="outlier-content">Loading...</pre>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="previousFile()">Previous</button>
+                <span class="nav-counter" id="nav-counter">1 of 1</span>
+                <button class="nav-button" onclick="nextFile()">Next</button>
             </div>
         </div>
     </div>
 
+    <script>
+        {modal_js}
+    </script>
 </body>
 </html>'''
 
         with open('var-explorer.html', 'w', encoding='utf-8') as f:
             f.write(html_content)
 
-        print("✅ VaR Explorer generated")
+        print(f"✅ VaR Explorer generated with {len(historical_files)} historical files")
 
     def generate_atr_explorer(self, data):
-        """Generate ATR Explorer page"""
+        """Generate ATR Explorer page with full modal system and historical files"""
         print("🔧 Generating ATR Explorer...")
+
+        # Scan historical ATR files
+        atr_files = self._scan_historical_files('atr-explorer', '-outlier.txt')
+        file_grid_html = self._generate_file_grid_entries(atr_files)
+        modal_css = self._generate_modal_system_css()
+        modal_js = self._generate_modal_javascript()
 
         atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': '📈 ATR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(atr_breadcrumbs)
@@ -393,7 +749,14 @@ class FinancialToolsUpdater:
             50% {{ opacity: 0.8; }}
             100% {{ opacity: 1; }}
         }}
+        .stats {{
+            text-align: center;
+            color: #00aa00;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }}
 {breadcrumb_css}
+{modal_css}
     </style>
 </head>
 <body>
@@ -405,11 +768,39 @@ class FinancialToolsUpdater:
         <div class="flavor-text">Average True Range analysis for those who want to measure market volatility with surgical precision before it eviscerates their account.</div>
         <div class="crt-divider"></div>
 
-        <div class="tool-content">
-            <!-- ATR Explorer content would go here -->
-            <p style="color: #00aa00; text-align: center;">📈 ATR volatility analysis tools and charts</p>
+        <div class="stats">
+            📊 {len(atr_files)} historical analysis files • 📈 ATR volatility tracking • 🎯 Outlier detection
+        </div>
+
+        <div class="grid">
+            {file_grid_html}
         </div>
     </div>
+
+    <!-- Modal for displaying file contents -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="modalTitle">Loading...</span>
+                <div class="modal-controls">
+                    <button id="prevBtn" onclick="navigateFiles(-1)" disabled>◀ Previous</button>
+                    <span id="fileCounter">1 of 1</span>
+                    <button id="nextBtn" onclick="navigateFiles(1)" disabled>Next ▶</button>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Loading content...
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- CSV download link will be added here if available -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+{modal_js}
+    </script>
 
 </body>
 </html>'''
@@ -417,11 +808,17 @@ class FinancialToolsUpdater:
         with open('atr-explorer.html', 'w', encoding='utf-8') as f:
             f.write(html_content)
 
-        print("✅ ATR Explorer generated")
+        print(f"✅ ATR Explorer generated with {len(atr_files)} historical files")
 
     def generate_ev_explorer(self, data):
-        """Generate EV Explorer page"""
+        """Generate EV Explorer page with full modal system and historical files"""
         print("🔧 Generating EV Explorer...")
+
+        # Scan historical EV files with special naming pattern
+        ev_files = self._scan_ev_historical_files('ev-explorer')
+        file_grid_html = self._generate_file_grid_entries(ev_files)
+        modal_css = self._generate_modal_system_css()
+        modal_js = self._generate_modal_javascript()
 
         ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': '💰 EV Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(ev_breadcrumbs)
@@ -505,7 +902,14 @@ class FinancialToolsUpdater:
             50% {{ opacity: 0.8; }}
             100% {{ opacity: 1; }}
         }}
+        .stats {{
+            text-align: center;
+            color: #00aa00;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }}
 {breadcrumb_css}
+{modal_css}
     </style>
 </head>
 <body>
@@ -517,11 +921,39 @@ class FinancialToolsUpdater:
         <div class="flavor-text">Enterprise Value analysis for those who want to measure corporate worth before watching it evaporate in real-time.</div>
         <div class="crt-divider"></div>
 
-        <div class="tool-content">
-            <!-- EV Explorer content would go here -->
-            <p style="color: #00aa00; text-align: center;">💰 Enterprise Value analysis and company metrics</p>
+        <div class="stats">
+            📊 {len(ev_files)} historical analysis files • 💰 Enterprise Value tracking • 🎯 Outlier detection
+        </div>
+
+        <div class="grid">
+            {file_grid_html}
         </div>
     </div>
+
+    <!-- Modal for displaying file contents -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="modalTitle">Loading...</span>
+                <div class="modal-controls">
+                    <button id="prevBtn" onclick="navigateFiles(-1)" disabled>◀ Previous</button>
+                    <span id="fileCounter">1 of 1</span>
+                    <button id="nextBtn" onclick="navigateFiles(1)" disabled>Next ▶</button>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Loading content...
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- CSV download link will be added here if available -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+{modal_js}
+    </script>
 
 </body>
 </html>'''
@@ -529,7 +961,7 @@ class FinancialToolsUpdater:
         with open('ev-explorer.html', 'w', encoding='utf-8') as f:
             f.write(html_content)
 
-        print("✅ EV Explorer generated")
+        print(f"✅ EV Explorer generated with {len(ev_files)} historical files")
 
     def update_calculator_data(self, data):
         """Update calculator with fresh financial data"""
