@@ -30,7 +30,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -69,7 +68,7 @@
     "inLanguage": "en-US",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web Browser",
-    "dateModified": "2025-09-17T11:32:19+00:00",
+    "dateModified": "2025-09-17T13:28:58+00:00",
     "featureList": [
         "Average True Range calculations",
         "Real-time market volatility analysis",
@@ -347,34 +346,33 @@
                 min-width: 60px;
             }
             .nav-counter {
-                font-size: 0.8em;
             }
         }
-
     /* Breadcrumb Navigation Styles */
-    .breadcrumb {
-        font-size: 0.8em;
-        color: #00aa00;
-        margin-bottom: 20px;
-        padding: 10px 0;
-    }
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+    
+        .breadcrumb a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            transition: all 0.2s ease;
+        }
+    
+        .breadcrumb a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+    
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
 
-    .breadcrumb a {
-        color: #00ff00;
-        text-decoration: none;
-        border-bottom: 1px dotted #00ff00;
-        transition: all 0.2s ease;
-    }
-
-    .breadcrumb a:hover {
-        color: #ffffff;
-        border-bottom-color: #ffffff;
-    }
-
-    .breadcrumb .separator {
-        margin: 0 8px;
-        color: #004400;
-    }
     </style>
 </head>
 <body>
@@ -395,6 +393,7 @@
             <meta itemprop="position" content="2" />
         </span>
     </nav>
+    <div class="crt-divider"></div>
         <h1>ATR Explorer</h1>
         <div class="crt-divider"></div>
         <div class="flavor-text">ATR calculations for volatility junkies who mistake chaos for opportunity. Turn market turbulence into a statistical weapon of financial self-destruction.</div>

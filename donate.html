@@ -30,7 +30,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -201,32 +200,32 @@
             50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
             100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
-    
     /* Breadcrumb Navigation Styles */
-    .breadcrumb {
-        font-size: 0.8em;
-        color: #00aa00;
-        margin-bottom: 20px;
-        padding: 10px 0;
-    }
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+    
+        .breadcrumb a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            transition: all 0.2s ease;
+        }
+    
+        .breadcrumb a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+    
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
 
-    .breadcrumb a {
-        color: #00ff00;
-        text-decoration: none;
-        border-bottom: 1px dotted #00ff00;
-        transition: all 0.2s ease;
-    }
-
-    .breadcrumb a:hover {
-        color: #ffffff;
-        border-bottom-color: #ffffff;
-    }
-
-    .breadcrumb .separator {
-        margin: 0 8px;
-        color: #004400;
-    }
-</style>
+    </style>
 
     <!-- Resource hints -->
     <link rel="dns-prefetch" href="//ko-fi.com">
@@ -249,6 +248,7 @@
             <meta itemprop="position" content="2" />
         </span>
     </nav>
+    <div class="crt-divider"></div>
 
     <div class="image-container">
         <h1>Donate</h1>

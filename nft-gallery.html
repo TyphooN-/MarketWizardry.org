@@ -30,7 +30,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -128,31 +127,31 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
-
     /* Breadcrumb Navigation Styles */
-    .breadcrumb {
-        font-size: 0.8em;
-        color: #00aa00;
-        margin-bottom: 20px;
-        padding: 10px 0;
-    }
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+    
+        .breadcrumb a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            transition: all 0.2s ease;
+        }
+    
+        .breadcrumb a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+    
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
 
-    .breadcrumb a {
-        color: #00ff00;
-        text-decoration: none;
-        border-bottom: 1px dotted #00ff00;
-        transition: all 0.2s ease;
-    }
-
-    .breadcrumb a:hover {
-        color: #ffffff;
-        border-bottom-color: #ffffff;
-    }
-
-    .breadcrumb .separator {
-        margin: 0 8px;
-        color: #004400;
-    }
     </style>
 </head>
 <body>
@@ -172,6 +171,7 @@
             <meta itemprop="position" content="2" />
         </span>
     </nav>
+    <div class="crt-divider"></div>
     <div class="container">
         <h1>NFT (Not For Trade) Gallery</h1>
         <div class="crt-divider"></div>

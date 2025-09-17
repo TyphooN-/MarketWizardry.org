@@ -31,7 +31,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -113,7 +112,6 @@
         }
         .date {
             color: #00cc00;
-            font-size: 0.8em;
             margin-top: 5px;
         }
         .entry-description {
@@ -154,32 +152,32 @@
             opacity: 0.9;
             animation: flicker 1s infinite;
         }
-    
     /* Breadcrumb Navigation Styles */
-    .breadcrumb {
-        font-size: 0.8em;
-        color: #00aa00;
-        margin-bottom: 20px;
-        padding: 10px 0;
-    }
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+    
+        .breadcrumb a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            transition: all 0.2s ease;
+        }
+    
+        .breadcrumb a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+    
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
 
-    .breadcrumb a {
-        color: #00ff00;
-        text-decoration: none;
-        border-bottom: 1px dotted #00ff00;
-        transition: all 0.2s ease;
-    }
-
-    .breadcrumb a:hover {
-        color: #ffffff;
-        border-bottom-color: #ffffff;
-    }
-
-    .breadcrumb .separator {
-        margin: 0 8px;
-        color: #004400;
-    }
-</style>
+    </style>
 </head>
 <body>
     <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
@@ -198,6 +196,7 @@
             <meta itemprop="position" content="2" />
         </span>
     </nav>
+    <div class="crt-divider"></div>
 
     <div class="container">
         <h1>Blog Explorer</h1>

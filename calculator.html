@@ -340,7 +340,6 @@
             font-family: "Courier New", monospace;
             cursor: pointer;
             border-radius: 2px;
-            font-size: 0.8em;
             font-weight: bold;
             transition: all 0.2s ease;
         }
@@ -350,28 +349,7 @@
         }
 
         /* Breadcrumb Navigation */
-        .breadcrumb {
-            font-size: 0.8em;
-            color: #00aa00;
-            margin-bottom: 20px;
-            padding: 10px 0;
-        }
-
-        .breadcrumb a {
-            color: #00ff00;
-            text-decoration: none;
-            border-bottom: 1px dotted #00ff00;
-        }
-
-        .breadcrumb a:hover {
-            color: #ffffff;
-            border-bottom-color: #ffffff;
-        }
-
-        .breadcrumb .separator {
-            margin: 0 8px;
-            color: #004400;
-        }
+        .
 
         .crt-divider {
             width: 100%;
@@ -408,6 +386,31 @@
                 padding: 10px;
             }
         }
+    /* Breadcrumb Navigation Styles */
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+    
+        .breadcrumb a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            transition: all 0.2s ease;
+        }
+    
+        .breadcrumb a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+    
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
+
     </style>
 </head>
 <body>
@@ -435,6 +438,7 @@
                 </span>
             </span>
         </nav>
+    <div class="crt-divider"></div>
 
         <h1>🧮 Financial Calculator Suite</h1>
         <div class="crt-divider"></div>
@@ -2209,8 +2213,6 @@
             'ZTS': { var: 2.540885, price: 147.60, sector: 'Healthcare', description: 'Zoetis Inc', asset_class: 'stocks', atr_d1: 2.910000, atr_w1: 7.485714, atr_mn1: 18.306429, outliers: [], ev_data: { market_cap: 65351770112, enterprise_value: 70716833792, mcap_ev_ratio: 92.4 } },
             'ZWS': { var: 1.323206, price: 47.47, sector: 'Industrials', description: 'Zurn Water Solutions Corp', asset_class: 'stocks', atr_d1: 1.148571, atr_w1: 2.307857, atr_mn1: 4.640000, outliers: [], ev_data: { market_cap: 7921905152, enterprise_value: 8288011776, mcap_ev_ratio: 95.6 } }
         };
-
-
 
         function lookupSymbol() {
             const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
