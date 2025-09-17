@@ -273,55 +273,6 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">Mathematical precision for financial degenerates who need calculated confirmation of their doom.</div>
 
-        <!-- Dataset Selection -->
-        <div style="text-align: center; margin: 20px 0; padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 10px;">
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">📊 Asset Class:</label>
-                    <select id="dataset-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
-                        <option value="all">All Assets (901 symbols)</option>
-                        <option value="stocks">Stocks (808 symbols)</option>
-                        <option value="cfd">CFDs (55 symbols)</option>
-                        <option value="futures">Futures (38 symbols)</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🏢 Sector:</label>
-                    <select id="sector-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
-                        <option value="all">All Sectors</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Financial">Financial</option>
-                        <option value="Consumer Cyclical">Consumer Cyclical</option>
-                        <option value="Consumer Defensive">Consumer Defensive</option>
-                        <option value="Industrials">Industrials</option>
-                        <option value="Communication Services">Communication Services</option>
-                        <option value="Real Estate">Real Estate</option>
-                        <option value="Basic Materials">Basic Materials</option>
-                        <option value="Energy">Energy</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Currency">Currency</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🏭 Industry:</label>
-                    <select id="industry-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
-                        <option value="all">All Industries</option>
-                        <option value="Software">Software</option>
-                        <option value="Semiconductors">Semiconductors</option>
-                        <option value="Biotechnology">Biotechnology</option>
-                        <option value="Pharmaceuticals">Pharmaceuticals</option>
-                        <option value="Banks">Banks</option>
-                        <option value="Insurance">Insurance</option>
-                        <option value="Consumer Electronics">Consumer Electronics</option>
-                        <option value="Internet Content & Information">Internet Content & Information</option>
-                        <option value="Aerospace & Defense">Aerospace & Defense</option>
-                        <option value="Auto Manufacturers">Auto Manufacturers</option>
-                    </select>
-                </div>
-            </div>
-            <span id="dataset-info" style="color: #00aa00; font-size: 0.9em;">Currently showing: All asset classes</span>
-        </div>
         <div class="crt-divider"></div>
 
         <!-- Calculator Selection Grid -->
@@ -345,6 +296,7 @@
                 <h2>🔍 Symbol Lookup Tool</h2>
                 <p>Search comprehensive VaR, ATR, and market data from our explorer databases. Real-time data for informed trading decisions.</p>
             </div>
+
         </div>
 
         <!-- Stop Loss Calculator -->
@@ -405,7 +357,30 @@
 
         <!-- Position Size Calculator -->
         <div id="position-calculator" class="calculator-content">
-            <h2>⚖️ Position Size Calculator</h2>
+            <h2>⚖️ Enhanced Position Size Calculator</h2>
+
+            <!-- Mode Selection -->
+            <div style="text-align: center; margin: 20px 0; padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px;">
+                    <div>
+                        <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">📊 Risk Calculation Mode:</label>
+                        <select id="ps-risk-mode" onchange="togglePositionSizeMode()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                            <option value="sl">Risk @ Stop Loss</option>
+                            <option value="var">Risk @ VaR</option>
+                            <option value="atr">Risk @ ATR Stop</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">💰 Output Mode:</label>
+                        <select id="ps-output-mode" onchange="updateOutputMode()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                            <option value="notional">Notional ($)</option>
+                            <option value="percent">Percentage (%)</option>
+                        </select>
+                    </div>
+                </div>
+                <span id="ps-mode-info" style="color: #00aa00; font-size: 0.9em;">Risk @ Stop Loss | Notional Output</span>
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
                     <div class="input-group">
@@ -413,36 +388,52 @@
                         <input type="number" id="ps-account-size" placeholder="10000">
                     </div>
                     <div class="input-group">
-                        <label for="ps-risk-mode">Position Sizing Mode</label>
-                        <select id="ps-risk-mode" onchange="togglePositionSizeMode()">
-                            <option value="risk">Risk Percentage (%)</option>
-                            <option value="var">VaR Target (%)</option>
-                            <option value="dollar">Dollar Risk ($)</option>
-                            <option value="shares">Target Shares (#)</option>
-                        </select>
+                        <label for="ps-risk-value" id="ps-risk-label">Risk Amount (%)</label>
+                        <input type="number" id="ps-risk-value" step="0.1" placeholder="2.0">
+                        <small id="ps-risk-hint" style="color: #00aa00; font-size: 0.8em;">📊 Percentage of account to risk</small>
                     </div>
                     <div class="input-group">
-                        <label for="ps-risk-value" id="ps-risk-label">Risk per Trade (%)</label>
-                        <input type="number" id="ps-risk-value" step="0.1" placeholder="1.0">
-                        <small id="ps-risk-hint" style="color: #00aa00; font-size: 0.8em;">📊 Percentage of account to risk on this trade</small>
-                    </div>
-                    <div class="input-group">
-                        <label for="ps-symbol">Symbol (for VaR mode)</label>
-                        <input type="text" id="ps-symbol" placeholder="AAPL, CC, AMD..." style="text-transform: uppercase;">
+                        <label for="ps-symbol">Symbol</label>
+                        <input type="text" id="ps-symbol" placeholder="CC" style="text-transform: uppercase;" onchange="autoFillPositionData()">
                     </div>
                     <div class="input-group">
                         <label for="ps-entry-price">Entry Price ($)</label>
-                        <input type="number" id="ps-entry-price" step="0.01" placeholder="100.00">
+                        <input type="number" id="ps-entry-price" step="0.01" placeholder="17.26">
+                    </div>
+                </div>
+                <div>
+                    <div class="input-group" id="ps-sl-group">
+                        <label for="ps-stop-loss">Stop Loss Price ($)</label>
+                        <input type="number" id="ps-stop-loss" step="0.01" placeholder="16.50">
+                    </div>
+                    <div class="input-group" id="ps-var-group" style="display: none;">
+                        <label for="ps-var-per-share">VaR per Share ($)</label>
+                        <input type="number" id="ps-var-per-share" step="0.001" placeholder="0.846" readonly style="background: #2a2a2a;">
                     </div>
                     <div class="input-group">
-                        <label for="ps-stop-loss">Stop Loss Price ($)</label>
-                        <input type="number" id="ps-stop-loss" step="0.01" placeholder="95.00">
+                        <label for="ps-atr-timeframe">ATR Stop Reference</label>
+                        <select id="ps-atr-timeframe" onchange="updatePositionAtrData()">
+                            <option value="none">Manual Stop</option>
+                            <option value="d1">Daily ATR (D1)</option>
+                            <option value="w1">Weekly ATR (W1)</option>
+                            <option value="mn1">Monthly ATR (MN1)</option>
+                        </select>
                     </div>
-                    <button class="calculate-btn" onclick="calculatePositionSize()">Calculate Position Size</button>
+                    <div class="input-group">
+                        <label for="ps-atr-multiplier">ATR Multiplier</label>
+                        <input type="number" id="ps-atr-multiplier" placeholder="2.0" step="0.1" value="2.0" onchange="updatePositionAtrData()">
+                    </div>
+                    <div class="input-group">
+                        <label for="ps-atr-suggestion">ATR Stop Suggestion ($)</label>
+                        <input type="number" id="ps-atr-suggestion" readonly style="background: #2a2a2a;">
+                    </div>
                 </div>
-                <div id="ps-results" class="result-box">
-                    <div class="result-label">Position Size Calculations:</div>
-                    <div id="ps-output"></div>
+            </div>
+            <button class="calculate-btn" onclick="calculateEnhancedPositionSize()">Calculate Position Size</button>
+
+            <div id="ps-results" class="result-box">
+                <div class="result-label">Position Size Results:</div>
+                <div id="ps-output"></div>
                 </div>
             </div>
         </div>
@@ -522,6 +513,57 @@
         <!-- Symbol Lookup Tool -->
         <div id="lookup-calculator" class="calculator-content">
             <h2>🔍 Symbol Lookup Tool</h2>
+
+            <!-- Data Filtering -->
+            <div style="text-align: center; margin: 20px 0; padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 10px;">
+                    <div>
+                        <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">📊 Asset Class:</label>
+                        <select id="dataset-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                            <option value="all">All Assets (901 symbols)</option>
+                            <option value="stocks">Stocks (808 symbols)</option>
+                            <option value="cfd">CFDs (55 symbols)</option>
+                            <option value="futures">Futures (38 symbols)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🏢 Sector:</label>
+                        <select id="sector-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                            <option value="all">All Sectors</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Financial">Financial</option>
+                            <option value="Consumer Cyclical">Consumer Cyclical</option>
+                            <option value="Consumer Defensive">Consumer Defensive</option>
+                            <option value="Industrials">Industrials</option>
+                            <option value="Communication Services">Communication Services</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Basic Materials">Basic Materials</option>
+                            <option value="Energy">Energy</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Currency">Currency</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🏭 Industry:</label>
+                        <select id="industry-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                            <option value="all">All Industries</option>
+                            <option value="Software">Software</option>
+                            <option value="Semiconductors">Semiconductors</option>
+                            <option value="Biotechnology">Biotechnology</option>
+                            <option value="Pharmaceuticals">Pharmaceuticals</option>
+                            <option value="Banks">Banks</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Consumer Electronics">Consumer Electronics</option>
+                            <option value="Internet Content & Information">Internet Content & Information</option>
+                            <option value="Aerospace & Defense">Aerospace & Defense</option>
+                            <option value="Auto Manufacturers">Auto Manufacturers</option>
+                        </select>
+                    </div>
+                </div>
+                <span id="dataset-info" style="color: #00aa00; font-size: 0.9em;">Currently showing: All asset classes</span>
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
                     <div class="input-group">
@@ -532,37 +574,6 @@
                         </div>
                         <small style="color: #00aa00; font-size: 0.8em;">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
                     </div>
-                    <div class="input-group">
-                        <label for="lookup-filter">Filter by Sector (optional)</label>
-                        <select id="lookup-filter" onchange="filterSymbols()">
-                            <option value="">All Sectors</option>
-                            <option value="Technology">Technology</option>
-                            <option value="Healthcare">Healthcare</option>
-                            <option value="Financial">Financial</option>
-                            <option value="Consumer Cyclical">Consumer Cyclical</option>
-                            <option value="Consumer Defensive">Consumer Defensive</option>
-                            <option value="Industrials">Industrials</option>
-                            <option value="Communication Services">Communication Services</option>
-                            <option value="Energy">Energy</option>
-                            <option value="Basic Materials">Basic Materials</option>
-                            <option value="Real Estate">Real Estate</option>
-                            <option value="ETF">ETF</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Quick Symbol Search</label>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 5px;">
-                            <button class="quick-symbol-btn" onclick="quickLookup('AAPL')">AAPL</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('MSFT')">MSFT</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('GOOGL')">GOOGL</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('AMZN')">AMZN</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('TSLA')">TSLA</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('NVDA')">NVDA</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('CC')">CC</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('AMD')">AMD</button>
-                            <button class="quick-symbol-btn" onclick="quickLookup('ADBE')">ADBE</button>
-                        </div>
-                    </div>
                     <button class="calculate-btn" onclick="showAllSymbols()">Show All Available Symbols</button>
                 </div>
                 <div id="lookup-results" class="result-box">
@@ -571,6 +582,7 @@
                 </div>
             </div>
         </div>
+
 
     </div>
 
@@ -2876,6 +2888,256 @@
             const symbols = Object.keys(filteredVarData);
             const shuffled = symbols.sort(() => 0.5 - Math.random());
             return shuffled.slice(0, 5);
+        }
+
+        // Enhanced Position Size Calculator Functions
+        function autoFillPositionData() {
+            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
+            if (symbol && varData[symbol]) {
+                const data = varData[symbol];
+                document.getElementById('ps-entry-price').value = data.price.toFixed(2);
+                document.getElementById('ps-var-per-share').value = data.var.toFixed(3);
+                updatePositionAtrData();
+            }
+        }
+
+        function updatePositionAtrData() {
+            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
+            const timeframe = document.getElementById('ps-atr-timeframe').value;
+            const multiplier = parseFloat(document.getElementById('ps-atr-multiplier').value) || 2.0;
+            const entryPrice = parseFloat(document.getElementById('ps-entry-price').value) || 0;
+
+            if (symbol && varData[symbol] && timeframe !== 'none' && entryPrice > 0) {
+                const data = varData[symbol];
+                let atrValue = 0;
+
+                switch(timeframe) {
+                    case 'd1':
+                        atrValue = data.atr_d1 || 0;
+                        break;
+                    case 'w1':
+                        atrValue = data.atr_w1 || 0;
+                        break;
+                    case 'mn1':
+                        atrValue = data.atr_mn1 || 0;
+                        break;
+                }
+
+                const atrStopPrice = entryPrice - (atrValue * multiplier);
+                document.getElementById('ps-atr-suggestion').value = atrStopPrice.toFixed(2);
+            } else {
+                document.getElementById('ps-atr-suggestion').value = '';
+            }
+        }
+
+        function togglePositionSizeMode() {
+            const mode = document.getElementById('ps-risk-mode').value;
+            const slGroup = document.getElementById('ps-sl-group');
+            const varGroup = document.getElementById('ps-var-group');
+            const label = document.getElementById('ps-risk-label');
+            const hint = document.getElementById('ps-risk-hint');
+            const modeInfo = document.getElementById('ps-mode-info');
+
+            // Hide all mode-specific groups
+            slGroup.style.display = 'block';
+            varGroup.style.display = 'none';
+
+            switch(mode) {
+                case 'sl':
+                    label.textContent = 'Risk Amount (%)';
+                    hint.textContent = '📊 Percentage of account to risk at stop loss';
+                    modeInfo.textContent = 'Risk @ Stop Loss | ' + document.getElementById('ps-output-mode').value.charAt(0).toUpperCase() + document.getElementById('ps-output-mode').value.slice(1) + ' Output';
+                    break;
+                case 'var':
+                    slGroup.style.display = 'none';
+                    varGroup.style.display = 'block';
+                    label.textContent = 'VaR Target (%)';
+                    hint.textContent = '🎯 Target VaR as percentage of account';
+                    modeInfo.textContent = 'Risk @ VaR | ' + document.getElementById('ps-output-mode').value.charAt(0).toUpperCase() + document.getElementById('ps-output-mode').value.slice(1) + ' Output';
+                    break;
+                case 'atr':
+                    label.textContent = 'Risk Amount (%)';
+                    hint.textContent = '📊 Percentage of account to risk using ATR stop';
+                    modeInfo.textContent = 'Risk @ ATR Stop | ' + document.getElementById('ps-output-mode').value.charAt(0).toUpperCase() + document.getElementById('ps-output-mode').value.slice(1) + ' Output';
+                    break;
+            }
+        }
+
+        function updateOutputMode() {
+            const outputMode = document.getElementById('ps-output-mode').value;
+            const riskMode = document.getElementById('ps-risk-mode').value;
+            const modeInfo = document.getElementById('ps-mode-info');
+
+            const riskModeName = riskMode === 'sl' ? 'Risk @ Stop Loss' :
+                                riskMode === 'var' ? 'Risk @ VaR' : 'Risk @ ATR Stop';
+            const outputModeName = outputMode.charAt(0).toUpperCase() + outputMode.slice(1);
+
+            modeInfo.textContent = `${riskModeName} | ${outputModeName} Output`;
+        }
+
+        function calculateEnhancedPositionSize() {
+            const accountSize = parseFloat(document.getElementById('ps-account-size').value);
+            const riskPercent = parseFloat(document.getElementById('ps-risk-value').value);
+            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
+            const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
+            const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
+            const varPerShare = parseFloat(document.getElementById('ps-var-per-share').value);
+            const riskMode = document.getElementById('ps-risk-mode').value;
+            const outputMode = document.getElementById('ps-output-mode').value;
+            const atrTimeframe = document.getElementById('ps-atr-timeframe').value;
+            const atrSuggestion = parseFloat(document.getElementById('ps-atr-suggestion').value);
+
+            if (!accountSize || !riskPercent || !symbol || !entryPrice) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const riskDollars = (accountSize * riskPercent) / 100;
+            let riskPerShare = 0;
+            let stopPrice = 0;
+            let shares = 0;
+            let positionValue = 0;
+
+            // Calculate position based on risk mode
+            switch(riskMode) {
+                case 'sl':
+                    if (!stopLoss) {
+                        alert('Please enter a stop loss price for Stop Loss mode');
+                        return;
+                    }
+                    riskPerShare = entryPrice - stopLoss;
+                    stopPrice = stopLoss;
+                    shares = Math.floor(riskDollars / riskPerShare);
+                    break;
+
+                case 'var':
+                    if (!varPerShare) {
+                        alert('Symbol not found in database or missing VaR data');
+                        return;
+                    }
+                    riskPerShare = varPerShare;
+                    shares = Math.floor(riskDollars / riskPerShare);
+                    break;
+
+                case 'atr':
+                    if (atrTimeframe === 'none' || !atrSuggestion) {
+                        alert('Please select an ATR timeframe for ATR mode');
+                        return;
+                    }
+                    riskPerShare = entryPrice - atrSuggestion;
+                    stopPrice = atrSuggestion;
+                    shares = Math.floor(riskDollars / riskPerShare);
+                    break;
+            }
+
+            positionValue = shares * entryPrice;
+            const actualRiskDollars = shares * riskPerShare;
+            const actualRiskPercent = (actualRiskDollars / accountSize) * 100;
+            const positionWeight = (positionValue / accountSize) * 100;
+
+            // Generate output based on output mode
+            let output = `
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">📐 Enhanced Position Size for ${symbol}</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Position Size:</div>
+                                <div class="result-value">${shares.toLocaleString()} shares</div>
+                            </div>
+            `;
+
+            if (outputMode === 'notional') {
+                output += `
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Position Value:</div>
+                                <div class="result-value">$${positionValue.toLocaleString()}</div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Risk Amount:</div>
+                                <div class="result-value">$${actualRiskDollars.toFixed(2)}</div>
+                            </div>
+                `;
+            } else {
+                output += `
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Position Weight:</div>
+                                <div class="result-value">${positionWeight.toFixed(2)}%</div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Risk Percentage:</div>
+                                <div class="result-value">${actualRiskPercent.toFixed(2)}%</div>
+                            </div>
+                `;
+            }
+
+            output += `
+                        </div>
+                        <div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Entry Price:</div>
+                                <div class="result-value">$${entryPrice.toFixed(2)}</div>
+                            </div>
+            `;
+
+            if (riskMode === 'sl' || riskMode === 'atr') {
+                output += `
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Stop Loss:</div>
+                                <div class="result-value">$${stopPrice.toFixed(2)}</div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">Risk per Share:</div>
+                                <div class="result-value">$${riskPerShare.toFixed(2)}</div>
+                            </div>
+                `;
+            } else if (riskMode === 'var') {
+                output += `
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">VaR per Share:</div>
+                                <div class="result-value">$${varPerShare.toFixed(3)}</div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="result-label">VaR Method:</div>
+                                <div class="result-value">Statistical Risk</div>
+                            </div>
+                `;
+            }
+
+            output += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add mode-specific analysis
+            if (riskMode === 'atr' && atrTimeframe !== 'none') {
+                const timeframeName = atrTimeframe === 'd1' ? 'Daily' :
+                                    atrTimeframe === 'w1' ? 'Weekly' : 'Monthly';
+
+                output += `
+                    <div style="padding: 15px; background: rgba(0,255,255,0.1); border-left: 3px solid #00ffff; margin: 20px 0;">
+                        <h4 style="color: #00ffff; margin: 0 0 10px 0;">🛑 ${timeframeName} ATR Analysis</h4>
+                        <div style="color: #00cccc;">Stop loss calculated using ${timeframeName} ATR with ${document.getElementById('ps-atr-multiplier').value}x multiplier</div>
+                        <div style="color: #00aaaa; font-size: 0.9em; margin-top: 8px;">ATR-based stops adapt to market volatility for improved risk management</div>
+                    </div>
+                `;
+            }
+
+            // Add risk assessment for outliers
+            const data = varData[symbol];
+            if (data && data.outliers && data.outliers.length > 0) {
+                output += `
+                    <div style="padding: 15px; background: rgba(255,136,0,0.1); border-left: 3px solid #ff8800; margin: 20px 0;">
+                        <h4 style="color: #ff8800; margin: 0 0 10px 0;">🚨 Risk Assessment</h4>
+                        <div style="color: #ffaa00;">This symbol has ${data.outliers.length} outlier flag(s): ${data.outliers.join(', ').toUpperCase()}</div>
+                        <div style="color: #ff8800; font-size: 0.9em; margin-top: 8px;">Consider additional risk management for outlier positions</div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('ps-output').innerHTML = output;
+            document.getElementById('ps-results').classList.add('show');
         }
 
         // Portfolio functions work with full dataset for flexibility
