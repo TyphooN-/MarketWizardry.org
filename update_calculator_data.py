@@ -19,6 +19,23 @@ def get_latest_date_str(directory):
                 continue
     return latest_date.strftime('%Y.%m.%d') if latest_date else None
 
+def process_outliers(directory, date_str, var_data):
+    """Process outlier files in a given directory."""
+    for filename in os.listdir(directory):
+        if filename.endswith(f"-{date_str}-outlier.txt"):
+            outlier_type = 'var' # default
+            if 'ev_outlier' in filename:
+                outlier_type = 'ev'
+            elif 'atr' in directory:
+                outlier_type = 'atr'
+
+            with open(os.path.join(directory, filename), 'r') as f:
+                for line in f:
+                    symbol = line.strip()
+                    if symbol in var_data:
+                        if outlier_type not in var_data[symbol]['outliers']:
+                            var_data[symbol]['outliers'].append(outlier_type)
+
 def main():
     """Main function to update calculator data."""
     var_dir = 'var-explorer'
@@ -66,6 +83,18 @@ def main():
                     'enterprise_value': row['Enterprise Value'],
                     'mcap_ev_ratio': row['MCap/EV (%)']
                 }
+
+    # Process outlier files
+    process_outliers(var_dir, date_str, var_data)
+    process_outliers(atr_dir, date_str, var_data)
+    process_outliers(ev_dir, date_str, var_data)
+
+    # Generate JS file
+    js_content = f"const varData = {json.dumps(var_data, indent=4)};"
+    with open('calculator_complete_data.js', 'w') as f:
+        f.write(js_content)
+
+    print("Successfully updated calculator_complete_data.js")
 
 
 if __name__ == "__main__":

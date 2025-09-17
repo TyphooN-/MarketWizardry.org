@@ -968,26 +968,15 @@ class FinancialToolsUpdater:
         print("🔧 Updating calculator data...")
 
         try:
-            # Check if calculator update scripts exist
-            if os.path.exists('update_calculator_validated.py'):
-                result = subprocess.run(['python3', 'update_calculator_validated.py'],
-                                      capture_output=True, text=True)
-                if result.returncode == 0:
-                    print("✅ Calculator updated with validated script")
-                else:
-                    print(f"⚠️ Calculator update script failed: {result.stderr}")
-            elif os.path.exists('update_calculator_with_latest_data.py'):
-                result = subprocess.run(['python3', 'update_calculator_with_latest_data.py'],
-                                      capture_output=True, text=True)
-                if result.returncode == 0:
-                    print("✅ Calculator updated with fallback script")
-                else:
-                    print(f"⚠️ Calculator fallback script failed: {result.stderr}")
+            result = subprocess.run(['python3', 'update_calculator_data.py'],
+                                  capture_output=True, text=True)
+            if result.returncode == 0:
+                print("✅ Calculator data updated successfully.")
+                print(result.stdout)
+                self.data_summary['calculator_updated'] = True
             else:
-                print("⚠️ Warning: No calculator update script found")
-
-            # Update data summary
-            self.data_summary['calculator_updated'] = True
+                print(f"❌ Calculator data update failed: {result.stderr}")
+                self.data_summary['calculator_updated'] = False
 
         except Exception as e:
             print(f"❌ Error updating calculator: {e}")
