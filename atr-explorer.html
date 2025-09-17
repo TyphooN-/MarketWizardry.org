@@ -104,6 +104,7 @@
         }
         .flavor-text {
             color: #00ff00;
+            font-family: "Courier New", monospace;
             text-align: center;
             margin: 20px 0;
             padding: 15px;
@@ -123,30 +124,31 @@
             margin: 20px 0;
             font-size: 0.9em;
         }
-/* Breadcrumb Navigation Styles */
-        .breadcrumb {
-            font-size: 0.8em;
-            color: #00aa00;
-            margin-bottom: 20px;
-            padding: 10px 0;
-        }
-    
-        .breadcrumb a {
-            color: #00ff00 !important;
-            text-decoration: none;
-            border-bottom: 1px dotted #00ff00;
-            transition: all 0.2s ease;
-        }
-    
-        .breadcrumb a:hover {
-            color: #ffffff !important;
-            border-bottom-color: #ffffff !important;
-        }
-    
-        .breadcrumb .separator {
-            margin: 0 8px;
-            color: #004400;
-        }
+
+    /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb a {
+        color: #00ff00 !important;
+        text-decoration: none;
+        border-bottom: 1px dotted #00ff00;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff !important;
+        border-bottom-color: #ffffff !important;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
 
         /* Grid Styles */
         .grid {
@@ -335,9 +337,7 @@
         </span>
         <span class="separator">→</span>
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="atr-explorer.html" itemprop="item">
-                <span itemprop="name">📈 ATR Explorer</span>
-            </a>
+            <span itemprop="name">📈 ATR Explorer</span>
             <meta itemprop="position" content="2" />
         </span>
     </nav>

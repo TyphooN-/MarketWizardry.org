@@ -2,64 +2,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketWizardry.org | AI Art</title>
     <link rel="canonical" href="https://marketwizardry.org/ai-art.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-
-    <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="TyphooN">
-    <meta name="keywords" content="">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="language" content="en-US">
-    <meta name="revisit-after" content="7 days">
-    <meta name="distribution" content="global">
-    <meta name="rating" content="general">
-    <meta name="theme-color" content="#00ff00">
-
-    <!-- Enhanced Open Graph Meta Tags -->
-    <meta property="og:title" content="Ai_Art - MarketWizardry.org">
-    <meta property="og:description" content="TyphooN">
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="AI Art - MarketWizardry.org">
+    <meta property="og:description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
     <meta property="og:url" content="https://marketwizardry.org/ai-art.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
     <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Professional Financial Trading Tools">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="en_US">
-
-    <!-- Enhanced Twitter Card Meta Tags -->
+    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ai_Art - MarketWizardry.org">
-    <meta name="twitter:description" content="TyphooN">
+    <meta name="twitter:title" content="AI Art - MarketWizardry.org">
+    <meta name="twitter:description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta name="twitter:image:alt" content="MarketWizardry.org Financial Tools">
-    <meta name="twitter:domain" content="marketwizardry.org">
-        <meta name="twitter:label1" content="Category">
-    <meta name="twitter:data1" content="AI Art">    <meta name="twitter:label2" content="Type">
-    <meta name="twitter:data2" content="Gallery">
     <script>
-        // Redirect to market-wizardry.html if accessed directly (not in iframe)
+        // Set viewport immediately for mobile scaling
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1.0';
+            document.head.insertBefore(viewport, document.head.firstChild);
+        }
+
+                // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                // For blog posts and NFT galleries, pass full path
+                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+        } else {
+                // For main pages, redirect with page parameter
+                const currentPage = currentPath.split('/').pop().replace('.html', '');
+                window.location.href = `/?page=${currentPage}`;
         }
-, 100);
+                }, 100);
         }
     </script>
     <style>
@@ -147,15 +137,14 @@
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%;
+            100% { opacity: 1; width: 100%; }
         }
-}
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1;
+            100% { opacity: 1; }
         }
-.flavor-text {
+        .flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
             text-align: center;
@@ -245,53 +234,11 @@
             .nav-buttons {
                 margin-top: 5px;
                 gap: 5px;
+            }
         }
-/* Breadcrumb Navigation Styles */
-        .breadcrumb {
-            font-size: 0.8em;
-            color: #00aa00;
-            margin-bottom: 20px;
-            padding: 10px 0;
-        }
-    
-        .breadcrumb a {
-            color: #00ff00 !important;
-            text-decoration: none;
-            border-bottom: 1px dotted #00ff00;
-            transition: all 0.2s ease;
-        }
-    
-        .breadcrumb a:hover {
-            color: #ffffff !important;
-            border-bottom-color: #ffffff !important;
-        }
-    
-        .breadcrumb .separator {
-            margin: 0 8px;
-            color: #004400;
-        }
-
     </style>
 </head>
 <body>
-    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
-    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="market-wizardry.html" itemprop="item">
-                <span itemprop="name">🏠 Market Wizardry</span>
-            </a>
-            <meta itemprop="position" content="1" />
-        </span>
-        <span class="separator">→</span>
-        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="ai-art.html" itemprop="item">
-                <span itemprop="name">🎨 AI Art</span>
-            </a>
-            <meta itemprop="position" content="2" />
-        </span>
-    </nav>
-    <div class="crt-divider"></div>
-
     <h1>AI Art</h1>
     <div class="crt-divider"></div>
     <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
@@ -431,16 +378,22 @@
                 prevButton.disabled = currentImageIndex <= 0;
                 nextButton.disabled = currentImageIndex >= allImagePaths.length - 1;
                 imageCounter.textContent = `${currentImageIndex + 1} / ${allImagePaths.length}`;
+            }
         }
-function previousImage() {
+
+        function previousImage() {
             if (currentImageIndex > 0) {
                 openImage(currentImageIndex - 1);
+            }
         }
-function nextImage() {
+
+        function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 openImage(currentImageIndex + 1);
+            }
         }
-function closeModal() {
+
+        function closeModal() {
             const modal = document.getElementById('fullscreenModal');
             modal.style.display = 'none';
         }
@@ -461,16 +414,17 @@ function closeModal() {
                     case 'Escape':
                         closeModal();
                         break;
-        }
-});
+                }
+            }
+        });
 
         // Click outside modal to close
         window.onclick = function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (event.target === modal) {
                 closeModal();
-        }
-;
+            }
+        };
 
         // Populate image grid on load
         document.addEventListener('DOMContentLoaded', () => {

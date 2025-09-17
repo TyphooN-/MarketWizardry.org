@@ -149,6 +149,7 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
         }}
         .flavor-text {{
             color: #00ff00;
+            font-family: "Courier New", monospace;
             text-align: center;
             margin: 20px 0;
             padding: 15px;

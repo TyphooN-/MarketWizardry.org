@@ -595,6 +595,7 @@ class FinancialToolsUpdater:
         }}
         .flavor-text {{
             color: #00ff00;
+            font-family: "Courier New", monospace;
             text-align: center;
             margin: 20px 0;
             padding: 15px;
@@ -734,6 +735,7 @@ class FinancialToolsUpdater:
         }}
         .flavor-text {{
             color: #00ff00;
+            font-family: "Courier New", monospace;
             text-align: center;
             margin: 20px 0;
             padding: 15px;
@@ -886,6 +888,7 @@ class FinancialToolsUpdater:
         }}
         .flavor-text {{
             color: #00ff00;
+            font-family: "Courier New", monospace;
             text-align: center;
             margin: 20px 0;
             padding: 15px;
