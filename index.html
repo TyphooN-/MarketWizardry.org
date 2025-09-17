@@ -466,8 +466,10 @@
             // Add active class to clicked menu item only if event exists (user clicked)
             if (event && event.target && event.target.classList) {
                 event.target.classList.add('active');
+            }
         }
-// Load content based on URL parameter or default to "market-wizardry"
+
+        // Load content based on URL parameter or default to "market-wizardry"
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const pageParam = urlParams.get('page');
