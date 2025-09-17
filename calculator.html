@@ -177,7 +177,6 @@
             text-align: center;
             padding-bottom: 10px;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
         }
         h2 {
             color: #00ff00;
@@ -348,8 +347,6 @@
         }
 
         /* Breadcrumb Navigation */
-        .
-
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -360,11 +357,11 @@
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%;
+            100% { opacity: 1; width: 100%; }
         }
-}
         .flavor-text {
             color: #00ff00;
+            font-family: "Courier New", monospace;
             text-align: center;
             margin: 20px 0;
             padding: 15px;
@@ -376,7 +373,7 @@
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1;
+            100% { opacity: 1; }
         }
 @media (max-width: 768px) {
             .calculator-grid {
@@ -384,8 +381,10 @@
             }
             body {
                 padding: 10px;
+            }
         }
-/* Breadcrumb Navigation Styles */
+
+        /* Breadcrumb Navigation Styles */
         .breadcrumb {
             font-size: 0.8em;
             color: #00aa00;
@@ -437,7 +436,6 @@
                 </span>
             </span>
         </nav>
-    <div class="crt-divider"></div>
 
         <h1>🧮 Financial Calculator Suite</h1>
         <div class="crt-divider"></div>
@@ -450,27 +448,27 @@
 
         <!-- Calculator Selection Grid -->
         <div class="calculator-grid">
-            <div class="calculator-card" onclick="selectCalculator('stoploss')">
+            <div class="calculator-card" onclick="selectCalculator('stoploss', this)">
                 <h2>🛑 Stop Loss Calculator</h2>
                 <p>Calculate optimal stop loss levels based on volatility, risk tolerance, and position size. Because knowing exactly where you'll get stopped out is half the battle.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('position')">
+            <div class="calculator-card" onclick="selectCalculator('position', this)">
                 <h2>⚖️ Position Size Calculator</h2>
                 <p>Determine position sizes based on account risk, volatility, and stop loss levels. Scientific precision for your inevitable losses.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('portfolio')">
+            <div class="calculator-card" onclick="selectCalculator('portfolio', this)">
                 <h2>📊 Portfolio VaR Calculator</h2>
                 <p>Calculate portfolio Value at Risk using multiple positions with correlation adjustments. Watch your diversification fail mathematically.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('lookup')">
+            <div class="calculator-card" onclick="selectCalculator('lookup', this)">
                 <h2>🔍 Symbol Lookup Tool</h2>
                 <p>Search comprehensive VaR, ATR, and market data from our explorer databases. Real-time data for informed trading decisions.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('compound')">
+            <div class="calculator-card" onclick="selectCalculator('compound', this)">
                 <h2>💰 Compound Interest Calculator</h2>
                 <p>Calculate long-term investment growth with compound interest. Plan your wealth accumulation strategy with precise mathematical projections.</p>
             </div>
@@ -821,7 +819,7 @@
         <!-- FAQ Section with Schema Markup -->
         <div style="margin-top: 60px; padding: 30px 0; border-top: 1px solid #004400;">
             <div itemscope itemtype="https://schema.org/FAQPage">
-                <h2 style="color: #00ff00; margin-bottom: 30px;">🤔 Frequently Asked Questions</h2>
+                <h2 style="color: #00ff00; margin-bottom: 30px;">Frequently Asked Questions</h2>
 
                 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">What is VaR and why should I care about my financial doom?</h3>
@@ -884,7 +882,7 @@
     <script>
         let activeCalculator = null;
 
-        function selectCalculator(calculatorType) {
+        function selectCalculator(calculatorType, clickedElement) {
             // Hide all calculators
             const calculators = document.querySelectorAll('.calculator-content');
             calculators.forEach(calc => calc.classList.remove('active'));
@@ -897,7 +895,9 @@
             document.getElementById(calculatorType + '-calculator').classList.add('active');
 
             // Add active class to selected card
-            event.currentTarget.classList.add('active');
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+            }
 
             // Update breadcrumb navigation
             updateBreadcrumb(calculatorType);
