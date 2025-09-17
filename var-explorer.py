@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 VaR Explorer Generator - MarketWizardry.org
+Enhanced with comprehensive SEO and breadcrumb navigation
 
 VaR calculations for degenerates who need mathematical proof their portfolio is doomed.
 Watch your money evaporate with scientific precision.
@@ -11,6 +12,10 @@ since whenever this script was first written.
 
 import os
 import re
+from datetime import datetime
+
+# Import the new SEO system
+from seo_templates import SEOManager, PAGE_CONFIGS, get_breadcrumb_paths, REDIRECT_SCRIPT_TEMPLATE
 
 # Define the directory containing CSV files and output HTML file path
 directory = './var-explorer/'
@@ -35,52 +40,61 @@ for filename in os.listdir(directory):
 # Sort files by the extracted dates for display order
 files.sort(key=lambda x: x[1], reverse=True)
 
-# Generate HTML content
+# Initialize SEO Manager and generate enhanced HTML
+seo_manager = SEOManager()
+
+# Configure page-specific SEO
+page_config = PAGE_CONFIGS['explorer'].copy()
+page_config.update({
+    'title': 'MarketWizardry.org | VaR Explorer',
+    'canonical_url': 'https://marketwizardry.org/var-explorer.html',
+    'description': 'Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.',
+    'keywords': f"{page_config['keywords_base']}, VaR explorer, value at risk, portfolio risk, financial risk analysis, quantitative analysis",
+    'og_title': 'VaR Explorer - MarketWizardry.org',
+    'og_description': 'Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.',
+    'twitter_title': 'VaR Explorer - MarketWizardry.org',
+    'twitter_description': 'Value at Risk calculations with mathematical precision. Real-time portfolio risk analysis.'
+})
+
+# Generate breadcrumb navigation
+breadcrumb_paths = get_breadcrumb_paths()
+var_breadcrumbs = breadcrumb_paths['var_explorer']
+
+# Generate schema.org data
+schema_config = {
+    'type': 'WebApplication',
+    'name': 'VaR Explorer',
+    'url': page_config['canonical_url'],
+    'description': page_config['description'],
+    'additional_properties': {
+        'applicationCategory': 'FinanceApplication',
+        'operatingSystem': 'Web Browser',
+        'dateModified': datetime.now().strftime('%Y-%m-%dT%H:%M:%S+00:00'),
+        'featureList': [
+            'Value at Risk calculations',
+            'Real-time market data analysis',
+            'Portfolio risk assessment',
+            'Outlier detection',
+            'Historical risk analysis'
+        ]
+    }
+}
+
+# Generate all SEO components
+seo_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
+breadcrumb_navigation = seo_manager.generate_breadcrumbs(var_breadcrumbs)
+breadcrumb_css = seo_manager.generate_breadcrumb_css()
+json_ld_schema = seo_manager.generate_json_ld_schema(schema_config)
+
+# Generate HTML content with enhanced SEO
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org | VaR Explorer</title>
-    <link rel="canonical" href="https://marketwizardry.org/var-explorer.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="VaR Explorer - MarketWizardry.org">
-    <meta property="og:description" content="Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.">
-    <meta property="og:url" content="https://marketwizardry.org/var-explorer.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="VaR Explorer - MarketWizardry.org">
-    <meta name="twitter:description" content="Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <script>
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {{
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {{
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {{
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                }} else {{
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${{currentPage}}`;
-                }}
-            }}, 100);
-        }}
-    </script>
+{seo_meta_tags}
+
+{json_ld_schema}
+
+{REDIRECT_SCRIPT_TEMPLATE}
     <style>
         body {{
             background-color: #000;
@@ -333,10 +347,13 @@ html_content = f"""<!DOCTYPE html>
                 font-size: 0.8em;
             }}
         }}
+
+{breadcrumb_css}
     </style>
 </head>
 <body>
     <div class="container">
+{breadcrumb_navigation}
         <h1>VaR Explorer</h1>
         <div class="crt-divider"></div>
         <div class="flavor-text">Value at Risk calculations for degenerates who need mathematical proof their portfolio is doomed. Watch your money evaporate with scientific precision.</div>

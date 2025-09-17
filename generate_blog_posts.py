@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Script to generate HTML blog posts from text files and update blog.html
+Enhanced with comprehensive SEO and breadcrumb navigation
 """
 import os
 import re
@@ -12,6 +13,9 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 import textwrap
+
+# Import the new SEO system
+from seo_templates import SEOManager, PAGE_CONFIGS, get_breadcrumb_paths, REDIRECT_SCRIPT_TEMPLATE
 
 # Load symbol to sector/industry mapping
 try:
@@ -283,52 +287,15 @@ def get_sector_specific_flavor_text(sector):
         return select_unused_flavor_text(sector_texts[sector], sector_texts[sector][0])
     return None
 
-# HTML template for individual blog posts
+# Enhanced HTML template for individual blog posts with SEO and breadcrumbs
 BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org | {title}</title>
-    <link rel="canonical" href="https://marketwizardry.org/blog/{filename}">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="{description}">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="MarketWizardry.org | {title}">
-    <meta property="og:description" content="{description}">
-    <meta property="og:url" content="https://marketwizardry.org/blog/{filename}">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{title}">
-    <meta name="twitter:description" content="{description}">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <script>
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {{
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {{
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {{
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-                }} else {{
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${{currentPage}}`;
-                }}
-            }}, 100);
-        }}
-    </script>
+{seo_meta_tags}
+
+{json_ld_schema}
+
+{redirect_script}
     <style>
         * {{
             box-sizing: border-box;
@@ -551,10 +518,13 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             opacity: 0.9;
             animation: flicker 1s infinite;
         }}
+
+{breadcrumb_css}
     </style>
 </head>
 <body>
 <div class="container">
+{breadcrumb_navigation}
     <header><h1>{title}</h1></header>
     <div class="crt-divider"></div>
     <div class="flavor-text">{description}</div>
@@ -1050,11 +1020,59 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         elif title.lower().startswith("understanding "):
             breadcrumb_title = title[14:]  # Remove "Understanding " prefix
 
-    # Generate HTML
+    # Initialize SEO Manager
+    seo_manager = SEOManager()
+
+    # Get breadcrumb paths
+    breadcrumb_paths = get_breadcrumb_paths()
+    blog_breadcrumbs = breadcrumb_paths['blog'] + [{'name': breadcrumb_title, 'url': None}]
+
+    # Configure page-specific SEO
+    page_config = PAGE_CONFIGS['blog_post'].copy()
+    page_config.update({
+        'title': f"MarketWizardry.org | {title}",
+        'canonical_url': f"https://marketwizardry.org/blog/{html_file.name}",
+        'description': flavor_text[:160],  # Truncate for meta description
+        'keywords': f"{page_config['keywords_base']}, {title.lower().replace(' ', ', ')}",
+        'og_title': f"{title} - MarketWizardry.org",
+        'og_description': flavor_text[:200],
+        'twitter_title': title,
+        'twitter_description': flavor_text[:200],
+        'published_time': datetime.now().strftime('%Y-%m-%dT%H:%M:%S+00:00')
+    })
+
+    # Generate schema.org data
+    schema_config = {
+        'type': 'BlogPosting',
+        'name': title,
+        'url': page_config['canonical_url'],
+        'description': flavor_text,
+        'additional_properties': {
+            'headline': title,
+            'articleSection': 'Financial Analysis',
+            'datePublished': page_config['published_time'],
+            'dateModified': page_config['published_time'],
+            'wordCount': len(content.split()),
+            'keywords': page_config['keywords']
+        }
+    }
+
+    # Generate all SEO components
+    seo_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
+    breadcrumb_navigation = seo_manager.generate_breadcrumbs(blog_breadcrumbs)
+    breadcrumb_css = seo_manager.generate_breadcrumb_css()
+    json_ld_schema = seo_manager.generate_json_ld_schema(schema_config)
+
+    # Generate HTML with enhanced SEO
     html_content = BLOG_POST_TEMPLATE.format(
+        seo_meta_tags=seo_meta_tags,
+        breadcrumb_navigation=breadcrumb_navigation,
+        breadcrumb_css=breadcrumb_css,
+        json_ld_schema=json_ld_schema,
+        redirect_script=REDIRECT_SCRIPT_TEMPLATE,
         title=title,
         breadcrumb_title=breadcrumb_title,
-        description=flavor_text,  # Use position-specific flavor text instead of generic summary
+        description=flavor_text,
         filename=html_file.name,
         section_title=section_title,
         summary=summary,
