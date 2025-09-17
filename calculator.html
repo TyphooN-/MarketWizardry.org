@@ -25,7 +25,44 @@
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <script>
+
+    <!-- JSON-LD Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Financial Calculator Suite",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "description": "Multi-modal financial calculator suite for VaR, stop losses, position sizing, and portfolio risk management",
+        "url": "https://marketwizardry.org/calculator.html",
+        "author": {
+            "@type": "Person",
+            "name": "TyphooN"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Market Wizardry",
+            "url": "https://marketwizardry.org"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "VaR (Value at Risk) Calculator",
+            "Stop Loss Calculator with ATR integration",
+            "Position Size Calculator with multiple risk modes",
+            "Portfolio VaR Calculator",
+            "Symbol Lookup Tool with 901+ financial instruments",
+            "Real-time risk assessment and outlier detection"
+        ],
+        "screenshot": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp"
+    }
+    </script>
+
+    <script defer>
         // Redirect to index.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
@@ -230,6 +267,31 @@
             background-color: #00ff00;
             color: #000000;
         }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .breadcrumb a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
+
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -269,9 +331,27 @@
 </head>
 <body>
     <div class="container">
+        <!-- Breadcrumb Navigation with Schema Markup -->
+        <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a href="/" itemprop="item">
+                    <span itemprop="name">🏠 Home</span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </span>
+            <span class="separator">→</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name">📊 Calculator Suite</span>
+                <meta itemprop="position" content="2" />
+            </span>
+        </nav>
+
         <h1>🧮 Financial Calculator Suite</h1>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Mathematical precision for financial degenerates who need calculated confirmation of their doom.</div>
+        <div class="flavor-text">Mathematical precision for financial degenerates who need calculated confirmation of their doom.
+        <br><br>🔗 <a href="/var-explorer.html" style="color: #00ff00;">Explore VaR Analysis</a> |
+        <a href="/atr-explorer.html" style="color: #00ff00;">ATR Volatility Tools</a> |
+        <a href="/blog.html" style="color: #00ff00;">Educational Content</a></div>
 
         <div class="crt-divider"></div>
 
@@ -583,6 +663,57 @@
             </div>
         </div>
 
+        <!-- FAQ Section with Schema Markup -->
+        <div style="margin-top: 60px; padding: 30px 0; border-top: 1px solid #004400;">
+            <div itemscope itemtype="https://schema.org/FAQPage">
+                <h2 style="color: #00ff00; margin-bottom: 30px;">🤔 Frequently Asked Questions</h2>
+
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                    <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">What is VaR and why should I care about my financial doom?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
+                            VaR (Value at Risk) estimates the maximum loss your position might suffer over a specific time period. Think of it as a mathematical crystal ball that tells you exactly how much money you're about to lose with 95% confidence. Perfect for masochists who enjoy quantifying their financial suffering.
+                        </div>
+                    </div>
+                </div>
+
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                    <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">How does the Position Size Calculator work?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
+                            Our calculator offers three risk modes: Stop Loss (traditional risk), VaR (statistical risk), and ATR (volatility-based risk). Choose your preferred method of calculating exactly how many shares you can afford to lose. It's like a GPS for financial destruction - precise directions to your destination.
+                        </div>
+                    </div>
+                </div>
+
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                    <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">What's ATR and why does it matter for stop losses?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
+                            ATR (Average True Range) measures market volatility over different timeframes. Using ATR for stop losses is like wearing a helmet sized perfectly for the incoming financial brick wall. It adapts to market conditions so your stops aren't too tight (death by a thousand cuts) or too loose (death by one big cut).
+                        </div>
+                    </div>
+                </div>
+
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                    <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">How many symbols are in your database?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
+                            We track 901 symbols across stocks, CFDs, and futures - each one carefully analyzed for its capacity to destroy portfolios. Our database includes real VaR, ATR, and Enterprise Value data, plus outlier detection that flags the most dangerous instruments. It's like a comprehensive catalog of financial weapons.
+                        </div>
+                    </div>
+                </div>
+
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                    <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">Are you affiliated with Jack Schwager's Market Wizards?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
+                            Absolutely not. We're "Market Wizardry" - the discount, unhinged cousin that Jack's publishers won't return calls from. While his wizards made fortunes, ours specialize in making spreadsheets that accurately predict their own demise. We're flattered by any confusion, but our track record speaks for itself (in whispers of regret).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
