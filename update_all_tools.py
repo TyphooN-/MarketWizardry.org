@@ -582,8 +582,7 @@ class FinancialToolsUpdater:
             text-shadow: 0 0 10px #00ff00;
         }}
         .crt-divider {{
-            width: 80%;
-            max-width: 600px;
+            width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
@@ -722,8 +721,7 @@ class FinancialToolsUpdater:
             text-shadow: 0 0 10px #00ff00;
         }}
         .crt-divider {{
-            width: 80%;
-            max-width: 600px;
+            width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
@@ -875,8 +873,7 @@ class FinancialToolsUpdater:
             text-shadow: 0 0 10px #00ff00;
         }}
         .crt-divider {{
-            width: 80%;
-            max-width: 600px;
+            width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;

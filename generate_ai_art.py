@@ -187,8 +187,7 @@ def generate_ai_art_html(output_file='ai-art.html'):
 	    object-fit: contain;
 	}
         .crt-divider {
-            width: 80%;
-            max-width: 600px;
+            width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
