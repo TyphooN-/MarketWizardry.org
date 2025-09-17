@@ -47,7 +47,7 @@
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
                 window.location.href = `/?page=${currentPage}`;
         }
-                }, 100);
+, 100);
         }
     </script>
     <style>
@@ -126,17 +126,19 @@
 	    object-fit: contain;
 	}
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
         .filename-display {
             color: #00ff00;
             margin-bottom: 10px;
@@ -265,15 +267,14 @@
         	const modal = document.getElementById('fullscreenModal');
         	if (modal.style.display === 'flex') {
             		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+        }
+// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
             	closeModal();
         }
-    };
+;
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -290,7 +291,8 @@
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-                }});
+        }
+);
     </script>
 </body>
 </html>

@@ -76,8 +76,8 @@
                     // For main pages, redirect with page parameter
                     const currentPage = currentPath.split('/').pop().replace('.html', '');
                     window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        }
+, 100);
         }
     </script>
     <style>
@@ -180,10 +180,8 @@
                 top: 8px;
                 right: 12px;
                 font-size: 24px !important;
-            }
         }
-        
-        @media (max-width: 480px) {
+@media (max-width: 480px) {
             body {
                 padding: 5px;
             }
@@ -218,9 +216,8 @@
                 top: 5px;
                 right: 8px;
                 font-size: 20px !important;
-            }
         }
-        .modal {
+.modal {
             display: none;
             position: fixed;
             top: 0;
@@ -512,22 +509,16 @@
                 prevButton.disabled = currentImageIndex <= 0;
                 nextButton.disabled = currentImageIndex >= imageItems.length - 1;
                 imageCounter.textContent = `${currentImageIndex + 1} / ${imageItems.length}`;
-            }
         }
-
-        function previousImage() {
+function previousImage() {
             if (currentImageIndex > 0) {
                 openModal(currentImageIndex - 1);
-            }
         }
-
-        function nextImage() {
+function nextImage() {
             if (currentImageIndex < imageItems.length - 1) {
                 openModal(currentImageIndex + 1);
-            }
         }
-
-        function clearHoverEffects() {
+function clearHoverEffects() {
             imageItems.forEach(item => item.classList.remove('hovered'));
         }
 
@@ -547,8 +538,8 @@
                     handleImageInteraction(event);
                 } catch (error) {
                     console.error('Click handler error:', error);
-                }
-            });
+        }
+);
 
             img.addEventListener('touchstart', (event) => {
                 try {
@@ -561,8 +552,8 @@
                     console.log('Touchstart detected');
                 } catch (error) {
                     console.error('Touchstart handler error:', error);
-                }
-            });
+        }
+);
 
             img.addEventListener('touchend', (event) => {
                 try {
@@ -581,11 +572,11 @@
                     } else {
                         console.log('Touchend ignored (long press or swipe)');
                         clearHoverEffects();
-                    }
-                } catch (error) {
+        }
+catch (error) {
                     console.error('Touchend handler error:', error);
-                }
-            });
+        }
+);
 
             img.addEventListener('touchcancel', () => {
                 try {
@@ -593,8 +584,8 @@
                     console.log('Touchcancel detected');
                 } catch (error) {
                     console.error('Touchcancel handler error:', error);
-                }
-            });
+        }
+);
         });
 
         imageItems.forEach((item, index) => {
@@ -605,8 +596,8 @@
                     openModal(index);
                 } catch (error) {
                     console.error('Image item click handler error:', error);
-                }
-            });
+        }
+);
             
             // Add hover events
             item.addEventListener('mouseenter', () => {
@@ -636,8 +627,8 @@
                 case 'ArrowRight':
                     if (currentImageIndex < imageItems.length - 1) openModal(currentImageIndex + 1);
                     break;
-            }
-        });
+        }
+);
 
         modalText.addEventListener('keydown', (event) => {
             if (modal.style.display !== "block") return;
@@ -648,16 +639,16 @@
             } else if (event.key === 'ArrowDown') {
                 event.preventDefault();
                 modalText.scrollTop += scrollAmount;
-            }
-        });
+        }
+);
 
         modalText.setAttribute('tabindex', '0');
 
         window.addEventListener('resize', () => {
             if (modal.style.display === "block" && currentImageIndex >= 0) {
                 openModal(currentImageIndex);
-            }
-        });
+        }
+);
         
         return true;
     }

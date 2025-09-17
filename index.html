@@ -152,9 +152,9 @@
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-        /* Scanlines */
+/* Scanlines */
         .scanlines {
             position: fixed;
             top: 0;
@@ -359,10 +359,8 @@
                 height: calc(100vh - 120px);
                 padding: 10px;
                 overflow-y: auto;
-            }
         }
-
-        /* Extra small mobile devices */
+/* Extra small mobile devices */
         @media screen and (max-width: 480px) {
             .menu {
                 max-height: 50vh;
@@ -381,9 +379,8 @@
             
             .content-frame {
                 padding: 8px;
-            }
         }
-    </style>
+</style>
 </head>
 <body>
     <div class="scanlines"></div>
@@ -468,9 +465,8 @@
             // Add active class to clicked menu item only if event exists (user clicked)
             if (event && event.target && event.target.classList) {
                 event.target.classList.add('active');
-            }
         }
-        // Load content based on URL parameter or default to "market-wizardry"
+// Load content based on URL parameter or default to "market-wizardry"
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const pageParam = urlParams.get('page');

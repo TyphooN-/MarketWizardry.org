@@ -491,11 +491,12 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             }}
         }}
         .crt-divider {{
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 30px 0;
+            margin: 30px auto;
         }}
         @keyframes scan {{
             0% {{ opacity: 1; width: 0%; }}

@@ -58,23 +58,25 @@
                     // For main pages, redirect with page parameter
                     const currentPage = currentPath.split('/').pop().replace('.html', '');
                     window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        }
+, 100);
         }
     </script>
     <style>
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 30px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
         body {
             background-color: #000;
             color: #0f0;
@@ -240,10 +242,9 @@
 
         @keyframes animatetop {
             from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
+            to {top:0; opacity:1
         }
-
-        @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
             .modal {
                 padding-top: 20px;
                 position: fixed;
@@ -302,99 +303,99 @@
                 min-width: 60px;
             }
             .nav-counter {
-            }
         }
-        
-        .crt-divider {
-            width: 100%;
+.crt-divider {
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
         .flavor-text {
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            color: #00ff00;
+color: #00ff00;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            font-family: "Courier New", monospace;
+font-family: "Courier New", monospace;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            text-align: center;
+text-align: center;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            margin: 20px 0;
+margin: 20px 0;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            padding: 15px;
+padding: 15px;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            font-style: italic;
+font-style: italic;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            font-weight: bold;
+font-weight: bold;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            opacity: 0.9;
+opacity: 0.9;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-            animation: flicker 1s infinite;
+animation: flicker 1s infinite;
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-        }
+}
 
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-    /* Breadcrumb Navigation Styles */
+/* Breadcrumb Navigation Styles */
         .breadcrumb {
             font-size: 0.8em;
             color: #00aa00;
@@ -563,19 +564,15 @@
             const navCounter = document.getElementById('navCounter');
             if (navCounter) {
                 navCounter.textContent = `${currentFileIndex + 1} / ${fileKeys.length}`;
-            }
         }
-
-        function closeModal() {
+function closeModal() {
             document.getElementById('textModal').style.display = 'none';
             // Clean up blob URL
             const downloadLink = document.getElementById('downloadLink');
             if (downloadLink.href.startsWith('blob:')) {
                 URL.revokeObjectURL(downloadLink.href);
-            }
         }
-        
-        // Enhanced keyboard navigation
+// Enhanced keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('textModal');
             if (modal.style.display === 'block') {
@@ -589,17 +586,16 @@
                     // Ctrl+D or Cmd+D to download
                     event.preventDefault();
                     document.getElementById('downloadLink').click();
-                }
-            }
-        });
+        }
+});
         
         // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             const modal = document.getElementById('textModal');
             if (event.target === modal) {
                 closeModal();
-            }
-        });
+        }
+);
         
         // Set up close button after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {

@@ -12,14 +12,15 @@
             if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
                 // For blog posts and NFT galleries, redirect to the actual file
                 const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
+                window.location.href = `/?page=${{encodeURIComponent(fullPath)
+        }
+`;
             } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
                 window.location.href = `/?page=${currentPage}`;
-            }
         }
-    </script>
+</script>
     <style>
         body {
             background-color: #000;
@@ -151,20 +152,21 @@
             .twitter-link-container a {
                 font-size: 0.8em;
                 padding: 3px 6px;
-            }
         }
-        .crt-divider {
-            width: 100%;
+.crt-divider {
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
     </style>
 </head>
 <body>

@@ -58,8 +58,8 @@
                     // For main pages, redirect with page parameter
                     const currentPage = currentPath.split('/').pop().replace('.html', '');
                     window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        }
+, 100);
         }
     </script>
     <style>
@@ -96,17 +96,19 @@
             margin: 20px 0;
         }
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 30px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
         .matrix-text {
             position: fixed;
             color: #00ff00;
@@ -124,9 +126,8 @@
             100% {
                 transform: translateY(calc(var(--height, 100vh)));
                 opacity: 0;
-            }
         }
-        .matrix-char {
+.matrix-char {
             animation-delay: var(--delay, 0s);
         }
         /* Flavor text - must come after matrix styles */
@@ -146,10 +147,9 @@
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-        
-        /* Mobile responsive styles */
+/* Mobile responsive styles */
         @media screen and (max-width: 768px) {
             body {
                 padding: 10px;
@@ -169,16 +169,13 @@
                 100% {
                     transform: translateY(calc(100vh + 100px));
                     opacity: 0;
-                }
-            }
-            
-            .flavor-text {
+        }
+.flavor-text {
                 margin: 10px 0 !important;
                 padding: 10px !important;
                 font-size: 14px !important;
-            }
         }
-    /* Breadcrumb Navigation Styles */
+/* Breadcrumb Navigation Styles */
         .breadcrumb {
             font-size: 0.8em;
             color: #00aa00;

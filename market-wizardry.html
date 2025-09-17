@@ -47,8 +47,9 @@
             } else {
                 // For main pages, redirect with page parameter
                 const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;}
-                }, 100);
+                window.location.href = `/?page=${currentPage}`;
+        }
+, 100);
         }
     </script>
     <style>
@@ -89,17 +90,19 @@
             margin: 20px 0;
         }
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 30px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
 
         /* Mobile Responsive Styles */
         @media screen and (max-width: 768px) {
@@ -124,18 +127,21 @@
             }
             
             .crt-divider {
-                margin: 20px 0;
-            }
+            width: 80%;
+            max-width: 600px;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px auto;
+        }
             
             iframe {
                 width: 100%;
                 height: auto;
                 min-height: 300px;
                 margin: 10px 0;
-            }
         }
-
-        @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
             body {
                 padding: 8px;
                 font-size: 13px;
@@ -154,15 +160,19 @@
             }
             
             .crt-divider {
-                margin: 15px 0;
-            }
+            width: 80%;
+            max-width: 600px;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px auto;
+        }
             
             iframe {
                 min-height: 250px;
                 margin: 8px 0;
-            }
         }
-    </style>
+</style>
 </head>
 <body>
     <div class="image-container">

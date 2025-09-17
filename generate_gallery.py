@@ -216,11 +216,12 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             }
         }
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {{
             0% {{ opacity: 1; width: 0%; }}
@@ -370,11 +371,12 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 	    object-fit: contain;
 	}
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
@@ -803,11 +805,12 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 	    object-fit: contain;
 	}
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }

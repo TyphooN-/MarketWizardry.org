@@ -76,17 +76,19 @@
 	    object-fit: contain;
 	}
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 10px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
         .filename-display {
             color: #00ff00;
             margin-bottom: 10px;
@@ -178,9 +180,8 @@
             .twitter-link-container a {
                 font-size: 0.8em;
                 padding: 3px 6px;
-            }
         }
-    </style>
+</style>
 </head>
 <body>
     <h2>NFT Gallery - FEELSxart</h2>
@@ -285,15 +286,15 @@
             // Load more images immediately if the initial load doesn't fill the viewport
             if (document.body.offsetHeight < window.innerHeight) {
                 loadMoreImages();
-            }
-        });
+        }
+);
 
         // Scroll event for lazy loading
         window.addEventListener('scroll', () => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
                 loadMoreImages();
-            }
-        });
+        }
+);
 
         function openImage(index) {
             currentImageIndex = index;
@@ -346,9 +347,8 @@
                     // Verify tweet_id is numeric
                     if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
-                    }
-                }
-            } catch (e) {
+        }
+} catch (e) {
                 console.log('Could not extract tweet info from filename:', filename);
             }
             return { username: null, tweetId: null };
@@ -357,27 +357,24 @@
             if (currentImageIndex > 0) {
                 currentImageIndex--;
                 openImage(currentImageIndex);
-            }
         }
-        function nextImage() {
+function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
-            }
         }
-    	function closeModal() {
+function closeModal() {
         	const modal = document.getElementById('fullscreenModal');
         	if (modal.style.display === 'flex') {
             		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+        }
+// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
             	closeModal();
         }
-    };
+;
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -394,9 +391,8 @@
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-                }
-            }
-        });
+        }
+});
     </script>
 </body>
 </html>

@@ -64,7 +64,7 @@
             "@type": "ImageObject",
             "url": "https://marketwizardry.org/img/apple-touch-icon.png"
         }
-    },
+,
     "inLanguage": "en-US",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web Browser",
@@ -93,8 +93,8 @@
                     // For main pages, redirect with page parameter
                     const currentPage = currentPath.split('/').pop().replace('.html', '');
                     window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
+        }
+, 100);
         }
     </script>
     <style>
@@ -113,23 +113,25 @@
             text-align: center;
         }
         .crt-divider {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 30px 0;
+            margin: 30px auto;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
+            100% { opacity: 1; width: 100%;
         }
+}
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            100% { opacity: 1;
         }
-        .flavor-text {
+.flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
             text-align: center;
@@ -298,15 +300,13 @@
         /* Add Animation */
         @-webkit-keyframes animatetop {
             from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
+            to {top:0; opacity:1
         }
-
-        @keyframes animatetop {
+@keyframes animatetop {
             from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
+            to {top:0; opacity:1
         }
-
-        @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
             }
@@ -346,9 +346,8 @@
                 min-width: 60px;
             }
             .nav-counter {
-            }
         }
-    /* Breadcrumb Navigation Styles */
+/* Breadcrumb Navigation Styles */
         .breadcrumb {
             font-size: 0.8em;
             color: #00aa00;
@@ -2243,24 +2242,18 @@
                 prevButton.disabled = currentIndex <= 0;
                 nextButton.disabled = currentIndex >= fileEntryLinks.length - 1;
                 navCounter.textContent = `${currentIndex + 1} / ${fileEntryLinks.length}`;
-            }
         }
-
-        function navigatePrevious() {
+function navigatePrevious() {
             if (currentIndex > 0) {
                 currentIndex--;
                 openModalAtIndex(currentIndex);
-            }
         }
-
-        function navigateNext() {
+function navigateNext() {
             if (currentIndex < fileEntryLinks.length - 1) {
                 currentIndex++;
                 openModalAtIndex(currentIndex);
-            }
         }
-
-        function forceDownload(event, link) {
+function forceDownload(event, link) {
             event.preventDefault();
             const url = link.href;
             const filename = link.download || url.split('/').pop();
@@ -2295,8 +2288,8 @@
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-            }
-        };
+        }
+;
 
         window.addEventListener("keydown", function(event) {
             if (modal.style.display === "block") {
@@ -2306,9 +2299,8 @@
                     navigatePrevious();
                 } else if (event.key === "ArrowRight") {
                     navigateNext();
-                }
-            }
-        });
+        }
+});
     </script>
 </body>
 </html>
