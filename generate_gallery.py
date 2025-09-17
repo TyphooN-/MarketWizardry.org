@@ -2,6 +2,7 @@ import os
 import fnmatch
 import random
 import re
+from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
 
 def extract_tweet_info(filename):
     """Extract username and tweet ID from filename format: username-tweetid-description"""
@@ -53,36 +54,42 @@ def get_existing_flavor_text(username):
     return f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
 
 def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[]):
-    html_content = """
-<!DOCTYPE html>
-<html>
+    # Initialize SEO Manager and get breadcrumbs
+    seo_manager = SEOManager()
+    breadcrumb_paths = get_breadcrumb_paths()
+    gallery_breadcrumbs = breadcrumb_paths['gallery']
+
+    # Configure page settings
+    page_config = PAGE_CONFIGS['gallery'].copy()
+    page_config.update({
+        'title': 'MarketWizardry.org | NFT Gallery',
+        'canonical_url': 'https://marketwizardry.org/nft-gallery.html',
+        'description': 'Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.',
+        'og_title': 'NFT Gallery - MarketWizardry.org',
+        'og_description': 'Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.',
+        'twitter_title': 'NFT Gallery - MarketWizardry.org',
+        'twitter_description': 'Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.',
+        'keywords': page_config['keywords_base']
+    })
+
+    # Generate SEO components
+    enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
+    breadcrumbs_html = seo_manager.generate_breadcrumbs(gallery_breadcrumbs)
+    breadcrumb_css = seo_manager.generate_breadcrumb_css()
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>MarketWizardry.org | NFT Gallery</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-            } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
-        }
-    </script>
+{enhanced_meta_tags}
+{REDIRECT_SCRIPT_TEMPLATE}
     <style>
-        body {
+        body {{
             background-color: #000;
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
+        }}
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -215,14 +222,17 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             animation: scan 1s infinite;
             margin: 10px 0;
         }
-        @keyframes scan {
-            0% { opacity: 1; width: 0%; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
-        }
+        @keyframes scan {{
+            0% {{ opacity: 1; width: 0%; }}
+            50% {{ opacity: 0.5; }}
+            100% {{ opacity: 1; width: 100%; }}
+        }}
+
+{breadcrumb_css}
     </style>
 </head>
 <body>
+{breadcrumbs_html}
     <div class="container">
         <h1>NFT (Not For Trade) Gallery</h1>
         <div class="crt-divider"></div>
@@ -253,12 +263,41 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
     print(f"Generated {output_file} with {len(user_links)} user links.")
 
 def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.webp'):
-    html_template = """
-<!-- user_gallery.html -->
+    # Initialize SEO Manager and get breadcrumbs for individual galleries
+    seo_manager = SEOManager()
+    breadcrumb_paths = get_breadcrumb_paths()
+
+    # Create breadcrumb path for individual user gallery
+    user_gallery_breadcrumbs = [
+        {'name': '🏠 Market Wizardry', 'url': '../market-wizardry.html'},
+        {'name': '🎨 NFT Gallery', 'url': '../nft-gallery.html'},
+        {'name': f'👤 {username}', 'url': None}  # Current page
+    ]
+
+    # Configure page settings for user gallery
+    page_config = PAGE_CONFIGS['gallery'].copy()
+    page_config.update({
+        'title': f'MarketWizardry.org | NFT Gallery - {username}',
+        'canonical_url': f'https://marketwizardry.org/nft-gallery/{username}_gallery.html',
+        'description': f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.",
+        'og_title': f'NFT Gallery - {username} - MarketWizardry.org',
+        'og_description': f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.",
+        'twitter_title': f'NFT Gallery - {username} - MarketWizardry.org',
+        'twitter_description': f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.",
+        'keywords': f"{page_config['keywords_base']}, {username}, artist portfolio"
+    })
+
+    # Generate SEO components
+    enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
+    breadcrumbs_html = seo_manager.generate_breadcrumbs(user_gallery_breadcrumbs)
+    breadcrumb_css = seo_manager.generate_breadcrumb_css()
+
+    html_template = f"""<!-- user_gallery.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>MarketWizardry.org | NFT Gallery - USERNAME_PLACEHOLDER</title>
+{enhanced_meta_tags}
+{REDIRECT_SCRIPT_TEMPLATE}
     <style>
         body {
             background-color: #000;
@@ -434,10 +473,13 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                 font-size: 0.8em;
                 padding: 3px 6px;
             }
-        }
+        }}
+
+{breadcrumb_css}
     </style>
 </head>
 <body>
+{breadcrumbs_html}
     <h2>NFT Gallery - USERNAME_PLACEHOLDER</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">FLAVOR_TEXT_PLACEHOLDER</div>
@@ -655,12 +697,40 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         return True
 
 def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
-    html_template = """
-<!-- all.html -->
+    # Initialize SEO Manager and get breadcrumbs for all gallery
+    seo_manager = SEOManager()
+
+    # Create breadcrumb path for all gallery
+    all_gallery_breadcrumbs = [
+        {'name': '🏠 Market Wizardry', 'url': '../market-wizardry.html'},
+        {'name': '🎨 NFT Gallery', 'url': '../nft-gallery.html'},
+        {'name': '📁 All Images', 'url': None}  # Current page
+    ]
+
+    # Configure page settings for all gallery
+    page_config = PAGE_CONFIGS['gallery'].copy()
+    page_config.update({
+        'title': 'MarketWizardry.org | NFT Gallery - All Images',
+        'canonical_url': 'https://marketwizardry.org/nft-gallery/all.html',
+        'description': 'Complete NFT collection aggregated into one comprehensive gallery. Browse all digital art pieces in the MarketWizardry collection.',
+        'og_title': 'All NFT Images - MarketWizardry.org',
+        'og_description': 'Complete NFT collection aggregated into one comprehensive gallery. Browse all digital art pieces in the MarketWizardry collection.',
+        'twitter_title': 'All NFT Images - MarketWizardry.org',
+        'twitter_description': 'Complete NFT collection aggregated into one comprehensive gallery. Browse all digital art pieces in the MarketWizardry collection.',
+        'keywords': f"{page_config['keywords_base']}, complete collection, all images"
+    })
+
+    # Generate SEO components
+    enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
+    breadcrumbs_html = seo_manager.generate_breadcrumbs(all_gallery_breadcrumbs)
+    breadcrumb_css = seo_manager.generate_breadcrumb_css()
+
+    html_template = f"""<!-- all.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>MarketWizardry.org | NFT Gallery - All Images</title>
+{enhanced_meta_tags}
+{REDIRECT_SCRIPT_TEMPLATE}
     <style>
         body {
             background-color: #000;
@@ -836,10 +906,13 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                 font-size: 0.8em;
                 padding: 3px 6px;
             }
-        }
+        }}
+
+{breadcrumb_css}
     </style>
 </head>
 <body>
+{breadcrumbs_html}
     <h2>NFT Gallery - All Images</h2>
     <div class="crt-divider"></div>
     <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>

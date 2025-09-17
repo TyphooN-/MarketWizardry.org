@@ -2,40 +2,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
     <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketWizardry.org | Blog Explorer</title>
     <link rel="canonical" href="https://marketwizardry.org/blog.html">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Financial autism documented in real-time for your entertainment and education. Read if you enjoy watching portfolios burn while learning something.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Blog Explorer - MarketWizardry.org">
-    <meta property="og:description" content="Financial autism documented in real-time for your entertainment and education. Read if you enjoy watching portfolios burn while learning something.">
+
+    <!-- Enhanced Standard Meta Tags -->
+    <meta name="description" content="TyphooN">
+    <meta name="keywords" content="">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="en-US">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    <meta name="theme-color" content="#00ff00">
+
+    <!-- Enhanced Open Graph Meta Tags -->
+    <meta property="og:title" content="Blog - MarketWizardry.org">
+    <meta property="og:description" content="TyphooN">
     <meta property="og:url" content="https://marketwizardry.org/blog.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
     <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
+    <meta property="og:image:alt" content="MarketWizardry.org - Professional Financial Trading Tools">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    
+
+    <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Blog Explorer - MarketWizardry.org">
-    <meta name="twitter:description" content="Financial autism documented in real-time for your entertainment and education. Read if you enjoy watching portfolios burn while learning something.">
+    <meta name="twitter:title" content="Blog - MarketWizardry.org">
+    <meta name="twitter:description" content="TyphooN">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta name="twitter:image:alt" content="MarketWizardry.org Financial Tools">
+    <meta name="twitter:domain" content="marketwizardry.org">
+        <meta name="twitter:label1" content="Category">
+    <meta name="twitter:data1" content="Financial Blog">    <meta name="twitter:label2" content="Updates">
+    <meta name="twitter:data2" content="Regular">
     <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-
-        // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to market-wizardry.html if accessed directly (not in iframe)
         if (window === window.top) {
             // Small delay to ensure viewport takes effect on mobile
             setTimeout(() => {
@@ -143,9 +154,51 @@
             opacity: 0.9;
             animation: flicker 1s infinite;
         }
-    </style>
+    
+    /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb a {
+        color: #00ff00;
+        text-decoration: none;
+        border-bottom: 1px dotted #00ff00;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
+</style>
 </head>
 <body>
+    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="market-wizardry.html" itemprop="item">
+                <span itemprop="name">🏠 Market Wizardry</span>
+            </a>
+            <meta itemprop="position" content="1" />
+        </span>
+        <span class="separator">→</span>
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="blog.html" itemprop="item">
+                <span itemprop="name">📊 Blog</span>
+            </a>
+            <meta itemprop="position" content="2" />
+        </span>
+    </nav>
+
     <div class="container">
         <h1>Blog Explorer</h1>
         <div class="crt-divider"></div>
