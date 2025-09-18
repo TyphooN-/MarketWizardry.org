@@ -30,6 +30,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -70,7 +71,7 @@
             margin: 0;
         }
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
         }
         h1 {
@@ -95,6 +96,7 @@
             background-color: #001100;
             color: #00ff00;
         }
+
         a {
             color: #00ff00;
             text-decoration: none;
@@ -114,7 +116,84 @@
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-            animation: flicker 1s infinite;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+            .full-image {
+                max-height: 55vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .twitter-link-container {
+                margin: 5px 0;
+            }
+            .twitter-link-container a {
+                font-size: 0.8em;
+                padding: 3px 6px;
+            }
         }
         .crt-divider {
             width: 100%;
@@ -128,43 +207,39 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; width: 100%; }
         }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
+
+
     /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb a {
+        color: #00ff00 !important;
+        text-decoration: none;
+        border-bottom: 1px dotted #00ff00;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff !important;
+        border-bottom-color: #ffffff !important;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
+
+    /* Mobile breadcrumb optimization */
+    @media screen and (max-width: 768px) {
         .breadcrumb {
-            font-size: 0.8em;
-            color: #00aa00;
-            margin-bottom: 20px;
-            padding: 10px 0;
+            display: none;
         }
-    
-        .breadcrumb a {
-            color: #00ff00 !important;
-            text-decoration: none;
-            border-bottom: 1px dotted #00ff00;
-            transition: all 0.2s ease;
-        }
-    
-        .breadcrumb a:hover {
-            color: #ffffff !important;
-            border-bottom-color: #ffffff !important;
-        }
-    
-        .breadcrumb .separator {
-            margin: 0 8px;
-            color: #004400;
-        }
-
-        /* Mobile breadcrumb optimization */
-        @media screen and (max-width: 768px) {
-            .breadcrumb {
-                display: none;
-            }
-        }
-
+    }
     </style>
 </head>
 <body>
@@ -241,6 +316,62 @@
 <div class="file-entry"><a href="nft-gallery/underscoreX0_gallery.html">underscoreX0</a></div>
 <div class="file-entry"><a href="nft-gallery/0xEdwoods_gallery.html">0xEdwoods</a></div>
 <div class="file-entry"><a href="nft-gallery/ozbren_xyz_gallery.html">ozbren_xyz</a></div>
+<div class="file-entry"><a href="nft-gallery/petersonsart_gallery.html">petersonsart</a></div>
+<div class="file-entry"><a href="nft-gallery/cameron16tv_gallery.html">cameron16tv</a></div>
+<div class="file-entry"><a href="nft-gallery/hexeosis_gallery.html">hexeosis</a></div>
+<div class="file-entry"><a href="nft-gallery/neomechanica_gallery.html">neomechanica</a></div>
+<div class="file-entry"><a href="nft-gallery/chroma_visions_gallery.html">chroma_visions</a></div>
+<div class="file-entry"><a href="nft-gallery/AINTNOTHINxart_gallery.html">AINTNOTHINxart</a></div>
+<div class="file-entry"><a href="nft-gallery/GenerativePunk_gallery.html">GenerativePunk</a></div>
+<div class="file-entry"><a href="nft-gallery/psychofuturist_gallery.html">psychofuturist</a></div>
+<div class="file-entry"><a href="nft-gallery/__Sean_Luke___gallery.html">__Sean_Luke__</a></div>
+<div class="file-entry"><a href="nft-gallery/____elbi_gallery.html">____elbi</a></div>
+<div class="file-entry"><a href="nft-gallery/haydiroket_gallery.html">haydiroket</a></div>
+<div class="file-entry"><a href="nft-gallery/oelhan_tv_gallery.html">oelhan_tv</a></div>
+<div class="file-entry"><a href="nft-gallery/analogvidunion_gallery.html">analogvidunion</a></div>
+<div class="file-entry"><a href="nft-gallery/0xDither_gallery.html">0xDither</a></div>
+<div class="file-entry"><a href="nft-gallery/scardecc_gallery.html">scardecc</a></div>
+<div class="file-entry"><a href="nft-gallery/michaelmicasso_gallery.html">michaelmicasso</a></div>
+<div class="file-entry"><a href="nft-gallery/jotta_rs_gallery.html">jotta_rs</a></div>
+<div class="file-entry"><a href="nft-gallery/PunksDistorted_gallery.html">PunksDistorted</a></div>
+<div class="file-entry"><a href="nft-gallery/killeracid_gallery.html">killeracid</a></div>
+<div class="file-entry"><a href="nft-gallery/Pho_Operator_gallery.html">Pho_Operator</a></div>
+<div class="file-entry"><a href="nft-gallery/RJ16848519_gallery.html">RJ16848519</a></div>
+<div class="file-entry"><a href="nft-gallery/Micah_Alhadeff_gallery.html">Micah_Alhadeff</a></div>
+<div class="file-entry"><a href="nft-gallery/s0mfay_gallery.html">s0mfay</a></div>
+<div class="file-entry"><a href="nft-gallery/XCOPYART_gallery.html">XCOPYART</a></div>
+<div class="file-entry"><a href="nft-gallery/RenatoxMarini_gallery.html">RenatoxMarini</a></div>
+<div class="file-entry"><a href="nft-gallery/obtainer_gallery.html">obtainer</a></div>
+<div class="file-entry"><a href="nft-gallery/louisdazy_gallery.html">louisdazy</a></div>
+<div class="file-entry"><a href="nft-gallery/YUDHO_XYZ_gallery.html">YUDHO_XYZ</a></div>
+<div class="file-entry"><a href="nft-gallery/Kirokaze_gallery.html">Kirokaze</a></div>
+<div class="file-entry"><a href="nft-gallery/rightclickdead_gallery.html">rightclickdead</a></div>
+<div class="file-entry"><a href="nft-gallery/nocturnmachine_gallery.html">nocturnmachine</a></div>
+<div class="file-entry"><a href="nft-gallery/ALCrego__gallery.html">ALCrego_</a></div>
+<div class="file-entry"><a href="nft-gallery/Nicolas_Sassoon_gallery.html">Nicolas_Sassoon</a></div>
+<div class="file-entry"><a href="nft-gallery/adamfuhrer_gallery.html">adamfuhrer</a></div>
+<div class="file-entry"><a href="nft-gallery/ripcache_gallery.html">ripcache</a></div>
+<div class="file-entry"><a href="nft-gallery/FEELSxart_gallery.html">FEELSxart</a></div>
+<div class="file-entry"><a href="nft-gallery/desultor_gallery.html">desultor</a></div>
+<div class="file-entry"><a href="nft-gallery/Zoen_calega_gallery.html">Zoen_calega</a></div>
+<div class="file-entry"><a href="nft-gallery/RedruMxART_gallery.html">RedruMxART</a></div>
+<div class="file-entry"><a href="nft-gallery/cemhah_gallery.html">cemhah</a></div>
+<div class="file-entry"><a href="nft-gallery/hazedlockdown_gallery.html">hazedlockdown</a></div>
+<div class="file-entry"><a href="nft-gallery/hectoroz__gallery.html">hectoroz_</a></div>
+<div class="file-entry"><a href="nft-gallery/p1xelfool_gallery.html">p1xelfool</a></div>
+<div class="file-entry"><a href="nft-gallery/trillobyteart_gallery.html">trillobyteart</a></div>
+<div class="file-entry"><a href="nft-gallery/DarkenedM00d_gallery.html">DarkenedM00d</a></div>
+<div class="file-entry"><a href="nft-gallery/vad_jpg_gallery.html">vad_jpg</a></div>
+<div class="file-entry"><a href="nft-gallery/neurocolor_gallery.html">neurocolor</a></div>
+<div class="file-entry"><a href="nft-gallery/HughesMichi_gallery.html">HughesMichi</a></div>
+<div class="file-entry"><a href="nft-gallery/godlikepx_gallery.html">godlikepx</a></div>
+<div class="file-entry"><a href="nft-gallery/bluretina_gallery.html">bluretina</a></div>
+<div class="file-entry"><a href="nft-gallery/Bombadiluss_gallery.html">Bombadiluss</a></div>
+<div class="file-entry"><a href="nft-gallery/spellamin_gallery.html">spellamin</a></div>
+<div class="file-entry"><a href="nft-gallery/_1mposter_gallery.html">_1mposter</a></div>
+<div class="file-entry"><a href="nft-gallery/baladasathar_gallery.html">baladasathar</a></div>
+<div class="file-entry"><a href="nft-gallery/xeriesjame_art_gallery.html">xeriesjame_art</a></div>
+<div class="file-entry"><a href="nft-gallery/_myujii_gallery.html">_myujii</a></div>
         </div>
     </div>
 </body>

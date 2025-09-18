@@ -90,44 +90,44 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             padding: 20px;
             margin: 0;
         }}
-        .container {
+        .container {{
             max-width: 800px;
             margin: 0 auto;
-        }
-        h1 {
+        }}
+        h1 {{
             text-align: center;
             border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
-        }
-        .grid {
+        }}
+        .grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
             margin-top: 20px;
-        }
-        .file-entry {
+        }}
+        .file-entry {{
             background-color: #000;
             border: 2px solid rgba(0, 255, 0, 0.5);
             padding: 15px;
             text-align: center;
             transition: all 0.3s ease;
-        }
-        .file-entry:hover {
+        }}
+        .file-entry:hover {{
             background-color: #001100;
             color: #00ff00;
-        }
+        }}
 
-        a {
+        a {{
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
-        }
-        a:hover {
+        }}
+        a:hover {{
             text-decoration: underline;
-        }
-        .flavor-text {
+        }}
+        .flavor-text {{
             color: #00ff00;
             font-family: "Courier New", monospace;
             text-align: center;
@@ -136,15 +136,15 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-        }
-        .nav-buttons {
+        }}
+        .nav-buttons {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
             gap: 10px;
-        }
-        .nav-button {
+        }}
+        .nav-button {{
             background-color: #000;
             color: #00ff00;
             border: 2px solid #00ff00;
@@ -155,19 +155,19 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             border-radius: 3px;
             transition: all 0.3s ease;
             min-width: 80px;
-        }
-        .nav-button:hover {
+        }}
+        .nav-button:hover {{
             background-color: #001100;
             color: #00ff00;
-        }
-        .nav-button:disabled {
+        }}
+        .nav-button:disabled {{
             opacity: 0.5;
             cursor: not-allowed;
-        }
-        .nav-button:disabled:hover {
+        }}
+        .nav-button:disabled:hover {{
             background-color: #000;
-        }
-        .close-button {
+        }}
+        .close-button {{
             position: absolute;
             top: 10px;
             right: 15px;
@@ -179,10 +179,10 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 3px;
-        }
-        .close-button:hover {
+        }}
+        .close-button:hover {{
             background-color: #001100;
-        }
+        }}
         @media screen and (max-width: 768px) {{
             .modal-content {{
                 padding: 5px;
@@ -215,13 +215,13 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
                 padding: 3px 6px;
             }}
         }}
-        .crt-divider {
+        .crt-divider {{
             width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
             margin: 30px auto;
-        }
+        }}
         @keyframes scan {{
             0% {{ opacity: 1; width: 0%; }}
             50% {{ opacity: 0.5; }}
@@ -299,45 +299,45 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 {enhanced_meta_tags}
 {REDIRECT_SCRIPT_TEMPLATE}
     <style>
-        body {
+        body {{
             background-color: #000;
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        a {
+        }}
+        a {{
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
+        }}
         /* Image grid styles */
-        .image-grid {
+        .image-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
-        }
-        .image-container {
+        }}
+        .image-container {{
             position: relative;
             width: 100%;
             max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
-        }
-        .thumbnail {
+        }}
+        .thumbnail {{
             width: 100%;
             height: auto;
             border-radius: 5px;
             border: 2px solid rgba(0, 255, 0, 0.5);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease-in-out;
-        }
-        .thumbnail:hover {
+        }}
+        .thumbnail:hover {{
             transform: scale(1.05);
             filter: brightness(1.2);
-        }
+        }}
         /* Modal styles */
-        .modal {
+        .modal {{
             display: none;
             position: fixed;
             top: 0;
@@ -349,8 +349,8 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             /* display: flex; Use flexbox for centering */
             align-items: center; /* Center vertically */
             justify-content: center; /* Center horizontally */
-        }
-	.modal-content {
+        }}
+	.modal-content {{
 	    position: relative;
 	    background-color: #000;
 	    padding: 20px;
@@ -361,32 +361,32 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 	    max-width: 95vw; /* Increased modal width for mobile */
 	    max-height: 95vh; /* Increased modal height for mobile */
 	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
+	}}
+	.full-image {{
 	    max-width: 100%;
 	    max-height: 65vh; /* Reduced to leave space for navigation buttons */
 	    display: block;
 	    margin: 0 auto;
 	    object-fit: contain;
-	}
-        .crt-divider {
+	}}
+        .crt-divider {{
             width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
             margin: 30px auto;
-        }
+        }}
         @keyframes scan {{
             0% {{ opacity: 1; width: 0%; }}
             50% {{ opacity: 0.5; }}
             100% {{ opacity: 1; width: 100%; }}
         }}
-        .filename-display {
+        .filename-display {{
             color: #00ff00;
             margin-bottom: 10px;
             word-wrap: break-word;
-        }
-        .flavor-text {
+        }}
+        .flavor-text {{
             color: #00ff00;
             font-family: "Courier New", monospace;
             text-align: center;
@@ -395,15 +395,15 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-        }
-        .nav-buttons {
+        }}
+        .nav-buttons {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
             gap: 10px;
-        }
-        .nav-button {
+        }}
+        .nav-button {{
             background-color: #000;
             color: #00ff00;
             border: 2px solid #00ff00;
@@ -414,19 +414,19 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             border-radius: 3px;
             transition: all 0.3s ease;
             min-width: 80px;
-        }
-        .nav-button:hover {
+        }}
+        .nav-button:hover {{
             background-color: #001100;
             color: #00ff00;
-        }
-        .nav-button:disabled {
+        }}
+        .nav-button:disabled {{
             opacity: 0.5;
             cursor: not-allowed;
-        }
-        .nav-button:disabled:hover {
+        }}
+        .nav-button:disabled:hover {{
             background-color: #000;
-        }
-        .close-button {
+        }}
+        .close-button {{
             position: absolute;
             top: 10px;
             right: 15px;
@@ -438,10 +438,10 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 3px;
-        }
-        .close-button:hover {
+        }}
+        .close-button:hover {{
             background-color: #001100;
-        }
+        }}
         @media screen and (max-width: 768px) {{
             .modal-content {{
                 padding: 5px;
@@ -516,53 +516,53 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
         const imageGrid = document.getElementById('imageGrid');
 
-        function loadImage(path, index) {
+        function loadImage(path, index) {{
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
+            img.onerror = function() {{ console.error("Error loading image:", path); }};
+            img.onload = function() {{ console.log("Image loaded:", path); }};
+            img.onclick = function() {{ openImage(index); }};
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
-        }
+        }}
 
-        function loadMoreImages() {
+        function loadMoreImages() {{
             console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
+            if (currentImageIndex >= allImagePaths.length) {{
                 console.log("No more images to load.");
                 return; // No more images to load
-            }
+            }}
 
             const startIndex = currentImageIndex;
             const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
 
-            for (let i = startIndex; i < endIndex; i++) {
+            for (let i = startIndex; i < endIndex; i++) {{
                 loadImage(allImagePaths[i], i);
-            }
+            }}
             currentImageIndex = endIndex;
             console.log("Loaded images up to index:", currentImageIndex);
-        }
+        }}
 
         // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {{
             loadMoreImages();
             // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
+            if (document.body.offsetHeight < window.innerHeight) {{
                 loadMoreImages();
-            }
-        });
+            }}
+        }});
 
         // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+        window.addEventListener('scroll', () => {{
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {{
                 loadMoreImages();
-            }
-        });
+            }}
+        }});
 
-        function openImage(index) {
+        function openImage(index) {{
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
@@ -578,13 +578,13 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             
             // Extract Twitter info from filename
             const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
-                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+            if (tweetInfo.username && tweetInfo.tweetId) {{
+                const twitterUrl = `https://twitter.com/${{tweetInfo.username}}/status/${{tweetInfo.tweetId}}`;
                 twitterLink.href = twitterUrl;
                 twitterLinkContainer.style.display = 'block';
-            } else {
+            }} else {{
                 twitterLinkContainer.style.display = 'none';
-            }
+            }}
             
             // Update navigation buttons and counter
             const prevButton = document.getElementById('prevButton');
@@ -593,63 +593,63 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 
             prevButton.disabled = index === 0;
             nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+            imageCounter.textContent = `${{index + 1}} / ${{allImagePaths.length}}`;
 
             modal.style.display = 'flex'; // Use flex to center modal content
-        }
+        }}
         
-        function extractTweetInfoFromFilename(filename) {
-            try {
+        function extractTweetInfoFromFilename(filename) {{
+            try {{
                 // Remove file extension
                 let baseName = filename.replace(/\\.(webp|jpg|jpeg|png|gif)$/i, '');
                 // Remove -lossy suffix if present
                 baseName = baseName.replace('-lossy', '');
-                
+
                 // Split by dash and extract first two parts
                 const parts = baseName.split('-');
-                if (parts.length >= 2) {
+                if (parts.length >= 2) {{
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
-                        return { username, tweetId };
-                    }
-                }
-            } catch (e) {
+                    if (/^\\\\d+$/.test(tweetId)) {{
+                        return {{ username, tweetId }};
+                    }}
+                }}
+            }} catch (e) {{
                 console.log('Could not extract tweet info from filename:', filename);
-            }
-            return { username: null, tweetId: null };
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
+            }}
+            return {{ username: null, tweetId: null }};
+        }}
+        function previousImage() {{
+            if (currentImageIndex > 0) {{
                 currentImageIndex--;
                 openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
+            }}
+        }}
+        function nextImage() {{
+            if (currentImageIndex < allImagePaths.length - 1) {{
                 currentImageIndex++;
                 openImage(currentImageIndex);
-            }
-        }
-    	function closeModal() {
+            }}
+        }}
+    	function closeModal() {{
         	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
+        	if (modal.style.display === 'flex') {{
             		modal.style.display = 'none';
-        	}
-    	}
+        	}}
+    	}}
     	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
+   	 window.onclick = function(event) {{
         	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
+        	if (event.target === modal) {{
             	closeModal();
-        }
-    };
+        }}
+    }};
         // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function(event) {{
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
+            if (modal.style.display === 'flex') {{
+                switch(event.key) {{
                     case 'ArrowLeft':
                         previousImage();
                         event.preventDefault();
@@ -661,9 +661,9 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-                }
-            }
-        });
+                }}
+            }}
+        }});
     </script>
 </body>
 </html>
@@ -732,45 +732,45 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 {enhanced_meta_tags}
 {REDIRECT_SCRIPT_TEMPLATE}
     <style>
-        body {
+        body {{
             background-color: #000;
             color: #00ff00;
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        a {
+        }}
+        a {{
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
+        }}
         /* Image grid styles */
-        .image-grid {
+        .image-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
-        }
-        .image-container {
+        }}
+        .image-container {{
             position: relative;
             width: 100%;
             max-width: 500px; /* Maximum size of the container */
             cursor: pointer;
-        }
-        .thumbnail {
+        }}
+        .thumbnail {{
             width: 100%;
             height: auto;
             border-radius: 5px;
             border: 2px solid rgba(0, 255, 0, 0.5);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease-in-out;
-        }
-        .thumbnail:hover {
+        }}
+        .thumbnail:hover {{
             transform: scale(1.05);
             filter: brightness(1.2);
-        }
+        }}
         /* Modal styles */
-        .modal {
+        .modal {{
             display: none;
             position: fixed;
             top: 0;
@@ -782,8 +782,8 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             /* display: flex; Use flexbox for centering */
             align-items: center; /* Center vertically */
             justify-content: center; /* Center horizontally */
-        }
-	.modal-content {
+        }}
+	.modal-content {{
 	    position: relative;
 	    background-color: #000;
 	    padding: 20px;
@@ -794,32 +794,32 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 	    max-width: 95vw; /* Increased modal width for mobile */
 	    max-height: 95vh; /* Increased modal height for mobile */
 	    overflow: auto; /* Enable scrolling if content exceeds modal size */
-	}
-	.full-image {
+	}}
+	.full-image {{
 	    max-width: 100%;
 	    max-height: 65vh; /* Reduced to leave space for navigation buttons */
 	    display: block;
 	    margin: 0 auto;
 	    object-fit: contain;
-	}
-        .crt-divider {
+	}}
+        .crt-divider {{
             width: 100%;
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
             margin: 30px auto;
-        }
+        }}
         @keyframes scan {{
             0% {{ opacity: 1; width: 0%; }}
             50% {{ opacity: 0.5; }}
             100% {{ opacity: 1; width: 100%; }}
         }}
-        .filename-display {
+        .filename-display {{
             color: #00ff00;
             margin-bottom: 10px;
             word-wrap: break-word;
-        }
-        .flavor-text {
+        }}
+        .flavor-text {{
             color: #00ff00;
             font-family: "Courier New", monospace;
             text-align: center;
@@ -828,15 +828,15 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
-        }
-        .nav-buttons {
+        }}
+        .nav-buttons {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
             gap: 10px;
-        }
-        .nav-button {
+        }}
+        .nav-button {{
             background-color: #000;
             color: #00ff00;
             border: 2px solid #00ff00;
@@ -847,19 +847,19 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             border-radius: 3px;
             transition: all 0.3s ease;
             min-width: 80px;
-        }
-        .nav-button:hover {
+        }}
+        .nav-button:hover {{
             background-color: #001100;
             color: #00ff00;
-        }
-        .nav-button:disabled {
+        }}
+        .nav-button:disabled {{
             opacity: 0.5;
             cursor: not-allowed;
-        }
-        .nav-button:disabled:hover {
+        }}
+        .nav-button:disabled:hover {{
             background-color: #000;
-        }
-        .close-button {
+        }}
+        .close-button {{
             position: absolute;
             top: 10px;
             right: 15px;
@@ -871,10 +871,10 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 3px;
-        }
-        .close-button:hover {
+        }}
+        .close-button:hover {{
             background-color: #001100;
-        }
+        }}
         @media screen and (max-width: 768px) {{
             .modal-content {{
                 padding: 5px;
@@ -949,53 +949,53 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
         const imageGrid = document.getElementById('imageGrid');
 
-        function loadImage(path, index) {
+        function loadImage(path, index) {{
             const imgContainer = document.createElement('div');
             imgContainer.className = 'image-container';
             const img = document.createElement('img');
             img.className = 'thumbnail';
             img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
+            img.onerror = function() {{ console.error("Error loading image:", path); }};
+            img.onload = function() {{ console.log("Image loaded:", path); }};
+            img.onclick = function() {{ openImage(index); }};
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
-        }
+        }}
 
-        function loadMoreImages() {
+        function loadMoreImages() {{
             console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
+            if (currentImageIndex >= allImagePaths.length) {{
                 console.log("No more images to load.");
                 return; // No more images to load
-            }
+            }}
 
             const startIndex = currentImageIndex;
             const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
 
-            for (let i = startIndex; i < endIndex; i++) {
+            for (let i = startIndex; i < endIndex; i++) {{
                 loadImage(allImagePaths[i], i);
-            }
+            }}
             currentImageIndex = endIndex;
             console.log("Loaded images up to index:", currentImageIndex);
-        }
+        }}
 
         // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {{
             loadMoreImages();
             // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
+            if (document.body.offsetHeight < window.innerHeight) {{
                 loadMoreImages();
-            }
-        });
+            }}
+        }});
 
         // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+        window.addEventListener('scroll', () => {{
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {{
                 loadMoreImages();
-            }
-        });
+            }}
+        }});
 
-        function openImage(index) {
+        function openImage(index) {{
             currentImageIndex = index;
             const modalImg = document.querySelector('.full-image');
             const modal = document.getElementById('fullscreenModal');
@@ -1011,13 +1011,13 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             
             // Extract Twitter info from filename
             const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
-                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+            if (tweetInfo.username && tweetInfo.tweetId) {{
+                const twitterUrl = `https://twitter.com/${{tweetInfo.username}}/status/${{tweetInfo.tweetId}}`;
                 twitterLink.href = twitterUrl;
                 twitterLinkContainer.style.display = 'block';
-            } else {
+            }} else {{
                 twitterLinkContainer.style.display = 'none';
-            }
+            }}
             
             // Update navigation buttons and counter
             const prevButton = document.getElementById('prevButton');
@@ -1026,63 +1026,63 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 
             prevButton.disabled = index === 0;
             nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+            imageCounter.textContent = `${{index + 1}} / ${{allImagePaths.length}}`;
 
             modal.style.display = 'flex'; // Use flex to center modal content
-        }
+        }}
         
-        function extractTweetInfoFromFilename(filename) {
-            try {
+        function extractTweetInfoFromFilename(filename) {{
+            try {{
                 // Remove file extension
                 let baseName = filename.replace(/\\.(webp|jpg|jpeg|png|gif)$/i, '');
                 // Remove -lossy suffix if present
                 baseName = baseName.replace('-lossy', '');
-                
+
                 // Split by dash and extract first two parts
                 const parts = baseName.split('-');
-                if (parts.length >= 2) {
+                if (parts.length >= 2) {{
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
-                        return { username, tweetId };
-                    }
-                }
-            } catch (e) {
+                    if (/^\\\\d+$/.test(tweetId)) {{
+                        return {{ username, tweetId }};
+                    }}
+                }}
+            }} catch (e) {{
                 console.log('Could not extract tweet info from filename:', filename);
-            }
-            return { username: null, tweetId: null };
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
+            }}
+            return {{ username: null, tweetId: null }};
+        }}
+        function previousImage() {{
+            if (currentImageIndex > 0) {{
                 currentImageIndex--;
                 openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
+            }}
+        }}
+        function nextImage() {{
+            if (currentImageIndex < allImagePaths.length - 1) {{
                 currentImageIndex++;
                 openImage(currentImageIndex);
-            }
-        }
-    	function closeModal() {
+            }}
+        }}
+    	function closeModal() {{
         	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
+        	if (modal.style.display === 'flex') {{
             		modal.style.display = 'none';
-        	}
-    	}
+        	}}
+    	}}
     	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
+   	 window.onclick = function(event) {{
         	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
+        	if (event.target === modal) {{
             	closeModal();
-        }
-    };
+        }}
+    }};
         // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function(event) {{
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
+            if (modal.style.display === 'flex') {{
+                switch(event.key) {{
                     case 'ArrowLeft':
                         previousImage();
                         event.preventDefault();
@@ -1094,9 +1094,9 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-                }
-            }
-        });
+                }}
+            }}
+        }});
     </script>
 </body>
 </html>

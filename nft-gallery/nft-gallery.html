@@ -1,23 +1,65 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MarketWizardry.org | NFT Gallery</title>
+    <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketWizardry.org | NFT Gallery</title>
+    <link rel="canonical" href="https://marketwizardry.org/nft-gallery.html">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+
+    <!-- Enhanced Standard Meta Tags -->
+    <meta name="description" content="Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.">
+    <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="en-US">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    <meta name="theme-color" content="#00ff00">
+
+    <!-- Enhanced Open Graph Meta Tags -->
+    <meta property="og:title" content="NFT Gallery - MarketWizardry.org">
+    <meta property="og:description" content="Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.">
+    <meta property="og:url" content="https://marketwizardry.org/nft-gallery.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Market Wizardry">
+    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta property="og:image:alt" content="MarketWizardry.org - Professional Financial Trading Tools">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    
+
+    <!-- Enhanced Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NFT Gallery - MarketWizardry.org">
+    <meta name="twitter:description" content="Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.">
+    <meta name="twitter:site" content="@MarketW1zardry">
+    <meta name="twitter:creator" content="@MarketW1zardry">
+    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
+    <meta name="twitter:image:alt" content="MarketWizardry.org Financial Tools">
+    <meta name="twitter:domain" content="marketwizardry.org">
+        <meta name="twitter:label1" content="Category">
+    <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
+    <meta name="twitter:data2" content="Growing">
     <script>
-        // Redirect to index.html if accessed directly (not in iframe)
+        // Redirect to market-wizardry.html if accessed directly (not in iframe)
         if (window === window.top) {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, redirect to the actual file
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${{encodeURIComponent(fullPath)}}`;
-            } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-            }
+            // Small delay to ensure viewport takes effect on mobile
+            setTimeout(() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
+                    // For blog posts and NFT galleries, pass full path
+                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
+                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
+                } else {
+                    // For main pages, redirect with page parameter
+                    const currentPage = currentPath.split('/').pop().replace('.html', '');
+                    window.location.href = `/?page=${currentPage}`;
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -153,14 +195,79 @@
                 padding: 3px 6px;
             }
         }
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px auto;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+
+
+    /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb a {
+        color: #00ff00 !important;
+        text-decoration: none;
+        border-bottom: 1px dotted #00ff00;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff !important;
+        border-bottom-color: #ffffff !important;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
+
+    /* Mobile breadcrumb optimization */
+    @media screen and (max-width: 768px) {
+        .breadcrumb {
+            display: none;
+        }
+    }
     </style>
 </head>
 <body>
+    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="market-wizardry.html" itemprop="item">
+                <span itemprop="name">🏠 Market Wizardry</span>
+            </a>
+            <meta itemprop="position" content="1" />
+        </span>
+        <span class="separator">→</span>
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="nft-gallery.html" itemprop="item">
+                <span itemprop="name">🎨 NFT Gallery</span>
+            </a>
+            <meta itemprop="position" content="2" />
+        </span>
+    </nav>
+    <div class="crt-divider"></div>
     <div class="container">
-        <h1>NFT Gallery</h1>
+        <h1>NFT (Not For Trade) Gallery</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.</div>
+        <div class="crt-divider"></div>
         <div class="grid">
             <div class="file-entry">
-                <a href="all.html">ALL USERS - WARNING, may cause lag!</a>
+                <a href="nft-gallery/all.html">ALL USERS - WARNING, may cause lag!</a>
             </div>
             <div class="file-entry"><a href="kinx___gallery.html">kinx__</a></div>
 <div class="file-entry"><a href="ex_mortal__gallery.html">ex_mortal_</a></div>
