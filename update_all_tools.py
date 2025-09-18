@@ -292,7 +292,7 @@ class FinancialToolsUpdater:
 
             grid_html += f'''
             <div class="file-entry" onclick="openModalWithFile('{outlier_path}', '{csv_path}', '{file_info['display_name']}')">
-                <a href="#" data-outlier-file="{outlier_path}" data-csv-file="{csv_path}" onclick="event.stopPropagation()">
+                <a href="#" data-outlier-file="{outlier_path}" data-csv-file="{csv_path}" onclick="openModalWithFile('{outlier_path}', '{csv_path}', '{file_info['display_name']}'); return false;">
                     {file_info['display_name']}
                 </a>
             </div>'''
@@ -562,7 +562,7 @@ class FinancialToolsUpdater:
         modal_css = self._generate_modal_system_css()
         modal_js = self._generate_modal_javascript()
 
-        var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': '📊 VaR Explorer', 'url': None}]
+        var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': 'VaR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(var_breadcrumbs)
         breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
 
@@ -640,7 +640,6 @@ class FinancialToolsUpdater:
 </head>
 <body>
 {breadcrumbs_html}
-
     <div class="container">
         <h1>VaR Explorer</h1>
         <div class="crt-divider"></div>
@@ -692,7 +691,7 @@ class FinancialToolsUpdater:
         modal_css = self._generate_modal_system_css()
         modal_js = self._generate_modal_javascript()
 
-        atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': '📈 ATR Explorer', 'url': None}]
+        atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': 'ATR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(atr_breadcrumbs)
         breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
 
@@ -784,9 +783,8 @@ class FinancialToolsUpdater:
 </head>
 <body>
 {breadcrumbs_html}
-
     <div class="container">
-        <h1>📈 ATR Explorer</h1>
+        <h1>ATR Explorer</h1>
         <div class="crt-divider"></div>
         <div class="flavor-text">Average True Range analysis for those who want to measure market volatility with surgical precision before it eviscerates their account.</div>
         <div class="crt-divider"></div>
@@ -840,7 +838,7 @@ class FinancialToolsUpdater:
         modal_css = self._generate_modal_system_css()
         modal_js = self._generate_modal_javascript()
 
-        ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': '💰 EV Explorer', 'url': None}]
+        ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': 'EV Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(ev_breadcrumbs)
         breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
 
@@ -932,9 +930,8 @@ class FinancialToolsUpdater:
 </head>
 <body>
 {breadcrumbs_html}
-
     <div class="container">
-        <h1>💰 EV Explorer</h1>
+        <h1>EV Explorer</h1>
         <div class="crt-divider"></div>
         <div class="flavor-text">Enterprise Value analysis for those who want to measure corporate worth before watching it evaporate in real-time.</div>
         <div class="crt-divider"></div>
