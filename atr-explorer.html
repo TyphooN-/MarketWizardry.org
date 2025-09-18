@@ -659,23 +659,21 @@
         </div>
     </div>
 
-    <!-- Modal for displaying file contents -->
-    <div id="fileModal" class="modal">
+    <!-- Modal Structure -->
+    <div id="outlier-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-title" id="modalTitle">Loading...</span>
-                <div class="modal-controls">
-                    <button id="prevBtn" onclick="navigateFiles(-1)" disabled>◀ Previous</button>
-                    <span id="fileCounter">1 of 1</span>
-                    <button id="nextBtn" onclick="navigateFiles(1)" disabled>Next ▶</button>
-                    <span class="close" onclick="closeModal()">&times;</span>
-                </div>
+                <h2 id="modal-title">File Analysis</h2>
+                <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                <span class="close-button" onclick="closeModal()">&times;</span>
             </div>
-            <div class="modal-body" id="modalBody">
-                Loading content...
+            <div class="modal-body">
+                <pre id="outlier-content">Loading...</pre>
             </div>
-            <div class="modal-footer" id="modalFooter">
-                <!-- CSV download link will be added here if available -->
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="previousFile()">Previous</button>
+                <span class="nav-counter" id="nav-counter">1 of 1</span>
+                <button class="nav-button" onclick="nextFile()">Next</button>
             </div>
         </div>
     </div>
