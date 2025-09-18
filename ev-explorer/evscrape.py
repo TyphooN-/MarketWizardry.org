@@ -72,6 +72,11 @@ def scrape_from_csv(csv_path):
         df['Next Dividend Date'] = None
         df['MCap/EV (%)'] = None
 
+        # Calculate VaR_to_Ask_Ratio if missing (regression fix)
+        if 'VaR_to_Ask_Ratio' not in df.columns and 'VaR_1_Lot' in df.columns and 'AskPrice' in df.columns:
+            print("VaR_to_Ask_Ratio column missing, calculating from VaR_1_Lot/AskPrice...")
+            df['VaR_to_Ask_Ratio'] = pd.to_numeric(df['VaR_1_Lot'], errors='coerce') / pd.to_numeric(df['AskPrice'], errors='coerce')
+
         process_mask = ~((df['SectorName'] == 'Currency') | (df['IndustryName'] == 'Exchange Traded Fund'))
 
         for index, row in df[process_mask].iterrows():
