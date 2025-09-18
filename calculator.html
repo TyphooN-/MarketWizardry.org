@@ -1100,8 +1100,7 @@ else if (riskMode === 'dollar') {
                     recommended: 4.0,
                     description: 'Monthly Investment - Maximum trend capture',
                     notes: 'Very wide stops for long-term investment positions.'
-        }
-;
+        };
 
             const tfData = timeframeData[timeframe];
             const percentageStop = entryPrice - riskPerShare;
@@ -3099,7 +3098,6 @@ function showSectorAnalysis(sectorName) {
             } else {
                 showNotFound(searchTerm);
         }
-;
 
         function showAllSymbolsFiltered() {
             const symbols = Object.entries(filteredVarData);
@@ -3535,7 +3533,6 @@ function updateOutputMode() {
                 console.error('❌ lookup-output element not found!');
                 alert('Error: Cannot find lookup-output element. Page may not be loaded correctly.');
         }
-;
 
         // Fix 2: Enhanced performAdvancedSearch function
         window.performAdvancedSearch = function() {
