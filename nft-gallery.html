@@ -70,7 +70,7 @@
             margin: 0;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         h1 {
@@ -114,6 +114,7 @@
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
         }
         .crt-divider {
             width: 100%;
@@ -125,9 +126,13 @@
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%;
+            100% { opacity: 1; width: 100%; }
         }
-}
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
     /* Breadcrumb Navigation Styles */
         .breadcrumb {
             font-size: 0.8em;
