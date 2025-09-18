@@ -109,9 +109,8 @@
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%;
+            100% { opacity: 1; width: 100%; }
         }
-}
         .matrix-text {
             position: fixed;
             color: #00ff00;
@@ -129,8 +128,9 @@
             100% {
                 transform: translateY(calc(var(--height, 100vh)));
                 opacity: 0;
+            }
         }
-.matrix-char {
+        .matrix-char {
             animation-delay: var(--delay, 0s);
         }
         /* Flavor text - must come after matrix styles */
@@ -150,9 +150,9 @@
         @keyframes flicker {
             0% { opacity: 1; }
             50% { opacity: 0.8; }
-            100% { opacity: 1;
+            100% { opacity: 1; }
         }
-/* Mobile responsive styles */
+        /* Mobile responsive styles */
         @media screen and (max-width: 768px) {
             body {
                 padding: 10px;
@@ -172,11 +172,13 @@
                 100% {
                     transform: translateY(calc(100vh + 100px));
                     opacity: 0;
-        }
-.flavor-text {
+                }
+            }
+            .flavor-text {
                 margin: 10px 0 !important;
                 padding: 10px !important;
                 font-size: 14px !important;
+            }
         }
 /* Breadcrumb Navigation Styles */
         .breadcrumb {
@@ -233,10 +235,11 @@
         </span>
     </nav>
 
-    <h1>Open Source Code</h1>
-    <div class="crt-divider"></div>
-    <div class="flavor-text">Open-source financial tools for masochists who enjoy debugging their way to bankruptcy. Code so beautiful it'll make you cry... tears of confusion.</div>
-    <div class="crt-divider"></div>
+    <div class="container">
+        <h1>Open Source Code</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Open-source financial tools for masochists who enjoy debugging their way to bankruptcy. Code so beautiful it'll make you cry... tears of confusion.</div>
+        <div class="crt-divider"></div>
     <a href="https://github.com/TyphooN-/MQL5-NNFX-Risk_Management_System/" target="_blank" rel="noopener noreferrer"> MQL5 NNFX Risk Management System</a> - Magic Key inspired Risk Managment EA + NNFX style trading system (full indicators included).  VaR based risk management supported. <br><br>
     <a href="https://github.com/TyphooN-/MQL5-ExAmples/" target="_blank" rel="noopener noreferrer"> MQL5 ExAmples</a> - Example EAs/functions that do not make sense to exist in other repos.<br><br>
     <a href="https://github.com/TyphooN-/MQL5-MaliciousEAmporium/" target="_blank" rel="noopener noreferrer"> MQL5 MalciousEAmporium</a> - Proof of Concept EAs (Expert Advisor) to show the potential dangers of running a random EA on a trading account.<br><br>
@@ -246,6 +249,7 @@
     <h3>Inspirations (in no particular order)</h3>
     Linus Torvalds, John McAfee, Terry Davis, Aaron Swartz, John Ehlers, Orchard Forex, Daniel Micay, John Carmack, Dennis Ritchie, Satoshi Nakamoto, Andrey Sabelnikov, and Alan Turing.
     <div class="crt-divider"></div>
+    </div>
     <script>
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-={}:<>?';
         const container = document.querySelector('body');
