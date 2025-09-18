@@ -22,7 +22,7 @@ from datetime import datetime, date
 from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
 
 class FinancialToolsUpdater:
-    def __init__(self, date_str=None):
+    def __init__(self, date_str=None, force_regenerate=False):
         self.seo_manager = SEOManager()
         self.breadcrumb_paths = get_breadcrumb_paths()
         self.session = requests.Session()
@@ -30,6 +30,7 @@ class FinancialToolsUpdater:
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         })
         self.date_str = date_str or datetime.now().strftime('%Y.%m.%d')
+        self.force_regenerate = force_regenerate  # True when no date specified
         self.data_summary = {}
 
     def copy_csv_files(self):
@@ -162,9 +163,12 @@ class FinancialToolsUpdater:
         """Fetch and process financial data from all sources"""
         print("📊 Fetching and processing financial data...")
 
-        # Copy CSV files from MetaTrader
-        if not self.copy_csv_files():
-            return None
+        # Copy CSV files from MetaTrader (skip if force regenerate)
+        if self.force_regenerate:
+            print("🔄 Force regenerate mode: skipping CSV copy, using existing files")
+        else:
+            if not self.copy_csv_files():
+                return None
 
         # Process each type of data
         self.process_var_data()
@@ -222,34 +226,57 @@ class FinancialToolsUpdater:
         """Scan EV directory for historical analysis files with special EV naming pattern"""
         try:
             files = []
+            processed_dates = set()
+
             for file in os.listdir(directory):
-                if 'ev_outlier.txt' in file and 'EV-' in file:
+                if ('ev_outlier.txt' in file or 'ev_var_outlier.txt' in file) and 'EV-' in file:
                     # EV files have format: SymbolsExport-Darwinex-Live-Stocks-{Date}-EV-ev_outlier.txt
                     parts = file.split('-')
                     if len(parts) >= 6:
                         date_str = parts[4]  # 2025.09.17
                         asset_type = parts[3]  # Stocks
 
-                        # Look for corresponding CSV file
-                        csv_file = file.replace('-ev_outlier.txt', '.csv').replace('-EV', '-EV')
-                        csv_path = f"{directory}/{csv_file}"
+                        # Create a unique key for this date/asset combination
+                        date_key = f"{date_str}_{asset_type}"
 
-                        # Also look for the var outlier file
-                        var_file = file.replace('ev_outlier.txt', 'ev_var_outlier.txt')
-                        var_path = f"{directory}/{var_file}"
+                        if date_key not in processed_dates:
+                            processed_dates.add(date_key)
 
-                        files.append({
-                            'outlier_file': file,
-                            'csv_file': csv_file if os.path.exists(csv_path) else None,
-                            'var_file': var_file if os.path.exists(var_path) else None,
-                            'asset_type': asset_type,
-                            'date': date_str,
-                            'display_name': f"EV Analysis ({asset_type}) - {date_str}",
-                            'directory': directory
-                        })
+                            # Look for corresponding CSV file
+                            csv_file = f"SymbolsExport-Darwinex-Live-{asset_type}-{date_str}-EV.csv"
+                            csv_path = f"{directory}/{csv_file}"
 
-            # Sort by date descending (newest first)
-            files.sort(key=lambda x: x['date'], reverse=True)
+                            # Look for both outlier files
+                            ev_outlier_file = f"SymbolsExport-Darwinex-Live-{asset_type}-{date_str}-EV-ev_outlier.txt"
+                            ev_var_outlier_file = f"SymbolsExport-Darwinex-Live-{asset_type}-{date_str}-EV-ev_var_outlier.txt"
+
+                            ev_outlier_path = f"{directory}/{ev_outlier_file}"
+                            ev_var_outlier_path = f"{directory}/{ev_var_outlier_file}"
+
+                            # Add entry for EV outlier if it exists
+                            if os.path.exists(ev_outlier_path):
+                                files.append({
+                                    'outlier_file': ev_outlier_file,
+                                    'csv_file': csv_file if os.path.exists(csv_path) else None,
+                                    'asset_type': asset_type,
+                                    'date': date_str,
+                                    'display_name': f"EV Analysis ({asset_type}) - {date_str}",
+                                    'directory': directory
+                                })
+
+                            # Add entry for EV VaR outlier if it exists
+                            if os.path.exists(ev_var_outlier_path):
+                                files.append({
+                                    'outlier_file': ev_var_outlier_file,
+                                    'csv_file': csv_file if os.path.exists(csv_path) else None,
+                                    'asset_type': asset_type,
+                                    'date': date_str,
+                                    'display_name': f"EV VaR Analysis ({asset_type}) - {date_str}",
+                                    'directory': directory
+                                })
+
+            # Sort by date descending (newest first), then by type
+            files.sort(key=lambda x: (x['date'], x['display_name']), reverse=True)
             return files[:60]  # Limit to 60 most recent files
 
         except Exception as e:
@@ -998,9 +1025,13 @@ def main():
     import sys
 
     # Accept date parameter from command line
-    date_str = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime('%Y.%m.%d')
+    date_specified = len(sys.argv) > 1
+    date_str = sys.argv[1] if date_specified else datetime.now().strftime('%Y.%m.%d')
 
-    updater = FinancialToolsUpdater(date_str)
+    # If no date specified, always regenerate HTML files
+    force_regenerate = not date_specified
+
+    updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate)
     success = updater.run_full_update()
 
     if success:
