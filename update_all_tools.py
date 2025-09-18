@@ -576,10 +576,8 @@ class FinancialToolsUpdater:
         }}
         h1 {{
             text-align: center;
-            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
         }}
         .crt-divider {{
             width: 100%;
@@ -716,10 +714,8 @@ class FinancialToolsUpdater:
         }}
         h1 {{
             text-align: center;
-            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
         }}
         .crt-divider {{
             width: 100%;
@@ -768,9 +764,6 @@ class FinancialToolsUpdater:
         <div class="flavor-text">Average True Range analysis for those who want to measure market volatility with surgical precision before it eviscerates their account.</div>
         <div class="crt-divider"></div>
 
-        <div class="stats">
-            📊 {len(atr_files)} historical analysis files • 📈 ATR volatility tracking • 🎯 Outlier detection
-        </div>
 
         <div class="grid">
             {file_grid_html}
@@ -869,10 +862,8 @@ class FinancialToolsUpdater:
         }}
         h1 {{
             text-align: center;
-            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
         }}
         .crt-divider {{
             width: 100%;
@@ -921,9 +912,6 @@ class FinancialToolsUpdater:
         <div class="flavor-text">Enterprise Value analysis for those who want to measure corporate worth before watching it evaporate in real-time.</div>
         <div class="crt-divider"></div>
 
-        <div class="stats">
-            📊 {len(ev_files)} historical analysis files • 💰 Enterprise Value tracking • 🎯 Outlier detection
-        </div>
 
         <div class="grid">
             {file_grid_html}
