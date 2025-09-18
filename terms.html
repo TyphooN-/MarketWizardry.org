@@ -58,8 +58,8 @@
                     // For main pages, redirect with page parameter
                     const currentPage = currentPath.split('/').pop().replace('.html', '');
                     window.location.href = `/?page=${currentPage}`;
-        }
-, 100);
+                }
+            }, 100);
         }
     </script>
     <style>
@@ -73,9 +73,8 @@
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%;
+            100% { opacity: 1; width: 100%; }
         }
-}
         .flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
@@ -156,7 +155,7 @@
             max-width: fit-content;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation-name: animatetop;
-            animation-duration: 0.4s
+            animation-duration: 0.4s;
         }
 
         .modal-header {
@@ -258,7 +257,7 @@
 
         @keyframes animatetop {
             from {top:-300px; opacity:0}
-            to {top:0; opacity:1
+            to {top:0; opacity:1}
         }
 @media screen and (max-width: 768px) {
             .modal {
@@ -502,6 +501,7 @@
             const navCounter = document.getElementById('navCounter');
             if (navCounter) {
                 navCounter.textContent = `${currentFileIndex + 1} / ${fileKeys.length}`;
+            }
         }
 function closeModal() {
             document.getElementById('textModal').style.display = 'none';
@@ -509,6 +509,7 @@ function closeModal() {
             const downloadLink = document.getElementById('downloadLink');
             if (downloadLink.href.startsWith('blob:')) {
                 URL.revokeObjectURL(downloadLink.href);
+            }
         }
 // Enhanced keyboard navigation
         document.addEventListener('keydown', function(event) {
@@ -524,16 +525,17 @@ function closeModal() {
                     // Ctrl+D or Cmd+D to download
                     event.preventDefault();
                     document.getElementById('downloadLink').click();
-        }
-});
+                }
+            }
+        });
         
         // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             const modal = document.getElementById('textModal');
             if (event.target === modal) {
                 closeModal();
-        }
-);
+            }
+        });
         
         // Set up close button after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
