@@ -2696,8 +2696,10 @@ function findSimilarSymbols(partial) {
                 `;
             } else if (symbol) {
                 showNotFound(symbol);
+            }
         }
-function quickLookup(symbol) {
+
+        function quickLookup(symbol) {
             document.getElementById('lookup-symbol').value = symbol;
             performSymbolLookup();
         }
@@ -3591,8 +3593,8 @@ function updateOutputMode() {
                 displaySymbolInfoFixed(searchTerm, dataToUse[searchTerm]);
             } else {
                 showNotFoundFixed(searchTerm);
+            }
         }
-;
 
         // Fix 3: Enhanced quickLookup function
         window.quickLookupFixed = function(symbol) {
