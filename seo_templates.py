@@ -192,6 +192,13 @@ class SEOManager:
     .breadcrumb .separator {
         margin: 0 8px;
         color: #004400;
+    }
+
+    /* Mobile breadcrumb optimization */
+    @media screen and (max-width: 768px) {
+        .breadcrumb {
+            display: none;
+        }
     }'''
 
 # Page-specific configurations

@@ -343,22 +343,29 @@
             margin-bottom: 20px;
             padding: 10px 0;
         }
-    
+
         .breadcrumb a {
             color: #00ff00 !important;
             text-decoration: none;
             border-bottom: 1px dotted #00ff00;
             transition: all 0.2s ease;
         }
-    
+
         .breadcrumb a:hover {
             color: #ffffff !important;
             border-bottom-color: #ffffff !important;
         }
-    
+
         .breadcrumb .separator {
             margin: 0 8px;
             color: #004400;
+        }
+
+        /* Mobile breadcrumb optimization */
+        @media screen and (max-width: 768px) {
+            .breadcrumb {
+                display: none;
+            }
         }
 
     </style>
@@ -382,7 +389,6 @@
             <meta itemprop="position" content="2" />
         </span>
     </nav>
-    <div class="crt-divider"></div>
 
     <div class="container">
         <h1>Terms</h1>
