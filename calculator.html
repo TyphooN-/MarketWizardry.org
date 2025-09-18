@@ -3762,16 +3762,16 @@ function showSectorSearchFixed(sector, dataToUse) {
             if (symbolField) {
                 symbolField.value = symbol;
                 autoFillStopLossData();
-        }
-;
+            }
+        };
 
         window.useInPositionSize = function(symbol) {
             selectCalculator('position-size');
             const symbolField = document.getElementById('ps-symbol');
             if (symbolField) {
                 symbolField.value = symbol;
-        }
-;
+            }
+        };
 
         // Compound Interest Calculator Function
         function calculateCompoundInterest() {
@@ -3852,8 +3852,8 @@ function showSectorSearchFixed(sector, dataToUse) {
                 [100000, 250000, 500000, 1000000, 2500000, 5000000, 10000000].forEach(milestone => {
                     if (totalValue >= milestone) {
                         milestones.push(`$${milestone.toLocaleString()}`);
-        }
-);
+                    }
+                });
 
                 if (milestones.length > 0) {
                     output += `
@@ -3864,8 +3864,10 @@ function showSectorSearchFixed(sector, dataToUse) {
                             </div>
                         </div>
                     `;
-        }
-document.getElementById('ci-output').innerHTML = output;
+                }
+            }
+
+            document.getElementById('ci-output').innerHTML = output;
             document.getElementById('ci-results').classList.add('show');
 
             // Generate timeline
@@ -3900,8 +3902,9 @@ document.getElementById('ci-output').innerHTML = output;
                     for (let month = 1; month <= 12; month++) {
                         currentValue += monthlyContribution * Math.pow(1 + monthlyRate, 12 - month);
                         totalContributed += monthlyContribution;
-        }
-const yearlyInterest = currentValue - totalContributed;
+                    }
+                }
+                const yearlyInterest = currentValue - totalContributed;
                 const yearlyGrowth = ((currentValue / previousYearValue) - 1) * 100;
 
                 const rowColor = year % 5 === 0 ? 'rgba(0,255,0,0.2)' : 'rgba(0,255,0,0.05)';
@@ -3932,7 +3935,7 @@ const yearlyInterest = currentValue - totalContributed;
 
         console.log("✅ Symbol Lookup Fix Applied Successfully!");
 
-    } } } } } } } } } } } } } } } } } } } } } } } } } } } }
+        } } } } } } } } } } } } } } } } } } } } } } }
 
     </script>
 </body>
