@@ -183,38 +183,38 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         .close-button:hover {
             background-color: #001100;
         }
-        @media screen and (max-width: 768px) {
-            .modal-content {
+        @media screen and (max-width: 768px) {{
+            .modal-content {{
                 padding: 5px;
                 max-width: 98vw;
                 max-height: 98vh;
-            }
-            .full-image {
+            }}
+            .full-image {{
                 max-height: 55vh;
-            }
-            .filename-display {
+            }}
+            .filename-display {{
                 font-size: 0.7em;
                 margin-bottom: 5px;
-            }
-            .nav-button {
+            }}
+            .nav-button {{
                 padding: 8px 15px;
                 font-size: 14px;
                 min-width: 60px;
-            }
-            .close-button {
+            }}
+            .close-button {{
                 font-size: 18px;
                 padding: 3px 8px;
                 top: 5px;
                 right: 10px;
-            }
-            .twitter-link-container {
+            }}
+            .twitter-link-container {{
                 margin: 5px 0;
-            }
-            .twitter-link-container a {
+            }}
+            .twitter-link-container a {{
                 font-size: 0.8em;
                 padding: 3px 6px;
-            }
-        }
+            }}
+        }}
         .crt-divider {
             width: 100%;
             height: 1px;
@@ -376,11 +376,11 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             animation: scan 1s infinite;
             margin: 30px auto;
         }
-        @keyframes scan {
-            0% { opacity: 1; width: 0%; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
-        }
+        @keyframes scan {{
+            0% {{ opacity: 1; width: 0%; }}
+            50% {{ opacity: 0.5; }}
+            100% {{ opacity: 1; width: 100%; }}
+        }}
         .filename-display {
             color: #00ff00;
             margin-bottom: 10px;
@@ -442,37 +442,37 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         .close-button:hover {
             background-color: #001100;
         }
-        @media screen and (max-width: 768px) {
-            .modal-content {
+        @media screen and (max-width: 768px) {{
+            .modal-content {{
                 padding: 5px;
                 max-width: 98vw;
                 max-height: 98vh;
-            }
-            .full-image {
+            }}
+            .full-image {{
                 max-height: 55vh;
-            }
-            .filename-display {
+            }}
+            .filename-display {{
                 font-size: 0.7em;
                 margin-bottom: 5px;
-            }
-            .nav-button {
+            }}
+            .nav-button {{
                 padding: 8px 15px;
                 font-size: 14px;
                 min-width: 60px;
-            }
-            .close-button {
+            }}
+            .close-button {{
                 font-size: 18px;
                 padding: 3px 8px;
                 top: 5px;
                 right: 10px;
-            }
-            .twitter-link-container {
+            }}
+            .twitter-link-container {{
                 margin: 5px 0;
-            }
-            .twitter-link-container a {
+            }}
+            .twitter-link-container a {{
                 font-size: 0.8em;
                 padding: 3px 6px;
-            }
+            }}
         }}
 
 {breadcrumb_css}
@@ -809,11 +809,11 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             animation: scan 1s infinite;
             margin: 30px auto;
         }
-        @keyframes scan {
-            0% { opacity: 1; width: 0%; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%; }
-        }
+        @keyframes scan {{
+            0% {{ opacity: 1; width: 0%; }}
+            50% {{ opacity: 0.5; }}
+            100% {{ opacity: 1; width: 100%; }}
+        }}
         .filename-display {
             color: #00ff00;
             margin-bottom: 10px;
@@ -875,37 +875,37 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         .close-button:hover {
             background-color: #001100;
         }
-        @media screen and (max-width: 768px) {
-            .modal-content {
+        @media screen and (max-width: 768px) {{
+            .modal-content {{
                 padding: 5px;
                 max-width: 98vw;
                 max-height: 98vh;
-            }
-            .full-image {
+            }}
+            .full-image {{
                 max-height: 55vh;
-            }
-            .filename-display {
+            }}
+            .filename-display {{
                 font-size: 0.7em;
                 margin-bottom: 5px;
-            }
-            .nav-button {
+            }}
+            .nav-button {{
                 padding: 8px 15px;
                 font-size: 14px;
                 min-width: 60px;
-            }
-            .close-button {
+            }}
+            .close-button {{
                 font-size: 18px;
                 padding: 3px 8px;
                 top: 5px;
                 right: 10px;
-            }
-            .twitter-link-container {
+            }}
+            .twitter-link-container {{
                 margin: 5px 0;
-            }
-            .twitter-link-container a {
+            }}
+            .twitter-link-container a {{
                 font-size: 0.8em;
                 padding: 3px 6px;
-            }
+            }}
         }}
 
 {breadcrumb_css}
