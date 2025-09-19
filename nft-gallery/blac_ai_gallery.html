@@ -1,15 +1,11 @@
 
 <!-- user_gallery.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org | NFT (Not For Trade) Gallery - blac_ai</title>
-    <link rel="canonical" href="https://marketwizardry.org/nft-gallery/blac_ai_gallery.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <title>NFT Gallery - blac_ai</title>
     <!-- Standard Meta Tags -->
     <meta name="description" content="Artificial intelligence meets deliberate misspelling. Machine learning for people who can't be bothered to spell 'black' correctly.">
     <!-- Open Graph Meta Tags -->
@@ -18,38 +14,10 @@
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/blac_ai_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="blac_ai Gallery - MarketWizardry.org">
     <meta name="twitter:description" content="Artificial intelligence meets deliberate misspelling. Machine learning for people who can't be bothered to spell 'black' correctly.">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-        
-                // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-, 100);
-        }
-    </script>
     <style>
         body {
             background-color: #000;
@@ -62,10 +30,6 @@
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
-        }
-        h1 {
-            text-align: center;
-            padding-bottom: 10px;
         }
         /* Image grid styles */
         .image-grid {
@@ -130,39 +94,23 @@
             height: 1px;
             background-color: #00ff00;
             animation: scan 1s infinite;
-            margin: 30px auto;
+            margin: 10px 0;
         }
         @keyframes scan {
             0% { opacity: 1; width: 0%; }
             50% { opacity: 0.5; }
-            100% { opacity: 1; width: 100%;
+            100% { opacity: 1; width: 100%; }
         }
-}
         .filename-display {
             color: #00ff00;
             margin-bottom: 10px;
             word-wrap: break-word;
         }
-        .flavor-text {
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            font-style: italic;
-            font-weight: bold;
-            opacity: 0.9;
-        }
     </style>
 </head>
 <body>
-        <h1>NFT Gallery - blac_ai</h1>
+    <h2>NFT Gallery - blac_ai</h2>
     <div class="crt-divider"></div>
-
-    <div class="flavor-text">blac ai's intelligent digital consciousness where artificial meets artistic. Machine learning beauty for collectors ready for the post-human aesthetic.</div>
-
-    <div class="crt-divider"></div>
-
     <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
@@ -172,7 +120,7 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
-            <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
+            <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
 </div>
@@ -232,15 +180,15 @@
             // Load more images immediately if the initial load doesn't fill the viewport
             if (document.body.offsetHeight < window.innerHeight) {
                 loadMoreImages();
-
-                }, 100);
+            }
+        });
 
         // Scroll event for lazy loading
         window.addEventListener('scroll', () => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
                 loadMoreImages();
-
-                }, 100);
+            }
+        });
 
         function openImage(index) {
             currentImageIndex = index;
@@ -256,24 +204,27 @@
             if (currentImageIndex > 0) {
                 currentImageIndex--;
                 openImage(currentImageIndex);
+            }
         }
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 currentImageIndex++;
                 openImage(currentImageIndex);
+            }
         }
     	function closeModal() {
         	const modal = document.getElementById('fullscreenModal');
         	if (modal.style.display === 'flex') {
             		modal.style.display = 'none';
-        }
-// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
             	closeModal();
         }
-;
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -290,8 +241,9 @@
                     case 'Escape':
                         modal.style.display = 'none';
                         break;
-        }
-);
+                }
+            }
+        });
     </script>
 </body>
 </html>

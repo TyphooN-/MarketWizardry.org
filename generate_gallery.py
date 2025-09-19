@@ -37,7 +37,7 @@ def generate_twitter_url(username, tweet_id, is_shortened=False):
 
 def get_existing_flavor_text(username):
     """Extract existing flavor text from the user's gallery HTML file meta description"""
-    gallery_file = f"{username}_gallery.html"
+    gallery_file = f"nft-gallery/{username}_gallery.html"
     if os.path.exists(gallery_file):
         try:
             with open(gallery_file, 'r', encoding='utf-8') as f:
@@ -49,7 +49,7 @@ def get_existing_flavor_text(username):
                     return match.group(1)
         except Exception as e:
             print(f"Error reading existing flavor text for {username}: {e}")
-    
+
     # Fallback if no existing flavor text found
     return f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
 
@@ -267,7 +267,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
     for user in valid_user_names:
         user_gallery_file = f'{user}_gallery.html'
         if os.path.exists(user_gallery_file):
-            description = f"{user}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
+            description = get_existing_flavor_text(user)
             user_links.append(f'<div class="file-entry"><a href="{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
     
     user_links_str = '\n'.join(user_links)
