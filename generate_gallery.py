@@ -1225,7 +1225,7 @@ if __name__ == "__main__":
             
             # Update all gallery links to include nft-gallery/ prefix
             import re
-            content = re.sub(r'href="([^/][^\"]*_gallery\.html)"', r'href="nft-gallery/\1"', content)
+            content = re.sub(r'href="([^"]*_gallery\.html)"', r'href="nft-gallery/\1"', content)
             
             # Write to root directory with corrected paths
             with open('../nft-gallery.html', 'w') as f:
