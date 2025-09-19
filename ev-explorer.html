@@ -346,7 +346,6 @@
             <meta itemprop="position" content="2" />
         </span>
     </nav>
-    <div class="crt-divider"></div>
     <div class="container">
         <h1>EV Explorer</h1>
         <div class="crt-divider"></div>
@@ -742,6 +741,26 @@
                 csv: entry.getAttribute('data-csv-file'),
                 title: entry.textContent
             }));
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('outlier-modal');
+            if (modal.style.display === 'block') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousFile();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextFile();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        closeModal();
+                        break;
+                }
+            }
         });
 
         // Close modal when clicking outside

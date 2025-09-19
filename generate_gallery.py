@@ -505,6 +505,9 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
                 <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
             </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+            </div>
         </div>
     </div>
 </div>
@@ -630,6 +633,17 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             if (currentImageIndex < allImagePaths.length - 1) {{
                 currentImageIndex++;
                 openImage(currentImageIndex);
+            }}
+        }}
+        function downloadImage() {{
+            const currentImagePath = allImagePaths[currentImageIndex];
+            if (currentImagePath) {{
+                const link = document.createElement('a');
+                link.href = currentImagePath;
+                link.download = currentImagePath.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             }}
         }}
     	function closeModal() {{
@@ -938,6 +952,9 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
                 <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
             </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+            </div>
         </div>
     </div>
 </div>
@@ -1063,6 +1080,17 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             if (currentImageIndex < allImagePaths.length - 1) {{
                 currentImageIndex++;
                 openImage(currentImageIndex);
+            }}
+        }}
+        function downloadImage() {{
+            const currentImagePath = allImagePaths[currentImageIndex];
+            if (currentImagePath) {{
+                const link = document.createElement('a');
+                link.href = currentImagePath;
+                link.download = currentImagePath.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             }}
         }}
     	function closeModal() {{

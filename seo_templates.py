@@ -128,8 +128,7 @@ class SEOManager:
                 breadcrumb_html += '\n        <span class="separator">→</span>'
 
         breadcrumb_html += '''
-    </nav>
-    <div class="crt-divider"></div>'''
+    </nav>'''
 
         return breadcrumb_html
 

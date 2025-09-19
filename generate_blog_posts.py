@@ -2001,7 +2001,27 @@ def main():
             month, day, year = date_match.groups()
             date_str = f"{year}-{month}-{day}"
         else:
-            date_str = datetime.now().strftime("%Y-%m-%d")
+            # Set fixed dates for educational posts instead of current date
+            educational_dates = {
+                'what-is-value-at-risk-var': '2024-01-15',
+                'what-is-average-true-range-atr': '2024-01-20',
+                'what-is-enterprise-value-ev': '2024-01-25',
+                'what-is-darwinex': '2024-02-01',
+                'understanding-iqr-analysis': '2024-02-10',
+                'var-rubber-band-effect-darwinex': '2024-02-15'
+            }
+
+            # Check if this is an educational post
+            post_key = None
+            for edu_key in educational_dates.keys():
+                if edu_key in Path(html_file).name.lower():
+                    post_key = edu_key
+                    break
+
+            if post_key:
+                date_str = educational_dates[post_key]
+            else:
+                date_str = datetime.now().strftime("%Y-%m-%d")
 
         flavor_text = get_consistent_flavor_text(Path(html_file).name, title)
 
@@ -2029,7 +2049,27 @@ def main():
         elif 'gpu' in html_file.name:
             date_str = "2025-03-07"  # Set known date for GPU guide
         else:
-            date_str = datetime.now().strftime("%Y-%m-%d")
+            # Set fixed dates for educational posts instead of current date
+            educational_dates = {
+                'what-is-value-at-risk-var': '2024-01-15',
+                'what-is-average-true-range-atr': '2024-01-20',
+                'what-is-enterprise-value-ev': '2024-01-25',
+                'what-is-darwinex': '2024-02-01',
+                'understanding-iqr-analysis': '2024-02-10',
+                'var-rubber-band-effect-darwinex': '2024-02-15'
+            }
+
+            # Check if this is an educational post
+            post_key = None
+            for edu_key in educational_dates.keys():
+                if edu_key in html_file.name.lower():
+                    post_key = edu_key
+                    break
+
+            if post_key:
+                date_str = educational_dates[post_key]
+            else:
+                date_str = datetime.now().strftime("%Y-%m-%d")
 
         flavor_text = get_consistent_flavor_text(html_file.name, title)
 
