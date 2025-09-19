@@ -887,7 +887,6 @@
     </div>
 
     <script>
-        console.log("🚀 Calculator JavaScript is loading...");
         let activeCalculator = null;
 
         function selectCalculator(calculatorType, clickedElement) {
@@ -2355,7 +2354,9 @@ else if (symbol) {
             } else {
                 varPercentDisplay.textContent = '-';
                 assetClassDisplay.textContent = '-';
+            }
         }
+
         function removePosition(button) {
             const row = button.closest('tr');
             if (document.getElementById('portfolio-positions').children.length > 1) {
