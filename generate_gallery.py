@@ -289,16 +289,19 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         {'name': f'👤 {username}', 'url': None}  # Current page
     ]
 
+    # Get existing flavor text before configuring page settings
+    flavor_text = get_existing_flavor_text(username)
+
     # Configure page settings for user gallery
     page_config = PAGE_CONFIGS['gallery'].copy()
     page_config.update({
         'title': f'MarketWizardry.org | NFT Gallery - {username}',
         'canonical_url': f'https://marketwizardry.org/nft-gallery/{username}_gallery.html',
-        'description': f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.",
+        'description': flavor_text,
         'og_title': f'NFT Gallery - {username} - MarketWizardry.org',
-        'og_description': f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.",
+        'og_description': flavor_text,
         'twitter_title': f'NFT Gallery - {username} - MarketWizardry.org',
-        'twitter_description': f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.",
+        'twitter_description': flavor_text,
         'keywords': f"{page_config['keywords_base']}, {username}, artist portfolio"
     })
 
@@ -704,7 +707,6 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 </html>
 """
 
-    flavor_text = get_existing_flavor_text(username)
     html_template = html_template.replace("USERNAME_PLACEHOLDER", username)
     html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", flavor_text)
 
