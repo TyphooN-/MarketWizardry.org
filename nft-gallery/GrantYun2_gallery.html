@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="GrantYun2's sequel to mediocrity, now with blockchain validation. Digital art 2.0 for people who thought the first iteration needed more pretension.">
+    <meta name="description" content="GrantYun2's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, GrantYun2, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - GrantYun2 - MarketWizardry.org">
-    <meta property="og:description" content="GrantYun2's sequel to mediocrity, now with blockchain validation. Digital art 2.0 for people who thought the first iteration needed more pretension.">
+    <meta property="og:description" content="GrantYun2's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/GrantYun2_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - GrantYun2 - MarketWizardry.org">
-    <meta name="twitter:description" content="GrantYun2's sequel to mediocrity, now with blockchain validation. Digital art 2.0 for people who thought the first iteration needed more pretension.">
+    <meta name="twitter:description" content="GrantYun2's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - GrantYun2</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">GrantYun2's sequel to mediocrity, now with blockchain validation. Digital art 2.0 for people who thought the first iteration needed more pretension.</div>
+        <div class="flavor-text">GrantYun2's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,10 +332,10 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./GrantYun2/webp/GrantYun2-1928569356-Primera_128_video4-lossy.webp',
-            './GrantYun2/webp/GrantYun2-1940480089978032280-good_afternoon_video4-lossy.webp',
-            './GrantYun2/webp/GrantYun2-1942343474235248803-Exploring_colors._Paint_palettes_on_wood_video4-lossy.webp',
-            './GrantYun2/webp/GrantYun2-1929698550-Painting_between_painting_video2-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -436,7 +436,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -478,7 +478,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

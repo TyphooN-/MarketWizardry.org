@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="s0mfay's digital art collection - Some fay magic, all disappointment. This collection proves that even fairy magic can't fix bad artistic judgment. Tinkerbell called - she wants her reputation back.">
+    <meta name="description" content="s0mfay's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, s0mfay, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - s0mfay - MarketWizardry.org">
-    <meta property="og:description" content="s0mfay's digital art collection - Some fay magic, all disappointment. This collection proves that even fairy magic can't fix bad artistic judgment. Tinkerbell called - she wants her reputation back.">
+    <meta property="og:description" content="s0mfay's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/s0mfay_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - s0mfay - MarketWizardry.org">
-    <meta name="twitter:description" content="s0mfay's digital art collection - Some fay magic, all disappointment. This collection proves that even fairy magic can't fix bad artistic judgment. Tinkerbell called - she wants her reputation back.">
+    <meta name="twitter:description" content="s0mfay's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - s0mfay</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">s0mfay's digital art collection - Some fay magic, all disappointment. This collection proves that even fairy magic can't fix bad artistic judgment. Tinkerbell called - she wants her reputation back.</div>
+        <div class="flavor-text">s0mfay's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,13 +332,13 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./s0mfay/webp/s0mfay-1932977495193575585-My_cozy_little_foundry_video2-lossy.webp',
-            './s0mfay/webp/s0mfay-1831693772-Atomic_Steppe_video1-lossy.webp',
-            './s0mfay/webp/s0mfay-1883580873003384862-Fermata_Positronics_now_bears_a_logo____video3-lossy.webp',
-            './s0mfay/webp/s0mfay-1840881222836252736-A_new_Firefly_is_borne_video1-lossy.webp',
-            './s0mfay/webp/s0mfay-1864788216189964598-I_made_Jester_Vision_for_all_the_kitty_enthusiasts_out_there__meow__thank_you_to_video2-lossy.webp',
-            './s0mfay/webp/s0mfay-1937876868604060014-Archimedes__Window_video4-lossy.webp',
-            './s0mfay/webp/s0mfay-1914313301468553719-I_am_delighted_to_share_Fermata_Positronics__Series_II_devices_The_Pleiades__video3-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -439,7 +439,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -481,7 +481,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

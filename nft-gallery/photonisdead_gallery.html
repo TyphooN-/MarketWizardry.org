@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="photonisdead's digital art collection - RIP photons, they died for this art. This collection proves that light particles can indeed suffer and die from exposure to poor aesthetic choices. Physics is weeping.">
+    <meta name="description" content="photonisdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, photonisdead, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - photonisdead - MarketWizardry.org">
-    <meta property="og:description" content="photonisdead's digital art collection - RIP photons, they died for this art. This collection proves that light particles can indeed suffer and die from exposure to poor aesthetic choices. Physics is weeping.">
+    <meta property="og:description" content="photonisdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/photonisdead_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - photonisdead - MarketWizardry.org">
-    <meta name="twitter:description" content="photonisdead's digital art collection - RIP photons, they died for this art. This collection proves that light particles can indeed suffer and die from exposure to poor aesthetic choices. Physics is weeping.">
+    <meta name="twitter:description" content="photonisdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - photonisdead</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">photonisdead's digital art collection - RIP photons, they died for this art. This collection proves that light particles can indeed suffer and die from exposure to poor aesthetic choices. Physics is weeping.</div>
+        <div class="flavor-text">photonisdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,11 +332,11 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./photonisdead/webp/photonisdead-1922688991-Lost_All_Hope_Or_Oblivion_video2-lossy.webp',
-            './photonisdead/webp/photonisdead-1912538200-someone_got_my_art_tattooed_on_them_video2-lossy.webp',
-            './photonisdead/webp/photonisdead-1915082635-.1_reserve_video1-lossy.webp',
-            './photonisdead/webp/photonisdead-1924859042-Ignorance_Is_Bliss_Or_Face_The_Monster_video1-lossy.webp',
-            './photonisdead/webp/photonisdead-1924859042-Ignorance_Is_Bliss_Or_Face_The_Monster_video3-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -437,7 +437,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -479,7 +479,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

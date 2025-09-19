@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="oelhan_tv's digital art collection - Broadcasting disappointment in high definition. This collection represents everything wrong with modern television condensed into static images. Change the channel immediately.">
+    <meta name="description" content="oelhan_tv's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, oelhan_tv, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - oelhan_tv - MarketWizardry.org">
-    <meta property="og:description" content="oelhan_tv's digital art collection - Broadcasting disappointment in high definition. This collection represents everything wrong with modern television condensed into static images. Change the channel immediately.">
+    <meta property="og:description" content="oelhan_tv's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/oelhan_tv_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - oelhan_tv - MarketWizardry.org">
-    <meta name="twitter:description" content="oelhan_tv's digital art collection - Broadcasting disappointment in high definition. This collection represents everything wrong with modern television condensed into static images. Change the channel immediately.">
+    <meta name="twitter:description" content="oelhan_tv's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - oelhan_tv</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">oelhan_tv's digital art collection - Broadcasting disappointment in high definition. This collection represents everything wrong with modern television condensed into static images. Change the channel immediately.</div>
+        <div class="flavor-text">oelhan_tv's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,21 +332,21 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./oelhan_tv/webp/oelhan_tv-1887888067-Love_love_this_video3-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1920867147-inkjet_goblin_video1-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1890439611-Ha_ha_u_can_t_make_a_wrong_move_because_ur_fire_Al_the_time___video3-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1899167680-GM_-_Currently_available_1_1_video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1877385657-so_fire_my_dude__video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1856006779-Daaamn_video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1864695660-_Radiance_Within__video3-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1858912280-__video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1930277140-_Eyeroll_on_inkjet_paper____Available_on_SuperRare_video3-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1919719095-Pick_a_face._Any_face_video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1928477938-collab_with_video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1937556324507607324-what_is_love___video4-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1937556324507607324-what_is_love___video3-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1923443821-_u_s_e__video2-lossy.webp',
-            './oelhan_tv/webp/oelhan_tv-1852168689-h_________p____p____y_________h___a____l____l________w____________________video-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -447,7 +447,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -489,7 +489,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

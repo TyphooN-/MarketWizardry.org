@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Palindromic digital identity crisis with vowel confusion. Reversible username anxiety for collectors who can't decide which way is forward.">
+    <meta name="description" content="alulasit's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, alulasit, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - alulasit - MarketWizardry.org">
-    <meta property="og:description" content="Palindromic digital identity crisis with vowel confusion. Reversible username anxiety for collectors who can't decide which way is forward.">
+    <meta property="og:description" content="alulasit's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/alulasit_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - alulasit - MarketWizardry.org">
-    <meta name="twitter:description" content="Palindromic digital identity crisis with vowel confusion. Reversible username anxiety for collectors who can't decide which way is forward.">
+    <meta name="twitter:description" content="alulasit's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - alulasit</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Palindromic digital identity crisis with vowel confusion. Reversible username anxiety for collectors who can't decide which way is forward.</div>
+        <div class="flavor-text">alulasit's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,16 +332,16 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./alulasit/webp/alulasit-1925196593835516144-Auction_update___video4-lossy.webp',
-            './alulasit/webp/alulasit-1931389270310428708-_Cosmic_Stide__video2-lossy.webp',
-            './alulasit/webp/alulasit-1925571513056710802-_Cosmic_Stide__video4-lossy.webp',
-            './alulasit/webp/alulasit-1927807848169542083-_The_Summoning_of_Her__video2-lossy.webp',
-            './alulasit/webp/alulasit-1926628715045245309-Gm_weekend_video3-lossy.webp',
-            './alulasit/webp/alulasit-1929203316317180000-Sunday_Art_Share_video2-lossy.webp',
-            './alulasit/webp/alulasit-1921608202531078583-_Midnight_Conqueror__video3-lossy.webp',
-            './alulasit/webp/alulasit-1927364250537730149-https___salvor.io_collections_0xd999729cbb282c246a3cd2aff6aed8412d939caa_16__video3-lossy.webp',
-            './alulasit/webp/alulasit-1923685413685952710-Gm_builder_video4-lossy.webp',
-            './alulasit/webp/alulasit-1923322795112415284-Start_Tge_Journey_video4-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -442,7 +442,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -484,7 +484,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

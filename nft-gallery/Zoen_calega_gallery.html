@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Zen meets digital chaos in hyphenated harmony. Meditative username hiding frantic pixel anxiety behind blockchain enlightenment receipts.">
+    <meta name="description" content="Zoen_calega's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, Zoen_calega, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - Zoen_calega - MarketWizardry.org">
-    <meta property="og:description" content="Zen meets digital chaos in hyphenated harmony. Meditative username hiding frantic pixel anxiety behind blockchain enlightenment receipts.">
+    <meta property="og:description" content="Zoen_calega's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/Zoen_calega_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - Zoen_calega - MarketWizardry.org">
-    <meta name="twitter:description" content="Zen meets digital chaos in hyphenated harmony. Meditative username hiding frantic pixel anxiety behind blockchain enlightenment receipts.">
+    <meta name="twitter:description" content="Zoen_calega's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - Zoen_calega</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Zen meets digital chaos in hyphenated harmony. Meditative username hiding frantic pixel anxiety behind blockchain enlightenment receipts.</div>
+        <div class="flavor-text">Zoen_calega's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,9 +332,9 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./Zoen_calega/webp/Zoen_calega-1931767787950833782-BOM_DIAAA_video2-lossy.webp',
-            './Zoen_calega/webp/Zoen_calega-1941347048198111336-src___video2-lossy.webp',
-            './Zoen_calega/webp/Zoen_calega-1934339367734227069-C_R_A_S_H_video2-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -435,7 +435,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -477,7 +477,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

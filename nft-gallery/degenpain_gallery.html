@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="degenpain's digital art collection - Pain and suffering distilled into pixels. This artist turned their portfolio losses into art gains, creating a masterclass in 'how to lose money but make it aesthetic.' Perfect for masochists and financial advisors alike.">
+    <meta name="description" content="degenpain's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, degenpain, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - degenpain - MarketWizardry.org">
-    <meta property="og:description" content="degenpain's digital art collection - Pain and suffering distilled into pixels. This artist turned their portfolio losses into art gains, creating a masterclass in 'how to lose money but make it aesthetic.' Perfect for masochists and financial advisors alike.">
+    <meta property="og:description" content="degenpain's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/degenpain_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - degenpain - MarketWizardry.org">
-    <meta name="twitter:description" content="degenpain's digital art collection - Pain and suffering distilled into pixels. This artist turned their portfolio losses into art gains, creating a masterclass in 'how to lose money but make it aesthetic.' Perfect for masochists and financial advisors alike.">
+    <meta name="twitter:description" content="degenpain's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - degenpain</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">degenpain's digital art collection - Pain and suffering distilled into pixels. This artist turned their portfolio losses into art gains, creating a masterclass in 'how to lose money but make it aesthetic.' Perfect for masochists and financial advisors alike.</div>
+        <div class="flavor-text">degenpain's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,18 +332,18 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./degenpain/webp/degenpain-1917639082-lost_in_my_thoughts__1_1__video1-lossy.webp',
-            './degenpain/webp/degenpain-1936859048063705304-hearing_that_1D___1B_video4-lossy.webp',
-            './degenpain/webp/degenpain-1917022482-_not_a_cult__video1-lossy.webp',
-            './degenpain/webp/degenpain-1917370415-my_thoughts__1_1__video2-lossy.webp',
-            './degenpain/webp/degenpain-1925370684-how_it_feels_to_check_the_price_of_eth_video1-lossy.webp',
-            './degenpain/webp/degenpain-1928198593-__Reading___Analysis___Action___Analysis___Reading___video1-lossy.webp',
-            './degenpain/webp/degenpain-1925228369-gm___happy_ath_to_those_who_celebrate_video2-lossy.webp',
-            './degenpain/webp/degenpain-1932596836847497374-remix_i_made_for_video2-lossy.webp',
-            './degenpain/webp/degenpain-1926730658-Beautiful_video3-lossy.webp',
-            './degenpain/webp/degenpain-1928564980607033458-i_still_have_some_editions_of__the_heart_wants_more_flowers__for_anyone_interested_video3-lossy.webp',
-            './degenpain/webp/degenpain-1942594001795793099-gm_degens_video3-lossy.webp',
-            './degenpain/webp/degenpain-1924461636-gm_friends__thank_you_video2-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -444,7 +444,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -486,7 +486,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="DarkenedM00d's emotional black holes compressed into blockchain-certified despair. Digital depression for collectors with existential credit cards.">
+    <meta name="description" content="DarkenedM00d's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, DarkenedM00d, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - DarkenedM00d - MarketWizardry.org">
-    <meta property="og:description" content="DarkenedM00d's emotional black holes compressed into blockchain-certified despair. Digital depression for collectors with existential credit cards.">
+    <meta property="og:description" content="DarkenedM00d's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/DarkenedM00d_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - DarkenedM00d - MarketWizardry.org">
-    <meta name="twitter:description" content="DarkenedM00d's emotional black holes compressed into blockchain-certified despair. Digital depression for collectors with existential credit cards.">
+    <meta name="twitter:description" content="DarkenedM00d's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - DarkenedM00d</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">DarkenedM00d's emotional black holes compressed into blockchain-certified despair. Digital depression for collectors with existential credit cards.</div>
+        <div class="flavor-text">DarkenedM00d's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,13 +332,13 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./DarkenedM00d/webp/DarkenedM00d-1921334147-Hypnosis_video2-lossy.webp',
-            './DarkenedM00d/webp/DarkenedM00d-1924475503-Last_Embers_video2-lossy.webp',
-            './DarkenedM00d/webp/DarkenedM00d-1918500476338794818-Detail_of_one_of_the_pieces_of__The_Allure_of_Decay__series__created_in_2018_video1-1-lossy.webp',
-            './DarkenedM00d/webp/DarkenedM00d-1939473911906967662-Minted_for_video3-lossy.webp',
-            './DarkenedM00d/webp/DarkenedM00d-1931084478-Illuminating_video3-lossy.webp',
-            './DarkenedM00d/webp/DarkenedM00d-1897696086-Patron_Saint_of_the_Mundane_video2-lossy.webp',
-            './DarkenedM00d/webp/DarkenedM00d-1925682669-_DarkenedM00d_video3-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -439,7 +439,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -481,7 +481,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation

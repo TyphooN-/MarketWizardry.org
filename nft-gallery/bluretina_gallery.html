@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Eye strain aesthetics in soothing blue tones. Retinal damage art for people who want their vision loss to be aesthetically pleasing.">
+    <meta name="description" content="bluretina's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, bluretina, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - bluretina - MarketWizardry.org">
-    <meta property="og:description" content="Eye strain aesthetics in soothing blue tones. Retinal damage art for people who want their vision loss to be aesthetically pleasing.">
+    <meta property="og:description" content="bluretina's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/bluretina_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - bluretina - MarketWizardry.org">
-    <meta name="twitter:description" content="Eye strain aesthetics in soothing blue tones. Retinal damage art for people who want their vision loss to be aesthetically pleasing.">
+    <meta name="twitter:description" content="bluretina's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -301,7 +301,7 @@
     <div class="container">
         <h2>NFT Gallery - bluretina</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Eye strain aesthetics in soothing blue tones. Retinal damage art for people who want their vision loss to be aesthetically pleasing.</div>
+        <div class="flavor-text">bluretina's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
@@ -332,20 +332,20 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const allImagePaths = ['./bluretina/webp/bluretina-1941777524343672851-Early_Sunday_Cleaning_video3-lossy.webp',
-            './bluretina/webp/bluretina-1939718488718758394-Jumping_around_memories_for_a_while_video3-lossy.webp',
-            './bluretina/webp/bluretina-1942543759469695206-Still_so_happy_with_the_over_1100_collected_works_on_http___Objkt.com_-_wish_I_could_collect_more_-_video4-lossy.webp',
-            './bluretina/webp/bluretina-1933600080373641575-Taking_the_furrybus_home_soon_video4-lossy.webp',
-            './bluretina/webp/bluretina-1928799804-Broken_Days_video2-lossy.webp',
-            './bluretina/webp/bluretina-1940391948315246640-Maybe_not_all_is_wasted_video3-lossy.webp',
-            './bluretina/webp/bluretina-1930651151-Biography_of_video2-lossy.webp',
-            './bluretina/webp/bluretina-1939273707299516526-Gm__happy_sunday_video3-lossy.webp',
-            './bluretina/webp/bluretina-1928799804-Broken_Days_video4-lossy.webp',
-            './bluretina/webp/bluretina-1928799804-Broken_Days_video3-lossy.webp',
-            './bluretina/webp/bluretina-1928799541-Broken_Days_video1-lossy.webp',
-            './bluretina/webp/bluretina-1936521389105692856-it_s_been_a_bunpy_ride_video3-lossy.webp',
-            './bluretina/webp/bluretina-1939634638995001482-About_yesterday._GM__video3-lossy.webp',
-            './bluretina/webp/bluretina-1930651151-Biography_of_video1-lossy.webp']; // All image paths from Python
+        const allImagePaths = ['./{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}',
+            './{relative_path.replace(os.sep, '/')}']; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
         const imagesPerLoad = 50; // Increased number of images to load per scroll
         const scrollThreshold = 1000; // Load more images when 1000px from bottom
@@ -446,7 +446,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -488,7 +488,7 @@
    	 window.onclick = function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
     };
         // Keyboard navigation
