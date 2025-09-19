@@ -91,7 +91,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             margin: 0;
         }}
         .container {{
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }}
         h1 {{
@@ -306,6 +306,10 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             padding: 20px;
             margin: 0;
         }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+        }}
         a {{
             color: #00ff00;
             text-decoration: none;
@@ -480,11 +484,12 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 </head>
 <body>
 {breadcrumbs_html}
-    <h2>NFT Gallery - USERNAME_PLACEHOLDER</h2>
-    <div class="crt-divider"></div>
-    <div class="flavor-text">FLAVOR_TEXT_PLACEHOLDER</div>
-    <div class="crt-divider"></div>
-    <!-- Image Grid -->
+    <div class="container">
+        <h2>NFT Gallery - USERNAME_PLACEHOLDER</h2>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">FLAVOR_TEXT_PLACEHOLDER</div>
+        <div class="crt-divider"></div>
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -679,6 +684,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             }}
         }});
     </script>
+    </div>
 </body>
 </html>
 """
@@ -927,11 +933,12 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 </head>
 <body>
 {breadcrumbs_html}
-    <h2>NFT Gallery - All Images</h2>
-    <div class="crt-divider"></div>
-    <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
-    <div class="crt-divider"></div>
-    <!-- Image Grid -->
+    <div class="container">
+        <h2>NFT Gallery - All Images</h2>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
+        <div class="crt-divider"></div>
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -1126,6 +1133,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             }}
         }});
     </script>
+    </div>
 </body>
 </html>
 """
