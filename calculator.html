@@ -3458,11 +3458,151 @@ function updateOutputMode() {
 
         // Portfolio functions work with full dataset for flexibility
 
+        // Compound Interest Calculator Function
+        function calculateCompoundInterest() {
+            const principal = parseFloat(document.getElementById('ci-principal').value);
+            const rate = parseFloat(document.getElementById('ci-rate').value) / 100;
+            const time = parseFloat(document.getElementById('ci-time').value);
+            const compound = parseFloat(document.getElementById('ci-compound').value);
+            const monthlyContribution = parseFloat(document.getElementById('ci-monthly').value) || 0;
+
+            if (!principal || !rate || !time || !compound) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Calculate compound interest with monthly contributions
+            let balance = principal;
+            let totalContributions = principal;
+
+            for (let year = 1; year <= time; year++) {
+                // Add monthly contributions throughout the year
+                for (let month = 1; month <= 12; month++) {
+                    balance += monthlyContribution;
+                    totalContributions += monthlyContribution;
+
+                    // Apply compound interest monthly if compounding frequency allows
+                    const periodsPerYear = compound;
+                    const ratePerPeriod = rate / periodsPerYear;
+
+                    // Apply compounding based on frequency
+                    for (let period = 1; period <= periodsPerYear / 12; period++) {
+                        balance *= (1 + ratePerPeriod);
+                    }
+                }
+            }
+
+            const totalInterest = balance - totalContributions;
+            const effectiveRate = ((balance / principal) ** (1 / time) - 1) * 100;
+
+            const output = `
+                <div style="padding: 20px; border: 2px solid #00ff00; border-radius: 8px;">
+                    <h3 style="color: #00ff00; margin: 0 0 20px 0;">💰 Compound Interest Results</h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <strong style="color: #00ff00;">Initial Investment:</strong><br>
+                            $${principal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
+
+                            <strong style="color: #00ff00;">Monthly Contributions:</strong><br>
+                            $${monthlyContribution.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
+
+                            <strong style="color: #00ff00;">Total Contributions:</strong><br>
+                            $${totalContributions.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                        </div>
+                        <div>
+                            <strong style="color: #00ff00;">Final Balance:</strong><br>
+                            <span style="font-size: 1.3em; color: #00ff00;">$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+
+                            <strong style="color: #00ff00;">Total Interest Earned:</strong><br>
+                            <span style="color: #00cc00;">$${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+
+                            <strong style="color: #00ff00;">Effective Annual Rate:</strong><br>
+                            <span style="color: #00cc00;">${effectiveRate.toFixed(2)}%</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,255,0,0.1); padding: 15px; border-radius: 4px; margin-top: 15px;">
+                        <strong style="color: #00ff00;">💡 Summary:</strong><br>
+                        After ${time} years, your investment of $${principal.toLocaleString()} with $${monthlyContribution.toLocaleString()} monthly contributions
+                        will grow to <strong>$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>.<br>
+                        <strong>Interest earned: $${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>
+                        (${((totalInterest / totalContributions) * 100).toFixed(1)}% of total contributions)
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('ci-results').innerHTML = output;
+            document.getElementById('ci-results').classList.add('show');
+
+            // Create timeline visualization
+            createCompoundInterestChart(principal, rate, time, compound, monthlyContribution);
+        }
+
+        // Create enhanced compound interest calculator visualization
+        function createCompoundInterestChart(principal, rate, time, compound, monthlyContribution) {
+            const chartContainer = document.getElementById('compound-chart');
+            const timelineContainer = document.getElementById('compound-timeline');
+
+            if (!chartContainer || !timelineContainer) return;
+
+            let balance = principal;
+            let totalContributions = principal;
+            let timeline = `
+                <div style="padding: 10px; background: rgba(0,255,0,0.1); border-radius: 4px; margin-bottom: 20px;">
+                    <h4 style="color: #00ff00; margin: 0 0 10px 0;">📈 Growth Timeline</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            `;
+
+            const yearsToShow = Math.min(time, 30); // Show max 30 years in timeline
+
+            for (let year = 1; year <= yearsToShow; year++) {
+                // Calculate compound interest with monthly contributions
+                const periodsPerYear = compound;
+                const ratePerPeriod = rate / periodsPerYear;
+
+                // Add monthly contributions throughout the year
+                for (let month = 1; month <= 12; month++) {
+                    balance += monthlyContribution;
+                    totalContributions += monthlyContribution;
+
+                    // Apply compound interest monthly
+                    for (let period = 1; period <= periodsPerYear / 12; period++) {
+                        balance *= (1 + ratePerPeriod);
+                    }
+                }
+
+                const totalInterest = balance - totalContributions;
+                const percentGrowth = ((balance - principal) / principal * 100);
+
+                timeline += `
+                    <div style="padding: 10px; background: rgba(0,255,0,0.05); border: 1px solid #004400; border-radius: 4px;">
+                        <strong style="color: #00ff00;">Year ${year}</strong><br>
+                        <span style="color: #00cc00;">Balance:</span> $${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
+                        <span style="color: #00cc00;">Interest:</span> $${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
+                        <span style="color: #00cc00;">Growth:</span> ${percentGrowth.toFixed(1)}%
+                    </div>
+                `;
+            }
+
+            timeline += '</div></div>';
+
+            if (time > 30) {
+                timeline += `
+                    <div style="padding: 10px; color: #ffaa00; text-align: center; font-style: italic;">
+                        ... showing first 30 years only ...
+                    </div>
+                `;
+            }
+
+            timelineContainer.innerHTML = timeline;
+            chartContainer.style.display = 'block';
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateActiveDataset(); // Set initial state
         });
-
 
     </script>
 </body>
