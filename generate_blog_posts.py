@@ -73,28 +73,45 @@ def save_used_flavor_texts():
     except Exception as e:
         print(f"Error saving flavor text cache: {e}")
 
-def select_unused_flavor_text(flavor_list, fallback_text="Default flavor text for when all options are exhausted."):
-    """Select a flavor text that hasn't been used before"""
+def select_unused_flavor_text(flavor_list, fallback_text="Default flavor text for when all options are exhausted.", category_name="unknown"):
+    """Select a flavor text that hasn't been used before with improved RNG"""
     global used_flavor_texts
-    
+
     # Find unused options
     available_options = [text for text in flavor_list if text not in used_flavor_texts]
-    
-    # If all options are used, reset the tracking and start over
+
+    # If all options are used, use weighted random selection favoring least recently used
     if not available_options:
-        print(f"All {len(flavor_list)} flavor texts in this category have been used. Resetting...")
-        # Remove all texts from this category from used_flavor_texts
-        used_flavor_texts = used_flavor_texts - set(flavor_list)
-        available_options = flavor_list.copy()
-    
-    # Select randomly from available options
-    if available_options:
-        selected_text = random.choice(available_options)
-        used_flavor_texts.add(selected_text)
-        return selected_text
+        print(f"All {len(flavor_list)} flavor texts in category '{category_name}' have been used.")
+        print(f"Using weighted selection to minimize reuse...")
+
+        # Count usage frequency for texts in this category
+        from collections import Counter
+        usage_counts = Counter()
+
+        # Track which texts in this category have been used
+        category_used_texts = [text for text in flavor_list if text in used_flavor_texts]
+
+        # For this implementation, we'll use a simple approach: prefer texts that appear less frequently
+        # in the current mapping (this approximates least recently used)
+        current_mappings = list(blog_flavor_mapping.values()) if 'blog_flavor_mapping' in globals() else []
+        mapping_counts = Counter(current_mappings)
+
+        # Sort by usage frequency (ascending - least used first)
+        sorted_options = sorted(flavor_list, key=lambda x: mapping_counts.get(x, 0))
+
+        # Use weighted selection favoring less-used options
+        weights = [1.0 / (mapping_counts.get(text, 0) + 1) for text in sorted_options]
+        selected_text = random.choices(sorted_options, weights=weights, k=1)[0]
+
+        print(f"Selected '{selected_text[:50]}...' (usage count: {mapping_counts.get(selected_text, 0)})")
     else:
-        # Fallback in case something goes wrong
-        return fallback_text
+        # Normal random selection from unused options
+        selected_text = random.choice(available_options)
+        print(f"Selected unused flavor text from category '{category_name}': '{selected_text[:50]}...'")
+
+    used_flavor_texts.add(selected_text)
+    return selected_text
 
 def get_consistent_flavor_text(filename, title):
     """Get or generate consistent flavor text for a blog post"""
@@ -1116,13 +1133,34 @@ def parse_existing_blog_entries():
 
 
 def update_blog_index(all_new_entries):
-    """Update blog.html with all entries (replaces existing ones with updated flavor text)"""
-    
+    """Update blog.html with all entries separated into educational and daily analysis sections"""
+
     # Sort by date (newest first)
     all_new_entries.sort(key=lambda x: x['date'], reverse=True)
-    
+
     print(f"Updating blog with {len(all_new_entries)} total entries")
-    
+
+    # Separate educational posts from daily analysis
+    educational_posts = []
+    daily_analysis_posts = []
+
+    educational_keywords = [
+        'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
+        'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
+        'gpu-buyers-guide'
+    ]
+
+    for entry in all_new_entries:
+        filename_lower = entry['filename'].lower()
+        is_educational = any(keyword in filename_lower for keyword in educational_keywords)
+
+        if is_educational:
+            educational_posts.append(entry)
+        else:
+            daily_analysis_posts.append(entry)
+
+    print(f"Separated into {len(educational_posts)} educational posts and {len(daily_analysis_posts)} daily analysis posts")
+
     # All entries now have flavor text, so we use them all
     all_entries = all_new_entries
     
@@ -1131,21 +1169,48 @@ def update_blog_index(all_new_entries):
     with open(BLOG_INDEX, 'r', encoding='utf-8') as f:
         current_content = f.read()
     
-    # Generate entries HTML for all entries
-    entries_html = []
-    for entry in all_entries:
-        # Add flavor text description for ALL entries
-        description_html = ""
-        if 'summary' in entry and entry['summary']:
-            description_html = f'<div class="entry-description">{entry["summary"]}</div>'
-        
-        entry_html = (
-            f'            <div class="blog-entry" onclick="parent.loadContent(\'blog/{entry["filename"]}\');">\n'
-            f'                <a href="#" onclick="event.stopPropagation(); parent.loadContent(\'blog/{entry["filename"]}\');">{entry["title"]}</a>\n'
-            f'                <span class="date">Posted: {entry["date"]}</span>{description_html}\n'
-            f'            </div>'
-        )
-        entries_html.append(entry_html)
+    # Generate HTML for educational posts section
+    def generate_entries_html(entries, section_name):
+        entries_html = []
+        for entry in entries:
+            # Add flavor text description for ALL entries
+            description_html = ""
+            if 'summary' in entry and entry['summary']:
+                description_html = f'<div class="entry-description">{entry["summary"]}</div>'
+
+            entry_html = (
+                f'            <div class="blog-entry" onclick="parent.loadContent(\'blog/{entry["filename"]}\');">\n'
+                f'                <a href="#" onclick="event.stopPropagation(); parent.loadContent(\'blog/{entry["filename"]}\');">{entry["title"]}</a>\n'
+                f'                <span class="date">Posted: {entry["date"]}</span>{description_html}\n'
+                f'            </div>'
+            )
+            entries_html.append(entry_html)
+        return entries_html
+
+    # Generate sections
+    educational_html = []
+    daily_analysis_html = []
+
+    if educational_posts:
+        educational_html = [
+            '        <h2 style="color: #00ff00; text-align: center; margin: 30px 0 20px 0; font-size: 1.5em;">📚 Educational Resources</h2>',
+            '        <div class="crt-divider"></div>',
+            '        <div class="grid educational-grid">'
+        ]
+        educational_html.extend(generate_entries_html(educational_posts, "educational"))
+        educational_html.append('        </div>')
+
+    if daily_analysis_posts:
+        daily_analysis_html = [
+            '        <h2 style="color: #00ff00; text-align: center; margin: 30px 0 20px 0; font-size: 1.5em;">📊 Daily Market Analysis</h2>',
+            '        <div class="crt-divider"></div>',
+            '        <div class="grid analysis-grid">'
+        ]
+        daily_analysis_html.extend(generate_entries_html(daily_analysis_posts, "daily"))
+        daily_analysis_html.append('        </div>')
+
+    # Combine all entries HTML with sections
+    entries_html = educational_html + daily_analysis_html
     
     entries_section = '\n'.join(entries_html)
 
@@ -1326,15 +1391,15 @@ def generate_flavor_text(title, filename):
 
     # Check for educational content with specific matching
     if 'what-is-value-at-risk-var' in filename_lower or 'value at risk' in title_lower:
-        return select_unused_flavor_text(educational_texts['var'], "Risk measurement education for gambling addicts who pretend statistical models can predict when they'll lose everything.")
+        return select_unused_flavor_text(educational_texts['var'], "Risk measurement education for gambling addicts who pretend statistical models can predict when they'll lose everything.", "educational_var")
     elif 'what-is-average-true-range-atr' in filename_lower or 'average true range' in title_lower:
-        return select_unused_flavor_text(educational_texts['atr'], "Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.")
+        return select_unused_flavor_text(educational_texts['atr'], "Volatility measurement education for chaos addicts who mistake market turbulence for trading opportunities.", "educational_atr")
     elif 'what-is-enterprise-value-ev' in filename_lower or 'enterprise value' in title_lower:
-        return select_unused_flavor_text(educational_texts['enterprise_value'], "Corporate valuation education for fundamental analysts who think enterprise value calculations can predict stock prices.")
+        return select_unused_flavor_text(educational_texts['enterprise_value'], "Corporate valuation education for fundamental analysts who think enterprise value calculations can predict stock prices.", "educational_ev")
     elif 'what-is-darwinex' in filename_lower or ('what' in title_lower and 'darwinex' in title_lower):
-        return select_unused_flavor_text(educational_texts['darwinex'], "Algorithmic trading platform education for signal followers who think technology can replace trading skill.")
+        return select_unused_flavor_text(educational_texts['darwinex'], "Algorithmic trading platform education for signal followers who think technology can replace trading skill.", "educational_darwinex")
     elif 'understanding-iqr-analysis' in filename_lower or 'iqr analysis' in title_lower:
-        return select_unused_flavor_text(educational_texts['iqr'], "Statistical analysis education for data miners who think robust statistics can make unreliable data reliable.")
+        return select_unused_flavor_text(educational_texts['iqr'], "Statistical analysis education for data miners who think robust statistics can make unreliable data reliable.", "educational_iqr")
 
     # Check for Darwinex/Exchange-specific content
     darwinex_texts = {
@@ -1360,11 +1425,11 @@ def generate_flavor_text(title, filename):
     }
 
     if 'rating' in filename_lower and 'cap' in filename_lower:
-        return select_unused_flavor_text(darwinex_texts['rating_cap'], "Rating system analysis for traders who think Darwinex algorithms are more predictable than their ex-wives.")
+        return select_unused_flavor_text(darwinex_texts['rating_cap'], "Rating system analysis for traders who think Darwinex algorithms are more predictable than their ex-wives.", "darwinex_rating")
     elif 'proactive-risk-management' in filename_lower or ('proactive' in title_lower and 'risk' in title_lower):
-        return select_unused_flavor_text(darwinex_texts['proactive_risk'], "Risk management education for Darwinex traders who think VaR targeting beats actual trading discipline.")
+        return select_unused_flavor_text(darwinex_texts['proactive_risk'], "Risk management education for Darwinex traders who think VaR targeting beats actual trading discipline.", "darwinex_risk")
     elif 'darwinex' in filename_lower or 'darwinex' in title_lower:
-        return select_unused_flavor_text(darwinex_texts['general_darwinex'], "Darwinex platform analysis for signal providers who confuse technology with competence.")
+        return select_unused_flavor_text(darwinex_texts['general_darwinex'], "Darwinex platform analysis for signal providers who confuse technology with competence.", "darwinex_general")
 
     # Check for rubber band effect content
     if 'rubber' in title_lower or 'band' in title_lower or ('var' in title_lower and 'darwinex' in title_lower):
@@ -1965,27 +2030,48 @@ def main():
     """Main function to process all files and update blog"""
     # Load previously used flavor texts
     load_used_flavor_texts()
-    
-    # Clear flavor text mapping if regenerating to get fresh flavor texts
+
+    # Import argparse for command-line options
+    import argparse
+    parser = argparse.ArgumentParser(description='Generate blog posts')
+    parser.add_argument('--force-regen', action='store_true', help='Force regeneration of all flavor texts')
+    parser.add_argument('--new-only', action='store_true', help='Only process new files (missing txt or html)')
+    args = parser.parse_args()
+
     global blog_flavor_mapping
-    blog_flavor_mapping = {}
-    print("Regeneration mode: Clearing existing flavor text mappings for fresh generation")
+
+    if args.force_regen:
+        blog_flavor_mapping = {}
+        print("FORCE REGENERATION MODE: Clearing existing flavor text mappings for fresh generation")
+    else:
+        print("INCREMENTAL MODE: Preserving existing flavor text assignments")
     
     blog_entries = []
     blog_path = Path(BLOG_DIR)
-    
-    # Find all existing HTML files
+
+    # Find all existing files
     html_files = list(blog_path.glob('*.html'))
-    print(f"Found {len(html_files)} existing HTML files")
-    
-    # Regeneration mode: Process all .txt files and force HTML regeneration
-    print("REGENERATION MODE: Regenerating all HTML files from .txt files...")
     txt_files = list(blog_path.glob('*.txt'))
-    print(f"Found {len(txt_files)} .txt files to process")
+    print(f"Found {len(html_files)} existing HTML files and {len(txt_files)} txt files")
+
+    if args.new_only:
+        print("NEW-ONLY MODE: Processing only new or changed files...")
+        # Process only txt files that don't have corresponding HTML or have newer timestamps
+        files_to_process = []
+        for txt_file in txt_files:
+            html_path = txt_file.with_suffix('.html')
+            if not html_path.exists() or txt_file.stat().st_mtime > html_path.stat().st_mtime:
+                files_to_process.append(txt_file)
+
+        print(f"Found {len(files_to_process)} files that need processing")
+        txt_files = files_to_process
+    else:
+        print("FULL REGENERATION MODE: Processing all txt files...")
 
     for txt_file in txt_files:
-        print(f"Regenerating HTML for {txt_file.name}")
-        html_file = generate_html_from_txt(txt_file, force_regenerate=True)
+        force_regen = args.force_regen or args.new_only
+        print(f"Processing {txt_file.name} (force_regen: {force_regen})")
+        html_file = generate_html_from_txt(txt_file, force_regenerate=force_regen)
 
         # Extract metadata for blog index from generated HTML file
         title = extract_title_from_html(Path(html_file))
