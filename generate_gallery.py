@@ -270,7 +270,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         user_gallery_file = f'{user}_gallery.html'
         if os.path.exists(user_gallery_file):
             description = get_existing_flavor_text(user)
-            user_links.append(f'<div class="file-entry" onclick="window.location.href=\'{user_gallery_file}\';"><a href="{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
+            user_links.append(f'<div class="file-entry" onclick="window.location.href=\'nft-gallery/{user_gallery_file}\';"><a href="nft-gallery/{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
     
     user_links_str = '\n'.join(user_links)
     final_html = html_content.replace("USER_LINKS_PLACEHOLDER", user_links_str)
@@ -719,7 +719,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             for file in files:
                 if fnmatch.fnmatch(file, search_pattern):
                     relative_path = os.path.relpath(os.path.join(root, file), '.')
-                    image_paths.append(f"'./{{relative_path.replace(os.sep, '/')}}'")
+                    image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
     image_paths_str = ',\n            '.join(image_paths)
     final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
@@ -1168,7 +1168,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                 for file in files:
                     if fnmatch.fnmatch(file, search_pattern):
                         relative_path = os.path.relpath(os.path.join(root, file), current_directory)
-                        all_image_paths.append(f"'./{{relative_path.replace(os.sep, '/')}}'")
+                        all_image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
     image_paths_str = ',\n            '.join(all_image_paths)
     final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
@@ -1226,6 +1226,8 @@ if __name__ == "__main__":
             # Update all gallery links to include nft-gallery/ prefix
             import re
             content = re.sub(r'href="([^"]*_gallery\.html)"', r'href="nft-gallery/\1"', content)
+            # Fix double nft-gallery/ prefixes
+            content = re.sub(r'href="nft-gallery/nft-gallery/', r'href="nft-gallery/', content)
             
             # Write to root directory with corrected paths
             with open('../nft-gallery.html', 'w') as f:
