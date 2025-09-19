@@ -80,9 +80,22 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
+        }
+
+        /* Responsive grid adjustments */
+        @media screen and (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
         .blog-entry {
             background-color: #000;
@@ -215,6 +228,7 @@
 
 
 
+        <div class="grid">
             <div class="blog-entry" onclick="parent.loadContent('blog/what-is-value-at-risk-var.html');">
                 <a href="#" onclick="event.stopPropagation(); parent.loadContent('blog/what-is-value-at-risk-var.html');">What Is Value At Risk (VaR) VaR?</a>
                 <span class="date">Posted: 2025-09-18</span><div class="entry-description">VaR calculation guide for investors whose risk tolerance is exceeded only by their capacity for self-deception.</div>
@@ -320,3 +334,7 @@
                 <span class="date">Posted: 2025-03-07</span><div class="entry-description">Hardware analysis for degenerates who confuse graphics cards with investment vehicles. Your wallet's funeral service.</div>
             </div>
 
+        </div>
+    </div>
+</body>
+</html>
