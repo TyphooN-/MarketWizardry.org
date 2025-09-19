@@ -366,24 +366,64 @@
                 max-height: 50vh;
                 padding: 8px;
             }
-            
+
             .menu-item {
                 padding: 6px 10px;
                 margin: 1px;
                 font-size: 11px;
             }
-            
+
             .header-container {
                 font-size: 12px;
             }
-            
+
             .content-frame {
                 padding: 8px;
+            }
+        }
+
+        /* Breadcrumb Navigation Styles */
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .breadcrumb a {
+            color: #00ff00 !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff !important;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
+
+        /* Mobile breadcrumb optimization */
+        @media screen and (max-width: 768px) {
+            .breadcrumb {
+                display: none;
             }
         }
 </style>
 </head>
 <body>
+    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="market-wizardry.html" itemprop="item">
+                <span itemprop="name">🏠 Market Wizardry</span>
+            </a>
+            <meta itemprop="position" content="1" />
+        </span>
+    </nav>
+
     <div class="scanlines"></div>
     <div class="container">
         <!-- Menu -->
