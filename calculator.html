@@ -887,6 +887,7 @@
     </div>
 
     <script>
+        console.log("🚀 Calculator JavaScript is loading...");
         let activeCalculator = null;
 
         function selectCalculator(calculatorType, clickedElement) {
@@ -2355,12 +2356,14 @@ else if (symbol) {
                 varPercentDisplay.textContent = '-';
                 assetClassDisplay.textContent = '-';
         }
-function removePosition(button) {
+        function removePosition(button) {
             const row = button.closest('tr');
             if (document.getElementById('portfolio-positions').children.length > 1) {
                 row.remove();
+            }
         }
-function calculatePortfolioVaR() {
+
+        function calculatePortfolioVaR() {
             const confidence = parseFloat(document.getElementById('pf-confidence').value);
             const timeHorizon = parseInt(document.getElementById('pf-time-horizon').value);
             const rows = document.querySelectorAll('#portfolio-positions tr');
