@@ -126,6 +126,16 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         a:hover {{
             text-decoration: underline;
         }}
+        .entry-description {{
+            color: #00ff00;
+            font-size: 0.75em;
+            opacity: 0.7;
+            margin-top: 8px;
+            font-style: italic;
+            font-weight: bold;
+            line-height: 1.3;
+            animation: flicker 1s infinite;
+        }}
         .flavor-text {{
             color: #00ff00;
             font-family: "Courier New", monospace;
@@ -226,6 +236,11 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             50% {{ opacity: 0.5; }}
             100% {{ opacity: 1; width: 100%; }}
         }}
+        @keyframes flicker {{
+            0% {{ opacity: 1; }}
+            50% {{ opacity: 0.8; }}
+            100% {{ opacity: 1; }}
+        }}
 
 {breadcrumb_css}
     </style>
@@ -252,7 +267,8 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
     for user in valid_user_names:
         user_gallery_file = f'{user}_gallery.html'
         if os.path.exists(user_gallery_file):
-            user_links.append(f'<div class="file-entry"><a href="{user_gallery_file}">{user}</a></div>')
+            description = f"{user}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
+            user_links.append(f'<div class="file-entry"><a href="{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
     
     user_links_str = '\n'.join(user_links)
     final_html = html_content.replace("USER_LINKS_PLACEHOLDER", user_links_str)
@@ -1210,8 +1226,11 @@ if __name__ == "__main__":
             # Write to root directory with corrected paths
             with open('../nft-gallery.html', 'w') as f:
                 f.write(content)
-            
-            print("Copied nft-gallery.html to root directory with corrected paths")
+
+            # Remove the intermediate file from nft-gallery/ directory
+            os.remove('nft-gallery.html')
+
+            print("Copied nft-gallery.html to root directory with corrected paths and cleaned up intermediate file")
             
         finally:
             # Always return to original directory
