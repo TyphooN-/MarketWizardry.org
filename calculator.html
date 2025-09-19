@@ -1049,11 +1049,10 @@ function calculateStopLoss() {
                 } else {
                     alert('VaR mode requires a valid symbol. Please enter a symbol or switch to percentage mode.');
                     return;
-        }
-else if (riskMode === 'dollar') {
+                }
+            } else if (riskMode === 'dollar') {
                 riskAmount = riskValue;
                 riskPercent = (riskAmount / positionValue) * 100;
-            }
 
             const riskPerShare = riskAmount / positionSize;
 
@@ -1100,7 +1099,8 @@ else if (riskMode === 'dollar') {
                     recommended: 4.0,
                     description: 'Monthly Investment - Maximum trend capture',
                     notes: 'Very wide stops for long-term investment positions.'
-        };
+                }
+            };
 
             const tfData = timeframeData[timeframe];
             const percentageStop = entryPrice - riskPerShare;
@@ -3029,8 +3029,8 @@ function showSectorAnalysis(sectorName) {
                 if (matches) {
                     filteredVarData[symbol] = data;
                     matchCount++;
-        }
-);
+                }
+            });
 
             // Update info display
             let infoText = '';
@@ -3932,7 +3932,7 @@ function showSectorSearchFixed(sector, dataToUse) {
 
         console.log("✅ Symbol Lookup Fix Applied Successfully!");
 
-        } } } } } } } } } } } } } } } } } } } } } } }
+        } } } } } } } } } } } } } } } } } } } } }
 
     </script>
 </body>
