@@ -37,13 +37,12 @@ def generate_twitter_url(username, tweet_id, is_shortened=False):
 
 def get_existing_flavor_text(username):
     """Extract existing flavor text from the user's gallery HTML file meta description"""
-    gallery_file = f"nft-gallery/{username}_gallery.html"
+    gallery_file = f"{username}_gallery.html"
     if os.path.exists(gallery_file):
         try:
             with open(gallery_file, 'r', encoding='utf-8') as f:
                 content = f.read()
                 # Look for meta description content
-                import re
                 match = re.search(r'<meta name="description" content="([^"]+)"', content)
                 if match:
                     return match.group(1)
@@ -52,6 +51,7 @@ def get_existing_flavor_text(username):
 
     # Fallback if no existing flavor text found
     return f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
+
 
 def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[]):
     # Initialize SEO Manager and get breadcrumbs
