@@ -3612,7 +3612,13 @@ function updateOutputMode() {
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            updateActiveDataset(); // Set initial state
+            console.log('DOMContentLoaded event fired');
+            try {
+                updateActiveDataset(); // Set initial state
+                console.log('updateActiveDataset called successfully');
+            } catch (error) {
+                console.error('Error in updateActiveDataset:', error);
+            }
 
             // Set up calculator card click listeners
             const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
