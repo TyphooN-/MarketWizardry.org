@@ -2,6 +2,7 @@ import os
 import fnmatch
 import random
 import re
+import json
 from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
 
 def extract_tweet_info(filename):
@@ -36,18 +37,20 @@ def generate_twitter_url(username, tweet_id, is_shortened=False):
     return None
 
 def get_existing_flavor_text(username):
-    """Extract existing flavor text from the user's gallery HTML file meta description"""
-    gallery_file = f"{username}_gallery.html"
-    if os.path.exists(gallery_file):
-        try:
-            with open(gallery_file, 'r', encoding='utf-8') as f:
-                content = f.read()
-                # Look for meta description content
-                match = re.search(r'<meta name="description" content="([^"]+)"', content)
-                if match:
-                    return match.group(1)
-        except Exception as e:
-            print(f"Error reading existing flavor text for {username}: {e}")
+    """Get flavor text from JSON mapping, using replacement text if available"""
+    try:
+        with open('nft_gallery_flavors.json', 'r', encoding='utf-8') as f:
+            flavor_data = json.load(f)
+
+        if username in flavor_data:
+            data = flavor_data[username]
+            # Use replacement text if available and status indicates replacement was applied
+            if data.get('replacement_text') and data.get('status') in ['needs_replacement', 'replacement_applied']:
+                return data['replacement_text']
+            elif data.get('current_text'):
+                return data['current_text']
+    except (FileNotFoundError, json.JSONDecodeError, Exception) as e:
+        print(f"Error reading flavor data for {username}: {e}")
 
     # Fallback if no existing flavor text found
     return f"{username}'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions."
