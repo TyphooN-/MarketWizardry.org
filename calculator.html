@@ -815,7 +815,7 @@
         <div class="crt-divider"></div>
 
         <!-- FAQ Section with Schema Markup -->
-        <div style="margin-top: 60px; padding: 30px 0; text-align: center; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="margin-top: 60px; padding: 30px 0; text-align: center;">
             <div itemscope itemtype="https://schema.org/FAQPage">
                 <h2 style="color: #00ff00; margin-bottom: 30px;">Frequently Asked Questions</h2>
 
@@ -880,35 +880,35 @@
     </div>
 
     <script>
-        console.log('🟢 Script loaded successfully');
+        // Script loaded successfully
         let activeCalculator = null;
 
         window.selectCalculator = function(calculatorType, clickedElement) {
-            console.log('🔄 selectCalculator called with:', calculatorType, clickedElement);
+            // Select calculator called
             try {
                 // Hide all calculators
                 const calculators = document.querySelectorAll('.calculator-content');
-                console.log('Found calculators:', calculators.length);
+                // Hide calculators
                 calculators.forEach(calc => calc.classList.remove('active'));
 
                 // Remove active class from all cards
                 const cards = document.querySelectorAll('.calculator-card');
-                console.log('Found cards:', cards.length);
+                // Remove active classes
                 cards.forEach(card => card.classList.remove('active'));
 
                 // Show selected calculator
                 const targetId = calculatorType + '-calculator';
-                console.log('Looking for element with ID:', targetId);
+                // Show selected calculator
                 const targetElement = document.getElementById(targetId);
-                console.log('Found target element:', targetElement);
+                // Found target element
                 if (targetElement) {
                     targetElement.classList.add('active');
-                    console.log('✅ Added active class to:', targetId);
+                    // Added active class
                 } else {
-                    console.error('❌ Could not find element with ID:', targetId);
+                    console.error('Could not find element with ID:', targetId);
                 }
             } catch (error) {
-                console.error('❌ Error in selectCalculator:', error);
+                console.error('Error in selectCalculator:', error);
             }
 
             // Add active class to selected card
@@ -2289,7 +2289,7 @@ function addSymbolToPortfolio(symbol) {
             document.getElementById('symbol-lookup').value = '';
         }
 
-        function addPosition() {
+        window.addPosition = function() {
             const tbody = document.getElementById('portfolio-positions');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
@@ -2366,7 +2366,7 @@ else if (symbol) {
             }
         }
 
-        function removePosition(button) {
+        window.removePosition = function(button) {
             const row = button.closest('tr');
             if (document.getElementById('portfolio-positions').children.length > 1) {
                 row.remove();
@@ -2719,7 +2719,7 @@ function findSimilarSymbols(partial) {
             }
         }
 
-        function quickLookup(symbol) {
+        window.quickLookup = function(symbol) {
             document.getElementById('lookup-symbol').value = symbol;
             performSymbolLookup();
         }
@@ -2818,7 +2818,7 @@ function findSimilarSymbols(partial) {
             document.getElementById('lookup-output').innerHTML = output;
         }
 
-        function showAllSymbols() {
+        window.showAllSymbols = function() {
             const symbols = Object.entries(varData);
             let output = `
                 <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
@@ -2845,19 +2845,19 @@ function findSimilarSymbols(partial) {
             return shuffled.slice(0, 5);
         }
 
-        function useInStopLoss(symbol) {
+        window.useInStopLoss = function(symbol) {
             selectCalculator('stoploss');
             document.getElementById('sl-symbol').value = symbol;
             autoFillStopLossData();
         }
 
-        function useInPortfolio(symbol) {
+        window.useInPortfolio = function(symbol) {
             selectCalculator('portfolio');
             document.getElementById('symbol-lookup').value = symbol;
             lookupSymbol();
         }
 
-        function findSimilar(symbol) {
+        window.findSimilar = function(symbol) {
             const matches = findSimilarSymbols(symbol.substring(0, 2));
             let output = `
                 <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
@@ -2883,7 +2883,7 @@ function findSimilarSymbols(partial) {
             document.getElementById('lookup-output').innerHTML = output;
         }
 
-        function performAdvancedSearch() {
+        window.performAdvancedSearch = function() {
             const searchTerm = document.getElementById('lookup-symbol').value.toUpperCase().trim();
             if (!searchTerm) return;
 
@@ -3472,7 +3472,7 @@ function updateOutputMode() {
         // Portfolio functions work with full dataset for flexibility
 
         // Compound Interest Calculator Function
-        function calculateCompoundInterest() {
+        window.calculateCompoundInterest = function() {
             const principal = parseFloat(document.getElementById('ci-principal').value);
             const rate = parseFloat(document.getElementById('ci-rate').value) / 100;
             const time = parseFloat(document.getElementById('ci-time').value);
@@ -3621,24 +3621,27 @@ function updateOutputMode() {
             calculatorCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const calculatorType = this.getAttribute('data-calculator');
-                    console.log('🎯 Calculator card clicked:', calculatorType);
+                    // Calculator card clicked
                     selectCalculator(calculatorType, this);
                 });
             });
 
-            console.log('✅ Set up', calculatorCards.length, 'calculator card listeners');
+            // Set up calculator card listeners
 
             // Set up breadcrumb reset listener
             const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
             if (breadcrumbReset) {
                 breadcrumbReset.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('🔄 Breadcrumb reset clicked');
+                    // Breadcrumb reset clicked
                     resetToCalculatorSelection();
                     return false;
                 });
             }
         });
+
+        // Close any missing braces from function conversions
+        } } } } } } } } } } } } }
 
     </script>
 </body>
