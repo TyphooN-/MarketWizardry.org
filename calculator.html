@@ -195,6 +195,8 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            z-index: 10;
         }
         .calculator-card:hover {
             background-color: #002200;
@@ -811,11 +813,11 @@
         </div>
 
         <!-- FAQ Section with Schema Markup -->
-        <div style="margin-top: 60px; padding: 30px 0; border-top: 1px solid #004400;">
+        <div style="margin-top: 60px; padding: 30px 0; border-top: 1px solid #004400; text-align: center;">
             <div itemscope itemtype="https://schema.org/FAQPage">
                 <h2 style="color: #00ff00; margin-bottom: 30px;">Frequently Asked Questions</h2>
 
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px; text-align: left;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">What is VaR and why should I care about my financial doom?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
@@ -824,7 +826,7 @@
                     </div>
                 </div>
 
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px; text-align: left;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">How does the Position Size Calculator work?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
@@ -833,7 +835,7 @@
                     </div>
                 </div>
 
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px; text-align: left;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">What's ATR and why does it matter for stop losses?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
@@ -842,7 +844,7 @@
                     </div>
                 </div>
 
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px; text-align: left;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">How many symbols are in your database?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
@@ -851,7 +853,7 @@
                     </div>
                 </div>
 
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px; text-align: left;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">How does the Compound Interest Calculator help with long-term planning?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
@@ -860,7 +862,7 @@
                     </div>
                 </div>
 
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom: 25px; text-align: left;">
                     <h3 itemprop="name" style="color: #00aa00; font-size: 1.1em;">Are you affiliated with Jack Schwager's Market Wizards?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text" style="color: #00ff00; margin-left: 20px;">
@@ -874,6 +876,7 @@
     </div>
 
     <script>
+        console.log('🟢 Script loaded successfully');
         let activeCalculator = null;
 
         function selectCalculator(calculatorType, clickedElement) {
