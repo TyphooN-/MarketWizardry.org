@@ -691,7 +691,7 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 10px;">
                     <div>
                         <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">📊 Asset Class:</label>
-                        <select id="dataset-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                        <select id="dataset-selector" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
                             <option value="all">All Assets (901 symbols)</option>
                             <option value="stocks">Stocks (808 symbols)</option>
                             <option value="cfd">CFDs (55 symbols)</option>
@@ -700,7 +700,7 @@
                     </div>
                     <div>
                         <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🏢 Sector:</label>
-                        <select id="sector-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                        <select id="sector-selector" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
                             <option value="all">All Sectors</option>
                             <option value="Technology">Technology</option>
                             <option value="Healthcare">Healthcare</option>
@@ -718,7 +718,7 @@
                     </div>
                     <div>
                         <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🏭 Industry:</label>
-                        <select id="industry-selector" onchange="updateActiveDataset()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                        <select id="industry-selector" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
                             <option value="all">All Industries</option>
                             <option value="Software">Software</option>
                             <option value="Semiconductors">Semiconductors</option>
@@ -3616,8 +3616,15 @@ function updateOutputMode() {
             try {
                 updateActiveDataset(); // Set initial state
                 console.log('updateActiveDataset called successfully');
+
+                // Set up dataset selector event listeners
+                document.getElementById('dataset-selector').addEventListener('change', updateActiveDataset);
+                document.getElementById('sector-selector').addEventListener('change', updateActiveDataset);
+                document.getElementById('industry-selector').addEventListener('change', updateActiveDataset);
+                console.log('Dataset selector event listeners set up');
+
             } catch (error) {
-                console.error('Error in updateActiveDataset:', error);
+                console.error('Error in initialization:', error);
             }
 
             // Set up calculator card click listeners
