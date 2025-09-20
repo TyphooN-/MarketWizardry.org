@@ -266,7 +266,34 @@ def generate_ai_art_html(output_file='ai-art.html'):
             word-wrap: break-word;
             font-size: 0.9em;
         }
+
+        /* Breadcrumb Navigation Styles */
+        .breadcrumb {
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .breadcrumb a {
+            color: #00ff00 !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff !important;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
+        /* Mobile breadcrumb optimization */
         @media screen and (max-width: 768px) {
+            .breadcrumb {
+                display: none;
+            }
             .modal-content {
                 padding: 5px;
                 max-width: 98vw;
@@ -298,6 +325,23 @@ def generate_ai_art_html(output_file='ai-art.html'):
     </style>
 </head>
 <body>
+        <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="market-wizardry.html" itemprop="item">
+                <span itemprop="name">🏠 Market Wizardry</span>
+            </a>
+            <meta itemprop="position" content="1" />
+        </span>
+        <span class="separator">→</span>
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="ai-art.html" itemprop="item">
+                <span itemprop="name">🎨 AI Art</span>
+            </a>
+            <meta itemprop="position" content="2" />
+        </span>
+    </nav>
+
     <h1>AI Art</h1>
     <div class="crt-divider"></div>
     <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
@@ -317,6 +361,9 @@ def generate_ai_art_html(output_file='ai-art.html'):
                 <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
                 <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+            </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
             </div>
         </div>
     </div>
@@ -365,6 +412,17 @@ def generate_ai_art_html(output_file='ai-art.html'):
         function nextImage() {
             if (currentImageIndex < allImagePaths.length - 1) {
                 openImage(currentImageIndex + 1);
+            }
+        }
+        function downloadImage() {
+            const currentImagePath = allImagePaths[currentImageIndex];
+            if (currentImagePath) {
+                const link = document.createElement('a');
+                link.href = currentImagePath;
+                link.download = currentImagePath.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             }
         }
 
