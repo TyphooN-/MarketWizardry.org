@@ -418,7 +418,7 @@
         </span>
         <span class="separator">→</span>
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="#" itemprop="item" onclick="resetToCalculatorSelection(); return false;">
+            <a href="#" itemprop="item" id="calculator-breadcrumb-reset">
                 <span itemprop="name">🔢 Calculator Suite</span>
             </a>
             <meta itemprop="position" content="2" />
@@ -444,27 +444,27 @@
 
         <!-- Calculator Selection Grid -->
         <div class="calculator-grid">
-            <div class="calculator-card" onclick="selectCalculator('stoploss', this)">
+            <div class="calculator-card" data-calculator="stoploss">
                 <h2>🛑 Stop Loss Calculator</h2>
                 <p>Calculate optimal stop loss levels based on volatility, risk tolerance, and position size. Because knowing exactly where you'll get stopped out is half the battle.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('position', this)">
+            <div class="calculator-card" data-calculator="position">
                 <h2>⚖️ Position Size Calculator</h2>
                 <p>Determine position sizes based on account risk, volatility, and stop loss levels. Scientific precision for your inevitable losses.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('portfolio', this)">
+            <div class="calculator-card" data-calculator="portfolio">
                 <h2>📊 Portfolio VaR Calculator</h2>
                 <p>Calculate portfolio Value at Risk using multiple positions with correlation adjustments. Watch your diversification fail mathematically.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('lookup', this)">
+            <div class="calculator-card" data-calculator="lookup">
                 <h2>🔍 Symbol Lookup Tool</h2>
                 <p>Search comprehensive VaR, ATR, and market data from our explorer databases. Real-time data for informed trading decisions.</p>
             </div>
 
-            <div class="calculator-card" onclick="selectCalculator('compound', this)">
+            <div class="calculator-card" data-calculator="compound">
                 <h2>💰 Compound Interest Calculator</h2>
                 <p>Calculate long-term investment growth with compound interest. Plan your wealth accumulation strategy with precise mathematical projections.</p>
             </div>
@@ -812,8 +812,10 @@
             </div>
         </div>
 
+        <div class="crt-divider"></div>
+
         <!-- FAQ Section with Schema Markup -->
-        <div style="margin-top: 60px; padding: 30px 0; border-top: 1px solid #004400; text-align: center;">
+        <div style="margin-top: 60px; padding: 30px 0; text-align: center; max-width: 1200px; margin-left: auto; margin-right: auto;">
             <div itemscope itemtype="https://schema.org/FAQPage">
                 <h2 style="color: #00ff00; margin-bottom: 30px;">Frequently Asked Questions</h2>
 
@@ -873,16 +875,12 @@
             </div>
         </div>
 
+        <div class="crt-divider"></div>
+
     </div>
 
     <script>
         console.log('🟢 Script loaded successfully');
-
-        // Test basic functionality
-        window.testFunction = function() {
-            alert('Test function works!');
-        };
-
         let activeCalculator = null;
 
         window.selectCalculator = function(calculatorType, clickedElement) {
@@ -3617,6 +3615,29 @@ function updateOutputMode() {
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateActiveDataset(); // Set initial state
+
+            // Set up calculator card click listeners
+            const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
+            calculatorCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const calculatorType = this.getAttribute('data-calculator');
+                    console.log('🎯 Calculator card clicked:', calculatorType);
+                    selectCalculator(calculatorType, this);
+                });
+            });
+
+            console.log('✅ Set up', calculatorCards.length, 'calculator card listeners');
+
+            // Set up breadcrumb reset listener
+            const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
+            if (breadcrumbReset) {
+                breadcrumbReset.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🔄 Breadcrumb reset clicked');
+                    resetToCalculatorSelection();
+                    return false;
+                });
+            }
         });
 
     </script>
