@@ -126,6 +126,7 @@
             font-style: italic;
             font-weight: bold;
             opacity: 0.9;
+            animation: flicker 1s infinite;
         }
         .nav-buttons {
             display: flex;
@@ -224,39 +225,40 @@
         }
 
 
-    /* Breadcrumb Navigation Styles */
-    .breadcrumb {
-        font-size: 0.8em;
-        color: #00aa00;
-        margin-bottom: 20px;
-        padding: 10px 0;
-    }
-
-    .breadcrumb a {
-        color: #00ff00 !important;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .breadcrumb a:hover {
-        color: #ffffff !important;
-    }
-
-    .breadcrumb .separator {
-        margin: 0 8px;
-        color: #004400;
-    }
-
-    /* Mobile breadcrumb optimization */
-    @media screen and (max-width: 768px) {
+            /* Breadcrumb Navigation Styles */
         .breadcrumb {
-            display: none;
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
         }
-    }
+
+        .breadcrumb a {
+            color: #00ff00 !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff !important;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
+
+        /* Mobile breadcrumb optimization */
+        @media screen and (max-width: 768px) {
+            .breadcrumb {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+        <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
     <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
             <a href="market-wizardry.html" itemprop="item">
@@ -267,7 +269,7 @@
         <span class="separator">→</span>
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
             <a href="nft-gallery.html" itemprop="item">
-                <span itemprop="name">🎨 NFT Gallery</span>
+                <span itemprop="name">🖼️ NFT Gallery</span>
             </a>
             <meta itemprop="position" content="2" />
         </span>

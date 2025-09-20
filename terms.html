@@ -94,10 +94,10 @@
 
         body {
             background-color: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            margin: 0;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
             padding: 20px;
+            margin: 0;
         }
         .container {
             max-width: 1200px;
@@ -208,13 +208,11 @@
         }
 
         .modal-body {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-height: 60vh;
-            overflow-y: auto;
+            background-color: #000;
             color: #00ff00;
-            font-size: 1.2em;
-            padding: 15px;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
         }
 
         .nav-buttons {
@@ -311,11 +309,12 @@
             }
             
             .modal-body {
-                font-size: 0.7em;
-                max-height: 60vh;
-                padding: 10px;
-                line-height: 1.3;
-            }
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+        }
             .nav-button {
                 padding: 8px 15px;
                 font-size: 14px;
@@ -358,11 +357,46 @@
             margin: 0 8px;
             color: #004400;
         }
+        }
+
+        .breadcrumb a {
+            color: #00ff00 !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff !important;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
 
         /* Mobile breadcrumb optimization */
         @media screen and (max-width: 768px) {
             .breadcrumb {
-                display: none;
+            font-size: 0.8em;
+            color: #00aa00;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .breadcrumb a {
+            color: #00ff00 !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff !important;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #004400;
+        }
             }
         }
 
@@ -371,7 +405,7 @@
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
 </head>
 <body>
-    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+        <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
     <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
             <a href="market-wizardry.html" itemprop="item">

@@ -99,11 +99,12 @@ class FinancialToolsUpdater:
             shutil.copy(source_csv_path, temp_csv_path)
 
             # Run EV scraping in ev-explorer directory
+            print("🔍 Running EV scraping...")
             result = subprocess.run(['python3', 'evscrape.py', temp_csv_name],
-                                  cwd='ev-explorer', capture_output=True, text=True)
+                                  cwd='ev-explorer', capture_output=False, text=True)
 
             if result.returncode != 0:
-                print(f"❌ EV scraping failed: {result.stderr}")
+                print(f"❌ EV scraping failed with return code: {result.returncode}")
                 # The temp file might still exist if evscrape fails before removing it
                 if os.path.exists(temp_csv_path):
                     os.remove(temp_csv_path)
@@ -116,10 +117,12 @@ class FinancialToolsUpdater:
             ev_processed_path = f"ev-explorer/{ev_processed_name}"
 
             if os.path.exists(ev_processed_path):
+                print("📊 Running EV outlier analysis...")
                 subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=True, text=True)
+                             cwd='ev-explorer', capture_output=False, text=True)
+                print("📈 Running EV VaR outlier analysis...")
                 subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=True, text=True)
+                             cwd='ev-explorer', capture_output=False, text=True)
 
             self.data_summary['ev_processed'] = True
             print("✅ EV data processed successfully within ev-explorer/")

@@ -134,13 +134,11 @@
     .breadcrumb a {
         color: #00ff00 !important;
         text-decoration: none;
-        
         transition: all 0.2s ease;
     }
 
     .breadcrumb a:hover {
         color: #ffffff !important;
-        
     }
 
     .breadcrumb .separator {
@@ -355,6 +353,16 @@
 
         <div class="grid">
             
+            <div class="file-entry" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV.csv', 'EV VaR Analysis (Stocks) - 2025.09.19')">
+                <a href="#" data-outlier-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV-ev_var_outlier.txt" data-csv-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV.csv" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV.csv', 'EV VaR Analysis (Stocks) - 2025.09.19'); return false;">
+                    EV VaR Analysis (Stocks) - 2025.09.19
+                </a>
+            </div>
+            <div class="file-entry" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV.csv', 'EV Analysis (Stocks) - 2025.09.19')">
+                <a href="#" data-outlier-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV-ev_outlier.txt" data-csv-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV.csv" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.19-EV.csv', 'EV Analysis (Stocks) - 2025.09.19'); return false;">
+                    EV Analysis (Stocks) - 2025.09.19
+                </a>
+            </div>
             <div class="file-entry" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-EV.csv', 'EV VaR Analysis (Stocks) - 2025.09.18')">
                 <a href="#" data-outlier-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-EV-ev_var_outlier.txt" data-csv-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-EV.csv" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-EV.csv', 'EV VaR Analysis (Stocks) - 2025.09.18'); return false;">
                     EV VaR Analysis (Stocks) - 2025.09.18
@@ -645,16 +653,6 @@
                     EV Analysis (Stocks) - 2025.08.07
                 </a>
             </div>
-            <div class="file-entry" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv', 'EV VaR Analysis (Stocks) - 2025.08.06')">
-                <a href="#" data-outlier-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt" data-csv-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_var_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv', 'EV VaR Analysis (Stocks) - 2025.08.06'); return false;">
-                    EV VaR Analysis (Stocks) - 2025.08.06
-                </a>
-            </div>
-            <div class="file-entry" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv', 'EV Analysis (Stocks) - 2025.08.06')">
-                <a href="#" data-outlier-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt" data-csv-file="ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv" onclick="openModalWithFile('ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV-ev_outlier.txt', 'ev-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.06-EV.csv', 'EV Analysis (Stocks) - 2025.08.06'); return false;">
-                    EV Analysis (Stocks) - 2025.08.06
-                </a>
-            </div>
         </div>
     </div>
 
@@ -741,26 +739,6 @@
                 csv: entry.getAttribute('data-csv-file'),
                 title: entry.textContent
             }));
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('outlier-modal');
-            if (modal.style.display === 'block') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousFile();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextFile();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        closeModal();
-                        break;
-                }
-            }
         });
 
         // Close modal when clicking outside
