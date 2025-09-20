@@ -10,6 +10,7 @@ import os
 import glob
 import re
 from pathlib import Path
+from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
 
 def scan_ai_art_images(ai_art_dir='ai-art'):
     """Scan the ai-art directory for webp images and return sorted paths"""
@@ -56,61 +57,36 @@ def generate_ai_art_html(output_file='ai-art.html'):
     # Convert paths to JavaScript array format
     js_image_paths = ',\n            '.join(f'"{path}"' for path in image_paths)
 
+    # Initialize SEO Manager and get breadcrumbs
+    seo_manager = SEOManager()
+    breadcrumb_paths = get_breadcrumb_paths()
+    ai_art_breadcrumbs = breadcrumb_paths['ai_art']
+
+    # Configure page settings
+    page_config = PAGE_CONFIGS['gallery'].copy()
+    page_config.update({
+        'title': 'MarketWizardry.org | AI Art',
+        'canonical_url': 'https://marketwizardry.org/ai-art.html',
+        'description': 'Robot-generated \'art\' for humans who\'ve given up on actual creativity. Watch machines mock your artistic soul while you pretend it\'s profound.',
+        'og_title': 'AI Art - MarketWizardry.org',
+        'og_description': 'Robot-generated \'art\' for humans who\'ve given up on actual creativity. Watch machines mock your artistic soul while you pretend it\'s profound.',
+        'twitter_title': 'AI Art - MarketWizardry.org',
+        'twitter_description': 'Robot-generated \'art\' for humans who\'ve given up on actual creativity. Watch machines mock your artistic soul while you pretend it\'s profound.',
+        'keywords': page_config['keywords_base']
+    })
+
+    # Generate SEO components
+    enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
+    breadcrumbs_html = seo_manager.generate_breadcrumbs(ai_art_breadcrumbs)
+    breadcrumb_css = seo_manager.generate_breadcrumb_css()
+
     # HTML template
     html_template = '''<!-- ai-art.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketWizardry.org | AI Art</title>
-    <link rel="canonical" href="https://marketwizardry.org/ai-art.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-    <!-- Standard Meta Tags -->
-    <meta name="description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="AI Art - MarketWizardry.org">
-    <meta property="og:description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
-    <meta property="og:url" content="https://marketwizardry.org/ai-art.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Market Wizardry">
-    <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AI Art - MarketWizardry.org">
-    <meta name="twitter:description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
-    <meta name="twitter:site" content="@MarketW1zardry">
-    <meta name="twitter:creator" content="@MarketW1zardry">
-    <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
-    <script>
-        // Set viewport immediately for mobile scaling
-        if (!document.querySelector('meta[name="viewport"]')) {
-            const viewport = document.createElement('meta');
-            viewport.name = 'viewport';
-            viewport.content = 'width=device-width, initial-scale=1.0';
-            document.head.insertBefore(viewport, document.head.firstChild);
-        }
-
-                // Redirect to index.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                // For blog posts and NFT galleries, pass full path
-                const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-        } else {
-                // For main pages, redirect with page parameter
-                const currentPage = currentPath.split('/').pop().replace('.html', '');
-                window.location.href = `/?page=${currentPage}`;
-        }
-                }, 100);
-        }
-    </script>
+{enhanced_meta_tags}
+{REDIRECT_SCRIPT_TEMPLATE}
     <style>
         body {
             background-color: #000;
@@ -267,28 +243,7 @@ def generate_ai_art_html(output_file='ai-art.html'):
             font-size: 0.9em;
         }
 
-        /* Breadcrumb Navigation Styles */
-        .breadcrumb {
-            font-size: 0.8em;
-            color: #00aa00;
-            margin-bottom: 20px;
-            padding: 10px 0;
-        }
-
-        .breadcrumb a {
-            color: #00ff00 !important;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .breadcrumb a:hover {
-            color: #ffffff !important;
-        }
-
-        .breadcrumb .separator {
-            margin: 0 8px;
-            color: #004400;
-        }
+{breadcrumb_css}
         /* Mobile breadcrumb optimization */
         @media screen and (max-width: 768px) {
             .breadcrumb {
@@ -325,22 +280,7 @@ def generate_ai_art_html(output_file='ai-art.html'):
     </style>
 </head>
 <body>
-        <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
-    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="market-wizardry.html" itemprop="item">
-                <span itemprop="name">🏠 Market Wizardry</span>
-            </a>
-            <meta itemprop="position" content="1" />
-        </span>
-        <span class="separator">→</span>
-        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="ai-art.html" itemprop="item">
-                <span itemprop="name">🎨 AI Art</span>
-            </a>
-            <meta itemprop="position" content="2" />
-        </span>
-    </nav>
+{breadcrumbs_html}
 
     <h1>AI Art</h1>
     <div class="crt-divider"></div>
@@ -481,8 +421,12 @@ def generate_ai_art_html(output_file='ai-art.html'):
 </body>
 </html>'''
 
-    # Replace the placeholder with actual image paths
-    final_html = html_template.replace('{IMAGE_PATHS_PLACEHOLDER}', js_image_paths)
+    # Replace the placeholders with actual content
+    final_html = html_template.replace('{enhanced_meta_tags}', enhanced_meta_tags)
+    final_html = final_html.replace('{REDIRECT_SCRIPT_TEMPLATE}', REDIRECT_SCRIPT_TEMPLATE)
+    final_html = final_html.replace('{breadcrumb_css}', breadcrumb_css)
+    final_html = final_html.replace('{breadcrumbs_html}', breadcrumbs_html)
+    final_html = final_html.replace('{IMAGE_PATHS_PLACEHOLDER}', js_image_paths)
 
     # Write the file
     try:
