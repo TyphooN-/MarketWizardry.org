@@ -877,20 +877,41 @@
 
     <script>
         console.log('🟢 Script loaded successfully');
+
+        // Test basic functionality
+        window.testFunction = function() {
+            alert('Test function works!');
+        };
+
         let activeCalculator = null;
 
-        function selectCalculator(calculatorType, clickedElement) {
+        window.selectCalculator = function(calculatorType, clickedElement) {
             console.log('🔄 selectCalculator called with:', calculatorType, clickedElement);
-            // Hide all calculators
-            const calculators = document.querySelectorAll('.calculator-content');
-            calculators.forEach(calc => calc.classList.remove('active'));
+            try {
+                // Hide all calculators
+                const calculators = document.querySelectorAll('.calculator-content');
+                console.log('Found calculators:', calculators.length);
+                calculators.forEach(calc => calc.classList.remove('active'));
 
-            // Remove active class from all cards
-            const cards = document.querySelectorAll('.calculator-card');
-            cards.forEach(card => card.classList.remove('active'));
+                // Remove active class from all cards
+                const cards = document.querySelectorAll('.calculator-card');
+                console.log('Found cards:', cards.length);
+                cards.forEach(card => card.classList.remove('active'));
 
-            // Show selected calculator
-            document.getElementById(calculatorType + '-calculator').classList.add('active');
+                // Show selected calculator
+                const targetId = calculatorType + '-calculator';
+                console.log('Looking for element with ID:', targetId);
+                const targetElement = document.getElementById(targetId);
+                console.log('Found target element:', targetElement);
+                if (targetElement) {
+                    targetElement.classList.add('active');
+                    console.log('✅ Added active class to:', targetId);
+                } else {
+                    console.error('❌ Could not find element with ID:', targetId);
+                }
+            } catch (error) {
+                console.error('❌ Error in selectCalculator:', error);
+            }
 
             // Add active class to selected card
             if (clickedElement) {
@@ -903,7 +924,7 @@
             activeCalculator = calculatorType;
         }
 
-        function updateBreadcrumb(calculatorType) {
+        window.updateBreadcrumb = function(calculatorType) {
             const breadcrumbElement = document.getElementById('active-calculator-breadcrumb');
             const nameElement = document.getElementById('active-calculator-name');
 
@@ -923,7 +944,7 @@
             }
         }
 
-        function resetToCalculatorSelection() {
+        window.resetToCalculatorSelection = function() {
             // Hide all calculators
             const calculators = document.querySelectorAll('.calculator-content');
             calculators.forEach(calc => calc.classList.remove('active'));
@@ -1010,7 +1031,7 @@ function toggleStopLossMode() {
             }
         }
 
-        function calculateStopLoss() {
+        window.calculateStopLoss = function() {
             const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
             const positionSize = parseInt(document.getElementById('sl-position-size').value);
             const riskValue = parseFloat(document.getElementById('sl-risk-value').value);
@@ -2209,7 +2230,7 @@ function toggleStopLossMode() {
             'ZWS': { var: 1.323206, price: 47.47, sector: 'Industrials', description: 'Zurn Water Solutions Corp', asset_class: 'stocks', atr_d1: 1.148571, atr_w1: 2.307857, atr_mn1: 4.640000, outliers: [], ev_data: { market_cap: 7921905152, enterprise_value: 8288011776, mcap_ev_ratio: 95.6 } }
 };
 
-        function lookupSymbol() {
+        window.lookupSymbol = function() {
             const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
             const infoDiv = document.getElementById('symbol-info');
             const detailsDiv = document.getElementById('symbol-details');
@@ -2354,7 +2375,7 @@ else if (symbol) {
             }
         }
 
-        function calculatePortfolioVaR() {
+        window.calculatePortfolioVaR = function() {
             const confidence = parseFloat(document.getElementById('pf-confidence').value);
             const timeHorizon = parseInt(document.getElementById('pf-time-horizon').value);
             const rows = document.querySelectorAll('#portfolio-positions tr');
@@ -3285,7 +3306,7 @@ function updateOutputMode() {
             modeInfo.textContent = `${riskModeName} | ${outputModeName} Output`;
         }
 
-        function calculateEnhancedPositionSize() {
+        window.calculateEnhancedPositionSize = function() {
             const accountSize = parseFloat(document.getElementById('ps-account-size').value);
             const riskPercent = parseFloat(document.getElementById('ps-risk-value').value);
             const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
