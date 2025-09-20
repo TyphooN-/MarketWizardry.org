@@ -812,8 +812,6 @@
             </div>
         </div>
 
-        <div class="crt-divider"></div>
-
         <!-- FAQ Section with Schema Markup -->
         <div style="margin-top: 60px; padding: 30px 0; text-align: center;">
             <div itemscope itemtype="https://schema.org/FAQPage">
@@ -884,7 +882,7 @@
         let activeCalculator = null;
 
         window.selectCalculator = function(calculatorType, clickedElement) {
-            // Select calculator called
+            console.log('selectCalculator function called with:', calculatorType);
             try {
                 // Hide all calculators
                 const calculators = document.querySelectorAll('.calculator-content');
@@ -3621,12 +3619,13 @@ function updateOutputMode() {
             calculatorCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const calculatorType = this.getAttribute('data-calculator');
-                    // Calculator card clicked
+                    console.log('Calculator card clicked:', calculatorType);
                     selectCalculator(calculatorType, this);
                 });
             });
 
-            // Set up calculator card listeners
+            console.log('Found', calculatorCards.length, 'calculator cards');
+            console.log('selectCalculator function exists:', typeof window.selectCalculator);
 
             // Set up breadcrumb reset listener
             const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
