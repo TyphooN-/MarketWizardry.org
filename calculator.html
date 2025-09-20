@@ -478,7 +478,7 @@
                 <div>
                     <div class="input-group">
                         <label for="sl-symbol">Symbol (optional - for auto-fill)</label>
-                        <input type="text" id="sl-symbol" placeholder="AAPL, CC, AMD..." style="text-transform: uppercase;" onchange="autoFillStopLossData()">
+                        <input type="text" id="sl-symbol" placeholder="AAPL, CC, AMD..." style="text-transform: uppercase;">
                     </div>
                     <div class="input-group">
                         <label for="sl-entry-price">Entry Price ($)</label>
@@ -490,7 +490,7 @@
                     </div>
                     <div class="input-group">
                         <label for="sl-risk-mode">Risk Mode</label>
-                        <select id="sl-risk-mode" onchange="toggleStopLossMode()">
+                        <select id="sl-risk-mode">
                             <option value="percent">Risk Percentage (%)</option>
                             <option value="var">VaR Percentage Target (%)</option>
                             <option value="dollar">Dollar Amount ($)</option>
@@ -503,7 +503,7 @@
                     </div>
                     <div class="input-group">
                         <label for="sl-timeframe">Trading Timeframe</label>
-                        <select id="sl-timeframe" onchange="autoFillStopLossData()">
+                        <select id="sl-timeframe">
                             <option value="M5">5 Minutes (Scalping)</option>
                             <option value="M15">15 Minutes (Scalping)</option>
                             <option value="H1">1 Hour (Intraday)</option>
@@ -518,7 +518,7 @@
                         <input type="number" id="sl-atr" step="0.01" placeholder="2.50">
                         <small style="color: #00aa00; font-size: 0.8em;">📊 Use ATR from your selected timeframe for best results</small>
                     </div>
-                    <button class="calculate-btn" onclick="calculateStopLoss()">Calculate Stop Loss</button>
+                    <button class="calculate-btn" id="calculate-stop-loss-btn">Calculate Stop Loss</button>
                 </div>
                 <div id="sl-results" class="result-box">
                     <div class="result-label">Stop Loss Calculations:</div>
@@ -536,7 +536,7 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px;">
                     <div>
                         <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">📊 Risk Calculation Mode:</label>
-                        <select id="ps-risk-mode" onchange="togglePositionSizeMode()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                        <select id="ps-risk-mode" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
                             <option value="sl">Risk @ Stop Loss</option>
                             <option value="var">Risk @ VaR</option>
                             <option value="atr">Risk @ ATR Stop</option>
@@ -544,7 +544,7 @@
                     </div>
                     <div>
                         <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">💰 Output Mode:</label>
-                        <select id="ps-output-mode" onchange="updateOutputMode()" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
+                        <select id="ps-output-mode" style="background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace; width: 100%;">
                             <option value="notional">Notional ($)</option>
                             <option value="percent">Percentage (%)</option>
                         </select>
@@ -566,7 +566,7 @@
                     </div>
                     <div class="input-group">
                         <label for="ps-symbol">Symbol</label>
-                        <input type="text" id="ps-symbol" placeholder="CC" style="text-transform: uppercase;" onchange="autoFillPositionData()">
+                        <input type="text" id="ps-symbol" placeholder="CC" style="text-transform: uppercase;">
                     </div>
                     <div class="input-group">
                         <label for="ps-entry-price">Entry Price ($)</label>
@@ -584,7 +584,7 @@
                     </div>
                     <div class="input-group">
                         <label for="ps-atr-timeframe">ATR Stop Reference</label>
-                        <select id="ps-atr-timeframe" onchange="updatePositionAtrData()">
+                        <select id="ps-atr-timeframe">
                             <option value="none">Manual Stop</option>
                             <option value="d1">Daily ATR (D1)</option>
                             <option value="w1">Weekly ATR (W1)</option>
@@ -593,7 +593,7 @@
                     </div>
                     <div class="input-group">
                         <label for="ps-atr-multiplier">ATR Multiplier</label>
-                        <input type="number" id="ps-atr-multiplier" placeholder="2.0" step="0.1" value="2.0" onchange="updatePositionAtrData()">
+                        <input type="number" id="ps-atr-multiplier" placeholder="2.0" step="0.1" value="2.0">
                     </div>
                     <div class="input-group">
                         <label for="ps-atr-suggestion">ATR Stop Suggestion ($)</label>
@@ -601,7 +601,7 @@
                     </div>
                 </div>
             </div>
-            <button class="calculate-btn" onclick="calculateEnhancedPositionSize()">Calculate Position Size</button>
+            <button class="calculate-btn" id="calculate-position-size-btn">Calculate Position Size</button>
 
             <div id="ps-results" class="result-box">
                 <div class="result-label">Position Size Results:</div>
@@ -637,7 +637,7 @@
                 <label for="symbol-lookup">Symbol Lookup (Real VaR Data)</label>
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="symbol-lookup" placeholder="Enter symbol (e.g., AAPL, MSFT)" style="flex: 1;">
-                    <button class="calculate-btn" onclick="lookupSymbol()" style="margin-top: 0; padding: 8px 15px;">Lookup VaR</button>
+                    <button class="calculate-btn" id="lookup-symbol-btn" style="margin-top: 0; padding: 8px 15px;">Lookup VaR</button>
                 </div>
                 <div id="symbol-info" style="margin-top: 10px; padding: 10px; background: #001100; border: 1px solid #00ff00; display: none; border-radius: 4px;">
                     <div id="symbol-details"></div>
@@ -661,20 +661,20 @@
                 </thead>
                 <tbody id="portfolio-positions">
                     <tr>
-                        <td><input type="text" placeholder="AAPL" style="width: 60px;" onchange="updatePositionValue(this)"></td>
-                        <td><input type="number" placeholder="100" style="width: 60px;" onchange="updatePositionValue(this)"></td>
-                        <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" onchange="updatePositionValue(this)"></td>
+                        <td><input type="text" placeholder="AAPL" style="width: 60px;" class="position-symbol-input"></td>
+                        <td><input type="number" placeholder="100" style="width: 60px;" class="position-shares-input"></td>
+                        <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" class="position-price-input"></td>
                         <td class="value-display">-</td>
                         <td class="var-display">-</td>
                         <td class="var-percent-display" style="font-size: 0.9em; color: #ffaa00;">-</td>
                         <td class="weight-display">-</td>
                         <td class="asset-class-display" style="font-size: 0.8em; color: #00aa00;">-</td>
-                        <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
+                        <td><button class="remove-btn position-remove-btn" title="Remove Position"></button></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="add-position-btn" onclick="addPosition()">+ Add Position</button>
-            <button class="calculate-btn" onclick="calculatePortfolioVaR()">Calculate Portfolio VaR</button>
+            <button class="add-position-btn" id="add-position-btn">+ Add Position</button>
+            <button class="calculate-btn" id="calculate-portfolio-var-btn">Calculate Portfolio VaR</button>
 
             <div id="pf-results" class="result-box">
                 <div class="result-label">Portfolio VaR Results:</div>
@@ -741,12 +741,12 @@
                     <div class="input-group">
                         <label for="lookup-symbol">Advanced Symbol Search</label>
                         <div style="display: flex; gap: 10px;">
-                            <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" style="text-transform: uppercase; flex: 1;" onchange="performAdvancedSearch()">
-                            <button class="calculate-btn" onclick="performAdvancedSearch()" style="margin-top: 0; padding: 8px 15px;">Search</button>
+                            <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" style="text-transform: uppercase; flex: 1;">
+                            <button class="calculate-btn" id="advanced-search-btn" style="margin-top: 0; padding: 8px 15px;">Search</button>
                         </div>
                         <small style="color: #00aa00; font-size: 0.8em;">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
                     </div>
-                    <button class="calculate-btn" onclick="showAllSymbols()">Show All Available Symbols</button>
+                    <button class="calculate-btn" id="show-all-symbols-btn">Show All Available Symbols</button>
                 </div>
                 <div id="lookup-results" class="result-box">
                     <div class="result-label">Symbol Information:</div>
@@ -796,7 +796,7 @@
                         <small>Additional monthly investment (optional)</small>
                     </div>
 
-                    <button class="calculate-btn" onclick="calculateCompoundInterest()">Calculate Growth</button>
+                    <button class="calculate-btn" id="calculate-compound-interest-btn">Calculate Growth</button>
                 </div>
 
                 <div id="ci-results" class="result-box">
@@ -2255,7 +2255,7 @@ function toggleStopLossMode() {
                                 <span style="color: #00cc00;">1-Day VaR (95%):</span> $${data.var}<br>
                                 <span style="color: #00cc00;">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
                                 <div style="color: ${riskAssessment.color}; font-weight: bold; margin: 5px 0;">${riskAssessment.recommendation}</div>
-                                <button onclick="addSymbolToPortfolio('${symbol}')" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
+                                <button class="add-symbol-to-portfolio" data-symbol="${symbol}" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
                             </div>
                         </div>
                     </div>
@@ -2272,13 +2272,13 @@ function addSymbolToPortfolio(symbol) {
             const tbody = document.getElementById('portfolio-positions');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" value="${symbol}" style="width: 60px;" onchange="updatePositionValue(this)"></td>
-                <td><input type="number" placeholder="100" style="width: 60px;" onchange="updatePositionValue(this)"></td>
-                <td><input type="number" value="${data.price}" step="0.01" style="width: 70px;" onchange="updatePositionValue(this)"></td>
+                <td><input type="text" value="${symbol}" style="width: 60px;" class="position-symbol-input"></td>
+                <td><input type="number" placeholder="100" style="width: 60px;" class="position-input"></td>
+                <td><input type="number" value="${data.price}" step="0.01" style="width: 70px;" class="position-price-input"></td>
                 <td class="value-display">-</td>
                 <td class="var-display">$${data.var}</td>
                 <td class="weight-display">-</td>
-                <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
+                <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
             `;
             tbody.appendChild(newRow);
 
@@ -2291,15 +2291,15 @@ function addSymbolToPortfolio(symbol) {
             const tbody = document.getElementById('portfolio-positions');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" placeholder="SYMBOL" style="width: 60px;" onchange="updatePositionValue(this)"></td>
-                <td><input type="number" placeholder="100" style="width: 60px;" onchange="updatePositionValue(this)"></td>
-                <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" onchange="updatePositionValue(this)"></td>
+                <td><input type="text" placeholder="SYMBOL" style="width: 60px;" class="position-input"></td>
+                <td><input type="number" placeholder="100" style="width: 60px;" class="position-input"></td>
+                <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" class="position-input"></td>
                 <td class="value-display">-</td>
                 <td class="var-display">-</td>
                 <td class="var-percent-display" style="font-size: 0.9em; color: #ffaa00;">-</td>
                 <td class="weight-display">-</td>
                 <td class="asset-class-display" style="font-size: 0.8em; color: #00aa00;">-</td>
-                <td><button class="remove-btn" onclick="removePosition(this)" title="Remove Position"></button></td>
+                <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
             `;
             tbody.appendChild(newRow);
         }
@@ -2775,9 +2775,9 @@ function findSimilarSymbols(partial) {
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <button class="quick-symbol-btn" onclick="useInStopLoss('${symbol}')">📊 Use in Stop Loss Calc</button>
-                        <button class="quick-symbol-btn" onclick="useInPortfolio('${symbol}')">📈 Add to Portfolio</button>
-                        <button class="quick-symbol-btn" onclick="findSimilar('${symbol}')">🔍 Find Similar</button>
+                        <button class="quick-symbol-btn" class="use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
+                        <button class="quick-symbol-btn" class="use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
+                        <button class="quick-symbol-btn" class="find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
                     </div>
                 </div>
             `;
@@ -2804,7 +2804,7 @@ function findSimilarSymbols(partial) {
 
             filtered.forEach(([symbol, data]) => {
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong><br>
                         <small>$${data.price} | VaR: $${data.var.toFixed(3)}</small><br>
                         <small style="color: #00aa00;">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
@@ -2826,7 +2826,7 @@ function findSimilarSymbols(partial) {
 
             symbols.forEach(([symbol, data]) => {
                 output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> | $${data.price}<br>
                         <small style="color: #00aa00;">${data.sector}</small>
                     </div>
@@ -2869,7 +2869,7 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${matchSymbol}')">
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${matchSymbol}">
                         <strong>${matchSymbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
                         <small style="color: #00aa00;">${data.sector}</small>
@@ -2924,7 +2924,7 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 3px; cursor: pointer; font-size: 0.9em;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
                     </div>
@@ -2953,7 +2953,7 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
                         <small style="color: #00aa00;">${data.sector}</small>
@@ -3127,7 +3127,7 @@ function findSimilarSymbols(partial) {
 
             symbols.forEach(([symbol, data]) => {
                 output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> | $${data.price}<br>
                         <small style="color: #00aa00;">${data.sector}</small>
                     </div>
@@ -3154,7 +3154,7 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
                     </div>
@@ -3183,7 +3183,7 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" onclick="quickLookup('${symbol}')">
+                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
                         <small style="color: #00aa00;">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
@@ -3622,6 +3622,64 @@ function updateOutputMode() {
                 document.getElementById('sector-selector').addEventListener('change', updateActiveDataset);
                 document.getElementById('industry-selector').addEventListener('change', updateActiveDataset);
                 console.log('Dataset selector event listeners set up');
+
+                // Set up calculator form event listeners
+                document.getElementById('sl-symbol').addEventListener('change', autoFillStopLossData);
+                document.getElementById('sl-risk-mode').addEventListener('change', toggleStopLossMode);
+                document.getElementById('sl-timeframe').addEventListener('change', autoFillStopLossData);
+                document.getElementById('calculate-stop-loss-btn').addEventListener('click', calculateStopLoss);
+
+                document.getElementById('ps-risk-mode').addEventListener('change', togglePositionSizeMode);
+                document.getElementById('ps-output-mode').addEventListener('change', updateOutputMode);
+                document.getElementById('ps-symbol').addEventListener('change', autoFillPositionData);
+                document.getElementById('ps-atr-timeframe').addEventListener('change', updatePositionAtrData);
+                document.getElementById('ps-atr-multiplier').addEventListener('change', updatePositionAtrData);
+                document.getElementById('calculate-position-size-btn').addEventListener('click', calculateEnhancedPositionSize);
+
+                document.getElementById('lookup-symbol-btn').addEventListener('click', lookupSymbol);
+                document.getElementById('add-position-btn').addEventListener('click', addPosition);
+                document.getElementById('calculate-portfolio-var-btn').addEventListener('click', calculatePortfolioVaR);
+
+                document.getElementById('lookup-symbol').addEventListener('change', performAdvancedSearch);
+                document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
+                document.getElementById('show-all-symbols-btn').addEventListener('click', showAllSymbols);
+                document.getElementById('calculate-compound-interest-btn').addEventListener('click', calculateCompoundInterest);
+
+                console.log('Calculator form event listeners set up');
+
+                // Set up event delegation for dynamically generated elements
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('add-symbol-to-portfolio')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        addSymbolToPortfolio(symbol);
+                    } else if (e.target.classList.contains('position-remove-btn') || e.target.classList.contains('remove-position')) {
+                        removePosition(e.target);
+                    } else if (e.target.classList.contains('use-in-stop-loss')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        useInStopLoss(symbol);
+                    } else if (e.target.classList.contains('use-in-portfolio')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        useInPortfolio(symbol);
+                    } else if (e.target.classList.contains('find-similar')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        findSimilar(symbol);
+                    } else if (e.target.classList.contains('quick-lookup')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        quickLookup(symbol);
+                    }
+                });
+
+                // Set up event delegation for position inputs
+                document.addEventListener('change', function(e) {
+                    if (e.target.classList.contains('position-symbol-input') ||
+                        e.target.classList.contains('position-shares-input') ||
+                        e.target.classList.contains('position-price-input') ||
+                        e.target.classList.contains('position-input')) {
+                        updatePositionValue(e.target);
+                    }
+                });
+
+                console.log('Event delegation set up for dynamic elements');
 
             } catch (error) {
                 console.error('Error in initialization:', error);
