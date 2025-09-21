@@ -45,7 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -314,272 +314,82 @@
         </div>
     </div>
 </div>
+    <script src="/js/gallery.js"></script>
     <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            const action = e.target.getAttribute('data-action');
-            if (action) {
-                switch(action) {
-                    case 'navigate':
-                        const url = e.target.getAttribute('data-url');
-                        if (url) window.location.href = url;
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }
-            }
-        });
-
-        let currentImageIndex = 0;
-        const allImagePaths = ['./underscoreX0/webp/underscoreX0-1929732586-Good_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929272502-lead_with_love_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1926521266-broken_free_from_chains_video3-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927997396-they_ll_ask_how_I_did_it_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927789446-an_art_sale_and_its_value_is_not_earned__it_isn_t_deserved__it_is_bestowed_u-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1935791142949543936-before_and_after_video3-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1938991500332806271-the_abyss_099_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929063854-the_greatest_glitch_art_inscribed_on_bitcoin_video2-lossy.webp',
+        // Image paths for this gallery
+        const galleryImagePaths = ['./underscoreX0/webp/underscoreX0-1929715422-there_is_nothing_new_under_the_sun_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929965465-coming_soon_to_ordinals_video1-lossy.webp',
             './underscoreX0/webp/underscoreX0-1927450771-glowing_under_the_sea_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929989060-sorrow_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1926536383251861640-I_sound_like_a_broken_record_because_the_truth_repeats._not_for_you_but_for_me__a_reminder_of_what_I_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1935776898153693297-1_1_333_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1935791142949543936-before_and_after_video4-lossy.webp',
             './underscoreX0/webp/underscoreX0-1925709582-into_the_depths_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1926490942-when_i_stare_at_the_moon_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927083665-the_cross_i_bear_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929272502-lead_with_love_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927972782-father_stretch_my_hands_video2-lossy.webp',
             './underscoreX0/webp/underscoreX0-1929269125-anchored_by_your_love_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929964830-Dope_work_fam_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927972916-the_text_you_never_sent_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1932200785-portal_of_truth_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929715422-there_is_nothing_new_under_the_sun_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1926536383-I_sound_like_a_broken_record_because_the_truth_repeats._not_for_you_but_for_-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1926538389-when_you_feel_like_you_ve_waited_long_enough__wait_a_little_longer__and_you_-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927780678-how_can_I_ask_you_to_see_when_I_can_t_even_see_myself_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929995784-Gm_all_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1924638965-fresh_off_the_9-5_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929063854-the_greatest_glitch_art_inscribed_on_bitcoin_video2-lossy.webp',
             './underscoreX0/webp/underscoreX0-1929965076-Heart_Chakra_activated__video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1938265647466877007-the_abyss_140_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1938286398160666795-the_abyss_253_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1926490942-when_i_stare_at_the_moon_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1938677968592642092-the_abyss_057_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927972916-the_text_you_never_sent_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1930009819-0h_l00k__video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929732586-Good_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1935791142949543936-before_and_after_video3-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1930860154-I_see_you_in_the_stars_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1932200785-portal_of_truth_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1935791142949543936-before_and_after_video4-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927997396-they_ll_ask_how_I_did_it_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1926521266-broken_free_from_chains_video3-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929964830-Dope_work_fam_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1938676411461472520-King_of_the_Hill__2025_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1940086805690556541-the_abyss_244_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1926536383251861640-I_sound_like_a_broken_record_because_the_truth_repeats._not_for_you_but_for_me__a_reminder_of_what_I_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927973099-son_of_man_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1935084611387654591-30_more_opt-ins_and_it_gets_staged__video4-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1928199862-deep_in_the_depths_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929063854-the_greatest_glitch_art_inscribed_on_bitcoin_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927191238-freedom_within_reach_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1938294148898881885-nisi_dominus_frustra_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929602895-the_darkness_makes_me_shine_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927094167-underscore_minecraft_skins__free_download__video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1934988762158665757-the_world_is_yours_video4-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1940582228075204973-child_of_creation_video4-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927808273-a_portal_emerged__APE__1_1_333_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929989060-sorrow_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929715422-there_is_nothing_new_under_the_sun_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927790860-a_voyage_across_open_sea_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1928204620-bathing_in_the_light_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1938991500332806271-the_abyss_099_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927789446-an_art_sale_and_its_value_is_not_earned__it_isn_t_deserved__it_is_bestowed_u-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929989271-i_fear_nothing_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929272502-lead_with_love_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929269125-anchored_by_your_love_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929278654-I_am_undeniable_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929964830-Dope_work_fam_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1935045442829529493-final_destination_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927447584-surrender_feels_like_falling_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927083665-the_cross_i_bear_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1928648498-it_s_less_about_the_art_and_more_about_the_person_they_choose_not_to_see._th-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1943385952073756940-off_somewhere_floating_in_the_sky_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1939223017713971631-After_four_long_months__Underscore_3_has_been_completed._Consisting_of_25_pieces__this_is_my_greates_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1935776898153693297-1_1_333_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1929995784-Gm_all_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927112509-XO_is_a_24-year-old_artist_channeling_trauma__experiences__and_emotions_thro-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927459297-in_chains_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1926729452-banger_of_the_year_video1-lossy.webp',
             './underscoreX0/webp/underscoreX0-1927591103374520371-This_is_the__90K_piece._Lost_in_Thought._Minted_in_2023__I_ve_never_left_this_spot_video2-lossy.webp',
             './underscoreX0/webp/underscoreX0-1928203248441200730-_what_makes_the_desert_beautiful__is_that_somewhere_it_hides_a_well...__video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927447584-surrender_feels_like_falling_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1928648498-it_s_less_about_the_art_and_more_about_the_person_they_choose_not_to_see._th-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927972782-father_stretch_my_hands_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927112509-XO_is_a_24-year-old_artist_channeling_trauma__experiences__and_emotions_thro-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1935084611387654591-30_more_opt-ins_and_it_gets_staged__video4-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929965465-coming_soon_to_ordinals_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1926729452-banger_of_the_year_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927973099-son_of_man_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929063854-the_greatest_glitch_art_inscribed_on_bitcoin_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1924638965-fresh_off_the_9-5_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1943385952073756940-off_somewhere_floating_in_the_sky_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1928204620-bathing_in_the_light_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929269125-anchored_by_your_love_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1939223017713971631-After_four_long_months__Underscore_3_has_been_completed._Consisting_of_25_pieces__this_is_my_greates_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929964830-Dope_work_fam_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929278654-I_am_undeniable_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927459297-in_chains_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1942441625407402225-the_only_wei_2025_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1930009819-0h_l00k__video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1938265647466877007-the_abyss_140_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1935045442829529493-final_destination_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929732586-Good_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927808273-a_portal_emerged__APE__1_1_333_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929272502-lead_with_love_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929989271-i_fear_nothing_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1934988762158665757-the_world_is_yours_video4-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927191238-freedom_within_reach_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929602895-the_darkness_makes_me_shine_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1938677968592642092-the_abyss_057_video2-lossy.webp',
             './underscoreX0/webp/underscoreX0-1930013967-let_go_of_how_video1-1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1938286398160666795-the_abyss_253_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927094167-underscore_minecraft_skins__free_download__video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1927790860-a_voyage_across_open_sea_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1938294148898881885-nisi_dominus_frustra_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1928199862-deep_in_the_depths_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1940086805690556541-the_abyss_244_video2-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1930860154-I_see_you_in_the_stars_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1929715422-there_is_nothing_new_under_the_sun_video1-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1940582228075204973-child_of_creation_video4-lossy.webp',
-            './underscoreX0/webp/underscoreX0-1938676411461472520-King_of_the_Hill__2025_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
+            './underscoreX0/webp/underscoreX0-1929732586-Good_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1927780678-how_can_I_ask_you_to_see_when_I_can_t_even_see_myself_video1-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1942441625407402225-the_only_wei_2025_video2-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1926538389-when_you_feel_like_you_ve_waited_long_enough__wait_a_little_longer__and_you_-lossy.webp',
+            './underscoreX0/webp/underscoreX0-1926536383-I_sound_like_a_broken_record_because_the_truth_repeats._not_for_you_but_for_-lossy.webp'];
 
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.addEventListener('load', function() { console.log("Image loaded:", path); });
-            img.addEventListener('click', function() { openImage(index); });
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-            }
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGallery(galleryImagePaths);
         });
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-            }
-        });
-
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-            const twitterLink = document.getElementById('twitterLink');
-            
-            const imagePath = allImagePaths[index];
-            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            
-            modalImg.src = imagePath;
-            modalFilename.textContent = filename;
-            
-            // Extract Twitter info from filename
-            const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
-                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
-                twitterLink.href = twitterUrl;
-                twitterLinkContainer.style.display = 'block';
-            } else {
-                twitterLinkContainer.style.display = 'none';
-            }
-            
-            // Update navigation buttons and counter
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
-
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }
-        
-        function extractTweetInfoFromFilename(filename) {
-            try {
-                // Remove file extension
-                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
-                // Remove -lossy suffix if present
-                baseName = baseName.replace('-lossy', '');
-
-                // Split by dash and extract first two parts
-                const parts = baseName.split('-');
-                if (parts.length >= 2) {
-                    const username = parts[0];
-                    const tweetId = parts[1];
-                    // Verify tweet_id is numeric
-                    if (/^\d+$/.test(tweetId)) {
-                        return { username, tweetId };
-                    }
-                }
-            } catch (e) {
-                console.log('Could not extract tweet info from filename:', filename);
-            }
-            return { username: null, tweetId: null };
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        function downloadImage() {
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.addEventListener('click', function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            		closeModal();
-        }
-    });
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }
-            }
-        });
-
-        // Make functions globally accessible for backward compatibility
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-        window.openImage = openImage;
     </script>
     </div>
 </body>

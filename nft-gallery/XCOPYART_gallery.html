@@ -45,7 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -314,248 +314,58 @@
         </div>
     </div>
 </div>
+    <script src="/js/gallery.js"></script>
     <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            const action = e.target.getAttribute('data-action');
-            if (action) {
-                switch(action) {
-                    case 'navigate':
-                        const url = e.target.getAttribute('data-url');
-                        if (url) window.location.href = url;
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }
-            }
-        });
-
-        let currentImageIndex = 0;
-        const allImagePaths = ['./XCOPYART/webp/XCOPYART-1921298986696073414-We_are_experiencing_temporary_delays_with_assets_being_minted_via_Manifold_Studio_due_to_high_load_video3-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1921298986-We_are_experiencing_temporary_delays_with_assets_being_minted_via_Manifold_Studi-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1930963098-Minted_a_few_more_of_these_today__what_a_view__video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1909507666-I_am_proud_to_have_this_brilliant_work_in_my_collection__it_s_just_as_relevant_t-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1921902378-Que_me_diga_Beso_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1864013677-here_we_go_again_video3-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1856322855-_vibe_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1864323547-gm_video4-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1863953097-damn_fine_art_video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1859354979-X_video1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1912533053-_2017-10-29__video1-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1856325059-coins_are_fun_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1883800674-I_heard_video1-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1922679591-ICXN__30_video1-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1912533053-_2017-10-29__video2-lossy.webp',
+        // Image paths for this gallery
+        const galleryImagePaths = ['./XCOPYART/webp/XCOPYART-1895420707-Gm_video4-lossy.webp',
             './XCOPYART/webp/XCOPYART-1883800674-I_heard_video3-lossy.webp',
             './XCOPYART/webp/XCOPYART-1865384981-Death.exe_by_neurocolor_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1927431035-this_guy_was_exploring_too_close_to_the_floor_for_my_liking_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1913293155-ggg_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1925182048-44__attested_video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1917261968-Collect_XCOPY__claim__shape___DeePle_masks_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1856638248-I_m_gonna_leave_this_to_the_professionals_video2-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1925188128312025363-ICXN__100____owner__video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1925182048-44__attested_video3-1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1864342499-every_Grifter_for_sale_on_planet_earth_today_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1883800674-I_heard_video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1917261968-Collect_XCOPY__claim__shape___DeePle_masks_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1922679591-ICXN__30_video1-1-lossy.webp',
             './XCOPYART/webp/XCOPYART-1900668190-Special_thanks_to_video1-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1930963098-Minted_a_few_more_of_these_today__what_a_view__video4-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1883800674-I_heard_video4-lossy.webp',
             './XCOPYART/webp/XCOPYART-1913293155-ggg_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1909507666117861508-I_am_proud_to_have_this_brilliant_work_in_my_collection__it_s_just_as_relevant_today_as_it_was_when_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1883800674-I_heard_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1909507666117861508-I_am_proud_to_have_this_brilliant_work_in_my_collection__it_s_just_as_relevant_today_as_it_was_when_video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1912533053-_2017-10-29__video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1864042254-Base_contract_for_MOG_getting_added_to_Coinbase_video1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1922679591-ICXN__30_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1900668190-Special_thanks_to_video2-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1912530649-X_video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1927431035-this_guy_was_exploring_too_close_to_the_floor_for_my_liking_video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1859546026-ICXN__9_video1-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1909209149-death.exe_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1926051449-toadz_look_good_here_video1-lossy.webp',
             './XCOPYART/webp/XCOPYART-1921298986696073414-We_are_experiencing_temporary_delays_with_assets_being_minted_via_Manifold_Studio_due_to_high_load_video4-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1912530649-X_video4-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1925182048-44__attested_video3-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1864323547-gm_video4-1-lossy.webp',
             './XCOPYART/webp/XCOPYART-1925188128-ICXN__100____owner__video3-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1895420707-Gm_video4-lossy.webp',
-            './XCOPYART/webp/XCOPYART-1926051449-toadz_look_good_here_video1-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
+            './XCOPYART/webp/XCOPYART-1917261968-Collect_XCOPY__claim__shape___DeePle_masks_video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1925188128312025363-ICXN__100____owner__video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1864013677-here_we_go_again_video3-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1912533053-_2017-10-29__video1-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1909209149-death.exe_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1927431035-this_guy_was_exploring_too_close_to_the_floor_for_my_liking_video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1912533053-_2017-10-29__video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1922679591-ICXN__30_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1921298986-We_are_experiencing_temporary_delays_with_assets_being_minted_via_Manifold_Studi-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1883800674-I_heard_video1-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1856325059-coins_are_fun_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1863953097-damn_fine_art_video4-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1909507666-I_am_proud_to_have_this_brilliant_work_in_my_collection__it_s_just_as_relevant_t-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1912533053-_2017-10-29__video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1921298986696073414-We_are_experiencing_temporary_delays_with_assets_being_minted_via_Manifold_Studio_due_to_high_load_video3-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1927431035-this_guy_was_exploring_too_close_to_the_floor_for_my_liking_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1859546026-ICXN__9_video1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1864042254-Base_contract_for_MOG_getting_added_to_Coinbase_video1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1856638248-I_m_gonna_leave_this_to_the_professionals_video2-1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1859354979-X_video1-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1925182048-44__attested_video4-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1917261968-Collect_XCOPY__claim__shape___DeePle_masks_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1864342499-every_Grifter_for_sale_on_planet_earth_today_video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1909507666117861508-I_am_proud_to_have_this_brilliant_work_in_my_collection__it_s_just_as_relevant_today_as_it_was_when_video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1921902378-Que_me_diga_Beso_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1913293155-ggg_video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1856322855-_vibe_video3-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1900668190-Special_thanks_to_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1883800674-I_heard_video2-lossy.webp',
+            './XCOPYART/webp/XCOPYART-1909507666117861508-I_am_proud_to_have_this_brilliant_work_in_my_collection__it_s_just_as_relevant_today_as_it_was_when_video4-lossy.webp'];
 
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.addEventListener('load', function() { console.log("Image loaded:", path); });
-            img.addEventListener('click', function() { openImage(index); });
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-            }
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGallery(galleryImagePaths);
         });
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-            }
-        });
-
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-            const twitterLink = document.getElementById('twitterLink');
-            
-            const imagePath = allImagePaths[index];
-            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            
-            modalImg.src = imagePath;
-            modalFilename.textContent = filename;
-            
-            // Extract Twitter info from filename
-            const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
-                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
-                twitterLink.href = twitterUrl;
-                twitterLinkContainer.style.display = 'block';
-            } else {
-                twitterLinkContainer.style.display = 'none';
-            }
-            
-            // Update navigation buttons and counter
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
-
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }
-        
-        function extractTweetInfoFromFilename(filename) {
-            try {
-                // Remove file extension
-                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
-                // Remove -lossy suffix if present
-                baseName = baseName.replace('-lossy', '');
-
-                // Split by dash and extract first two parts
-                const parts = baseName.split('-');
-                if (parts.length >= 2) {
-                    const username = parts[0];
-                    const tweetId = parts[1];
-                    // Verify tweet_id is numeric
-                    if (/^\d+$/.test(tweetId)) {
-                        return { username, tweetId };
-                    }
-                }
-            } catch (e) {
-                console.log('Could not extract tweet info from filename:', filename);
-            }
-            return { username: null, tweetId: null };
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        function downloadImage() {
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.addEventListener('click', function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            		closeModal();
-        }
-    });
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }
-            }
-        });
-
-        // Make functions globally accessible for backward compatibility
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-        window.openImage = openImage;
     </script>
     </div>
 </body>

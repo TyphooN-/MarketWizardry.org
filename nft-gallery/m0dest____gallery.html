@@ -45,7 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -314,308 +314,118 @@
         </div>
     </div>
 </div>
+    <script src="/js/gallery.js"></script>
     <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            const action = e.target.getAttribute('data-action');
-            if (action) {
-                switch(action) {
-                    case 'navigate':
-                        const url = e.target.getAttribute('data-url');
-                        if (url) window.location.href = url;
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }
-            }
-        });
-
-        let currentImageIndex = 0;
-        const allImagePaths = ['./m0dest___/webp/m0dest___-1942380691041268036-_____________________0__________________________________________________video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1928536558-This_looks_epic_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1933361112021635387-______________________video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1925752513-__and_you_thought_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1927124710-__the_last_supper__redacted____video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1928827733309608185-______________________________________video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1929939847-memory.34_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1925989176-___e___________video4-1-lossy.webp',
-            './m0dest___/webp/m0dest___-1928988399-i_mean_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1927479759-__ghost_machine_dashboard_UI___video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1928996587-don_t_stare_at_them_too_long_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1925960018-thank_you_for_the_love_on_this_video1-lossy.webp',
+        // Image paths for this gallery
+        const galleryImagePaths = ['./m0dest___/webp/m0dest___-1928968865-_____________________i________________video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1943469623027945679-The_next_1_1_I_want_to_acquire_for_the_permanent_collection_is_gonna_be_by_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1928300752-__face_to_face_with_everything_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1943399551596916940-__the_voice_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1940094769494986853-networked_digital_art_video2-lossy.webp',
             './m0dest___/webp/m0dest___-1933538752845992387-soon_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1927034547-___________video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1925989176-___e___________video4-1-lossy.webp',
             './m0dest___/webp/m0dest___-1928500830-wen_skull_pfp_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1928536558-This_looks_epic_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1925752513-__and_you_thought_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1934650841404756005-__congrats_both___video4-lossy.webp',
             './m0dest___/webp/m0dest___-1927498733-iykyk_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1941170127363584323-Big_love_to_my_friends_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1934033946573946970-__hope_cycle___video3-lossy.webp',
             './m0dest___/webp/m0dest___-1927571762-tempting__video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1930107071-__vampire_attack___video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1939119767563981179-the_enderman_is_an_all-time_example_of_character_design_on_every_level._i_love_this_sculpture_by_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1943192612795494826-__i_don_t_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1940043429796266046-arms_trade_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1938755384677945594-__what_are_we_video4-lossy.webp',
             './m0dest___/webp/m0dest___-1940622585265533345-__the_days_start_video4-lossy.webp',
             './m0dest___/webp/m0dest___-1941000530119348481-__i_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1928996587-don_t_stare_at_them_too_long_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1933240713405215189-in_the_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1941170127363584323-Big_love_to_my_friends_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928672813801680918-what_do_we_do_instead_of_biting_off_our_fingernails_waiting_for_an_auction_to_start__video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1934033946573946970-__hope_cycle___video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1940824451014127876-_XLK83_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1934650841404756005-__congrats_both___video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1929247459-guess_who_s_coming_for_dinner__video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1942323447926759839-__expropriation_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1929939847-memory.34_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928902327332749705-what_do_we_do_instead_of_biting_off_our_fingernails_waiting_for_an_auction_to_start__video1-1-lossy.webp',
+            './m0dest___/webp/m0dest___-1928426029-gm__surreal_moment_right_now_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1938418087289553252-15_min_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928988399-i_mean_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1927074876-__reckless_use_of_a_vehicle___video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1926379213-__________________________video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1939533473984737707-today_I_was_one_of_the_fortunate_few._thank_you_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1929385591-__some_things_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1925989176-___e___________video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1933990416350859318-__back_up_dancers___video4-lossy.webp',
             './m0dest___/webp/m0dest___-1928068639376171322-gm_video1-1-lossy.webp',
             './m0dest___/webp/m0dest___-1943510930031030419-__the_illusion_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1928968865-_____________________i________________video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1929385591-__some_things_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1941655187157823545-NEED_this_in_my_life_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1928987417-i_mean_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1935692474674233846-__H_X____-__p_x___log__p_x_____video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1925767291611885763-Super_happy_to_announce_that_this_piece_has_been_SOLD_to_Modest___the_one_and_only_person_who_inspir_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1943469623027945679-The_next_1_1_I_want_to_acquire_for_the_permanent_collection_is_gonna_be_by_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1925960018-thank_you_for_the_love_on_this_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1935692474674233846-__H_X____-__p_x___log__p_x_____video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1926379213-__________________________video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1928500830-wen_skull_pfp_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1925989176-___e___________video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1935355295791714541-__the__convoluted__video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1940382408928600485-freedom_is_on_sale_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1935556813002518681-to_each_of_you_who_placed_a_bid_on_______________________i________________video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1942688530708455874-i_am__almost__without_words_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1927807699-Don_t_sleep_on_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1934111455940374929-won_t_you_come_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1941655187157823545-NEED_this_in_my_life_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1929385591-__some_things_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1942323447926759839-__expropriation_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1943399551596916940-__the_voice_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1934098806489985217-__In_my_shoes_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1934075303162269886-__In_my_eyes_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1927034547-___________video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1938418087289553252-15_min_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1929493791-_____________________i________________video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1929247459-guess_who_s_coming_for_dinner__video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1927074876-__reckless_use_of_a_vehicle___video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1933240713405215189-in_the_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1928426029-gm__surreal_moment_right_now_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1940824451014127876-_XLK83_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1928536558-This_looks_epic_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1928300752-__face_to_face_with_everything_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1928968865-_____________________i________________video3-lossy.webp',
             './m0dest___/webp/m0dest___-1935940846878154891-__pull___pray_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1933993387838886301-__she_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1934094682276921774-__Stuttering_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1940094769494986853-networked_digital_art_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1928280225-__halfway_crooks__video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1939801820378939621-New_Masters__Chapter_One_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1927572985-__no_return_address___video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1943367223411675556-_____________________0__________________________________________________video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1934082418799001703-__Boiling_heat_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1928996587-don_t_stare_at_them_too_long_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1929903003-attention_spans_are_short_around_here__i_get_it._but_memories_last_much_longer_-lossy.webp',
-            './m0dest___/webp/m0dest___-1926280427527897236-___e___________video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1929931880-______________________________________video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1930107071-__vampire_attack___video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1926831449-eminent_domain_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1935153572603105621-__the_parade_before_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1941731316443050301-__shooting_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1928426029-gm__surreal_moment_right_now_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1927032099-__little_help_please____video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1925767291-Super_happy_to_announce_that_this_piece_has_been_SOLD_to_Modest___the_one_and_o-lossy.webp',
-            './m0dest___/webp/m0dest___-1934650841404756005-__congrats_both___video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1941221877969715546-how_we_got_here_video4-lossy.webp',
             './m0dest___/webp/m0dest___-1927118364-__Left_on_Red___video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1934255233883947061-__in_his_shadow_video2-lossy.webp',
-            './m0dest___/webp/m0dest___-1925752513-__and_you_thought_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1927863199-on_scarcity_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1934650841404756005-__congrats_both___video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1933990416350859318-__back_up_dancers___video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1940024321432269298-__bank_teller___video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1928253995-__a_life_of_video1-lossy.webp',
-            './m0dest___/webp/m0dest___-1928672813801680918-what_do_we_do_instead_of_biting_off_our_fingernails_waiting_for_an_auction_to_start__video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1928280225-__halfway_crooks__video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1942319142972907635-__before_the_one_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1939533473984737707-today_I_was_one_of_the_fortunate_few._thank_you_video4-lossy.webp',
-            './m0dest___/webp/m0dest___-1938327249696264546-__all_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1939100637783859631-__im_your_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1927807699-Don_t_sleep_on_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1942380691041268036-_____________________0__________________________________________________video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1935153572603105621-__the_parade_before_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1942688530708455874-i_am__almost__without_words_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1940043429796266046-arms_trade_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1930107071-__vampire_attack___video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928500830-wen_skull_pfp_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1928426029-gm__surreal_moment_right_now_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1929385591-__some_things_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1934111455940374929-won_t_you_come_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928987417-i_mean_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1925767291611885763-Super_happy_to_announce_that_this_piece_has_been_SOLD_to_Modest___the_one_and_only_person_who_inspir_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1929931880-______________________________________video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1930107071-__vampire_attack___video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1943192612795494826-__i_don_t_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1935692474674233846-__H_X____-__p_x___log__p_x_____video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1941731316443050301-__shooting_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1929903003-attention_spans_are_short_around_here__i_get_it._but_memories_last_much_longer_-lossy.webp',
             './m0dest___/webp/m0dest___-1934607946560029152-__corporate_video3-lossy.webp',
-            './m0dest___/webp/m0dest___-1928902327332749705-what_do_we_do_instead_of_biting_off_our_fingernails_waiting_for_an_auction_to_start__video1-1-lossy.webp',
-            './m0dest___/webp/m0dest___-1939100637783859631-__im_your_video3-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
+            './m0dest___/webp/m0dest___-1941221877969715546-how_we_got_here_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1933993387838886301-__she_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1934098806489985217-__In_my_shoes_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1933361112021635387-______________________video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1940024321432269298-__bank_teller___video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1940382408928600485-freedom_is_on_sale_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1935355295791714541-__the__convoluted__video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1939119767563981179-the_enderman_is_an_all-time_example_of_character_design_on_every_level._i_love_this_sculpture_by_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928280225-__halfway_crooks__video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1934255233883947061-__in_his_shadow_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1927124710-__the_last_supper__redacted____video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1927479759-__ghost_machine_dashboard_UI___video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928536558-This_looks_epic_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1934082418799001703-__Boiling_heat_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1935692474674233846-__H_X____-__p_x___log__p_x_____video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928996587-don_t_stare_at_them_too_long_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1925960018-thank_you_for_the_love_on_this_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1925960018-thank_you_for_the_love_on_this_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1929493791-_____________________i________________video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1926280427527897236-___e___________video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1941655187157823545-NEED_this_in_my_life_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1942319142972907635-__before_the_one_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1927032099-__little_help_please____video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1938755384677945594-__what_are_we_video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1934075303162269886-__In_my_eyes_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1943367223411675556-_____________________0__________________________________________________video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1938327249696264546-__all_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1927863199-on_scarcity_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1927917640-__make_a_wish__kid___video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1925767291-Super_happy_to_announce_that_this_piece_has_been_SOLD_to_Modest___the_one_and_o-lossy.webp',
+            './m0dest___/webp/m0dest___-1941655187157823545-NEED_this_in_my_life_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1927572985-__no_return_address___video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1928253995-__a_life_of_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1939801820378939621-New_Masters__Chapter_One_video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1934094682276921774-__Stuttering_video2-lossy.webp',
+            './m0dest___/webp/m0dest___-1928968865-_____________________i________________video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1928280225-__halfway_crooks__video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1926831449-eminent_domain_video1-lossy.webp',
+            './m0dest___/webp/m0dest___-1935556813002518681-to_each_of_you_who_placed_a_bid_on_______________________i________________video4-lossy.webp',
+            './m0dest___/webp/m0dest___-1928827733309608185-______________________________________video3-lossy.webp',
+            './m0dest___/webp/m0dest___-1925752513-__and_you_thought_video3-lossy.webp'];
 
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.addEventListener('load', function() { console.log("Image loaded:", path); });
-            img.addEventListener('click', function() { openImage(index); });
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-            }
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGallery(galleryImagePaths);
         });
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-            }
-        });
-
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-            const twitterLink = document.getElementById('twitterLink');
-            
-            const imagePath = allImagePaths[index];
-            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            
-            modalImg.src = imagePath;
-            modalFilename.textContent = filename;
-            
-            // Extract Twitter info from filename
-            const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
-                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
-                twitterLink.href = twitterUrl;
-                twitterLinkContainer.style.display = 'block';
-            } else {
-                twitterLinkContainer.style.display = 'none';
-            }
-            
-            // Update navigation buttons and counter
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
-
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }
-        
-        function extractTweetInfoFromFilename(filename) {
-            try {
-                // Remove file extension
-                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
-                // Remove -lossy suffix if present
-                baseName = baseName.replace('-lossy', '');
-
-                // Split by dash and extract first two parts
-                const parts = baseName.split('-');
-                if (parts.length >= 2) {
-                    const username = parts[0];
-                    const tweetId = parts[1];
-                    // Verify tweet_id is numeric
-                    if (/^\d+$/.test(tweetId)) {
-                        return { username, tweetId };
-                    }
-                }
-            } catch (e) {
-                console.log('Could not extract tweet info from filename:', filename);
-            }
-            return { username: null, tweetId: null };
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        function downloadImage() {
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.addEventListener('click', function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            		closeModal();
-        }
-    });
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }
-            }
-        });
-
-        // Make functions globally accessible for backward compatibility
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-        window.openImage = openImage;
     </script>
     </div>
 </body>

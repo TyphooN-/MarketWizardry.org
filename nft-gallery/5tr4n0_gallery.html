@@ -45,7 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -314,265 +314,75 @@
         </div>
     </div>
 </div>
+    <script src="/js/gallery.js"></script>
     <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            const action = e.target.getAttribute('data-action');
-            if (action) {
-                switch(action) {
-                    case 'navigate':
-                        const url = e.target.getAttribute('data-url');
-                        if (url) window.location.href = url;
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }
-            }
-        });
-
-        let currentImageIndex = 0;
-        const allImagePaths = ['./5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp',
+        // Image paths for this gallery
+        const galleryImagePaths = ['./5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp',
             './5tr4n0/webp/5tr4n0-1940391462275101108-have_you_said_GM_to_yourself___video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp',
             './5tr4n0/webp/5tr4n0-1941842656524398667-Just_collected__Funny_Old_Game__by_Lorna_Mills_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp',
             './5tr4n0/webp/5tr4n0-1938588796477681890-The_Vault_cannot_be_satisfied_video4-lossy.webp',
             './5tr4n0/webp/5tr4n0-1938943811843240231-The_Vault_cannot_be_satisfied_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1934002896221380770-__The_Lighthouse_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1928807011-too_much_noise_video1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1938326928576164272-legend_move_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1930664888-auction_kicked_off_by_video1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943013207389671925-Good_morning_high_flyers_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1942929349407059980-Get_ready_for_a_lobotomy_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1942584253398802918-_could_you_prompt_this___video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943268357584633951-_are_you_and_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1928102689-San_Pepe___few_hours_left_to_get_the_card_video2-lossy.webp',
             './5tr4n0/webp/5tr4n0-1934570001106981317-May_it_loop_forever_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1940433102616383864-part_of_last_night_s_chopping_session_video3-lossy.webp',
             './5tr4n0/webp/5tr4n0-1929530424-The_Time_That_Remains_video1-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1939689154113405160-gm_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1938238970422301131-Floodlight_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933258670357221641-pen_plotted_boolean_exercise_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943660041711599967-remember_to_smile_video2-lossy.webp',
             './5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930641227-The_Cathedral_of_the_Last_Meme_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932061161996103684-this_curation_is_the_highlight_of_my_year_so_far_video3-lossy.webp',
             './5tr4n0/webp/5tr4n0-1942924400384266335-br0ken_video2-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1943036719969824931-The_wheel_of_fortune___Artist_Journal_438_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1935405376821715172-I_like_pretty_cubes__cubes__cubes__cubes_cubes__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934960889486053853-broken_pixels_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933507647329751460-broken_pixels_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940385209872191830-br0ken_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932595809754751336-Memory_from_a_distant_Untrue_session_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933162027662364786-3_pieces_to_get_to_know_me_https___x.com_ozbren_xyz_sta_ozbren_xyz_status_1933158915438752125__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943113980110590244-DIORAMAS__505_by_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940780401515286666-my_art_is_not_meant_for_tiny_screens_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1941905033613684900-last_night_I_drifted_on_rainbow_road_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1940789141727596944-my_art_is_not_meant_for_tiny_screens_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932907616176357753-Construction_in_progress_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932489775690260540-This_Thursday__June_12th_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1933514929841058088-As_of_today__my_2060_has_died_._It_said_goodbye_with_a_blue_screen_and_a_kernel_error_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1935851915876635041-gradients_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1934956939621916900-__The_Lighthouse_presents_NA_XANELA_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943319692552061121-Le_temps_qu_il_reste_video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1932520718517858519-Where_will_you_sit_when_the_music_stops__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1931804796882985039-Up_next_in_5x5__Air_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1941188787276742892-memory_format_failed_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1936060013535010819-br0ken__video4-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929200157-what_if__I_want_to_go_somewhere_else_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1943068988596158799-Perception_of_Time_video3-lossy.webp',
             './5tr4n0/webp/5tr4n0-1941143073620398141-pixel_peeping_session_video3-lossy.webp',
-            './5tr4n0/webp/5tr4n0-1939689154113405160-gm_video3-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
+            './5tr4n0/webp/5tr4n0-1940043674093535729-custom_looping_stamp_brush_tool_on_deck_video2-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930270255-tomorrow_video2-1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1942556545499152502-Brainrot___Curated_by_video3-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1929559540-book_your_flights__this_is_going_to_be_amazing_video1-lossy.webp',
+            './5tr4n0/webp/5tr4n0-1930270255-tomorrow_video1-1-lossy.webp'];
 
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.addEventListener('load', function() { console.log("Image loaded:", path); });
-            img.addEventListener('click', function() { openImage(index); });
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-            }
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGallery(galleryImagePaths);
         });
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-            }
-        });
-
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-            const twitterLink = document.getElementById('twitterLink');
-            
-            const imagePath = allImagePaths[index];
-            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            
-            modalImg.src = imagePath;
-            modalFilename.textContent = filename;
-            
-            // Extract Twitter info from filename
-            const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {
-                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
-                twitterLink.href = twitterUrl;
-                twitterLinkContainer.style.display = 'block';
-            } else {
-                twitterLinkContainer.style.display = 'none';
-            }
-            
-            // Update navigation buttons and counter
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
-
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }
-        
-        function extractTweetInfoFromFilename(filename) {
-            try {
-                // Remove file extension
-                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
-                // Remove -lossy suffix if present
-                baseName = baseName.replace('-lossy', '');
-
-                // Split by dash and extract first two parts
-                const parts = baseName.split('-');
-                if (parts.length >= 2) {
-                    const username = parts[0];
-                    const tweetId = parts[1];
-                    // Verify tweet_id is numeric
-                    if (/^\d+$/.test(tweetId)) {
-                        return { username, tweetId };
-                    }
-                }
-            } catch (e) {
-                console.log('Could not extract tweet info from filename:', filename);
-            }
-            return { username: null, tweetId: null };
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-        function downloadImage() {
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.addEventListener('click', function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            		closeModal();
-        }
-    });
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }
-            }
-        });
-
-        // Make functions globally accessible for backward compatibility
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-        window.openImage = openImage;
     </script>
     </div>
 </body>

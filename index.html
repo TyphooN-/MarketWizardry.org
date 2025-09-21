@@ -447,31 +447,31 @@
                     <div class="menu-item" data-load-content="var-explorer">VaR EXPLORER</div>
                     <div class="menu-item" data-load-content="ev-explorer">EV EXPLORER</div>
                     <div class="menu-item" data-load-content="atr-explorer">ATR EXPLORER</div>
-                    <div class="menu-item" data-load-content=('ai-musings">AI MUSINGS</div>
-                    <div class="menu-item" data-load-content=('nft-gallery">NFT GALLERY</div>
-                    <div class="menu-item" data-load-content=('affiliates">AFFILIATES</div>
+                    <div class="menu-item" data-load-content="ai-musings">AI MUSINGS</div>
+                    <div class="menu-item" data-load-content="nft-gallery">NFT GALLERY</div>
+                    <div class="menu-item" data-load-content="affiliates">AFFILIATES</div>
                 </div>
             </div>
-            <div class="image-item" data-load-content=('market-wizardry">
+            <div class="image-item" data-load-content="market-wizardry">
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="xicojam-prompt-mod" style="max-width: 100%; height: auto;" loading="lazy">
             </div>
             <div class="desktop-menu-items">
-                <div class="menu-item" data-load-content=('about">ABOUT</div>
-                <div class="menu-item" data-load-content=('code">CODE</div>
-                <div class="menu-item" data-load-content=('calculator">CALCULATOR</div>
-                <div class="menu-item" data-load-content=('var-cult">VaR CULT</div>
-                <div class="menu-item" data-load-content=('blog">BLOG EXPLORER</div>
-                <div class="menu-item" data-load-content=('var-explorer">VaR EXPLORER</div>
-                <div class="menu-item" data-load-content=('ev-explorer">EV EXPLORER</div>
-                <div class="menu-item" data-load-content=('atr-explorer">ATR EXPLORER</div>
-                <div class="menu-item" data-load-content=('ai-art">AI ART</div>
-                <div class="menu-item" data-load-content=('ai-musings">AI MUSINGS</div>
-                <div class="menu-item" data-load-content=('nft-gallery">NFT GALLERY</div>
-                <div class="menu-item" data-load-content=('affiliates">AFFILIATES</div>
-                <div class="menu-item" data-load-content=('donate">DONATE</div>
+                <div class="menu-item" data-load-content="about">ABOUT</div>
+                <div class="menu-item" data-load-content="code">CODE</div>
+                <div class="menu-item" data-load-content="calculator">CALCULATOR</div>
+                <div class="menu-item" data-load-content="var-cult">VaR CULT</div>
+                <div class="menu-item" data-load-content="blog">BLOG EXPLORER</div>
+                <div class="menu-item" data-load-content="var-explorer">VaR EXPLORER</div>
+                <div class="menu-item" data-load-content="ev-explorer">EV EXPLORER</div>
+                <div class="menu-item" data-load-content="atr-explorer">ATR EXPLORER</div>
+                <div class="menu-item" data-load-content="ai-art">AI ART</div>
+                <div class="menu-item" data-load-content="ai-musings">AI MUSINGS</div>
+                <div class="menu-item" data-load-content="nft-gallery">NFT GALLERY</div>
+                <div class="menu-item" data-load-content="affiliates">AFFILIATES</div>
+                <div class="menu-item" data-load-content="donate">DONATE</div>
                 <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
                 <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
-                <div class="menu-item" data-load-content=('terms">TERMS</div>
+                <div class="menu-item" data-load-content="terms">TERMS</div>
             </div>
         </div>                        
         <!-- Content Frame -->
@@ -479,50 +479,6 @@
             <iframe title="Content" id="contentIframe" width="100%" height="100%" frameborder="0"></iframe>
         </div>
     </div>
-    <script>
-        function loadContent(page) {
-            const iframe = document.getElementById('contentIframe');
-            // Handle full paths (like blog/post.html or nft-gallery/artist.html) vs simple page names
-            if (page.includes('/') || page.endsWith('.html')) {
-                iframe.src = page;
-            } else {
-                iframe.src = `${page}.html`;
-            }
-            // Remove active class from all menu items
-            const menuItems = document.querySelectorAll('.menu-item, .image-item');
-            menuItems.forEach(item => item.classList.remove('active'));
-            // Check if the clicked element is the Market Wizardry image and skip marking it as active
-            if (event && event.target && event.target.tagName === 'IMG') {
-                return;
-            }
-            // Add active class to clicked menu item only if event exists (user clicked)
-            if (event && event.target && event.target.classList) {
-                event.target.classList.add('active');
-            }
-        }
-
-        // Load content based on URL parameter or default to "market-wizardry"
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const pageParam = urlParams.get('page');
-            const targetPage = pageParam || 'market-wizardry';
-            loadContent(targetPage);
-
-            // Set up event delegation for loadContent
-            document.addEventListener('click', function(e) {
-                if (e.target.hasAttribute('data-load-content')) {
-                    const page = e.target.getAttribute('data-load-content');
-                    loadContent(page);
-                }
-            });
-
-            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-            const mobileMenuContainer = document.querySelector('.mobile-menu-container');
-
-            mobileMenuToggle.addEventListener('click', function() {
-                mobileMenuContainer.classList.toggle('show-menu');
-            });
-        });
-    </script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
