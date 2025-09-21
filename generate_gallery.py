@@ -12,7 +12,7 @@ def extract_tweet_info(filename):
         base_name = os.path.splitext(filename)[0]
         # Remove -lossy suffix if present
         base_name = base_name.replace('-lossy', '')
-        
+
         # Split by dash and extract first two parts
         parts = base_name.split('-')
         if len(parts) >= 2:
@@ -27,7 +27,7 @@ def extract_tweet_info(filename):
                 return username, tweet_id, False  # Full-length ID
     except Exception as e:
         print(f"Error extracting tweet info from {filename}: {e}")
-    
+
     return None, None, False
 
 def generate_twitter_url(username, tweet_id, is_shortened=False):
@@ -274,7 +274,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         if os.path.exists(user_gallery_file):
             description = get_existing_flavor_text(user)
             user_links.append(f'<div class="file-entry" data-action="navigate" data-url="nft-gallery/{user_gallery_file}"><a href="nft-gallery/{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
-    
+
     user_links_str = '\n'.join(user_links)
     final_html = html_content.replace("USER_LINKS_PLACEHOLDER", user_links_str)
 
@@ -539,205 +539,15 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         </div>
     </div>
 </div>
+    <script src="/js/gallery.js"></script>
     <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {{
-            const action = e.target.getAttribute('data-action');
-            if (action) {{
-                switch(action) {{
-                    case 'navigate':
-                        const url = e.target.getAttribute('data-url');
-                        if (url) window.location.href = url;
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }}
-            }}
+        // Image paths for this gallery
+        const galleryImagePaths = [IMAGE_PATHS_PLACEHOLDER];
+
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {{
+            initializeGallery(galleryImagePaths);
         }});
-
-        let currentImageIndex = 0;
-        const allImagePaths = [IMAGE_PATHS_PLACEHOLDER]; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {{
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() {{ console.error("Error loading image:", path); }};
-            img.addEventListener('load', function() {{ console.log("Image loaded:", path); }});
-            img.addEventListener('click', function() {{ openImage(index); }});
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }}
-
-        function loadMoreImages() {{
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {{
-                console.log("No more images to load.");
-                return; // No more images to load
-            }}
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {{
-                loadImage(allImagePaths[i], i);
-            }}
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }}
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {{
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {{
-                loadMoreImages();
-            }}
-        }});
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {{
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {{
-                loadMoreImages();
-            }}
-        }});
-
-        function openImage(index) {{
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-            const twitterLink = document.getElementById('twitterLink');
-            
-            const imagePath = allImagePaths[index];
-            const filename = imagePath.split('/').pop().replace(/\'/g, ''); // Extract filename and clean quotes
-            
-            modalImg.src = imagePath;
-            modalFilename.textContent = filename;
-            
-            // Extract Twitter info from filename
-            const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {{
-                const twitterUrl = `https://twitter.com/${{tweetInfo.username}}/status/${{tweetInfo.tweetId}}`;
-                twitterLink.href = twitterUrl;
-                twitterLinkContainer.style.display = 'block';
-            }} else {{
-                twitterLinkContainer.style.display = 'none';
-            }}
-            
-            // Update navigation buttons and counter
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${{index + 1}} / ${{allImagePaths.length}}`;
-
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }}
-        
-        function extractTweetInfoFromFilename(filename) {{
-            try {{
-                // Remove file extension
-                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
-                // Remove -lossy suffix if present
-                baseName = baseName.replace('-lossy', '');
-
-                // Split by dash and extract first two parts
-                const parts = baseName.split('-');
-                if (parts.length >= 2) {{
-                    const username = parts[0];
-                    const tweetId = parts[1];
-                    // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {{
-                        return {{ username, tweetId }};
-                    }}
-                }}
-            }} catch (e) {{
-                console.log('Could not extract tweet info from filename:', filename);
-            }}
-            return {{ username: null, tweetId: null }};
-        }}
-        function previousImage() {{
-            if (currentImageIndex > 0) {{
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }}
-        }}
-        function nextImage() {{
-            if (currentImageIndex < allImagePaths.length - 1) {{
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }}
-        }}
-        function downloadImage() {{
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {{
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }}
-        }}
-    	function closeModal() {{
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {{
-            		modal.style.display = 'none';
-        	}}
-    	}}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.addEventListener('click', function(event) {{
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {{
-            		closeModal();
-        }}
-    }});
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {{
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {{
-                switch(event.key) {{
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }}
-            }}
-        }});
-
-        // Make functions globally accessible for backward compatibility
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-        window.openImage = openImage;
     </script>
     </div>
 </body>
@@ -1019,205 +829,15 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         </div>
     </div>
 </div>
+    <script src="/js/gallery.js"></script>
     <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {{
-            const action = e.target.getAttribute('data-action');
-            if (action) {{
-                switch(action) {{
-                    case 'navigate':
-                        const url = e.target.getAttribute('data-url');
-                        if (url) window.location.href = url;
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }}
-            }}
+        // Image paths for this gallery
+        const galleryImagePaths = [IMAGE_PATHS_PLACEHOLDER];
+
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {{
+            initializeGallery(galleryImagePaths);
         }});
-
-        let currentImageIndex = 0;
-        const allImagePaths = [IMAGE_PATHS_PLACEHOLDER]; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {{
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() {{ console.error("Error loading image:", path); }};
-            img.addEventListener('load', function() {{ console.log("Image loaded:", path); }});
-            img.addEventListener('click', function() {{ openImage(index); }});
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }}
-
-        function loadMoreImages() {{
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {{
-                console.log("No more images to load.");
-                return; // No more images to load
-            }}
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {{
-                loadImage(allImagePaths[i], i);
-            }}
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }}
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {{
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {{
-                loadMoreImages();
-            }}
-        }});
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {{
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {{
-                loadMoreImages();
-            }}
-        }});
-
-        function openImage(index) {{
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-            const twitterLink = document.getElementById('twitterLink');
-            
-            const imagePath = allImagePaths[index];
-            const filename = imagePath.split('/').pop().replace(/\'/g, ''); // Extract filename and clean quotes
-            
-            modalImg.src = imagePath;
-            modalFilename.textContent = filename;
-            
-            // Extract Twitter info from filename
-            const tweetInfo = extractTweetInfoFromFilename(filename);
-            if (tweetInfo.username && tweetInfo.tweetId) {{
-                const twitterUrl = `https://twitter.com/${{tweetInfo.username}}/status/${{tweetInfo.tweetId}}`;
-                twitterLink.href = twitterUrl;
-                twitterLinkContainer.style.display = 'block';
-            }} else {{
-                twitterLinkContainer.style.display = 'none';
-            }}
-            
-            // Update navigation buttons and counter
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === allImagePaths.length - 1;
-            imageCounter.textContent = `${{index + 1}} / ${{allImagePaths.length}}`;
-
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }}
-        
-        function extractTweetInfoFromFilename(filename) {{
-            try {{
-                // Remove file extension
-                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
-                // Remove -lossy suffix if present
-                baseName = baseName.replace('-lossy', '');
-
-                // Split by dash and extract first two parts
-                const parts = baseName.split('-');
-                if (parts.length >= 2) {{
-                    const username = parts[0];
-                    const tweetId = parts[1];
-                    // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {{
-                        return {{ username, tweetId }};
-                    }}
-                }}
-            }} catch (e) {{
-                console.log('Could not extract tweet info from filename:', filename);
-            }}
-            return {{ username: null, tweetId: null }};
-        }}
-        function previousImage() {{
-            if (currentImageIndex > 0) {{
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }}
-        }}
-        function nextImage() {{
-            if (currentImageIndex < allImagePaths.length - 1) {{
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }}
-        }}
-        function downloadImage() {{
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {{
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }}
-        }}
-    	function closeModal() {{
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {{
-            		modal.style.display = 'none';
-        	}}
-    	}}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.addEventListener('click', function(event) {{
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {{
-            		closeModal();
-        }}
-    }});
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {{
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {{
-                switch(event.key) {{
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }}
-            }}
-        }});
-
-        // Make functions globally accessible for backward compatibility
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-        window.openImage = openImage;
     </script>
     </div>
 </body>
@@ -1250,22 +870,22 @@ if __name__ == "__main__":
     if os.path.exists('nft-gallery') and os.path.isdir('nft-gallery'):
         # We're in root directory, change to nft-gallery subdirectory
         nft_gallery_dir = 'nft-gallery'
-        print(f"Running NFT gallery generation in {nft_gallery_dir}/ directory")
-        
+        print(f"Running CSP-compliant NFT gallery generation in {nft_gallery_dir}/ directory")
+
         # Save current directory
         original_dir = os.getcwd()
-        
+
         try:
             # Change to nft-gallery directory
             os.chdir(nft_gallery_dir)
-            
+
             # Generate all.html first
             generate_all_html()
 
             # Dynamically find user directories
             current_directory = os.getcwd()
             all_entries = os.listdir(current_directory)
-            
+
             user_directories = []
             for entry in all_entries:
                 full_path = os.path.join(current_directory, entry)
@@ -1282,20 +902,20 @@ if __name__ == "__main__":
 
             # Generate nft-gallery.html with only valid user links
             generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=valid_user_links)
-            
+
             # Copy the main nft-gallery.html to root directory with corrected paths
             import shutil
-            
+
             # Read the generated nft-gallery.html
             with open('nft-gallery.html', 'r') as f:
                 content = f.read()
-            
+
             # Update all gallery links to include nft-gallery/ prefix
             import re
             content = re.sub(r'href="([^"]*_gallery\.html)"', r'href="nft-gallery/\1"', content)
             # Fix double nft-gallery/ prefixes
             content = re.sub(r'href="nft-gallery/nft-gallery/', r'href="nft-gallery/', content)
-            
+
             # Write to root directory with corrected paths
             with open('../nft-gallery.html', 'w') as f:
                 f.write(content)
@@ -1303,23 +923,23 @@ if __name__ == "__main__":
             # Remove the intermediate file from nft-gallery/ directory
             os.remove('nft-gallery.html')
 
-            print("Copied nft-gallery.html to root directory with corrected paths and cleaned up intermediate file")
-            
+            print("Generated CSP-compliant gallery files and copied nft-gallery.html to root directory")
+
         finally:
             # Always return to original directory
             os.chdir(original_dir)
-            
+
     else:
         # We're already in the nft-gallery directory, run normally
-        print("Running NFT gallery generation in current directory")
-        
+        print("Running CSP-compliant NFT gallery generation in current directory")
+
         # Generate all.html first
         generate_all_html()
 
         # Dynamically find user directories
         current_directory = os.getcwd()
         all_entries = os.listdir(current_directory)
-        
+
         user_directories = []
         for entry in all_entries:
             full_path = os.path.join(current_directory, entry)
