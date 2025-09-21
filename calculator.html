@@ -3614,38 +3614,39 @@ function updateOutputMode() {
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOMContentLoaded event fired');
             try {
-                updateActiveDataset(); // Set initial state
-                console.log('updateActiveDataset called successfully');
+                console.log('Basic test - no function calls yet');
+                // updateActiveDataset(); // Set initial state
+                // console.log('updateActiveDataset called successfully');
 
                 // Set up dataset selector event listeners
-                document.getElementById('dataset-selector').addEventListener('change', updateActiveDataset);
-                document.getElementById('sector-selector').addEventListener('change', updateActiveDataset);
-                document.getElementById('industry-selector').addEventListener('change', updateActiveDataset);
-                console.log('Dataset selector event listeners set up');
+                // document.getElementById('dataset-selector').addEventListener('change', updateActiveDataset);
+                // document.getElementById('sector-selector').addEventListener('change', updateActiveDataset);
+                // document.getElementById('industry-selector').addEventListener('change', updateActiveDataset);
+                console.log('Skipped dataset selector event listeners');
 
                 // Set up calculator form event listeners
-                document.getElementById('sl-symbol').addEventListener('change', autoFillStopLossData);
-                document.getElementById('sl-risk-mode').addEventListener('change', toggleStopLossMode);
-                document.getElementById('sl-timeframe').addEventListener('change', autoFillStopLossData);
-                document.getElementById('calculate-stop-loss-btn').addEventListener('click', calculateStopLoss);
+                // document.getElementById('sl-symbol').addEventListener('change', autoFillStopLossData);
+                // document.getElementById('sl-risk-mode').addEventListener('change', toggleStopLossMode);
+                // document.getElementById('sl-timeframe').addEventListener('change', autoFillStopLossData);
+                // document.getElementById('calculate-stop-loss-btn').addEventListener('click', calculateStopLoss);
 
-                document.getElementById('ps-risk-mode').addEventListener('change', togglePositionSizeMode);
-                document.getElementById('ps-output-mode').addEventListener('change', updateOutputMode);
-                document.getElementById('ps-symbol').addEventListener('change', autoFillPositionData);
-                document.getElementById('ps-atr-timeframe').addEventListener('change', updatePositionAtrData);
-                document.getElementById('ps-atr-multiplier').addEventListener('change', updatePositionAtrData);
-                document.getElementById('calculate-position-size-btn').addEventListener('click', calculateEnhancedPositionSize);
+                // document.getElementById('ps-risk-mode').addEventListener('change', togglePositionSizeMode);
+                // document.getElementById('ps-output-mode').addEventListener('change', updateOutputMode);
+                // document.getElementById('ps-symbol').addEventListener('change', autoFillPositionData);
+                // document.getElementById('ps-atr-timeframe').addEventListener('change', updatePositionAtrData);
+                // document.getElementById('ps-atr-multiplier').addEventListener('change', updatePositionAtrData);
+                // document.getElementById('calculate-position-size-btn').addEventListener('click', calculateEnhancedPositionSize);
 
-                document.getElementById('lookup-symbol-btn').addEventListener('click', lookupSymbol);
-                document.getElementById('add-position-btn').addEventListener('click', addPosition);
-                document.getElementById('calculate-portfolio-var-btn').addEventListener('click', calculatePortfolioVaR);
+                // document.getElementById('lookup-symbol-btn').addEventListener('click', lookupSymbol);
+                // document.getElementById('add-position-btn').addEventListener('click', addPosition);
+                // document.getElementById('calculate-portfolio-var-btn').addEventListener('click', calculatePortfolioVaR);
 
-                document.getElementById('lookup-symbol').addEventListener('change', performAdvancedSearch);
-                document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
-                document.getElementById('show-all-symbols-btn').addEventListener('click', showAllSymbols);
-                document.getElementById('calculate-compound-interest-btn').addEventListener('click', calculateCompoundInterest);
+                // document.getElementById('lookup-symbol').addEventListener('change', performAdvancedSearch);
+                // document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
+                // document.getElementById('show-all-symbols-btn').addEventListener('click', showAllSymbols);
+                // document.getElementById('calculate-compound-interest-btn').addEventListener('click', calculateCompoundInterest);
 
-                console.log('Calculator form event listeners set up');
+                console.log('Skipped all event listeners for testing');
 
                 // Set up event delegation for dynamically generated elements
                 document.addEventListener('click', function(e) {
