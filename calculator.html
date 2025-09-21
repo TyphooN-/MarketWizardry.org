@@ -3614,8 +3614,8 @@ function updateOutputMode() {
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOMContentLoaded event fired');
             try {
-                console.log('Basic test - no function calls yet');
-                // updateActiveDataset(); // Set initial state
+                console.log('Basic test - trying minimal functionality');
+                // updateActiveDataset(); // Set initial state - KEEP COMMENTED FOR NOW
                 // console.log('updateActiveDataset called successfully');
 
                 // Set up dataset selector event listeners
@@ -3687,31 +3687,30 @@ function updateOutputMode() {
                 console.error('Error in initialization:', error);
             }
 
-            // TEMPORARILY COMMENTED OUT FOR DEBUGGING
             // Set up calculator card click listeners
-            // const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
-            // calculatorCards.forEach(card => {
-            //     card.addEventListener('click', function() {
-            //         const calculatorType = this.getAttribute('data-calculator');
-            //         console.log('Calculator card clicked:', calculatorType);
-            //         selectCalculator(calculatorType, this);
-            //     });
-            // });
+            const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
+            calculatorCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const calculatorType = this.getAttribute('data-calculator');
+                    console.log('Calculator card clicked:', calculatorType);
+                    selectCalculator(calculatorType, this);
+                });
+            });
 
-            // console.log('Found', calculatorCards.length, 'calculator cards');
-            // console.log('selectCalculator function exists:', typeof window.selectCalculator);
+            console.log('Found', calculatorCards.length, 'calculator cards');
+            console.log('selectCalculator function exists:', typeof window.selectCalculator);
 
-            // // Set up breadcrumb reset listener
-            // const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
-            // if (breadcrumbReset) {
-            //     breadcrumbReset.addEventListener('click', function(e) {
-            //         e.preventDefault();
-            //         // Breadcrumb reset clicked
-            //         resetToCalculatorSelection();
-            //         return false;
-            //     });
-            // }
-            console.log('Calculator card listeners temporarily disabled for debugging');
+            // Set up breadcrumb reset listener
+            const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
+            if (breadcrumbReset) {
+                breadcrumbReset.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Breadcrumb reset clicked
+                    resetToCalculatorSelection();
+                    return false;
+                });
+            }
+            console.log('Calculator card listeners enabled');
         });
 
         // Close missing braces
