@@ -81,6 +81,73 @@
     "keywords": "financial analysis, market data, trading insights, VaR analysis, risk management, market outliers, trading strategy, what, is, value, at, risk, (var), var?"
 }
     </script>
+    <!-- HowTo Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Calculate Value at Risk (VaR) for Portfolio Risk Management",
+        "description": "Step-by-step guide to calculating Value at Risk (VaR) for your trading portfolio, including parametric, historical, and Monte Carlo methods.",
+        "image": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp",
+        "totalTime": "PT15M",
+        "estimatedCost": {
+            "@type": "MonetaryAmount",
+            "currency": "USD",
+            "value": "0"
+        },
+        "supply": [{
+            "@type": "HowToSupply",
+            "name": "Historical price data"
+        }, {
+            "@type": "HowToSupply",
+            "name": "Portfolio positions and values"
+        }, {
+            "@type": "HowToSupply",
+            "name": "VaR calculator tool"
+        }],
+        "tool": [{
+            "@type": "HowToTool",
+            "name": "MarketWizardry.org VaR Explorer",
+            "url": "https://marketwizardry.org/var-explorer.html"
+        }],
+        "step": [{
+            "@type": "HowToStep",
+            "name": "Gather Historical Data",
+            "text": "Collect historical price data for your portfolio assets over the desired time period (typically 1-3 years for reliable volatility estimates).",
+            "url": "https://marketwizardry.org/blog/what-is-value-at-risk-var.html#data-collection"
+        }, {
+            "@type": "HowToStep",
+            "name": "Calculate Portfolio Returns",
+            "text": "Calculate daily portfolio returns using the formula: Return = (Today's Value - Yesterday's Value) / Yesterday's Value",
+            "url": "https://marketwizardry.org/blog/what-is-value-at-risk-var.html#returns-calculation"
+        }, {
+            "@type": "HowToStep",
+            "name": "Choose VaR Method",
+            "text": "Select your VaR calculation method: Parametric (assumes normal distribution), Historical (uses actual return distribution), or Monte Carlo (simulation-based).",
+            "url": "https://marketwizardry.org/blog/what-is-value-at-risk-var.html#var-methods"
+        }, {
+            "@type": "HowToStep",
+            "name": "Set Confidence Level and Time Horizon",
+            "text": "Choose your confidence level (typically 95% or 99%) and time horizon (1-day, 10-day, etc.). Higher confidence levels provide more conservative risk estimates.",
+            "url": "https://marketwizardry.org/blog/what-is-value-at-risk-var.html#parameters"
+        }, {
+            "@type": "HowToStep",
+            "name": "Calculate VaR",
+            "text": "Apply your chosen method to calculate VaR. For parametric VaR: VaR = Portfolio Value × Volatility × Z-score × √Time Horizon",
+            "url": "https://marketwizardry.org/var-explorer.html"
+        }, {
+            "@type": "HowToStep",
+            "name": "Interpret and Apply Results",
+            "text": "Use VaR results for risk management, position sizing, and regulatory compliance. Remember that VaR represents potential losses under normal conditions and may underestimate tail risks.",
+            "url": "https://marketwizardry.org/blog/what-is-value-at-risk-var.html#interpretation"
+        }],
+        "author": {
+            "@type": "Person",
+            "name": "TyphooN",
+            "url": "https://marketwizardry.org/about.html"
+        }
+    }
+    </script>
 
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
