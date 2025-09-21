@@ -1319,7 +1319,13 @@ function toggleStopLossMode() {
         }
 
         // VALIDATED: Auto-updated from latest CSVs on 2025-09-17 08:21:55
+        // TEMPORARILY SIMPLIFIED FOR DEBUGGING
         const varData = window.varData = {
+            'AAPL': { var: 5.78, price: 238.23, sector: 'Technology', description: 'Apple Inc', asset_class: 'stocks' },
+            'MSFT': { var: 4.32, price: 456.78, sector: 'Technology', description: 'Microsoft Corp', asset_class: 'stocks' }
+        };
+        /* ORIGINAL DATA COMMENTED OUT FOR DEBUGGING
+        const varDataOriginal = {
             // Data hash: 7153ca7a | Updated: 2025-09-17 08:21:55 | Symbols: 903
             '6A_Z': { var: 482.417627, price: 0.67, sector: 'Currency', description: 'Australian Dollar December', asset_class: 'futures', atr_d1: 0.004789, atr_w1: 0.011379, atr_mn1: 0.029532, outliers: [] },
             '6B_Z': { var: 581.751591, price: 1.37, sector: 'Currency', description: 'British Pound December', asset_class: 'futures', atr_d1: 0.008293, atr_w1: 0.020500, atr_mn1: 0.049450, outliers: [] },
@@ -2224,7 +2230,8 @@ function toggleStopLossMode() {
             'ZS_X': { var: 660.835925, price: 1049.00, sector: 'Commodities', description: 'Soybeans November', asset_class: 'futures', atr_d1: 12.392857, atr_w1: 35.607143, atr_mn1: 77.125000, outliers: [] },
             'ZTS': { var: 2.540885, price: 147.60, sector: 'Healthcare', description: 'Zoetis Inc', asset_class: 'stocks', atr_d1: 2.910000, atr_w1: 7.485714, atr_mn1: 18.306429, outliers: [], ev_data: { market_cap: 65351770112, enterprise_value: 70716833792, mcap_ev_ratio: 92.4 } },
             'ZWS': { var: 1.323206, price: 47.47, sector: 'Industrials', description: 'Zurn Water Solutions Corp', asset_class: 'stocks', atr_d1: 1.148571, atr_w1: 2.307857, atr_mn1: 4.640000, outliers: [], ev_data: { market_cap: 7921905152, enterprise_value: 8288011776, mcap_ev_ratio: 95.6 } }
-};
+        };
+        END OF ORIGINAL DATA COMMENT */
 
         window.lookupSymbol = function() {
             const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
