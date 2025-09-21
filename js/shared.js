@@ -4,7 +4,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Global event delegation for data-action attributes
     document.addEventListener('click', function(e) {
-        const action = e.target.getAttribute('data-action');
+        // Check if clicked element or any parent has data-action
+        let targetElement = e.target.closest('[data-action]');
+        const action = targetElement ? targetElement.getAttribute('data-action') : null;
 
         // Handle modal background clicks
         if (e.target.id === 'analysisModal') {
@@ -16,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         switch(action) {
             case 'loadContent':
-                handleLoadContent(e);
+                handleLoadContent(e, targetElement);
                 break;
             case 'toggle-musing':
                 handleToggleMusing(e);
@@ -68,9 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Blog content loading functionality
-function handleLoadContent(e) {
+function handleLoadContent(e, targetElement) {
     e.preventDefault();
-    const url = e.target.getAttribute('data-url');
+    const element = targetElement || e.target.closest('[data-action="loadContent"]');
+    const url = element ? element.getAttribute('data-url') : null;
     if (url && parent.loadContent) {
         parent.loadContent(url);
     }

@@ -1,11 +1,14 @@
 // Event delegation for data-action attributes
 document.addEventListener('click', function(e) {
-    if (e.target.hasAttribute('data-action')) {
-        const action = e.target.getAttribute('data-action');
+    // Check if clicked element or any parent has data-action
+    let targetElement = e.target.closest('[data-action]');
+
+    if (targetElement) {
+        const action = targetElement.getAttribute('data-action');
 
         switch(action) {
             case 'loadContent':
-                const url = e.target.getAttribute('data-url');
+                const url = targetElement.getAttribute('data-url');
                 if (url && parent.loadContent) {
                     parent.loadContent(url);
                 }
