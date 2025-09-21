@@ -257,7 +257,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         <div class="flavor-text">Digital receipts for GIFs that'll survive longer than your retirement fund. Witness the intersection of art and financial delusion.</div>
         <div class="crt-divider"></div>
         <div class="grid">
-            <div class="file-entry" onclick="window.location.href='nft-gallery/all.html';">
+            <div class="file-entry" data-action="navigate" data-url="nft-gallery/all.html">
                 <a href="nft-gallery/all.html">ALL USERS - WARNING, may cause lag!</a>
                 <div class="entry-description">Every NFT collection on this digital wasteland aggregated into one glorious mess. For collectors who enjoy sensory overload and browser crashes.</div>
             </div>
@@ -273,7 +273,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         user_gallery_file = f'{user}_gallery.html'
         if os.path.exists(user_gallery_file):
             description = get_existing_flavor_text(user)
-            user_links.append(f'<div class="file-entry" onclick="window.location.href=\'nft-gallery/{user_gallery_file}\';"><a href="nft-gallery/{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
+            user_links.append(f'<div class="file-entry" data-action="navigate" data-url="nft-gallery/{user_gallery_file}"><a href="nft-gallery/{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
     
     user_links_str = '\n'.join(user_links)
     final_html = html_content.replace("USER_LINKS_PLACEHOLDER", user_links_str)
@@ -517,9 +517,9 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeModal()">&times;</button>
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
                 <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
@@ -529,17 +529,42 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
-                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
             <div style="text-align: center; margin-top: 10px;">
-                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {{
+            const action = e.target.getAttribute('data-action');
+            if (action) {{
+                switch(action) {{
+                    case 'navigate':
+                        const url = e.target.getAttribute('data-url');
+                        if (url) window.location.href = url;
+                        break;
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous-image':
+                        previousImage();
+                        break;
+                    case 'next-image':
+                        nextImage();
+                        break;
+                    case 'download-image':
+                        downloadImage();
+                        break;
+                }}
+            }}
+        }});
+
         let currentImageIndex = 0;
         const allImagePaths = [IMAGE_PATHS_PLACEHOLDER]; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
@@ -554,8 +579,8 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             img.className = 'thumbnail';
             img.src = path;
             img.onerror = function() {{ console.error("Error loading image:", path); }};
-            img.onload = function() {{ console.log("Image loaded:", path); }};
-            img.onclick = function() {{ openImage(index); }};
+            img.addEventListener('load', function() {{ console.log("Image loaded:", path); }});
+            img.addEventListener('click', function() {{ openImage(index); }});
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
         }}
@@ -681,12 +706,12 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         	}}
     	}}
     	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {{
+   	 window.addEventListener('click', function(event) {{
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {{
             		closeModal();
         }}
-    }};
+    }});
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {{
             const modal = document.getElementById('fullscreenModal');
@@ -706,6 +731,13 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                 }}
             }}
         }});
+
+        // Make functions globally accessible for backward compatibility
+        window.closeModal = closeModal;
+        window.previousImage = previousImage;
+        window.nextImage = nextImage;
+        window.downloadImage = downloadImage;
+        window.openImage = openImage;
     </script>
     </div>
 </body>
@@ -965,9 +997,9 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeModal()">&times;</button>
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
                 <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
@@ -977,17 +1009,42 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
-                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
             <div style="text-align: center; margin-top: 10px;">
-                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {{
+            const action = e.target.getAttribute('data-action');
+            if (action) {{
+                switch(action) {{
+                    case 'navigate':
+                        const url = e.target.getAttribute('data-url');
+                        if (url) window.location.href = url;
+                        break;
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous-image':
+                        previousImage();
+                        break;
+                    case 'next-image':
+                        nextImage();
+                        break;
+                    case 'download-image':
+                        downloadImage();
+                        break;
+                }}
+            }}
+        }});
+
         let currentImageIndex = 0;
         const allImagePaths = [IMAGE_PATHS_PLACEHOLDER]; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
@@ -1002,8 +1059,8 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             img.className = 'thumbnail';
             img.src = path;
             img.onerror = function() {{ console.error("Error loading image:", path); }};
-            img.onload = function() {{ console.log("Image loaded:", path); }};
-            img.onclick = function() {{ openImage(index); }};
+            img.addEventListener('load', function() {{ console.log("Image loaded:", path); }});
+            img.addEventListener('click', function() {{ openImage(index); }});
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
         }}
@@ -1129,12 +1186,12 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         	}}
     	}}
     	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {{
+   	 window.addEventListener('click', function(event) {{
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {{
             		closeModal();
         }}
-    }};
+    }});
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {{
             const modal = document.getElementById('fullscreenModal');
@@ -1154,6 +1211,13 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                 }}
             }}
         }});
+
+        // Make functions globally accessible for backward compatibility
+        window.closeModal = closeModal;
+        window.previousImage = previousImage;
+        window.nextImage = nextImage;
+        window.downloadImage = downloadImage;
+        window.openImage = openImage;
     </script>
     </div>
 </body>

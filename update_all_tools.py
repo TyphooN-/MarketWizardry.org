@@ -294,8 +294,8 @@ class FinancialToolsUpdater:
             csv_path = f"{file_info['directory']}/{file_info['csv_file']}" if file_info['csv_file'] else ""
 
             grid_html += f'''
-            <div class="file-entry" onclick="openModalWithFile('{outlier_path}', '{csv_path}', '{file_info['display_name']}')">
-                <a href="#" data-outlier-file="{outlier_path}" data-csv-file="{csv_path}" onclick="openModalWithFile('{outlier_path}', '{csv_path}', '{file_info['display_name']}'); return false;">
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="{outlier_path}" data-csv-file="{csv_path}" data-display-name="{file_info['display_name']}">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="{outlier_path}" data-csv-file="{csv_path}" data-display-name="{file_info['display_name']}">
                     {file_info['display_name']}
                 </a>
             </div>'''
@@ -483,6 +483,24 @@ class FinancialToolsUpdater:
     def _generate_modal_javascript(self):
         """Generate complete modal system JavaScript"""
         return '''
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            const action = e.target.getAttribute('data-action');
+            if (action) {
+                switch(action) {
+                    case 'open-modal-with-file':
+                        e.preventDefault();
+                        const outlierFile = e.target.getAttribute('data-outlier-file');
+                        const csvFile = e.target.getAttribute('data-csv-file');
+                        const displayName = e.target.getAttribute('data-display-name');
+                        if (outlierFile && displayName) {
+                            openModalWithFile(outlierFile, csvFile, displayName);
+                        }
+                        break;
+                }
+            }
+        });
+
         let currentFileIndex = 0;
         let filesList = [];
 
@@ -548,12 +566,18 @@ class FinancialToolsUpdater:
         });
 
         // Close modal when clicking outside
-        window.onclick = function(event) {
+        window.addEventListener('click', function(event) {
             const modal = document.getElementById('outlier-modal');
             if (event.target == modal) {
                 closeModal();
             }
-        }'''
+        });
+
+        // Make functions globally accessible for backward compatibility
+        window.openModalWithFile = openModalWithFile;
+        window.closeModal = closeModal;
+        window.previousFile = previousFile;
+        window.nextFile = nextFile;'''
 
     def generate_var_explorer(self, data):
         """Generate VaR Explorer page with full modal functionality"""

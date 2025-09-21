@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="rightclickdead's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.">
+    <meta name="description" content="rightclickdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, rightclickdead, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - rightclickdead - MarketWizardry.org">
-    <meta property="og:description" content="rightclickdead's digital art collection - Right-click is dead, but unfortunately, this art lived. This collection explores what happens when copyright protection meets artistic incompetence. Save-as recommended, viewing not advised.">
+    <meta property="og:description" content="rightclickdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/rightclickdead_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -36,7 +36,7 @@
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - rightclickdead - MarketWizardry.org">
-    <meta name="twitter:description" content="rightclickdead's digital art collection - Right-click is dead, but unfortunately, this art lived. This collection explores what happens when copyright protection meets artistic incompetence. Save-as recommended, viewing not advised.">
+    <meta name="twitter:description" content="rightclickdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -302,16 +302,16 @@
     <div class="container">
         <h2>NFT Gallery - rightclickdead</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">rightclickdead's digital art collection - Right-click is dead, but unfortunately, this art lived. This collection explores what happens when copyright protection meets artistic incompetence. Save-as recommended, viewing not advised.</div>
+        <div class="flavor-text">rightclickdead's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
         <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeModal()">&times;</button>
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
                 <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
@@ -321,17 +321,42 @@
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
-                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
             <div style="text-align: center; margin-top: 10px;">
-                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            const action = e.target.getAttribute('data-action');
+            if (action) {
+                switch(action) {
+                    case 'navigate':
+                        const url = e.target.getAttribute('data-url');
+                        if (url) window.location.href = url;
+                        break;
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous-image':
+                        previousImage();
+                        break;
+                    case 'next-image':
+                        nextImage();
+                        break;
+                    case 'download-image':
+                        downloadImage();
+                        break;
+                }
+            }
+        });
+
         let currentImageIndex = 0;
         const allImagePaths = ['./rightclickdead/webp/rightclickdead-1934316882904957033-ahah_nice__video4-lossy.webp',
             './rightclickdead/webp/rightclickdead-1930215643-carpal_tunnel_video1-lossy.webp',
@@ -387,8 +412,8 @@
             img.className = 'thumbnail';
             img.src = path;
             img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
+            img.addEventListener('load', function() { console.log("Image loaded:", path); });
+            img.addEventListener('click', function() { openImage(index); });
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
         }
@@ -514,12 +539,12 @@
         	}
     	}
     	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
+   	 window.addEventListener('click', function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
             		closeModal();
         }
-    };
+    });
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -539,6 +564,13 @@
                 }
             }
         });
+
+        // Make functions globally accessible for backward compatibility
+        window.closeModal = closeModal;
+        window.previousImage = previousImage;
+        window.nextImage = nextImage;
+        window.downloadImage = downloadImage;
+        window.openImage = openImage;
     </script>
     </div>
 </body>

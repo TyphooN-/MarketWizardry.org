@@ -291,24 +291,45 @@ def generate_ai_art_html(output_file='ai-art.html'):
     </div>
 
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeModal()">&times;</button>
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
-                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
             <div style="text-align: center; margin-top: 10px;">
-                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {{
+            const action = e.target.getAttribute('data-action');
+            if (action) {{
+                switch(action) {{
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous-image':
+                        previousImage();
+                        break;
+                    case 'next-image':
+                        nextImage();
+                        break;
+                    case 'download-image':
+                        downloadImage();
+                        break;
+                }}
+            }}
+        }});
+
         const allImagePaths = [
             {IMAGE_PATHS_PLACEHOLDER}
         ];
@@ -392,12 +413,12 @@ def generate_ai_art_html(output_file='ai-art.html'):
         });
 
         // Click outside modal to close
-        window.onclick = function(event) {
+        window.addEventListener('click', function(event) {
             const modal = document.getElementById('fullscreenModal');
             if (event.target === modal) {
                 closeModal();
             }
-        };
+        });
 
         // Populate image grid on load
         document.addEventListener('DOMContentLoaded', () => {
@@ -411,12 +432,19 @@ def generate_ai_art_html(output_file='ai-art.html'):
                 img.src = path;
                 img.alt = `AI Art ${index + 1}`;
                 img.loading = 'lazy';
-                img.onclick = () => openImage(index);
+                img.addEventListener('click', () => openImage(index));
 
                 imgContainer.appendChild(img);
                 imageGrid.appendChild(imgContainer);
             });
         });
+
+        // Make functions globally accessible for backward compatibility
+        window.openImage = openImage;
+        window.closeModal = closeModal;
+        window.previousImage = previousImage;
+        window.nextImage = nextImage;
+        window.downloadImage = downloadImage;
     </script>
 </body>
 </html>'''

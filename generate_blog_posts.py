@@ -547,7 +547,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     <div class="flavor-text">{description}</div>
     <div class="crt-divider"></div>
     
-    <div class="content-section" onclick="openModal()">
+    <div class="content-section" data-action="open-modal">
         <h2>{section_title}</h2>
         <p class="summary">{summary}</p>
         <p class="summary"><strong>Click to read full analysis</strong></p>
@@ -559,14 +559,40 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     <div class="modal-content">
         <div class="modal-header">
             <h2>{title}</h2>
-            <a id="downloadButton" href="{txt_filename}" download="{txt_filename}" onclick="forceDownload(event, this)">Download Report</a>
-            <span class="close-button" onclick="closeModal()">&times;</span>
+            <a id="downloadButton" href="{txt_filename}" download="{txt_filename}" data-action="force-download">Download Report</a>
+            <span class="close-button" data-action="close-modal">&times;</span>
         </div>
         <div class="modal-text" tabindex="0" id="analysisContent"></div>
     </div>
 </div>
 
 <script>
+    // Event delegation for data-action attributes
+    document.addEventListener('click', function(e) {{
+        const action = e.target.getAttribute('data-action');
+        if (action) {{
+            switch(action) {{
+                case 'open-modal':
+                    openModal();
+                    break;
+                case 'close-modal':
+                    closeModal();
+                    break;
+                case 'force-download':
+                    e.preventDefault();
+                    forceDownload(e, e.target);
+                    break;
+                case 'load-content':
+                    e.preventDefault();
+                    const content = e.target.getAttribute('data-content');
+                    if (content && window.parent && window.parent.loadContent) {{
+                        window.parent.loadContent(content);
+                    }}
+                    break;
+            }}
+        }}
+    }});
+
     // Force download function
     function forceDownload(event, link) {{
         event.preventDefault();
@@ -671,6 +697,11 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             modalText.scrollTop += scrollAmount;
         }}
     }});
+
+    // Make functions globally accessible for backward compatibility
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.forceDownload = forceDownload;
 </script>
 </body>
 </html>'''
@@ -1179,8 +1210,8 @@ def update_blog_index(all_new_entries):
                 description_html = f'<div class="entry-description">{entry["summary"]}</div>'
 
             entry_html = (
-                f'            <div class="blog-entry" onclick="parent.loadContent(\'blog/{entry["filename"]}\');">\n'
-                f'                <a href="#" onclick="event.stopPropagation(); parent.loadContent(\'blog/{entry["filename"]}\');">{entry["title"]}</a>\n'
+                f'            <div class="blog-entry" data-action="load-content" data-content="blog/{entry["filename"]}">\n'
+                f'                <a href="#" data-action="load-content" data-content="blog/{entry["filename"]}">{entry["title"]}</a>\n'
                 f'                <span class="date">Posted: {entry["date"]}</span>{description_html}\n'
                 f'            </div>'
             )

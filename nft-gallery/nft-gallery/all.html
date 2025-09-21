@@ -247,18 +247,17 @@
         color: #00aa00;
         margin-bottom: 20px;
         padding: 10px 0;
+        text-align: left;
     }
 
     .breadcrumb a {
         color: #00ff00 !important;
         text-decoration: none;
-        border-bottom: 1px dotted #00ff00;
         transition: all 0.2s ease;
     }
 
     .breadcrumb a:hover {
         color: #ffffff !important;
-        border-bottom-color: #ffffff !important;
     }
 
     .breadcrumb .separator {
@@ -306,9 +305,9 @@
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeModal()">&times;</button>
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
                 <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
@@ -318,17 +317,42 @@
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
-                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
             <div style="text-align: center; margin-top: 10px;">
-                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            const action = e.target.getAttribute('data-action');
+            if (action) {
+                switch(action) {
+                    case 'navigate':
+                        const url = e.target.getAttribute('data-url');
+                        if (url) window.location.href = url;
+                        break;
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous-image':
+                        previousImage();
+                        break;
+                    case 'next-image':
+                        nextImage();
+                        break;
+                    case 'download-image':
+                        downloadImage();
+                        break;
+                }
+            }
+        });
+
         let currentImageIndex = 0;
         const allImagePaths = []; // All image paths from Python
         console.log("All Image Paths:", allImagePaths);
@@ -343,8 +367,8 @@
             img.className = 'thumbnail';
             img.src = path;
             img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
+            img.addEventListener('load', function() { console.log("Image loaded:", path); });
+            img.addEventListener('click', function() { openImage(index); });
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
         }
@@ -431,7 +455,7 @@
                     const username = parts[0];
                     const tweetId = parts[1];
                     // Verify tweet_id is numeric
-                    if (/^\\d+$/.test(tweetId)) {
+                    if (/^\d+$/.test(tweetId)) {
                         return { username, tweetId };
                     }
                 }
@@ -470,12 +494,12 @@
         	}
     	}
     	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
+   	 window.addEventListener('click', function(event) {
         	const modal = document.getElementById('fullscreenModal');
         	if (event.target === modal) {
-            	closeModal();
+            		closeModal();
         }
-    };
+    });
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -495,6 +519,13 @@
                 }
             }
         });
+
+        // Make functions globally accessible for backward compatibility
+        window.closeModal = closeModal;
+        window.previousImage = previousImage;
+        window.nextImage = nextImage;
+        window.downloadImage = downloadImage;
+        window.openImage = openImage;
     </script>
     </div>
 </body>

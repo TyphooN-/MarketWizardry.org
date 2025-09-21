@@ -101,7 +101,7 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
             <p class="excerpt">{musing['excerpt']}</p>
             <div class="musing-meta">
                 <span class="word-count">{musing['word_count']} words</span>
-                <button class="expand-btn" onclick="toggleMusing('{musing['filename']}')" id="btn-{musing['filename']}">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="{musing['filename']}" id="btn-{musing['filename']}">Expand</button>
             </div>
             <div class="full-content" id="content-{musing['filename']}" style="display: none;">
                 <pre>{musing['content']}</pre>
@@ -257,6 +257,21 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
     </div>
 
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {{
+            const action = e.target.getAttribute('data-action');
+            if (action) {{
+                switch(action) {{
+                    case 'toggle-musing':
+                        const filename = e.target.getAttribute('data-filename');
+                        if (filename) {{
+                            toggleMusing(filename);
+                        }}
+                        break;
+                }}
+            }}
+        }});
+
         function toggleMusing(filename) {{
             const content = document.getElementById('content-' + filename);
             const btn = document.getElementById('btn-' + filename);
@@ -269,6 +284,9 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
                 btn.textContent = 'Expand';
             }}
         }}
+
+        // Make functions globally accessible for backward compatibility
+        window.toggleMusing = toggleMusing;
     </script>
 </body>
 </html>'''

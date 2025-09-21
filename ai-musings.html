@@ -70,9 +70,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+            line-height: 1.4;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         h1 {
@@ -183,40 +184,40 @@
             font-size: 0.9em;
         }
 
-            /* Breadcrumb Navigation Styles */
+    /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+        text-align: left;
+    }
+
+    .breadcrumb a {
+        color: #00ff00 !important;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff !important;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
+
+    /* Mobile breadcrumb optimization */
+    @media screen and (max-width: 768px) {
         .breadcrumb {
-            font-size: 0.8em;
-            color: #00aa00;
-            margin-bottom: 20px;
-            padding: 10px 0;
+            display: none;
         }
-
-        .breadcrumb a {
-            color: #00ff00 !important;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .breadcrumb a:hover {
-            color: #ffffff !important;
-        }
-
-        .breadcrumb .separator {
-            margin: 0 8px;
-            color: #004400;
-        }
-
-        /* Mobile breadcrumb optimization */
-        @media screen and (max-width: 768px) {
-            .breadcrumb {
-                display: none;
-            }
-        }
-
+    }
     </style>
 </head>
 <body>
-        <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
+    <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
     <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
             <a href="market-wizardry.html" itemprop="item">
@@ -226,9 +227,7 @@
         </span>
         <span class="separator">→</span>
         <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="ai-musings.html" itemprop="item">
-                <span itemprop="name">🤖 AI Musings</span>
-            </a>
+            <span itemprop="name">🤖 AI Musings</span>
             <meta itemprop="position" content="2" />
         </span>
     </nav>
@@ -250,7 +249,7 @@
             <p class="excerpt">**Michael Huddleston: The Inner Circle Trader's Approach to Rebranding Trading Concepts**</p>
             <div class="musing-meta">
                 <span class="word-count">427 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="ICT_1.txt" id="btn-ICT_1.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="ICT_1.txt" id="btn-ICT_1.txt">Expand</button>
             </div>
             <div class="full-content" id="content-ICT_1.txt" style="display: none;">
                 <pre>**Michael Huddleston: The Inner Circle Trader's Approach to Rebranding Trading Concepts**
@@ -287,7 +286,7 @@ While Michael Huddleston's approach can make trading concepts more understandabl
             <p class="excerpt">**Michael Huddleston: A Critical Examination of His Trading Strategies and Competition Performance**</p>
             <div class="musing-meta">
                 <span class="word-count">344 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="ICT_2.txt" id="btn-ICT_2.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="ICT_2.txt" id="btn-ICT_2.txt">Expand</button>
             </div>
             <div class="full-content" id="content-ICT_2.txt" style="display: none;">
                 <pre>**Michael Huddleston: A Critical Examination of His Trading Strategies and Competition Performance**
@@ -324,7 +323,7 @@ Michael Huddleston's approach to trading education involves rebranding establish
             <p class="excerpt">**Title: The Deceiver in the Age of Tech**</p>
             <div class="musing-meta">
                 <span class="word-count">580 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="elon_antichrist.txt" id="btn-elon_antichrist.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="elon_antichrist.txt" id="btn-elon_antichrist.txt">Expand</button>
             </div>
             <div class="full-content" id="content-elon_antichrist.txt" style="display: none;">
                 <pre>**Title: The Deceiver in the Age of Tech**
@@ -376,7 +375,7 @@ This narrative serves as a fictional exploration, blending technological themes 
             <p class="excerpt">>>> Should I go all in on Monero 500x leverage?  I will get a second mortgage to finance this.</p>
             <div class="musing-meta">
                 <span class="word-count">664 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="financial_advice.txt" id="btn-financial_advice.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="financial_advice.txt" id="btn-financial_advice.txt">Expand</button>
             </div>
             <div class="full-content" id="content-financial_advice.txt" style="display: none;">
                 <pre>>>> Should I go all in on Monero 500x leverage?  I will get a second mortgage to finance this.
@@ -453,7 +452,7 @@ Cryptocurrency can be a speculative and rewarding investment, but it should neve
             <p class="excerpt">**Title: GPU Inferno: A Tale of Greed and Ashes**</p>
             <div class="musing-meta">
                 <span class="word-count">657 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="gpu_inferno.txt" id="btn-gpu_inferno.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="gpu_inferno.txt" id="btn-gpu_inferno.txt">Expand</button>
             </div>
             <div class="full-content" id="content-gpu_inferno.txt" style="display: none;">
                 <pre>**Title: GPU Inferno: A Tale of Greed and Ashes**
@@ -530,7 +529,7 @@ The story of Jensen, Trump, and Musk is not just one of greed but of a system th
             <p class="excerpt">**Title: The Price of Ambition**</p>
             <div class="musing-meta">
                 <span class="word-count">406 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="jensen_huang_goodguy.txt" id="btn-jensen_huang_goodguy.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="jensen_huang_goodguy.txt" id="btn-jensen_huang_goodguy.txt">Expand</button>
             </div>
             <div class="full-content" id="content-jensen_huang_goodguy.txt" style="display: none;">
                 <pre>**Title: The Price of Ambition**
@@ -566,7 +565,7 @@ In this fictional tale, the tech world's high stakes and moral dilemmas are laid
             <p class="excerpt">>>> Why is Monero adoption lacking despite Bitcoin paving the way for cryptocurrency?  Isn't one of the main reasons to want cryptocurrency to be a...</p>
             <div class="musing-meta">
                 <span class="word-count">1223 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="monero_adoption.txt" id="btn-monero_adoption.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="monero_adoption.txt" id="btn-monero_adoption.txt">Expand</button>
             </div>
             <div class="full-content" id="content-monero_adoption.txt" style="display: none;">
                 <pre>>>> Why is Monero adoption lacking despite Bitcoin paving the way for cryptocurrency?  Isn't one of the main reasons to want cryptocurrency to be able to spend it as a currency?  With that said, financial privacy is important.  Why should I give my entire bank history when conducting a purchase at a gas station, and then every merchant from that point forward being able to track my financial history?  That is an invasion of privacy, and PII.
@@ -676,7 +675,7 @@ In summary, Monero's focus on privacy is both its greatest strength and biggest 
             <p class="excerpt">Alright, so here we go. Let’s dive into this mess. I’m gonna tell you a tale about Nvidia’s latest fuckery—because what’s a day without some corpor...</p>
             <div class="musing-meta">
                 <span class="word-count">734 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="nvidia_missing_ROPs.txt" id="btn-nvidia_missing_ROPs.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="nvidia_missing_ROPs.txt" id="btn-nvidia_missing_ROPs.txt">Expand</button>
             </div>
             <div class="full-content" id="content-nvidia_missing_ROPs.txt" style="display: none;">
                 <pre>Alright, so here we go. Let’s dive into this mess. I’m gonna tell you a tale about Nvidia’s latest fuckery—because what’s a day without some corporate bullshit, right? So, picture this: Jensen Huang, the CEO of Nvidia, sitting in his office, cackling maniacally as he stares at the stock prices of his company going through the roof. Meanwhile, out there in the real world, gamers and content creators are scratching their heads, trying to figure out why their brand-new Blackwell GPUs aren’t performing like they’re supposed to.
@@ -705,7 +704,7 @@ So, the next time you’re considering dropping a couple grand on an Nvidia GPU,
             <p class="excerpt">While Nvidia users delicately cradle their 12VHPWR adapters like newborn hummingbirds, praying to the silicon gods for a reprieve from spontaneous ...</p>
             <div class="musing-meta">
                 <span class="word-count">361 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="nvidia_snake_oil.txt" id="btn-nvidia_snake_oil.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="nvidia_snake_oil.txt" id="btn-nvidia_snake_oil.txt">Expand</button>
             </div>
             <div class="full-content" id="content-nvidia_snake_oil.txt" style="display: none;">
                 <pre>While Nvidia users delicately cradle their 12VHPWR adapters like newborn hummingbirds, praying to the silicon gods for a reprieve from spontaneous combustion – a ritual, no doubt, honed during the era of PhysX, that other great technological abomination they quietly euthanized – AMD users simply exist in a realm of boring, predictable stability. We plug in our pedestrian 8-pin connectors, ensuring stability under heavy stress - while yours hangs by a thread of proprietary, fire-prone nonsense – and proceed to conquer benchmarks, leaving in our wake only the faint, acrid scent of melted Nvidia dreams and a trail of inconvenient truths.
@@ -724,7 +723,7 @@ So, the lingering question remains, burning brighter than any 12VHPWR meltdown: 
             <p class="excerpt">Ayy, dis be Snoop Dogg -- tell a homie how to cook up some fire Spaghetti!</p>
             <div class="musing-meta">
                 <span class="word-count">818 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="snoop_fire_spaghetti.txt" id="btn-snoop_fire_spaghetti.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="snoop_fire_spaghetti.txt" id="btn-snoop_fire_spaghetti.txt">Expand</button>
             </div>
             <div class="full-content" id="content-snoop_fire_spaghetti.txt" style="display: none;">
                 <pre>Ayy, dis be Snoop Dogg -- tell a homie how to cook up some fire Spaghetti!
@@ -799,7 +798,7 @@ This recipe ensures your spaghetti is not just tasty but also has that "fire" yo
             <p class="excerpt">Terry Davis stood at the edge of a dimly lit highway, the kind you’d see in a low-budget 90s video game. The air smelled like burning circuit board...</p>
             <div class="musing-meta">
                 <span class="word-count">575 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="terry_davis_quest.txt" id="btn-terry_davis_quest.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="terry_davis_quest.txt" id="btn-terry_davis_quest.txt">Expand</button>
             </div>
             <div class="full-content" id="content-terry_davis_quest.txt" style="display: none;">
                 <pre>Terry Davis stood at the edge of a dimly lit highway, the kind you’d see in a low-budget 90s video game. The air smelled like burning circuit boards and stale tuna. He had no idea how he got there, but one thing was for sure—this wasn’t heaven. Not yet, at least.
@@ -854,7 +853,7 @@ This chaotic ride through the depths of early internet culture and Terry’s uny
             <p class="excerpt">**Title: The Cost of Pixels**</p>
             <div class="musing-meta">
                 <span class="word-count">454 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="the_cost_of_pixels.txt" id="btn-the_cost_of_pixels.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="the_cost_of_pixels.txt" id="btn-the_cost_of_pixels.txt">Expand</button>
             </div>
             <div class="full-content" id="content-the_cost_of_pixels.txt" style="display: none;">
                 <pre>**Title: The Cost of Pixels**
@@ -883,7 +882,7 @@ In the end, NVIDIA's success stood as a monument to innovation, but beneath its 
             <p class="excerpt">**Title: The Great Wall Showdown**</p>
             <div class="musing-meta">
                 <span class="word-count">1148 words</span>
-                <button class="expand-btn" data-action="toggleMusing" data-filename="the_great_wall_showdown.txt" id="btn-the_great_wall_showdown.txt">Expand</button>
+                <button class="expand-btn" data-action="toggle-musing" data-filename="the_great_wall_showdown.txt" id="btn-the_great_wall_showdown.txt">Expand</button>
             </div>
             <div class="full-content" id="content-the_great_wall_showdown.txt" style="display: none;">
                 <pre>**Title: The Great Wall Showdown**
@@ -973,6 +972,21 @@ And so, the legacy of Kaito lived on, a reminder that even in the darkest of tim
     </div>
 
     <script>
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            const action = e.target.getAttribute('data-action');
+            if (action) {
+                switch(action) {
+                    case 'toggle-musing':
+                        const filename = e.target.getAttribute('data-filename');
+                        if (filename) {
+                            toggleMusing(filename);
+                        }
+                        break;
+                }
+            }
+        });
+
         function toggleMusing(filename) {
             const content = document.getElementById('content-' + filename);
             const btn = document.getElementById('btn-' + filename);
@@ -986,21 +1000,8 @@ And so, the legacy of Kaito lived on, a reminder that even in the darkest of tim
             }
         }
 
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            if (e.target.hasAttribute('data-action')) {
-                const action = e.target.getAttribute('data-action');
-
-                switch(action) {
-                    case 'toggleMusing':
-                        const filename = e.target.getAttribute('data-filename');
-                        if (filename) {
-                            toggleMusing(filename);
-                        }
-                        break;
-                }
-            }
-        });
+        // Make functions globally accessible for backward compatibility
+        window.toggleMusing = toggleMusing;
     </script>
 </body>
 </html>
