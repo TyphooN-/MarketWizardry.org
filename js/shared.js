@@ -57,6 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'next':
                 handleNextFile(e);
                 break;
+            case 'open-image':
+                handleOpenImage(e);
+                break;
+            case 'stop-propagation':
+                e.stopPropagation();
+                break;
         }
     });
 });
@@ -336,6 +342,17 @@ function forceDownloadFallback(event, link) {
             // Fallback: Open in new tab
             window.open(url, '_blank');
         });
+}
+
+// NFT Gallery image opening functionality
+function handleOpenImage(e) {
+    e.preventDefault();
+    const index = parseInt(e.target.getAttribute('data-index'));
+    if (!isNaN(index) && window.openModal) {
+        window.openModal(index);
+    } else if (!isNaN(index) && window.openImage) {
+        window.openImage(index);
+    }
 }
 
 // Make functions globally accessible for backward compatibility

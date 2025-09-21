@@ -6,6 +6,9 @@ const files = {
     5: 'DER8AUER',
     6: 'FINANCIAL_DISCLAIMERS',
     7: 'OVERCLOCKING_FORUMS',
+    8: 'CRYPTOCURRENCY_DISCLAIMERS',
+    9: 'OPEN_SOURCE_DISCLAIMERS',
+    10: 'GAMING_INDUSTRY_DISCLAIMERS',
 };
 
 let currentFileIndex = 0;
