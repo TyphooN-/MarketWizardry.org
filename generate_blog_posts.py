@@ -1032,6 +1032,44 @@ def parse_existing_blog_entries():
         return []
 
 
+def update_blog_seo_metadata(content):
+    """Update SEO metadata in blog.html content"""
+
+    # Proper SEO content for blog.html
+    proper_description = "Financial autism documented in real-time for your entertainment and education. Market analysis, trading insights, and portfolio destruction methodologies with mathematical precision."
+    proper_keywords = "financial analysis, market data, trading insights, VaR analysis, risk management, market outliers, trading strategy, Darwinex analysis, portfolio management, statistical analysis, financial blog, market research, trading psychology, quantitative trading, volatility analysis, cryptocurrency analysis, FOSS advocacy, hardware optimization, gaming servers, technical analysis"
+
+    # Update meta description
+    content = re.sub(
+        r'<meta name="description" content="[^"]*">',
+        f'<meta name="description" content="{proper_description}">',
+        content
+    )
+
+    # Update meta keywords
+    content = re.sub(
+        r'<meta name="keywords" content="[^"]*">',
+        f'<meta name="keywords" content="{proper_keywords}">',
+        content
+    )
+
+    # Update Open Graph description
+    content = re.sub(
+        r'<meta property="og:description" content="[^"]*">',
+        f'<meta property="og:description" content="{proper_description}">',
+        content
+    )
+
+    # Update Twitter description (truncated)
+    twitter_description = "Financial autism documented in real-time for your entertainment and education. Market analysis, trading insights, and portfolio destruction methodologies."
+    content = re.sub(
+        r'<meta name="twitter:description" content="[^"]*">',
+        f'<meta name="twitter:description" content="{twitter_description}">',
+        content
+    )
+
+    return content
+
 def update_blog_index(all_new_entries):
     """Update blog.html with all entries separated into educational and daily analysis sections"""
 
@@ -1148,6 +1186,9 @@ def update_blog_index(all_new_entries):
                 print("Complete fallback: keeping existing content...")
                 new_content = current_content
     
+    # Update SEO metadata before writing
+    new_content = update_blog_seo_metadata(new_content)
+
     # Write updated blog.html
     with open(BLOG_INDEX, 'w', encoding='utf-8') as f:
         f.write(new_content)
