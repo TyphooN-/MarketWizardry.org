@@ -35,17 +35,12 @@
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
-<<<<<<< HEAD
-    # Strict Content Security Policy - no inline scripts/styles allowed
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self'; worker-src 'none'; child-src 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self';"
-=======
     # Content Security Policy - secure configuration without unsafe-inline
     # Fixed CSP issues by moving inline scripts to external files and allowing iframe functionality
     # frame-src 'self' - allows iframe loading for blog modals
     # child-src 'self' - supports iframe functionality
     # script-src 'self' - no unsafe-inline needed, all JavaScript moved to external files
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self'; worker-src 'none'; child-src 'self'; form-action 'self'; base-uri 'self'; manifest-src 'self';"
->>>>>>> 59efb72 (CSP rollup)
 </IfModule>
 
 # Pretty URLs for SEO
