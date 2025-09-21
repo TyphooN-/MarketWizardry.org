@@ -312,19 +312,19 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeModal()">&times;</button>
+    <div class="modal" id="fullscreenModal" data-action="closeModal">
+        <div class="modal-content" data-action="stopPropagation">
+            <button class="close-button" data-action="closeModal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="previousImage()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="previousImage">← Previous</button>
                 <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
-                <button class="nav-button" id="nextButton" onclick="nextImage()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="nextImage">Next →</button>
             </div>
             <div style="text-align: center; margin-top: 10px;">
-                <button class="nav-button" id="downloadButton" onclick="downloadImage()">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="downloadImage">⬇ Download</button>
             </div>
         </div>
     </div>
@@ -476,6 +476,35 @@
             modal.style.display = 'none';
         }
 
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            if (e.target.hasAttribute('data-action')) {
+                const action = e.target.getAttribute('data-action');
+
+                switch(action) {
+                    case 'closeModal':
+                        closeModal();
+                        break;
+                    case 'stopPropagation':
+                        e.stopPropagation();
+                        break;
+                    case 'previousImage':
+                        previousImage();
+                        break;
+                    case 'nextImage':
+                        nextImage();
+                        break;
+                    case 'downloadImage':
+                        downloadImage();
+                        break;
+                    case 'openImage':
+                        const index = parseInt(e.target.getAttribute('data-index'));
+                        openImage(index);
+                        break;
+                }
+            }
+        });
+
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
@@ -516,7 +545,8 @@
                 img.src = path;
                 img.alt = `AI Art ${index + 1}`;
                 img.loading = 'lazy';
-                img.onclick = () => openImage(index);
+                img.setAttribute('data-action', 'openImage');
+                img.setAttribute('data-index', index);
 
                 imgContainer.appendChild(img);
                 imageGrid.appendChild(imgContainer);

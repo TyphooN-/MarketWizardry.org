@@ -274,19 +274,19 @@
                 </div>
             </a>
             
-            <div class="donate-item" onclick="copyToClipboard('bc1q3gwpt0z7r0jgs8hgrenldjpyswdyrtdqxy5gr2', 'Bitcoin')">
+            <div class="donate-item" data-action="copyToClipboard" data-address="bc1q3gwpt0z7r0jgs8hgrenldjpyswdyrtdqxy5gr2" data-currency="Bitcoin">
                 <h3>Bitcoin</h3>
                 <img src="https://marketwizardry.org/img/bitcoin_donate.webp" alt="Bitcoin Donation QR Code" loading="lazy">
                 <div class="crypto-address">bc1q3gwpt0z7r0jgs8hgrenldjpyswdyrtdqxy5gr2</div>
             </div>
             
-            <div class="donate-item" onclick="copyToClipboard('42uHjHh5tjcGeM53uzeQJm4kMQaPJtc5EcrZiAjg8JiA5bG2n4Hw3H95QGwQs8BMi8Db4WU9FAKgtSznYUgEk9NpTudt8zm', 'Monero')">
+            <div class="donate-item" data-action="copyToClipboard" data-address="42uHjHh5tjcGeM53uzeQJm4kMQaPJtc5EcrZiAjg8JiA5bG2n4Hw3H95QGwQs8BMi8Db4WU9FAKgtSznYUgEk9NpTudt8zm" data-currency="Monero">
                 <h3>Monero</h3>
                 <img src="https://marketwizardry.org/img/monero_donate.webp" alt="Monero Donation QR Code" loading="lazy">
                 <div class="crypto-address">42uHjHh5tjcGeM53uzeQJm4kMQaPJtc5EcrZiAjg8JiA5bG2n4Hw3H95QGwQs8BMi8Db4WU9FAKgtSznYUgEk9NpTudt8zm</div>
             </div>
             
-            <div class="donate-item" onclick="copyToClipboard('ZxDbtEwnBhq3gRSYm7HGQ6iq81yrVAj93FCGipbMziXsJ1A44gUdvuRAsHuHu6okAbisZC6hJrqgT6CWYWjYukob1zLNkzXSL', 'Zano')">
+            <div class="donate-item" data-action="copyToClipboard" data-address="ZxDbtEwnBhq3gRSYm7HGQ6iq81yrVAj93FCGipbMziXsJ1A44gUdvuRAsHuHu6okAbisZC6hJrqgT6CWYWjYukob1zLNkzXSL" data-currency="Zano">
                 <h3>Zano</h3>
                 <img src="https://marketwizardry.org/img/zano_donate.webp" alt="Zano Donation QR Code" loading="lazy">
                 <div class="crypto-address">ZxDbtEwnBhq3gRSYm7HGQ6iq81yrVAj93FCGipbMziXsJ1A44gUdvuRAsHuHu6okAbisZC6hJrqgT6CWYWjYukob1zLNkzXSL</div>
@@ -344,6 +344,23 @@
                 notification.classList.remove('show');
             }, 2000);
         }
+
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            if (e.target.hasAttribute('data-action')) {
+                const action = e.target.getAttribute('data-action');
+
+                switch(action) {
+                    case 'copyToClipboard':
+                        const address = e.target.getAttribute('data-address');
+                        const currency = e.target.getAttribute('data-currency');
+                        if (address && currency) {
+                            copyToClipboard(address, currency);
+                        }
+                        break;
+                }
+            }
+        });
     </script>
 
 </body>

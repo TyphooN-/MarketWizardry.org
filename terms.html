@@ -409,9 +409,9 @@
             </div>
             <pre id="textContent" class="modal-body"></pre>
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" onclick="navigatePrevious()">← Previous</button>
+                <button class="nav-button" id="prevButton" data-action="navigatePrevious">← Previous</button>
                 <span class="nav-counter" id="navCounter"></span>
-                <button class="nav-button" id="nextButton" onclick="navigateNext()">Next →</button>
+                <button class="nav-button" id="nextButton" data-action="navigateNext">Next →</button>
             </div>
         </div>
     </div>
@@ -546,6 +546,22 @@ function closeModal() {
             }
         });
         
+        // Event delegation for data-action attributes
+        document.addEventListener('click', function(e) {
+            if (e.target.hasAttribute('data-action')) {
+                const action = e.target.getAttribute('data-action');
+
+                switch(action) {
+                    case 'navigatePrevious':
+                        navigatePrevious();
+                        break;
+                    case 'navigateNext':
+                        navigateNext();
+                        break;
+                }
+            }
+        });
+
         // Set up close button after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.close-button').addEventListener('click', closeModal);
