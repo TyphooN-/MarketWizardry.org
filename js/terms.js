@@ -5,6 +5,7 @@ const files = {
     4: 'GAMERS_NEXUS',
     5: 'DER8AUER',
     6: 'FINANCIAL_DISCLAIMERS',
+    7: 'OVERCLOCKING_FORUMS',
 };
 
 let currentFileIndex = 0;
