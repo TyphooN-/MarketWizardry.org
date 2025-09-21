@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Domain-extension artist exploring internet identity and web culture through NFT art.">
+    <meta name="description" content="ozbren_xyz's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, ozbren_xyz, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - ozbren_xyz - MarketWizardry.org">
-    <meta property="og:description" content="Domain-extension artist exploring internet identity and web culture through NFT art.">
+    <meta property="og:description" content="ozbren_xyz's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/ozbren_xyz_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ozbren_xyz - MarketWizardry.org">
-    <meta name="twitter:description" content="Domain-extension artist exploring internet identity and web culture through NFT art.">
+    <meta name="twitter:description" content="ozbren_xyz's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - ozbren_xyz</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Domain-extension artist exploring internet identity and web culture through NFT art.</div>
+        <div class="flavor-text">ozbren_xyz's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,44 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video2-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1774136799-big_week_for_me___4_1_1s_found_new_homes__3_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1781734866629058585-The_project_I_ve_been_helping_to_build_for_6_months_will_finally_launch_in_a_couple_of_days__video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video2-1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1933902813719097836-you_can_just_do_whatever_you_want_in_Blender_lol_video4-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
-            './ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-ozbren_xyz.js"></script>
+    </div>
 </body>
 </html>

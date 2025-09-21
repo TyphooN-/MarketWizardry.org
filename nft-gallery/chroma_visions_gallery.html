@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Color-theory digital artist exploring spectrum relationships and chromatic harmony in NFTs.">
+    <meta name="description" content="chroma_visions's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, chroma_visions, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - chroma_visions - MarketWizardry.org">
-    <meta property="og:description" content="Color-theory digital artist exploring spectrum relationships and chromatic harmony in NFTs.">
+    <meta property="og:description" content="chroma_visions's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/chroma_visions_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - chroma_visions - MarketWizardry.org">
-    <meta name="twitter:description" content="Color-theory digital artist exploring spectrum relationships and chromatic harmony in NFTs.">
+    <meta name="twitter:description" content="chroma_visions's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - chroma_visions</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Color-theory digital artist exploring spectrum relationships and chromatic harmony in NFTs.</div>
+        <div class="flavor-text">chroma_visions's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,39 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./chroma_visions/webp/chroma_visions-1868390318-_night_spirits_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1853509825-Tropical_depression_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1814534236-Happy_birthday_to_me__video2-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1841288601-Balloon_Boy_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1811939592-Still_4_editions_of_my__share4tez_piece_left__The_next_2_people_who_scoop_-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1795546438-You_wouldn_t_like_me_when_I_m_angry__video1-1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1831568203102691841-Shootout_available_for_the__GIFDAY2024_event__Just_2_tezos__Will_burn_any_remaining_next_week__video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1869101776-Today_is_my_birthday__video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1793427251-Just_listed_my_second_piece_for_the_Splifs_collection__Free_mint_for_7_day-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1823452976-Haven_t_minted_much_lately__figured_it_was_time__video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1791251161-time_experiment_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1849939559-I_have_just_collected__We_Can_Rebuild_Him__by_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1905289866-Ether_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1795890343-Just_listed_the_3rd_drop_for_the_Spilfs_collection__Free_mint_on_Zora_for_-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1793002601-Got_500k__enjoy_to_tip_this_week_video2-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1835772088-Lost_at_Sea_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1831863079-Shootout___GIFDAY2024_video1-lossy.webp',
-            './chroma_visions/webp/chroma_visions-1811796517-Only_5_editions_left_of_my__share4tez_piece_on_objkt__video1-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-chroma_visions.js"></script>
+    </div>
 </body>
 </html>

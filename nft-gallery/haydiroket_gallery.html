@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Space-age digital artist exploring cosmic themes and interstellar aesthetics through NFTs.">
+    <meta name="description" content="haydiroket's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, haydiroket, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - haydiroket - MarketWizardry.org">
-    <meta property="og:description" content="Space-age digital artist exploring cosmic themes and interstellar aesthetics through NFTs.">
+    <meta property="og:description" content="haydiroket's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/haydiroket_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - haydiroket - MarketWizardry.org">
-    <meta name="twitter:description" content="Space-age digital artist exploring cosmic themes and interstellar aesthetics through NFTs.">
+    <meta name="twitter:description" content="haydiroket's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - haydiroket</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Space-age digital artist exploring cosmic themes and interstellar aesthetics through NFTs.</div>
+        <div class="flavor-text">haydiroket's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,77 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./haydiroket/webp/haydiroket-1931874476305862783-0242___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1877890729-_-video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1934749722113171617-nO__tHaNx___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1879695070-sUpEr_SuPeR_sUpEr___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1890515726-mErRy_XmAs__-video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1934766340990030100-hApPy_MeAl___video4-lossy.webp',
-            './haydiroket/webp/haydiroket-1921329733-nIcE__-video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1870937465-sO_fUnNy__-video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1924209942921138497-999___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1912264097-rEaLiTy___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1942298449354874930-dOs______video4-lossy.webp',
-            './haydiroket/webp/haydiroket-1937652124235534535-pOcObElLI_fOrEvEr___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1931466879702274050-2_pEt___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1921701964-qUiCkDiSk__-video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1921329438668538163-bUg___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1941222542225895803-tOtAlLy_AlIeN___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1931069136-zErOpUnK___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1921700744400445784-wOoOw___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1887250448-2222___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1893779346-cHkDsK___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1924209942-999___video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1930743846-tOpShItAlLdAy___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1892644764962508933-oNlY_gM___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1927079217-__video1-2-lossy.webp',
-            './haydiroket/webp/haydiroket-1885454726877069721-kIx___video1-1-lossy.webp',
-            './haydiroket/webp/haydiroket-1931863017375088980-mAgIc___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1873515415-wHaT______video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video1-1-lossy.webp',
-            './haydiroket/webp/haydiroket-1921701964-qUiCkDiSk___video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1869814281-iTs_NoW_sAfE_tO_tUrN_oFf_YoUr_CoMpUtEr.___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1921329733-nIcE___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1903186071-yOu_KnOw__-video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1888968450-rIp__-video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1904298391-NFTLA_OPEN_CALL_video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1892928447522939138-fRi___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1931102871-sUpEr_SuMmEr_0___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1870560313-sUp_DuX___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1892718787-420___7___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1891542417-sEe___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1905255968121700386-it_is_a_good_day..._despite_it_having_been_a_very_hard_day._KEEP_LIVING_THE_DREAM_Y_ALL_video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1871337822-hOw_HiGh______video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1936506924754944205-__--__http___objkt.com_tokens_hicetnunc_545681___--_video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1872045522-yEs__-video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1923393577-tIxExIt___video2-lossy.webp',
-            './haydiroket/webp/haydiroket-1942353464614420581-__video4-lossy.webp',
-            './haydiroket/webp/haydiroket-1934756192212930613-mAx_MoTiOn___video1-lossy.webp',
-            './haydiroket/webp/haydiroket-1923889042-lOoP_fRaMeS___video4-lossy.webp',
-            './haydiroket/webp/haydiroket-1938296258520609097-6___video4-lossy.webp',
-            './haydiroket/webp/haydiroket-1943046555545821219-______________X_____video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1943306997937406395-gM_fRoM_tHe_SoUrCe___video3-lossy.webp',
-            './haydiroket/webp/haydiroket-1943046555545821219-______________X_____video4-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-haydiroket.js"></script>
+    </div>
 </body>
 </html>

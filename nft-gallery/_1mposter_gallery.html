@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Identity-questioning digital artist exploring authenticity and deception in the NFT world.">
+    <meta name="description" content="_1mposter's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, _1mposter, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - _1mposter - MarketWizardry.org">
-    <meta property="og:description" content="Identity-questioning digital artist exploring authenticity and deception in the NFT world.">
+    <meta property="og:description" content="_1mposter's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/_1mposter_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - _1mposter - MarketWizardry.org">
-    <meta name="twitter:description" content="Identity-questioning digital artist exploring authenticity and deception in the NFT world.">
+    <meta name="twitter:description" content="_1mposter's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - _1mposter</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Identity-questioning digital artist exploring authenticity and deception in the NFT world.</div>
+        <div class="flavor-text">_1mposter's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,73 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./_1mposter/webp/_1mposter-1928831814-Open_Call___video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1939674493372506266-Time_to_climb_again_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1930380912-Spell_video1-1-lossy.webp',
-            './_1mposter/webp/_1mposter-1936072039535665176-Friday_is_the_most_emotional_day_of_the_week_video2-lossy.webp',
-            './_1mposter/webp/_1mposter-1925270234-A_T_H_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1936166171771895950-Friday_is_the_most_emotional_day_of_the_week_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1927909289-So_many_things__so_little_time_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1937860030474117295-Feels_Good_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1925538193-Happy_pizza_day_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1934811429091098921-Unveiling_a_new_work_this_week__video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1935122122000707690-Hang_in_there_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video3-1-lossy.webp',
-            './_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1924996602-One_at_a_time_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1929185812-__________video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1940821967122452629-6_years_ago__this__space__didn_t_exist_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video1-1-lossy.webp',
-            './_1mposter/webp/_1mposter-1932142045293904188-New_piece_tomorrow_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1925195841-Known_pleasures_video2-lossy.webp',
-            './_1mposter/webp/_1mposter-1938974916776202735-Respect_the_Caturday_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1942639545679319434-My_Way_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1935825275054702631-Hopeful_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1943356543484702768-They_hate_us__cause_they_aint_us_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1925195841-Known_pleasures_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1929185812-__________video2-1-lossy.webp',
-            './_1mposter/webp/_1mposter-1934608870531575863-I_have_just_collected_video2-lossy.webp',
-            './_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1941214907187462600-Freedom_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1931726116529594841-Full_sail_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1923745745-Happy_caturday_friends_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1923370513-Warp_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1933912334197522433-_Iteration__video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1941214907187462600-Freedom_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1925195841-Known_pleasures_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1923842593-Happy_caturday_friends_video2-lossy.webp',
-            './_1mposter/webp/_1mposter-1933165705454567888-Iteration_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1930714891-Never_stop_video1-1-lossy.webp',
-            './_1mposter/webp/_1mposter-1926013514-Day_of_the_glitch_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1935018394568245390-Unveiling_a_new_work_this_week__video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1928492919-Art_is_back__never_really_left__video1-1-lossy.webp',
-            './_1mposter/webp/_1mposter-1933528975935951349-The_weight_of_the_world_will_crush_you_if_you_let_it_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1923475319-Energy_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1924996602-One_at_a_time_video2-lossy.webp',
-            './_1mposter/webp/_1mposter-1930713474-Midges_at_midnight__swarming_around_the_street_light_video2-lossy.webp',
-            './_1mposter/webp/_1mposter-1920195779-wishing_you_were_here_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1931733594650956058-Last_5_hours______video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1934332281633509443-Out_of_all_file_formats__the_.gif_is_my_favorite_video4-lossy.webp',
-            './_1mposter/webp/_1mposter-1933568054719402030-The_weight_of_the_world_will_crush_you_if_you_let_it_video3-lossy.webp',
-            './_1mposter/webp/_1mposter-1925195841-Known_pleasures_video1-lossy.webp',
-            './_1mposter/webp/_1mposter-1940127033138266197-_Try_laughing._Then_whatever_scares_you_will_go_away.__video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-_1mposter.js"></script>
+    </div>
 </body>
 </html>

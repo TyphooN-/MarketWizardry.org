@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Contemporary digital artist blending traditional art techniques with modern blockchain technology.">
+    <meta name="description" content="ALCrego_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, ALCrego_, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - ALCrego_ - MarketWizardry.org">
-    <meta property="og:description" content="Contemporary digital artist blending traditional art techniques with modern blockchain technology.">
+    <meta property="og:description" content="ALCrego_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/ALCrego__gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - ALCrego_ - MarketWizardry.org">
-    <meta name="twitter:description" content="Contemporary digital artist blending traditional art techniques with modern blockchain technology.">
+    <meta name="twitter:description" content="ALCrego_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - ALCrego_</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Contemporary digital artist blending traditional art techniques with modern blockchain technology.</div>
+        <div class="flavor-text">ALCrego_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,100 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./ALCrego_/webp/ALCrego_-1928193557-Today__ten_years_ago_I_was_placing_Gif_Art__Online_Native_Art__in_galleries__not-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1934643103690096947-__Errant___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928430491-__Source___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927386455-__Leap___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1934806500129620050-__Doppler___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1929743181-__Black_Room___video1-1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927909690-Digging_in_old_folders_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1929510694-__Focus___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1936259261631221901-Don_t_fly_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928276826-__Visual_Pleasure__1___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1938033724639089012-__Acceptance___video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1935524698961404172-__Ritual_Devices___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1934754410267131904-6_frames__184kb__1_min_gif_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1935133843461124530-Some_more_from_2014_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927916855-One_of_the_first__Giftillism_pieces_from_2018_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1929096073-__Void___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943424473178202585-Motion_blur_is_the__sfumato__of_motion_arts_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1936587079095668875-__Cracked___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928103862-__Emerge___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943456641292366214-100_kb_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1929346403-__Line_by_line___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943312511681388925-__c.050___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928640353-I_ve_heard_something_about_skulls_lately_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927895347-__Circles___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927895347-__Circles___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928562200-Dance_in_the_dark_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1940597473862734307-__Tension___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943117807874355398-____video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927878819-Some_of_the__150_of_this_kind_I_was_doing_past_year_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927916855-One_of_the_first__Giftillism_pieces_from_2018_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927221970-__Lamina___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927883604-xxxxxxxx_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1930936503-Did_a_big_one_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943513197236920465-__Spill___video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1941151060175012232-_ALCrego__video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928601994-Wait_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928662660-__Peace_is_in_pieces___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1940402613868253445-In_a_world_that_runs_so_fast__video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1935556433635905685-__Fate___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928640353-I_ve_heard_something_about_skulls_lately_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1942258428740501840-A_R_T_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927895347-__Circles___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943312657508896896-__c.020___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1934987547631091933-Let_s_take_some_waves_today_in_the_beach_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1935316143020835044-__Eppur_si_muove___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1937985534556598483-__series_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1935693910027714914-__993_kb___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928283460-__Expel___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1936583927176868307-__Expectator___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1930569436-__Photons___video1-1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928926857-Aerial_view_of_the_Garden_at_HEN_Teia__video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1942990956355100933-Good_artists_are_bad_at_marketing_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1932583774-_Old_Random_Crap__video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1929346403-__Line_by_line___video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928640353-I_ve_heard_something_about_skulls_lately_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927895347-__Circles___video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1934745142465900785-__Flood___video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943749151977542118-__Unus_Mundus___video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928830968-why_is_it_that_the_folks_yelling_loudest_about_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1932583767-_Old_Random_Crap__video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1932583801-1_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1941157004057497632-__Jump_into_the_void___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1937864110521434558-__Psyche___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927842939-_Gif_format_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1943439336873300123-Picking_creatures_for_a_VJ_set_this_Saturday_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1941905536556941371-One_of_the_pieces_of__The_Allure_of_Decay__series__2018_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1942016137631252665-may_the_bridges_i_burn_light_the_way_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927926035-Movement_causes_hypnosis_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1940242300854313177-__Zero___video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928216678-Soon_video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928615630-__Spiral_out___video1-1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927141938-__Cult___video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1940884280860667961-Maybe_the_path_is_hard_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1932597608-Music_video3-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1939376501847478328-__Blink___video2-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1928648715-1_line__repeat_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1942016137631252665-may_the_bridges_i_burn_light_the_way_video4-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1927883604-xxxxxxxx_video1-lossy.webp',
-            './ALCrego_/webp/ALCrego_-1942795245844062317-_If_you_gaze_long_enough_into_the_web__video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-ALCrego_.js"></script>
+    </div>
 </body>
 </html>

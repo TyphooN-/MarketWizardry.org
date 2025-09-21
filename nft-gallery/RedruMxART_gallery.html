@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Bold color experimentalist creating vivid, high-contrast works in the NFT medium.">
+    <meta name="description" content="RedruMxART's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, RedruMxART, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - RedruMxART - MarketWizardry.org">
-    <meta property="og:description" content="Bold color experimentalist creating vivid, high-contrast works in the NFT medium.">
+    <meta property="og:description" content="RedruMxART's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/RedruMxART_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - RedruMxART - MarketWizardry.org">
-    <meta name="twitter:description" content="Bold color experimentalist creating vivid, high-contrast works in the NFT medium.">
+    <meta name="twitter:description" content="RedruMxART's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - RedruMxART</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Bold color experimentalist creating vivid, high-contrast works in the NFT medium.</div>
+        <div class="flavor-text">RedruMxART's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,56 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./RedruMxART/webp/RedruMxART-1943063238230577357-Feed_on_video4-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928840852-Empire_Things_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928158892-_Blue_Chip__video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1935660705077686388-Gristle_RGB_ART_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928449681-K_by_video4-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1942490861406650758-I_ve_been_collecting_art_digitally_for_over_4_years_video2-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928436540-food_bank_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928122943-4_5_auctions_kicked_off_in_the_first_30mins__Absolutely_beyond_stoked_with_tha-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1935430891771420977-No_time_to_rest_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1943087718969282845-We_are_back_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928217426-Micro_Drip_Dropped_ART_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video2-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1930361386-8NAP_art_is_committed_to_amazing_art_and_cultivating_a_community_of_collectors-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928172733-I_regretfully_present_to_you_the_final_addition_to_the_C_NCLAVE_for_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1929975880-Opened_the_timeline..._closed_the_timeline_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1926032450-Let_s_talk_Squigs-video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1929991613-One_box._One_Android._Infinite_outcomes_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1929281179-Metamorphosis_video2-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1943063201379422293-Feed_on_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1943222931510706641-No_one_wants_to_buy_it_when_it_s_cheap_video2-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1930266169-Clones_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928158246-A_grail_has_found_a_new_home_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1943328642743890269-Octopus_Game_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1940499490487914652-what_a_milestone__i_m_deeply_grateful_to_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928449681-K_by_video2-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1935423528427237877-just_a_clown_video4-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1928386593-After_an_intense_bid_war__Impasto_finds_a_lovely_home_with_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1943454052270117202-New_Profile_Dick_Pic_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1935087548063232002-Amazing_set_of_fantastic_artworks._Congrats_to_everyone_involved_video4-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1929273282827587615-zero_issues_with_people_purely_trading_art_like_it_s_a_commodity..._just_don_t_larp_as_an_art_collec_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1940456781261820274-Should_video4-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1930176264-Should_we_go_ahead_and_curate_an_video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1940706101328232558-It_s_a_marathon__not_a_sprint_video3-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1929976015-It_looks_like_you_ve_murdered_the_pope__video1-lossy.webp',
-            './RedruMxART/webp/RedruMxART-1926351578-I_see_you-video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-RedruMxART.js"></script>
+    </div>
 </body>
 </html>

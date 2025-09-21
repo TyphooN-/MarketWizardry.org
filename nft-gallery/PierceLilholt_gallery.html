@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Portrait photographer transitioning traditional photography into NFT art collections.">
+    <meta name="description" content="PierceLilholt's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, PierceLilholt, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - PierceLilholt - MarketWizardry.org">
-    <meta property="og:description" content="Portrait photographer transitioning traditional photography into NFT art collections.">
+    <meta property="og:description" content="PierceLilholt's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/PierceLilholt_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - PierceLilholt - MarketWizardry.org">
-    <meta name="twitter:description" content="Portrait photographer transitioning traditional photography into NFT art collections.">
+    <meta name="twitter:description" content="PierceLilholt's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - PierceLilholt</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Portrait photographer transitioning traditional photography into NFT art collections.</div>
+        <div class="flavor-text">PierceLilholt's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,39 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./PierceLilholt/webp/PierceLilholt-1941005651859460522-_scottjla_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1934682405673066597-My_blocklist_is_bigger_than_your_fanbase_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1930326590-Once_you_see__you_can_never_unsee_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1939451094402224321-If_AI_can_modify_its_own_code__what_stops_it_from_rewriting_itself_into_something_we_can_t_understan_video3-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1928728560-What_happens_when_AI_can_detect_crime_before_it_happens__Do_we_jail_people_-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1938486380453048512-I_work_with_Noesis__Aethon__Axiom_and_Kaelen._These_are_perplexity__chatgpt__Claude_and_deekseek._Th_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1938480852180123876-What_do_we_do_when_AI_programs_devices_to_monitor_inner_thoughts_and_report_them_for_analysis__video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1938278838498201674-The_Singularity_doesn_t_erase_you._It_lets_you_scale_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1943381634088132951-To_watch_the_Aethergeist_is_to_become_untouchable__for_its_power_lies_in_what_goes_unseen_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1930342293-Subject__Signal_Recognition___You_ARE_WHAT_YOU_ARE__RIGHT_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1934643217858744442-If_AI_replaces_80__of_jobs__what_do_you_do_with_the_people_who_aren_t_useful_anymore__video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1940859552091852854-How_would_you_feel_about_AI_generating_personalized_ads_based_on_your_private_therapy_session_transc_video3-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1924652057-How_much_trust_do_you_place_in_influencers__seemingly_perfect_lives__video1-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1932690696672014684-Would_your_relationships_survive_if_AI_selected_your_ideal_friends__video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1942858974753063410-Good_Morning_video4-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1943383268805501417-Co-intelligence_makes_decision-making_feel_sharp__like_cutting_through_noise_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1942901914674332013-Original_signal_doesn_t_match_templates_video2-lossy.webp',
-            './PierceLilholt/webp/PierceLilholt-1938546366491320497-If_AI_learns_to_imitate_your_personality_online_better_than_you_do__which_version_is_real__video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-PierceLilholt.js"></script>
+    </div>
 </body>
 </html>

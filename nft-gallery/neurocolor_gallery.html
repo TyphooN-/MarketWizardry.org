@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Synesthetic digital artist translating neurological experiences into colorful blockchain art.">
+    <meta name="description" content="neurocolor's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, neurocolor, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - neurocolor - MarketWizardry.org">
-    <meta property="og:description" content="Synesthetic digital artist translating neurological experiences into colorful blockchain art.">
+    <meta property="og:description" content="neurocolor's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/neurocolor_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - neurocolor - MarketWizardry.org">
-    <meta name="twitter:description" content="Synesthetic digital artist translating neurological experiences into colorful blockchain art.">
+    <meta name="twitter:description" content="neurocolor's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - neurocolor</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Synesthetic digital artist translating neurological experiences into colorful blockchain art.</div>
+        <div class="flavor-text">neurocolor's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,59 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./neurocolor/webp/neurocolor-1924179194-_objkt4objkt_video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1916625322-always_suspected_that_pak_was_actually_video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1925192734-just_contacted_by_the_memecoins_DEV_video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1923588804-derivative_dream_data_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1925322656-gyrus_video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1920614238-updated_tread_of_remaining_art_available_on_primary__video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1916871909-n_e_g_a_t_i_v_e__n_u_l_l__video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1927765090-more_art_is_coming_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1925192734-just_contacted_by_the_memecoins_DEV_video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1918393180-Default_Mode_Network_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1911487049-____video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1930372811-Highly_Differentiated_System_video2-1-lossy.webp',
-            './neurocolor/webp/neurocolor-1920614238-updated_tread_of_remaining_art_available_on_primary__video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1916625322-always_suspected_that_pak_was_actually_video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1928213835-Gerhard_Richter_NOOOOOO_video2-1-lossy.webp',
-            './neurocolor/webp/neurocolor-1928006879-___________video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1928527999-flux_video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1927409843-_54315516____70623517____96398909_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1920614238-updated_tread_of_remaining_art_available_on_primary__video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1928898171-flux_video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1930241623-it_ll_keep_coming_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1922676557-eyhekif_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1911487049-____video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1927782762-___________video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1927436273-white_light___uv_light_video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1943261669024551011-_______video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1928898171-flux_video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1932571831443025966-In_5_days__15th_June__Gif_becomes_38_years_old_video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1937572041453875424-___video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1925322656-gyrus_video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1942945599176823207-___video3-lossy.webp',
-            './neurocolor/webp/neurocolor-1920614238-updated_tread_of_remaining_art_available_on_primary__video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1928435087-was_having_a_good_day_today_until_I_realized__somewhere_out_there__hundreds__m-lossy.webp',
-            './neurocolor/webp/neurocolor-1924923379-_____________video1-lossy.webp',
-            './neurocolor/webp/neurocolor-1932932348406022205-brrrrrr_video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1940098463997325715-auction_ends_in__1_hour_video4-lossy.webp',
-            './neurocolor/webp/neurocolor-1925192734-just_contacted_by_the_memecoins_DEV_video2-lossy.webp',
-            './neurocolor/webp/neurocolor-1930372811-Highly_Differentiated_System_video1-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-neurocolor.js"></script>
+    </div>
 </body>
 </html>

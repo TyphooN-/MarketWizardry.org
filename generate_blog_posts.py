@@ -536,6 +536,12 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             opacity: 0.9;
             animation: flicker 1s infinite;
         }}
+        .section-header {{
+            color: #00ff00;
+            text-align: center;
+            margin: 30px 0 20px 0;
+            font-size: 1.5em;
+        }}
 
 {breadcrumb_css}
     </style>
@@ -1087,7 +1093,7 @@ def update_blog_index(all_new_entries):
 
     if educational_posts:
         educational_html = [
-            '        <h2 style="color: #00ff00; text-align: center; margin: 30px 0 20px 0; font-size: 1.5em;">📚 Educational Resources</h2>',
+            '        <h2 class="section-header">📚 Educational Resources</h2>',
             '        <div class="crt-divider"></div>',
             '        <div class="grid educational-grid">'
         ]
@@ -1096,7 +1102,7 @@ def update_blog_index(all_new_entries):
 
     if daily_analysis_posts:
         daily_analysis_html = [
-            '        <h2 style="color: #00ff00; text-align: center; margin: 30px 0 20px 0; font-size: 1.5em;">📊 Daily Market Analysis</h2>',
+            '        <h2 class="section-header">📊 Daily Market Analysis</h2>',
             '        <div class="crt-divider"></div>',
             '        <div class="grid analysis-grid">'
         ]

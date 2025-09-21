@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Underground magazine aesthetic artist bringing zine culture to the NFT art world.">
+    <meta name="description" content="uczine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, uczine, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - uczine - MarketWizardry.org">
-    <meta property="og:description" content="Underground magazine aesthetic artist bringing zine culture to the NFT art world.">
+    <meta property="og:description" content="uczine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/uczine_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - uczine - MarketWizardry.org">
-    <meta name="twitter:description" content="Underground magazine aesthetic artist bringing zine culture to the NFT art world.">
+    <meta name="twitter:description" content="uczine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - uczine</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Underground magazine aesthetic artist bringing zine culture to the NFT art world.</div>
+        <div class="flavor-text">uczine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,48 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./uczine/webp/uczine-1940334440825450721-LOW_video4-lossy.webp',
-            './uczine/webp/uczine-1928090516-_____.__________________________________.______video1-lossy.webp',
-            './uczine/webp/uczine-1926972031-What_s_happening__video1-lossy.webp',
-            './uczine/webp/uczine-1934605809838866637-_your_live_streamed_job_interview_with_an_AI_manager__video4-lossy.webp',
-            './uczine/webp/uczine-1933390330776465783-Wip_video3-lossy.webp',
-            './uczine/webp/uczine-1932862974139552076-xx_video2-lossy.webp',
-            './uczine/webp/uczine-1918207152-only_way_to_live_in_a_society_not_predominantly_filled_with_idiots_video2-lossy.webp',
-            './uczine/webp/uczine-1921906824-skull_energy_video1-lossy.webp',
-            './uczine/webp/uczine-1938275013750292877-the_maximum_effort_i_can_put_in_for_a_sketch_in_this_climate_video3-lossy.webp',
-            './uczine/webp/uczine-1934692864564375693-made_a_free_app_for_dithering_images_and_gifs_video4-lossy.webp',
-            './uczine/webp/uczine-1935725776521015737-love_it_when_everything_happens_at_once_video4-lossy.webp',
-            './uczine/webp/uczine-1922579484-a_very_common_nightmare_in_virtual_space_video2-lossy.webp',
-            './uczine/webp/uczine-1933164143210615261-drdlnd_video4-lossy.webp',
-            './uczine/webp/uczine-1920372979-reality_is_a_tapestry_of_intersecting_desires_and_fragmented_narratives_video1-lossy.webp',
-            './uczine/webp/uczine-1929616548-.__.________.__.__._________video1-lossy.webp',
-            './uczine/webp/uczine-1921906824-skull_energy_video2-lossy.webp',
-            './uczine/webp/uczine-1938530203548151836-mentally_here__phoenix_a_video2-lossy.webp',
-            './uczine/webp/uczine-1922966940-Honored_the_royalty_and_sent_16__of_the_sale_to_AKC_video2-lossy.webp',
-            './uczine/webp/uczine-1935725882745778380-love_it_when_everything_happens_at_once_video3-lossy.webp',
-            './uczine/webp/uczine-1918923758-dreadtapesvol1_video1-lossy.webp',
-            './uczine/webp/uczine-1922969299-lose_lose_video3-lossy.webp',
-            './uczine/webp/uczine-1942124174236951039-Welcome_to_Jurassic_park__video3-lossy.webp',
-            './uczine/webp/uczine-1922992540-even_more_prints_video2-lossy.webp',
-            './uczine/webp/uczine-1943277176813494435-SUP_LAD_LOOKING_VERY_BUFF_I_MUST_SAY_video4-lossy.webp',
-            './uczine/webp/uczine-1925825096-Gm__video2-lossy.webp',
-            './uczine/webp/uczine-1925822603-Gm_video1-lossy.webp',
-            './uczine/webp/uczine-1925543527-holy_dreadland_video1-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-uczine.js"></script>
+    </div>
 </body>
 </html>

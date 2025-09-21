@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Nostalgic digital artist recreating and reimagining retro gaming culture through blockchain art.">
+    <meta name="description" content="PlayStationPark's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, PlayStationPark, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - PlayStationPark - MarketWizardry.org">
-    <meta property="og:description" content="Nostalgic digital artist recreating and reimagining retro gaming culture through blockchain art.">
+    <meta property="og:description" content="PlayStationPark's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/PlayStationPark_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - PlayStationPark - MarketWizardry.org">
-    <meta name="twitter:description" content="Nostalgic digital artist recreating and reimagining retro gaming culture through blockchain art.">
+    <meta name="twitter:description" content="PlayStationPark's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - PlayStationPark</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Nostalgic digital artist recreating and reimagining retro gaming culture through blockchain art.</div>
+        <div class="flavor-text">PlayStationPark's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,133 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941847900994036027-Diving_Down_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934780103403184613-Up_And_Down_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943327720064122963-Pile_Up_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video4-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929273947-Elbow_To_Face_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1931701196-Copter_Crash_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928257091-Reiko_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930309236-Back_Crack_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935764190511149337-Pullum_Wins_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930793885-Zapped_video1-1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929564463-Swing_Up_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934962628238987499-Minecart_Mania_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928878752-_Is_that_what_you_wanted___video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943297523977777464-Show_Off_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929892571-Getting_Wet_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930088102-Outta_My_Way_Tiny__video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1933875471743058224-Old_Road_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942210397735383480-Cornering_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928981995-Old_Man_Moves_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930614041-Cait_Sith_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930431547-Nina_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942264071795138616-How_s_My_Hair__video4-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942752749440938481-Sharp_Sand_Turns_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930088177-Money_Conversion_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1925331858-Gut_Punch_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930318248-Explosive_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943406934150836364-Mokujin_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1933330631133421881-Delara_wins_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941232760363827398-Lizard_Man_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935355281770234244-Yatta__video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1940870204956856741-Doodads_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934392639211573584-Dino_Venger_Wins_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935324977491767740-Going_Inside_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1927869591-Spindash_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930723456-On_The_Ship_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1940112817513771030-Choosing_Coco_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928186724-Spinny_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934347319677214963-Water_Flip_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928077181-Watching_the_sunset_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929721873-Dragon_Fortress_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926374303-Tank_Takedown_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942572836180177212-Slammed_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1925902623-Stampede__video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1927824412-Ouch_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1931338779-Mother_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935479811033403554-Going_Ape_video4-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929640776-Smashy_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928832192-Zooming_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929319080-Leaping_Lava_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934417747938513087-Left___Right_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935717530879807889-Work_On_Your_Aim_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928801945-Mystique_Intro_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1940553247065776583-Car_Hopping_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941640342022848856-Fantasy_Knight_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928107454-Tricky_Stuff_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928469824-Hop_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1936049729390915739-There_s_A_Snake_In_My.._Kitchen__video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1925177820-Slippery_When_Wet-video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1931338779-Mother_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930431547-Nina_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929194609-Spinning_Bird_Kick_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935117298953601372-Double_Flip_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935687312635015406-Zasalamel_Wins___video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930361022-Shhh__video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1927894772-Big_Logo_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941277977838313780-Hammer_Bop_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926704219-Bombing_Run_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1927760331-New_video_post_on_PlayStation_Park_on_Tumblr__https___ift.tt_z2VHMpK_vide-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1925207716-Gotta_Jet_-video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930644068-Back_Away_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926627348-Kasumi_Wins_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934630317492506688-Wiggly_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941485636759720217-City_Sights_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942935088360005992-Spinnin_In_Space_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928594480-Do_A_Flip__video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926341794-Flying_High_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943044778985206064-Rolling_Around_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video3-1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930406289-Blanka_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929958423-Under_The_Sea_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1927461986-Catching_Up_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1940915614312227024-Pipe_Travel_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926781417-Charged_Up_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video2-1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1942287067104387579-Car_Combat_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1927791706-Stance_Sketch_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1926294822-Rotating_Platforms_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943659923017015776-Coulder_Dash_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929164466-Solid_Snake_Charmer_video1-1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941153449933943084-Skid_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941957374949908789-Saved__video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video4-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1935039414213771578-Got_Ya__video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943409416100823213-Yuna_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1934055323490259414-Do_The_Hero_Thing_video4-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941595135076086067-Turnover_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930088005-Overcast_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943374460116959484-Al_s_Toy_Barn_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1941199966501736730-Wendy_Won_video2-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930768711-Keep_On_Track_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1930257318-Whirlwind_video3-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928956831-Missiles_Ready_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1928232001-Roo_Slam_video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1929344372-_Um_Jammer_Lammy__video1-lossy.webp',
-            './PlayStationPark/webp/PlayStationPark-1943452238371852692-Night_vision_video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-PlayStationPark.js"></script>
+    </div>
 </body>
 </html>

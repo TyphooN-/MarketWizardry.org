@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Industrial digital artist creating mechanical and weathered aesthetics in the NFT space.">
+    <meta name="description" content="rustnfteth's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, rustnfteth, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - rustnfteth - MarketWizardry.org">
-    <meta property="og:description" content="Industrial digital artist creating mechanical and weathered aesthetics in the NFT space.">
+    <meta property="og:description" content="rustnfteth's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/rustnfteth_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - rustnfteth - MarketWizardry.org">
-    <meta name="twitter:description" content="Industrial digital artist creating mechanical and weathered aesthetics in the NFT space.">
+    <meta name="twitter:description" content="rustnfteth's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - rustnfteth</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Industrial digital artist creating mechanical and weathered aesthetics in the NFT space.</div>
+        <div class="flavor-text">rustnfteth's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,76 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1935402701568778615-Ripples_On_a_Blank_Shore_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939953098417418341-_Knowing_Was_The_Trap__was_kicked_off_by_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939994345400140018-Echoes_of_the_Desert_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929969956-Electricity_from_the_pills_in_me_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1943396695842152501-Start_of_Something_Beautiful_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1942627996138909753-Am_I_going_up__video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1940826911888035852-Collateral_Innocence_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939951324776333469-_Off_Path__was_kicked_off_yesterday_by_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1928869930-The_cost_of_stability_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1942201829644759340-gm__video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1943300526625493495-hide_your_opepens_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939776894964310428-Unscheduled_Departure_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939951780592304549-_Sanctified_Maintenance__was_kicked_off_by_none_other_than_the_legendary_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1930993977420820904-gm__video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1927768675458621755-_EVERY_SILENCE_HOLDS_A_SUPERNOVA__has_been_kicked_off_by_og_rust_collector_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1935312227038384381-Might_fuck_around_and_show_the_first_Lunatic_soon_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1932806803357667808-Another_auction_kicked_off_from_the_B.R.E.D_collection_by_dear_friend_and_artist_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1928031696-_IF_THE_WORLD_WAS_ENDING__auction_was_kicked_off_by_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1931769848381518263-Rest_in_Chaos_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929610957-Do_Not_Delete_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1927745570-_Flourish_With_Caution__video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1942667486228537387-Nothing_Left_to_Wait_For_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1942267098899624302-Surrender_to_the_Shadow_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1928153501-Rank_Without_Merit_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1940804057326932093-gm_frens_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1943691603261997320-Still_Brought_Two_Chairs_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1940407391381868945-Only_5_pieces_left_now_in_the__MEMEnto_Mori__collection_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929146522-the_dust_in_my_soul_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1928169680-Thanks_for_looking_out_for_us_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1930300398-Last_Man_Standing_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929922168-_Cursor_of_Faith__video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1941081090082701385-Crowd_favorite__DEATH_BY_A_THOUSAND_SWIPES__has_also_been_kicked_off_today_by_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1934167909938671735-__Hang_my_head_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929122725-Another_auction_just_kicked_off_to_start_the_month_of_June__video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1942990622778101765-Excessive_Curiosity_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1935785553011916860-Off_Path_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1935085562194440665-WAITING__WAITING_DRIVES_YOU_CRAZY_WAITING_DRIVES_YOU_CRAZY_ENDLESS_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1941051003878756726-_GOING_HOME__auction_was_kicked_off_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1934962318833865101-Just_noticed__ALL_GOOD__was_kicked_off_by_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1940109840959107323-if_u_didn_t_watch_this_yesterday_please_put_in_some_headphones_and_bang_your_head_video3-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929188970-Knowing_was_the_trap_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1940041565562708429-gm__video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1928512174-Death_by_a_thousand_commutes_video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939387632825532782-dream_state_video2-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1940378690757742664-Both_bidders__editions_airdropped_to_their_owners_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1929522423-gm__video1-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939952511110009331-_Cursor_of_Faith__kicked_off_yesterday_by_jj_rascal_video4-lossy.webp',
-            './rustnfteth/webp/rustnfteth-1939949288437531070-Auction_kicked_off_by_video3-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-rustnfteth.js"></script>
+    </div>
 </body>
 </html>

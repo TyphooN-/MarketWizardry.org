@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Hex-addressed digital artist embracing blockchain technology as both medium and message.">
+    <meta name="description" content="0xEdwoods's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, 0xEdwoods, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - 0xEdwoods - MarketWizardry.org">
-    <meta property="og:description" content="Hex-addressed digital artist embracing blockchain technology as both medium and message.">
+    <meta property="og:description" content="0xEdwoods's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/0xEdwoods_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - 0xEdwoods - MarketWizardry.org">
-    <meta name="twitter:description" content="Hex-addressed digital artist embracing blockchain technology as both medium and message.">
+    <meta name="twitter:description" content="0xEdwoods's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - 0xEdwoods</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Hex-addressed digital artist embracing blockchain technology as both medium and message.</div>
+        <div class="flavor-text">0xEdwoods's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,58 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./0xEdwoods/webp/0xEdwoods-1934923221771456566-his_desk_of_wonders_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1939787382829498542-European_houses_apartments_are_not_made_for_this_heat_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1925475626-Who_said_roads_need_to_be_horizontal___MarioKartWorld_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1928428143-Happy_Friday__video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1939970698505531680-I_have_just_collected__Multiplayer_Hunt.exe__by_video4-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1941487239491641819-Red_Red_Wine_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929958555-ROR_BOSS_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1932522064604508515-MARIO_KART_WORLD_-_EASY_GOLD_3_STAR_150cc_MIRROR_MODE_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929813218-Spell_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1930007892-Mario_Kart_Double_Dash_has_the_best_kart_handling_out_the_entire_series_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1938492617949368390-GM_-_Happy_Friday__video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1934902789248798792-Pump.Flush_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1943350735824912583-Good_Morning_-_Happy_Thursday_video4-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1934963984064495814-childhood_legend_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1942464252717023265-Work_Work_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1933428199633137766-The_Pirate_Bay_founder_-_Svartholm_Warg_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929153108-Oh_what_a_night_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929619750-Inflated_Promises_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video2-1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1938711436428968204-TOP_SLUTS_-_My_new_collection_on_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929232860-What_is_your_favorite__beat__em_up__game__video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1940023024306065775-Gooooooooood_morning__video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1942665453127753939-FORK_IT__video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1941006558277562796-GM_-_Happy_4th_July_Friday_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1935212604990845039-Which_Nintendo_GameCube_games__that_haven_t_been_confirmed_yet__NEED_to_come_to_Nintendo_Switch_Onli_video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929813218-Spell_video2-1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1935325247516954730-Donkey_Kong_Bananza_has_some_extreme_Bananergy__video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1928744838-gm__CTRL_ALT_DEATH_video1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1938930380028924264-Another_preview_of_my_upcoming_collection_video4-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1929817051-GM__Happy__TEZOSTUESDAY_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1933536970476576788-Damn_32_degrees_outside__90_degrees_for_my_American_friends__video3-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1930280898-HUMAN.EXE_video1-1-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1934284998229533080-Riding_the_Bomb_video2-lossy.webp',
-            './0xEdwoods/webp/0xEdwoods-1932490445357265002-Luv_video4-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-0xEdwoods.js"></script>
+    </div>
 </body>
 </html>

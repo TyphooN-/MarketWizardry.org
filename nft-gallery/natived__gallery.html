@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Indigenous-inspired digital artist honoring traditional culture through contemporary NFT technology.">
+    <meta name="description" content="natived_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, natived_, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - natived_ - MarketWizardry.org">
-    <meta property="og:description" content="Indigenous-inspired digital artist honoring traditional culture through contemporary NFT technology.">
+    <meta property="og:description" content="natived_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/natived__gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - natived_ - MarketWizardry.org">
-    <meta name="twitter:description" content="Indigenous-inspired digital artist honoring traditional culture through contemporary NFT technology.">
+    <meta name="twitter:description" content="natived_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - natived_</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Indigenous-inspired digital artist honoring traditional culture through contemporary NFT technology.</div>
+        <div class="flavor-text">natived_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,40 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./natived_/webp/natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp',
-            './natived_/webp/natived_-1932824723-The_floor_video2-lossy.webp',
-            './natived_/webp/natived_-1925462907-_______video1-lossy.webp',
-            './natived_/webp/natived_-1938241882364252429-they_coming_video3-lossy.webp',
-            './natived_/webp/natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp',
-            './natived_/webp/natived_-1922610810-Collected__Adam__by_video1-lossy.webp',
-            './natived_/webp/natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp',
-            './natived_/webp/natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp',
-            './natived_/webp/natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp',
-            './natived_/webp/natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp',
-            './natived_/webp/natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp',
-            './natived_/webp/natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp',
-            './natived_/webp/natived_-1922276006-___________________2022__video1-lossy.webp',
-            './natived_/webp/natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp',
-            './natived_/webp/natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp',
-            './natived_/webp/natived_-1932824723-The_floor_video1-lossy.webp',
-            './natived_/webp/natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp',
-            './natived_/webp/natived_-1940450323832987681-Untitled_video4-lossy.webp',
-            './natived_/webp/natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-natived_.js"></script>
+    </div>
 </body>
 </html>

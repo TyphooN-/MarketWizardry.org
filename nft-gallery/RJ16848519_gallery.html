@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Numerical identity artist exploring anonymity and digital personas in the NFT space.">
+    <meta name="description" content="RJ16848519's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, RJ16848519, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - RJ16848519 - MarketWizardry.org">
-    <meta property="og:description" content="Numerical identity artist exploring anonymity and digital personas in the NFT space.">
+    <meta property="og:description" content="RJ16848519's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/RJ16848519_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - RJ16848519 - MarketWizardry.org">
-    <meta name="twitter:description" content="Numerical identity artist exploring anonymity and digital personas in the NFT space.">
+    <meta name="twitter:description" content="RJ16848519's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - RJ16848519</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Numerical identity artist exploring anonymity and digital personas in the NFT space.</div>
+        <div class="flavor-text">RJ16848519's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,64 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./RJ16848519/webp/RJ16848519-1940718683590176940-no_structure_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1931826064860275089-GN_all__New_week__new_works_on_the_horizon_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1943540824769212697-Gm_and_happy_Friday__And_huge_huge_huge_thanks_video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1941260238499479700-night_coffee_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1942695792583536930-GN_all_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1925161676-At_the_French_House_video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1928351875843129413-Always_a_good_morning_when_a_wild_Pin_Steak_appears__make_sure_to_check_out_the_audio_too___-_many_t_video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1924567443-GN_all__video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1939651689838948858-gm_all_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1931735699356622849-6_hours_left_on_this_auction_for_Dinner_Time__my_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1941104167239688582-a_fun_interactive_audio-visual_piece__commission_for_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1938940070704115776-Gm_all_-_happy_Saturday_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1943423782741328292-RGB_Pool_by_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1938622368240267498-Gm_all-_happy_Friday_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1938992470487871707-Thank_you_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1932342745911423214-Gm_all__video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1940883954527330537-Gn_all_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1927717324-Late_GM_all._Busy_times__video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1939315893336433018-gm_all_-_happy_Sunday_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1930360858-many_many_thanks_0x96...250d_for_picking_up_Crash_13_from_the_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1924367319-GM_all_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1929101715-GM_all_and_Happy_Sunday__video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1923114964-GN_all__End_of_a_crazy_week_nearly_in_sight__video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1927464315-Many_thanks_everybody_for_all_the_secondary_action_today__especially_Pick_Chee-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1934724648635080777-gn_all_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1936336976522711273-Gm_all_video4-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1928874995-Some_overdue_thank_yous_from_the_week__video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1929485949-GM_all._Very_pleased_to_say_The_Dogefather_is_now_up_and_running_on_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1922977052-thinking_out_loud_video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1938737478594113914-Thank_you_for_the_excellent_digging_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1939471763756171612-Overwhelm_video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1932742485815484893-GM_and_many_many_thanks_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1930681023471243394-Many_thanks_video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1935707216981680348-Crash__2_video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1926753760-GN_all__Got_some_fun_to_share_this_week__Can_t_wait__video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1927717324-Late_GM_all._Busy_times__video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1937761199049048427-gm_all__video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1930360858-many_many_thanks_0x96...250d_for_picking_up_Crash_13_from_the_video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1930009227-GN_all__video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1930379150-GN_all__with_a_belated_thanks_to_video1-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1933437316112232947-GM_all_video3-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1933601952765784129-The_Fight_I_Have_Every_Day_With_My_Burning_Sense_of_Shame_video2-lossy.webp',
-            './RJ16848519/webp/RJ16848519-1943698563885641775-Final_5_hours_video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-RJ16848519.js"></script>
+    </div>
 </body>
 </html>

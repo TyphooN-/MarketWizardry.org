@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Minimalist digital artist creating quiet, contemplative works in the busy NFT marketplace.">
+    <meta name="description" content="davidvnun's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, davidvnun, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - davidvnun - MarketWizardry.org">
-    <meta property="og:description" content="Minimalist digital artist creating quiet, contemplative works in the busy NFT marketplace.">
+    <meta property="og:description" content="davidvnun's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/davidvnun_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - davidvnun - MarketWizardry.org">
-    <meta name="twitter:description" content="Minimalist digital artist creating quiet, contemplative works in the busy NFT marketplace.">
+    <meta name="twitter:description" content="davidvnun's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - davidvnun</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Minimalist digital artist creating quiet, contemplative works in the busy NFT marketplace.</div>
+        <div class="flavor-text">davidvnun's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,66 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./davidvnun/webp/davidvnun-1942242550149947753-demonic_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1938063778807001478-i_love_twin_peaks_so_fucking_much_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1942641578343850073-Fun_fact_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1940127940664287513-1._what_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1937172206351507704-i_love_cheese_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1936462175834714165-Uncontrollable_Invasive_Frogs__2024__video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1931077590-its_joever_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1936989469770477803-The_best_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1927795926-CONQUEST_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1930329409-shill_me_your_money_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1935678166778962210-its_hard_after_5_years_of_nonstop_creating_and_minting_video4-lossy.webp',
-            './davidvnun/webp/davidvnun-1941144065808208311-GM_TEZFREAKZ_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1932277862-_me_kerrias_si_un_d_a_me_convierto_en_flan__video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1928157405-pestilence_affliction_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1930658870-go_on_a_walk_today_video2-1-lossy.webp',
-            './davidvnun/webp/davidvnun-1933004128201969747-trust_the_bagel_video4-lossy.webp',
-            './davidvnun/webp/davidvnun-1934635011900071968-I_m_thinking_how_I_can_give_a_hand_to_give_visibility_to_the_Gifs_minted_at_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1931820679-bluobLBUUOO_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1928926592-all_my_glitches_are_fake_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1927182467-BRAINWVRMZ_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1928822018-skull_art_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1932457126-Toy_ain_t_nun_davib_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1942701469108482127-do_the_shuffle_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1925674977-AUCTIONS_CONCLUDED_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1939701767458963598-The_space_has_shrunk_and_remaining_ppl_are_intensely_debating_if_or_not__Cabals__exist._The_matter_i_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1927882418-remember_where_you_come_from_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1937933677243088978-Am_I_a_fucking_joke_to_u__video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1925590666-2_HOURS_LEFT_ON_THE_BRAINGLITCH_AUCTIONS_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1936096341454729718-current_bit_0_ETH_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1928471951875444990-David_is_the_type_of_artists_that_if_started_to_get_cherished_and_appreciated_by_the_market_would_br_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1927795926-CONQUEST_video3-lossy.webp',
-            './davidvnun/webp/davidvnun-1930743158-BloBJKT_fAKt0Ry_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1930666402-Remember_if_anyone_ever_asks_you_why_Tezos__don_t_go_into_any_details__just_ans-lossy.webp',
-            './davidvnun/webp/davidvnun-1935490395078898054-NiceCatch_video4-lossy.webp',
-            './davidvnun/webp/davidvnun-1930324012-If_inteligence___artificial_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1927766028-The_4_horsemen_are_about_to_land_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1933174828179083754-listen_to_ur_heart_video4-lossy.webp',
-            './davidvnun/webp/davidvnun-1929946136-what_did_u_expect_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1931029617-AWOOOOOOOOO_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1937329934210367545-DeepDream_video2-lossy.webp',
-            './davidvnun/webp/davidvnun-1928432894-BLOBLOBOBLOOBOOBLO_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1929231561-LONGTEETH_video1-lossy.webp',
-            './davidvnun/webp/davidvnun-1928076150-POWER_video1-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-davidvnun.js"></script>
+    </div>
 </body>
 </html>

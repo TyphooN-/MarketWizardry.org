@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Retro digital artist celebrating 8-bit culture and early computer graphics in NFT form.">
+    <meta name="description" content="p1xelfool's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, p1xelfool, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - p1xelfool - MarketWizardry.org">
-    <meta property="og:description" content="Retro digital artist celebrating 8-bit culture and early computer graphics in NFT form.">
+    <meta property="og:description" content="p1xelfool's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/p1xelfool_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - p1xelfool - MarketWizardry.org">
-    <meta name="twitter:description" content="Retro digital artist celebrating 8-bit culture and early computer graphics in NFT form.">
+    <meta name="twitter:description" content="p1xelfool's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - p1xelfool</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Retro digital artist celebrating 8-bit culture and early computer graphics in NFT form.</div>
+        <div class="flavor-text">p1xelfool's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,67 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./p1xelfool/webp/p1xelfool-1928845178-amazing_work_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1904233411977335120-Amazing_work__video1-1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1899772385-Pixel_master_at_work_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1915630223-uncertain_index_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1907424265-image.pixels_index__video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1902159245-How_s_it_going__video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1904397752-Oooh_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1925203681-a_certain_amount_of_light_video3-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video4-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1940858415393525976-undeniable_failure__680_video4-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1943752470573752472-Dioramas__754_by_video4-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1930033846583464015-unnamed_video2-1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1930686573-OMFG_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1940953430593622425-undeniable_failure__768_video4-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1943370767896326180-How__video3-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1900269073-alg0--_is_now_available_on_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1927408911214051450-I_would_say_it_is_a_very_architectural_piece_video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1940785989326077967-An_exploration_of_pixel_data_manipulation_through_real-time_software__undeniable_failure_is_a_manife_video4-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1928448606-h_lo__2023_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1938018177104883800-liquid_synchronies__74_W_video3-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1938467551035461771-would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_back._would_love_a_follow_ba_video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1905270858-In_2022_I_started_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1927789417-Beauty_video1-1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1900022143603073155-h_lo________________2023_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1902059358-New_portfolio_is_live____http___p1xelfool.com_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1909261147502485998-Today_marks_4_years_since_I_decided_to_create_a_negative_of_myself__an_alter-ego_to_challenge_my_con_video1-1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1928090151458144467-So_dope_video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1919786307-chrmwr-x_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1927408911-I_would_say_it_is_a_very_architectural_piece_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1899267699-_on__the_timebender_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1940508304985481343-Generations__1303_by_video4-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1940808141152965097-undeniable_failure_is_now_live_on_video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1937611450303815804-Sounds_like_I_need_to_finish_it__video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1939115407731736609-one_million_particles_at_the_browser____video3-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1917580342-Extremely_happy_to_contribute_with_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1905109278-Pixel_party_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1930299549-I_guess_the_cat_is_out_of_the_box_______video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1941554559484297634-undeniable_failure__842_video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1921757089-All_the_niceeee_things_too__video3-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1907176404-Holy_smokes_95_mints__with_18_hours_to_collect__video2-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1942791324186390788-g_mma_8___0___11_video3-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1924679863-Dig_it_video1-lossy.webp',
-            './p1xelfool/webp/p1xelfool-1928090151-So_dope_video4-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-p1xelfool.js"></script>
+    </div>
 </body>
 </html>

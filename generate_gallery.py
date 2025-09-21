@@ -196,6 +196,27 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         .close-button:hover {{
             background-color: #001100;
         }}
+        .twitter-link-container {{
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+        }}
+        .twitter-link {{
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #00ff00;
+            padding: 5px 10px;
+            display: inline-block;
+        }}
+        .image-counter {{
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }}
+        .download-container {{
+            text-align: center;
+            margin-top: 10px;
+        }}
         @media screen and (max-width: 768px) {{
             .modal-content {{
                 padding: 5px;
@@ -223,7 +244,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             .twitter-link-container {{
                 margin: 5px 0;
             }}
-            .twitter-link-container a {{
+            .twitter-link {{
                 font-size: 0.8em;
                 padding: 3px 6px;
             }}
@@ -521,8 +542,8 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -530,10 +551,10 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
@@ -818,8 +839,8 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -827,10 +848,10 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>

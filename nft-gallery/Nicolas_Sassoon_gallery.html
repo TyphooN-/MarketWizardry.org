@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Pixel art master bringing retro computing aesthetics to the modern NFT landscape.">
+    <meta name="description" content="Nicolas_Sassoon's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, Nicolas_Sassoon, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - Nicolas_Sassoon - MarketWizardry.org">
-    <meta property="og:description" content="Pixel art master bringing retro computing aesthetics to the modern NFT landscape.">
+    <meta property="og:description" content="Nicolas_Sassoon's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/Nicolas_Sassoon_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - Nicolas_Sassoon - MarketWizardry.org">
-    <meta name="twitter:description" content="Pixel art master bringing retro computing aesthetics to the modern NFT landscape.">
+    <meta name="twitter:description" content="Nicolas_Sassoon's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - Nicolas_Sassoon</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Pixel art master bringing retro computing aesthetics to the modern NFT landscape.</div>
+        <div class="flavor-text">Nicolas_Sassoon's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,67 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./Nicolas_Sassoon/webp/Nicolas_Sassoon-1916229021-Isle_Study_4__2023_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1890472139-Cove_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1935770547125723330-Thank_you_so_much_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1899197260-Mist_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1936794293252805082-RGB_116_video3-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1942034058046771529-RGB_189_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1942654279539404876-RGB_75_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1939718847382081766-Thank_you_so_much_video2-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1943315322204766350-RGB_117_video3-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1892654706-Dawn_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1896987847-Peaks_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1909312923-Choices__once_again_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1918015356117082267-Winds_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video2-1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video3-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1900678282-Small_RGB_Study_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1887184575-Gem_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1938680349053366411-How_do_you_make_RGB_Studies__video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1894820407-Ruins_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1890157476-Take_it_all_in_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1941865948585050389-In_20_years_of_practice__I_think_I_ve_read_headlines_saying__painting_is_dead__about_20_times_video2-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video3-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1905369272-Path_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1895511159-still_alive_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1901725710-Haze_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1935043906347180479-RGB_191_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1924616393-which_artist_are_you_most_excited_about_right_now__video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1933187195755721071-RGB_115_-_detail_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1941708102681698565-RGB_111_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1929558536-It_s_happening_again__even_better_this_time_video3-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1886162705301569713-Moon_rising_over_inlet_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1937240062032293942-RGB_177_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1893458395-night_light_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1911086169-Altitude_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1943031134918512702-Mid-Career_Artist__2025_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1919478034-Summit_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1898100961-Silent_mountains_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1934272065231577408-RGB_203_video4-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1923121393-rising_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1904605249-Shores_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1937893816935010638-RGB_204_video3-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1902753816-1_pixel___1_pixel_video1-lossy.webp',
-            './Nicolas_Sassoon/webp/Nicolas_Sassoon-1885417032-Sunset_over_the_islands_video2-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-Nicolas_Sassoon.js"></script>
+    </div>
 </body>
 </html>

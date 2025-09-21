@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Dark ambient digital artist creating nocturnal soundscapes and mysterious visual experiences.">
+    <meta name="description" content="nocturnmachine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, nocturnmachine, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - nocturnmachine - MarketWizardry.org">
-    <meta property="og:description" content="Dark ambient digital artist creating nocturnal soundscapes and mysterious visual experiences.">
+    <meta property="og:description" content="nocturnmachine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/nocturnmachine_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - nocturnmachine - MarketWizardry.org">
-    <meta name="twitter:description" content="Dark ambient digital artist creating nocturnal soundscapes and mysterious visual experiences.">
+    <meta name="twitter:description" content="nocturnmachine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - nocturnmachine</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Dark ambient digital artist creating nocturnal soundscapes and mysterious visual experiences.</div>
+        <div class="flavor-text">nocturnmachine's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,52 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./nocturnmachine/webp/nocturnmachine-1929237006-Did_you_leave_it_all_behind__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1929303443-The_wolf_never_sleeps_video3-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1928068808-I_am_the_shadows_video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930663404-Nah__I_m_never_looking_back_video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1927800184118919192-https___open.spotify.com_track_3LJKvG7zVsmVm16RuHdUla_si_lWp1Gf-jQ0SqpnsWaHZLPg__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1929259151-Why_did_you_come_back__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930278373-Flame_sword_video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1935521667004182800-No_one_is_ever_truly_themselves_in_public_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930168896-_Respira__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1927888872-Who_are_you_when_you_re_not_performing__video3-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930376516-__or_are_you_pretending__video3-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1935989751938531726-What_are_you_keeping_inside__video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930436913-__What_if_the_villain_is_you__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930497310-__and_it_stares_back_video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1929603168-Stop_being_foolish_and_change_while_you_still_can_video3-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1929836785-Why_are_you_afraid__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1935582064989851923-I_am_the_light__you_know_that_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1941845066986738052-__your_void_shows_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930497310-__and_it_stares_back_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930376516-__or_are_you_pretending__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1943065125235073389-Rage___against_the_dying_light_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1935566965608694112-__You_might_reveal_yourself_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1935393322924732802-My_human_face_IS_the_mask_video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1941646447318835366-__where_did_your_light_go__video4-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1943422226096676938-I_am_already_lost_video3-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1927888872-Who_are_you_when_you_re_not_performing__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1928191365-https___open.spotify.com_track_0HoaLXRp7jJtdQFunUyUGc_si_btxBfvQJQKS4wisu7-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1930546083-Boooo__video2-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1928082398-https___open.spotify.com_track_4GNmvOYZW11lGzcZm0FKGY_si_Gco4FDqpSoC7mQiDX-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1928398480-After_PART_ONE_of_the_COVEN_Ritual_Tour_2025_Europe__a_few_items_left...AN-lossy.webp',
-            './nocturnmachine/webp/nocturnmachine-1927745428-https___open.spotify.com_track_7FwBtcecmlpc1sLySPXeGE_si_-cnxC9sIRmmbJq4qH-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-nocturnmachine.js"></script>
+    </div>
 </body>
 </html>

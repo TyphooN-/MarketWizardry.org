@@ -1,4 +1,3 @@
-
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="Kawaii digital artist bringing Japanese cute culture and adorable aesthetics to NFT galleries.">
+    <meta name="description" content="_myujii's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, _myujii, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -23,7 +22,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - _myujii - MarketWizardry.org">
-    <meta property="og:description" content="Kawaii digital artist bringing Japanese cute culture and adorable aesthetics to NFT galleries.">
+    <meta property="og:description" content="_myujii's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/_myujii_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -32,12 +31,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-
+    
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - _myujii - MarketWizardry.org">
-    <meta name="twitter:description" content="Kawaii digital artist bringing Japanese cute culture and adorable aesthetics to NFT galleries.">
+    <meta name="twitter:description" content="_myujii's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -46,8 +45,7 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-        <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
+    <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
@@ -55,6 +53,10 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -225,6 +227,7 @@
             }
         }
 
+
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -282,9 +285,9 @@
     <div class="container">
         <h2>NFT Gallery - _myujii</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">Kawaii digital artist bringing Japanese cute culture and adorable aesthetics to NFT galleries.</div>
+        <div class="flavor-text">_myujii's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-    <!-- Image Grid -->
+        <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -293,8 +296,8 @@
         <div class="modal-content">
             <button class="close-button" data-action="close-modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer" style="display: none; text-align: center; margin: 10px 0;">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00ff00; text-decoration: none; font-weight: bold; border: 1px solid #00ff00; padding: 5px 10px; display: inline-block;">
+            <div class="twitter-link-container" id="twitterLinkContainer">
+                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
                     🐦 View Original Tweet
                 </a>
             </div>
@@ -302,56 +305,17 @@
             <img src="" alt="Fullscreen image" class="full-image">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="/js/nft-gallery.js"></script>
-    <script>
-        // Initialize gallery with image paths
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = ['./_myujii/webp/_myujii-1911037688-hope__OE_video1-lossy.webp',
-            './_myujii/webp/_myujii-1923066660-artificial_sites___2024_collaborative_w__video1-lossy.webp',
-            './_myujii/webp/_myujii-1924082644-connections_video1-lossy.webp',
-            './_myujii/webp/_myujii-1934406985710969265-being_bits_-_for__GifArtDay_video2-lossy.webp',
-            './_myujii/webp/_myujii-1922088241-whats_this__objkt4objkt_thing_guys__video2-lossy.webp',
-            './_myujii/webp/_myujii-1931481126616363285-I_want_to_know_what_kind_of_animal_I_need_to_be_for_you_to_pay_one_million_tezos_on_my_artwork_video2-lossy.webp',
-            './_myujii/webp/_myujii-1921964864-meteoric_passage_inside_the_chamber_of_whispers_video4-lossy.webp',
-            './_myujii/webp/_myujii-1927829634-_palm__my_entry_for__proofofpalm_-_5__video1-1-lossy.webp',
-            './_myujii/webp/_myujii-1921964864-meteoric_passage_inside_the_chamber_of_whispers_video1-lossy.webp',
-            './_myujii/webp/_myujii-1903953019-last_edition_on_primary__9.99tez_video1-lossy.webp',
-            './_myujii/webp/_myujii-1907767586-gm_fam_video1-lossy.webp',
-            './_myujii/webp/_myujii-1925901887-gm_space_cowboys_video1-lossy.webp',
-            './_myujii/webp/_myujii-1925154032-good_morning_video1-lossy.webp',
-            './_myujii/webp/_myujii-1932092756437917712-o__________be_l_____is____k_______XII___11_11___6__video2-lossy.webp',
-            './_myujii/webp/_myujii-1907208957-health_potion_video1-lossy.webp',
-            './_myujii/webp/_myujii-1900171337-gm_video1-lossy.webp',
-            './_myujii/webp/_myujii-1899842161-1_1___77__video1-lossy.webp',
-            './_myujii/webp/_myujii-1942289716352802998-outerworld_connections_-_16_16_6.66_video3-lossy.webp',
-            './_myujii/webp/_myujii-1928192785-palmeira__cida_-_33_33_3.33__video1-lossy.webp',
-            './_myujii/webp/_myujii-1936592373871456406-goodnight_video2-lossy.webp',
-            './_myujii/webp/_myujii-1919398095-gallery02_-_edition_of_10__8__video1-lossy.webp',
-            './_myujii/webp/_myujii-1922088241-whats_this__objkt4objkt_thing_guys__video1-lossy.webp',
-            './_myujii/webp/_myujii-1903641823-gn_video1-lossy.webp',
-            './_myujii/webp/_myujii-1929716049-Show_me_your_art_video1-lossy.webp',
-            './_myujii/webp/_myujii-1898042467-2d_OE___3.33__video1-lossy.webp',
-            './_myujii/webp/_myujii-1915102078-futuristetris_video1-lossy.webp',
-            './_myujii/webp/_myujii-1907468016-1_video1-lossy.webp',
-            './_myujii/webp/_myujii-1899271304-mirror_03__8_8_8__video1-lossy.webp',
-            './_myujii/webp/_myujii-1933224393465082176-Untitled_video2-lossy.webp',
-            './_myujii/webp/_myujii-1904155610-Whose_releasing_art_on_Tezos_this_week__If_so__share_info_below_video1-lossy.webp',
-            './_myujii/webp/_myujii-1922786927-data_run_video1-lossy.webp',
-            './_myujii/webp/_myujii-1921581904-2_33_-_4__video1-lossy.webp',
-            './_myujii/webp/_myujii-1918322829-welcome_video1-lossy.webp',
-            './_myujii/webp/_myujii-1927829634-_palm__my_entry_for__proofofpalm_-_5__video3-lossy.webp',
-            './_myujii/webp/_myujii-1925592646-o__________be_l_____is____k_______X_video1-lossy.webp'];
-            initializeGallery(imagePaths);
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-_myujii.js"></script>
+    </div>
 </body>
 </html>

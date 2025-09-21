@@ -242,6 +242,17 @@ def generate_ai_art_html(output_file='ai-art.html'):
             word-wrap: break-word;
             font-size: 0.9em;
         }
+        .image-counter {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+        .download-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .modal.modal-open {
+            display: flex;
+        }
 
 {breadcrumb_css}
         /* Mobile breadcrumb optimization */
@@ -299,10 +310,10 @@ def generate_ai_art_html(output_file='ai-art.html'):
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
             <div class="nav-buttons">
                 <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" style="color: #00ff00; font-family: 'Courier New', monospace;"></span>
+                <span id="imageCounter" class="image-counter"></span>
                 <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
             </div>
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="download-container">
                 <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
             </div>
         </div>
@@ -349,7 +360,7 @@ def generate_ai_art_html(output_file='ai-art.html'):
             // Update navigation buttons and counter
             updateNavigationButtons();
 
-            modal.style.display = 'flex';
+            modal.classList.add('modal-open');
         }
 
         function updateNavigationButtons() {
@@ -389,13 +400,13 @@ def generate_ai_art_html(output_file='ai-art.html'):
 
         function closeModal() {
             const modal = document.getElementById('fullscreenModal');
-            modal.style.display = 'none';
+            modal.classList.remove('modal-open');
         }
 
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
+            if (modal.classList.contains('modal-open')) {
                 switch(event.key) {
                     case 'ArrowLeft':
                         previousImage();
