@@ -5,6 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Global event delegation for data-action attributes
     document.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
+
+        // Handle modal background clicks
+        if (e.target.id === 'analysisModal') {
+            closeModal();
+            return;
+        }
+
         if (!action) return;
 
         switch(action) {
@@ -148,6 +155,9 @@ function handleCloseModal(e) {
     e.preventDefault();
     if (window.closeModal) {
         window.closeModal();
+    } else {
+        // Fallback for blog post modals
+        closeModal();
     }
 }
 
@@ -225,8 +235,71 @@ function handleNextFile(e) {
 // Blog post functionality
 function handleOpenModal(e) {
     e.preventDefault();
-    if (window.openModal) {
-        window.openModal();
+    openModal();
+}
+
+function openModal() {
+    const modal = document.getElementById('analysisModal');
+    const analysisContent = document.getElementById('analysisContent');
+
+    if (modal && analysisContent) {
+        // Check if content is already loaded
+        if (analysisContent.textContent.trim() === '') {
+            // Load the content from the corresponding .txt file
+            loadAnalysisContent(analysisContent);
+        }
+
+        modal.style.display = 'block';
+        modal.focus();
+
+        // Add escape key handler
+        const escapeHandler = (event) => {
+            if (event.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escapeHandler);
+            }
+        };
+        document.addEventListener('keydown', escapeHandler);
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('analysisModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function loadAnalysisContent(contentElement) {
+    // Try to find the corresponding .txt file
+    const currentPath = window.location.pathname;
+    let txtFilename = '';
+
+    // Extract filename from current path and construct .txt filename
+    if (currentPath.includes('blog/')) {
+        const pathParts = currentPath.split('/');
+        const htmlFilename = pathParts[pathParts.length - 1] || 'index.html';
+        const baseName = htmlFilename.replace('.html', '');
+        txtFilename = baseName + '.txt';
+    }
+
+    if (txtFilename) {
+        fetch(txtFilename)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load analysis content');
+                }
+                return response.text();
+            })
+            .then(text => {
+                contentElement.textContent = text;
+            })
+            .catch(error => {
+                console.error('Error loading analysis content:', error);
+                contentElement.textContent = 'Error loading analysis content. Please try again later.';
+            });
+    } else {
+        contentElement.textContent = 'Analysis content not available.';
     }
 }
 
@@ -271,3 +344,6 @@ window.copyToClipboard = copyToClipboard;
 window.showCopyNotification = showCopyNotification;
 window.downloadCurrentImage = downloadCurrentImage;
 window.forceDownloadFallback = forceDownloadFallback;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.loadAnalysisContent = loadAnalysisContent;

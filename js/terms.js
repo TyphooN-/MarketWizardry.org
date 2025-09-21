@@ -2,6 +2,7 @@ const files = {
     1: 'LICENSE',
     2: 'DISCLAIMER_AND_RISK_WARNING',
     3: 'MARKET_WIZARDS',
+    4: 'GAMERS_NEXUS',
 };
 
 let currentFileIndex = 0;
