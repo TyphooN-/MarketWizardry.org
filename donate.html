@@ -43,24 +43,7 @@
         <meta name="twitter:label1" content="Purpose">
     <meta name="twitter:data1" content="Support">    <meta name="twitter:label2" content="Goal">
     <meta name="twitter:data2" content="Development">
-    <script>
-        // Redirect to market-wizardry.html if accessed directly (not in iframe)
-        if (window === window.top) {
-            // Small delay to ensure viewport takes effect on mobile
-            setTimeout(() => {
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/blog/') || currentPath.includes('/nft-gallery/')) {
-                    // For blog posts and NFT galleries, pass full path
-                    const fullPath = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
-                    window.location.href = `/?page=${encodeURIComponent(fullPath)}`;
-                } else {
-                    // For main pages, redirect with page parameter
-                    const currentPage = currentPath.split('/').pop().replace('.html', '');
-                    window.location.href = `/?page=${currentPage}`;
-                }
-            }, 100);
-        }
-    </script>
+        <script src="/js/redirect.js"></script>
     <style>
         body {
             background-color: #000;
