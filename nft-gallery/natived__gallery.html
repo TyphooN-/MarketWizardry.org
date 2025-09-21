@@ -1,3 +1,4 @@
+
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +46,12 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
+<<<<<<< HEAD
     <script src="/js/redirect.js"></script>
+=======
+        <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+>>>>>>> 59efb72 (CSP rollup)
     <style>
         body {
             background-color: #000;
@@ -53,10 +59,6 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -227,7 +229,6 @@
             }
         }
 
-
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -287,7 +288,7 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">natived_'s digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -314,8 +315,199 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-natived_.js"></script>
     </div>
+=======
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./natived_/webp/natived_-1923014630-Another_edition_of__Mind_Prompt___a_collaborative_piece_with_video1-lossy.webp',
+            './natived_/webp/natived_-1932824723-The_floor_video2-lossy.webp',
+            './natived_/webp/natived_-1925462907-_______video1-lossy.webp',
+            './natived_/webp/natived_-1938241882364252429-they_coming_video3-lossy.webp',
+            './natived_/webp/natived_-1937447844736303428-If_you_don_t_have_at_least_1_video3-lossy.webp',
+            './natived_/webp/natived_-1922610810-Collected__Adam__by_video1-lossy.webp',
+            './natived_/webp/natived_-1923748393-The_place_i_told_you_about__May__2023__collected_on_secondary_by_video1-lossy.webp',
+            './natived_/webp/natived_-1935997106965430626-_B_Inertia__2023__video2-lossy.webp',
+            './natived_/webp/natived_-1939367406129840592-no_future__if_they_keep_pressing_those_buttons__video3-lossy.webp',
+            './natived_/webp/natived_-1928753792-GM_HYBRD_1__2022__video1-lossy.webp',
+            './natived_/webp/natived_-1922319868340195801-_Gleam_of_the_Elsewhere__by_video1-lossy.webp',
+            './natived_/webp/natived_-1931648765-_Floppy_Risk__x_video3-lossy.webp',
+            './natived_/webp/natived_-1922276006-___________________2022__video1-lossy.webp',
+            './natived_/webp/natived_-1926189701-Exp42069____The_Sanctuary_video1-lossy.webp',
+            './natived_/webp/natived_-1932153423-_Mind_Prompt__x_video2-lossy.webp',
+            './natived_/webp/natived_-1932824723-The_floor_video1-lossy.webp',
+            './natived_/webp/natived_-1923368277-DYOR__2023__collected_on_secondary_by_video1-lossy.webp',
+            './natived_/webp/natived_-1940450323832987681-Untitled_video4-lossy.webp',
+            './natived_/webp/natived_-1935243157605626087-GM_is_the_head_rotating_left_or_right__video3-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.addEventListener('click', function() { openImage(index); });
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
+            
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null, isShortened: false };
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.addEventListener('click', function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            		closeModal();
+        }
+    });
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+>>>>>>> 59efb72 (CSP rollup)
 </body>
 </html>

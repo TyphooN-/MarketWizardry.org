@@ -1,3 +1,4 @@
+
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +46,12 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
+<<<<<<< HEAD
     <script src="/js/redirect.js"></script>
+=======
+        <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+>>>>>>> 59efb72 (CSP rollup)
     <style>
         body {
             background-color: #000;
@@ -53,10 +59,6 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -227,7 +229,6 @@
             }
         }
 
-
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -287,7 +288,7 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">ozbren_xyz's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -314,8 +315,203 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-ozbren_xyz.js"></script>
     </div>
+=======
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1788997417-indeed__my_first_and_only_ordinal_is_still_available_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1784648172-type_of_shit_I_ve_been_on_video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video3-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1935087548642078733-The_first_console_I_ever_owned._What_a_beautiful_thing_video4-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1774136799-big_week_for_me___4_1_1s_found_new_homes__3_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1781734866629058585-The_project_I_ve_been_helping_to_build_for_6_months_will_finally_launch_in_a_couple_of_days__video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video2-1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1786134656-Dead_Internet_Theory_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1928581134-skull_art_video1-1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1784693474-World_Peace_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1783569783-How_fun-_when_I_saw_Chungos_II_mint_recently_I_felt_like_I_recognized_the_styl-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1771537359-the_final_hours_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1937543565376455020-GLYPHS_-_24hr_auction_is_live_now_for_video3-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1778457114-The_lab_recovered_some_art_files_from_my_dead_HDD_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1933902813719097836-you_can_just_do_whatever_you_want_in_Blender_lol_video4-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1779923240-the_cabal__real__video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1772632266-Honda_Zoomer_X_has_been_collected_by_video1-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1923527388-Sell__video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1782876869-Chungos_Chapter_II_is_now_live_on_Magic_Eden_video2-lossy.webp',
+            './ozbren_xyz/webp/ozbren_xyz-1772693819-Auction_started_for_the_BMW____video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.addEventListener('click', function() { openImage(index); });
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
+            
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null, isShortened: false };
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.addEventListener('click', function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            		closeModal();
+        }
+    });
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+>>>>>>> 59efb72 (CSP rollup)
 </body>
 </html>

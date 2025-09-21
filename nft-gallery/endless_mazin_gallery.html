@@ -1,3 +1,4 @@
+
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +46,12 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
+<<<<<<< HEAD
     <script src="/js/redirect.js"></script>
+=======
+        <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+>>>>>>> 59efb72 (CSP rollup)
     <style>
         body {
             background-color: #000;
@@ -53,10 +59,6 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -227,7 +229,6 @@
             }
         }
 
-
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -287,7 +288,7 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">endless_mazin's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -314,8 +315,234 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-endless_mazin.js"></script>
     </div>
+=======
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./endless_mazin/webp/endless_mazin-1910066207-Machine_is_live___video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1942094101773439090-Awesome_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1914748092-Original_res__video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video3-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1905064458-Rootrealm_Portal_-_on_Visual_Detachment_exhibition___video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1916703108-Caelid_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1909599298-Launching_tomorrow____Vending_Machine_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1938005829426303196-Last_night_at_Times_SquareThank_you_video4-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1936788088015192525-Too_good_video4-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1905349658-Cartographic_Earthforms_-_Mantle_network_debut_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1910449037-Dunes_of_Iridell____Inside_the_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1914391022-200_editions_owned_in_the_Vending_Machine_Takeover__video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1943028275250405681-Junglecore_Jumnesia___just_dropped_a_new_audiovisual._Link_below_video4-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1912542163-Music_video_I_shot_for_the_band_is_airing_soon_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1918586717-Rootship_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1907352532-Working_on_a_music_video_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1924637128-Gleech_Thing_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1926987901-Rooted_Sentinel_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1935197963233411385-Beautified_Entropy_video3-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1942604878951436769-SignalWave____video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1933690551322488912-Details_video3-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1933690551322488912-Details_video4-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1912944025-love_the_way_your_animations_flow__video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1903355906-Phantasmagoria_GIFs_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video3-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1922463842-4_unique_pieces_inside_the_Vending_Machine_takeover_-_none_owned_yet_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1916036789-Zalvia____Available_inside_the_Vending_Machine_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1921630358-Amazing_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1911776624-Jumnesia__The_Ultimate_Glitchscape_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1929923885-Earthbending_Protocol_video1-1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1926216329-_Nomadlands_Protocol__-_live_on_bpdotfun_x_m4zin_.net_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1928445672-Full_portfolio_is_now_live_on_my_website._Link_below_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1908102671-Landing_at_Vending_Machine_on_April_9th_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1915418664-Altered_Divinity_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1919383523-Neuralscape_video2-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1925244149-The_Cathode_Knight_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1927711787-Mortal_Continuum_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1929191245-Kindled_-_live_on_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1913654511-The_Thing_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1917601334-Frames_from_a_music_video_I_made_for_the_band_Espervene_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1936097210275352914-Woah_this_is_beautiful_and_trippy_at_the_same_time_video4-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1911451783-My_3-month_journey_with_Blueprint_Cohort_2_has_wrapped_up_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1907676839-I_m_taking_over_the_Tezos_Vending_Machine_video1-1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1920079952-Duogenesis_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1903941228-Auction_on_March_25_-_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1911054908-_Rootrealm__is_one_of_28_pieces_obtainable_from_video1-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1933270788192260226-Jumnesia_Jungles__Displayed__video3-lossy.webp',
+            './endless_mazin/webp/endless_mazin-1920821671-Evermorph_video1-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.addEventListener('click', function() { openImage(index); });
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
+            
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null, isShortened: false };
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.addEventListener('click', function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            		closeModal();
+        }
+    });
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+>>>>>>> 59efb72 (CSP rollup)
 </body>
 </html>

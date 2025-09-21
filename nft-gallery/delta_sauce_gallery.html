@@ -1,3 +1,4 @@
+
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +46,12 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
+<<<<<<< HEAD
     <script src="/js/redirect.js"></script>
+=======
+        <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+>>>>>>> 59efb72 (CSP rollup)
     <style>
         body {
             background-color: #000;
@@ -53,10 +59,6 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -227,7 +229,6 @@
             }
         }
 
-
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -287,7 +288,7 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">delta_sauce's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -314,8 +315,252 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-delta_sauce.js"></script>
     </div>
+=======
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./delta_sauce/webp/delta_sauce-1930008287-_me_clicking_refresh_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930274023-Do_a_bit_of_collecting__Green_by_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943422496050417798-The_Basilisk_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943378581674975525-proof_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928066060-pasted_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930099259-gn_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929946538-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_budde-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929567741-just_a_crosshair..._just_a_shot_away_from_you_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941265226806198272-Always_a_good_day_to_acquire_another_Views_piece_to_my_collection__video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929939183-you_maniacs_broke_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929267436-Much_love_to_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929273143-d_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943352343304499245-remember__the_floor_is_lava__video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930308070-boom..._headshot_video2-1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928923149-Finally_back_home_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943434051542495556-Higher_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929605059-June_17th_-_Two_Iconic_Drops__video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941518983800422619-First_rule_of_cabal_club_is_denying_its_existence_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1931080529-FEED_touches_on_the_topic_of_addiction_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929015640-Trust_the_flow_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941550313468723701-crypto_art_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929260191-Coming_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928183850-I_m_so_in_love_with_this_and_feel_honored__video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930745475-Sorry__video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943336933834326156-What_if_the_entire_timeline_is_wrong__and_this_is_actually_the_biggest_alt_season_ever_-_fuelled_by_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930352813-Manifesting_to_get_this_masterpiece_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941726679166009707-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935514353752522935-FEED_is_featured_on_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928617005-This_was_worth_the_entire_trip_to_Austin__video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935092163542401384-my_finger_is_on_the_button_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1931177734-GN_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1927850050-The_Bowler_has_been_summoned_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930770954-love_hurts_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928233299-buckle_up_buttercup_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935445728538562678-The_auction_for_these_last_two_auctions_of_FEED_are_crazy____video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1942432039275291115-please_don_t_outbid_me__video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941916620634411118-lmaoooo_he_literally_did_the_tweet__what_is_wrong_with_these_people_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935828886052286602-damn_a_loan_originating_from_jg_wentworth_nft_loaning_platform_to_the_tune_of_six_million_dollars_wa_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935478172117778765-can_I_get_a_light__video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1925988141-Coming_June_2025__video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1928124302-_Raging_Profits__by_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929633478-Hope_the_Feed_is_ready_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941233670335103413-Sent__video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943431718649639371-cmon_eth_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943357653230485849-feels_like_underwater_beach_ball_moment_dunnit__video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929946538719039927-for_immediate_release__an_already_insane_day_gets_more_mad._all_gristle_buddeez_details_are_here._ti_video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935689079221301439-One_of_my_favourite_pieces__from_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935889042685800957-MAKE_ART_NOT_WAR_by_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943384944937443827-proof_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935499828446044368-_The_Feed__by_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1927653982-can_I_get_a_light__video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935880604446605532-Everything_interesting_in_the_world_always_starts_with_a_small_group_of_misfits_that_are_brave_enoug_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1927820796-Big_fan_of_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1930109522238157067-I_m_not_sure_art_was_meant_to_be_created_and_sold_at_the_pace_that_seems_to_be_the_norm_here__video1-1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1942421703419724094-pilled_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1927715910-can_I_get_a_light__video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1931077934300938623-The_digital_progression_from_pixelated_creatures_on_an_LCD_screen_to_the_black_mass_of_data_as_singu_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1940941045455282431-Neither_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1935678017344561472-Delta_Feed_has_a_nice_ring_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1941696448719954073-Gen_art_is_dead__AI_art_is_bad__royalties_are_dead..._next_up_on_the_conversation_wheel_is_Open_Edit_video4-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1936547373142175930-_me_looking_at_ETH_price_video3-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929653693-war_zone_video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929314978-GA___video2-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1929622575-Next_to_launch_at_Fellowship__video1-lossy.webp',
+            './delta_sauce/webp/delta_sauce-1943355595542671493-Decided_to_pull_the_trigger_and_pick_up_my_first_gristle_buddee_by_video3-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.addEventListener('click', function() { openImage(index); });
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
+            
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null, isShortened: false };
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.addEventListener('click', function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            		closeModal();
+        }
+    });
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+>>>>>>> 59efb72 (CSP rollup)
 </body>
 </html>

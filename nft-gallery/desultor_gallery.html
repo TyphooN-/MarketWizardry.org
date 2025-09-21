@@ -1,3 +1,4 @@
+
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +46,12 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
+<<<<<<< HEAD
     <script src="/js/redirect.js"></script>
+=======
+        <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+>>>>>>> 59efb72 (CSP rollup)
     <style>
         body {
             background-color: #000;
@@ -53,10 +59,6 @@
             font-family: "Courier New", monospace;
             padding: 20px;
             margin: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
         }
         a {
             color: #00ff00;
@@ -227,7 +229,6 @@
             }
         }
 
-
     /* Breadcrumb Navigation Styles */
     .breadcrumb {
         font-size: 0.8em;
@@ -287,7 +288,7 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">desultor's digital art collection - NFT gallery showcasing blockchain-validated creative expressions.</div>
         <div class="crt-divider"></div>
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -314,8 +315,272 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-desultor.js"></script>
     </div>
+=======
+    <script>
+        let currentImageIndex = 0;
+        const allImagePaths = ['./desultor/webp/desultor-1932399635-gm_till_the_end_video2-lossy.webp',
+            './desultor/webp/desultor-1927960319-niceee_gif_video1-lossy.webp',
+            './desultor/webp/desultor-1929255561-gm_sunday_funday_video2-lossy.webp',
+            './desultor/webp/desultor-1933862894514667900-gm__you_owe_it_to_yourself_video2-lossy.webp',
+            './desultor/webp/desultor-1940908942911328421-wen_the_food_so_good_you_do_a_lil_dance_video3-lossy.webp',
+            './desultor/webp/desultor-1927784177-thank_you_bigly_to_video3-lossy.webp',
+            './desultor/webp/desultor-1934580786906460597-gm_to_the_face_video2-lossy.webp',
+            './desultor/webp/desultor-1940432082624479313-dOpPpE_aCrOsS_tHe_RaDiOcItY___video3-lossy.webp',
+            './desultor/webp/desultor-1932564213-Sleep_video1-lossy.webp',
+            './desultor/webp/desultor-1932127367-collected_some_comrades_video1-lossy.webp',
+            './desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video3-lossy.webp',
+            './desultor/webp/desultor-1927778550-__tangy_tales_i_tell_myself___video1-lossy.webp',
+            './desultor/webp/desultor-1927764747-Love_life_without_regrets_video2-lossy.webp',
+            './desultor/webp/desultor-1930223429-Skull_Studies__59_by_video2-lossy.webp',
+            './desultor/webp/desultor-1927024573-manifesting_video3-lossy.webp',
+            './desultor/webp/desultor-1926994406-gm_wide_eyed_video3-lossy.webp',
+            './desultor/webp/desultor-1934945129909162433-gm_till_doomsday_video2-lossy.webp',
+            './desultor/webp/desultor-1933347136722096433-sigils_by_desultor_video4-lossy.webp',
+            './desultor/webp/desultor-1940932203376239040-gm_innit_video3-lossy.webp',
+            './desultor/webp/desultor-1930964953-gm_friday_style_with_cheese_video1-lossy.webp',
+            './desultor/webp/desultor-1925730247-tomorrow-video3-lossy.webp',
+            './desultor/webp/desultor-1935100608354337097-They_found_the_treasure_of_Oak_Island_https___x.com_breaking911_st_breaking911_status_19350777325071_video2-lossy.webp',
+            './desultor/webp/desultor-1927411133-hot_dang__love_to_video2-lossy.webp',
+            './desultor/webp/desultor-1933482418943766815-gm_inside_out_video4-lossy.webp',
+            './desultor/webp/desultor-1927784177-thank_you_bigly_to_video4-lossy.webp',
+            './desultor/webp/desultor-1928496250-fuck_you_homie_I_like_skull_art_video2-lossy.webp',
+            './desultor/webp/desultor-1931182641-Who_does_not_have_a_Call_Data_Comrade_yet__video2-lossy.webp',
+            './desultor/webp/desultor-1940156076311421044-____________________video3-lossy.webp',
+            './desultor/webp/desultor-1927942928-by_desultor_in_partnership_with_desultor_presented_by_desultor_video1-lossy.webp',
+            './desultor/webp/desultor-1932827668-do_something_nice_for_yourself_today_video1-lossy.webp',
+            './desultor/webp/desultor-1940041936750223541-gm_through_the_noise_video2-lossy.webp',
+            './desultor/webp/desultor-1928245223601148343-Class_of_2021_Check-in_-_share_your_art_and_repost_if_you_been_here_since__21_video1-lossy.webp',
+            './desultor/webp/desultor-1930007091-CANAL_ST_CURATION_CONTEST_NOW_OPEN_video4-lossy.webp',
+            './desultor/webp/desultor-1939868270569402418-gonna_getcha_video4-lossy.webp',
+            './desultor/webp/desultor-1941704224602980375-l1nk_br0k3n____tr4nsm1ss10n_f41l3d_video2-lossy.webp',
+            './desultor/webp/desultor-1934217476734165410-gm_sunday_with_cheese_video3-lossy.webp',
+            './desultor/webp/desultor-1929511624-Finally_MC-DEATH.EXE__by_video1-lossy.webp',
+            './desultor/webp/desultor-1942206092257247570-don_t_forget_a_week_heres_like_a_month_in_normie_world_video3-lossy.webp',
+            './desultor/webp/desultor-1929914054-gm_sweet_like_candy_video2-1-lossy.webp',
+            './desultor/webp/desultor-1928623949-gn_to_infinny_video1-lossy.webp',
+            './desultor/webp/desultor-1927841282-You_don_t_agree_with_their_tweet__in_fact__you_can_t_stand_their_self-important_-lossy.webp',
+            './desultor/webp/desultor-1925905733-These_are_the_coordinates_for_today_s___sigils__drop_by-video3-lossy.webp',
+            './desultor/webp/desultor-1941127595623682407-gm_from_the_street_video4-lossy.webp',
+            './desultor/webp/desultor-1929914054-gm_sweet_like_candy_video1-1-lossy.webp',
+            './desultor/webp/desultor-1932773828-gm_pardna_video3-lossy.webp',
+            './desultor/webp/desultor-1932194775-buckle_up_video3-lossy.webp',
+            './desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video1-lossy.webp',
+            './desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video2-lossy.webp',
+            './desultor/webp/desultor-1927765451-live_life_without_regrets_video1-lossy.webp',
+            './desultor/webp/desultor-1932778522-gm_pardna_video2-lossy.webp',
+            './desultor/webp/desultor-1931329847-gm_weekend_energy_video2-lossy.webp',
+            './desultor/webp/desultor-1927806380-skull_studies_video1-lossy.webp',
+            './desultor/webp/desultor-1935533270793420844-juicy_and_crispy_video4-lossy.webp',
+            './desultor/webp/desultor-1932507526-hold_up_boss_video1-lossy.webp',
+            './desultor/webp/desultor-1927704710-gm_on_re-run_video1-lossy.webp',
+            './desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video3-lossy.webp',
+            './desultor/webp/desultor-1930013222-thank_you_video1-lossy.webp',
+            './desultor/webp/desultor-1932194775-buckle_up_video2-lossy.webp',
+            './desultor/webp/desultor-1929200156-temple_of_the_falling_sky__2022__video2-lossy.webp',
+            './desultor/webp/desultor-1942945835462852729-Not_so_hot_take__the_girls_in_this_space_are_way_hotter_than_the_guys_on_average._Imagine_NorCal__my_video4-lossy.webp',
+            './desultor/webp/desultor-1940976520954314824-Untitled_video3-lossy.webp',
+            './desultor/webp/desultor-1928445124-gm_big_friday_energy_video1-lossy.webp',
+            './desultor/webp/desultor-1931565262-my_old_tv_video2-lossy.webp',
+            './desultor/webp/desultor-1932487094-trappings__2021__video2-lossy.webp',
+            './desultor/webp/desultor-1930419678-whats_great_about_the_skull_art_narrative_is_its_most_of_my_work_video2-lossy.webp',
+            './desultor/webp/desultor-1931178425-Delicious__video1-lossy.webp',
+            './desultor/webp/desultor-1935444573058113931-almost_sat_on_my_throne_with_the_seat_up_video4-lossy.webp',
+            './desultor/webp/desultor-1932127367-collected_some_comrades_video2-lossy.webp',
+            './desultor/webp/desultor-1935303656737554900-gm__gn._times_an_illusion_video3-lossy.webp',
+            './desultor/webp/desultor-1932564213-Sleep_video2-lossy.webp',
+            './desultor/webp/desultor-1932802178-do_something_nice_for_yourself_today_video3-lossy.webp',
+            './desultor/webp/desultor-1927948681531085240-NEW__updated_list_of_fraudulent_KOLs_you_should_block_if_you_re_new_to_crypto___ranked_from_absolute_video2-lossy.webp',
+            './desultor/webp/desultor-1939886385755979928-_desultor_video3-lossy.webp',
+            './desultor/webp/desultor-1941850598418096331-gm_pedal_to_the_metal_video2-lossy.webp',
+            './desultor/webp/desultor-1927024573-manifesting_video2-lossy.webp',
+            './desultor/webp/desultor-1943674941536137692-GM_all_video4-lossy.webp',
+            './desultor/webp/desultor-1929969833-looking_for_liquidity__2024__video2-lossy.webp',
+            './desultor/webp/desultor-1930265126591983795-Once_again__I_m_truly_grateful_for_your_support_dear_artist_friends_and_collectors__video1-lossy.webp',
+            './desultor/webp/desultor-1931329847-gm_weekend_energy_video1-lossy.webp',
+            './desultor/webp/desultor-1932802027-do_something_nice_for_yourself_today_video2-lossy.webp',
+            './desultor/webp/desultor-1932127907-Comrade__31_was_SOLD__video2-lossy.webp',
+            './desultor/webp/desultor-1925905311-in_a_universe_of_infinite_realities_you_re_my__1_collector_in_at_least_420_of_th-lossy.webp',
+            './desultor/webp/desultor-1943276256952250392-gm_every_which_way_video3-lossy.webp',
+            './desultor/webp/desultor-1943117504563548428-_Rio_Art_Residency_Patron__by_video4-lossy.webp',
+            './desultor/webp/desultor-1942561991513579588-gm_through_it_all_video3-lossy.webp',
+            './desultor/webp/desultor-1933721863747989985-me_after_being_liquidated_and_telling_myself_nothing_matters_because_life_s_a_simulation_video2-lossy.webp',
+            './desultor/webp/desultor-1928266096-infinny_video1-lossy.webp',
+            './desultor/webp/desultor-1928593060-_sigils__by_video1-lossy.webp',
+            './desultor/webp/desultor-1942702367440355642-everything_fake_video2-lossy.webp',
+            './desultor/webp/desultor-1931071323-Art_on_Tezos_Friday_Recap_video2-lossy.webp',
+            './desultor/webp/desultor-1932807657-Do_something_nice_for_yourself_today_video2-lossy.webp',
+            './desultor/webp/desultor-1940365071533981853-gm_all_over_video3-lossy.webp']; // All image paths from Python
+        console.log("All Image Paths:", allImagePaths);
+        const imagesPerLoad = 50; // Increased number of images to load per scroll
+        const scrollThreshold = 1000; // Load more images when 1000px from bottom
+        const imageGrid = document.getElementById('imageGrid');
+
+        function loadImage(path, index) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            const img = document.createElement('img');
+            img.className = 'thumbnail';
+            img.src = path;
+            img.onerror = function() { console.error("Error loading image:", path); };
+            img.onload = function() { console.log("Image loaded:", path); };
+            img.addEventListener('click', function() { openImage(index); });
+            imgContainer.appendChild(img);
+            imageGrid.appendChild(imgContainer);
+        }
+
+        function loadMoreImages() {
+            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
+            if (currentImageIndex >= allImagePaths.length) {
+                console.log("No more images to load.");
+                return; // No more images to load
+            }
+
+            const startIndex = currentImageIndex;
+            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                loadImage(allImagePaths[i], i);
+            }
+            currentImageIndex = endIndex;
+            console.log("Loaded images up to index:", currentImageIndex);
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMoreImages();
+            // Load more images immediately if the initial load doesn't fill the viewport
+            if (document.body.offsetHeight < window.innerHeight) {
+                loadMoreImages();
+            }
+        });
+
+        // Scroll event for lazy loading
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                loadMoreImages();
+            }
+        });
+
+        function openImage(index) {
+            currentImageIndex = index;
+            const modalImg = document.querySelector('.full-image');
+            const modal = document.getElementById('fullscreenModal');
+            const modalFilename = document.getElementById('modalFilename');
+            const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+            const twitterLink = document.getElementById('twitterLink');
+            
+            const imagePath = allImagePaths[index];
+            const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
+            
+            modalImg.src = imagePath;
+            modalFilename.textContent = filename;
+            
+            // Extract Twitter info from filename
+            const tweetInfo = extractTweetInfoFromFilename(filename);
+            if (tweetInfo.username && tweetInfo.tweetId && !tweetInfo.isShortened) {
+                const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+                twitterLink.href = twitterUrl;
+                twitterLink.textContent = '🐦 View Original Tweet';
+                twitterLinkContainer.style.display = 'block';
+            } else if (tweetInfo.username && tweetInfo.tweetId && tweetInfo.isShortened) {
+                // Show disabled link for shortened tweet IDs
+                twitterLink.href = '#';
+                twitterLink.textContent = '🐦 Tweet ID Shortened (Link Unavailable)';
+                twitterLink.style.opacity = '0.5';
+                twitterLink.style.cursor = 'not-allowed';
+                twitterLinkContainer.style.display = 'block';
+            } else {
+                twitterLinkContainer.style.display = 'none';
+            }
+            
+            // Update navigation buttons and counter
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === allImagePaths.length - 1;
+            imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
+            modal.style.display = 'flex'; // Use flex to center modal content
+        }
+        
+        function extractTweetInfoFromFilename(filename) {
+            try {
+                // Remove file extension
+                let baseName = filename.replace(/\.(webp|jpg|jpeg|png|gif)$/i, '');
+                // Remove -lossy suffix if present
+                baseName = baseName.replace('-lossy', '');
+                
+                // Split by dash and extract first two parts
+                const parts = baseName.split('-');
+                if (parts.length >= 2) {
+                    const username = parts[0];
+                    const tweetId = parts[1];
+                    // Verify tweet_id is numeric
+                    if (/^\d+$/.test(tweetId)) {
+                        // Check if tweet ID is likely shortened (modern Twitter IDs are 19 digits)
+                        const isShortened = tweetId.length < 15;
+                        if (isShortened) {
+                            console.log(`Warning: Tweet ID ${tweetId} appears to be shortened (only ${tweetId.length} digits)`);
+                        }
+                        return { username, tweetId, isShortened };
+                    }
+                }
+            } catch (e) {
+                console.log('Could not extract tweet info from filename:', filename);
+            }
+            return { username: null, tweetId: null, isShortened: false };
+        }
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                openImage(currentImageIndex);
+            }
+        }
+        function nextImage() {
+            if (currentImageIndex < allImagePaths.length - 1) {
+                currentImageIndex++;
+                openImage(currentImageIndex);
+            }
+        }
+    	function closeModal() {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (modal.style.display === 'flex') {
+            		modal.style.display = 'none';
+        	}
+    	}
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.addEventListener('click', function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            		closeModal();
+        }
+    });
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'flex') {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        previousImage();
+                        event.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        event.preventDefault();
+                        break;
+                    case 'Escape':
+                        modal.style.display = 'none';
+                        break;
+                }
+            }
+        });
+    </script>
+>>>>>>> 59efb72 (CSP rollup)
 </body>
 </html>

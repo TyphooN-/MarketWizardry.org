@@ -114,7 +114,8 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
 <head>
 {meta_tags}
 
-    {REDIRECT_SCRIPT_TEMPLATE}
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -256,38 +257,6 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
         </div>
     </div>
 
-    <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {{
-            const action = e.target.getAttribute('data-action');
-            if (action) {{
-                switch(action) {{
-                    case 'toggle-musing':
-                        const filename = e.target.getAttribute('data-filename');
-                        if (filename) {{
-                            toggleMusing(filename);
-                        }}
-                        break;
-                }}
-            }}
-        }});
-
-        function toggleMusing(filename) {{
-            const content = document.getElementById('content-' + filename);
-            const btn = document.getElementById('btn-' + filename);
-
-            if (content.style.display === 'none') {{
-                content.style.display = 'block';
-                btn.textContent = 'Collapse';
-            }} else {{
-                content.style.display = 'none';
-                btn.textContent = 'Expand';
-            }}
-        }}
-
-        // Make functions globally accessible for backward compatibility
-        window.toggleMusing = toggleMusing;
-    </script>
 </body>
 </html>'''
 

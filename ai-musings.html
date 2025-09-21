@@ -45,7 +45,8 @@
     <meta name="twitter:data1" content="Philosophy">    <meta name="twitter:label2" content="Content">
     <meta name="twitter:data2" content="13 Musings">
 
-            <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {
             background-color: #000;
@@ -954,37 +955,5 @@ And so, the legacy of Kaito lived on, a reminder that even in the darkest of tim
         </div>
     </div>
 
-    <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            const action = e.target.getAttribute('data-action');
-            if (action) {
-                switch(action) {
-                    case 'toggle-musing':
-                        const filename = e.target.getAttribute('data-filename');
-                        if (filename) {
-                            toggleMusing(filename);
-                        }
-                        break;
-                }
-            }
-        });
-
-        function toggleMusing(filename) {
-            const content = document.getElementById('content-' + filename);
-            const btn = document.getElementById('btn-' + filename);
-
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                btn.textContent = 'Collapse';
-            } else {
-                content.style.display = 'none';
-                btn.textContent = 'Expand';
-            }
-        }
-
-        // Make functions globally accessible for backward compatibility
-        window.toggleMusing = toggleMusing;
-    </script>
 </body>
 </html>

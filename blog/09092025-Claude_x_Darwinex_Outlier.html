@@ -36,7 +36,7 @@
     <meta property="article:tag" content="Trading">
     <meta property="article:tag" content="Market Analysis">
     <meta property="article:tag" content="Risk Management">
-    <meta property="article:published_time" content="2025-09-20T07:08:31+00:00">
+    <meta property="article:published_time" content="2025-09-21T10:21:04+00:00">
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -75,14 +75,15 @@
     "inLanguage": "en-US",
     "headline": "Claude X Darwinex Outlier",
     "articleSection": "Financial Analysis",
-    "datePublished": "2025-09-20T07:08:31+00:00",
-    "dateModified": "2025-09-20T07:08:31+00:00",
+    "datePublished": "2025-09-21T10:21:04+00:00",
+    "dateModified": "2025-09-21T10:21:04+00:00",
     "wordCount": 1195,
     "keywords": "financial analysis, market data, trading insights, VaR analysis, risk management, market outliers, trading strategy, claude, x, darwinex, outlier"
 }
     </script>
 
-        <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -313,6 +314,7 @@
         color: #00aa00;
         margin-bottom: 20px;
         padding: 10px 0;
+        text-align: left;
     }
 
     .breadcrumb a {
@@ -366,7 +368,7 @@
     <div class="flavor-text">Signal provider ecosystem guide for traders who believe algorithmic selection beats human judgment.</div>
     <div class="crt-divider"></div>
     
-    <div class="content-section" onclick="openModal()">
+    <div class="content-section" data-action="open-modal">
         <h2>📊 Claude X Darwinex Outlier</h2>
         <p class="summary">Investment recommendations from the digital wasteland where mathematical precision meets portfolio carnage. Your risk manager's worst nightmare.</p>
         <p class="summary"><strong>Click to read full analysis</strong></p>
@@ -378,118 +380,12 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2>Claude X Darwinex Outlier</h2>
-            <a id="downloadButton" href="09092025-Claude_x_Darwinex_Outlier.txt" download="09092025-Claude_x_Darwinex_Outlier.txt" onclick="forceDownload(event, this)">Download Report</a>
-            <span class="close-button" onclick="closeModal()">&times;</span>
+            <a id="downloadButton" href="09092025-Claude_x_Darwinex_Outlier.txt" download="09092025-Claude_x_Darwinex_Outlier.txt" data-action="force-download">Download Report</a>
+            <span class="close-button" data-action="close-modal">&times;</span>
         </div>
         <div class="modal-text" tabindex="0" id="analysisContent"></div>
     </div>
 </div>
 
-<script>
-    // Force download function
-    function forceDownload(event, link) {
-        event.preventDefault();
-        const url = link.href;
-        const filename = link.download || url.split('/').pop();
-        
-        fetch(url)
-            .then(response => response.blob())
-            .then(blob => {
-                const downloadUrl = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = downloadUrl;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(downloadUrl);
-                document.body.removeChild(a);
-            })
-            .catch(error => console.error('Download failed:', error));
-    }
-
-    function convertUrlsToLinks(text) {
-        // Escape HTML first to prevent XSS
-        const escapeHtml = (unsafe) => {
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        };
-
-        // URL detection regex that matches http:// and https://
-        const urlRegex = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
-
-        // Escape HTML first
-        let escapedText = escapeHtml(text);
-
-        // Convert URLs to clickable links
-        return escapedText.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-    }
-
-    function openModal() {
-        const modal = document.getElementById("analysisModal");
-        const analysisContent = document.getElementById("analysisContent");
-        const txtUrl = "09092025-Claude_x_Darwinex_Outlier.txt";
-        
-        // Load content dynamically like explorers do
-        fetch(txtUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                analysisContent.innerHTML = convertUrlsToLinks(data);
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden";
-                modal.focus();
-            })
-            .catch(error => {
-                console.error("Error fetching analysis:", error);
-                analysisContent.textContent = "Error loading analysis content.";
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden";
-                modal.focus();
-            });
-    }
-
-    function closeModal() {
-        const modal = document.getElementById("analysisModal");
-        
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
-    }
-
-    // Close modal when clicking outside content
-    document.getElementById("analysisModal").addEventListener('click', (event) => {
-        if (event.target === event.currentTarget) {
-            closeModal();
-        }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && document.getElementById("analysisModal").style.display === "block") {
-            closeModal();
-        }
-    });
-
-    // Scroll controls for modal text
-    const modalText = document.querySelector('.modal-text');
-    modalText.addEventListener('keydown', (event) => {
-        const scrollAmount = 50;
-        if (event.key === 'ArrowUp') {
-            event.preventDefault();
-            modalText.scrollTop -= scrollAmount;
-        } else if (event.key === 'ArrowDown') {
-            event.preventDefault();
-            modalText.scrollTop += scrollAmount;
-        }
-    });
-</script>
 </body>
 </html>

@@ -44,6 +44,7 @@
     <meta name="twitter:data1" content="Support">    <meta name="twitter:label2" content="Goal">
     <meta name="twitter:data2" content="Development">
         <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {
             background-color: #000;
@@ -283,68 +284,6 @@
         <span id="copyMessage">Address copied to clipboard!</span>
     </div>
 
-    <script>
-        function copyToClipboard(address, currency) {
-            // Create a temporary textarea to copy the address
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = address;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            tempTextArea.setSelectionRange(0, 99999); // For mobile devices
-            
-            try {
-                // Copy to clipboard
-                document.execCommand('copy');
-                
-                // Show notification
-                showCopyNotification(currency + ' address copied to clipboard!');
-            } catch (err) {
-                // Fallback for modern browsers
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(address).then(() => {
-                        showCopyNotification(currency + ' address copied to clipboard!');
-                    }).catch(() => {
-                        showCopyNotification('Failed to copy address');
-                    });
-                } else {
-                    showCopyNotification('Copy not supported');
-                }
-            }
-
-            // Remove the temporary textarea
-            document.body.removeChild(tempTextArea);
-        }
-        
-        function showCopyNotification(message) {
-            const notification = document.getElementById('copyNotification');
-            const messageEl = document.getElementById('copyMessage');
-            
-            messageEl.textContent = message;
-            notification.classList.add('show');
-            
-            // Hide after 2 seconds with fade out
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 2000);
-        }
-
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            if (e.target.hasAttribute('data-action')) {
-                const action = e.target.getAttribute('data-action');
-
-                switch(action) {
-                    case 'copyToClipboard':
-                        const address = e.target.getAttribute('data-address');
-                        const currency = e.target.getAttribute('data-currency');
-                        if (address && currency) {
-                            copyToClipboard(address, currency);
-                        }
-                        break;
-                }
-            }
-        });
-    </script>
 
 </body>
 </html>

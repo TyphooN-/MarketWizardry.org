@@ -45,7 +45,8 @@
     <meta name="twitter:data1" content="900+ Symbols">    <meta name="twitter:label2" content="Updates">
     <meta name="twitter:data2" content="Daily">
 
-            <script src="/js/redirect.js"></script>
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {
             background-color: #000;
@@ -631,19 +632,22 @@
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" onclick="closeModal()">&times;</span>
+                <span class="close-button" data-action="close-modal">&times;</span>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
             </div>
             <div class="nav-buttons">
-                <button class="nav-button" onclick="previousFile()">Previous</button>
+                <button class="nav-button" data-action="previous">Previous</button>
                 <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" onclick="nextFile()">Next</button>
+                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>
 
+<<<<<<< HEAD
     <script src="/js/var-explorer.js"></script>
+=======
+>>>>>>> 59efb72 (CSP rollup)
 </body>
 </html>

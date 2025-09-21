@@ -587,7 +587,6 @@ class FinancialToolsUpdater:
         historical_files = self._scan_historical_files('var-explorer')
         grid_entries = self._generate_file_grid_entries(historical_files)
         modal_css = self._generate_modal_system_css()
-        modal_js = self._generate_modal_javascript()
 
         var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': 'VaR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(var_breadcrumbs)
@@ -615,7 +614,8 @@ class FinancialToolsUpdater:
 <head>
 {meta_tags}
 
-    {REDIRECT_SCRIPT_TEMPLATE}
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -684,22 +684,19 @@ class FinancialToolsUpdater:
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" onclick="closeModal()">&times;</span>
+                <span class="close-button" data-action="close-modal">&times;</span>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
             </div>
             <div class="nav-buttons">
-                <button class="nav-button" onclick="previousFile()">Previous</button>
+                <button class="nav-button" data-action="previous">Previous</button>
                 <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" onclick="nextFile()">Next</button>
+                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>
 
-    <script>
-        {modal_js}
-    </script>
 </body>
 </html>'''
 
@@ -716,7 +713,6 @@ class FinancialToolsUpdater:
         atr_files = self._scan_historical_files('atr-explorer', '-outlier.txt')
         file_grid_html = self._generate_file_grid_entries(atr_files)
         modal_css = self._generate_modal_system_css()
-        modal_js = self._generate_modal_javascript()
 
         atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': 'ATR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(atr_breadcrumbs)
@@ -752,7 +748,8 @@ class FinancialToolsUpdater:
 
 {meta_tags}
 
-    {REDIRECT_SCRIPT_TEMPLATE}
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -828,22 +825,19 @@ class FinancialToolsUpdater:
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" onclick="closeModal()">&times;</span>
+                <span class="close-button" data-action="close-modal">&times;</span>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
             </div>
             <div class="nav-buttons">
-                <button class="nav-button" onclick="previousFile()">Previous</button>
+                <button class="nav-button" data-action="previous">Previous</button>
                 <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" onclick="nextFile()">Next</button>
+                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>
 
-    <script>
-{modal_js}
-    </script>
 
 </body>
 </html>'''
@@ -861,7 +855,6 @@ class FinancialToolsUpdater:
         ev_files = self._scan_ev_historical_files('ev-explorer')
         file_grid_html = self._generate_file_grid_entries(ev_files)
         modal_css = self._generate_modal_system_css()
-        modal_js = self._generate_modal_javascript()
 
         ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': 'EV Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(ev_breadcrumbs)
@@ -897,7 +890,8 @@ class FinancialToolsUpdater:
 
 {meta_tags}
 
-    {REDIRECT_SCRIPT_TEMPLATE}
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -973,22 +967,19 @@ class FinancialToolsUpdater:
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" onclick="closeModal()">&times;</span>
+                <span class="close-button" data-action="close-modal">&times;</span>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
             </div>
             <div class="nav-buttons">
-                <button class="nav-button" onclick="previousFile()">Previous</button>
+                <button class="nav-button" data-action="previous">Previous</button>
                 <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" onclick="nextFile()">Next</button>
+                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>
 
-    <script>
-{modal_js}
-    </script>
 
 </body>
 </html>'''

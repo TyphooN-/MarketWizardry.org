@@ -312,7 +312,8 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 
 {json_ld_schema}
 
-{redirect_script}
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <style>
         * {{
             box-sizing: border-box;
@@ -566,143 +567,6 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     </div>
 </div>
 
-<script>
-    // Event delegation for data-action attributes
-    document.addEventListener('click', function(e) {{
-        const action = e.target.getAttribute('data-action');
-        if (action) {{
-            switch(action) {{
-                case 'open-modal':
-                    openModal();
-                    break;
-                case 'close-modal':
-                    closeModal();
-                    break;
-                case 'force-download':
-                    e.preventDefault();
-                    forceDownload(e, e.target);
-                    break;
-                case 'load-content':
-                    e.preventDefault();
-                    const content = e.target.getAttribute('data-content');
-                    if (content && window.parent && window.parent.loadContent) {{
-                        window.parent.loadContent(content);
-                    }}
-                    break;
-            }}
-        }}
-    }});
-
-    // Force download function
-    function forceDownload(event, link) {{
-        event.preventDefault();
-        const url = link.href;
-        const filename = link.download || url.split('/').pop();
-        
-        fetch(url)
-            .then(response => response.blob())
-            .then(blob => {{
-                const downloadUrl = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = downloadUrl;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(downloadUrl);
-                document.body.removeChild(a);
-            }})
-            .catch(error => console.error('Download failed:', error));
-    }}
-
-    function convertUrlsToLinks(text) {{
-        // Escape HTML first to prevent XSS
-        const escapeHtml = (unsafe) => {{
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }};
-
-        // URL detection regex that matches http:// and https://
-        const urlRegex = /(https?:\\/\\/[^\\s<>"{{}}|\\\\^`\\[\\]]+)/g;
-
-        // Escape HTML first
-        let escapedText = escapeHtml(text);
-
-        // Convert URLs to clickable links
-        return escapedText.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-    }}
-
-    function openModal() {{
-        const modal = document.getElementById("analysisModal");
-        const analysisContent = document.getElementById("analysisContent");
-        const txtUrl = "{txt_filename}";
-        
-        // Load content dynamically like explorers do
-        fetch(txtUrl)
-            .then(response => {{
-                if (!response.ok) {{
-                    throw new Error(`HTTP error! status: ${{response.status}}`);
-                }}
-                return response.text();
-            }})
-            .then(data => {{
-                analysisContent.innerHTML = convertUrlsToLinks(data);
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden";
-                modal.focus();
-            }})
-            .catch(error => {{
-                console.error("Error fetching analysis:", error);
-                analysisContent.textContent = "Error loading analysis content.";
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden";
-                modal.focus();
-            }});
-    }}
-
-    function closeModal() {{
-        const modal = document.getElementById("analysisModal");
-        
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
-    }}
-
-    // Close modal when clicking outside content
-    document.getElementById("analysisModal").addEventListener('click', (event) => {{
-        if (event.target === event.currentTarget) {{
-            closeModal();
-        }}
-    }});
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', (event) => {{
-        if (event.key === 'Escape' && document.getElementById("analysisModal").style.display === "block") {{
-            closeModal();
-        }}
-    }});
-
-    // Scroll controls for modal text
-    const modalText = document.querySelector('.modal-text');
-    modalText.addEventListener('keydown', (event) => {{
-        const scrollAmount = 50;
-        if (event.key === 'ArrowUp') {{
-            event.preventDefault();
-            modalText.scrollTop -= scrollAmount;
-        }} else if (event.key === 'ArrowDown') {{
-            event.preventDefault();
-            modalText.scrollTop += scrollAmount;
-        }}
-    }});
-
-    // Make functions globally accessible for backward compatibility
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-    window.forceDownload = forceDownload;
-</script>
 </body>
 </html>'''
 
@@ -1117,7 +981,6 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         breadcrumb_navigation=breadcrumb_navigation,
         breadcrumb_css=breadcrumb_css,
         json_ld_schema=json_ld_schema,
-        redirect_script=REDIRECT_SCRIPT_TEMPLATE,
         title=title,
         breadcrumb_title=breadcrumb_title,
         description=flavor_text,
