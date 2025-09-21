@@ -315,78 +315,7 @@
     </div>
 </div>
     <script src="/js/gallery.js"></script>
-    <script>
-        // Image paths for this gallery
-        const galleryImagePaths = ['./psychofuturist/webp/psychofuturist-1927817802968080832-APE_163_purchased_by_me_for_300APE_thisll_be_the_last_one_I_aquire__I_want_you_all_to_get_an_opportu_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1938319752021131720-try_again__fail_again__fail_harder_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1921411645-tartar_emetic_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1930203720416911734-i_have_stickers__if_you_re_in_Lisbon_for_NFC__or_just_in_Lisbon_for_any_reason__lmk_in_the_comments_video2-1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1926314002-when_you_play_the_piano__do_you_think_about_me__video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1922649078-this_is_how_the_world_works_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1924278798-SUPERCOMPUTER_9000_tell_me_how_to_make_a_pineapple_smoothie_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1917989012-asian_fit_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1928465921-do_not_run__do_not_push__do_not_spit_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1928465921-do_not_run__do_not_push__do_not_spit_video1-1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1915933069-i_feel_like_this_every_morning_when_i_have_huevos_rancheros_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1934240906825089238-my_cold_shadow_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1932897193964323273-The_Anatomy_of_Man_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1920871516-there_is_no_chance_of_not_being_eternal_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1927751134-self_love_worldwide_broadcast_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1929720048-DALE__video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1943454595402850332-___________video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1925660990-PIXELS_in_their_wildest_state_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1924479453-off_my_chest_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1916563522-no_science_can_substitute_myth____if_you_don_t_fear_god__fear_metals_video-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1935339408275722608-Americana_Exotica_video3-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1943730940695425355-no_one_nothing_never_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1916917945-p___s______c___h______g___o___d_______video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1925004773-are_you_a_woman_or_are_you_god__video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1937205924696875513-Golem_of_Thousand_Souls_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1919397586-i_am_not_the_god_of_war__i_am_the_god_of_violence_video3-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1926051608-Pyschofuturist_Mint_Pass_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1943347409771278726-many_eternities_in_a_day_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1922055759-LAST_HOUR_OE_live_video3-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1926702478-hundred_million_dollars_or_a_chance_to_go_through_the_funny_door__video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1922477805-These_are_really_rad._I_have_a_few_of_them_and_I_love_them._Really_cool_vi-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1919397586-i_am_not_the_god_of_war__i_am_the_god_of_violence_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1924874188-joy_squad_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1934013170860921080-_____video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1927968650-Asa_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1923028625-offering_the_brightest_pearls_to_the_holiest_pig_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1927011256-i_saw_at_the_mall_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1921672055-the_powder_monkey_left_the_ship_and_will_die_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1929897094891848008-______________video3-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1923769419324375330-a______normal_guy_asking_a______normal_miracle_to_a______normal_god_video1-1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1913438107-Hi_everyone_-_I_m_looking_for_artists_who_can_create_VHS_sleeve_artwork_fo-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1933885211483451514-watchmakers_HATE_HIM_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1922649078-this_is_how_the_world_works_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1926314002-when_you_play_the_piano__do_you_think_about_me__video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1928117678-pretend_internet_art_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1916917945-p___s______c___h______g___o___d_______video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1924874190-joy_squad_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1928287011-we_are_in_full_______________________video1-1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1934654084855837041-Bichik_ri_Babakina_Anadoni_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1925298374-my_computer_is_my_best_friend_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1928808433-welcome_to_SEE_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1912985777-The_Fall_of_the_Rebel_Angels_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1923398040-i_don_t_believe_in_it_but_i_ve_been_told_that_it_works_even_if_you_don_t_b-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1926702478-hundred_million_dollars_or_a_chance_to_go_through_the_funny_door__video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1933595450709254234-bury_me_with_my_money_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1920156856-still_TAURUS____video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1927751134-self_love_worldwide_broadcast_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1927402534-this_website_is_humanity_s_legacy_video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1938997029906026982-perfectly_ultimate_great_look_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1932099170631836052-Arecibo_Unleashed_video3-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1929720048-DALE__video1-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1933153789617250747-my_first_billion_dollars_video4-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1916563522726605013-no_science_can_substitute_myth____if_you_don_t_fear_god__fear_metals_video2-lossy.webp',
-            './psychofuturist/webp/psychofuturist-1925660990-PIXELS_in_their_wildest_state_video2-lossy.webp'];
-
-        // Initialize gallery when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeGallery(galleryImagePaths);
-        });
-    </script>
+    <script src="/js/gallery-data-psychofuturist.js"></script>
     </div>
 </body>
 </html>

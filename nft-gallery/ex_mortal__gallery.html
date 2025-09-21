@@ -315,73 +315,7 @@
     </div>
 </div>
     <script src="/js/gallery.js"></script>
-    <script>
-        // Image paths for this gallery
-        const galleryImagePaths = ['./ex_mortal_/webp/ex_mortal_-1928834203-_a_dream_built_from_faded_memories_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1926732541-TYSM_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1925274016-Congratulations_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1928865346-Massivecongrats_and_thank_you_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1927789790-Thanks_and_congrats_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931005029-Thank_you_and_congrats_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1940080664612659601-_p_r_i_s_m_a_t_i_c_video3-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1925992131-_m_o_o_n_v_i_e_w_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1926668191-_eden_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1929635293-paint_the_sky_black_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1938944858862858726-bright_new_day_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1940060153534878049-All_available_editions_sold___Huge_THANK_YOU_to_all_collectors__video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1939457755040895330-leap_of_faith_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931067335-the_drift_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931712621591294129-Heatwave_incoming_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1930004933-Did_someone_say_void__video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931804817275695597-_p_n_e_u_m_a_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1941142109794529478-enjoy_the_silence_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1926760052-AI_NIMA_-132____video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1930685395-_m_i_r_r_o_r_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1928143510-_c_r_o_s_s_w_i_n_d_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1940060153534878049-All_available_editions_sold___Huge_THANK_YOU_to_all_collectors__video3-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1940173931270361218-walking_away_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1939457755040895330-leap_of_faith_video3-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1925992131-_m_o_o_n_v_i_e_w_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1930760014-_HOT_HOT_HEAT_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1925544066-_k_e_n_s_h___video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1932436740515529029-_s_k_y_l_i_n_e_r_video3-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1937592628092064217-_APPARATUS__I_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1938580247076835575-_vale_video3-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1930060049-_v_o_i_d_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1942969369199571083-I_have_just_collected__the_gathering_storm__by_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1933569981427659008-on_a_clear_day_you_can_see_for_miles_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1941567327956607400-_d_r_e_a_m_l_a_n_d_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1929635293-paint_the_sky_black_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1929045958-making_a_list._I_don_t_like_lists._But_here_I_am_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931377270968430602-_little_wave__little_cloud_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1929549246-_v_a_s_t_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1940788460203503757-______________________I__________A_____video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1930330496-_fairweather_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1928865346-Massivecongrats_and_thank_you_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1930314320-_a_s_c_e_n_s_i_o_n_has_been_revealed____video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1929990806-_v_o_i_d_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931005029-Thank_you_and_congrats_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1927789790-Thanks_and_congrats_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1938580247076835575-_vale_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1942961303779209492-the_gathering_storm_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1927482273-_thunderhead_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1926760052-AI_NIMA_-132____video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1928445632-weight_of_the_world_video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1934662565251985808-_A_P_P_A_R_A_T_U_S___I_video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1935793658324033759-The_chain_reacts__video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1932911245197209637-theres_nobody_here_video3-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1934090897236361527-ez_pz_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931059841-u_t_o_p_i_a__video1-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1942341199915827543-above_the_noise___video2-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1942397573639082052-_midnight_drifter_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1938645311280300440-_APPARATUS_I_video4-lossy.webp',
-            './ex_mortal_/webp/ex_mortal_-1931067335-the_drift_video2-lossy.webp'];
-
-        // Initialize gallery when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeGallery(galleryImagePaths);
-        });
-    </script>
+    <script src="/js/gallery-data-ex_mortal_.js"></script>
     </div>
 </body>
 </html>

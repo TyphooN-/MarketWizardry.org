@@ -540,15 +540,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     </div>
 </div>
     <script src="/js/gallery.js"></script>
-    <script>
-        // Image paths for this gallery
-        const galleryImagePaths = [IMAGE_PATHS_PLACEHOLDER];
-
-        // Initialize gallery when page loads
-        document.addEventListener('DOMContentLoaded', function() {{
-            initializeGallery(galleryImagePaths);
-        }});
-    </script>
+    <script src="/js/gallery-data-USERNAME_PLACEHOLDER.js"></script>
     </div>
 </body>
 </html>
@@ -564,20 +556,35 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             for file in files:
                 if fnmatch.fnmatch(file, search_pattern):
                     relative_path = os.path.relpath(os.path.join(root, file), '.')
-                    image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
+                    image_paths.append(f'"./{relative_path.replace(os.sep, "/")}"')
 
-    image_paths_str = ',\n            '.join(image_paths)
-    final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
+    # Create external JavaScript data file for this user
+    js_content = f'''// Image paths for {username} gallery
+const galleryImagePaths = [
+{",".join(f"    {path}" for path in image_paths)}
+];
+
+// Initialize gallery when page loads
+document.addEventListener('DOMContentLoaded', function() {{
+    initializeGallery(galleryImagePaths);
+}});'''
+
+    js_filename = f'../js/gallery-data-{username}.js'
+    with open(js_filename, 'w') as f:
+        f.write(js_content)
 
     if not image_paths:
         print(f"No .webp images found for user {username}. Deleting {output_file} if it exists.")
         if os.path.exists(output_file):
             os.remove(output_file)
+        # Also remove the JS file if it exists
+        if os.path.exists(js_filename):
+            os.remove(js_filename)
         return False
     else:
         with open(output_file, 'w') as f:
-            f.write(final_html)
-        print(f"Generated {output_file} with {len(image_paths)} images for user {username}.")
+            f.write(html_template)
+        print(f"Generated {output_file} and {js_filename} with {len(image_paths)} images for user {username}.")
         return True
 
 def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
@@ -830,15 +837,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     </div>
 </div>
     <script src="/js/gallery.js"></script>
-    <script>
-        // Image paths for this gallery
-        const galleryImagePaths = [IMAGE_PATHS_PLACEHOLDER];
-
-        // Initialize gallery when page loads
-        document.addEventListener('DOMContentLoaded', function() {{
-            initializeGallery(galleryImagePaths);
-        }});
-    </script>
+    <script src="/js/gallery-data-all.js"></script>
     </div>
 </body>
 </html>
@@ -855,14 +854,26 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                 for file in files:
                     if fnmatch.fnmatch(file, search_pattern):
                         relative_path = os.path.relpath(os.path.join(root, file), current_directory)
-                        all_image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
+                        all_image_paths.append(f'"./{relative_path.replace(os.sep, "/")}"')
 
-    image_paths_str = ',\n            '.join(all_image_paths)
-    final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
+    # Create external JavaScript data file for all gallery
+    js_content = f'''// Image paths for all gallery
+const galleryImagePaths = [
+{",".join(f"    {path}" for path in all_image_paths)}
+];
+
+// Initialize gallery when page loads
+document.addEventListener('DOMContentLoaded', function() {{
+    initializeGallery(galleryImagePaths);
+}});'''
+
+    js_filename = '../js/gallery-data-all.js'
+    with open(js_filename, 'w') as f:
+        f.write(js_content)
 
     with open(output_file, 'w') as f:
-        f.write(final_html)
-    print(f"Generated {output_file} with {len(all_image_paths)} images.")
+        f.write(html_template)
+    print(f"Generated {output_file} and {js_filename} with {len(all_image_paths)} images.")
 
 
 if __name__ == "__main__":

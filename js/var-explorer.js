@@ -82,6 +82,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }));
 });
 
+// Keyboard navigation
+document.addEventListener('keydown', function(event) {
+    const modal = document.getElementById('outlier-modal');
+    if (modal && modal.style.display === 'block') {
+        switch(event.key) {
+            case 'ArrowLeft':
+                previousFile();
+                event.preventDefault();
+                break;
+            case 'ArrowRight':
+                nextFile();
+                event.preventDefault();
+                break;
+            case 'Escape':
+                closeModal();
+                event.preventDefault();
+                break;
+        }
+    }
+});
+
 // Close modal when clicking outside
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('outlier-modal');

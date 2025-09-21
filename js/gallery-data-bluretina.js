@@ -1,0 +1,9 @@
+// Image paths for bluretina gallery
+const galleryImagePaths = [
+    "./bluretina/webp/bluretina-1939273707299516526-Gm__happy_sunday_video3-lossy.webp",    "./bluretina/webp/bluretina-1930651151-Biography_of_video2-lossy.webp",    "./bluretina/webp/bluretina-1941777524343672851-Early_Sunday_Cleaning_video3-lossy.webp",    "./bluretina/webp/bluretina-1928799804-Broken_Days_video2-lossy.webp",    "./bluretina/webp/bluretina-1939718488718758394-Jumping_around_memories_for_a_while_video3-lossy.webp",    "./bluretina/webp/bluretina-1940391948315246640-Maybe_not_all_is_wasted_video3-lossy.webp",    "./bluretina/webp/bluretina-1928799804-Broken_Days_video4-lossy.webp",    "./bluretina/webp/bluretina-1942543759469695206-Still_so_happy_with_the_over_1100_collected_works_on_http___Objkt.com_-_wish_I_could_collect_more_-_video4-lossy.webp",    "./bluretina/webp/bluretina-1928799804-Broken_Days_video3-lossy.webp",    "./bluretina/webp/bluretina-1930651151-Biography_of_video1-lossy.webp",    "./bluretina/webp/bluretina-1928799541-Broken_Days_video1-lossy.webp",    "./bluretina/webp/bluretina-1936521389105692856-it_s_been_a_bunpy_ride_video3-lossy.webp",    "./bluretina/webp/bluretina-1933600080373641575-Taking_the_furrybus_home_soon_video4-lossy.webp",    "./bluretina/webp/bluretina-1939634638995001482-About_yesterday._GM__video3-lossy.webp"
+];
+
+// Initialize gallery when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeGallery(galleryImagePaths);
+});

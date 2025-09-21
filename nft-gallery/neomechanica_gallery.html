@@ -315,59 +315,7 @@
     </div>
 </div>
     <script src="/js/gallery.js"></script>
-    <script>
-        // Image paths for this gallery
-        const galleryImagePaths = ['./neomechanica/webp/neomechanica-1928768166-Too_late__I_already_shit_my_pants_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1928615913-Ahh_yes...the_Italian_Robotini_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1929147164498051577-Here_s_an_interesting_rabbit_hole_for_people_that_are_interested_in_transparent_products__video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1928692166-Name_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1942725132507869337-from__video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1929377934-Ore_no_Uta_wo_kiite__video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1942936525978640390-8_man__video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1928278943-0080_War_In_The_Pocket_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1929227443-X_Men_vs_StreetFighter_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1928008410-What_s_anime_is_this__Please_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1943082740464677157-Glorious_film__video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1929201969-Giving_him_the_Optimus_Prime_special_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1934780534070366375-The_objectification_of_women_in_media_never_seemed_problematic_to_me_as_a_kid__because_I_didn_t_unde_video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1934933039085441410-nothing_beats_the_jpeg_moving_down_this_tunnel_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1928807947271856282-https___archive.org_details_isbn_9780672225253__video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1928344877-What_s_anime_is_this__Please_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1927820421-Truly_outrageous_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1927899190408909240-Genom_provides_the_Problem_and_the_Solution_boiler_plate_Hegelian_dialectic_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1928807947-https___archive.org_details_isbn_9780672225__video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1929335655-what_anime_is_this_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1936052918207078509-Kabaneri_of_the_Iron_Fortress__my_beloved_anime._So_sad_we_didn_t_get_anything_else_after_the_OVAs_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1929181138-Baccano___2007__video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1927698619-Luffy_what_are_you_doing_in_Akira__video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1942879399298130186-Still_do_not_understand_how_stopping_time_caused_this_loop_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1941455265452462175-ULTRAHEAVEN_so_good_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1928008410-What_s_anime_is_this__Please_video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1928692166-Name_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1929258144-_anom6097_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1943017814216052943-reminds_me_of_album_cover_art_for_Depeche_Mode_s__Violator__video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1927977707-Metal_Skin_Panic_MADOX-01__1987__video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1941995577505431614-Gunbuster__This_was_from_the_last_episode_that_was_done_entirely_in_greyscale._The_ship_this_view_is_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1942472216026964450-Fire_Force_video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1928661463201181834-The_Vision_of_Escaflowne._Right_up_there_with_Neon_Genesis_Evangelion_IMO_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1942961957843136691-_I_swear_if_that_bitch_Alice_in_Accounting_wants_to_complain_about_the_formatting_on_my_expenditure_video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1927698619-Luffy_what_are_you_doing_in_Akira__video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1929487405-Cima_is_best_girl_video1-lossy.webp',
-            './neomechanica/webp/neomechanica-1942442017247879208-Dorohedoro_is_perfect_video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1927520444-Mathine_video2-lossy.webp',
-            './neomechanica/webp/neomechanica-1942442017247879208-Dorohedoro_is_perfect_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1927698619-Luffy_what_are_you_doing_in_Akira__video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1934695767182135513-This_feels_like_a_whitewashed_simpsons_gag_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1942472216026964450-Fire_Force_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1942833848993345832-Still_one_of_my_all_time_favourite_memes_video4-lossy.webp',
-            './neomechanica/webp/neomechanica-1927774619-Loved_that_game_on_the_Apple_II_video3-lossy.webp',
-            './neomechanica/webp/neomechanica-1929147164498051577-Here_s_an_interesting_rabbit_hole_for_people_that_are_interested_in_transparent_products__video3-lossy.webp'];
-
-        // Initialize gallery when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeGallery(galleryImagePaths);
-        });
-    </script>
+    <script src="/js/gallery-data-neomechanica.js"></script>
     </div>
 </body>
 </html>
