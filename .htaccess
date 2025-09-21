@@ -34,6 +34,9 @@
     Header always set X-Frame-Options SAMEORIGIN
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # Strict Content Security Policy - no inline scripts/styles allowed
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; worker-src 'none'; child-src 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self';"
 </IfModule>
 
 # Pretty URLs for SEO

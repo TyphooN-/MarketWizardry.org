@@ -3610,9 +3610,11 @@ function updateOutputMode() {
             chartContainer.style.display = 'block';
         }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOMContentLoaded event fired');
+        // Initialize on page load - trying direct approach due to SES extension
+        console.log('Attempting direct initialization');
+
+        function initializeCalculator() {
+            console.log('initializeCalculator called');
             try {
                 console.log('Basic test - trying minimal functionality');
                 // updateActiveDataset(); // Set initial state - KEEP COMMENTED FOR NOW
@@ -3711,7 +3713,30 @@ function updateOutputMode() {
                 });
             }
             console.log('Calculator card listeners enabled');
-        });
+
+            } catch (error) {
+                console.error('Error in initializeCalculator:', error);
+            }
+        }
+
+        // Try multiple initialization approaches
+        document.addEventListener('DOMContentLoaded', initializeCalculator);
+
+        // Fallback for SES extension blocking DOMContentLoaded
+        setTimeout(function() {
+            console.log('Timeout fallback initialization');
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                initializeCalculator();
+            }
+        }, 100);
+
+        // Another fallback
+        if (document.readyState === 'loading') {
+            console.log('Document still loading, waiting...');
+        } else {
+            console.log('Document ready, initializing immediately');
+            initializeCalculator();
+        }
 
         // Close missing braces
         } } } } } } } } } } } } }
