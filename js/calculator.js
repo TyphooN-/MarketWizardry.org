@@ -2853,7 +2853,6 @@ function updateOutputMode() {
         } catch (error) {
             console.error('Error in initializeCalculator:', error);
         }
-        }
 
         // Try multiple initialization approaches
         document.addEventListener('DOMContentLoaded', initializeCalculator);
