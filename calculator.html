@@ -3734,11 +3734,10 @@ function updateOutputMode() {
                     return false;
                 });
             }
-            console.log('Calculator card listeners enabled');
-
-            } catch (error) {
-                console.error('Error in initializeCalculator:', error);
-            }
+            console.log('Calculator initialization complete');
+        } catch (error) {
+            console.error('Error in initializeCalculator:', error);
+        }
         }
 
         // Try multiple initialization approaches
