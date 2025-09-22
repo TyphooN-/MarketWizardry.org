@@ -1,7 +1,7 @@
-        console.log('Script loaded successfully');
-        let activeCalculator = null;
+console.log('Script loaded successfully');
+let activeCalculator = null;
 
-        window.selectCalculator = function(calculatorType, clickedElement) {
+window.selectCalculator = function(calculatorType, clickedElement) {
             console.log('selectCalculator function called with:', calculatorType);
             try {
                 // Hide all calculators
@@ -2815,43 +2815,41 @@ function updateOutputMode() {
 
                 console.log('Event delegation temporarily disabled for debugging');
 
+                // Set up calculator card click listeners
+                addDebug('Setting up calculator card listeners...');
+                const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
+                addDebug(`Found ${calculatorCards.length} calculator cards`);
+
+                calculatorCards.forEach((card, index) => {
+                    const calculatorType = card.getAttribute('data-calculator');
+                    addDebug(`Setting up card ${index}: ${calculatorType}`);
+
+                    card.addEventListener('click', function() {
+                        const clickedType = this.getAttribute('data-calculator');
+                        addDebug(`✓ Calculator card clicked: ${clickedType}`);
+                        console.log('Calculator card clicked:', clickedType);
+                        selectCalculator(clickedType, this);
+                    });
+                });
+
+                addDebug('Calculator card listeners enabled');
+                console.log('selectCalculator function exists:', typeof window.selectCalculator);
+
+                // Set up breadcrumb reset listener
+                const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
+                if (breadcrumbReset) {
+                    breadcrumbReset.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        // Breadcrumb reset clicked
+                        resetToCalculatorSelection();
+                        return false;
+                    });
+                }
+                console.log('Calculator initialization complete');
+
             } catch (error) {
-                console.error('Error in initialization:', error);
+                console.error('Error in initializeCalculator:', error);
             }
-
-            // Set up calculator card click listeners
-            addDebug('Setting up calculator card listeners...');
-            const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
-            addDebug(`Found ${calculatorCards.length} calculator cards`);
-
-            calculatorCards.forEach((card, index) => {
-                const calculatorType = card.getAttribute('data-calculator');
-                addDebug(`Setting up card ${index}: ${calculatorType}`);
-
-                card.addEventListener('click', function() {
-                    const clickedType = this.getAttribute('data-calculator');
-                    addDebug(`✓ Calculator card clicked: ${clickedType}`);
-                    console.log('Calculator card clicked:', clickedType);
-                    selectCalculator(clickedType, this);
-                });
-            });
-
-            addDebug('Calculator card listeners enabled');
-            console.log('selectCalculator function exists:', typeof window.selectCalculator);
-
-            // Set up breadcrumb reset listener
-            const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
-            if (breadcrumbReset) {
-                breadcrumbReset.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Breadcrumb reset clicked
-                    resetToCalculatorSelection();
-                    return false;
-                });
-            }
-            console.log('Calculator initialization complete');
-        } catch (error) {
-            console.error('Error in initializeCalculator:', error);
         }
 
         // Try multiple initialization approaches
@@ -2874,3 +2872,17 @@ function updateOutputMode() {
         }
 
 
+
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
