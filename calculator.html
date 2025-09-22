@@ -3627,61 +3627,61 @@ function updateOutputMode() {
                 console.log('Skipped dataset selector event listeners');
 
                 // Set up calculator form event listeners
-                // document.getElementById('sl-symbol').addEventListener('change', autoFillStopLossData);
-                // document.getElementById('sl-risk-mode').addEventListener('change', toggleStopLossMode);
-                // document.getElementById('sl-timeframe').addEventListener('change', autoFillStopLossData);
-                // document.getElementById('calculate-stop-loss-btn').addEventListener('click', calculateStopLoss);
+                document.getElementById('sl-symbol').addEventListener('change', autoFillStopLossData);
+                document.getElementById('sl-risk-mode').addEventListener('change', toggleStopLossMode);
+                document.getElementById('sl-timeframe').addEventListener('change', autoFillStopLossData);
+                document.getElementById('calculate-stop-loss-btn').addEventListener('click', calculateStopLoss);
 
-                // document.getElementById('ps-risk-mode').addEventListener('change', togglePositionSizeMode);
-                // document.getElementById('ps-output-mode').addEventListener('change', updateOutputMode);
-                // document.getElementById('ps-symbol').addEventListener('change', autoFillPositionData);
-                // document.getElementById('ps-atr-timeframe').addEventListener('change', updatePositionAtrData);
-                // document.getElementById('ps-atr-multiplier').addEventListener('change', updatePositionAtrData);
-                // document.getElementById('calculate-position-size-btn').addEventListener('click', calculateEnhancedPositionSize);
+                document.getElementById('ps-risk-mode').addEventListener('change', togglePositionSizeMode);
+                document.getElementById('ps-output-mode').addEventListener('change', updateOutputMode);
+                document.getElementById('ps-symbol').addEventListener('change', autoFillPositionData);
+                document.getElementById('ps-atr-timeframe').addEventListener('change', updatePositionAtrData);
+                document.getElementById('ps-atr-multiplier').addEventListener('change', updatePositionAtrData);
+                document.getElementById('calculate-position-size-btn').addEventListener('click', calculateEnhancedPositionSize);
 
-                // document.getElementById('lookup-symbol-btn').addEventListener('click', lookupSymbol);
-                // document.getElementById('add-position-btn').addEventListener('click', addPosition);
-                // document.getElementById('calculate-portfolio-var-btn').addEventListener('click', calculatePortfolioVaR);
+                document.getElementById('lookup-symbol-btn').addEventListener('click', lookupSymbol);
+                document.getElementById('add-position-btn').addEventListener('click', addPosition);
+                document.getElementById('calculate-portfolio-var-btn').addEventListener('click', calculatePortfolioVaR);
 
-                // document.getElementById('lookup-symbol').addEventListener('change', performAdvancedSearch);
-                // document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
-                // document.getElementById('show-all-symbols-btn').addEventListener('click', showAllSymbols);
-                // document.getElementById('calculate-compound-interest-btn').addEventListener('click', calculateCompoundInterest);
+                document.getElementById('lookup-symbol').addEventListener('change', performAdvancedSearch);
+                document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
+                document.getElementById('show-all-symbols-btn').addEventListener('click', showAllSymbols);
+                document.getElementById('calculate-compound-interest-btn').addEventListener('click', calculateCompoundInterest);
 
                 console.log('Skipped all event listeners for testing');
 
                 // TEMPORARILY COMMENTED OUT FOR DEBUGGING
                 // Set up event delegation for dynamically generated elements
-                // document.addEventListener('click', function(e) {
-                //     if (e.target.classList.contains('add-symbol-to-portfolio')) {
-                //         const symbol = e.target.getAttribute('data-symbol');
-                //         addSymbolToPortfolio(symbol);
-                //     } else if (e.target.classList.contains('position-remove-btn') || e.target.classList.contains('remove-position')) {
-                //         removePosition(e.target);
-                //     } else if (e.target.classList.contains('use-in-stop-loss')) {
-                //         const symbol = e.target.getAttribute('data-symbol');
-                //         useInStopLoss(symbol);
-                //     } else if (e.target.classList.contains('use-in-portfolio')) {
-                //         const symbol = e.target.getAttribute('data-symbol');
-                //         useInPortfolio(symbol);
-                //     } else if (e.target.classList.contains('find-similar')) {
-                //         const symbol = e.target.getAttribute('data-symbol');
-                //         findSimilar(symbol);
-                //     } else if (e.target.classList.contains('quick-lookup')) {
-                //         const symbol = e.target.getAttribute('data-symbol');
-                //         quickLookup(symbol);
-                //     }
-                // });
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('add-symbol-to-portfolio')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        addSymbolToPortfolio(symbol);
+                    } else if (e.target.classList.contains('position-remove-btn') || e.target.classList.contains('remove-position')) {
+                        removePosition(e.target);
+                    } else if (e.target.classList.contains('use-in-stop-loss')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        useInStopLoss(symbol);
+                    } else if (e.target.classList.contains('use-in-portfolio')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        useInPortfolio(symbol);
+                    } else if (e.target.classList.contains('find-similar')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        findSimilar(symbol);
+                    } else if (e.target.classList.contains('quick-lookup')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        quickLookup(symbol);
+                    }
+                });
 
-                // // Set up event delegation for position inputs
-                // document.addEventListener('change', function(e) {
-                //     if (e.target.classList.contains('position-symbol-input') ||
-                //         e.target.classList.contains('position-shares-input') ||
-                //         e.target.classList.contains('position-price-input') ||
-                //         e.target.classList.contains('position-input')) {
-                //         updatePositionValue(e.target);
-                //     }
-                // });
+                // Set up event delegation for position inputs
+                document.addEventListener('change', function(e) {
+                    if (e.target.classList.contains('position-symbol-input') ||
+                        e.target.classList.contains('position-shares-input') ||
+                        e.target.classList.contains('position-price-input') ||
+                        e.target.classList.contains('position-input')) {
+                        updatePositionValue(e.target);
+                    }
+                });
 
                 console.log('Event delegation temporarily disabled for debugging');
 

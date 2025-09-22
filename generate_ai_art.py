@@ -431,9 +431,21 @@ def generate_ai_art_html(output_file='ai-art.html'):
             }
         });
 
-        // Populate image grid on load
-        document.addEventListener('DOMContentLoaded', () => {
+        // Populate image grid on load - try both DOMContentLoaded and fallback
+        function populateImageGrid() {
+            console.log('populateImageGrid function called');
             const imageGrid = document.getElementById('imageGrid');
+            console.log('ImageGrid element:', imageGrid);
+            console.log('Total image paths:', allImagePaths.length);
+
+            if (!imageGrid) {
+                console.error('imageGrid element not found!');
+                return;
+            }
+
+            // Clear any existing content
+            imageGrid.innerHTML = '';
+
             allImagePaths.forEach((path, index) => {
                 const imgContainer = document.createElement('div');
                 imgContainer.className = 'image-container';
@@ -445,10 +457,32 @@ def generate_ai_art_html(output_file='ai-art.html'):
                 img.loading = 'lazy';
                 img.addEventListener('click', () => openImage(index));
 
+                // Debug: Log first few images and add error handling
+                if (index < 3) {
+                    console.log(`Creating image ${index}: ${path}`);
+                    img.onload = () => console.log(`Image ${index} loaded successfully`);
+                    img.onerror = () => console.error(`Image ${index} failed to load: ${path}`);
+                }
+
                 imgContainer.appendChild(img);
                 imageGrid.appendChild(imgContainer);
             });
-        });
+
+            console.log('Image grid populated with', allImagePaths.length, 'images');
+            console.log('Grid children count:', imageGrid.children.length);
+        }
+
+        // Try DOMContentLoaded first
+        document.addEventListener('DOMContentLoaded', populateImageGrid);
+
+        // Fallback for already loaded documents
+        if (document.readyState === 'loading') {
+            // Still loading, DOMContentLoaded will fire
+        } else {
+            // Already loaded, call function directly
+            console.log('Document already loaded, calling populateImageGrid directly');
+            populateImageGrid();
+        }
 
         // Make functions globally accessible for backward compatibility
         window.openImage = openImage;

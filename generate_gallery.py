@@ -39,7 +39,10 @@ def generate_twitter_url(username, tweet_id, is_shortened=False):
 def get_existing_flavor_text(username):
     """Get flavor text from JSON mapping, using replacement text if available"""
     try:
-        with open('nft_gallery_flavors.json', 'r', encoding='utf-8') as f:
+        # Use absolute path to ensure file is found regardless of working directory
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        flavors_file = os.path.join(script_dir, 'nft_gallery_flavors.json')
+        with open(flavors_file, 'r', encoding='utf-8') as f:
             flavor_data = json.load(f)
 
         if username in flavor_data:
