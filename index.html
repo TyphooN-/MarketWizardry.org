@@ -273,144 +273,29 @@
             max-width: 100%;
             height: auto;
         }
-	.header-container, .menu-items {
-	    display: flex;
-	    justify-content: center; /* Centers content horizontally */
-	}
-	.header-menu {
-	    padding: 20px;
-	    border-right: 2px solid #00ff00;
-	    background-color: black; /* Assuming you want a dark background for the menu */
-	}
-
-        /* Desktop layout styles */
-        .desktop-header {
-            display: block;
-            text-align: center;
-        }
         
-        .desktop-menu-items {
-            display: block;
-        }
-        
-        .desktop-menu-items .menu-item {
-            display: block;
-            padding: 15px;
-            margin: 5px 0;
-            text-align: center;
-        }
-        
-        /* Hide mobile elements on desktop */
-        .mobile-logo,
-        .header-text,
-        .header-menu-items,
-        .menu-items-container,
-        .mobile-menu-toggle {
-            display: none;
-        }
-
-        .mobile-menu-container.show-menu {
-            display: flex !important;
-            flex-direction: column;
-        }
-
         /* Mobile Responsive Styles */
         @media screen and (max-width: 768px) {
-            /* Hide desktop elements on mobile */
-            .desktop-header,
-            .desktop-menu-items {
-                display: none !important;
-            }
-            
-            .mobile-logo,
-            .header-text,
-            .mobile-menu-toggle {
-                display: flex !important;
-            }
-
-            .mobile-menu-container {
-                display: none !important;
-            }
-
-            .header-menu-items,
-            .menu-items-container {
-                display: flex !important;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 4px;
-            }
-
-            .mobile-menu-toggle {
-                font-size: 24px;
-                cursor: pointer;
-                margin-left: auto;
-            }
             .container {
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
             }
-            
+
             .menu {
                 width: 100%;
                 height: auto;
                 border-right: none;
                 border-bottom: 2px solid #00ff00;
-                padding: 5px;
-                display: flex;
-                flex-direction: column;
+                padding: 10px;
             }
-            
-            .header-container {
-                font-size: 12px;
-                margin-bottom: 5px;
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                flex-wrap: wrap;
-            }
-            
-            .mobile-logo {
-                width: 50px;
-                height: auto;
-                flex-shrink: 0;
-            }
-            
-            .header-text {
-                flex: 0 0 auto;
-                font-size: 10px;
-                margin-right: 5px;
-            }
-            
-            .header-menu-items {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 1px;
-                flex: 1;
-            }
-            
-            .menu-items-container {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 2px;
-            }
-            
+
             .menu-item {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
+                display: inline-block;
                 padding: 8px 12px;
                 margin: 2px;
-                font-size: 11px;
-                white-space: nowrap;
-                min-height: 44px;
-                min-width: 80px;
-                background: rgba(0, 255, 0, 0.1);
-                border: 1px solid rgba(0, 255, 0, 0.6);
-                border-radius: 4px;
+                font-size: 12px;
                 text-align: center;
-                line-height: 1.2;
-                transition: all 0.2s ease;
             }
 
             .menu-item:hover {
@@ -540,78 +425,26 @@
     <div class="container">
         <!-- Menu -->
         <div class="menu crt">
-            <div class="header-container">
-                <div class="desktop-header">MARKETWIZARDRY.ORG</div>
-                <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" 
-                     alt="MarketWizardry Logo" 
-                     class="mobile-logo" 
-                     data-load-content="market-wizardry" 
-                     loading="lazy">
-                <div class="header-text">MARKETWIZARDRY.ORG</div>
-                <div class="mobile-menu-toggle">&#9776;</div>
-            </div>
-            <div class="mobile-menu-container">
-                <div class="menu-section">
-                    <div class="menu-section-title">🧮 Financial Tools</div>
-                    <div class="header-menu-items">
-                        <div class="menu-item primary" data-load-content="calculator">CALCULATOR</div>
-                        <div class="menu-item primary" data-load-content="var-explorer">VaR EXPLORER</div>
-                        <div class="menu-item primary" data-load-content="ev-explorer">EV EXPLORER</div>
-                        <div class="menu-item primary" data-load-content="atr-explorer">ATR EXPLORER</div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-section-title">📊 Analysis & Content</div>
-                    <div class="menu-items-container">
-                        <div class="menu-item" data-load-content="var-cult">VaR CULT</div>
-                        <div class="menu-item" data-load-content="blog">BLOG EXPLORER</div>
-                        <div class="menu-item" data-load-content="ai-musings">AI MUSINGS</div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-section-title">🎨 Galleries</div>
-                    <div class="menu-items-container">
-                        <div class="menu-item" data-load-content="ai-art">AI ART</div>
-                        <div class="menu-item" data-load-content="nft-gallery">NFT GALLERY</div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-section-title">ℹ️ Info & Links</div>
-                    <div class="menu-items-container">
-                        <div class="menu-item secondary" data-load-content="about">ABOUT</div>
-                        <div class="menu-item secondary" data-load-content="code">CODE</div>
-                        <div class="menu-item secondary" data-load-content="donate">DONATE</div>
-                        <div class="menu-item secondary" data-load-content="affiliates">AFFILIATES</div>
-                        <div class="menu-item secondary" data-load-content="terms">TERMS</div>
-                        <a class="menu-item secondary" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
-                        <a class="menu-item secondary" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
-                    </div>
-                </div>
-            </div>
+            MARKETWIZARDRY.ORG
             <div class="image-item" data-load-content="market-wizardry">
                 <img src="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="xicojam-prompt-mod" style="max-width: 100%; height: auto;" loading="lazy">
             </div>
-            <div class="desktop-menu-items">
-                <div class="menu-item" data-load-content="about">ABOUT</div>
-                <div class="menu-item" data-load-content="code">CODE</div>
-                <div class="menu-item" data-load-content="calculator">CALCULATOR</div>
-                <div class="menu-item" data-load-content="var-cult">VaR CULT</div>
-                <div class="menu-item" data-load-content="blog">BLOG EXPLORER</div>
-                <div class="menu-item" data-load-content="var-explorer">VaR EXPLORER</div>
-                <div class="menu-item" data-load-content="ev-explorer">EV EXPLORER</div>
-                <div class="menu-item" data-load-content="atr-explorer">ATR EXPLORER</div>
-                <div class="menu-item" data-load-content="ai-art">AI ART</div>
-                <div class="menu-item" data-load-content="ai-musings">AI MUSINGS</div>
-                <div class="menu-item" data-load-content="nft-gallery">NFT GALLERY</div>
-                <div class="menu-item" data-load-content="affiliates">AFFILIATES</div>
-                <div class="menu-item" data-load-content="donate">DONATE</div>
-                <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
-                <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
-                <div class="menu-item" data-load-content="terms">TERMS</div>
-            </div>
+            <div class="menu-item" data-load-content="about">ABOUT</div>
+            <div class="menu-item" data-load-content="code">CODE</div>
+            <div class="menu-item" data-load-content="calculator">CALCULATOR</div>
+            <div class="menu-item" data-load-content="var-cult">VaR CULT</div>
+            <div class="menu-item" data-load-content="blog">BLOG EXPLORER</div>
+            <div class="menu-item" data-load-content="var-explorer">VaR EXPLORER</div>
+            <div class="menu-item" data-load-content="ev-explorer">EV EXPLORER</div>
+            <div class="menu-item" data-load-content="atr-explorer">ATR EXPLORER</div>
+            <div class="menu-item" data-load-content="ai-art">AI ART</div>
+            <div class="menu-item" data-load-content="ai-musings">AI MUSINGS</div>
+            <div class="menu-item" data-load-content="nft-gallery">NFT GALLERY</div>
+            <div class="menu-item" data-load-content="affiliates">AFFILIATES</div>
+            <div class="menu-item" data-load-content="donate">DONATE</div>
+            <a class="menu-item" href="https://x.com/MarketW1zardry" target="_blank" rel="noopener noreferrer">X</a>
+            <a class="menu-item" href="http://marketwizardry.info" target="_blank" rel="noopener noreferrer">DISCORD</a>
+            <div class="menu-item" data-load-content="terms">TERMS</div>
         </div>                        
         <!-- Content Frame -->
         <div class="content-frame">

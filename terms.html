@@ -106,6 +106,12 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
+        @media screen and (min-width: 1000px) {
+            .file-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
         .file-entry {
             cursor: pointer;
             padding: 5px;
