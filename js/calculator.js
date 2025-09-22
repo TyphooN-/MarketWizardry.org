@@ -2870,9 +2870,6 @@ function updateOutputMode() {
             console.log('Document ready, initializing immediately');
             initializeCalculator();
         }
-
-
-
 }
 }
 }
