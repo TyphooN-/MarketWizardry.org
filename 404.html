@@ -12,6 +12,7 @@
     <!-- Meta Tags -->
     <meta name="description" content="404 - The page you're looking for has vanished into the digital void, much like your portfolio returns.">
     <meta name="robots" content="noindex, nofollow">
+    <script src="/js/shared.js"></script>
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="404 - Page Not Found | MarketWizardry.org">
@@ -28,10 +29,6 @@
             padding: 20px;
             margin: 0;
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .container {
@@ -107,26 +104,26 @@ h1 {
             box-shadow: 0 0 15px #00ff00;
         }
 
-/* Breadcrumb Navigation Styles */
+        /* Breadcrumb Navigation Styles */
         .breadcrumb {
-            font-size: 0.8em;
+            font-size: 0.9em;
             color: #00aa00;
             margin-bottom: 20px;
             padding: 10px 0;
+            text-align: left;
         }
-    
+
         .breadcrumb a {
             color: #00ff00 !important;
             text-decoration: none;
-            
             transition: all 0.2s ease;
         }
-    
+
         .breadcrumb a:hover {
             color: #ffffff !important;
-            
+            text-shadow: 0 0 5px #00ff00;
         }
-    
+
         .breadcrumb .separator {
             margin: 0 8px;
             color: #004400;
@@ -135,7 +132,7 @@ h1 {
         /* Mobile breadcrumb optimization */
         @media screen and (max-width: 768px) {
             .breadcrumb {
-                display: none;
+                font-size: 0.8em;
             }
         }
 
@@ -160,10 +157,15 @@ h1 {
 
         .ascii-art {
             font-family: "Courier New", monospace;
-            color: #004400;
-            font-size: 0.8em;
+            color: #00ff00;
+            font-size: 1em;
             white-space: pre;
             margin: 30px 0;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            padding: 15px;
+            background-color: rgba(0, 17, 0, 0.5);
+            border-radius: 4px;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
@@ -174,7 +176,8 @@ h1 {
                 font-size: 1.8em;
             }
             .flavor-text {
-                font-size: 1em;
+                font-size: 0.9em;
+            }
         }
 </style>
 </head>
@@ -240,22 +243,6 @@ h1 {
         </div>
     </div>
 
-    <script>
-        // Add some retro terminal effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Typewriter effect for error message (optional enhancement)
-            const errorCode = document.querySelector('.error-code');
-
-            // Add random glitch effect occasionally
-            setInterval(() => {
-                if (Math.random() < 0.1) { // 10% chance every interval
-                    errorCode.style.color = '#ffffff';
-                    setTimeout(() => {
-                        errorCode.style.color = '#ff0000';
-                    }, 100);
-        }
-, 2000);
-        });
-    </script>
+    <script src="/js/404-effects.js"></script>
 </body>
 </html>
