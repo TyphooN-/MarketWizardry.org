@@ -38,13 +38,11 @@ function initializeGallery(imagePaths) {
     currentImageIndex = 0;
 
     // Initial load
-    document.addEventListener('DOMContentLoaded', () => {
+    loadMoreImages();
+    // Load more images immediately if the initial load doesn't fill the viewport
+    if (document.body.offsetHeight < window.innerHeight) {
         loadMoreImages();
-        // Load more images immediately if the initial load doesn't fill the viewport
-        if (document.body.offsetHeight < window.innerHeight) {
-            loadMoreImages();
-        }
-    });
+    }
 
     // Scroll event for lazy loading
     window.addEventListener('scroll', () => {
