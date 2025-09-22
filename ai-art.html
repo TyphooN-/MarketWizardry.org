@@ -12,7 +12,7 @@
 
     <!-- Enhanced Standard Meta Tags -->
     <meta name="description" content="Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.">
-    <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology">
+    <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, not Hugging Face, not ComfyUI, not Metastable, not Ollama, independent AI art platform, MarketWizardry.org original content, financial trading art collection, VaR cult digital gallery">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
     <meta name="revisit-after" content="7 days">
@@ -31,7 +31,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -305,11 +305,6 @@
         <!-- Images will be inserted here by JavaScript -->
     </div>
 
-    <div id="debugInfo" style="color: #00ff00; font-family: monospace; margin-top: 20px; padding: 10px; border: 1px solid #00ff00; background: #001100;">
-        <h3>Debug Information:</h3>
-        <div id="debugOutput"></div>
-    </div>
-
     <!-- Modal -->
     <div class="modal" id="fullscreenModal">
         <div class="modal-content">
@@ -524,34 +519,17 @@
             }
         });
 
-        // Populate image grid on load - try both DOMContentLoaded and fallback
-        function populateImageGrid() {
-            console.log('populateImageGrid function called');
-            const debugOutput = document.getElementById('debugOutput');
-
-            function addDebug(message) {
-                console.log(message);
-                if (debugOutput) {
-                    debugOutput.innerHTML += '<br>' + message;
-                }
-            }
-
-            addDebug('populateImageGrid function called');
+        // Populate image grid on load - WORKING VERSION FROM NFT GALLERIES
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded fired - populating AI art grid');
             const imageGrid = document.getElementById('imageGrid');
-            addDebug('ImageGrid element: ' + (imageGrid ? 'FOUND' : 'NOT FOUND'));
-            addDebug('Total image paths: ' + allImagePaths.length);
 
             if (!imageGrid) {
-                addDebug('ERROR: imageGrid element not found!');
+                console.error('imageGrid element not found!');
                 return;
             }
 
-            // Clear any existing content
-            imageGrid.innerHTML = '';
-            addDebug('Cleared imageGrid content');
-
-            let successCount = 0;
-            let errorCount = 0;
+            console.log('Found imageGrid, populating with', allImagePaths.length, 'images');
 
             allImagePaths.forEach((path, index) => {
                 const imgContainer = document.createElement('div');
@@ -562,41 +540,25 @@
                 img.src = path;
                 img.alt = `AI Art ${index + 1}`;
                 img.loading = 'lazy';
-                img.addEventListener('click', () => openImage(index));
 
-                // Debug: Log first few images and add error handling
+                // Add click handler
+                img.addEventListener('click', () => {
+                    console.log(`Opening image ${index}: ${path}`);
+                    openImage(index);
+                });
+
+                // Debug first few images
                 if (index < 3) {
-                    addDebug(`Creating image ${index}: ${path}`);
-                    img.onload = () => {
-                        successCount++;
-                        addDebug(`✓ Image ${index} loaded successfully (${successCount} total)`);
-                    };
-                    img.onerror = () => {
-                        errorCount++;
-                        addDebug(`✗ Image ${index} failed to load: ${path} (${errorCount} errors)`);
-                    };
+                    img.onload = () => console.log(`✓ AI Art image ${index} loaded: ${path}`);
+                    img.onerror = () => console.error(`✗ AI Art image ${index} failed: ${path}`);
                 }
 
                 imgContainer.appendChild(img);
                 imageGrid.appendChild(imgContainer);
             });
 
-            addDebug(`Image grid populated with ${allImagePaths.length} images`);
-            addDebug(`Grid children count: ${imageGrid.children.length}`);
-            addDebug(`Grid innerHTML length: ${imageGrid.innerHTML.length}`);
-        }
-
-        // Try DOMContentLoaded first
-        document.addEventListener('DOMContentLoaded', populateImageGrid);
-
-        // Fallback for already loaded documents
-        if (document.readyState === 'loading') {
-            // Still loading, DOMContentLoaded will fire
-        } else {
-            // Already loaded, call function directly
-            console.log('Document already loaded, calling populateImageGrid directly');
-            populateImageGrid();
-        }
+            console.log('✓ AI Art grid populated successfully with', allImagePaths.length, 'images');
+        });
 
         // Make functions globally accessible for backward compatibility
         window.openImage = openImage;
