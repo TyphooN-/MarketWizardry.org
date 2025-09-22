@@ -877,6 +877,11 @@
 
     </div>
 
+    <div id="debugInfo" style="color: #00ff00; font-family: monospace; margin: 20px; padding: 10px; border: 1px solid #00ff00; background: #001100;">
+        <h3>Calculator Debug Information:</h3>
+        <div id="debugOutput"></div>
+    </div>
+
     <script>
         console.log('Script loaded successfully');
         let activeCalculator = null;
@@ -3615,8 +3620,18 @@ function updateOutputMode() {
 
         function initializeCalculator() {
             console.log('initializeCalculator called');
+            const debugOutput = document.getElementById('debugOutput');
+
+            function addDebug(message) {
+                console.log(message);
+                if (debugOutput) {
+                    debugOutput.innerHTML += '<br>' + message;
+                }
+            }
+
+            addDebug('initializeCalculator called');
             try {
-                console.log('Basic test - trying minimal functionality');
+                addDebug('Basic test - trying minimal functionality');
                 // updateActiveDataset(); // Set initial state - KEEP COMMENTED FOR NOW
                 // console.log('updateActiveDataset called successfully');
 
@@ -3690,16 +3705,23 @@ function updateOutputMode() {
             }
 
             // Set up calculator card click listeners
+            addDebug('Setting up calculator card listeners...');
             const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
-            calculatorCards.forEach(card => {
+            addDebug(`Found ${calculatorCards.length} calculator cards`);
+
+            calculatorCards.forEach((card, index) => {
+                const calculatorType = card.getAttribute('data-calculator');
+                addDebug(`Setting up card ${index}: ${calculatorType}`);
+
                 card.addEventListener('click', function() {
-                    const calculatorType = this.getAttribute('data-calculator');
-                    console.log('Calculator card clicked:', calculatorType);
-                    selectCalculator(calculatorType, this);
+                    const clickedType = this.getAttribute('data-calculator');
+                    addDebug(`✓ Calculator card clicked: ${clickedType}`);
+                    console.log('Calculator card clicked:', clickedType);
+                    selectCalculator(clickedType, this);
                 });
             });
 
-            console.log('Found', calculatorCards.length, 'calculator cards');
+            addDebug('Calculator card listeners enabled');
             console.log('selectCalculator function exists:', typeof window.selectCalculator);
 
             // Set up breadcrumb reset listener
@@ -3738,8 +3760,6 @@ function updateOutputMode() {
             initializeCalculator();
         }
 
-        // Close missing braces
-        } } } } } } } } } } } } }
 
     </script>
 </body>

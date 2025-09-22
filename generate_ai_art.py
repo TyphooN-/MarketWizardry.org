@@ -301,6 +301,11 @@ def generate_ai_art_html(output_file='ai-art.html'):
         <!-- Images will be inserted here by JavaScript -->
     </div>
 
+    <div id="debugInfo" style="color: #00ff00; font-family: monospace; margin-top: 20px; padding: 10px; border: 1px solid #00ff00; background: #001100;">
+        <h3>Debug Information:</h3>
+        <div id="debugOutput"></div>
+    </div>
+
     <!-- Modal -->
     <div class="modal" id="fullscreenModal">
         <div class="modal-content">
@@ -434,17 +439,31 @@ def generate_ai_art_html(output_file='ai-art.html'):
         // Populate image grid on load - try both DOMContentLoaded and fallback
         function populateImageGrid() {
             console.log('populateImageGrid function called');
+            const debugOutput = document.getElementById('debugOutput');
+
+            function addDebug(message) {
+                console.log(message);
+                if (debugOutput) {
+                    debugOutput.innerHTML += '<br>' + message;
+                }
+            }
+
+            addDebug('populateImageGrid function called');
             const imageGrid = document.getElementById('imageGrid');
-            console.log('ImageGrid element:', imageGrid);
-            console.log('Total image paths:', allImagePaths.length);
+            addDebug('ImageGrid element: ' + (imageGrid ? 'FOUND' : 'NOT FOUND'));
+            addDebug('Total image paths: ' + allImagePaths.length);
 
             if (!imageGrid) {
-                console.error('imageGrid element not found!');
+                addDebug('ERROR: imageGrid element not found!');
                 return;
             }
 
             // Clear any existing content
             imageGrid.innerHTML = '';
+            addDebug('Cleared imageGrid content');
+
+            let successCount = 0;
+            let errorCount = 0;
 
             allImagePaths.forEach((path, index) => {
                 const imgContainer = document.createElement('div');
@@ -459,17 +478,24 @@ def generate_ai_art_html(output_file='ai-art.html'):
 
                 // Debug: Log first few images and add error handling
                 if (index < 3) {
-                    console.log(`Creating image ${index}: ${path}`);
-                    img.onload = () => console.log(`Image ${index} loaded successfully`);
-                    img.onerror = () => console.error(`Image ${index} failed to load: ${path}`);
+                    addDebug(`Creating image ${index}: ${path}`);
+                    img.onload = () => {
+                        successCount++;
+                        addDebug(`✓ Image ${index} loaded successfully (${successCount} total)`);
+                    };
+                    img.onerror = () => {
+                        errorCount++;
+                        addDebug(`✗ Image ${index} failed to load: ${path} (${errorCount} errors)`);
+                    };
                 }
 
                 imgContainer.appendChild(img);
                 imageGrid.appendChild(imgContainer);
             });
 
-            console.log('Image grid populated with', allImagePaths.length, 'images');
-            console.log('Grid children count:', imageGrid.children.length);
+            addDebug(`Image grid populated with ${allImagePaths.length} images`);
+            addDebug(`Grid children count: ${imageGrid.children.length}`);
+            addDebug(`Grid innerHTML length: ${imageGrid.innerHTML.length}`);
         }
 
         // Try DOMContentLoaded first
