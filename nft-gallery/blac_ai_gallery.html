@@ -116,8 +116,8 @@
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" data-action="close-modal">
-        <div class="modal-content" data-action="stop-propagation">
+    <div class="modal" id="fullscreenModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
@@ -152,8 +152,7 @@
             img.src = path;
             img.onerror = function() { console.error("Error loading image:", path); };
             img.onload = function() { console.log("Image loaded:", path); };
-            img.setAttribute('data-action', 'open-image');
-            img.setAttribute('data-index', index);
+            img.onclick = function() { openImage(index); };
             imgContainer.appendChild(img);
             imageGrid.appendChild(imgContainer);
         }
@@ -219,7 +218,13 @@
             		modal.style.display = 'none';
         	}
     	}
-    	// Modal handling moved to shared.js data-action system
+    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
+   	 window.onclick = function(event) {
+        	const modal = document.getElementById('fullscreenModal');
+        	if (event.target === modal) {
+            	closeModal();
+        }
+    };
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('fullscreenModal');
