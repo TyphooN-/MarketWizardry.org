@@ -12,6 +12,7 @@
     <!-- Meta Tags -->
     <meta name="description" content="404 - The page you're looking for has vanished into the digital void, much like your portfolio returns.">
     <meta name="robots" content="noindex, nofollow">
+    <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
 
     <!-- Open Graph Meta Tags -->
@@ -58,11 +59,69 @@
             80% { transform: translate(2px, 2px); }
             90% { transform: translate(-2px, 2px);
         }
-h1 {
+        h1 {
             color: #00ff00;
             font-size: 2.5em;
             margin-bottom: 20px;
             text-shadow: 0 0 10px #00ff00;
+        }
+
+        .magnifying-glass {
+            display: inline-block;
+            animation: magGlitchShimmer 3s infinite;
+        }
+
+        @keyframes magGlitchShimmer {
+            0%, 100% {
+                transform: translate(0);
+                color: #00ff00;
+                text-shadow: 0 0 10px #00ff00;
+            }
+            10% {
+                transform: translate(-1px, 1px);
+                color: #00ffff;
+                text-shadow: 0 0 15px #00ffff;
+            }
+            20% {
+                transform: translate(1px, -1px);
+                color: #ffff00;
+                text-shadow: 0 0 15px #ffff00;
+            }
+            30% {
+                transform: translate(-1px, -1px);
+                color: #ff00ff;
+                text-shadow: 0 0 15px #ff00ff;
+            }
+            40% {
+                transform: translate(1px, 1px);
+                color: #00ff00;
+                text-shadow: 0 0 20px #00ff00;
+            }
+            50% {
+                transform: translate(-1px, 1px);
+                color: #ffffff;
+                text-shadow: 0 0 25px #ffffff;
+            }
+            60% {
+                transform: translate(1px, -1px);
+                color: #00ffff;
+                text-shadow: 0 0 15px #00ffff;
+            }
+            70% {
+                transform: translate(-1px, -1px);
+                color: #ffff00;
+                text-shadow: 0 0 15px #ffff00;
+            }
+            80% {
+                transform: translate(1px, 1px);
+                color: #ff00ff;
+                text-shadow: 0 0 15px #ff00ff;
+            }
+            90% {
+                transform: translate(-1px, 1px);
+                color: #00ff00;
+                text-shadow: 0 0 10px #00ff00;
+            }
         }
 
         .flavor-text {
@@ -201,7 +260,7 @@ h1 {
     <div class="container">
         <div class="error-code">404</div>
 
-        <h1>🔍 Page Not Found</h1>
+        <h1><span class="magnifying-glass">🔍</span> Page Not Found</h1>
 
         <div class="crt-divider"></div>
 
@@ -235,10 +294,12 @@ h1 {
 
         <div class="crt-divider"></div>
 
-        <div style="color: #006600; font-size: 0.9em; margin-top: 30px;">
+        <div class="flavor-text">
             Don't worry, even the best algorithms fail sometimes.
             <br>Unlike this 404 page, which is working perfectly to tell you nothing is working.
         </div>
+
+        <div class="crt-divider"></div>
     </div>
 
     <script src="/js/404-effects.js"></script>
