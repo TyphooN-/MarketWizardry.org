@@ -325,10 +325,10 @@
 
     <script>
         // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {{
+        document.addEventListener('click', function(e) {
             const action = e.target.getAttribute('data-action');
-            if (action) {{
-                switch(action) {{
+            if (action) {
+                switch(action) {
                     case 'close-modal':
                         closeModal();
                         break;
@@ -341,9 +341,9 @@
                     case 'download-image':
                         downloadImage();
                         break;
-                }}
-            }}
-        }});
+                }
+            }
+        });
 
         const allImagePaths = [
             "/ai-art/00001.webp",

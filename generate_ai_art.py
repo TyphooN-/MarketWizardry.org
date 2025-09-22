@@ -321,10 +321,10 @@ def generate_ai_art_html(output_file='ai-art.html'):
 
     <script>
         // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {{
+        document.addEventListener('click', function(e) {
             const action = e.target.getAttribute('data-action');
-            if (action) {{
-                switch(action) {{
+            if (action) {
+                switch(action) {
                     case 'close-modal':
                         closeModal();
                         break;
@@ -337,9 +337,9 @@ def generate_ai_art_html(output_file='ai-art.html'):
                     case 'download-image':
                         downloadImage();
                         break;
-                }}
-            }}
-        }});
+                }
+            }
+        });
 
         const allImagePaths = [
             {IMAGE_PATHS_PLACEHOLDER}
