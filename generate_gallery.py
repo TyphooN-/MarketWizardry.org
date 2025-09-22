@@ -942,10 +942,33 @@ def generate_ai_art_html():
 
     print(f"Found {len(image_paths)} AI art images")
 
-    # Convert paths to JavaScript array format
-    js_image_paths = ',\n            '.join(f'"{path}"' for path in image_paths)
+    # Generate external JavaScript data file (CSP compliant)
+    js_image_paths = ',\n    '.join(f'"{path}"' for path in image_paths)
+    ai_art_js_content = f'''// Image paths for AI art gallery
+const galleryImagePaths = [
+    {js_image_paths}
+];
 
-    # AI Art HTML template with preserved unique content
+// Initialize gallery when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {{
+    console.log('AI Art gallery data loaded, initializing...');
+    if (typeof initializeGallery === 'function') {{
+        initializeGallery(galleryImagePaths);
+    }} else {{
+        console.error('initializeGallery function not found!');
+    }}
+}});'''
+
+    # Write the external JS file
+    try:
+        with open('js/gallery-data-ai-art.js', 'w', encoding='utf-8') as f:
+            f.write(ai_art_js_content)
+        print(f"✓ Generated js/gallery-data-ai-art.js with {len(image_paths)} images")
+    except Exception as e:
+        print(f"Error writing ai-art JS file: {e}")
+        return False
+
+    # AI Art HTML template with preserved unique content (CSP compliant)
     ai_art_html = f'''<!-- ai-art.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -994,6 +1017,7 @@ def generate_ai_art_html():
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
     <script src="/js/redirect.js"></script>
+    <script src="/js/gallery.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -1270,167 +1294,8 @@ def generate_ai_art_html():
             </div>
         </div>
     </div>
-
-    <script>
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {{
-            const action = e.target.getAttribute('data-action');
-            if (action) {{
-                switch(action) {{
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous-image':
-                        previousImage();
-                        break;
-                    case 'next-image':
-                        nextImage();
-                        break;
-                    case 'download-image':
-                        downloadImage();
-                        break;
-                }}
-            }}
-        }});
-
-        const allImagePaths = [
-            {js_image_paths}
-        ];
-        console.log("Image paths loaded:", allImagePaths.length);
-
-        let currentImageIndex = 0;
-
-        function openImage(index) {{
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, '');
-
-            // Update navigation buttons and counter
-            updateNavigationButtons();
-
-            modal.classList.add('modal-open');
-        }}
-
-        function updateNavigationButtons() {{
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            const imageCounter = document.getElementById('imageCounter');
-
-            if (prevButton && nextButton && imageCounter) {{
-                prevButton.disabled = currentImageIndex <= 0;
-                nextButton.disabled = currentImageIndex >= allImagePaths.length - 1;
-                imageCounter.textContent = `${{currentImageIndex + 1}} / ${{allImagePaths.length}}`;
-            }}
-        }}
-
-        function previousImage() {{
-            if (currentImageIndex > 0) {{
-                openImage(currentImageIndex - 1);
-            }}
-        }}
-
-        function nextImage() {{
-            if (currentImageIndex < allImagePaths.length - 1) {{
-                openImage(currentImageIndex + 1);
-            }}
-        }}
-        function downloadImage() {{
-            const currentImagePath = allImagePaths[currentImageIndex];
-            if (currentImagePath) {{
-                const link = document.createElement('a');
-                link.href = currentImagePath;
-                link.download = currentImagePath.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }}
-        }}
-
-        function closeModal() {{
-            const modal = document.getElementById('fullscreenModal');
-            modal.classList.remove('modal-open');
-        }}
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {{
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.classList.contains('modal-open')) {{
-                switch(event.key) {{
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        closeModal();
-                        break;
-                }}
-            }}
-        }});
-
-        // Click outside modal to close
-        window.addEventListener('click', function(event) {{
-            const modal = document.getElementById('fullscreenModal');
-            if (event.target === modal) {{
-                closeModal();
-            }}
-        }});
-
-        // Populate image grid on load - WORKING VERSION FROM NFT GALLERIES
-        document.addEventListener('DOMContentLoaded', function() {{
-            console.log('DOMContentLoaded fired - populating AI art grid');
-            const imageGrid = document.getElementById('imageGrid');
-
-            if (!imageGrid) {{
-                console.error('imageGrid element not found!');
-                return;
-            }}
-
-            console.log('Found imageGrid, populating with', allImagePaths.length, 'images');
-
-            allImagePaths.forEach((path, index) => {{
-                const imgContainer = document.createElement('div');
-                imgContainer.className = 'image-container';
-
-                const img = document.createElement('img');
-                img.className = 'thumbnail';
-                img.src = path;
-                img.alt = `AI Art ${{index + 1}}`;
-                img.loading = 'lazy';
-
-                // Add click handler
-                img.addEventListener('click', () => {{
-                    console.log(`Opening image ${{index}}: ${{path}}`);
-                    openImage(index);
-                }});
-
-                // Debug first few images
-                if (index < 3) {{
-                    img.onload = () => console.log(`✓ AI Art image ${{index}} loaded: ${{path}}`);
-                    img.onerror = () => console.error(`✗ AI Art image ${{index}} failed: ${{path}}`);
-                }}
-
-                imgContainer.appendChild(img);
-                imageGrid.appendChild(imgContainer);
-            }});
-
-            console.log('✓ AI Art grid populated successfully with', allImagePaths.length, 'images');
-        }});
-
-        // Make functions globally accessible for backward compatibility
-        window.openImage = openImage;
-        window.closeModal = closeModal;
-        window.previousImage = previousImage;
-        window.nextImage = nextImage;
-        window.downloadImage = downloadImage;
-    </script>
+    </div>
+    <script src="/js/gallery-data-ai-art.js"></script>
 </body>
 </html>'''
 
