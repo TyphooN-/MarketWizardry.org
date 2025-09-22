@@ -41,7 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileMenuContainer = document.querySelector('.mobile-menu-container');
 
-    mobileMenuToggle.addEventListener('click', function() {
-        mobileMenuContainer.classList.toggle('show-menu');
-    });
+    // Only add event listener if mobile menu elements exist
+    if (mobileMenuToggle && mobileMenuContainer) {
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileMenuContainer.classList.toggle('show-menu');
+        });
+    }
 });
