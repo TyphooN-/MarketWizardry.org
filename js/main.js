@@ -48,3 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Hamburger menu toggle function
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    const contentFrame = document.querySelector('.content-frame');
+    menu.classList.toggle('show');
+    contentFrame.classList.toggle('menu-open');
+}
