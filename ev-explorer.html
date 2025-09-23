@@ -53,8 +53,6 @@
     <meta name="twitter:data1" content="900+ Symbols">    <meta name="twitter:label2" content="Updates">
     <meta name="twitter:data2" content="Daily">
 
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <style>
         body {
             background-color: #000;
@@ -675,6 +673,15 @@
                         if (outlierFile && displayName) {
                             openModalWithFile(outlierFile, csvFile, displayName);
                         }
+                        break;
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous':
+                        previousFile();
+                        break;
+                    case 'next':
+                        nextFile();
                         break;
                 }
             }

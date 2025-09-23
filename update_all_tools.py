@@ -497,6 +497,15 @@ class FinancialToolsUpdater:
                             openModalWithFile(outlierFile, csvFile, displayName);
                         }
                         break;
+                    case 'close-modal':
+                        closeModal();
+                        break;
+                    case 'previous':
+                        previousFile();
+                        break;
+                    case 'next':
+                        nextFile();
+                        break;
                 }
             }
         });
@@ -615,8 +624,6 @@ class FinancialToolsUpdater:
 <head>
 {meta_tags}
 
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -753,8 +760,6 @@ class FinancialToolsUpdater:
 
 {meta_tags}
 
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -898,8 +903,6 @@ class FinancialToolsUpdater:
 
 {meta_tags}
 
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <style>
         body {{
             background-color: #000;
