@@ -587,6 +587,7 @@ class FinancialToolsUpdater:
         historical_files = self._scan_historical_files('var-explorer')
         grid_entries = self._generate_file_grid_entries(historical_files)
         modal_css = self._generate_modal_system_css()
+        modal_js = self._generate_modal_javascript()
 
         var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': 'VaR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(var_breadcrumbs)
@@ -697,6 +698,9 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
+    <script>
+{modal_js}
+    </script>
 </body>
 </html>'''
 
@@ -713,6 +717,7 @@ class FinancialToolsUpdater:
         atr_files = self._scan_historical_files('atr-explorer', '-outlier.txt')
         file_grid_html = self._generate_file_grid_entries(atr_files)
         modal_css = self._generate_modal_system_css()
+        modal_js = self._generate_modal_javascript()
 
         atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': 'ATR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(atr_breadcrumbs)
@@ -838,7 +843,9 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
-
+    <script>
+{modal_js}
+    </script>
 </body>
 </html>'''
 
@@ -855,6 +862,7 @@ class FinancialToolsUpdater:
         ev_files = self._scan_ev_historical_files('ev-explorer')
         file_grid_html = self._generate_file_grid_entries(ev_files)
         modal_css = self._generate_modal_system_css()
+        modal_js = self._generate_modal_javascript()
 
         ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': 'EV Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(ev_breadcrumbs)
@@ -980,7 +988,9 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
-
+    <script>
+{modal_js}
+    </script>
 </body>
 </html>'''
 
