@@ -779,7 +779,7 @@ class FinancialToolsUpdater:
         page_config = {
             'title': 'EV Explorer - MarketWizardry.org',
             'canonical_url': 'https://marketwizardry.org/ev-explorer.html',
-            'description': 'Enterprise Value analysis for those who want to measure corporate worth before watching it evaporate in real-time.',
+            'description': 'Enterprise Value analysis for those who want to measure corporate worth before watching it rot in real-time.',
             'keywords': PAGE_CONFIGS['explorer']['keywords_base'],
             'og_title': 'EV Explorer - MarketWizardry.org',
             'og_description': 'Advanced Enterprise Value analysis tools for corporate valuation and fundamental analysis.',
