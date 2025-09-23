@@ -14,6 +14,15 @@ document.addEventListener('click', function(e) {
                     openModalWithFile(outlierFile, csvFile, displayName);
                 }
                 break;
+            case 'close-modal':
+                closeModal();
+                break;
+            case 'previous':
+                previousFile();
+                break;
+            case 'next':
+                nextFile();
+                break;
         }
     }
 });

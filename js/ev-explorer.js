@@ -118,13 +118,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeFilesList() {
-    filesList = [];
-    const links = document.querySelectorAll('[data-action="open-modal-with-file"]');
-    links.forEach(link => {
-        filesList.push({
-            outlier: link.getAttribute('data-outlier-file'),
-            csv: link.getAttribute('data-csv-file'),
-            display: link.getAttribute('data-display-name')
-        });
-    });
+    const entries = document.querySelectorAll('.file-entry a');
+    filesList = Array.from(entries).map(entry => ({
+        outlier: entry.getAttribute('data-outlier-file'),
+        csv: entry.getAttribute('data-csv-file'),
+        display: entry.getAttribute('data-display-name')
+    }));
 }
