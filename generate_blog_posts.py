@@ -873,6 +873,11 @@ def extract_title_and_summary(content, filename):
     title = Path(filename).stem
     if date_match:
         title = title.replace(date_match.group(1) + '-', '')
+
+    # Special handling for VaR file to remove redundant "var" suffix
+    if title == 'what-is-value-at-risk-var':
+        title = 'what-is-value-at-risk'
+
     title = title.replace('-', ' ').replace('_', ' ').title()
 
     if filename == '09092025-C.txt':
@@ -886,8 +891,12 @@ def extract_title_and_summary(content, filename):
     title = ensure_var_capitalization(title)
 
     # Add acronyms for educational posts (only if not already present)
-    if 'what-is-value-at-risk' in filename.lower() and '(VaR)' not in title:
-        title = title.replace('Value At Risk', 'Value At Risk (VaR)')
+    if 'what-is-value-at-risk' in filename.lower():
+        # Handle VaR duplication - if title already has (VaR) and ends with VaR, remove the trailing VaR
+        if '(VaR)' in title and title.endswith('VaR?'):
+            title = title[:-4] + '?'  # Remove the trailing 'VaR' but keep the '?'
+        elif '(VaR)' not in title:
+            title = title.replace('Value At Risk', 'Value At Risk (VaR)')
     elif 'what-is-average-true-range' in filename.lower():
         title = title.replace('Atr', '(ATR)')
     elif 'what-is-enterprise-value' in filename.lower():
@@ -929,7 +938,7 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     
     # Generate breadcrumb title (cleaner version for breadcrumbs, only for educational posts)
     breadcrumb_title = title
-    educational_keywords = ['what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value', 'what-is-darwinex', 'understanding-iqr', 'var-rubber-band']
+    educational_keywords = ['what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value', 'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'darwinex_rating_cap']
     is_educational = any(keyword in html_file.name.lower() for keyword in educational_keywords)
 
     if is_educational:
