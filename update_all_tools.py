@@ -480,113 +480,15 @@ class FinancialToolsUpdater:
             }
         }'''
 
-    def _generate_modal_javascript(self):
-        """Generate complete modal system JavaScript"""
-        return '''
-        // Event delegation for data-action attributes
-        document.addEventListener('click', function(e) {
-            const action = e.target.getAttribute('data-action');
-            if (action) {
-                switch(action) {
-                    case 'open-modal-with-file':
-                        e.preventDefault();
-                        const outlierFile = e.target.getAttribute('data-outlier-file');
-                        const csvFile = e.target.getAttribute('data-csv-file');
-                        const displayName = e.target.getAttribute('data-display-name');
-                        if (outlierFile && displayName) {
-                            openModalWithFile(outlierFile, csvFile, displayName);
-                        }
-                        break;
-                    case 'close-modal':
-                        closeModal();
-                        break;
-                    case 'previous':
-                        previousFile();
-                        break;
-                    case 'next':
-                        nextFile();
-                        break;
-                }
-            }
-        });
-
-        let currentFileIndex = 0;
-        let filesList = [];
-
-        function openModalWithFile(outlierFile, csvFile, title) {
-            // Find current file index
-            for (let i = 0; i < filesList.length; i++) {
-                if (filesList[i].outlier === outlierFile) {
-                    currentFileIndex = i;
-                    break;
-                }
-            }
-
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('csv-link').href = csvFile;
-            document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
-            document.getElementById('outlier-modal').style.display = 'block';
-            updateNavCounter();
-
-            // Load outlier file content
-            fetch(outlierFile)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('outlier-content').textContent = data;
-                })
-                .catch(error => {
-                    document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;
-                });
+    def _generate_modal_javascript(self, explorer_type):
+        """Generate script tag references to external JavaScript files"""
+        js_file_map = {
+            'var': '/js/var-explorer.js',
+            'atr': '/js/atr-explorer.js',
+            'ev': '/js/ev-explorer.js'
         }
-
-        function closeModal() {
-            document.getElementById('outlier-modal').style.display = 'none';
-        }
-
-        function previousFile() {
-            if (currentFileIndex > 0) {
-                currentFileIndex--;
-                const file = filesList[currentFileIndex];
-                openModalWithFile(file.outlier, file.csv, file.title);
-            }
-        }
-
-        function nextFile() {
-            if (currentFileIndex < filesList.length - 1) {
-                currentFileIndex++;
-                const file = filesList[currentFileIndex];
-                openModalWithFile(file.outlier, file.csv, file.title);
-            }
-        }
-
-        function updateNavCounter() {
-            document.getElementById('nav-counter').textContent =
-                `${currentFileIndex + 1} of ${filesList.length}`;
-        }
-
-        // Initialize files list from grid entries
-        document.addEventListener('DOMContentLoaded', function() {
-            const entries = document.querySelectorAll('.file-entry a');
-            filesList = Array.from(entries).map(entry => ({
-                outlier: entry.getAttribute('data-outlier-file'),
-                csv: entry.getAttribute('data-csv-file'),
-                title: entry.textContent
-            }));
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('outlier-modal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        });
-
-        // Make functions globally accessible for backward compatibility
-        window.openModalWithFile = openModalWithFile;
-        window.closeModal = closeModal;
-        window.previousFile = previousFile;
-        window.nextFile = nextFile;'''
+        js_file = js_file_map.get(explorer_type, '/js/var-explorer.js')
+        return f'    <script src="/js/redirect.js"></script>\n    <script src="/js/shared.js"></script>\n    <script src="{js_file}"></script>'
 
     def generate_var_explorer(self, data):
         """Generate VaR Explorer page with full modal functionality"""
@@ -596,7 +498,7 @@ class FinancialToolsUpdater:
         historical_files = self._scan_historical_files('var-explorer')
         grid_entries = self._generate_file_grid_entries(historical_files)
         modal_css = self._generate_modal_system_css()
-        modal_js = self._generate_modal_javascript()
+        modal_js = self._generate_modal_javascript('var')
 
         var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': 'VaR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(var_breadcrumbs)
@@ -724,7 +626,7 @@ class FinancialToolsUpdater:
         atr_files = self._scan_historical_files('atr-explorer', '-outlier.txt')
         file_grid_html = self._generate_file_grid_entries(atr_files)
         modal_css = self._generate_modal_system_css()
-        modal_js = self._generate_modal_javascript()
+        modal_js = self._generate_modal_javascript('atr')
 
         atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': 'ATR Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(atr_breadcrumbs)
@@ -867,7 +769,7 @@ class FinancialToolsUpdater:
         ev_files = self._scan_ev_historical_files('ev-explorer')
         file_grid_html = self._generate_file_grid_entries(ev_files)
         modal_css = self._generate_modal_system_css()
-        modal_js = self._generate_modal_javascript()
+        modal_js = self._generate_modal_javascript('ev')
 
         ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': 'EV Explorer', 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(ev_breadcrumbs)
