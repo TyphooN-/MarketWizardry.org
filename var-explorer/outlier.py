@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import argparse
+from datetime import datetime
 
 # This constant is used in multiple functions, so it's defined globally.
 MINIMUM_GROUP_SIZE = 5
@@ -144,6 +145,8 @@ def find_var_outliers(filename, overwrite=False):
             file_type = "Futures"
             TOP_N_DISPLAY = FUTURES_TOP
         
+        print(f"Analysis results for {filename}")
+        print(f"Report generated on: {datetime.now()}")
         print(f"Detected file type: {file_type}. Displaying top/bottom {TOP_N_DISPLAY} assets at end.")
 
         df = pd.read_csv(filename, delimiter=';', encoding='latin1')

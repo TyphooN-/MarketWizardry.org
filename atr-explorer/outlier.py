@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import argparse
 import re
+from datetime import datetime
 
 MINIMUM_GROUP_SIZE = 5
 
@@ -110,8 +111,12 @@ def find_atr_outliers(filename):
     Main function to load data and find outliers in ATR columns.
     """
     try:
+        print(f"Analysis results for {filename}")
+        print(f"Report generated on: {datetime.now()}")
+        print()
+
         df = pd.read_csv(filename, delimiter=';', encoding='latin1')
-        
+
         file_type = "Unknown"
         if "Stocks" in filename:
             file_type = "Stocks"

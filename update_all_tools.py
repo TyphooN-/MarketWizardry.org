@@ -64,9 +64,11 @@ class FinancialToolsUpdater:
         print("📈 Processing VaR data...")
 
         try:
-            # Run outlier analysis script
-            result = subprocess.run(['bash', 'run_outlier_analysis.sh'],
-                                  cwd='var-explorer', capture_output=True, text=True)
+            # Run outlier analysis script with overwrite flag if force regenerating
+            cmd = ['bash', 'run_outlier_analysis.sh']
+            if self.force_regenerate:
+                cmd.append('--overwrite')
+            result = subprocess.run(cmd, cwd='var-explorer', capture_output=True, text=True)
 
             if result.returncode != 0:
                 print(f"⚠️ Warning: Outlier analysis script failed: {result.stderr}")
@@ -149,9 +151,11 @@ class FinancialToolsUpdater:
                     files_copied += 1
 
             if files_copied > 0:
-                # Run ATR outlier analysis
-                result = subprocess.run(['bash', 'run_outlier_analysis.sh'],
-                                      cwd='atr-explorer', capture_output=True, text=True)
+                # Run ATR outlier analysis with overwrite flag if force regenerating
+                cmd = ['bash', 'run_outlier_analysis.sh']
+                if self.force_regenerate:
+                    cmd.append('--overwrite')
+                result = subprocess.run(cmd, cwd='atr-explorer', capture_output=True, text=True)
 
                 self.data_summary['atr_files'] = files_copied
 
