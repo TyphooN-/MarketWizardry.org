@@ -886,7 +886,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
     <script src="/js/gallery.js"></script>
-    <script src="/js/gallery-data-ai-art.js"></script>
+    <script src="/js/gallery-data-all.js"></script>
 </body>
 </html>
 """
