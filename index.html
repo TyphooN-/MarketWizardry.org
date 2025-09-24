@@ -331,10 +331,17 @@
                 overflow-y: auto;
                 display: none;
                 box-sizing: border-box;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
 
             .menu.show {
-                display: block;
+                display: grid;
+            }
+
+            .menu-header {
+                grid-column: 1 / -1;
+                margin-bottom: 10px;
             }
 
             .content-frame {
@@ -349,13 +356,18 @@
             }
 
             .menu-item {
-                display: block;
-                padding: 15px;
-                margin: 5px 0;
-                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 12px 8px;
+                margin: 0;
+                font-size: 12px;
                 text-align: center;
                 border: 1px solid #00ff00;
                 background: rgba(0, 255, 0, 0.1);
+                min-height: 50px;
+                word-wrap: break-word;
+                hyphens: auto;
             }
 
             .menu-item:hover {
@@ -363,9 +375,19 @@
                 transform: scale(1.02);
             }
 
-            
+
             .image-item {
-                display: none; /* Hide the large image on mobile to save space */
+                grid-column: 1 / -1;
+                display: block;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .image-item img {
+                max-width: 150px;
+                height: auto;
+                display: block;
+                margin: 0 auto;
             }
             
             .content-frame {
@@ -383,14 +405,16 @@
             .menu {
                 max-height: 60vh;
                 padding: 8px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
             }
 
             .menu-item {
-                padding: 8px 10px;
-                margin: 1px;
-                font-size: 10px;
-                min-width: 70px;
-                min-height: 40px;
+                padding: 6px 4px;
+                margin: 0;
+                font-size: 9px;
+                min-width: auto;
+                min-height: 45px;
             }
 
             .menu-item.primary {
