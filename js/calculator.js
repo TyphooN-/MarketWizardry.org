@@ -83,8 +83,8 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
             const timeframe = document.getElementById('sl-timeframe').value;
 
-            if (symbol && varData[symbol]) {
-                const data = varData[symbol];
+            if (symbol && window.varData && window.varData[symbol]) {
+                const data = window.varData[symbol];
 
                 // Auto-fill price if not already filled
                 const priceField = document.getElementById('sl-entry-price');
@@ -170,8 +170,8 @@ function toggleStopLossMode() {
                 riskAmount = positionValue * (riskValue / 100);
             } else if (riskMode === 'var') {
                 // VaR percentage mode - target VaR as % of position
-                if (symbol && varData[symbol]) {
-                    const varPerShare = varData[symbol].var;
+                if (symbol && window.varData && window.varData[symbol]) {
+                    const varPerShare = window.varData[symbol].var;
                     const targetVarAmount = positionValue * (riskValue / 100);
                     riskAmount = targetVarAmount;
                     riskPercent = riskValue; // This is VaR%, not risk%
@@ -371,13 +371,13 @@ function toggleStopLossMode() {
                 positionSize = Math.floor(riskAmount / riskPerShare);
             } else if (riskMode === 'var') {
                 // VaR targeting mode
-                if (!symbol || !varData[symbol]) {
+                if (!symbol || !window.varData || !window.varData[symbol]) {
                     alert('VaR mode requires a valid symbol. Please enter a symbol.');
                     return;
                 }
 
                 // Calculate position size to achieve target VaR percentage
-                const varPerShare = varData[symbol].var;
+                const varPerShare = window.varData[symbol].var;
                 const targetVarPercent = riskValue / 100; // Convert % to decimal
 
                 // Position size needed so that position VaR = targetVarPercent of position value
@@ -1357,7 +1357,7 @@ function toggleStopLossMode() {
             }
 
             if (varData[symbol]) {
-                const data = varData[symbol];
+                const data = window.varData[symbol];
                 const riskAssessment = generateRiskAssessment(data);
                 const outlierWarnings = data.outliers && data.outliers.length > 0 ?
                     `<div style="color: #ff8800; font-weight: bold; margin: 5px 0;">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
@@ -1440,7 +1440,7 @@ function addSymbolToPortfolio(symbol) {
             valueDisplay.textContent = value > 0 ? `$${value.toLocaleString()}` : '-';
 
             // Update VaR and asset class if symbol is found in database
-            if (symbol && varData[symbol]) {
+            if (symbol && window.varData && window.varData[symbol]) {
                 const positionVar = shares * varData[symbol].var;
                 varDisplay.textContent = `$${positionVar.toFixed(2)}`;
 
@@ -2068,7 +2068,7 @@ function findSimilarSymbols(partial) {
             `;
 
             matches.forEach(symbol => {
-                const data = varData[symbol];
+                const data = window.varData[symbol];
                 const riskAssessment = generateRiskAssessment(data);
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
@@ -2095,9 +2095,9 @@ function findSimilarSymbols(partial) {
                 const inputs = row.querySelectorAll('input');
                 const symbol = inputs[0].value.toUpperCase().trim();
 
-                if (symbol && varData[symbol]) {
+                if (symbol && window.varData && window.varData[symbol]) {
                     totalPositions++;
-                    const data = varData[symbol];
+                    const data = window.varData[symbol];
                     if (data.outliers && data.outliers.length >= 2) {
                         highRiskPositions++;
         }
@@ -2346,8 +2346,8 @@ function getRandomSymbolsFiltered() {
         // Enhanced Position Size Calculator Functions
         function autoFillPositionData() {
             const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
-            if (symbol && varData[symbol]) {
-                const data = varData[symbol];
+            if (symbol && window.varData && window.varData[symbol]) {
+                const data = window.varData[symbol];
                 document.getElementById('ps-entry-price').value = data.price.toFixed(2);
                 document.getElementById('ps-var-per-share').value = data.var.toFixed(3);
                 updatePositionAtrData();
@@ -2359,7 +2359,7 @@ function updatePositionAtrData() {
             const entryPrice = parseFloat(document.getElementById('ps-entry-price').value) || 0;
 
             if (symbol && varData[symbol] && timeframe !== 'none' && entryPrice > 0) {
-                const data = varData[symbol];
+                const data = window.varData[symbol];
                 let atrValue = 0;
 
                 switch(timeframe) {
