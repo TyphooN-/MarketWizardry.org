@@ -362,6 +362,18 @@ function handleOpenImage(e) {
     }
 }
 
+// Calculator selection functionality
+function handleSelectCalculator(e, targetElement) {
+    e.preventDefault();
+    const calculatorType = targetElement.getAttribute('data-calculator');
+
+    if (calculatorType && window.selectCalculator) {
+        window.selectCalculator(calculatorType, targetElement);
+    } else {
+        console.error('Calculator type not found or selectCalculator function not available');
+    }
+}
+
 // Make functions globally accessible for backward compatibility
 window.toggleMusing = toggleMusing;
 window.copyToClipboard = copyToClipboard;
@@ -371,3 +383,4 @@ window.forceDownloadFallback = forceDownloadFallback;
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.loadAnalysisContent = loadAnalysisContent;
+window.handleSelectCalculator = handleSelectCalculator;
