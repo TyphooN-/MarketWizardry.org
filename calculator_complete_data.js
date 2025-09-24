@@ -13410,3 +13410,6 @@ const varData = {
                         "ev_data": {}
             }
 };
+
+// Make varData available globally
+window.varData = varData;

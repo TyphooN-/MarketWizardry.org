@@ -1011,7 +1011,10 @@ class FinancialToolsUpdater:
             # Generate JS file with metadata
             js_content = f"""// Complete dataset generated on {datetime.now()}
 // Total symbols: {len(var_data)}
-const varData = {json.dumps(var_data, indent=12)};"""
+const varData = {json.dumps(var_data, indent=12)};
+
+// Make varData available globally
+window.varData = varData;"""
 
             with open('calculator_complete_data.js', 'w') as f:
                 f.write(js_content)
