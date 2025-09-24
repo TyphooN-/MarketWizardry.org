@@ -210,7 +210,8 @@ function downloadCurrentImage() {
 
 function handleNavigate(e) {
     e.preventDefault();
-    const url = e.target.getAttribute('data-url');
+    const targetElement = e.target.closest('[data-action="navigate"]');
+    const url = targetElement ? targetElement.getAttribute('data-url') : null;
     if (url) {
         window.location.href = url;
     }
