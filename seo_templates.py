@@ -20,7 +20,7 @@ class SEOManager:
         self.apple_icon = "/img/apple-touch-icon.png"
 
     def generate_enhanced_meta_tags(self, page_config):
-        """Generate enhanced meta tags for any page"""
+        """Generate enhanced meta tags for any page with CSP compliant scripts"""
         return f'''    <meta charset="UTF-8">
     <meta name="author" content="{self.author}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +61,11 @@ class SEOManager:
     <meta name="twitter:image" content="{page_config.get('twitter_image', self.default_image)}">
     <meta name="twitter:image:alt" content="{page_config.get('twitter_image_alt', 'MarketWizardry.org Financial Tools')}">
     <meta name="twitter:domain" content="marketwizardry.org">
-    {self._generate_twitter_labels(page_config)}'''
+    {self._generate_twitter_labels(page_config)}
+
+    <!-- CSP Compliant JavaScript Includes -->
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>'''
 
     def _generate_og_article_tags(self, page_config):
         """Generate Open Graph article-specific tags"""
@@ -164,6 +168,50 @@ class SEOManager:
     <script type="application/ld+json">
     {json.dumps(base_schema, indent=4)}
     </script>'''
+
+    def get_blog_post_jsonld_config(self, post_title, post_url, post_description, published_date=None):
+        """Generate JSON-LD configuration for blog posts"""
+        return {
+            'type': ['BlogPosting', 'Article'],
+            'name': post_title,
+            'url': post_url,
+            'description': post_description,
+            'additional_properties': {
+                'headline': post_title,
+                'datePublished': published_date or datetime.now().strftime('%Y-%m-%d'),
+                'dateModified': datetime.now().strftime('%Y-%m-%d'),
+                'articleBody': post_description,
+                'keywords': 'financial analysis, market data, trading insights, VaR analysis, risk management',
+                'articleSection': 'Financial Analysis',
+                'mainEntityOfPage': {
+                    '@type': 'WebPage',
+                    '@id': post_url
+                }
+            }
+        }
+
+    def get_gallery_jsonld_config(self, gallery_title, gallery_url, gallery_description, artist_name=None):
+        """Generate JSON-LD configuration for NFT galleries"""
+        config = {
+            'type': ['Collection', 'CreativeWork'],
+            'name': gallery_title,
+            'url': gallery_url,
+            'description': gallery_description,
+            'additional_properties': {
+                'collectionSize': 'Variable',
+                'genre': 'Digital Art',
+                'artMedium': 'Digital',
+                'keywords': 'AI art, NFT gallery, digital art, generative art, creative technology'
+            }
+        }
+
+        if artist_name:
+            config['additional_properties']['creator'] = {
+                '@type': 'Person',
+                'name': artist_name
+            }
+
+        return config
 
     def generate_breadcrumb_css(self):
         """Generate CSS for breadcrumb styling - matches var-cult.html standard"""

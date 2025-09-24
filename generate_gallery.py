@@ -79,7 +79,14 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         'keywords': page_config['keywords_base']
     })
 
-    # Generate SEO components
+    # Generate SEO components including JSON-LD schema
+    jsonld_config = seo_manager.get_gallery_jsonld_config(
+        'MarketWizardry.org NFT Gallery',
+        page_config['canonical_url'],
+        page_config['description']
+    )
+    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config)
+
     enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
     breadcrumbs_html = seo_manager.generate_breadcrumbs(gallery_breadcrumbs)
     breadcrumb_css = seo_manager.generate_breadcrumb_css()
@@ -88,7 +95,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
 <html lang="en">
 <head>
 {enhanced_meta_tags}
-{REDIRECT_SCRIPT_TEMPLATE}
+{json_ld_schema}
     <style>
         body {{
             background-color: #000;
@@ -340,12 +347,21 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     breadcrumbs_html = seo_manager.generate_breadcrumbs(user_gallery_breadcrumbs)
     breadcrumb_css = seo_manager.generate_breadcrumb_css()
 
+    # Generate JSON-LD schema for user gallery
+    jsonld_config = seo_manager.get_gallery_jsonld_config(
+        f'NFT Gallery - {username}',
+        page_config['canonical_url'],
+        flavor_text,
+        artist_name=username
+    )
+    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config)
+
     html_template = f"""<!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 {enhanced_meta_tags}
-{REDIRECT_SCRIPT_TEMPLATE}
+{json_ld_schema}
     <style>
         body {{
             background-color: #000;
@@ -636,7 +652,14 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         'keywords': f"{page_config['keywords_base']}, complete collection, all images"
     })
 
-    # Generate SEO components
+    # Generate SEO components including JSON-LD schema
+    jsonld_config = seo_manager.get_gallery_jsonld_config(
+        'Complete NFT Gallery Collection',
+        page_config['canonical_url'],
+        page_config['description']
+    )
+    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config)
+
     enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
     breadcrumbs_html = seo_manager.generate_breadcrumbs(all_gallery_breadcrumbs)
     breadcrumb_css = seo_manager.generate_breadcrumb_css()
@@ -646,7 +669,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 <html lang="en">
 <head>
 {enhanced_meta_tags}
-{REDIRECT_SCRIPT_TEMPLATE}
+{json_ld_schema}
     <style>
         body {{
             background-color: #000;

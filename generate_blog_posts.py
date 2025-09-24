@@ -311,9 +311,6 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 {seo_meta_tags}
 
 {json_ld_schema}
-
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <style>
         * {{
             box-sizing: border-box;
