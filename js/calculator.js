@@ -2889,6 +2889,8 @@ function updateOutputMode() {
             safeInitialize();
         });
 
+        console.log('🔍 DOMContentLoaded listener added, current state:', document.readyState);
+
         // Fallback for SES extension blocking DOMContentLoaded
         setTimeout(function() {
             console.log('⏰ Timeout fallback initialization');
@@ -2904,6 +2906,18 @@ function updateOutputMode() {
             console.log('🎯 Document ready, initializing immediately');
             safeInitialize();
         }
+
+        // Force initialization after a short delay regardless of state
+        console.log('🔧 Setting up forced initialization fallback...');
+        setTimeout(function() {
+            console.log('🚨 Forced initialization attempt after 500ms');
+            if (!calculatorInitialized) {
+                console.log('⚡ Calculator not yet initialized, forcing now...');
+                safeInitialize();
+            } else {
+                console.log('✅ Calculator already initialized, skipping forced init');
+            }
+        }, 500);
 
         // Calculator initialization complete
     } // Close block 1
