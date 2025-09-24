@@ -2756,27 +2756,41 @@ function updateOutputMode() {
                 // document.getElementById('industry-selector').addEventListener('change', updateActiveDataset);
                 console.log('Skipped dataset selector event listeners');
 
-                // Set up calculator form event listeners
-                document.getElementById('sl-symbol').addEventListener('change', autoFillStopLossData);
-                document.getElementById('sl-risk-mode').addEventListener('change', toggleStopLossMode);
-                document.getElementById('sl-timeframe').addEventListener('change', autoFillStopLossData);
-                document.getElementById('calculate-stop-loss-btn').addEventListener('click', calculateStopLoss);
+                // Set up calculator form event listeners with error handling
+                const addEventListenerSafe = (id, event, handler) => {
+                    try {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.addEventListener(event, handler);
+                            addDebug(`✅ Added ${event} listener to ${id}`);
+                        } else {
+                            addDebug(`❌ Element not found: ${id}`);
+                        }
+                    } catch (error) {
+                        addDebug(`❌ Error adding listener to ${id}: ${error.message}`);
+                    }
+                };
 
-                document.getElementById('ps-risk-mode').addEventListener('change', togglePositionSizeMode);
-                document.getElementById('ps-output-mode').addEventListener('change', updateOutputMode);
-                document.getElementById('ps-symbol').addEventListener('change', autoFillPositionData);
-                document.getElementById('ps-atr-timeframe').addEventListener('change', updatePositionAtrData);
-                document.getElementById('ps-atr-multiplier').addEventListener('change', updatePositionAtrData);
-                document.getElementById('calculate-position-size-btn').addEventListener('click', calculateEnhancedPositionSize);
+                addEventListenerSafe('sl-symbol', 'change', autoFillStopLossData);
+                addEventListenerSafe('sl-risk-mode', 'change', toggleStopLossMode);
+                addEventListenerSafe('sl-timeframe', 'change', autoFillStopLossData);
+                addEventListenerSafe('calculate-stop-loss-btn', 'click', calculateStopLoss);
 
-                document.getElementById('lookup-symbol-btn').addEventListener('click', lookupSymbol);
-                document.getElementById('add-position-btn').addEventListener('click', addPosition);
-                document.getElementById('calculate-portfolio-var-btn').addEventListener('click', calculatePortfolioVaR);
+                addEventListenerSafe('ps-risk-mode', 'change', togglePositionSizeMode);
+                addEventListenerSafe('ps-output-mode', 'change', updateOutputMode);
+                addEventListenerSafe('ps-symbol', 'change', autoFillPositionData);
+                addEventListenerSafe('ps-atr-timeframe', 'change', updatePositionAtrData);
+                addEventListenerSafe('ps-atr-multiplier', 'change', updatePositionAtrData);
+                addEventListenerSafe('calculate-position-size-btn', 'click', calculateEnhancedPositionSize);
 
-                document.getElementById('lookup-symbol').addEventListener('change', performAdvancedSearch);
-                document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
-                document.getElementById('show-all-symbols-btn').addEventListener('click', showAllSymbols);
-                document.getElementById('calculate-compound-interest-btn').addEventListener('click', calculateCompoundInterest);
+                addEventListenerSafe('lookup-symbol-btn', 'click', lookupSymbol);
+                addEventListenerSafe('add-position-btn', 'click', addPosition);
+                addEventListenerSafe('calculate-portfolio-var-btn', 'click', calculatePortfolioVaR);
+
+                addEventListenerSafe('lookup-symbol', 'change', performAdvancedSearch);
+                addEventListenerSafe('advanced-search-btn', 'click', performAdvancedSearch);
+                addEventListenerSafe('show-all-symbols-btn', 'click', showAllSymbols);
+                addEventListenerSafe('calculate-compound-interest-btn', 'click', calculateCompoundInterest);
 
                 console.log('Skipped all event listeners for testing');
 
