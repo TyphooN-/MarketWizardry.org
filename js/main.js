@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetPage = pageParam || 'market-wizardry';
     loadContent(targetPage);
 
+    // Set up hamburger menu event listener
+    const hamburger = document.getElementById('hamburgerToggle');
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMenu);
+    }
+
     // Set up event delegation for loadContent
     document.addEventListener('click', function(e) {
         let targetElement = e.target;
