@@ -85,7 +85,7 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         page_config['canonical_url'],
         page_config['description']
     )
-    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config)
+    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config, 'nft-gallery.html')
 
     enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
     breadcrumbs_html = seo_manager.generate_breadcrumbs(gallery_breadcrumbs)
@@ -354,7 +354,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         flavor_text,
         artist_name=username
     )
-    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config)
+    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config, f'nft-gallery/{output_file}')
 
     html_template = f"""<!-- user_gallery.html -->
 <!DOCTYPE html>
@@ -658,7 +658,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         page_config['canonical_url'],
         page_config['description']
     )
-    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config)
+    json_ld_schema = seo_manager.generate_json_ld_schema(jsonld_config, 'nft-gallery/all.html')
 
     enhanced_meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
     breadcrumbs_html = seo_manager.generate_breadcrumbs(all_gallery_breadcrumbs)
@@ -883,10 +883,10 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             </div>
         </div>
     </div>
-</div>
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <script src="/js/gallery.js"></script>
-    <script src="/js/gallery-data-all.js"></script>
-    </div>
+    <script src="/js/gallery-data-ai-art.js"></script>
 </body>
 </html>
 """
@@ -1039,9 +1039,6 @@ document.addEventListener('DOMContentLoaded', function() {{
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
-    <script src="/js/gallery.js"></script>
     <style>
         body {{
             background-color: #000;
@@ -1319,6 +1316,9 @@ document.addEventListener('DOMContentLoaded', function() {{
         </div>
     </div>
     </div>
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+    <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-ai-art.js"></script>
 </body>
 </html>'''

@@ -97,14 +97,16 @@ function openImage(index) {
     modalImg.src = imagePath;
     modalFilename.textContent = filename;
 
-    // Extract Twitter info from filename
-    const tweetInfo = extractTweetInfoFromFilename(filename);
-    if (tweetInfo.username && tweetInfo.tweetId) {
-        const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
-        twitterLink.href = twitterUrl;
-        twitterLinkContainer.style.display = 'block';
-    } else {
-        twitterLinkContainer.style.display = 'none';
+    // Extract Twitter info from filename (only if Twitter elements exist)
+    if (twitterLinkContainer && twitterLink) {
+        const tweetInfo = extractTweetInfoFromFilename(filename);
+        if (tweetInfo.username && tweetInfo.tweetId) {
+            const twitterUrl = `https://twitter.com/${tweetInfo.username}/status/${tweetInfo.tweetId}`;
+            twitterLink.href = twitterUrl;
+            twitterLinkContainer.style.display = 'block';
+        } else {
+            twitterLinkContainer.style.display = 'none';
+        }
     }
 
     // Update navigation buttons and counter

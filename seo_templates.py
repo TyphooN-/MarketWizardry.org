@@ -136,8 +136,8 @@ class SEOManager:
 
         return breadcrumb_html
 
-    def generate_json_ld_schema(self, schema_config):
-        """Generate JSON-LD structured data"""
+    def generate_json_ld_schema(self, schema_config, page_filename=None):
+        """Generate CSP-compliant JSON-LD structured data via external script"""
         base_schema = {
             "@context": "https://schema.org",
             "@type": schema_config['type'],
@@ -164,10 +164,50 @@ class SEOManager:
         if schema_config.get('additional_properties'):
             base_schema.update(schema_config['additional_properties'])
 
-        return f'''    <!-- Enhanced JSON-LD Schema Markup -->
+        # Generate external JSON-LD file for CSP compliance
+        if page_filename:
+            jsonld_filename = f"js/jsonld-{page_filename.replace('.html', '').replace('/', '-')}.js"
+            self._generate_external_jsonld_file(base_schema, jsonld_filename)
+            return f'    <!-- Enhanced JSON-LD Schema Markup - loaded via external script -->\n    <script src="/{jsonld_filename}"></script>'
+        else:
+            # Fallback to inline for backward compatibility (will cause CSP issues)
+            return f'''    <!-- Enhanced JSON-LD Schema Markup -->
     <script type="application/ld+json">
     {json.dumps(base_schema, indent=4)}
     </script>'''
+
+    def _generate_external_jsonld_file(self, schema_data, filename):
+        """Generate external JavaScript file with JSON-LD data"""
+        js_content = f'''// JSON-LD structured data - CSP compliant
+(function() {{
+    'use strict';
+
+    const jsonLdData = {json.dumps(schema_data, indent=4)};
+
+    function injectJsonLd() {{
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(jsonLdData);
+        document.head.appendChild(script);
+        console.log('JSON-LD structured data injected');
+    }}
+
+    if (document.readyState === 'loading') {{
+        document.addEventListener('DOMContentLoaded', injectJsonLd);
+    }} else {{
+        injectJsonLd();
+    }}
+}})();'''
+
+        import os
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        try:
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(js_content)
+            print(f"✓ Generated {filename}")
+        except Exception as e:
+            print(f"Error writing {filename}: {e}")
 
     def get_blog_post_jsonld_config(self, post_title, post_url, post_description, published_date=None):
         """Generate JSON-LD configuration for blog posts"""
