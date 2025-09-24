@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'force-download':
                 handleForceDownload(e);
                 break;
+            case 'select-calculator':
+                handleSelectCalculator(e, targetElement);
+                break;
             case 'open-modal-with-file':
                 handleOpenModalWithFile(e);
                 break;
