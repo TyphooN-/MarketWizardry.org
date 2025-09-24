@@ -2852,14 +2852,26 @@ function updateOutputMode() {
             }
         }
 
-        // Try multiple initialization approaches
-        document.addEventListener('DOMContentLoaded', initializeCalculator);
+        // Prevent multiple initialization
+        let calculatorInitialized = false;
+
+        function safeInitialize() {
+            if (calculatorInitialized) {
+                console.log('Calculator already initialized, skipping');
+                return;
+            }
+            calculatorInitialized = true;
+            initializeCalculator();
+        }
+
+        // Try multiple initialization approaches with protection
+        document.addEventListener('DOMContentLoaded', safeInitialize);
 
         // Fallback for SES extension blocking DOMContentLoaded
         setTimeout(function() {
             console.log('Timeout fallback initialization');
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                initializeCalculator();
+                safeInitialize();
             }
         }, 100);
 
@@ -2868,5 +2880,5 @@ function updateOutputMode() {
             console.log('Document still loading, waiting...');
         } else {
             console.log('Document ready, initializing immediately');
-            initializeCalculator();
+            safeInitialize();
         }
