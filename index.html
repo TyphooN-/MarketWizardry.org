@@ -282,19 +282,48 @@
             height: auto;
         }
         
-        /* Hamburger Menu Styles */
-        .hamburger {
+        /* Mobile Header Styles */
+        .mobile-header {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid #00ff00;
+            z-index: 1001;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .hamburger {
+            display: flex;
             flex-direction: column;
             cursor: pointer;
             padding: 10px;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
             background: rgba(0, 0, 0, 0.8);
             border: 1px solid #00ff00;
             border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-logo img {
+            height: 30px;
+            width: auto;
+        }
+
+        .mobile-title {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            font-weight: bold;
         }
         .hamburger span {
             width: 25px;
@@ -309,7 +338,7 @@
 
         /* Mobile Responsive Styles */
         @media screen and (max-width: 768px) {
-            .hamburger {
+            .mobile-header {
                 display: flex;
             }
 
@@ -326,13 +355,14 @@
                 height: 100vh;
                 background: #000;
                 border: 2px solid #00ff00;
-                padding: 20px;
+                padding: 15px 10px;
+                padding-top: 60px;
                 z-index: 999;
                 overflow-y: auto;
                 display: none;
                 box-sizing: border-box;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
             }
 
             .menu.show {
@@ -340,8 +370,7 @@
             }
 
             .menu-header {
-                grid-column: 1 / -1;
-                margin-bottom: 10px;
+                display: none;
             }
 
             .content-frame {
@@ -359,15 +388,16 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 12px 8px;
+                padding: 8px 4px;
                 margin: 0;
-                font-size: 12px;
+                font-size: 10px;
                 text-align: center;
                 border: 1px solid #00ff00;
                 background: rgba(0, 255, 0, 0.1);
-                min-height: 50px;
+                min-height: 45px;
                 word-wrap: break-word;
                 hyphens: auto;
+                line-height: 1.2;
             }
 
             .menu-item:hover {
@@ -377,22 +407,16 @@
 
 
             .image-item {
-                grid-column: 1 / -1;
-                display: block;
-                padding: 10px;
-                margin-bottom: 10px;
+                display: none;
             }
 
-            .image-item img {
-                max-width: 150px;
-                height: auto;
-                display: block;
-                margin: 0 auto;
+            .mobile-header.menu-open .mobile-logo {
+                display: none;
             }
             
             .content-frame {
                 flex: 1;
-                height: calc(100vh - 120px);
+                height: calc(100vh - 50px);
                 padding: 10px;
                 overflow-y: auto;
             }
@@ -403,18 +427,23 @@
 /* Extra small mobile devices */
         @media screen and (max-width: 480px) {
             .menu {
-                max-height: 60vh;
                 padding: 8px;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 5px;
+                padding-top: 60px;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4px;
             }
 
             .menu-item {
-                padding: 6px 4px;
+                padding: 6px 2px;
                 margin: 0;
-                font-size: 9px;
+                font-size: 8px;
                 min-width: auto;
-                min-height: 45px;
+                min-height: 40px;
+                line-height: 1.1;
+            }
+
+            .mobile-title {
+                font-size: 12px;
             }
 
             .menu-item.primary {
@@ -479,11 +508,17 @@
 
     <div class="scanlines"></div>
     <div class="container">
-        <!-- Hamburger Menu (Mobile Only) -->
-        <div class="hamburger" id="hamburgerToggle">
-            <span></span>
-            <span></span>
-            <span></span>
+        <!-- Mobile Header (Mobile Only) -->
+        <div class="mobile-header" id="mobileHeader">
+            <div class="hamburger" id="hamburgerToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-logo">
+                <img src="/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="MarketWizardry.org" id="mobileLogo">
+                <span class="mobile-title">MARKETWIZARDRY.ORG</span>
+            </div>
         </div>
 
         <!-- Menu -->

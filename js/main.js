@@ -49,9 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Close mobile menu after clicking a menu item
             const menu = document.getElementById('sideMenu');
             const contentFrame = document.querySelector('.content-frame');
+            const mobileHeader = document.getElementById('mobileHeader');
             if (menu && contentFrame && menu.classList.contains('show')) {
                 menu.classList.remove('show');
                 contentFrame.classList.remove('menu-open');
+                if (mobileHeader) {
+                    mobileHeader.classList.remove('menu-open');
+                }
             }
         }
     });
@@ -71,9 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function toggleMenu() {
     const menu = document.getElementById('sideMenu');
     const contentFrame = document.querySelector('.content-frame');
+    const mobileHeader = document.getElementById('mobileHeader');
 
     if (menu && contentFrame) {
         menu.classList.toggle('show');
         contentFrame.classList.toggle('menu-open');
+
+        // Toggle mobile header class to hide/show logo
+        if (mobileHeader) {
+            mobileHeader.classList.toggle('menu-open');
+        }
     }
 }
