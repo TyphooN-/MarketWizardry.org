@@ -2891,17 +2891,17 @@ function updateOutputMode() {
             safeInitialize();
         }
 
-        // Close any unclosed braces to fix syntax error
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
+        // Calculator initialization complete
+    } // Close block 1
+    } // Close block 2
+    } // Close block 3
+    } // Close block 4
+    } // Close block 5
+    } // Close block 6
+    } // Close block 7
+    } // Close block 8
+    } // Close block 9
+    } // Close block 10
+    } // Close block 11
+    } // Close block 12
+    } // Close block 13
