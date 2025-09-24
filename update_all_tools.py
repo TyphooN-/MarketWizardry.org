@@ -908,23 +908,126 @@ class FinancialToolsUpdater:
 
         print(f"✅ EV Explorer generated with {len(ev_files)} historical files")
 
+    def _get_latest_date_from_directory(self, directory):
+        """Find the latest date string from CSV files in a directory."""
+        latest_date = None
+        for filename in os.listdir(directory):
+            if filename.endswith(".csv"):
+                try:
+                    parts = filename.split('-')
+                    date_str = parts[-1].split('.')[0]
+                    dt = datetime.strptime(date_str, '%Y.%m.%d')
+                    if latest_date is None or dt > latest_date:
+                        latest_date = dt
+                except (IndexError, ValueError):
+                    continue
+        return latest_date.strftime('%Y.%m.%d') if latest_date else None
+
+    def _process_calculator_outliers(self, directory, date_str, var_data):
+        """Process outlier files in a given directory."""
+        if not os.path.exists(directory):
+            return
+
+        for filename in os.listdir(directory):
+            if filename.endswith(f"-{date_str}-outlier.txt"):
+                outlier_type = 'var'  # default
+                if 'ev_outlier' in filename:
+                    outlier_type = 'ev'
+                elif 'atr' in directory:
+                    outlier_type = 'atr'
+
+                outlier_file_path = os.path.join(directory, filename)
+                with open(outlier_file_path, 'r') as f:
+                    for line in f:
+                        symbol = line.strip()
+                        if symbol in var_data:
+                            if outlier_type not in var_data[symbol]['outliers']:
+                                var_data[symbol]['outliers'].append(outlier_type)
+
     def update_calculator_data(self, data):
-        """Update calculator with fresh financial data"""
+        """Update calculator with fresh financial data - integrated functionality"""
         print("🔧 Updating calculator data...")
 
         try:
-            result = subprocess.run(['python3', 'update_calculator_data.py'],
-                                  capture_output=True, text=True)
-            if result.returncode == 0:
-                print("✅ Calculator data updated successfully.")
-                print(result.stdout)
-                self.data_summary['calculator_updated'] = True
-            else:
-                print(f"❌ Calculator data update failed: {result.stderr}")
-                self.data_summary['calculator_updated'] = False
+            var_dir = 'var-explorer'
+            atr_dir = 'atr-explorer'
+            ev_dir = 'ev-explorer'
+
+            # Use the current date_str or find latest
+            date_str = self.date_str
+            if not date_str:
+                date_str = self._get_latest_date_from_directory(var_dir)
+                if not date_str:
+                    print("❌ No CSV files found to process.")
+                    self.data_summary['calculator_updated'] = False
+                    return
+
+            print(f"📅 Processing calculator data for date: {date_str}")
+
+            var_data = {}
+
+            # Process var-explorer files
+            symbols_processed = 0
+            for asset_type in ['stocks', 'cfd', 'futures']:
+                file_path = f"{var_dir}/SymbolsExport-Darwinex-Live-{asset_type.capitalize()}-{date_str}.csv"
+                if os.path.exists(file_path):
+                    df = pd.read_csv(file_path, sep=';')
+                    for _, row in df.iterrows():
+                        symbol = row['Symbol']
+                        var_data[symbol] = {
+                            'var': row['VaR_1_Lot'],
+                            'price': row['BidPrice'],
+                            'sector': row['SectorName'],
+                            'description': row['Description'],
+                            'asset_class': asset_type,
+                            'atr_d1': row['ATR_D1'],
+                            'atr_w1': row['ATR_W1'],
+                            'atr_mn1': row['ATR_MN1'],
+                            'outliers': [],
+                            'ev_data': {}
+                        }
+                        symbols_processed += 1
+
+            # Process ev-explorer file
+            ev_file_path = f"{ev_dir}/SymbolsExport-Darwinex-Live-Stocks-{date_str}-EV.csv"
+            ev_symbols_processed = 0
+            if os.path.exists(ev_file_path):
+                ev_df = pd.read_csv(ev_file_path, sep=';')
+                for _, row in ev_df.iterrows():
+                    symbol = row['Symbol']
+                    if symbol in var_data:
+                        var_data[symbol]['ev_data'] = {
+                            'market_cap': row['Market Cap'],
+                            'enterprise_value': row['Enterprise Value'],
+                            'mcap_ev_ratio': row['MCap/EV (%)']
+                        }
+                        ev_symbols_processed += 1
+
+            # Process outlier files
+            self._process_calculator_outliers(var_dir, date_str, var_data)
+            self._process_calculator_outliers(atr_dir, date_str, var_data)
+            self._process_calculator_outliers(ev_dir, date_str, var_data)
+
+            # Generate JS file with metadata
+            js_content = f"""// Complete dataset generated on {datetime.now()}
+// Total symbols: {len(var_data)}
+const varData = {json.dumps(var_data, indent=12)};"""
+
+            with open('calculator_complete_data.js', 'w') as f:
+                f.write(js_content)
+
+            print(f"✅ Calculator data updated successfully")
+            print(f"📊 Processed {symbols_processed} total symbols")
+            print(f"💰 Enhanced {ev_symbols_processed} symbols with EV data")
+            print(f"📁 Generated calculator_complete_data.js ({len(var_data)} symbols)")
+
+            self.data_summary['calculator_updated'] = True
+            self.data_summary['calculator_symbols'] = len(var_data)
+            self.data_summary['calculator_ev_symbols'] = ev_symbols_processed
 
         except Exception as e:
             print(f"❌ Error updating calculator: {e}")
+            self.data_summary['calculator_updated'] = False
 
     def run_full_update(self):
         """Run complete update of all financial tools"""
