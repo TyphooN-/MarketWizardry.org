@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - rustnfteth",
     "url": "https://marketwizardry.org/nft-gallery/rustnfteth_gallery.html",
-    "description": "rustnfteth's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "rustnfteth's digital art collection - Rust meets Ethereum in a beautiful collision of blockchain disappointment. This collection proves that even memory-safe programming can't protect you from aesthetic disasters.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - degenpain",
     "url": "https://marketwizardry.org/nft-gallery/degenpain_gallery.html",
-    "description": "degenpain's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "degenpain's digital art collection - Pain and suffering distilled into pixels. This artist turned their portfolio losses into art gains, creating a masterclass in 'how to lose money but make it aesthetic.' Perfect for masochists and financial advisors alike.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

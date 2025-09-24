@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - natived_",
     "url": "https://marketwizardry.org/nft-gallery/natived__gallery.html",
-    "description": "natived_'s digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "natived_'s digital art collection - Native to the land of digital disappointment. This artist's cultural heritage includes centuries of aesthetic mistakes passed down through generations. Honoring traditions nobody asked for.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

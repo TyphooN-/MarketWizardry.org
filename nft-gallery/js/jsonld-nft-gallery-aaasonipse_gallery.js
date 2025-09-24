@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - aaasonipse",
     "url": "https://marketwizardry.org/nft-gallery/aaasonipse_gallery.html",
-    "description": "aaasonipse's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Triple-A rated digital nightmares with a solar eclipse twist. Premium astronomical anxiety for collectors who need their cosmic dread validated.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

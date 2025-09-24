@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - AcidSoupArt",
     "url": "https://marketwizardry.org/nft-gallery/AcidSoupArt_gallery.html",
-    "description": "AcidSoupArt's digital art collection showcasing digital creativity, psychedelic exploration. Unique creative expressions in the NFT space.",
+    "description": "AcidSoupArt's psychedelic nightmare soup ladled into your digital wallet. Trippy visuals for people who think hallucinations are investable assets.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

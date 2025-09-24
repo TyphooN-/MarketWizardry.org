@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - GrantYun2",
     "url": "https://marketwizardry.org/nft-gallery/GrantYun2_gallery.html",
-    "description": "GrantYun2's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "GrantYun2's sequel to mediocrity, now with blockchain validation. Digital art 2.0 for people who thought the first iteration needed more pretension.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

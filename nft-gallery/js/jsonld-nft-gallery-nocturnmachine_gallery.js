@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - nocturnmachine",
     "url": "https://marketwizardry.org/nft-gallery/nocturnmachine_gallery.html",
-    "description": "nocturnmachine's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "nocturnmachine's digital art collection - Nocturnal emissions from a broken machine. This collection operates exclusively during hours when good judgment sleeps. Perfect for insomniacs and people with questionable life choices.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

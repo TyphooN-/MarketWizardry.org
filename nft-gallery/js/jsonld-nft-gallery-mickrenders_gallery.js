@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - mickrenders",
     "url": "https://marketwizardry.org/nft-gallery/mickrenders_gallery.html",
-    "description": "mickrenders's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "mickrenders's digital art collection - Mick renders disappointment in high definition. This collection proves that just because you CAN render something doesn't mean you SHOULD. 4K resolution can't fix fundamental taste problems.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - acid_boy__",
     "url": "https://marketwizardry.org/nft-gallery/acid_boy___gallery.html",
-    "description": "acid_boy__'s digital art collection showcasing digital creativity, psychedelic exploration. Unique creative expressions in the NFT space.",
+    "description": "Chemical burn aesthetics for the digitally damaged. Psychedelic childhood trauma meets blockchain therapy in perfect melting harmony.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

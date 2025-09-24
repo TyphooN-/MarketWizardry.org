@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - PierceLilholt",
     "url": "https://marketwizardry.org/nft-gallery/PierceLilholt_gallery.html",
-    "description": "PierceLilholt's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "PierceLilholt's piercing digital insights for collectors who mistake sharp edges for cutting-edge art. Pointed commentary for people with blunt investment strategies.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

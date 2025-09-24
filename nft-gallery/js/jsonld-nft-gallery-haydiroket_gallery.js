@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - haydiroket",
     "url": "https://marketwizardry.org/nft-gallery/haydiroket_gallery.html",
-    "description": "haydiroket's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "haydiroket's digital art collection - Rocket science this ain't. This collection launched straight into the ground with the precision of a drunk astronaut. NASA called - they want their disappointment back.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

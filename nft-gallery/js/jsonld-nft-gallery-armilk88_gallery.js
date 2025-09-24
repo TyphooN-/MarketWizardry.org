@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - armilk88",
     "url": "https://marketwizardry.org/nft-gallery/armilk88_gallery.html",
-    "description": "armilk88's digital art collection. Creative expressions showcasing unique artistic vision in the NFT space.",
+    "description": "Military dairy products from 1988. Combat lactose art for people who think their childhood trauma needs numerical validation.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

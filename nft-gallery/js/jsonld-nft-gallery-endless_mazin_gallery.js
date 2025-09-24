@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - endless_mazin",
     "url": "https://marketwizardry.org/nft-gallery/endless_mazin_gallery.html",
-    "description": "endless_mazin's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "endless_mazin's digital art collection - Like being trapped in a maze designed by a sadistic geometry teacher. This collection proves that sometimes 'endless' isn't a selling point - it's a warning. Prepare for digital vertigo and existential confusion.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

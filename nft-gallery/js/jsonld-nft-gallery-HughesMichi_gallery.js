@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - HughesMichi",
     "url": "https://marketwizardry.org/nft-gallery/HughesMichi_gallery.html",
-    "description": "HughesMichi's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "HughesMichi's digital delusions of grandeur tokenized for people who think scarcity applies to screenshots. Blockchain-certified hubris in JPEG form.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

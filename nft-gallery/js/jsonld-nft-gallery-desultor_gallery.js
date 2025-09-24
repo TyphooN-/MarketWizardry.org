@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - desultor",
     "url": "https://marketwizardry.org/nft-gallery/desultor_gallery.html",
-    "description": "desultor's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "desultor's digital art collection - Art for the professionally hopeless. This collection captures the exact moment when dreams go to die - beautifully documented in high resolution. Perfect viewing for your quarterly performance review.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

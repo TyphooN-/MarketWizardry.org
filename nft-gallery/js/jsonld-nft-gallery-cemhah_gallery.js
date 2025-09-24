@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - cemhah",
     "url": "https://marketwizardry.org/nft-gallery/cemhah_gallery.html",
-    "description": "cemhah's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Mysterious vowel-consonant combinations hiding digital confusion. Alphabet soup usernames for people who gave up on pronunciation.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - killeracid",
     "url": "https://marketwizardry.org/nft-gallery/killeracid_gallery.html",
-    "description": "killeracid's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "killeracid's digital art collection - More corrosive than battery acid, less useful than a chocolate teapot. This collection burns through your retinas faster than it burns through good taste. Safety goggles recommended, dignity not included.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

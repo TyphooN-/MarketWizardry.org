@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - hazedlockdown",
     "url": "https://marketwizardry.org/nft-gallery/hazedlockdown_gallery.html",
-    "description": "hazedlockdown's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "hazedlockdown's digital art collection - Pandemic isolation meets artistic desperation. This collection documents the slow descent into madness that happens when you're trapped inside with nothing but MS Paint and delusions of grandeur. Quarantine quality guaranteed.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

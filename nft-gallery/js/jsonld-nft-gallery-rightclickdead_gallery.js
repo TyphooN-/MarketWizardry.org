@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - rightclickdead",
     "url": "https://marketwizardry.org/nft-gallery/rightclickdead_gallery.html",
-    "description": "rightclickdead's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "rightclickdead's digital art collection - Right-click is dead, but unfortunately, this art lived. This collection explores what happens when copyright protection meets artistic incompetence. Save-as recommended, viewing not advised.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

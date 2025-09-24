@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - Polygon1993",
     "url": "https://marketwizardry.org/nft-gallery/Polygon1993_gallery.html",
-    "description": "Polygon1993's digital art collection showcasing digital creativity, geometric precision. Unique creative expressions in the NFT space.",
+    "description": "Polygon-based geometric nightmares for people who thought regular shapes were too simple. Mathematical precision meets digital desperation in perfect blockchain harmony.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

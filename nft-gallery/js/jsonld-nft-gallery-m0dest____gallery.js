@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - m0dest___",
     "url": "https://marketwizardry.org/nft-gallery/m0dest____gallery.html",
-    "description": "m0dest___'s digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "m0dest___'s digital art collection - Modest by name, immodest by artistic audacity. This collection proves that humility and skill don't always go hand in hand. False modesty meets genuine incompetence in perfect harmony.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

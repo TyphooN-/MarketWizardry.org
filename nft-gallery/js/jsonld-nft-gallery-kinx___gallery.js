@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - kinx__",
     "url": "https://marketwizardry.org/nft-gallery/kinx___gallery.html",
-    "description": "kinx__'s digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "kinx__'s digital art collection - Kink without the pleasure, art without the vision. This collection explores the uncomfortable intersection of fetishism and incompetence. Safe words don't apply to aesthetic trauma.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

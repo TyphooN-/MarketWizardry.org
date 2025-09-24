@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - louisdazy",
     "url": "https://marketwizardry.org/nft-gallery/louisdazy_gallery.html",
-    "description": "louisdazy's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "louisdazy's digital art collection - Louis the Lazy, rightful heir to the throne of mediocrity. This collection documents the noble art of underachievement with the dedication of someone who can't be bothered to try harder.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

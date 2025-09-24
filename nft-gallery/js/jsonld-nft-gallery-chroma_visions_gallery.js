@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - chroma_visions",
     "url": "https://marketwizardry.org/nft-gallery/chroma_visions_gallery.html",
-    "description": "chroma_visions's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Color-saturated hallucinations for the digitally delusional. Chromatic seizures disguised as artistic vision for pixel prophets.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

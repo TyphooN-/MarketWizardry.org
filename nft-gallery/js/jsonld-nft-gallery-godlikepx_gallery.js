@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - godlikepx",
     "url": "https://marketwizardry.org/nft-gallery/godlikepx_gallery.html",
-    "description": "godlikepx's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "godlikepx's digital art collection - Claims divine status, delivers earthly disappointment. This collection proves that even gods can have off millennia. Witness pixels arranged with the confidence of deity and the skill of a concussed intern.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - fabrii2k",
     "url": "https://marketwizardry.org/nft-gallery/fabrii2k_gallery.html",
-    "description": "fabrii2k's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "fabrii2k's digital art collection - Y2K nostalgia meets modern incompetence. This artist somehow made the millennium bug look like a feature. Perfect for anyone who thinks technology peaked with dial-up internet and regret.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

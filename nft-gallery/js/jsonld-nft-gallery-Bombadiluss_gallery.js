@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - Bombadiluss",
     "url": "https://marketwizardry.org/nft-gallery/Bombadiluss_gallery.html",
-    "description": "Bombadiluss's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Bombadiluss's explosive digital debris for collectors who think chaos theory applies to their investment portfolio.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

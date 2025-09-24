@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - uczine",
     "url": "https://marketwizardry.org/nft-gallery/uczine_gallery.html",
-    "description": "uczine's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "uczine's digital art collection - Underground zine culture meets overground disappointment. This collection proves that just because something is alternative doesn't mean it's good. Mainstream for a reason.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - alulasit",
     "url": "https://marketwizardry.org/nft-gallery/alulasit_gallery.html",
-    "description": "alulasit's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Palindromic digital identity crisis with vowel confusion. Reversible username anxiety for collectors who can't decide which way is forward.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

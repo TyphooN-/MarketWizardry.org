@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - trapdaddyvoss",
     "url": "https://marketwizardry.org/nft-gallery/trapdaddyvoss_gallery.html",
-    "description": "trapdaddyvoss's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "trapdaddyvoss's digital art collection - Trap music meets daddy issues in a visual catastrophe. This collection proves that bass drops and artistic standards often fall together. Turn down for what? Turn down for this.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

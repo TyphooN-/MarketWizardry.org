@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - 5tr4n0",
     "url": "https://marketwizardry.org/nft-gallery/5tr4n0_gallery.html",
-    "description": "5tr4n0's digital art collection showcasing glitch art innovation, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "5tr4n0's glitched reality for collectors who think corrupted files are high art. Digital artifacts for people who mistake bugs for features.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - neurocolor",
     "url": "https://marketwizardry.org/nft-gallery/neurocolor_gallery.html",
-    "description": "neurocolor's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "neurocolor's digital art collection - Neurological damage through color therapy. This collection explores what happens when synapses misfire and RGB values go rogue. Medical supervision recommended.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

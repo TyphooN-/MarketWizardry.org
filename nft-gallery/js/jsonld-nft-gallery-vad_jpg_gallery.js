@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - vad_jpg",
     "url": "https://marketwizardry.org/nft-gallery/vad_jpg_gallery.html",
-    "description": "vad_jpg's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "vad_jpg's digital art collection - Very Awful Disappointment in JPEG format. This collection compresses artistic standards lower than a 90s dial-up download. Loading time: eternal regret.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

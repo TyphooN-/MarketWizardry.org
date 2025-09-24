@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - oelhan_tv",
     "url": "https://marketwizardry.org/nft-gallery/oelhan_tv_gallery.html",
-    "description": "oelhan_tv's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "oelhan_tv's digital art collection - Broadcasting disappointment in high definition. This collection represents everything wrong with modern television condensed into static images. Change the channel immediately.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - slava3ngl",
     "url": "https://marketwizardry.org/nft-gallery/slava3ngl_gallery.html",
-    "description": "slava3ngl's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "slava3ngl's digital art collection - Glory to... well, certainly not these pixels. This Slavic-inspired collection proves that suffering is universal, transcending both borders and artistic mediums. Borscht tastes better than this looks.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

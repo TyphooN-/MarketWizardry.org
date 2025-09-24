@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - hectoroz_",
     "url": "https://marketwizardry.org/nft-gallery/hectoroz__gallery.html",
-    "description": "hectoroz_'s digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "hectoroz_'s digital art collection - Like Hector of Troy, but if he fought with pixels instead of swords and lost every battle. This collection documents the fall of artistic standards with the passion of a discount mythology textbook.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

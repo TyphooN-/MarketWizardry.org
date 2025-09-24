@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - RemikzT",
     "url": "https://marketwizardry.org/nft-gallery/RemikzT_gallery.html",
-    "description": "RemikzT's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Digital remixes of existential dread. Because original concepts are overrated when you can just distort someone else's nightmare into blockchain gold.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - michaelmicasso",
     "url": "https://marketwizardry.org/nft-gallery/michaelmicasso_gallery.html",
-    "description": "michaelmicasso's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "michaelmicasso's digital art collection - Like Michelangelo and Picasso had a tragic offspring raised by Microsoft Paint. This collection demonstrates what happens when artistic ambition meets technological incompetence. The Sistine Chapel this ain't.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

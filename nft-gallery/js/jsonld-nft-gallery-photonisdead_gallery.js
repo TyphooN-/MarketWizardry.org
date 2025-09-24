@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - photonisdead",
     "url": "https://marketwizardry.org/nft-gallery/photonisdead_gallery.html",
-    "description": "photonisdead's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "photonisdead's digital art collection - RIP photons, they died for this art. This collection proves that light particles can indeed suffer and die from exposure to poor aesthetic choices. Physics is weeping.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

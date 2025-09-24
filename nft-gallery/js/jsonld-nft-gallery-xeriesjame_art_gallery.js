@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - xeriesjame_art",
     "url": "https://marketwizardry.org/nft-gallery/xeriesjame_art_gallery.html",
-    "description": "xeriesjame_art's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "xeriesjame_art's digital art collection - X marks the spot where artistic standards went to die. This collection series-ly challenges the definition of art. James Bond couldn't escape this visual torture.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - underscoreX0",
     "url": "https://marketwizardry.org/nft-gallery/underscoreX0_gallery.html",
-    "description": "underscoreX0's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "underscoreX0's digital art collection - Underscore the disappointment, X marks the spot where taste went to die, 0 represents the artistic value. This collection is a perfect mathematical equation of regret.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

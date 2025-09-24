@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - matheusfxavier",
     "url": "https://marketwizardry.org/nft-gallery/matheusfxavier_gallery.html",
-    "description": "matheusfxavier's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "matheusfxavier's digital art collection - Mathematics meets artistry in a beautiful equation of disappointment. This collection solves for X, where X equals 'why did I click on this?' Advanced calculus couldn't calculate this level of regret.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

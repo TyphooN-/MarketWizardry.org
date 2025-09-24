@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - ex_mortal_",
     "url": "https://marketwizardry.org/nft-gallery/ex_mortal__gallery.html",
-    "description": "ex_mortal_'s digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "ex_mortal_'s digital art collection - Formerly human, now disappointment incarnate. This collection captures the exact moment when mortality gave up and became something worse. Death would be an upgrade from this portfolio.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

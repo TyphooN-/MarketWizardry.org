@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - jotta_rs",
     "url": "https://marketwizardry.org/nft-gallery/jotta_rs_gallery.html",
-    "description": "jotta_rs's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "jotta_rs's digital art collection - 'Jotta' get through this somehow. This collection's runtime performance matches its visual appeal - painfully slow and memory-intensive. Written in Rust, executed in regret.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - _myujii",
     "url": "https://marketwizardry.org/nft-gallery/_myujii_gallery.html",
-    "description": "_myujii's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Kawaii culture meets digital disillusionment. Cute usernames hiding pixel-based existential dread for collectors seeking aesthetic suffering.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

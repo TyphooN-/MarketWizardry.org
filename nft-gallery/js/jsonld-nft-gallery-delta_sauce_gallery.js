@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - delta_sauce",
     "url": "https://marketwizardry.org/nft-gallery/delta_sauce_gallery.html",
-    "description": "delta_sauce's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "delta_sauce's digital art collection - The secret sauce of disappointment, aged to perfection. This artist's work is like a fine wine that turned to vinegar - technically still liquid, but you'll regret the experience. Bon app\u00e9tit, masochists!",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - ripcache",
     "url": "https://marketwizardry.org/nft-gallery/ripcache_gallery.html",
-    "description": "ripcache's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "ripcache's digital art collection - RIP cache memory, it died serving this content. This collection proves that some data should never be cached, stored, or remembered. Clear browser history immediately after viewing.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

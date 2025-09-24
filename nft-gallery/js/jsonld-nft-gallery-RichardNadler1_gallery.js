@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - RichardNadler1",
     "url": "https://marketwizardry.org/nft-gallery/RichardNadler1_gallery.html",
-    "description": "RichardNadler1's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Professional-sounding username meets amateur digital dreams. Corporate nomenclature hiding creative desperation behind blockchain legitimacy receipts.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

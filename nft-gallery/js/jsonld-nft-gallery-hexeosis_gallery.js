@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - hexeosis",
     "url": "https://marketwizardry.org/nft-gallery/hexeosis_gallery.html",
-    "description": "hexeosis's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "hexeosis's digital art collection - Hex codes meet hexed hopes. This artist programs disappointment in six-digit increments. Perfect for anyone who enjoys their failures color-coordinated and precisely documented.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

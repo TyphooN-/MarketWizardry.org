@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - psychofuturist",
     "url": "https://marketwizardry.org/nft-gallery/psychofuturist_gallery.html",
-    "description": "psychofuturist's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "psychofuturist's digital art collection - Predicting a future where taste is extinct and aesthetics are illegal. This collection represents tomorrow's regrets, today. The future called - it wants its disappointment back.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

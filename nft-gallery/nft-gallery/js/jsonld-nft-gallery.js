@@ -8,9 +8,9 @@
         "Collection",
         "CreativeWork"
     ],
-    "name": "NFT Gallery - cudaoutofmemory",
-    "url": "https://marketwizardry.org/nft-gallery/cudaoutofmemory_gallery.html",
-    "description": "GPU-powered exhaustion made into art form. Technical failure messages as creative identity for people whose hardware matches their hopes.",
+    "name": "MarketWizardry.org NFT Gallery",
+    "url": "https://marketwizardry.org/nft-gallery.html",
+    "description": "Blockchain-validated AI art collection showcasing generative creativity and digital expression. Explore the intersection of technology and art.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"
@@ -28,11 +28,7 @@
     "collectionSize": "Variable",
     "genre": "Digital Art",
     "artMedium": "Digital",
-    "keywords": "AI art, NFT gallery, digital art, generative art, creative technology",
-    "creator": {
-        "@type": "Person",
-        "name": "cudaoutofmemory"
-    }
+    "keywords": "AI art, NFT gallery, digital art, generative art, creative technology"
 };
 
     function injectJsonLd() {

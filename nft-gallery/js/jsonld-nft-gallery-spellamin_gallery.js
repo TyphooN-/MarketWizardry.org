@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - spellamin",
     "url": "https://marketwizardry.org/nft-gallery/spellamin_gallery.html",
-    "description": "spellamin's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "spellamin's digital art collection - Casting spells of disappointment and hexes of bad taste. This magical collection proves that even wizardry can't fix fundamental design flaws. Abracadabra more like abracadab-no.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

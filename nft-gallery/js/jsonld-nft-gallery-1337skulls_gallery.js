@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - 1337skulls",
     "url": "https://marketwizardry.org/nft-gallery/1337skulls_gallery.html",
-    "description": "1337skulls's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Skull imagery for traders who've already died inside. Nothing says 'diamond hands' like owning digital bones.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

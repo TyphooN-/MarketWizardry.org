@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - obtainer",
     "url": "https://marketwizardry.org/nft-gallery/obtainer_gallery.html",
-    "description": "obtainer's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "obtainer's digital art collection - Obtains nothing but regret and bandwidth waste. This artist specializes in acquiring disappointment and sharing it with the world. Customer satisfaction not obtained.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

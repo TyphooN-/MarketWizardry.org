@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - xxdao_xyz",
     "url": "https://marketwizardry.org/nft-gallery/xxdao_xyz_gallery.html",
-    "description": "xxdao_xyz's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "xxdao_xyz's digital art collection - XX chromosomes, XYZ coordinates, but zero artistic direction. This DAO governs nothing but disappointment. Decentralized disasters for the blockchain age.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

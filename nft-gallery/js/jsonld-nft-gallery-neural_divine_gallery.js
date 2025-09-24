@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - neural_divine",
     "url": "https://marketwizardry.org/nft-gallery/neural_divine_gallery.html",
-    "description": "neural_divine's digital art collection showcasing digital creativity, AI-assisted creativity. Unique creative expressions in the NFT space.",
+    "description": "neural_divine's digital art collection - Divine intervention through neural networks. This AI-assisted artist proves that even artificial intelligence can have poor judgment. God may have created man, but man created this mess.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

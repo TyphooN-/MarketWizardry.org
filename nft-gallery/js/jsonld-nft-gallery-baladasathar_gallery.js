@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - baladasathar",
     "url": "https://marketwizardry.org/nft-gallery/baladasathar_gallery.html",
-    "description": "baladasathar's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Medieval quest names meet modern digital desperation. Epic usernames for legendary pixel adventures that nobody asked for.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

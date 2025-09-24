@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - neomechanica",
     "url": "https://marketwizardry.org/nft-gallery/neomechanica_gallery.html",
-    "description": "neomechanica's digital art collection showcasing digital creativity, cyberpunk aesthetics. Unique creative expressions in the NFT space.",
+    "description": "neomechanica's digital art collection - Neo meets mechanical in a dystopian fusion of cyberpunk dreams and steampunk nightmares. This collection proves that sometimes the future should stay in the past.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

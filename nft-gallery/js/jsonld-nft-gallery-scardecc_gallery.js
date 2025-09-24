@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - scardecc",
     "url": "https://marketwizardry.org/nft-gallery/scardecc_gallery.html",
-    "description": "scardecc's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "scardecc's digital art collection - Scarred for life by bad aesthetics. This collection documents the exact moment when artistic hope dies and acceptance of mediocrity begins. Therapy recommended after viewing.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - s0mfay",
     "url": "https://marketwizardry.org/nft-gallery/s0mfay_gallery.html",
-    "description": "s0mfay's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "s0mfay's digital art collection - Some fay magic, all disappointment. This collection proves that even fairy magic can't fix bad artistic judgment. Tinkerbell called - she wants her reputation back.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

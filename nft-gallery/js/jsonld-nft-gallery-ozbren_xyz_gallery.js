@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - ozbren_xyz",
     "url": "https://marketwizardry.org/nft-gallery/ozbren_xyz_gallery.html",
-    "description": "ozbren_xyz's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "ozbren_xyz's digital art collection - From the land down under where disappointment comes from. This Australian artist exports regret and imports confusion. G'day mate, g'bye standards.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

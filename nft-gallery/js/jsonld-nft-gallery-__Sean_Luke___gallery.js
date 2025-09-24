@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - __Sean_Luke__",
     "url": "https://marketwizardry.org/nft-gallery/__Sean_Luke___gallery.html",
-    "description": "__Sean_Luke__'s digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Double underscore desperation meets standard human names. When your real identity needs digital padding to achieve blockchain relevance.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

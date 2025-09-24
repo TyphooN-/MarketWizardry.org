@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - klazmandoo",
     "url": "https://marketwizardry.org/nft-gallery/klazmandoo_gallery.html",
-    "description": "klazmandoo's digital art collection showcasing digital creativity. Unique creative expressions in the NFT space.",
+    "description": "klazmandoo's digital art collection - Klazma meets doom in a spectacular collision of incompetence. This artist managed to turn plasma physics into plasma disappointment. Einstein is rolling in his grave faster than these frames render.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

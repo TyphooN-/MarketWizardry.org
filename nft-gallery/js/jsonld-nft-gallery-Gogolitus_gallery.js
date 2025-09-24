@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - Gogolitus",
     "url": "https://marketwizardry.org/nft-gallery/Gogolitus_gallery.html",
-    "description": "Gogolitus's digital art collection showcasing digital creativity, surreal imagination. Unique creative expressions in the NFT space.",
+    "description": "Gogolitus's surreal digital nightmares packaged as investment opportunities. Bizarre visuals for collectors who mistake confusion for sophistication.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"

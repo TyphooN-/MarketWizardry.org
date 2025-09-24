@@ -10,7 +10,7 @@
     ],
     "name": "NFT Gallery - 0xDither",
     "url": "https://marketwizardry.org/nft-gallery/0xDither_gallery.html",
-    "description": "0xDither's digital art collection showcasing pixel art mastery, digital creativity. Unique creative expressions in the NFT space.",
+    "description": "Dithered pixels for people who think regular NFTs aren't pretentious enough. Digital art that's literally broken by design.",
     "author": {
         "@type": "Person",
         "name": "TyphooN"
