@@ -26,7 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set up hamburger menu event listener
     const hamburger = document.getElementById('hamburgerToggle');
     if (hamburger) {
-        hamburger.addEventListener('click', toggleMenu);
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+        });
     }
 
     // Set up event delegation for loadContent
@@ -41,6 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (targetElement.hasAttribute('data-load-content')) {
             const page = targetElement.getAttribute('data-load-content');
             loadContent(page, targetElement);
+
+            // Close mobile menu after clicking a menu item
+            const menu = document.getElementById('sideMenu');
+            const contentFrame = document.querySelector('.content-frame');
+            if (menu && contentFrame && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                contentFrame.classList.remove('menu-open');
+            }
         }
     });
 
@@ -59,6 +71,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function toggleMenu() {
     const menu = document.getElementById('sideMenu');
     const contentFrame = document.querySelector('.content-frame');
-    menu.classList.toggle('show');
-    contentFrame.classList.toggle('menu-open');
+
+    if (menu && contentFrame) {
+        menu.classList.toggle('show');
+        contentFrame.classList.toggle('menu-open');
+    }
 }
