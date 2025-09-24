@@ -1040,6 +1040,7 @@ document.addEventListener('DOMContentLoaded', function() {{
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
     <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
     <script src="/js/gallery.js"></script>
     <style>
         body {{
