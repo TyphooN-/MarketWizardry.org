@@ -1,3 +1,39 @@
+function updateMobileBreadcrumb(page) {
+    const mobileBreadcrumb = document.getElementById('mobileBreadcrumb');
+    if (!mobileBreadcrumb) return;
+
+    const breadcrumbText = mobileBreadcrumb.querySelector('.mobile-breadcrumb-text');
+    if (!breadcrumbText) return;
+
+    // Map pages to breadcrumb text
+    const pageMap = {
+        'market-wizardry': '🏠 Home',
+        'about': '📖 About',
+        'code': '💻 Code',
+        'calculator': '🧮 Calculator',
+        'var-cult': '📈 VaR Cult',
+        'blog': '📊 Blog',
+        'var-explorer': '📊 VaR Explorer',
+        'ev-explorer': '💰 EV Explorer',
+        'atr-explorer': '📈 ATR Explorer',
+        'ai-art': '🎨 AI Art',
+        'ai-musings': '🤖 AI Musings',
+        'nft-gallery': '🖼️ NFT Gallery',
+        'affiliates': '🤝 Affiliates',
+        'donate': '💝 Donate',
+        'terms': '📋 Terms'
+    };
+
+    // Handle blog posts and gallery pages
+    if (page.includes('blog/')) {
+        breadcrumbText.textContent = '📊 Blog → Article';
+    } else if (page.includes('nft-gallery/')) {
+        breadcrumbText.textContent = '🖼️ Gallery → Artist';
+    } else {
+        breadcrumbText.textContent = pageMap[page] || '🏠 Home';
+    }
+}
+
 function loadContent(page, clickedElement) {
     const iframe = document.getElementById('contentIframe');
     // Handle full paths (like blog/post.html or nft-gallery/artist.html) vs simple page names
@@ -6,6 +42,10 @@ function loadContent(page, clickedElement) {
     } else {
         iframe.src = `${page}.html`;
     }
+
+    // Update mobile breadcrumb
+    updateMobileBreadcrumb(page);
+
     // Remove active class from all menu items
     const menuItems = document.querySelectorAll('.menu-item, .image-item');
     menuItems.forEach(item => item.classList.remove('active'));

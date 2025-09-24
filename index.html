@@ -325,6 +325,19 @@
             font-size: 14px;
             font-weight: bold;
         }
+
+        .mobile-breadcrumb {
+            flex: 1;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .mobile-breadcrumb-text {
+            color: #00aa00;
+            font-family: "Courier New", monospace;
+            font-size: 11px;
+            font-weight: normal;
+        }
         .hamburger span {
             width: 25px;
             height: 3px;
@@ -362,7 +375,7 @@
                 display: none;
                 box-sizing: border-box;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
+                gap: 4px;
             }
 
             .menu.show {
@@ -388,16 +401,16 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 4px 2px;
+                padding: 2px 1px;
                 margin: 0;
-                font-size: 10px;
+                font-size: 9px;
                 text-align: center;
                 border: 1px solid #00ff00;
                 background: rgba(0, 255, 0, 0.1);
-                min-height: 28px;
+                min-height: 18px;
                 word-wrap: break-word;
                 hyphens: auto;
-                line-height: 1.1;
+                line-height: 1.0;
             }
 
             .menu-item:hover {
@@ -410,7 +423,8 @@
                 display: none;
             }
 
-            .mobile-header.menu-open .mobile-logo {
+            .mobile-header.menu-open .mobile-logo,
+            .mobile-header.menu-open .mobile-breadcrumb {
                 display: none;
             }
             
@@ -430,15 +444,15 @@
                 padding: 8px;
                 padding-top: 60px;
                 grid-template-columns: repeat(4, 1fr);
-                gap: 4px;
+                gap: 2px;
             }
 
             .menu-item {
-                padding: 3px 1px;
+                padding: 1px;
                 margin: 0;
-                font-size: 8px;
+                font-size: 7px;
                 min-width: auto;
-                min-height: 24px;
+                min-height: 16px;
                 line-height: 1.0;
             }
 
@@ -446,17 +460,21 @@
                 font-size: 12px;
             }
 
+            .mobile-breadcrumb-text {
+                font-size: 9px;
+            }
+
             .menu-item.primary {
-                padding: 10px 12px;
-                font-size: 11px;
-                min-width: 85px;
+                padding: 2px 4px;
+                font-size: 8px;
+                min-width: 60px;
             }
 
             .menu-item.secondary {
-                padding: 3px 4px;
-                font-size: 9px;
-                min-width: 60px;
-                min-height: 22px;
+                padding: 1px 2px;
+                font-size: 7px;
+                min-width: 50px;
+                min-height: 16px;
             }
 
             .menu-section-title {
@@ -518,6 +536,9 @@
             <div class="mobile-logo">
                 <img src="/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp" alt="MarketWizardry.org" id="mobileLogo">
                 <span class="mobile-title">MARKETWIZARDRY.ORG</span>
+            </div>
+            <div class="mobile-breadcrumb" id="mobileBreadcrumb">
+                <span class="mobile-breadcrumb-text">🏠 Home</span>
             </div>
         </div>
 
