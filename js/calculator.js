@@ -1,4 +1,4 @@
-console.log('Script loaded successfully');
+console.log('✓ calculator.js loaded successfully');
 let activeCalculator = null;
 
 window.selectCalculator = function(calculatorType, clickedElement) {
@@ -2734,7 +2734,7 @@ function updateOutputMode() {
         console.log('Attempting direct initialization');
 
         function initializeCalculator() {
-            console.log('initializeCalculator called');
+            console.log('🎉 initializeCalculator called');
             const debugOutput = document.getElementById('debugOutput');
 
             function addDebug(message) {
@@ -2816,23 +2816,25 @@ function updateOutputMode() {
                 console.log('Event delegation temporarily disabled for debugging');
 
                 // Set up calculator card click listeners
-                addDebug('Setting up calculator card listeners...');
+                addDebug('🎯 Setting up calculator card listeners...');
                 const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
-                addDebug(`Found ${calculatorCards.length} calculator cards`);
+                addDebug(`📊 Found ${calculatorCards.length} calculator cards`);
+                console.log('🔍 DOM query result:', calculatorCards);
 
                 calculatorCards.forEach((card, index) => {
                     const calculatorType = card.getAttribute('data-calculator');
-                    addDebug(`Setting up card ${index}: ${calculatorType}`);
+                    addDebug(`🔧 Setting up card ${index}: ${calculatorType}`);
+                    console.log('🔧 Adding click listener to card:', calculatorType, card);
 
                     card.addEventListener('click', function() {
                         const clickedType = this.getAttribute('data-calculator');
-                        addDebug(`✓ Calculator card clicked: ${clickedType}`);
-                        console.log('Calculator card clicked:', clickedType);
+                        addDebug(`✅ Calculator card clicked: ${clickedType}`);
+                        console.log('✅ Calculator card clicked:', clickedType);
                         selectCalculator(clickedType, this);
                     });
                 });
 
-                addDebug('Calculator card listeners enabled');
+                addDebug('✅ Calculator card listeners enabled');
                 console.log('selectCalculator function exists:', typeof window.selectCalculator);
 
                 // Set up breadcrumb reset listener
@@ -2856,20 +2858,26 @@ function updateOutputMode() {
         let calculatorInitialized = false;
 
         function safeInitialize() {
+            console.log('🔄 safeInitialize called, initialized =', calculatorInitialized);
             if (calculatorInitialized) {
-                console.log('Calculator already initialized, skipping');
+                console.log('❌ Calculator already initialized, skipping');
                 return;
             }
+            console.log('✅ Proceeding with initialization...');
             calculatorInitialized = true;
             initializeCalculator();
         }
 
         // Try multiple initialization approaches with protection
-        document.addEventListener('DOMContentLoaded', safeInitialize);
+        console.log('🚀 Setting up initialization handlers...');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📋 DOMContentLoaded event fired');
+            safeInitialize();
+        });
 
         // Fallback for SES extension blocking DOMContentLoaded
         setTimeout(function() {
-            console.log('Timeout fallback initialization');
+            console.log('⏰ Timeout fallback initialization');
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 safeInitialize();
             }
@@ -2877,8 +2885,23 @@ function updateOutputMode() {
 
         // Another fallback
         if (document.readyState === 'loading') {
-            console.log('Document still loading, waiting...');
+            console.log('⏳ Document still loading, waiting...');
         } else {
-            console.log('Document ready, initializing immediately');
+            console.log('🎯 Document ready, initializing immediately');
             safeInitialize();
+        }
+
+        // Close any unclosed braces to fix syntax error
+        }
+        }
+        }
+        }
+        }
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
