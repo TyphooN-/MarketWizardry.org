@@ -15,12 +15,34 @@ document.addEventListener('DOMContentLoaded', function() {
         'show-all-symbols-btn'
     ];
 
+    // Map button IDs to their actual functions
+    const buttonFunctions = {
+        'calculate-compound-interest-btn': 'calculateCompoundInterest',
+        'calculate-stop-loss-btn': 'calculateStopLoss',
+        'calculate-position-size-btn': 'calculateEnhancedPositionSize',
+        'calculate-portfolio-var-btn': 'calculatePortfolioVaR',
+        'show-all-symbols-btn': 'showAllSymbols'
+    };
+
     buttons.forEach(buttonId => {
         const btn = document.getElementById(buttonId);
         if (btn) {
             btn.addEventListener('click', function() {
                 console.log('🚨 EMERGENCY: Button clicked:', buttonId);
-                alert('Button ' + buttonId + ' clicked! Calculator functions will be restored shortly.');
+                const functionName = buttonFunctions[buttonId];
+
+                if (functionName && window[functionName]) {
+                    console.log('✅ Calling function:', functionName);
+                    try {
+                        window[functionName]();
+                    } catch (error) {
+                        console.error('❌ Error calling', functionName, ':', error);
+                        alert('Error in calculator function: ' + error.message);
+                    }
+                } else {
+                    console.error('❌ Function not found:', functionName);
+                    alert('Calculator function ' + functionName + ' not found. Using emergency mode.');
+                }
             });
             console.log('🚨 EMERGENCY: Added listener to', buttonId);
         } else {
