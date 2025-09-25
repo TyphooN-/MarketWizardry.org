@@ -102,16 +102,38 @@
         }
         .file-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             justify-content: center;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        /* Responsive grid layout for different viewport widths */
+        @media screen and (min-width: 768px) {
+            .file-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
         }
 
         @media screen and (min-width: 1000px) {
             .file-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                max-width: 1600px;
+            }
+        }
+
+        @media screen and (min-width: 1400px) {
+            .file-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                max-width: 1800px;
+            }
+        }
+
+        @media screen and (min-width: 1800px) {
+            .file-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                max-width: 2000px;
             }
         }
         .file-entry {

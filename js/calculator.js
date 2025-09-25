@@ -1472,42 +1472,52 @@ function toggleStopLossMode() {
 
         window.lookupSymbol = function() {
             const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
-            const infoDiv = document.getElementById('symbol-info');
-            const detailsDiv = document.getElementById('symbol-details');
 
             if (!symbol) {
                 alert('Please enter a symbol');
                 return;
             }
 
+            // Use the unified symbol display function
             if (window.varData && window.varData[symbol]) {
-                const data = window.varData[symbol];
-                const riskAssessment = generateRiskAssessment(data);
-                const outlierWarnings = data.outliers && data.outliers.length > 0 ?
-                    `<div style="color: #ff8800; font-weight: bold; margin: 5px 0;">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
-
-                detailsDiv.innerHTML = `
-                    <div style="border: 2px solid ${riskAssessment.color}; padding: 10px; border-radius: 4px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div>
-                                <strong style="color: #00ff00;">${symbol}</strong> - ${data.description}<br>
-                                <span style="color: #00cc00;">Sector:</span> ${data.sector}<br>
-                                <span style="color: #00cc00;">Current Price:</span> $${data.price}
-                                ${outlierWarnings}
-                            </div>
-                            <div>
-                                <span style="color: #00cc00;">1-Day VaR (95%):</span> $${data.var}<br>
-                                <span style="color: #00cc00;">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
-                                <div style="color: ${riskAssessment.color}; font-weight: bold; margin: 5px 0;">${riskAssessment.recommendation}</div>
-                                <button class="add-symbol-to-portfolio" data-symbol="${symbol}" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
-                            </div>
-                        </div>
+                displaySymbolInfoInPortfolio(symbol, window.varData[symbol]);
+            } else {
+                document.getElementById('symbol-details').innerHTML = `
+                    <div style="color: #ff8800; padding: 10px; border: 1px solid #ff8800; border-radius: 4px;">
+                        Symbol "${symbol}" not found in database.
                     </div>
                 `;
-                infoDiv.style.display = 'block';
-            } else {
-                detailsDiv.innerHTML = `<div style="color: #ffaa00;">⚠️ Symbol "${symbol}" not found in database. Using VaR explorer data from latest market session.</div>`;
-                infoDiv.style.display = 'block';
+            }
+        }
+
+        // Unified symbol display function for Portfolio VaR
+        function displaySymbolInfoInPortfolio(symbol, data) {
+            const riskAssessment = generateRiskAssessment(data);
+            const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+                `<div style="color: #ff8800; font-weight: bold; margin: 5px 0;">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+
+            const detailsDiv = document.getElementById('symbol-details');
+            const infoDiv = document.getElementById('symbol-info');
+
+            detailsDiv.innerHTML = `
+                <div style="border: 2px solid ${riskAssessment.color}; padding: 10px; border-radius: 4px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <strong style="color: #00ff00;">${symbol}</strong> - ${data.description}<br>
+                            <span style="color: #00cc00;">Sector:</span> ${data.sector}<br>
+                            <span style="color: #00cc00;">Current Price:</span> $${data.price}
+                            ${outlierWarnings}
+                        </div>
+                        <div>
+                            <span style="color: #00cc00;">1-Day VaR (95%):</span> $${data.var}<br>
+                            <span style="color: #00cc00;">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                            <div style="color: ${riskAssessment.color}; font-weight: bold; margin: 5px 0;">${riskAssessment.recommendation}</div>
+                            <button class="add-symbol-to-portfolio" data-symbol="${symbol}" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            infoDiv.style.display = 'block';
         }
 function addSymbolToPortfolio(symbol) {
             const data = window.varData[symbol];
@@ -2388,7 +2398,7 @@ function findSimilarSymbols(partial) {
                 addEventListenerSafe('ps-symbol', 'change', autoFillPositionData);
                 addEventListenerSafe('ps-atr-timeframe', 'change', updatePositionAtrData);
                 addEventListenerSafe('ps-atr-multiplier', 'change', updatePositionAtrData);
-                addEventListenerSafe('calculate-position-size-btn', 'click', calculateEnhancedPositionSize);
+                addEventListenerSafe('calculate-position-size-btn', 'click', calculatePositionSize);
 
                 addEventListenerSafe('lookup-symbol-btn', 'click', lookupSymbol);
                 addEventListenerSafe('add-position-btn', 'click', addPosition);
@@ -2534,4 +2544,3 @@ function findSimilarSymbols(partial) {
 }  // Additional closing brace 3
 }  // Additional closing brace 4
 }  // Additional closing brace 5
-}  // Final closing brace
