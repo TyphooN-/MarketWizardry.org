@@ -30,7 +30,8 @@ class FinancialToolsUpdater:
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         })
         self.date_str = date_str or datetime.now().strftime('%Y.%m.%d')
-        self.force_regenerate = force_regenerate  # True when no date specified
+        # Only force regenerate if explicitly requested via force_regenerate parameter
+        self.force_regenerate = force_regenerate
         self.data_summary = {}
 
     def copy_csv_files(self):
@@ -64,6 +65,15 @@ class FinancialToolsUpdater:
         print("📈 Processing VaR data...")
 
         try:
+            # Check if outlier files already exist for this date
+            existing_outlier_files = [f for f in os.listdir('var-explorer') if f.endswith('-outlier.txt') and self.date_str in f]
+
+            if existing_outlier_files and not self.force_regenerate:
+                print(f"⏭️ Skipping VaR processing - {len(existing_outlier_files)} outlier files already exist for {self.date_str}")
+                print("   Use --force to regenerate existing files")
+                self.data_summary['var_outliers'] = len(existing_outlier_files)
+                return True
+
             # Run outlier analysis script with overwrite flag if force regenerating
             cmd = ['bash', 'run_outlier_analysis.sh']
             if self.force_regenerate:
@@ -119,12 +129,26 @@ class FinancialToolsUpdater:
             ev_processed_path = f"ev-explorer/{ev_processed_name}"
 
             if os.path.exists(ev_processed_path):
-                print("📊 Running EV outlier analysis...")
-                subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=False, text=True)
-                print("📈 Running EV VaR outlier analysis...")
-                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=False, text=True)
+                # Check if EV outlier files already exist for this date
+                ev_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_outlier.txt"
+                ev_var_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_var_outlier.txt"
+
+                existing_ev_files = []
+                if os.path.exists(f"ev-explorer/{ev_outlier_file}"):
+                    existing_ev_files.append(ev_outlier_file)
+                if os.path.exists(f"ev-explorer/{ev_var_outlier_file}"):
+                    existing_ev_files.append(ev_var_outlier_file)
+
+                if existing_ev_files and not self.force_regenerate:
+                    print(f"⏭️ Skipping EV processing - {len(existing_ev_files)} EV outlier files already exist for {self.date_str}")
+                    print("   Use --force to regenerate existing files")
+                else:
+                    print("📊 Running EV outlier analysis...")
+                    subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
+                                 cwd='ev-explorer', capture_output=False, text=True)
+                    print("📈 Running EV VaR outlier analysis...")
+                    subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
+                                 cwd='ev-explorer', capture_output=False, text=True)
 
             self.data_summary['ev_processed'] = True
             print("✅ EV data processed successfully within ev-explorer/")
@@ -151,11 +175,19 @@ class FinancialToolsUpdater:
                     files_copied += 1
 
             if files_copied > 0:
-                # Run ATR outlier analysis with overwrite flag if force regenerating
-                cmd = ['bash', 'run_outlier_analysis.sh']
-                if self.force_regenerate:
-                    cmd.append('--overwrite')
-                result = subprocess.run(cmd, cwd='atr-explorer', capture_output=True, text=True)
+                # Check if ATR outlier files already exist for this date
+                existing_atr_files = [f for f in os.listdir('atr-explorer') if f.endswith('-outlier.txt') and self.date_str in f]
+
+                if existing_atr_files and not self.force_regenerate:
+                    print(f"⏭️ Skipping ATR processing - {len(existing_atr_files)} outlier files already exist for {self.date_str}")
+                    print("   Use --force to regenerate existing files")
+                    self.data_summary['atr_files'] = files_copied
+                else:
+                    # Run ATR outlier analysis with overwrite flag if force regenerating
+                    cmd = ['bash', 'run_outlier_analysis.sh']
+                    if self.force_regenerate:
+                        cmd.append('--overwrite')
+                    result = subprocess.run(cmd, cwd='atr-explorer', capture_output=True, text=True)
 
                 self.data_summary['atr_files'] = files_copied
 
@@ -317,17 +349,18 @@ class FinancialToolsUpdater:
             margin-top: 20px;
         }
         .file-entry {
-            background-color: #001100;
-            border: 2px solid rgba(0, 255, 0, 0.3);
+            background-color: #000;
+            border: 2px solid rgba(0, 255, 0, 0.5);
             padding: 15px;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
         }
         .file-entry:hover {
-            background-color: #002200;
-            border-color: rgba(0, 255, 0, 0.6);
+            background-color: #001100;
             color: #00ff00;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }
         .file-entry a {
             color: #00ff00;
@@ -430,6 +463,7 @@ class FinancialToolsUpdater:
         }
         .nav-button:hover {
             background-color: #001100;
+            transform: scale(1.02);
         }
         .nav-counter {
             color: #00ff00;
@@ -1060,12 +1094,36 @@ def main():
     """Main execution function"""
     import sys
 
-    # Accept date parameter from command line
-    date_specified = len(sys.argv) > 1
-    date_str = sys.argv[1] if date_specified else datetime.now().strftime('%Y.%m.%d')
+    # Check for help flag
+    if '--help' in sys.argv or '-h' in sys.argv:
+        print("""
+🚀 MarketWizardry.org Financial Tools Updater
 
-    # If no date specified, always regenerate HTML files
-    force_regenerate = not date_specified
+Usage: python3 update_all_tools.py [DATE] [--force]
+
+Arguments:
+    DATE     Optional date in YYYY.MM.DD format (defaults to today)
+    --force  Force regenerate all files, even if they already exist
+             (WARNING: This will overwrite existing reports and their original timestamps)
+
+Examples:
+    python3 update_all_tools.py                    # Update for today, skip existing files
+    python3 update_all_tools.py 2025.09.24        # Update for specific date, skip existing files
+    python3 update_all_tools.py 2025.09.24 --force # Update for specific date, overwrite existing files
+    python3 update_all_tools.py --force            # Update for today, overwrite existing files
+
+Default behavior: Only generate missing files to preserve original creation timestamps.
+        """)
+        exit(0)
+
+    # Accept date parameter from command line
+    date_args = [arg for arg in sys.argv[1:] if not arg.startswith('--')]
+    date_specified = len(date_args) > 0
+    date_str = date_args[0] if date_specified else datetime.now().strftime('%Y.%m.%d')
+
+    # Force regenerate should only happen when explicitly requested via --force flag
+    # Never automatically force regenerate when no date is specified
+    force_regenerate = '--force' in sys.argv
 
     updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate)
     success = updater.run_full_update()
