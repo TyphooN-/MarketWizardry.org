@@ -1,12 +1,11 @@
 console.log('✓ calculator.js loaded successfully');
 let activeCalculator = null;
 
-// EMERGENCY FIX: Direct event listener setup
-console.log('🚨 EMERGENCY: Setting up direct event listeners...');
+// Direct event listener setup
+console.log('Setting up calculator event listeners...');
 
-// EMERGENCY: Define compound interest calculation function directly
+// Compound interest calculation function
 window.calculateCompoundInterest = function() {
-    console.log('🚨 EMERGENCY: calculateCompoundInterest called');
 
     const principal = parseFloat(document.getElementById('ci-principal').value);
     const rate = parseFloat(document.getElementById('ci-rate').value) / 100;
@@ -80,7 +79,7 @@ window.calculateCompoundInterest = function() {
     }
 };
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚨 EMERGENCY DOM ready - attaching direct listeners');
+    console.log('DOM ready - attaching direct listeners');
 
     // Direct button listeners without any complex logic
     const buttons = [
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonFunctions = {
         'calculate-compound-interest-btn': 'calculateCompoundInterest',
         'calculate-stop-loss-btn': 'calculateStopLoss',
-        'calculate-position-size-btn': 'calculateEnhancedPositionSize',
+        'calculate-position-size-btn': 'calculatePositionSize',
         'calculate-portfolio-var-btn': 'calculatePortfolioVaR',
         'show-all-symbols-btn': 'showAllSymbols'
     };
@@ -104,25 +103,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById(buttonId);
         if (btn) {
             btn.addEventListener('click', function() {
-                console.log('🚨 EMERGENCY: Button clicked:', buttonId);
                 const functionName = buttonFunctions[buttonId];
 
                 if (functionName && window[functionName]) {
-                    console.log('✅ Calling function:', functionName);
                     try {
                         window[functionName]();
                     } catch (error) {
-                        console.error('❌ Error calling', functionName, ':', error);
+                        console.error('Error calling', functionName, ':', error);
                         alert('Error in calculator function: ' + error.message);
                     }
                 } else {
-                    console.error('❌ Function not found:', functionName);
-                    alert('Calculator function ' + functionName + ' not found. Using emergency mode.');
+                    console.error('Function not found:', functionName);
+                    alert('Calculator function ' + functionName + ' not found. Please check the implementation.');
                 }
             });
-            console.log('🚨 EMERGENCY: Added listener to', buttonId);
-        } else {
-            console.log('🚨 EMERGENCY: Button not found:', buttonId);
         }
     });
 });
@@ -478,7 +472,7 @@ function toggleStopLossMode() {
             }
         }
 
-        function calculatePositionSize() {
+        window.calculatePositionSize = function() {
             const accountSize = parseFloat(document.getElementById('ps-account-size').value);
             const riskValue = parseFloat(document.getElementById('ps-risk-value').value);
             const riskMode = document.getElementById('ps-risk-mode').value;
@@ -2340,533 +2334,6 @@ function findSimilarSymbols(partial) {
             const lookupOutput = document.getElementById('lookup-output');
             if (lookupOutput && lookupOutput.innerHTML.trim() !== '') {
                 lookupOutput.innerHTML = '<p style="color: #00aa00;">Filters changed. Search again to see results from the selected filters.</p>';
-        }
-// Override the original functions to use filtered data
-        const originalLookupSymbol = lookupSymbol;
-        window.lookupSymbol = function() {
-            const searchTerm = document.getElementById('symbol-lookup').value.trim().toUpperCase();
-
-            if (!searchTerm) {
-                document.getElementById('lookup-output').innerHTML = '<p style="color: #ff8800;">Please enter a symbol to search for.</p>';
-                return;
-            }
-
-            // Use filtered data instead of full varData
-            const dataToSearch = filteredVarData;
-
-            if (searchTerm === 'ALL') {
-                showAllSymbolsFiltered();
-                return;
-            }
-
-            if (searchTerm.startsWith('SECTOR:')) {
-                const sector = searchTerm.replace('SECTOR:', '').trim();
-                showSectorSearchFiltered(sector);
-                return;
-            }
-
-            if (searchTerm.includes('*')) {
-                showWildcardSearchFiltered(searchTerm);
-                return;
-            }
-
-            if (dataToSearch[searchTerm]) {
-                showSymbolDetails(searchTerm, dataToSearch[searchTerm]);
-            } else {
-                showNotFound(searchTerm);
-        }
-
-        function showAllSymbolsFiltered() {
-            const symbols = Object.entries(filteredVarData);
-            let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">Available Symbols in ${getDatasetDisplayName()} (${symbols.length} total)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 400px; overflow-y: auto;">
-            `;
-
-            symbols.forEach(([symbol, data]) => {
-                output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
-                        <strong>${symbol}</strong> | $${data.price}<br>
-                        <small style="color: #00aa00;">${data.sector}</small>
-                    </div>
-                `;
-            });
-
-            output += `</div></div>`;
-            document.getElementById('lookup-output').innerHTML = output;
-        }
-
-        function showSectorSearchFiltered(sector) {
-            const matches = Object.entries(filteredVarData).filter(([symbol, data]) =>
-                data.sector.toLowerCase().includes(sector.toLowerCase())
-            );
-
-            let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">🏢 ${sector} Sector in ${getDatasetDisplayName()} (${matches.length} matches)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-            `;
-
-            matches.forEach(([symbol, data]) => {
-                const riskAssessment = generateRiskAssessment(data);
-                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
-
-                output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
-                        <strong>${symbol}</strong> ${outlierIcon}<br>
-                        <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
-                    </div>
-                `;
-            });
-
-            output += `</div></div>`;
-            document.getElementById('lookup-output').innerHTML = output;
-        }
-
-        function showWildcardSearchFiltered(searchPattern) {
-            const pattern = searchPattern.replace(/\*/g, '');
-            const matches = Object.keys(filteredVarData).filter(symbol =>
-                symbol.includes(pattern)
-            );
-
-            let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">🔍 Wildcard Search: "${searchPattern}" in ${getDatasetDisplayName()} (${matches.length} matches)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-            `;
-
-            matches.forEach(symbol => {
-                const data = filteredVarData[symbol];
-                const riskAssessment = generateRiskAssessment(data);
-                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
-
-                output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
-                        <strong>${symbol}</strong> ${outlierIcon}<br>
-                        <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
-                        <small style="color: #00aa00;">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
-                    </div>
-                `;
-            });
-
-            output += `</div></div>`;
-            document.getElementById('lookup-output').innerHTML = output;
-        }
-
-        function showNotFound(searchTerm) {
-            const totalInDataset = Object.keys(filteredVarData).length;
-            const randomSymbols = getRandomSymbolsFiltered();
-
-            document.getElementById('lookup-output').innerHTML = `
-                <div style="padding: 15px; border: 1px solid #ff8800; border-radius: 4px;">
-                    <h3 style="color: #ff8800; margin: 0 0 10px 0;">🔍 Symbol "${searchTerm}" not found</h3>
-                    <p>This symbol is not in the current ${getDatasetDisplayName()} dataset. The ${getDatasetDisplayName()} dataset contains ${totalInDataset} symbols.</p>
-                    <p style="color: #ffaa00;">Try searching for: ${randomSymbols.join(', ')}</p>
-                    <p style="color: #00aa00;">💡 Switch to "All Assets" to search across all 901 symbols, or try: ALL, SECTOR:Technology, CC*</p>
-                </div>
-            `;
-        }
-
-        function getDatasetDisplayName() {
-            switch(activeDataset) {
-                case 'all': return 'All Assets';
-                case 'stocks': return 'Stocks';
-                case 'cfd': return 'CFDs';
-                case 'futures': return 'Futures';
-                default: return 'Selected';
-        }
-function getRandomSymbolsFiltered() {
-            const symbols = Object.keys(filteredVarData);
-            const shuffled = symbols.sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, 5);
-        }
-
-        // Enhanced Position Size Calculator Functions
-        function autoFillPositionData() {
-            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
-            if (symbol && window.varData && window.varData[symbol]) {
-                const data = window.varData[symbol];
-                document.getElementById('ps-entry-price').value = data.price.toFixed(2);
-                document.getElementById('ps-var-per-share').value = data.var.toFixed(3);
-                updatePositionAtrData();
-        }
-function updatePositionAtrData() {
-            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
-            const timeframe = document.getElementById('ps-atr-timeframe').value;
-            const multiplier = parseFloat(document.getElementById('ps-atr-multiplier').value) || 2.0;
-            const entryPrice = parseFloat(document.getElementById('ps-entry-price').value) || 0;
-
-            if (symbol && window.varData && window.varData[symbol] && timeframe !== 'none' && entryPrice > 0) {
-                const data = window.varData[symbol];
-                let atrValue = 0;
-
-                switch(timeframe) {
-                    case 'd1':
-                        atrValue = data.atr_d1 || 0;
-                        break;
-                    case 'w1':
-                        atrValue = data.atr_w1 || 0;
-                        break;
-                    case 'mn1':
-                        atrValue = data.atr_mn1 || 0;
-                        break;
-                }
-
-                const atrStopPrice = entryPrice - (atrValue * multiplier);
-                document.getElementById('ps-atr-suggestion').value = atrStopPrice.toFixed(2);
-            } else {
-                document.getElementById('ps-atr-suggestion').value = '';
-        }
-function togglePositionSizeMode() {
-            const mode = document.getElementById('ps-risk-mode').value;
-            const slGroup = document.getElementById('ps-sl-group');
-            const varGroup = document.getElementById('ps-var-group');
-            const label = document.getElementById('ps-risk-label');
-            const hint = document.getElementById('ps-risk-hint');
-            const modeInfo = document.getElementById('ps-mode-info');
-
-            // Hide all mode-specific groups
-            slGroup.style.display = 'block';
-            varGroup.style.display = 'none';
-
-            switch(mode) {
-                case 'sl':
-                    label.textContent = 'Risk Amount (%)';
-                    hint.textContent = '📊 Percentage of account to risk at stop loss';
-                    modeInfo.textContent = 'Risk @ Stop Loss | ' + document.getElementById('ps-output-mode').value.charAt(0).toUpperCase() + document.getElementById('ps-output-mode').value.slice(1) + ' Output';
-                    break;
-                case 'var':
-                    slGroup.style.display = 'none';
-                    varGroup.style.display = 'block';
-                    label.textContent = 'VaR Target (%)';
-                    hint.textContent = '🎯 Target VaR as percentage of account';
-                    modeInfo.textContent = 'Risk @ VaR | ' + document.getElementById('ps-output-mode').value.charAt(0).toUpperCase() + document.getElementById('ps-output-mode').value.slice(1) + ' Output';
-                    break;
-                case 'atr':
-                    label.textContent = 'Risk Amount (%)';
-                    hint.textContent = '📊 Percentage of account to risk using ATR stop';
-                    modeInfo.textContent = 'Risk @ ATR Stop | ' + document.getElementById('ps-output-mode').value.charAt(0).toUpperCase() + document.getElementById('ps-output-mode').value.slice(1) + ' Output';
-                    break;
-        }
-function updateOutputMode() {
-            const outputMode = document.getElementById('ps-output-mode').value;
-            const riskMode = document.getElementById('ps-risk-mode').value;
-            const modeInfo = document.getElementById('ps-mode-info');
-
-            const riskModeName = riskMode === 'sl' ? 'Risk @ Stop Loss' :
-                                riskMode === 'var' ? 'Risk @ VaR' : 'Risk @ ATR Stop';
-            const outputModeName = outputMode.charAt(0).toUpperCase() + outputMode.slice(1);
-
-            modeInfo.textContent = `${riskModeName} | ${outputModeName} Output`;
-        }
-
-        window.calculateEnhancedPositionSize = function() {
-            const accountSize = parseFloat(document.getElementById('ps-account-size').value);
-            const riskPercent = parseFloat(document.getElementById('ps-risk-value').value);
-            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
-            const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
-            const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
-            const varPerShare = parseFloat(document.getElementById('ps-var-per-share').value);
-            const riskMode = document.getElementById('ps-risk-mode').value;
-            const outputMode = document.getElementById('ps-output-mode').value;
-            const atrTimeframe = document.getElementById('ps-atr-timeframe').value;
-            const atrSuggestion = parseFloat(document.getElementById('ps-atr-suggestion').value);
-
-            if (!accountSize || !riskPercent || !symbol || !entryPrice) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            const riskDollars = (accountSize * riskPercent) / 100;
-            let riskPerShare = 0;
-            let stopPrice = 0;
-            let shares = 0;
-            let positionValue = 0;
-
-            // Calculate position based on risk mode
-            switch(riskMode) {
-                case 'sl':
-                    if (!stopLoss) {
-                        alert('Please enter a stop loss price for Stop Loss mode');
-                        return;
-                    }
-                    riskPerShare = entryPrice - stopLoss;
-                    stopPrice = stopLoss;
-                    shares = Math.floor(riskDollars / riskPerShare);
-                    break;
-
-                case 'var':
-                    if (!varPerShare) {
-                        alert('Symbol not found in database or missing VaR data');
-                        return;
-                    }
-                    riskPerShare = varPerShare;
-                    shares = Math.floor(riskDollars / riskPerShare);
-                    break;
-
-                case 'atr':
-                    if (atrTimeframe === 'none' || !atrSuggestion) {
-                        alert('Please select an ATR timeframe for ATR mode');
-                        return;
-                    }
-                    riskPerShare = entryPrice - atrSuggestion;
-                    stopPrice = atrSuggestion;
-                    shares = Math.floor(riskDollars / riskPerShare);
-                    break;
-            }
-
-            positionValue = shares * entryPrice;
-            const actualRiskDollars = shares * riskPerShare;
-            const actualRiskPercent = (actualRiskDollars / accountSize) * 100;
-            const positionWeight = (positionValue / accountSize) * 100;
-
-            // Generate output based on output mode
-            let output = `
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">📐 Position Size for ${symbol}</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Position Size:</div>
-                                <div class="result-value">${shares.toLocaleString()} shares</div>
-                            </div>
-            `;
-
-            if (outputMode === 'notional') {
-                output += `
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Position Value:</div>
-                                <div class="result-value">$${positionValue.toLocaleString()}</div>
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Risk Amount:</div>
-                                <div class="result-value">$${actualRiskDollars.toFixed(2)}</div>
-                            </div>
-                `;
-            } else {
-                output += `
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Position Weight:</div>
-                                <div class="result-value">${positionWeight.toFixed(2)}%</div>
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Risk Percentage:</div>
-                                <div class="result-value">${actualRiskPercent.toFixed(2)}%</div>
-                            </div>
-                `;
-            }
-
-            output += `
-                        </div>
-                        <div>
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Entry Price:</div>
-                                <div class="result-value">$${entryPrice.toFixed(2)}</div>
-                            </div>
-            `;
-
-            if (riskMode === 'sl' || riskMode === 'atr') {
-                output += `
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Stop Loss:</div>
-                                <div class="result-value">$${stopPrice.toFixed(2)}</div>
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">Risk per Share:</div>
-                                <div class="result-value">$${riskPerShare.toFixed(2)}</div>
-                            </div>
-                `;
-            } else if (riskMode === 'var') {
-                output += `
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">VaR per Share:</div>
-                                <div class="result-value">$${varPerShare.toFixed(3)}</div>
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <div class="result-label">VaR Method:</div>
-                                <div class="result-value">Statistical Risk</div>
-                            </div>
-                `;
-            }
-
-            output += `
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Add mode-specific analysis
-            if (riskMode === 'atr' && atrTimeframe !== 'none') {
-                const timeframeName = atrTimeframe === 'd1' ? 'Daily' :
-                                    atrTimeframe === 'w1' ? 'Weekly' : 'Monthly';
-
-                output += `
-                    <div style="padding: 15px; background: rgba(0,255,255,0.1); border-left: 3px solid #00ffff; margin: 20px 0;">
-                        <h4 style="color: #00ffff; margin: 0 0 10px 0;">🛑 ${timeframeName} ATR Analysis</h4>
-                        <div style="color: #00cccc;">Stop loss calculated using ${timeframeName} ATR with ${document.getElementById('ps-atr-multiplier').value}x multiplier</div>
-                        <div style="color: #00aaaa; font-size: 0.9em; margin-top: 8px;">ATR-based stops adapt to market volatility for improved risk management</div>
-                    </div>
-                `;
-            }
-
-            // Add risk assessment for outliers
-            const data = window.varData[symbol];
-            if (data && data.outliers && data.outliers.length > 0) {
-                output += `
-                    <div style="padding: 15px; background: rgba(255,136,0,0.1); border-left: 3px solid #ff8800; margin: 20px 0;">
-                        <h4 style="color: #ff8800; margin: 0 0 10px 0;">🚨 Risk Assessment</h4>
-                        <div style="color: #ffaa00;">This symbol has ${data.outliers.length} outlier flag(s): ${data.outliers.join(', ').toUpperCase()}</div>
-                        <div style="color: #ff8800; font-size: 0.9em; margin-top: 8px;">Consider additional risk management for outlier positions</div>
-                    </div>
-                `;
-            }
-
-            document.getElementById('ps-output').innerHTML = output;
-            document.getElementById('ps-results').classList.add('show');
-        }
-
-        // Portfolio functions work with full dataset for flexibility
-
-        // Compound Interest Calculator Function
-        window.calculateCompoundInterest = function() {
-            const principal = parseFloat(document.getElementById('ci-principal').value);
-            const rate = parseFloat(document.getElementById('ci-rate').value) / 100;
-            const time = parseFloat(document.getElementById('ci-time').value);
-            const compound = parseFloat(document.getElementById('ci-compound').value);
-            const monthlyContribution = parseFloat(document.getElementById('ci-monthly').value) || 0;
-
-            if (!principal || !rate || !time || !compound) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            // Calculate compound interest with monthly contributions
-            let balance = principal;
-            let totalContributions = principal;
-
-            for (let year = 1; year <= time; year++) {
-                // Add monthly contributions throughout the year
-                for (let month = 1; month <= 12; month++) {
-                    balance += monthlyContribution;
-                    totalContributions += monthlyContribution;
-
-                    // Apply compound interest monthly if compounding frequency allows
-                    const periodsPerYear = compound;
-                    const ratePerPeriod = rate / periodsPerYear;
-
-                    // Apply compounding based on frequency
-                    for (let period = 1; period <= periodsPerYear / 12; period++) {
-                        balance *= (1 + ratePerPeriod);
-                    }
-                }
-            }
-
-            const totalInterest = balance - totalContributions;
-            const effectiveRate = ((balance / principal) ** (1 / time) - 1) * 100;
-
-            const output = `
-                <div style="padding: 20px; border: 2px solid #00ff00; border-radius: 8px;">
-                    <h3 style="color: #00ff00; margin: 0 0 20px 0;">💰 Compound Interest Results</h3>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                        <div>
-                            <strong style="color: #00ff00;">Initial Investment:</strong><br>
-                            $${principal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
-
-                            <strong style="color: #00ff00;">Monthly Contributions:</strong><br>
-                            $${monthlyContribution.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
-
-                            <strong style="color: #00ff00;">Total Contributions:</strong><br>
-                            $${totalContributions.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                        </div>
-                        <div>
-                            <strong style="color: #00ff00;">Final Balance:</strong><br>
-                            <span style="font-size: 1.3em; color: #00ff00;">$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
-
-                            <strong style="color: #00ff00;">Total Interest Earned:</strong><br>
-                            <span style="color: #00cc00;">$${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
-
-                            <strong style="color: #00ff00;">Effective Annual Rate:</strong><br>
-                            <span style="color: #00cc00;">${effectiveRate.toFixed(2)}%</span>
-                        </div>
-                    </div>
-
-                    <div style="background: rgba(0,255,0,0.1); padding: 15px; border-radius: 4px; margin-top: 15px;">
-                        <strong style="color: #00ff00;">💡 Summary:</strong><br>
-                        After ${time} years, your investment of $${principal.toLocaleString()} with $${monthlyContribution.toLocaleString()} monthly contributions
-                        will grow to <strong>$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>.<br>
-                        <strong>Interest earned: $${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>
-                        (${((totalInterest / totalContributions) * 100).toFixed(1)}% of total contributions)
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('ci-results').innerHTML = output;
-            document.getElementById('ci-results').classList.add('show');
-
-            // Create timeline visualization
-            createCompoundInterestChart(principal, rate, time, compound, monthlyContribution);
-        }
-
-        // Create enhanced compound interest calculator visualization
-        function createCompoundInterestChart(principal, rate, time, compound, monthlyContribution) {
-            const chartContainer = document.getElementById('compound-chart');
-            const timelineContainer = document.getElementById('compound-timeline');
-
-            if (!chartContainer || !timelineContainer) return;
-
-            let balance = principal;
-            let totalContributions = principal;
-            let timeline = `
-                <div style="padding: 10px; background: rgba(0,255,0,0.1); border-radius: 4px; margin-bottom: 20px;">
-                    <h4 style="color: #00ff00; margin: 0 0 10px 0;">📈 Growth Timeline</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            `;
-
-            const yearsToShow = Math.min(time, 30); // Show max 30 years in timeline
-
-            for (let year = 1; year <= yearsToShow; year++) {
-                // Calculate compound interest with monthly contributions
-                const periodsPerYear = compound;
-                const ratePerPeriod = rate / periodsPerYear;
-
-                // Add monthly contributions throughout the year
-                for (let month = 1; month <= 12; month++) {
-                    balance += monthlyContribution;
-                    totalContributions += monthlyContribution;
-
-                    // Apply compound interest monthly
-                    for (let period = 1; period <= periodsPerYear / 12; period++) {
-                        balance *= (1 + ratePerPeriod);
-                    }
-                }
-
-                const totalInterest = balance - totalContributions;
-                const percentGrowth = ((balance - principal) / principal * 100);
-
-                timeline += `
-                    <div style="padding: 10px; background: rgba(0,255,0,0.05); border: 1px solid #004400; border-radius: 4px;">
-                        <strong style="color: #00ff00;">Year ${year}</strong><br>
-                        <span style="color: #00cc00;">Balance:</span> $${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
-                        <span style="color: #00cc00;">Interest:</span> $${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
-                        <span style="color: #00cc00;">Growth:</span> ${percentGrowth.toFixed(1)}%
-                    </div>
-                `;
-            }
-
-            timeline += '</div></div>';
-
-            if (time > 30) {
-                timeline += `
-                    <div style="padding: 10px; color: #ffaa00; text-align: center; font-style: italic;">
-                        ... showing first 30 years only ...
-                    </div>
-                `;
-            }
-
-            timelineContainer.innerHTML = timeline;
-            chartContainer.style.display = 'block';
         }
 
         // Initialize on page load - trying direct approach due to SES extension
