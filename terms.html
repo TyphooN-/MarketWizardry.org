@@ -109,7 +109,25 @@
             margin: 0 auto;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (min-width: 1200px) {
+            .file-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media screen and (min-width: 900px) and (max-width: 1199px) {
+            .file-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media screen and (min-width: 600px) and (max-width: 899px) {
+            .file-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 599px) {
             .file-grid {
                 grid-template-columns: 1fr;
             }
@@ -194,10 +212,11 @@
             background-color: #001100;
         }
         .modal-body {
-            white-space: pre;
+            white-space: pre-wrap;
+            word-wrap: break-word;
             max-height: 60vh;
             overflow-y: auto;
-            overflow-x: auto;
+            overflow-x: hidden;
             color: #00ff00;
             font-size: 1.2em;
             padding: 15px;
@@ -261,8 +280,9 @@
             }
             .modal-body {
                 font-size: 0.65em;
-                white-space: pre;
-                overflow-x: auto;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                overflow-x: hidden;
                 max-height: calc(90vh - 160px);
                 padding: 10px;
             }
