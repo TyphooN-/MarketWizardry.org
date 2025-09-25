@@ -122,11 +122,32 @@
         
         .donate-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            max-width: 800px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin: 20px auto;
             justify-content: center;
+        }
+
+        /* Responsive grid behavior */
+        @media screen and (max-width: 768px) {
+            .donate-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+            }
+        }
+
+        @media screen and (min-width: 769px) and (max-width: 1199px) {
+            .donate-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 700px;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .donate-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1200px;
+            }
         }
         
         .donate-item {
