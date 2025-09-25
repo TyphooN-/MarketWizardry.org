@@ -1,6 +1,34 @@
 console.log('✓ calculator.js loaded successfully');
 let activeCalculator = null;
 
+// EMERGENCY FIX: Direct event listener setup
+console.log('🚨 EMERGENCY: Setting up direct event listeners...');
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚨 EMERGENCY DOM ready - attaching direct listeners');
+
+    // Direct button listeners without any complex logic
+    const buttons = [
+        'calculate-compound-interest-btn',
+        'calculate-stop-loss-btn',
+        'calculate-position-size-btn',
+        'calculate-portfolio-var-btn',
+        'show-all-symbols-btn'
+    ];
+
+    buttons.forEach(buttonId => {
+        const btn = document.getElementById(buttonId);
+        if (btn) {
+            btn.addEventListener('click', function() {
+                console.log('🚨 EMERGENCY: Button clicked:', buttonId);
+                alert('Button ' + buttonId + ' clicked! Calculator functions will be restored shortly.');
+            });
+            console.log('🚨 EMERGENCY: Added listener to', buttonId);
+        } else {
+            console.log('🚨 EMERGENCY: Button not found:', buttonId);
+        }
+    });
+});
+
 window.selectCalculator = function(calculatorType, clickedElement) {
             console.log('selectCalculator function called with:', calculatorType);
             try {
@@ -40,6 +68,7 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             activeCalculator = calculatorType;
         }
 
+        console.log('🔍 DEBUG: Defining updateBreadcrumb function...');
         window.updateBreadcrumb = function(calculatorType) {
             const breadcrumbElement = document.getElementById('active-calculator-breadcrumb');
             const nameElement = document.getElementById('active-calculator-name');
@@ -60,6 +89,7 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             }
         }
 
+        console.log('🔍 DEBUG: Defining resetToCalculatorSelection function...');
         window.resetToCalculatorSelection = function() {
             // Hide all calculators
             const calculators = document.querySelectorAll('.calculator-content');
@@ -79,6 +109,7 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        console.log('🔍 DEBUG: Defining autoFillStopLossData function...');
         function autoFillStopLossData() {
             const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
             const timeframe = document.getElementById('sl-timeframe').value;
@@ -147,6 +178,7 @@ function toggleStopLossMode() {
             }
         }
 
+        console.log('🔍 DEBUG: Defining calculateStopLoss function...');
         window.calculateStopLoss = function() {
             const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
             const positionSize = parseInt(document.getElementById('sl-position-size').value);
@@ -2868,6 +2900,7 @@ function updateOutputMode() {
             }
         }
 
+        console.log('🔍 DEBUG: Reached initialization section...');
         // Prevent multiple initialization
         let calculatorInitialized = false;
 
