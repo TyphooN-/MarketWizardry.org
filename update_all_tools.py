@@ -22,7 +22,7 @@ from datetime import datetime, date
 from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
 
 class FinancialToolsUpdater:
-    def __init__(self, date_str=None, force_regenerate=False):
+    def __init__(self, date_str=None, force_regenerate=False, html_only=False):
         self.seo_manager = SEOManager()
         self.breadcrumb_paths = get_breadcrumb_paths()
         self.session = requests.Session()
@@ -32,6 +32,8 @@ class FinancialToolsUpdater:
         self.date_str = date_str or datetime.now().strftime('%Y.%m.%d')
         # Only force regenerate if explicitly requested via force_regenerate parameter
         self.force_regenerate = force_regenerate
+        # HTML-only mode skips data fetching and only regenerates HTML content
+        self.html_only = html_only
         self.data_summary = {}
 
     def copy_csv_files(self):
@@ -1074,20 +1076,37 @@ window.varData = varData;"""
         print("🚀 Starting unified financial tools update...")
         start_time = time.time()
 
-        # Fetch fresh data
-        data = self.fetch_financial_data()
-        if not data:
-            print("❌ Failed to fetch data, aborting update")
-            return False
+        if self.html_only:
+            print("📄 HTML-only mode: Regenerating HTML content using existing data...")
+            # Create minimal data structure for HTML generation
+            data = {
+                'var_data': 0,
+                'atr_data': 0,
+                'ev_data': False,
+                'calculator_data': {},
+                'last_updated': datetime.now().isoformat(),
+                'date_processed': self.date_str
+            }
+        else:
+            # Fetch fresh data
+            data = self.fetch_financial_data()
+            if not data:
+                print("❌ Failed to fetch data, aborting update")
+                return False
 
         # Update all tools
         self.generate_var_explorer(data)
         self.generate_atr_explorer(data)
         self.generate_ev_explorer(data)
-        self.update_calculator_data(data)
+
+        if not self.html_only:
+            self.update_calculator_data(data)
+        else:
+            print("⏭️  Skipping calculator data update in HTML-only mode")
 
         elapsed_time = time.time() - start_time
-        print(f"\n✅ All financial tools updated successfully!")
+        mode_text = "HTML content" if self.html_only else "financial tools"
+        print(f"\n✅ All {mode_text} updated successfully!")
         print(f"⏱️  Total time: {elapsed_time:.2f} seconds")
         print(f"📅 Update completed: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
@@ -1102,20 +1121,24 @@ def main():
         print("""
 🚀 MarketWizardry.org Financial Tools Updater
 
-Usage: python3 update_all_tools.py [DATE] [--force]
+Usage: python3 update_all_tools.py [DATE] [--force] [--html-only]
 
 Arguments:
-    DATE     Optional date in YYYY.MM.DD format (defaults to today)
-    --force  Force regenerate all files, even if they already exist
-             (WARNING: This will overwrite existing reports and their original timestamps)
+    DATE        Optional date in YYYY.MM.DD format (defaults to today)
+    --force     Force regenerate all files, even if they already exist
+                (WARNING: This will overwrite existing reports and their original timestamps)
+    --html-only Only regenerate HTML content using existing data files
+                (Skips data fetching and processing)
 
 Examples:
-    python3 update_all_tools.py                    # Update for today, skip existing files
+    python3 update_all_tools.py                    # HTML-only mode when no date specified
     python3 update_all_tools.py 2025.09.24        # Update for specific date, skip existing files
     python3 update_all_tools.py 2025.09.24 --force # Update for specific date, overwrite existing files
     python3 update_all_tools.py --force            # Update for today, overwrite existing files
+    python3 update_all_tools.py --html-only        # HTML-only mode for today
 
-Default behavior: Only generate missing files to preserve original creation timestamps.
+Default behavior when no date specified: HTML-only mode (regenerate HTML using existing data)
+Default behavior with date specified: Only generate missing files to preserve original creation timestamps.
         """)
         exit(0)
 
@@ -1128,7 +1151,15 @@ Default behavior: Only generate missing files to preserve original creation time
     # Never automatically force regenerate when no date is specified
     force_regenerate = '--force' in sys.argv
 
-    updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate)
+    # HTML-only mode: explicit flag OR when no date is specified (default behavior)
+    html_only = '--html-only' in sys.argv or not date_specified
+
+    if html_only and date_specified:
+        print(f"📄 HTML-only mode: Regenerating HTML content for {date_str}")
+    elif html_only:
+        print("📄 HTML-only mode: Regenerating HTML content using existing data")
+
+    updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate, html_only=html_only)
     success = updater.run_full_update()
 
     if success:
