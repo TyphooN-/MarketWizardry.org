@@ -372,10 +372,6 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
             padding: 20px;
             margin: 0;
         }}
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-        }}
         a {{
             color: #00ff00;
             text-decoration: none;
