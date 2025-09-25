@@ -71,7 +71,7 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
     breadcrumb_paths = get_breadcrumb_paths()
 
     # Create breadcrumbs
-    ai_musings_breadcrumbs = breadcrumb_paths['ai_musings'][:-1] + [{'name': '🤖 AI Musings', 'url': None}]
+    ai_musings_breadcrumbs = breadcrumb_paths['ai_musings'][:-1] + [{'name': 'AI Musings', 'url': None}]
     breadcrumbs_html = seo_manager.generate_breadcrumbs(ai_musings_breadcrumbs)
     breadcrumb_css = seo_manager.generate_breadcrumb_css()
 
@@ -243,7 +243,7 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
 {breadcrumbs_html}
 
     <div class="container">
-        <h1>🤖 AI Musings</h1>
+        <h1>AI Musings</h1>
         <div class="crt-divider"></div>
         <div class="flavor-text">Deep philosophical musings from artificial minds pondering existence, technology, and the human condition. Digital consciousness exploring analog concepts.</div>
         <div class="crt-divider"></div>

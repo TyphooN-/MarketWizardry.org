@@ -368,7 +368,7 @@ def get_breadcrumb_paths():
         ],
         'calculator': [
             {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
-            {'name': '🧮 Calculator Suite', 'url': 'calculator.html'}
+            {'name': 'Calculator Suite', 'url': 'calculator.html'}
         ],
         'var_explorer': [
             {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
