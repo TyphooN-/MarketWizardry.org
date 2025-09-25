@@ -1486,7 +1486,7 @@ function toggleStopLossMode() {
                 return;
             }
 
-            if (varData[symbol]) {
+            if (window.varData && window.varData[symbol]) {
                 const data = window.varData[symbol];
                 const riskAssessment = generateRiskAssessment(data);
                 const outlierWarnings = data.outliers && data.outliers.length > 0 ?
@@ -1516,7 +1516,7 @@ function toggleStopLossMode() {
                 infoDiv.style.display = 'block';
         }
 function addSymbolToPortfolio(symbol) {
-            const data = varData[symbol];
+            const data = window.varData[symbol];
             if (!data) return;
 
             const tbody = document.getElementById('portfolio-positions');
@@ -1571,7 +1571,7 @@ function addSymbolToPortfolio(symbol) {
 
             // Update VaR and asset class if symbol is found in database
             if (symbol && window.varData && window.varData[symbol]) {
-                const positionVar = shares * varData[symbol].var;
+                const positionVar = shares * window.varData[symbol].var;
                 varDisplay.textContent = `$${positionVar.toFixed(2)}`;
 
                 // Calculate VaR percentage (VaR / Position Value * 100)
@@ -1580,7 +1580,7 @@ function addSymbolToPortfolio(symbol) {
                 varPercentDisplay.innerHTML = `<span style="color: ${varColor};">${varPercent.toFixed(2)}%</span>`;
 
                 // Show asset class with appropriate styling
-                const assetClass = varData[symbol].asset_class;
+                const assetClass = window.varData[symbol].asset_class;
                 const assetDisplay = assetClass === 'cfd' ? 'CFD' :
                                    assetClass === 'stocks' ? 'Stock' :
                                    assetClass === 'futures' ? 'Future' : assetClass;
@@ -1601,7 +1601,7 @@ function addSymbolToPortfolio(symbol) {
 
                 // Auto-fill price if empty
                 if (price === 0) {
-                    inputs[2].value = varData[symbol].price;
+                    inputs[2].value = window.varData[symbol].price;
                     updatePositionValue(inputs[2]); // Recalculate
         }
 else if (symbol) {
@@ -1642,8 +1642,8 @@ else if (symbol) {
                     let varPerShare = 0;
 
                     // Use real VaR data if available
-                    if (varData[symbol]) {
-                        varPerShare = varData[symbol].var;
+                    if (window.varData && window.varData[symbol]) {
+                        varPerShare = window.varData[symbol].var;
                         positionVaR = shares * varPerShare;
                     } else {
                         // Fallback: estimate VaR as 2% of position value for unknown symbols
@@ -1658,8 +1658,8 @@ else if (symbol) {
                         value,
                         positionVaR,
                         varPerShare,
-                        hasRealData: !!varData[symbol],
-                        assetClass: varData[symbol] ? varData[symbol].asset_class : 'unknown'
+                        hasRealData: !!(window.varData && window.varData[symbol]),
+                        assetClass: (window.varData && window.varData[symbol]) ? window.varData[symbol].asset_class : 'unknown'
                     });
                     totalValue += value;
                     totalVaR += positionVaR;
@@ -1749,9 +1749,9 @@ if (positions.length === 0) {
             for (let pos of positions) {
                 const dataSource = pos.hasRealData ? '📊' : '⚠️';
                 const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
-                const riskAssessment = pos.hasRealData ? generateRiskAssessment(varData[pos.symbol]) : null;
-                const outlierWarning = riskAssessment && varData[pos.symbol].outliers && varData[pos.symbol].outliers.length > 0 ?
-                    ` 🚨 ${varData[pos.symbol].outliers.length} outlier${varData[pos.symbol].outliers.length > 1 ? 's' : ''}` : '';
+                const riskAssessment = pos.hasRealData ? generateRiskAssessment(window.varData[pos.symbol]) : null;
+                const outlierWarning = riskAssessment && window.varData[pos.symbol].outliers && window.varData[pos.symbol].outliers.length > 0 ?
+                    ` 🚨 ${window.varData[pos.symbol].outliers.length} outlier${window.varData[pos.symbol].outliers.length > 1 ? 's' : ''}` : '';
                 const borderColor = riskAssessment ? riskAssessment.color : '#00ff00';
 
                 // Asset class display
@@ -1918,14 +1918,14 @@ const output = `
                 };
         }
 function findSimilarSymbols(partial) {
-            const matches = Object.keys(varData).filter(symbol =>
+            const matches = Object.keys(window.varData || {}).filter(symbol =>
                 symbol.includes(partial.toUpperCase())
             );
             return matches.slice(0, 10);
         }
 
         function getSectorAnalysis(sector) {
-            const sectorSymbols = Object.entries(varData).filter(([symbol, data]) =>
+            const sectorSymbols = Object.entries(window.varData || {}).filter(([symbol, data]) =>
                 data.sector.toLowerCase() === sector.toLowerCase()
             );
 
@@ -1954,9 +1954,9 @@ function findSimilarSymbols(partial) {
             const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
             if (symbol && filteredVarData[symbol]) {
                 displaySymbolInfo(symbol, filteredVarData[symbol]);
-            } else if (symbol && varData[symbol]) {
+            } else if (symbol && window.varData && window.varData[symbol]) {
                 // Fall back to full dataset if not in filtered view
-                displaySymbolInfo(symbol, varData[symbol]);
+                displaySymbolInfo(symbol, window.varData[symbol]);
                 document.getElementById('lookup-output').innerHTML += `
                     <div style="color: #ffaa00; padding: 10px; margin-top: 10px; border: 1px solid #ffaa00; border-radius: 4px;">
                         <p>💡 This symbol was found in the full database but not in the current ${getDatasetDisplayName()} filter.</p>
@@ -2042,7 +2042,7 @@ function findSimilarSymbols(partial) {
                 return;
             }
 
-            const filtered = Object.entries(varData).filter(([symbol, data]) =>
+            const filtered = Object.entries(window.varData || {}).filter(([symbol, data]) =>
                 data.sector === selectedSector
             );
 
@@ -2067,7 +2067,15 @@ function findSimilarSymbols(partial) {
         }
 
         window.showAllSymbols = function() {
-            const symbols = Object.entries(varData);
+            if (!window.varData) {
+                document.getElementById('lookup-output').innerHTML = `
+                    <div style="padding: 15px; border: 1px solid #ff0000; border-radius: 4px;">
+                        <h3 style="color: #ff0000; margin: 0 0 15px 0;">Error: Symbol data not loaded</h3>
+                        <p style="color: #ffaa00;">Please refresh the page to reload symbol data.</p>
+                    </div>`;
+                return;
+            }
+            const symbols = Object.entries(window.varData);
             let output = `
                 <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
                     <h3 style="color: #00ff00; margin: 0 0 15px 0;">All Available Symbols (${symbols.length} total)</h3>
@@ -2088,7 +2096,8 @@ function findSimilarSymbols(partial) {
         }
 
         function getRandomSymbols() {
-            const symbols = Object.keys(varData);
+            if (!window.varData) return [];
+            const symbols = Object.keys(window.varData);
             const shuffled = symbols.sort(() => 0.5 - Math.random());
             return shuffled.slice(0, 5);
         }
@@ -2114,7 +2123,7 @@ function findSimilarSymbols(partial) {
             `;
 
             matches.forEach(matchSymbol => {
-                const data = varData[matchSymbol];
+                const data = window.varData[matchSymbol];
                 const riskAssessment = generateRiskAssessment(data);
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
@@ -2187,7 +2196,7 @@ function findSimilarSymbols(partial) {
 
         function showWildcardSearch(searchPattern) {
             const pattern = searchPattern.replace(/\*/g, '');
-            const matches = Object.keys(varData).filter(symbol =>
+            const matches = Object.keys(window.varData || {}).filter(symbol =>
                 symbol.includes(pattern)
             );
 
@@ -2276,7 +2285,7 @@ function findSimilarSymbols(partial) {
             filteredVarData = {};
             let matchCount = 0;
 
-            Object.entries(varData).forEach(([symbol, data]) => {
+            Object.entries(window.varData || {}).forEach(([symbol, data]) => {
                 let matches = true;
 
                 // Asset class filter
@@ -2488,7 +2497,7 @@ function updatePositionAtrData() {
             const multiplier = parseFloat(document.getElementById('ps-atr-multiplier').value) || 2.0;
             const entryPrice = parseFloat(document.getElementById('ps-entry-price').value) || 0;
 
-            if (symbol && varData[symbol] && timeframe !== 'none' && entryPrice > 0) {
+            if (symbol && window.varData && window.varData[symbol] && timeframe !== 'none' && entryPrice > 0) {
                 const data = window.varData[symbol];
                 let atrValue = 0;
 
@@ -2702,7 +2711,7 @@ function updateOutputMode() {
             }
 
             // Add risk assessment for outliers
-            const data = varData[symbol];
+            const data = window.varData[symbol];
             if (data && data.outliers && data.outliers.length > 0) {
                 output += `
                     <div style="padding: 15px; background: rgba(255,136,0,0.1); border-left: 3px solid #ff8800; margin: 20px 0;">
