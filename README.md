@@ -232,12 +232,11 @@ All contributions must maintain our **zero-compromise security standards**:
 - **Trading Discussion**: Join our Discord community for real-time support
 
 ### **📞 Support Channels**
-| Platform | Purpose | Response Time |
-|----------|---------|---------------|
-| **Discord** | Real-time community support | < 1 hour |
-| **X/Twitter** | Public updates & announcements | Daily |
-| **GitHub Issues** | Technical bug reports | 24-48 hours |
-| **Website Contact** | Business inquiries | 2-3 business days |
+| Platform | Purpose |
+|----------|---------|
+| **Discord** | Real-time community support |
+| **X/Twitter** | Public updates & announcements |
+| **GitHub Issues** | Technical bug reports |
 
 ## 📄 **License**
 
