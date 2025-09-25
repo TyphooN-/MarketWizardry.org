@@ -116,134 +116,14 @@
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
 </div>
-    <script>
-        let currentImageIndex = 0;
-        const allImagePaths = ['./blac_ai/webp/blac_ai-1927475398-SOLD_video1-lossy.webp',
-            './blac_ai/webp/blac_ai-1942045151767273817-sunday_night__gn_video4-lossy.webp',
-            './blac_ai/webp/blac_ai-1940767483738177538-gm__wake_up_video4-lossy.webp',
-            './blac_ai/webp/blac_ai-1942223829847212178-gm__monday_vibes_video4-lossy.webp',
-            './blac_ai/webp/blac_ai-1926092032-at_the_end..._gn_video2-lossy.webp',
-            './blac_ai/webp/blac_ai-1940837193083138199-deep_rooted_video3-lossy.webp',
-            './blac_ai/webp/blac_ai-1927430100-as_above_video2-lossy.webp',
-            './blac_ai/webp/blac_ai-1934424689172156708-gn_video4-lossy.webp',
-            './blac_ai/webp/blac_ai-1938661355319415191-Syncretica_propaganda_in_NYC_video3-lossy.webp',
-            './blac_ai/webp/blac_ai-1927722023-wake_up_video2-lossy.webp',
-            './blac_ai/webp/blac_ai-1926998255-GM_video2-lossy.webp',
-            './blac_ai/webp/blac_ai-1936054679601115167-wake_up__gm_video4-lossy.webp',
-            './blac_ai/webp/blac_ai-1929352768-gn_video2-lossy.webp']; // All image paths from Python
-        console.log("All Image Paths:", allImagePaths);
-        const imagesPerLoad = 50; // Increased number of images to load per scroll
-        const scrollThreshold = 1000; // Load more images when 1000px from bottom
-        const imageGrid = document.getElementById('imageGrid');
-
-        function loadImage(path, index) {
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'image-container';
-            const img = document.createElement('img');
-            img.className = 'thumbnail';
-            img.src = path;
-            img.onerror = function() { console.error("Error loading image:", path); };
-            img.onload = function() { console.log("Image loaded:", path); };
-            img.onclick = function() { openImage(index); };
-            imgContainer.appendChild(img);
-            imageGrid.appendChild(imgContainer);
-        }
-
-        function loadMoreImages() {
-            console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-            if (currentImageIndex >= allImagePaths.length) {
-                console.log("No more images to load.");
-                return; // No more images to load
-            }
-
-            const startIndex = currentImageIndex;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                loadImage(allImagePaths[i], i);
-            }
-            currentImageIndex = endIndex;
-            console.log("Loaded images up to index:", currentImageIndex);
-        }
-
-        // Initial load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMoreImages();
-            // Load more images immediately if the initial load doesn't fill the viewport
-            if (document.body.offsetHeight < window.innerHeight) {
-                loadMoreImages();
-            }
-        });
-
-        // Scroll event for lazy loading
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-                loadMoreImages();
-            }
-        });
-
-        function openImage(index) {
-            currentImageIndex = index;
-            const modalImg = document.querySelector('.full-image');
-            const modal = document.getElementById('fullscreenModal');
-            const modalFilename = document.getElementById('modalFilename');
-            
-            modalImg.src = allImagePaths[index];
-            modalFilename.textContent = allImagePaths[index].split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
-            modal.style.display = 'flex'; // Use flex to center modal content
-        }
-        function previousImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                openImage(currentImageIndex);
-            }
-        }
-        function nextImage() {
-            if (currentImageIndex < allImagePaths.length - 1) {
-                currentImageIndex++;
-                openImage(currentImageIndex);
-            }
-        }
-    	function closeModal() {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (modal.style.display === 'flex') {
-            		modal.style.display = 'none';
-        	}
-    	}
-    	// Update the existing window.onclick handler to prevent modal closure when clicking inside the image
-   	 window.onclick = function(event) {
-        	const modal = document.getElementById('fullscreenModal');
-        	if (event.target === modal) {
-            	closeModal();
-        }
-    };
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('fullscreenModal');
-            if (modal.style.display === 'flex') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousImage();
-                        event.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        nextImage();
-                        event.preventDefault();
-                        break;
-                    case 'Escape':
-                        modal.style.display = 'none';
-                        break;
-                }
-            }
-        });
-    </script>
+    <script src="js/blac-ai-gallery.js"></script>
 </body>
 </html>

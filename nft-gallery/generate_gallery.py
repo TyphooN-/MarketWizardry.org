@@ -629,10 +629,12 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 </div>
     <script src="/js/nft-gallery.js"></script>
     <script>
-        // Initialize gallery with image paths
+        // CSP-compliant gallery initialization
         document.addEventListener('DOMContentLoaded', function() {
             const imagePaths = [IMAGE_PATHS_PLACEHOLDER];
-            initializeGallery(imagePaths);
+            if (window.initializeGallery) {
+                window.initializeGallery(imagePaths);
+            }
         });
     </script>
 </body>
@@ -885,10 +887,12 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 </div>
     <script src="/js/nft-gallery.js"></script>
     <script>
-        // Initialize gallery with image paths
+        // CSP-compliant gallery initialization
         document.addEventListener('DOMContentLoaded', function() {
             const imagePaths = [IMAGE_PATHS_PLACEHOLDER];
-            initializeGallery(imagePaths);
+            if (window.initializeGallery) {
+                window.initializeGallery(imagePaths);
+            }
         });
     </script>
 </body>

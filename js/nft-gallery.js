@@ -1,186 +1,205 @@
-// NFT Gallery JavaScript functionality
-// This file handles image grid population, modal navigation, and infinite scrolling
+/**
+ * NFT Gallery JavaScript
+ * CSP-compliant gallery functionality
+ * Handles image gallery display, lazy loading, and modal interactions
+ */
 
 let currentImageIndex = 0;
-let allImagePaths = []; // Will be populated by the HTML page
-const imagesPerLoad = 50; // Number of images to load per scroll
-const scrollThreshold = 1000; // Load more images when 1000px from bottom
-const imageGrid = document.getElementById('imageGrid');
-const modal = document.getElementById('fullscreenModal');
-const modalImage = document.querySelector('.full-image');
-const prevButton = document.getElementById('prevButton');
-const nextButton = document.getElementById('nextButton');
-const imageCounter = document.getElementById('imageCounter');
-const modalFilename = document.getElementById('modalFilename');
-const twitterLinkContainer = document.getElementById('twitterLinkContainer');
-const twitterLink = document.getElementById('twitterLink');
-let imagesLoaded = 0;
+let allImagePaths = [];
+let currentImageData = [];
 
-function initializeGallery(imagePaths) {
+const imagesPerLoad = 20;
+const scrollThreshold = 1000;
+
+function initializeGallery(imagePaths, imageData = []) {
     allImagePaths = imagePaths;
-    console.log("All Image Paths:", allImagePaths);
+    currentImageData = imageData;
+    currentImageIndex = 0;
 
-    if (allImagePaths.length > 0) {
-        loadMoreImages();
-        setupInfiniteScroll();
-    }
+    console.log(`Gallery initialized with ${allImagePaths.length} images`);
+
+    // Load initial images
+    loadMoreImages();
+
+    // Set up scroll listener for lazy loading
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (documentHeight - scrollTop - windowHeight < scrollThreshold) {
+            loadMoreImages();
+        }
+    });
+
+    // Set up modal event listeners
+    setupModalEventListeners();
 }
 
-function loadMoreImages() {
-    console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
-    if (currentImageIndex >= allImagePaths.length) {
-        console.log("All images have been loaded.");
-        return;
-    }
+function loadImage(path, index, data = null) {
+    const imageGrid = document.getElementById('imageGrid');
+    if (!imageGrid) return;
 
-    const startIndex = imagesLoaded;
-    const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
-
-    for (let i = startIndex; i < endIndex; i++) {
-        loadImage(allImagePaths[i], i);
-    }
-
-    imagesLoaded = endIndex;
-    console.log("Loaded images up to index:", endIndex - 1);
-}
-
-function loadImage(imagePath, index) {
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'image-container';
-    imageContainer.setAttribute('data-index', index);
+    const imgContainer = document.createElement('div');
+    imgContainer.className = 'image-container';
 
     const img = document.createElement('img');
     img.className = 'thumbnail';
-    img.src = imagePath;
-    img.alt = `Gallery image ${index + 1}`;
+    img.src = path;
+    img.alt = data ? data.description || 'NFT artwork' : 'NFT artwork';
     img.loading = 'lazy';
 
-    // Extract filename from path for display
-    const filename = imagePath.split('/').pop().replace(/'/g, '');
-    img.setAttribute('data-filename', filename);
+    img.onerror = function() {
+        console.error("Error loading image:", path);
+        imgContainer.style.display = 'none';
+    };
 
-    img.addEventListener('click', () => {
-        openModal(index);
+    img.onload = function() {
+        console.log("Image loaded:", path);
+    };
+
+    // CSP-compliant event listener
+    img.addEventListener('click', function() {
+        openImage(index);
     });
 
-    img.addEventListener('load', () => {
-        console.log(`Image ${index + 1} loaded successfully`);
-    });
+    imgContainer.appendChild(img);
 
-    img.addEventListener('error', (e) => {
-        console.error(`Failed to load image ${index + 1}:`, imagePath);
-        imageContainer.style.display = 'none';
-    });
+    // Add metadata if available
+    if (data) {
+        const metadata = document.createElement('div');
+        metadata.className = 'image-metadata';
 
-    imageContainer.appendChild(img);
-    imageGrid.appendChild(imageContainer);
-}
-
-function setupInfiniteScroll() {
-    function handleScroll() {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-            loadMoreImages();
+        if (data.title) {
+            const title = document.createElement('div');
+            title.className = 'image-title';
+            title.textContent = data.title;
+            metadata.appendChild(title);
         }
+
+        if (data.description) {
+            const desc = document.createElement('div');
+            desc.className = 'image-description';
+            desc.textContent = data.description;
+            metadata.appendChild(desc);
+        }
+
+        imgContainer.appendChild(metadata);
     }
 
-    window.addEventListener('scroll', handleScroll);
+    imageGrid.appendChild(imgContainer);
 }
 
-function openModal(index) {
-    currentImageIndex = index;
-    const imagePath = allImagePaths[index];
-    console.log("Opening modal for image:", imagePath, "at index:", index);
-
-    modalImage.src = imagePath;
-
-    // Extract and display filename
-    const filename = imagePath.split('/').pop().replace(/'/g, '');
-    modalFilename.textContent = filename;
-
-    // Handle Twitter link
-    const tweetId = extractTweetId(filename);
-    if (tweetId) {
-        const twitterUrl = `https://twitter.com/i/status/${tweetId}`;
-        twitterLink.href = twitterUrl;
-        twitterLinkContainer.style.display = 'block';
-    } else {
-        twitterLinkContainer.style.display = 'none';
+function loadMoreImages() {
+    if (currentImageIndex >= allImagePaths.length) {
+        console.log("No more images to load");
+        return;
     }
 
-    // Update navigation buttons
-    prevButton.disabled = index === 0;
-    nextButton.disabled = index === allImagePaths.length - 1;
-    imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+    const startIndex = currentImageIndex;
+    const endIndex = Math.min(startIndex + imagesPerLoad, allImagePaths.length);
+
+    for (let i = startIndex; i < endIndex; i++) {
+        const imageData = currentImageData[i] || null;
+        loadImage(allImagePaths[i], i, imageData);
+    }
+
+    currentImageIndex = endIndex;
+    console.log(`Loaded images up to index: ${currentImageIndex}`);
+}
+
+function openImage(index) {
+    if (index < 0 || index >= allImagePaths.length) return;
+
+    const modal = document.getElementById('fullscreenModal');
+    const fullImage = modal.querySelector('.full-image');
+    const filenameDisplay = document.getElementById('modalFilename');
+
+    if (!modal || !fullImage) return;
+
+    const imagePath = allImagePaths[index];
+    const filename = imagePath.split('/').pop();
+    const imageData = currentImageData[index];
+
+    fullImage.src = imagePath;
+
+    if (filenameDisplay) {
+        filenameDisplay.textContent = imageData?.title || filename;
+    }
 
     modal.style.display = 'flex';
+    document.body.classList.add('modal-open');
+
+    // Store current index for navigation
+    modal.dataset.currentIndex = index;
+
+    console.log("Opening image:", imagePath);
 }
 
 function closeModal() {
-    modal.style.display = 'none';
-}
-
-function previousImage() {
-    if (currentImageIndex > 0) {
-        openModal(currentImageIndex - 1);
+    const modal = document.getElementById('fullscreenModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        delete modal.dataset.currentIndex;
+        console.log("Modal closed");
     }
 }
 
-function nextImage() {
-    if (currentImageIndex < allImagePaths.length - 1) {
-        openModal(currentImageIndex + 1);
+function navigateImage(direction) {
+    const modal = document.getElementById('fullscreenModal');
+    if (!modal || modal.style.display !== 'flex') return;
+
+    const currentIndex = parseInt(modal.dataset.currentIndex || '0');
+    let newIndex = currentIndex;
+
+    if (direction === 'prev' && currentIndex > 0) {
+        newIndex = currentIndex - 1;
+    } else if (direction === 'next' && currentIndex < allImagePaths.length - 1) {
+        newIndex = currentIndex + 1;
+    }
+
+    if (newIndex !== currentIndex) {
+        openImage(newIndex);
     }
 }
 
-function downloadImage() {
-    if (typeof currentImageIndex !== 'undefined' && typeof allImagePaths !== 'undefined') {
-        const currentImagePath = allImagePaths[currentImageIndex];
-        if (currentImagePath) {
-            const link = document.createElement('a');
-            link.href = currentImagePath.replace(/'/g, ''); // Remove quotes
-            link.download = currentImagePath.split('/').pop().replace(/'/g, '');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+function setupModalEventListeners() {
+    const modal = document.getElementById('fullscreenModal');
+    const modalContent = modal?.querySelector('.modal-content');
+
+    if (!modal) return;
+
+    // Close modal when clicking outside content
+    modal.addEventListener('click', closeModal);
+
+    // Prevent closing when clicking inside modal content
+    if (modalContent) {
+        modalContent.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(event) {
+        if (modal.style.display === 'flex') {
+            switch (event.key) {
+                case 'Escape':
+                    closeModal();
+                    break;
+                case 'ArrowLeft':
+                    navigateImage('prev');
+                    event.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    navigateImage('next');
+                    event.preventDefault();
+                    break;
+            }
         }
-    }
+    });
 }
 
-function extractTweetId(filename) {
-    // Extract tweet ID from filename if it follows the pattern USERNAME-TWEETID-...
-    const parts = filename.split('-');
-    if (parts.length >= 2) {
-        const potentialTweetId = parts[1];
-        // Check if it's a valid tweet ID (numeric and reasonable length)
-        if (/^\d+$/.test(potentialTweetId) && potentialTweetId.length >= 10) {
-            return potentialTweetId;
-        }
-    }
-    return null;
-}
-
-// Make functions globally accessible for backward compatibility
-window.openModal = openModal;
-window.closeModal = closeModal;
-window.previousImage = previousImage;
-window.nextImage = nextImage;
-window.downloadImage = downloadImage;
+// Make functions globally available
 window.initializeGallery = initializeGallery;
-
-// Keyboard navigation
-document.addEventListener('keydown', function(event) {
-    if (modal.style.display === 'flex') {
-        switch(event.key) {
-            case 'ArrowLeft':
-                previousImage();
-                event.preventDefault();
-                break;
-            case 'ArrowRight':
-                nextImage();
-                event.preventDefault();
-                break;
-            case 'Escape':
-                modal.style.display = 'none';
-                break;
-        }
-    }
-});
+window.closeModal = closeModal;
