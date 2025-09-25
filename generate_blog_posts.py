@@ -335,6 +335,8 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
         }}
         h1 {{
             margin: 0;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         .content-section {{
             border: 2px solid rgba(0, 255, 0, 0.5);

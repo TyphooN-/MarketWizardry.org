@@ -169,6 +169,8 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
             text-align: center;
             border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
         .grid {
             display: grid;

@@ -111,6 +111,8 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         h1 {{
             text-align: center;
             padding-bottom: 10px;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         .grid {{
             display: grid;
@@ -1055,6 +1057,8 @@ document.addEventListener('DOMContentLoaded', function() {{
         h1 {{
             text-align: center;
             padding-bottom: 10px;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         /* Image grid styles */
         .image-grid {{

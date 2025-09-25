@@ -580,6 +580,7 @@ class FinancialToolsUpdater:
             text-align: center;
             padding-bottom: 10px;
             color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         .crt-divider {{
             width: 100%;
@@ -716,6 +717,7 @@ class FinancialToolsUpdater:
             text-align: center;
             padding-bottom: 10px;
             color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         .crt-divider {{
             width: 100%;
@@ -859,6 +861,7 @@ class FinancialToolsUpdater:
             text-align: center;
             padding-bottom: 10px;
             color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         .crt-divider {{
             width: 100%;
