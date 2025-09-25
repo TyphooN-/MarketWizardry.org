@@ -82,6 +82,7 @@
 
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
+    <script src="/js/gpu-guide.js"></script></script>
 
     <style>
         * {
@@ -165,10 +166,13 @@
             background: #001100;
             overflow: hidden;
         }
-        .adventure-item:hover {
+        .adventure-item:hover,
+        .adventure-item:focus {
             transform: scale(1.05);
             opacity: 0.9;
             border-color: #00cc00;
+            outline: 2px solid #00ff00;
+            outline-offset: 2px;
         }
         .adventure-item.featured {
             grid-column: span 2;
@@ -392,7 +396,7 @@
 
     <div class="adventure-grid">
         <!-- Featured: Main GPU Buyers Guide 2025 -->
-        <div class="adventure-item featured" data-text="gpu-buyers-guide-2025.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp">
+        <div class="adventure-item featured" data-text="gpu-buyers-guide-2025.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp" tabindex="0" role="button" aria-label="Open Complete GPU Buyers' Guide 2025">
             <div class="featured-badge">NEW 2025 GUIDE</div>
             <img src="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp" alt="GPU Buyers' Guide 2025" loading="lazy">
             <div class="adventure-overlay">
@@ -402,7 +406,7 @@
         </div>
 
         <!-- Classic GPU Content -->
-        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/nvidia_snake_oil.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/amd_bigbrain.webp">
+        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/nvidia_snake_oil.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/amd_bigbrain.webp" tabindex="0" role="button" aria-label="Open NVIDIA Snake Oil Analysis">
             <img src="https://marketwizardry.org/blog/gpu-buyers-guide-2025/amd_bigbrain.webp" alt="AMD BigBrain Analysis" loading="lazy">
             <div class="adventure-overlay">
                 <div class="adventure-title">🧠 NVIDIA Snake Oil Analysis</div>
@@ -410,7 +414,7 @@
             </div>
         </div>
 
-        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/gpu_inferno.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_in_spec_power_delivery.webp">
+        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/gpu_inferno.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_in_spec_power_delivery.webp" tabindex="0" role="button" aria-label="Open GPU Inferno Power Problems Analysis">
             <img src="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_in_spec_power_delivery.webp" alt="NVIDIA Power Delivery Issues" loading="lazy">
             <div class="adventure-overlay">
                 <div class="adventure-title">🔥 GPU Inferno: Power Problems</div>
@@ -418,7 +422,7 @@
             </div>
         </div>
 
-        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/nvidia_missing_ROPs.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_rops_table.webp">
+        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/nvidia_missing_ROPs.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_rops_table.webp" tabindex="0" role="button" aria-label="Open The Great ROP Shortage Analysis">
             <img src="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_rops_table.webp" alt="NVIDIA ROPs Analysis" loading="lazy">
             <div class="adventure-overlay">
                 <div class="adventure-title">⚡ The Great ROP Shortage</div>
@@ -426,7 +430,7 @@
             </div>
         </div>
 
-        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/jensen_huang_goodguy.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_missing_rops.webp">
+        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/jensen_huang_goodguy.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_missing_rops.webp" tabindex="0" role="button" aria-label="Open Jensen Huang Good Guy Analysis">
             <img src="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_missing_rops.webp" alt="Jensen Huang Analysis" loading="lazy">
             <div class="adventure-overlay">
                 <div class="adventure-title">👤 Jensen Huang: The Good Guy?</div>
@@ -434,7 +438,7 @@
             </div>
         </div>
 
-        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/the_cost_of_pixels.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp">
+        <div class="adventure-item" data-text="https://marketwizardry.org/ai-musings/the_cost_of_pixels.txt" data-image="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp" tabindex="0" role="button" aria-label="Open The True Cost of Pixels Analysis">
             <img src="https://marketwizardry.org/blog/gpu-buyers-guide-2025/nvda_house.webp" alt="Cost of Pixels Analysis" loading="lazy">
             <div class="adventure-overlay">
                 <div class="adventure-title">💰 The True Cost of Pixels</div>
@@ -455,135 +459,6 @@
     </div>
 </div>
 
-<script>
-    // Enhanced Modal functionality with adventure picker
-    function initializeAdventureModal() {
-        const modal = document.getElementById("adventureModal");
-        const adventureItems = document.querySelectorAll(".adventure-item");
-        const modalImage = modal?.querySelector('.modal-image');
-        const modalIntroText = modal?.querySelector('.modal-intro-text');
-        const modalText = modal?.querySelector('.modal-text');
-        const closeBtn = document.querySelector('.close');
-
-        if (!modal || !modalImage || !modalIntroText || !modalText || !closeBtn) {
-            console.error('Modal elements not found - adventure modal setup failed');
-            return false;
-        }
-
-        modal.style.display = "none";
-        let currentItemIndex = -1;
-
-        function loadTextFile(url, callback) {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Network response was not ok: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => callback(null, data))
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    callback(error, 'Failed to load content. Please try again.');
-                });
-        }
-
-        function fitTextToIntroContainer(text) {
-            const words = text.split(' ');
-            let introText = '';
-            let remainingText = '';
-
-            modalIntroText.style.overflow = 'visible';
-            modalIntroText.textContent = '';
-
-            for (let i = 0; i < words.length; i++) {
-                const testText = introText + (introText ? ' ' : '') + words[i];
-                modalIntroText.textContent = testText;
-
-                if (modalIntroText.scrollHeight > modalIntroText.clientHeight) {
-                    remainingText = words.slice(i).join(' ');
-                    break;
-                }
-                introText = testText;
-            }
-
-            modalIntroText.style.overflow = 'hidden';
-            modalIntroText.textContent = introText;
-            return { introText, remainingText };
-        }
-
-        function openAdventureModal(index) {
-            if (index < 0 || index >= adventureItems.length) return;
-            currentItemIndex = index;
-
-            const item = adventureItems[currentItemIndex];
-            const textFile = item.getAttribute('data-text');
-            const imgSrc = item.getAttribute('data-image');
-
-            modalImage.src = imgSrc;
-
-            // Handle local vs remote text files
-            const textUrl = textFile.startsWith('http') ? textFile : `/blog/${textFile}`;
-
-            loadTextFile(textUrl, (error, data) => {
-                if (error) {
-                    console.error('Failed to load text file:', error);
-                    modalIntroText.textContent = 'Failed to load content. Please try again.';
-                    modalText.textContent = '';
-                } else {
-                    const paragraphs = data.split('\n\n');
-                    const firstParagraph = paragraphs[0] || '';
-                    const remainingParagraphs = paragraphs.slice(1).join('\n\n') || '';
-
-                    const { introText, remainingText } = fitTextToIntroContainer(firstParagraph);
-                    modalIntroText.textContent = introText;
-                    modalText.textContent = (remainingText ? remainingText + '\n\n' : '') + remainingParagraphs;
-                }
-
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden";
-                modal.focus();
-            });
-        }
-
-        function closeAdventureModal() {
-            modal.style.display = "none";
-            document.body.style.overflow = "auto";
-            currentItemIndex = -1;
-        }
-
-        // Event listeners
-        adventureItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                openAdventureModal(index);
-            });
-        });
-
-        closeBtn.addEventListener('click', closeAdventureModal);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeAdventureModal();
-            }
-        });
-
-        // Keyboard navigation
-        modal.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeAdventureModal();
-            }
-        });
-
-        return true;
-    }
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeAdventureModal);
-    } else {
-        initializeAdventureModal();
-    }
-</script>
 
 </body>
 </html>
