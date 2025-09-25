@@ -935,7 +935,7 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     
     # Generate breadcrumb title (cleaner version for breadcrumbs, only for educational posts)
     breadcrumb_title = title
-    educational_keywords = ['what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value', 'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'darwinex_rating_cap']
+    educational_keywords = ['what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value', 'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'darwinex_rating_cap', 'darwinex-rating-cap']
     is_educational = any(keyword in html_file.name.lower() for keyword in educational_keywords)
 
     if is_educational:
@@ -1091,7 +1091,7 @@ def update_blog_index(all_new_entries):
     educational_keywords = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
-        'gpu-buyers-guide', 'darwinex_rating_cap'
+        'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap'
     ]
 
     for entry in all_new_entries:
