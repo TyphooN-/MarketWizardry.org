@@ -1161,36 +1161,28 @@ def update_blog_index(all_new_entries):
     # Replace the grid content or create it if it doesn't exist
     # More robust approach: Find content between flavor text and end, replace with grid structure
 
-    # Pattern to match from after second crt-divider to end of file
-    # This pattern matches the actual structure in blog.html
-    content_pattern = r'(        <div class="crt-divider"></div>\s*\n        \n        \n        <div class="grid">\s*\n)(.*?)(\n        </div>\s*\n    </div>\s*\n</body>\s*\n</html>)'
-    content_match = re.search(content_pattern, current_content, flags=re.DOTALL)
+    # Pattern to match the educational and market analysis sections
+    # Account for variable whitespace between crt-divider and content
+    sections_pattern = r'(        <div class="crt-divider"></div>\s*\n\s*)(.*?)(\n    </div>\n</body>\n</html>)'
+    sections_match = re.search(sections_pattern, current_content, flags=re.DOTALL)
 
-    if content_match:
-        print("Found content area, replacing with grid structure...")
-        # Create proper grid structure with entries and closing tags
+    if sections_match:
+        print("Found sections area, replacing with new structure...")
         replacement = f'\1{entries_section}\3'
-        new_content = re.sub(content_pattern, replacement, current_content, flags=re.DOTALL)
+        new_content = re.sub(sections_pattern, replacement, current_content, flags=re.DOTALL)
     else:
-        print("Content pattern not found, trying grid wrapper pattern...")
-        # Try to find existing grid wrapper
-        grid_pattern = r'(        <div class="grid">)(.*?)(        </div>\s*    </div>\s*</body>\s*</html>)'
-        grid_match = re.search(grid_pattern, current_content, flags=re.DOTALL)
-        if grid_match:
-            print("Found existing grid wrapper, replacing content...")
-            replacement = f'\1\n{entries_section}\n\3'
-            new_content = re.sub(grid_pattern, replacement, current_content, flags=re.DOTALL)
+        print("Sections pattern not found, trying alternative patterns...")
+        # Force complete rebuild - find header up to crt-divider after flavor-text
+        header_pattern = r'(.*<div class="flavor-text">.*?</div>\s*\n        <div class="crt-divider"></div>)'
+        header_match = re.search(header_pattern, current_content, flags=re.DOTALL)
+        if header_match:
+            print("Force rebuilding entire blog structure...")
+            header = header_match.group(1)
+            footer = '\n    </div>\n</body>\n</html>'
+            new_content = f'{header}\n        \n        {entries_section}{footer}'
         else:
-            print("All patterns failed, creating complete structure...")
-            # Last resort: find the container div and replace everything after flavor text
-            container_pattern = r'(.*<div class="flavor-text">.*?</div>\s*\n        <div class="crt-divider"></div>\s*\n        \n)(.*?)($)'
-            container_match = re.search(container_pattern, current_content, flags=re.DOTALL)
-            if container_match:
-                replacement = f'\1        <div class="grid">\n{entries_section}\n        </div>\n    </div>\n</body>\n</html>'
-                new_content = re.sub(container_pattern, replacement, current_content, flags=re.DOTALL)
-            else:
-                print("Complete fallback: keeping existing content...")
-                new_content = current_content
+            print("Complete fallback: keeping existing content...")
+            new_content = current_content
     
     # Update SEO metadata before writing
     new_content = update_blog_seo_metadata(new_content)
