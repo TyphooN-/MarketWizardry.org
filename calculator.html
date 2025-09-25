@@ -48,6 +48,93 @@
     <meta name="twitter:label2" content="Price">
     <meta name="twitter:data2" content="Free">
 
+    <!-- Enhanced JSON-LD Schema Markup for Calculator Suite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MarketWizardry Financial Calculator Suite",
+        "url": "https://marketwizardry.org/calculator.html",
+        "description": "Professional financial calculator suite featuring VaR, stop loss, position sizing, portfolio risk management, and compound interest calculators for traders and investors.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "TyphooN"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "MarketWizardry.org",
+            "url": "https://marketwizardry.org"
+        },
+        "featureList": [
+            "Value at Risk (VaR) Calculator",
+            "Stop Loss Calculator",
+            "Position Sizing Calculator",
+            "Portfolio Risk Management Calculator",
+            "Compound Interest Calculator"
+        ],
+        "screenshot": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp",
+        "softwareVersion": "2.0",
+        "dateModified": "2025-09-25"
+    }
+    </script>
+
+    <!-- How-To Schema for Calculator Usage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Use Financial Risk Calculators",
+        "description": "Step-by-step guide to using professional financial calculators for risk management and position sizing",
+        "image": "https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp",
+        "totalTime": "PT10M",
+        "estimatedCost": {
+            "@type": "MonetaryAmount",
+            "currency": "USD",
+            "value": "0"
+        },
+        "tool": [
+            {
+                "@type": "HowToTool",
+                "name": "VaR Calculator"
+            },
+            {
+                "@type": "HowToTool",
+                "name": "Position Sizing Calculator"
+            }
+        ],
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Select Calculator Type",
+                "text": "Choose the appropriate calculator from the suite (VaR, Stop Loss, Position Sizing, Portfolio Risk, or Compound Interest)"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Input Parameters",
+                "text": "Enter your financial parameters such as portfolio value, risk percentage, or time horizon"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Calculate Results",
+                "text": "Click calculate to get precise risk metrics and position sizing recommendations"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Apply Results",
+                "text": "Use the calculated values to inform your trading and investment decisions"
+            }
+        ]
+    }
+    </script>
+
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
 
@@ -88,6 +175,8 @@
             cursor: pointer;
             position: relative;
             z-index: 10;
+            min-height: 44px;
+            touch-action: manipulation;
         }
         .calculator-card:hover {
             background-color: #002200;
@@ -137,13 +226,17 @@
             background-color: #003300;
             color: #00ff00;
             border: 2px solid #00ff00;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-family: "Courier New", monospace;
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.3s ease;
             margin-top: 15px;
+            min-height: 44px;
+            min-width: 44px;
+            font-size: 16px;
+            touch-action: manipulation;
         }
         .calculate-btn:hover {
             background-color: #004400;
@@ -266,6 +359,34 @@
         @media screen and (max-width: 768px) {
             .breadcrumb {
                 display: none;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .calculator-card {
+                padding: 16px;
+                min-height: 48px;
+            }
+
+            .calculate-btn {
+                width: 100%;
+                min-height: 48px;
+                padding: 14px 20px;
+                font-size: 18px;
+                margin-top: 20px;
+            }
+
+            input[type="text"], input[type="number"], select {
+                min-height: 44px;
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 6px;
+                width: 100%;
+                box-sizing: border-box;
             }
         }
 
