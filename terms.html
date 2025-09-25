@@ -172,7 +172,7 @@
             margin: 5% auto;
             padding: 10px;
             border: 2px solid #00ff00;
-            max-width: 90vw;
+            max-width: fit-content;
             width: fit-content;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation-name: animatetop;
@@ -228,12 +228,13 @@
             background-color: #000;
             color: #00ff00;
             font-family: "Courier New", monospace;
-            padding: 20px;
+            padding: 15px;
             margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-width: 90vw;
-            overflow-wrap: break-word;
+            white-space: pre;
+            max-height: 60vh;
+            overflow-y: auto;
+            overflow-x: auto;
+            font-size: 1.2em;
         }
 
         .nav-buttons {
@@ -304,22 +305,18 @@
             .modal-header {
                 flex-wrap: wrap;
                 gap: 8px;
-                justify-content: center;
-                padding: 10px 5px;
             }
-            
+
             .modal-header h2 {
                 font-size: 1em;
                 margin-bottom: 8px;
                 flex: 1 0 100%;
-                text-align: center;
             }
-            
+
             .modal-header a {
+                font-size: 0.7em;
                 padding: 4px 8px;
                 margin: 2px;
-                border: 1px solid #00ff00;
-                display: inline-block;
             }
             
             .close-button {
@@ -330,20 +327,21 @@
             }
             
             .modal-body {
-            background-color: #000;
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            padding: 20px;
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-width: 90vw;
-            overflow-wrap: break-word;
-        }
+                font-size: 0.65em;
+                white-space: pre;
+                overflow-x: auto;
+                max-height: calc(90vh - 160px);
+                padding: 10px;
+            }
             .nav-button {
                 padding: 8px 15px;
                 font-size: 14px;
-}
+                min-width: 60px;
+            }
+            .nav-counter {
+                font-size: 0.8em;
+            }
+        }
         .flavor-text {
             color: #00ff00;
             font-family: "Courier New", monospace;
