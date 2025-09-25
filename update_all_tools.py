@@ -528,7 +528,7 @@ class FinancialToolsUpdater:
             'ev': '/js/ev-explorer.js'
         }
         js_file = js_file_map.get(explorer_type, '/js/var-explorer.js')
-        return f'    <script src="/js/redirect.js"></script>\n    <script src="/js/shared.js"></script>\n    <script src="{js_file}"></script>'
+        return f'<script src="/js/redirect.js"></script>\n    <script src="/js/shared.js"></script>\n    <script src="{js_file}"></script>'
 
     def generate_var_explorer(self, data):
         """Generate VaR Explorer page with full modal functionality"""
@@ -648,9 +648,7 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
-    <script>
-{modal_js}
-    </script>
+    {modal_js}
 </body>
 </html>'''
 
@@ -792,9 +790,7 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
-    <script>
-{modal_js}
-    </script>
+    {modal_js}
 </body>
 </html>'''
 
@@ -936,9 +932,7 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
-    <script>
-{modal_js}
-    </script>
+    {modal_js}
 </body>
 </html>'''
 

@@ -628,15 +628,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     </div>
 </div>
     <script src="/js/nft-gallery.js"></script>
-    <script>
-        // CSP-compliant gallery initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = [IMAGE_PATHS_PLACEHOLDER];
-            if (window.initializeGallery) {
-                window.initializeGallery(imagePaths);
-            }
-        });
-    </script>
+    <script src="/js/gallery-data-GALLERY_ID.js"></script>
 </body>
 </html>
 """
@@ -654,8 +646,25 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                     relative_path = os.path.relpath(os.path.join(root, file), '.')
                     image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
-    image_paths_str = ',\n            '.join(image_paths)
-    final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
+    # Create external JavaScript data file for CSP compliance
+    gallery_id = username.replace(" ", "_").replace("-", "_")
+    js_data_file = f"../js/gallery-data-{gallery_id}.js"
+
+    # Generate external JavaScript file
+    js_content = f"""// Gallery data for {username}
+// CSP-compliant gallery initialization
+document.addEventListener('DOMContentLoaded', function() {{
+    const imagePaths = [{','.join(image_paths)}];
+    if (window.initializeGallery) {{
+        window.initializeGallery(imagePaths);
+    }}
+}});"""
+
+    with open(js_data_file, 'w') as js_f:
+        js_f.write(js_content)
+
+    # Replace placeholders in HTML template
+    final_html = html_template.replace("GALLERY_ID", gallery_id)
 
     if not image_paths:
         print(f"No .webp images found for user {username}. Deleting {output_file} if it exists.")
@@ -886,15 +895,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     </div>
 </div>
     <script src="/js/nft-gallery.js"></script>
-    <script>
-        // CSP-compliant gallery initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            const imagePaths = [IMAGE_PATHS_PLACEHOLDER];
-            if (window.initializeGallery) {
-                window.initializeGallery(imagePaths);
-            }
-        });
-    </script>
+    <script src="/js/gallery-data-GALLERY_ID.js"></script>
 </body>
 </html>
 """
@@ -912,8 +913,25 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                         relative_path = os.path.relpath(os.path.join(root, file), current_directory)
                         all_image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
-    image_paths_str = ',\n            '.join(all_image_paths)
-    final_html = html_template.replace("IMAGE_PATHS_PLACEHOLDER", image_paths_str)
+    # Create external JavaScript data file for CSP compliance
+    gallery_id = "all"
+    js_data_file = f"../js/gallery-data-{gallery_id}.js"
+
+    # Generate external JavaScript file
+    js_content = f"""// Gallery data for all images
+// CSP-compliant gallery initialization
+document.addEventListener('DOMContentLoaded', function() {{
+    const imagePaths = [{','.join(all_image_paths)}];
+    if (window.initializeGallery) {{
+        window.initializeGallery(imagePaths);
+    }}
+}});"""
+
+    with open(js_data_file, 'w') as js_f:
+        js_f.write(js_content)
+
+    # Replace placeholders in HTML template
+    final_html = html_template.replace("GALLERY_ID", gallery_id)
 
     with open(output_file, 'w') as f:
         f.write(final_html)
