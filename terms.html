@@ -102,38 +102,16 @@
         }
         .file-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             justify-content: center;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Responsive grid layout for different viewport widths */
-        @media screen and (min-width: 768px) {
+        @media screen and (max-width: 768px) {
             .file-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 1000px) {
-            .file-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                max-width: 1600px;
-            }
-        }
-
-        @media screen and (min-width: 1400px) {
-            .file-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                max-width: 1800px;
-            }
-        }
-
-        @media screen and (min-width: 1800px) {
-            .file-grid {
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                max-width: 2000px;
+                grid-template-columns: 1fr;
             }
         }
         .file-entry {
@@ -166,19 +144,16 @@
             background-color: rgba(0,0,0,0.8);
             padding-top: 60px;
         }
-
         .modal-content {
             background-color: #000;
             margin: 5% auto;
             padding: 10px;
             border: 2px solid #00ff00;
             max-width: fit-content;
-            width: fit-content;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation-name: animatetop;
-            animation-duration: 0.4s;
+            animation-duration: 0.4s
         }
-
         .modal-header {
             display: flex;
             justify-content: space-around;
@@ -187,13 +162,11 @@
             padding-bottom: 5px;
             margin-bottom: 5px;
         }
-
         .modal-header h2 {
             margin: 0;
             color: #00ff00;
             font-size: 1.2em;
         }
-
         .modal-header a {
             color: #00ff00;
             text-decoration: none;
@@ -202,11 +175,9 @@
             padding: 2px 5px;
             margin-left: 10px;
         }
-
         .modal-header a:hover {
             text-decoration: underline;
         }
-
         .close-button {
             color: #00ff00;
             font-size: 28px;
@@ -215,7 +186,6 @@
             padding: 0 5px;
             line-height: 1;
         }
-
         .close-button:hover,
         .close-button:focus {
             color: #00ff00;
@@ -223,20 +193,15 @@
             cursor: pointer;
             background-color: #001100;
         }
-
         .modal-body {
-            background-color: #000;
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            padding: 15px;
-            margin: 0;
             white-space: pre;
             max-height: 60vh;
             overflow-y: auto;
             overflow-x: auto;
+            color: #00ff00;
             font-size: 1.2em;
+            padding: 15px;
         }
-
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -245,7 +210,6 @@
             gap: 10px;
             padding: 0 15px;
         }
-
         .nav-button {
             background-color: #000;
             color: #00ff00;
@@ -253,79 +217,48 @@
             padding: 10px 20px;
             cursor: pointer;
             font-family: "Courier New", monospace;
-            font-size: 16px;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-            min-width: 80px;
+            transition: all 0.2s ease;
         }
-
         .nav-button:hover {
             background-color: #001100;
-            color: #00ff00;
+            transform: scale(1.02);
         }
-
-        .nav-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .nav-button:disabled:hover {
-            background-color: #000;
-        }
-
         .nav-counter {
             color: #00ff00;
             font-family: "Courier New", monospace;
-            font-size: 0.9em;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
         }
 
-        @keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
-        }
-@media screen and (max-width: 768px) {
+        @media screen and (max-width: 768px) {
+            .file-grid {
+                grid-template-columns: 1fr;
+            }
             .modal {
                 padding-top: 20px;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 1000;
             }
-            
             .modal-content {
                 margin: 2% auto;
                 width: 95%;
                 max-height: 90vh;
                 overflow-y: auto;
-                position: relative;
             }
-            
             .modal-header {
                 flex-wrap: wrap;
                 gap: 8px;
             }
-
             .modal-header h2 {
                 font-size: 1em;
                 margin-bottom: 8px;
                 flex: 1 0 100%;
             }
-
             .modal-header a {
                 font-size: 0.7em;
                 padding: 4px 8px;
                 margin: 2px;
             }
-            
-            .close-button {
-                position: absolute !important;
-                top: 10px;
-                right: 15px;
-                font-size: 24px !important;
-            }
-            
             .modal-body {
                 font-size: 0.65em;
                 white-space: pre;
