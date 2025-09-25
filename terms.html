@@ -152,13 +152,18 @@
         }
         .modal-content {
             background-color: #000;
-            margin: 5% auto;
+            margin: 2% auto;
             padding: 10px;
             border: 2px solid #00ff00;
-            max-width: fit-content;
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            max-height: 90vh;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation-name: animatetop;
-            animation-duration: 0.4s
+            animation-duration: 0.4s;
+            display: flex;
+            flex-direction: column;
         }
         .modal-header {
             display: flex;
@@ -202,7 +207,7 @@
         .modal-body {
             white-space: pre-wrap;
             word-wrap: break-word;
-            max-height: 60vh;
+            flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
             color: #00ff00;
@@ -249,8 +254,8 @@
             .modal-content {
                 margin: 2% auto;
                 width: 95%;
-                max-height: 90vh;
-                overflow-y: auto;
+                height: 95vh;
+                max-height: 95vh;
             }
             .modal-header {
                 flex-wrap: wrap;
@@ -271,7 +276,6 @@
                 white-space: pre-wrap;
                 word-wrap: break-word;
                 overflow-x: hidden;
-                max-height: calc(90vh - 160px);
                 padding: 10px;
             }
             .nav-button {
