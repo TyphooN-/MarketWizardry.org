@@ -131,10 +131,9 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
         }}
         h1 {{
             text-align: center;
-            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
             padding-bottom: 10px;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }}
         .crt-divider {{
             width: 100%;
