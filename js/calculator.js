@@ -2334,6 +2334,7 @@ function findSimilarSymbols(partial) {
             const lookupOutput = document.getElementById('lookup-output');
             if (lookupOutput && lookupOutput.innerHTML.trim() !== '') {
                 lookupOutput.innerHTML = '<p style="color: #00aa00;">Filters changed. Search again to see results from the selected filters.</p>';
+            }
         }
 
         // Initialize on page load - trying direct approach due to SES extension
@@ -2527,16 +2528,10 @@ function findSimilarSymbols(partial) {
         }, 500);
 
         // Calculator initialization complete
-    } // Close block 1
-    } // Close block 2
-    } // Close block 3
-    } // Close block 4
-    } // Close block 5
-    } // Close block 6
-    } // Close block 7
-    } // Close block 8
-    } // Close block 9
-    } // Close block 10
-    } // Close block 11
-    } // Close block 12
-    } // Close block 13
+    }  // Close updateActiveDataset function
+}  // Additional closing brace 1
+}  // Additional closing brace 2
+}  // Additional closing brace 3
+}  // Additional closing brace 4
+}  // Additional closing brace 5
+}  // Final closing brace
