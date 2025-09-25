@@ -3,6 +3,82 @@ let activeCalculator = null;
 
 // EMERGENCY FIX: Direct event listener setup
 console.log('🚨 EMERGENCY: Setting up direct event listeners...');
+
+// EMERGENCY: Define compound interest calculation function directly
+window.calculateCompoundInterest = function() {
+    console.log('🚨 EMERGENCY: calculateCompoundInterest called');
+
+    const principal = parseFloat(document.getElementById('ci-principal').value);
+    const rate = parseFloat(document.getElementById('ci-rate').value) / 100;
+    const time = parseFloat(document.getElementById('ci-time').value);
+    const compound = parseFloat(document.getElementById('ci-compound').value);
+    const monthlyContribution = parseFloat(document.getElementById('ci-monthly').value) || 0;
+
+    console.log('Input values:', {principal, rate, time, compound, monthlyContribution});
+
+    if (!principal || !rate || !time || !compound) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    // Calculate compound interest with monthly contributions
+    let balance = principal;
+    let totalContributions = principal;
+
+    for (let year = 1; year <= time; year++) {
+        // Add monthly contributions throughout the year
+        for (let month = 1; month <= 12; month++) {
+            balance += monthlyContribution;
+            totalContributions += monthlyContribution;
+
+            // Apply compound interest monthly if compounding frequency allows
+            const periodsPerYear = compound;
+            const ratePerPeriod = rate / periodsPerYear;
+
+            // Apply compounding based on frequency
+            for (let period = 1; period <= periodsPerYear / 12; period++) {
+                balance *= (1 + ratePerPeriod);
+            }
+        }
+    }
+
+    const totalInterest = balance - totalContributions;
+    const effectiveRate = ((balance / principal) ** (1 / time) - 1) * 100;
+
+    const output = `
+        <div style="padding: 20px; border: 2px solid #00ff00; border-radius: 8px;">
+            <h3 style="color: #00ff00; margin: 0 0 20px 0;">💰 Compound Interest Results</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <strong style="color: #00ff00;">Initial Investment:</strong><br>
+                    $${principal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
+                    <strong style="color: #00ff00;">Monthly Contributions:</strong><br>
+                    $${monthlyContribution.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
+                    <strong style="color: #00ff00;">Total Contributions:</strong><br>
+                    $${totalContributions.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                </div>
+                <div>
+                    <strong style="color: #00ff00;">Final Balance:</strong><br>
+                    <span style="font-size: 1.3em; color: #00ff00;">$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+                    <strong style="color: #00ff00;">Total Interest Earned:</strong><br>
+                    <span style="color: #00cc00;">$${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+                    <strong style="color: #00ff00;">Effective Annual Rate:</strong><br>
+                    <span style="color: #00cc00;">${effectiveRate.toFixed(2)}%</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const resultsElement = document.getElementById('ci-results');
+    if (resultsElement) {
+        resultsElement.innerHTML = output;
+        resultsElement.classList.add('show');
+        console.log('✅ Results displayed successfully');
+    } else {
+        console.error('❌ Results element not found');
+        alert('Results calculated but display element not found');
+    }
+};
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚨 EMERGENCY DOM ready - attaching direct listeners');
 
