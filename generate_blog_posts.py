@@ -1148,6 +1148,7 @@ def update_blog_index(all_new_entries):
 
     if daily_analysis_posts:
         daily_analysis_html = [
+            '        <div class="crt-divider"></div>',
             '        <h2 class="section-header">📊 Market Analysis</h2>',
             '        <div class="crt-divider"></div>',
             '        <div class="grid analysis-grid">'
