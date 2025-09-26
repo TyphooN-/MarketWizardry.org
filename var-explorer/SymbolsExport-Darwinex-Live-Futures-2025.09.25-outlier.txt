@@ -1,0 +1,53 @@
+Analysis results for ./SymbolsExport-Darwinex-Live-Futures-2025.09.25.csv
+Report generated on: 2025-09-25 20:29:43.247563
+Detected file type: Futures. Displaying top/bottom 5 assets at end.
+
+========================= Analysis for: UNDEFINED =========================
+---------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread                 | AskPrice     | Note
+---------------------------------------------------------------------------------------------------------------------
+6J_Z       | Undefined                                | 84527.7616      | 0.01%                  | $0.01        | (HIGH - Statistically Significant)
+---------------------------------------------------------------------------------------------------------------------
+
+========================= Analysis for: AGGREGATED COMMODITIES INDUSTRIES =========================
+---------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread                 | AskPrice     | Note
+---------------------------------------------------------------------------------------------------------------------
+HG_Z       | Commodities - Precious                   | 511.4475        | 0.02%                  | $4.78        | (HIGH - Statistically Significant)
+NG_X       | Commodities - Energy                     | 337.9279        | 0.03%                  | $3.21        | (HIGH - Statistically Significant)
+---------------------------------------------------------------------------------------------------------------------
+Skipping aggregation for sector 'Indexes': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
+Skipping aggregation for sector 'Utilities': Not enough instruments (1) to meet MINIMUM_GROUP_SIZE (5).
+
+========================= Global VaR/Ask Ratio Statistics (Including ETFs) =========================
+Q1 (25th percentile): 1.0936
+Q3 (75th percentile): 585.3889
+IQR (Interquartile Range): 584.2952
+Lower Outlier Bound: -875.3492
+Upper Outlier Bound: 1461.8318
+
+========================= Top 5 Highest VaR/Ask Assets (Including ETFs) =========================
+---------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread                 | AskPrice     | Note
+---------------------------------------------------------------------------------------------------------------------
+6J_Z       | Undefined                                | 84527.7616      | 0.01%                  | $0.01        | (HIGH - Statistically Significant)
+HO_X       | Undefined                                | 1053.1283       | 0.02%                  | $2.42        | (Low VaR/Ask)
+6S_Z       | Undefined                                | 987.3597        | 0.01%                  | $1.26        | (Low VaR/Ask)
+RB_X       | Undefined                                | 915.9530        | 0.02%                  | $1.96        | (Low VaR/Ask)
+6N_Z       | Undefined                                | 911.0753        | 0.02%                  | $0.58        | (Low VaR/Ask)
+---------------------------------------------------------------------------------------------------------------------
+
+========================= Bottom 5 Lowest VaR/Ask Assets (Including ETFs) =========================
+---------------------------------------------------------------------------------------------------------------------
+Symbol     | Industry                                 | VaR/Ask Ratio   | Spread                 | AskPrice     | Note
+---------------------------------------------------------------------------------------------------------------------
+YM_Z       | Undefined                                | 0.0412          | 0.00%                  | $46282.00    | (Low VaR/Ask)
+FESX_Z     | Undefined                                | 0.1026          | 0.02%                  | $5472.00     | (Low VaR/Ask)
+NQ_Z       | Undefined                                | 0.1962          | 0.00%                  | $24636.00    | (Low VaR/Ask)
+FDAX_Z     | Undefined                                | 0.3060          | 0.03%                  | $23707.00    | (Low VaR/Ask)
+ES_Z       | Utilities - Regulated Electric           | 0.3570          | 0.00%                  | $6662.75     | (Low VaR/Ask)
+---------------------------------------------------------------------------------------------------------------------
+
+============================== Unactionable (Close-Only) Symbols ==============================
+- HO_V (Undefined)
+- RB_V (Undefined)

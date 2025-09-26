@@ -2039,6 +2039,35 @@ function findSimilarSymbols(partial) {
             document.getElementById('lookup-output').innerHTML = output;
         }
 
+        window.showAllSymbols = function() {
+            if (!window.varData) {
+                document.getElementById('lookup-output').innerHTML = `
+                    <div style="padding: 15px; border: 1px solid #ff0000; border-radius: 4px;">
+                        <h3 style="color: #ff0000; margin: 0 0 15px 0;">Error: Symbol data not loaded</h3>
+                        <p style="color: #ffaa00;">Please refresh the page to reload symbol data.</p>
+                    </div>`;
+                return;
+            }
+            const symbols = Object.entries(window.varData);
+            let output = `
+                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">All Available Symbols (${symbols.length} total)</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 400px; overflow-y: auto;">
+            `;
+
+            symbols.forEach(([symbol, data]) => {
+                output += `
+                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
+                        <strong>${symbol}</strong> | $${data.price}<br>
+                        <small style="color: #00aa00;">${data.sector}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
         function filterSymbols() {
             const selectedSector = document.getElementById('lookup-filter').value;
             if (!selectedSector) {
@@ -2062,35 +2091,6 @@ function findSimilarSymbols(partial) {
                         <strong>${symbol}</strong><br>
                         <small>$${data.price} | VaR: $${data.var.toFixed(3)}</small><br>
                         <small style="color: #00aa00;">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
-                    </div>
-                `;
-            });
-
-            output += `</div></div>`;
-            document.getElementById('lookup-output').innerHTML = output;
-        }
-
-        window.showAllSymbols = function() {
-            if (!window.varData) {
-                document.getElementById('lookup-output').innerHTML = `
-                    <div style="padding: 15px; border: 1px solid #ff0000; border-radius: 4px;">
-                        <h3 style="color: #ff0000; margin: 0 0 15px 0;">Error: Symbol data not loaded</h3>
-                        <p style="color: #ffaa00;">Please refresh the page to reload symbol data.</p>
-                    </div>`;
-                return;
-            }
-            const symbols = Object.entries(window.varData);
-            let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">All Available Symbols (${symbols.length} total)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 400px; overflow-y: auto;">
-            `;
-
-            symbols.forEach(([symbol, data]) => {
-                output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
-                        <strong>${symbol}</strong> | $${data.price}<br>
-                        <small style="color: #00aa00;">${data.sector}</small>
                     </div>
                 `;
             });
