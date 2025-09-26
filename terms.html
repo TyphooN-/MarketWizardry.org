@@ -102,22 +102,16 @@
         }
         .file-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             justify-content: center;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        @media screen and (min-width: 769px) and (max-width: 1199px) {
+        @media screen and (min-width: 1024px) {
             .file-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media screen and (min-width: 1200px) {
-            .file-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         .file-entry {
@@ -157,8 +151,8 @@
             border: 2px solid #00ff00;
             width: 90%;
             max-width: 1200px;
-            height: 90vh;
-            max-height: 90vh;
+            height: 85vh;
+            max-height: 85vh;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation-name: animatetop;
             animation-duration: 0.4s;
@@ -219,8 +213,10 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
+            margin-bottom: 10px;
             gap: 10px;
             padding: 0 15px;
+            flex-shrink: 0;
         }
         .nav-button {
             background-color: #000;
@@ -246,7 +242,7 @@
 
         @media screen and (max-width: 768px) {
             .file-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
             .modal {
                 padding-top: 20px;
@@ -254,8 +250,8 @@
             .modal-content {
                 margin: 2% auto;
                 width: 95%;
-                height: 95vh;
-                max-height: 95vh;
+                height: 90vh;
+                max-height: 90vh;
             }
             .modal-header {
                 flex-wrap: wrap;
