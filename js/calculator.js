@@ -562,6 +562,18 @@ window.calculatePortfolioVaR = function() {
     document.getElementById('pf-results').classList.add('show');
 };
 
+// Dataset filtering variables - Global scope for access by all functions
+let activeDataset = 'all';
+let filteredVarData = window.varData || {};
+
+// Helper function for dataset display names
+function getDatasetDisplayName() {
+    return activeDataset === 'all' ? 'All Assets' :
+           activeDataset === 'stocks' ? 'Stocks' :
+           activeDataset === 'cfd' ? 'CFDs' :
+           activeDataset === 'futures' ? 'Futures' : activeDataset;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM ready - attaching direct listeners');
 
@@ -2284,8 +2296,7 @@ else if (symbol) {
         }
 
         // Dataset filtering functionality
-        let activeDataset = 'all';
-        let filteredVarData = varData;
+        // Variables moved to global scope - see above
 
         function updateActiveDataset() {
             const assetSelector = document.getElementById('dataset-selector');
