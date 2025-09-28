@@ -1164,14 +1164,21 @@ def update_blog_index(all_new_entries):
     # Replace the grid content or create it if it doesn't exist
     # More robust approach: Find content between flavor text and end, replace with grid structure
 
-    # Pattern to match content after main header, flavor text, and its crt-divider
-    # Look for the h1 Blog Explorer, crt-divider, flavor text, crt-divider, then replace everything after until end
-    sections_pattern = r'(        <h1>Blog Explorer</h1>\s*\n        <div class="crt-divider"></div>\s*\n        <div class="flavor-text">.*?</div>\s*\n        <div class="crt-divider"></div>\s*\n)(.*?)(\n    </div>\n</body>\n</html>)'
+    # Pattern to match any content after the container div, replacing everything until the end
+    # This ensures we rebuild the entire container content with proper header structure
+    sections_pattern = r'(<div class="container">\s*\n)(.*?)(\n    </div>\n</body>\n</html>)'
     sections_match = re.search(sections_pattern, current_content, flags=re.DOTALL)
 
     if sections_match:
         print("Found sections area, replacing with new structure...")
-        replacement = f'\1{entries_section}\3'
+        # Create complete container content with proper header structure
+        complete_container_content = '''        <h1>Blog Explorer</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Financial autism documented in real-time for your entertainment and education. Watch portfolios burn while pretending you're learning something.</div>
+        <div class="crt-divider"></div>
+
+        {entries_section}'''.format(entries_section=entries_section)
+        replacement = f'\1{complete_container_content}\3'
         new_content = re.sub(sections_pattern, replacement, current_content, flags=re.DOTALL)
     else:
         print("Sections pattern not found, trying alternative patterns...")
@@ -1184,8 +1191,29 @@ def update_blog_index(all_new_entries):
             footer = '\n    </div>\n</body>\n</html>'
             new_content = f'{header}\n        \n        {entries_section}{footer}'
         else:
-            print("Complete fallback: keeping existing content...")
-            new_content = current_content
+            print("Complete fallback: creating blog structure from scratch...")
+            # Find container start and breadcrumbs to preserve them
+            container_match = re.search(r'(.*<div class="container">\s*\n)', current_content, flags=re.DOTALL)
+            if container_match:
+                header_prefix = container_match.group(1)
+            else:
+                # Even more basic fallback - find body tag
+                body_match = re.search(r'(.*<body>\s*\n)', current_content, flags=re.DOTALL)
+                if body_match:
+                    header_prefix = body_match.group(1) + '    <div class="container">\n'
+                else:
+                    header_prefix = '<div class="container">\n'
+
+            # Create the complete blog structure with header, dividers, and flavor text
+            complete_container_content = '''        <h1>Blog Explorer</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Financial autism documented in real-time for your entertainment and education. Watch portfolios burn while pretending you're learning something.</div>
+        <div class="crt-divider"></div>
+
+        {entries_section}'''.format(entries_section=entries_section)
+
+            footer = '\n    </div>\n</body>\n</html>'
+            new_content = f'{header_prefix}{complete_container_content}{footer}'
     
     # Update SEO metadata before writing
     new_content = update_blog_seo_metadata(new_content)
