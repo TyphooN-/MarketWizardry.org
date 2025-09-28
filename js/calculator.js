@@ -722,6 +722,161 @@ window.performAdvancedSearch = function() {
     }
 }
 
+window.showNotFound = function(symbol) {
+    document.getElementById('lookup-output').innerHTML = `
+        <div class="calc-error-box">
+            <h4>❌ Symbol Not Found: ${symbol}</h4>
+            <p>This symbol was not found in our database.</p>
+            <div class="calc-suggestion-box">
+                <h5>💡 Suggestions:</h5>
+                <ul>
+                    <li>Check the spelling of the symbol</li>
+                    <li>Try using wildcards: *${symbol.substring(0, 2)}* for partial matches</li>
+                    <li>Use SECTOR: prefix to explore by sector (e.g., SECTOR:Technology)</li>
+                    <li>Browse available symbols using the filter dropdown</li>
+                </ul>
+            </div>
+        </div>
+    `;
+}
+
+window.performSymbolLookup = function() {
+    const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
+    if (symbol && filteredVarData[symbol]) {
+        displaySymbolInfo(symbol, filteredVarData[symbol]);
+    } else if (symbol && window.varData && window.varData[symbol]) {
+        // Fall back to full dataset if not in filtered view
+        displaySymbolInfo(symbol, window.varData[symbol]);
+        document.getElementById('lookup-output').innerHTML += `
+            <div class="calc-lookup-info">
+                <p>💡 This symbol was found in the full database but not in the current ${getDatasetDisplayName()} filter.</p>
+            </div>
+        `;
+    } else if (symbol) {
+        showNotFound(symbol);
+    }
+}
+
+window.displaySymbolInfo = function(symbol, data) {
+    const riskAssessment = generateRiskAssessment(data);
+    const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+        `<div class="calc-outlier-warning" style="margin: 8px 0; padding: 8px; background: rgba(255,136,0,0.2); border-left: 3px solid #ff8800;">
+            🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')} detected
+        </div>` : '';
+
+    const output = `
+        <div class="calc-detailed-info" style="border-color: ${riskAssessment.color};">
+            <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
+
+            <div class="calc-risk-message" style="color: ${riskAssessment.color}; font-size: 1.1em; margin-bottom: 15px;">
+                ${riskAssessment.recommendation}
+            </div>
+            ${outlierWarnings}
+
+            <div class="calc-detailed-grid">
+                <div>
+                    <h4 class="calc-data-section-title">💰 Price & Risk Data</h4>
+                    <div><strong>Current Price:</strong> $${data.price}</div>
+                    <div><strong>VaR (1 lot):</strong> $${data.var.toFixed(6)}</div>
+                    <div><strong>VaR %:</strong> ${(data.var / data.price * 100).toFixed(3)}%</div>
+                    <div><strong>Sector:</strong> ${data.sector}</div>
+                </div>
+                <div>
+                    <h4 class="calc-data-section-title">📊 ATR Values</h4>
+                    ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)} (${((data.atr_d1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                    ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)} (${((data.atr_w1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                    ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)} (${((data.atr_mn1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                    ${!data.atr_d1 ? '<div class="calc-warning-text">ATR data not available</div>' : ''}
+                </div>
+            </div>
+
+            ${data.ev_data ? `
+                <div class="calc-ev-box">
+                    <h4 class="calc-ev-title">💼 Enterprise Value Data</h4>
+                    <div><strong>Market Cap:</strong> $${(data.ev_data.market_cap / 1e9).toFixed(1)}B</div>
+                    <div><strong>Enterprise Value:</strong> $${(data.ev_data.enterprise_value / 1e9).toFixed(1)}B</div>
+                    <div><strong>MCap/EV Ratio:</strong> ${data.ev_data.mcap_ev_ratio.toFixed(1)}%</div>
+                </div>
+            ` : ''}
+
+            <div class="calc-trading-box">
+                <h4 class="calc-trading-title">🎯 Trading Suggestions</h4>
+                ${data.atr_d1 ? `
+                    <div><strong>Conservative Stop (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
+                    <div><strong>Aggressive Stop (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
+                ` : ''}
+                <div class="calc-trading-hint">💡 Use Stop Loss Calculator for custom risk management based on your timeframe</div>
+                ${data.outliers && data.outliers.length > 0 ? '<div class="calc-trading-warning">⚠️ Consider wider stops due to outlier volatility</div>' : ''}
+            </div>
+
+            <div class="calc-button-row">
+                <button class="quick-symbol-btn" class="use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn" class="use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn" class="find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('lookup-output').innerHTML = output;
+}
+
+window.generateRiskAssessment = function(data) {
+    const outlierCount = data.outliers ? data.outliers.length : 0;
+    const varRatio = data.var / data.price;
+
+    if (outlierCount >= 3) {
+        return {
+            recommendation: "⚠️ EXTREME RISK - Multiple outlier indicators",
+            color: "#ff0000"
+        };
+    } else if (outlierCount >= 2) {
+        return {
+            recommendation: "⚠️ HIGH RISK - Multiple outlier indicators detected",
+            color: "#ff8800"
+        };
+    } else if (outlierCount === 1) {
+        return {
+            recommendation: "⚡ MODERATE RISK - Single outlier indicator",
+            color: "#ffaa00"
+        };
+    } else if (varRatio > 0.05) {
+        return {
+            recommendation: "📊 ELEVATED VOLATILITY - High VaR ratio",
+            color: "#cccc00"
+        };
+    } else {
+        return {
+            recommendation: "✅ LOW RISK - Complete data available, no outliers",
+            color: "#00ff00"
+        };
+    }
+}
+
+window.getSectorAnalysis = function(sector) {
+    const sectorSymbols = Object.entries(window.varData || {}).filter(([symbol, data]) =>
+        data.sector.toLowerCase() === sector.toLowerCase()
+    );
+
+    if (sectorSymbols.length === 0) {
+        return { error: `No symbols found in sector: ${sector}` };
+    }
+
+    const avgVarRatio = sectorSymbols.reduce((sum, [symbol, data]) =>
+        sum + (data.var / data.price), 0) / sectorSymbols.length;
+
+    const outlierCount = sectorSymbols.filter(([symbol, data]) =>
+        data.outliers && data.outliers.length > 0).length;
+
+    return {
+        sector,
+        symbolCount: sectorSymbols.length,
+        symbols: sectorSymbols.map(([symbol]) => symbol),
+        avgVarRatio,
+        outlierCount,
+        data: sectorSymbols
+    };
+}
+
 function showSectorAnalysis(sectorName) {
     const analysis = getSectorAnalysis(sectorName);
 
@@ -2136,152 +2291,7 @@ else if (symbol) {
             document.getElementById('rr-results').classList.add('show');
         }
 
-        // Risk Assessment and Enhanced Lookup Functions
-        function generateRiskAssessment(data) {
-            const outlierCount = data.outliers ? data.outliers.length : 0;
-            const varRatio = data.var / data.price;
-
-            if (outlierCount >= 3) {
-                return {
-                    recommendation: "⚠️ EXTREME RISK - Multiple outlier indicators",
-                    color: "#ff0000"
-                };
-            } else if (outlierCount >= 2) {
-                return {
-                    recommendation: "⚠️ HIGH RISK - Multiple outlier indicators detected",
-                    color: "#ff8800"
-                };
-            } else if (outlierCount === 1) {
-                return {
-                    recommendation: "⚡ MODERATE RISK - Single outlier indicator",
-                    color: "#ffaa00"
-                };
-            } else if (varRatio > 0.05) {
-                return {
-                    recommendation: "📊 ELEVATED VOLATILITY - High VaR ratio",
-                    color: "#cccc00"
-                };
-            } else {
-                return {
-                    recommendation: "✅ LOW RISK - Complete data available, no outliers",
-                    color: "#00ff00"
-                };
-        }
-
-        function findSimilarSymbols(partial) {
-            const matches = Object.keys(window.varData || {}).filter(symbol =>
-                symbol.includes(partial.toUpperCase())
-            );
-            return matches.slice(0, 10);
-        }
-
-        function getSectorAnalysis(sector) {
-            const sectorSymbols = Object.entries(window.varData || {}).filter(([symbol, data]) =>
-                data.sector.toLowerCase() === sector.toLowerCase()
-            );
-
-            if (sectorSymbols.length === 0) {
-                return { error: `No symbols found in sector: ${sector}` };
-            }
-
-            const avgVarRatio = sectorSymbols.reduce((sum, [symbol, data]) =>
-                sum + (data.var / data.price), 0) / sectorSymbols.length;
-
-            const outlierCount = sectorSymbols.filter(([symbol, data]) =>
-                data.outliers && data.outliers.length > 0).length;
-
-            return {
-                sector,
-                symbolCount: sectorSymbols.length,
-                symbols: sectorSymbols.map(([symbol]) => symbol),
-                avgVarRatio,
-                outlierCount,
-                data: sectorSymbols
-            };
-        }
-
         // Symbol Lookup Functions
-        function performSymbolLookup() {
-            const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
-            if (symbol && filteredVarData[symbol]) {
-                displaySymbolInfo(symbol, filteredVarData[symbol]);
-            } else if (symbol && window.varData && window.varData[symbol]) {
-                // Fall back to full dataset if not in filtered view
-                displaySymbolInfo(symbol, window.varData[symbol]);
-                document.getElementById('lookup-output').innerHTML += `
-                    <div class="calc-lookup-info">
-                        <p>💡 This symbol was found in the full database but not in the current ${getDatasetDisplayName()} filter.</p>
-                    </div>
-                `;
-            } else if (symbol) {
-                showNotFound(symbol);
-            }
-        }
-
-
-        function displaySymbolInfo(symbol, data) {
-            const riskAssessment = generateRiskAssessment(data);
-            const outlierWarnings = data.outliers && data.outliers.length > 0 ?
-                `<div class="calc-outlier-warning" style="margin: 8px 0; padding: 8px; background: rgba(255,136,0,0.2); border-left: 3px solid #ff8800;">
-                    🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')} detected
-                </div>` : '';
-
-            const output = `
-                <div class="calc-detailed-info" style="border-color: ${riskAssessment.color};">
-                    <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
-
-                    <div class="calc-risk-message" style="color: ${riskAssessment.color}; font-size: 1.1em; margin-bottom: 15px;">
-                        ${riskAssessment.recommendation}
-                    </div>
-                    ${outlierWarnings}
-
-                    <div class="calc-detailed-grid">
-                        <div>
-                            <h4 class="calc-data-section-title">💰 Price & Risk Data</h4>
-                            <div><strong>Current Price:</strong> $${data.price}</div>
-                            <div><strong>VaR (1 lot):</strong> $${data.var.toFixed(6)}</div>
-                            <div><strong>VaR %:</strong> ${(data.var / data.price * 100).toFixed(3)}%</div>
-                            <div><strong>Sector:</strong> ${data.sector}</div>
-                        </div>
-                        <div>
-                            <h4 class="calc-data-section-title">📊 ATR Values</h4>
-                            ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)} (${((data.atr_d1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
-                            ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)} (${((data.atr_w1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
-                            ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)} (${((data.atr_mn1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
-                            ${!data.atr_d1 ? '<div class="calc-warning-text">ATR data not available</div>' : ''}
-                        </div>
-                    </div>
-
-                    ${data.ev_data ? `
-                        <div class="calc-ev-box">
-                            <h4 class="calc-ev-title">💼 Enterprise Value Data</h4>
-                            <div><strong>Market Cap:</strong> $${(data.ev_data.market_cap / 1e9).toFixed(1)}B</div>
-                            <div><strong>Enterprise Value:</strong> $${(data.ev_data.enterprise_value / 1e9).toFixed(1)}B</div>
-                            <div><strong>MCap/EV Ratio:</strong> ${data.ev_data.mcap_ev_ratio.toFixed(1)}%</div>
-                        </div>
-                    ` : ''}
-
-                    <div class="calc-trading-box">
-                        <h4 class="calc-trading-title">🎯 Trading Suggestions</h4>
-                        ${data.atr_d1 ? `
-                            <div><strong>Conservative Stop (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
-                            <div><strong>Aggressive Stop (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
-                        ` : ''}
-                        <div class="calc-trading-hint">💡 Use Stop Loss Calculator for custom risk management based on your timeframe</div>
-                        ${data.outliers && data.outliers.length > 0 ? '<div class="calc-trading-warning">⚠️ Consider wider stops due to outlier volatility</div>' : ''}
-                    </div>
-
-                    <div class="calc-button-row">
-                        <button class="quick-symbol-btn" class="use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
-                        <button class="quick-symbol-btn" class="use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
-                        <button class="quick-symbol-btn" class="find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('lookup-output').innerHTML = output;
-        }
-
 
         function filterSymbols() {
             const selectedSector = document.getElementById('lookup-filter').value;
@@ -2702,8 +2712,6 @@ else if (symbol) {
 
         // Calculator initialization complete
 
-    }  // Close missing brace 1
-    }  // Close missing brace 2
-    }  // Close missing brace 3
-
-};  // Close DOMContentLoaded function
+    } // Close first missing brace
+    } // Close second missing brace
+}; // Close DOMContentLoaded function
