@@ -45,24 +45,24 @@ window.calculateCompoundInterest = function() {
     const effectiveRate = ((balance / principal) ** (1 / time) - 1) * 100;
 
     const output = `
-        <div style="padding: 20px; border: 2px solid #00ff00; border-radius: 8px;">
-            <h3 style="color: #00ff00; margin: 0 0 20px 0;">💰 Compound Interest Results</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+        <div class="calc-result-container">
+            <h3 class="calc-result-title">💰 Compound Interest Results</h3>
+            <div class="calc-result-grid">
                 <div>
-                    <strong style="color: #00ff00;">Initial Investment:</strong><br>
+                    <strong class="calc-result-value">Initial Investment:</strong><br>
                     $${principal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
-                    <strong style="color: #00ff00;">Monthly Contributions:</strong><br>
+                    <strong class="calc-result-value">Monthly Contributions:</strong><br>
                     $${monthlyContribution.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
-                    <strong style="color: #00ff00;">Total Contributions:</strong><br>
+                    <strong class="calc-result-value">Total Contributions:</strong><br>
                     $${totalContributions.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                 </div>
                 <div>
-                    <strong style="color: #00ff00;">Final Balance:</strong><br>
-                    <span style="font-size: 1.3em; color: #00ff00;">$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
-                    <strong style="color: #00ff00;">Total Interest Earned:</strong><br>
-                    <span style="color: #00cc00;">$${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
-                    <strong style="color: #00ff00;">Effective Annual Rate:</strong><br>
-                    <span style="color: #00cc00;">${effectiveRate.toFixed(2)}%</span>
+                    <strong class="calc-result-value">Final Balance:</strong><br>
+                    <span class="calc-result-amount">$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+                    <strong class="calc-result-value">Total Interest Earned:</strong><br>
+                    <span class="calc-result-positive">$${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+                    <strong class="calc-result-value">Effective Annual Rate:</strong><br>
+                    <span class="calc-result-positive">${effectiveRate.toFixed(2)}%</span>
                 </div>
             </div>
         </div>
@@ -175,9 +175,9 @@ window.selectCalculator = function(calculatorType, clickedElement) {
 
             if (calculatorType && calculatorNames[calculatorType]) {
                 nameElement.textContent = calculatorNames[calculatorType];
-                breadcrumbElement.style.display = 'inline';
+                breadcrumbElement.className = breadcrumbElement.className.replace(' display-none', '');
             } else {
-                breadcrumbElement.style.display = 'none';
+                breadcrumbElement.className += ' display-none';
             }
         }
 
@@ -192,7 +192,7 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             cards.forEach(card => card.classList.remove('active'));
 
             // Hide breadcrumb active calculator
-            document.getElementById('active-calculator-breadcrumb').style.display = 'none';
+            document.getElementById('active-calculator-breadcrumb').className += ' display-none';
 
             // Reset active calculator
             activeCalculator = null;
@@ -238,14 +238,15 @@ window.selectCalculator = function(calculatorType, clickedElement) {
                 const atrLabel = document.querySelector('label[for="sl-atr"]');
                 const originalText = atrLabel.innerHTML;
                 atrLabel.innerHTML = `ATR (${timeframe}) - Auto-filled for ${symbol} ✓`;
-                atrLabel.style.color = '#00ff00';
+                atrLabel.className += ' calc-var-color-green';
 
                 setTimeout(() => {
                     atrLabel.innerHTML = originalText;
-                    atrLabel.style.color = '';
+                    atrLabel.className = atrLabel.className.replace(' calc-var-color-green', '');
                 }, 3000);
         }
-function toggleStopLossMode() {
+
+        function toggleStopLossMode() {
             const mode = document.getElementById('sl-risk-mode').value;
             const label = document.getElementById('sl-risk-label');
             const input = document.getElementById('sl-risk-value');
@@ -360,15 +361,15 @@ function toggleStopLossMode() {
             const percentageStop = entryPrice - riskPerShare;
 
             let output = `
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Position Value:</div>
                     <div class="result-value">$${positionValue.toLocaleString()}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Maximum Risk Amount:</div>
                     <div class="result-value">$${riskAmount.toFixed(2)}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Risk-Based Stop Loss:</div>
                     <div class="result-value">$${percentageStop.toFixed(2)} (${((entryPrice - percentageStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
                 </div>
@@ -376,27 +377,27 @@ function toggleStopLossMode() {
 
             // Add timeframe-specific recommendations
             output += `
-                <div style="margin: 20px 0; padding: 15px; background: rgba(0,255,0,0.1); border-left: 3px solid #00ff00;">
-                    <h4 style="color: #00ff00; margin: 0 0 10px 0;">📊 ${timeframe} Timeframe Recommendations</h4>
-                    <div style="color: #00cc00; margin-bottom: 8px;"><strong>${tfData.description}</strong></div>
-                    <div style="color: #00aa00; font-size: 0.9em; margin-bottom: 10px;">${tfData.notes}</div>
+                <div class="calc-timeframe-box">
+                    <h4 class="calc-timeframe-title">📊 ${timeframe} Timeframe Recommendations</h4>
+                    <div class="calc-timeframe-desc"><strong>${tfData.description}</strong></div>
+                    <div class="calc-timeframe-notes">${tfData.notes}</div>
                 </div>
             `;
 
             if (atr) {
-                output += `<h4 style="color: #00ff00; margin: 15px 0 10px 0;">ATR-Based Stop Loss Options (${timeframe}):</h4>`;
+                output += `<h4 class="calc-atr-title">ATR-Based Stop Loss Options (${timeframe}):</h4>`;
 
                 tfData.multipliers.forEach((multiplier, index) => {
                     const atrStop = entryPrice - (atr * multiplier);
                     const isRecommended = multiplier === tfData.recommended;
                     const label = index === 0 ? 'Conservative' : index === 1 ? 'Balanced' : 'Aggressive';
-                    const style = isRecommended ? 'background: rgba(0,255,0,0.2); border: 1px solid #00ff00; padding: 8px; border-radius: 4px;' : '';
+                    const extraClass = isRecommended ? ' calc-atr-recommended' : '';
 
                     output += `
-                        <div style="margin-bottom: 10px; ${style}">
+                        <div class="calc-atr-option${extraClass}">
                             <div class="result-label">${label} (${multiplier}x ATR)${isRecommended ? ' ⭐ RECOMMENDED' : ''}:</div>
                             <div class="result-value">$${atrStop.toFixed(2)} (${((entryPrice - atrStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
-                            <div style="color: #00aa00; font-size: 0.8em;">Risk per share: $${(entryPrice - atrStop).toFixed(2)} | Total risk: $${((entryPrice - atrStop) * positionSize).toFixed(2)}</div>
+                            <div class="calc-atr-risk">Risk per share: $${(entryPrice - atrStop).toFixed(2)} | Total risk: $${((entryPrice - atrStop) * positionSize).toFixed(2)}</div>
                         </div>
                     `;
                 });
@@ -407,9 +408,9 @@ function toggleStopLossMode() {
                 const atrBasedRisk = (entryPrice - recommendedStop) * positionSize;
 
                 output += `
-                    <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,0,0.1); border: 1px solid #ffff00;">
-                        <h4 style="color: #ffff00; margin: 0 0 8px 0;">📋 Stop Loss Comparison</h4>
-                        <div style="color: #cccc00;">
+                    <div class="calc-comparison-box">
+                        <h4 class="calc-comparison-title">📋 Stop Loss Comparison</h4>
+                        <div class="calc-comparison-text">
                             Risk-based (${riskPercent}%): $${riskBasedRisk.toFixed(2)} risk<br>
                             ATR-based (${tfData.recommended}x): $${atrBasedRisk.toFixed(2)} risk<br>
                             <strong>Difference: $${Math.abs(riskBasedRisk - atrBasedRisk).toFixed(2)} ${riskBasedRisk > atrBasedRisk ? '(ATR tighter)' : '(ATR wider)'}</strong>
@@ -418,9 +419,9 @@ function toggleStopLossMode() {
                 `;
             } else {
                 output += `
-                    <div style="margin: 15px 0; padding: 10px; background: rgba(255,165,0,0.1); border: 1px solid #ffa500;">
-                        <div style="color: #ff8800;">💡 <strong>Add ATR value to see ${timeframe} timeframe recommendations!</strong></div>
-                        <div style="color: #cc6600; font-size: 0.9em; margin-top: 5px;">
+                    <div class="calc-warning-box">
+                        <div class="calc-warning-text">💡 <strong>Add ATR value to see ${timeframe} timeframe recommendations!</strong></div>
+                        <div class="calc-warning-subtext">
                             Recommended multiplier for ${timeframe}: ${tfData.recommended}x ATR<br>
                             ${tfData.description}
                         </div>
@@ -429,7 +430,7 @@ function toggleStopLossMode() {
             }
 
             output += `
-                <div class="warning-text" style="margin-top: 15px;">
+                <div class="warning-text calc-warning-main">
                     ⚠️ Stop Loss Guidelines:<br>
                     • Stop losses don't guarantee execution at your desired price during gaps<br>
                     • Consider using ATR from your actual trading timeframe for best results<br>
@@ -535,23 +536,23 @@ function toggleStopLossMode() {
             const actualRisk = positionSize * riskPerShare;
 
             const output = `
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Risk Amount:</div>
                     <div class="result-value">$${riskAmount.toFixed(2)}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Risk per Share:</div>
                     <div class="result-value">$${riskPerShare.toFixed(2)}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Recommended Position Size:</div>
                     <div class="result-value">${positionSize.toLocaleString()} shares</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Position Value:</div>
                     <div class="result-value">$${positionValue.toLocaleString()}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Actual Risk:</div>
                     <div class="result-value">$${actualRisk.toFixed(2)} (${(actualRisk/accountSize*100).toFixed(2)}% of account)</div>
                 </div>
@@ -1483,7 +1484,7 @@ function toggleStopLossMode() {
                 displaySymbolInfoInPortfolio(symbol, window.varData[symbol]);
             } else {
                 document.getElementById('symbol-details').innerHTML = `
-                    <div style="color: #ff8800; padding: 10px; border: 1px solid #ff8800; border-radius: 4px;">
+                    <div class="calc-error-box">
                         Symbol "${symbol}" not found in database.
                     </div>
                 `;
@@ -1494,41 +1495,42 @@ function toggleStopLossMode() {
         function displaySymbolInfoInPortfolio(symbol, data) {
             const riskAssessment = generateRiskAssessment(data);
             const outlierWarnings = data.outliers && data.outliers.length > 0 ?
-                `<div style="color: #ff8800; font-weight: bold; margin: 5px 0;">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+                `<div class="calc-outlier-warning">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
 
             const detailsDiv = document.getElementById('symbol-details');
             const infoDiv = document.getElementById('symbol-info');
 
             detailsDiv.innerHTML = `
-                <div style="border: 2px solid ${riskAssessment.color}; padding: 10px; border-radius: 4px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="calc-symbol-info-box" style="border-color: ${riskAssessment.color};">
+                    <div class="calc-symbol-info-grid">
                         <div>
-                            <strong style="color: #00ff00;">${symbol}</strong> - ${data.description}<br>
-                            <span style="color: #00cc00;">Sector:</span> ${data.sector}<br>
-                            <span style="color: #00cc00;">Current Price:</span> $${data.price}
+                            <strong class="calc-symbol-name">${symbol}</strong> - ${data.description}<br>
+                            <span class="calc-symbol-sector">Sector:</span> ${data.sector}<br>
+                            <span class="calc-symbol-sector">Current Price:</span> $${data.price}
                             ${outlierWarnings}
                         </div>
                         <div>
-                            <span style="color: #00cc00;">1-Day VaR (95%):</span> $${data.var}<br>
-                            <span style="color: #00cc00;">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
-                            <div style="color: ${riskAssessment.color}; font-weight: bold; margin: 5px 0;">${riskAssessment.recommendation}</div>
-                            <button class="add-symbol-to-portfolio" data-symbol="${symbol}" style="background: #003300; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Add to Portfolio</button>
+                            <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
+                            <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                            <div class="calc-risk-message" style="color: ${riskAssessment.color};">${riskAssessment.recommendation}</div>
+                            <button class="add-symbol-to-portfolio calc-add-portfolio-btn" data-symbol="${symbol}">Add to Portfolio</button>
                         </div>
                     </div>
                 </div>
             `;
-            infoDiv.style.display = 'block';
+            infoDiv.className = infoDiv.className.replace(' display-none', '');
         }
-function addSymbolToPortfolio(symbol) {
+
+        function addSymbolToPortfolio(symbol) {
             const data = window.varData[symbol];
             if (!data) return;
 
             const tbody = document.getElementById('portfolio-positions');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" value="${symbol}" style="width: 60px;" class="position-symbol-input"></td>
-                <td><input type="number" placeholder="100" style="width: 60px;" class="position-input"></td>
-                <td><input type="number" value="${data.price}" step="0.01" style="width: 70px;" class="position-price-input"></td>
+                <td><input type="text" value="${symbol}" class="position-symbol-input calc-input-small"></td>
+                <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
+                <td><input type="number" value="${data.price}" step="0.01" class="position-price-input calc-input-medium"></td>
                 <td class="value-display">-</td>
                 <td class="var-display">$${data.var}</td>
                 <td class="weight-display">-</td>
@@ -1537,7 +1539,7 @@ function addSymbolToPortfolio(symbol) {
             tbody.appendChild(newRow);
 
             // Hide symbol info
-            document.getElementById('symbol-info').style.display = 'none';
+            document.getElementById('symbol-info').className += ' display-none';
             document.getElementById('symbol-lookup').value = '';
         }
 
@@ -1545,14 +1547,14 @@ function addSymbolToPortfolio(symbol) {
             const tbody = document.getElementById('portfolio-positions');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" placeholder="SYMBOL" style="width: 60px;" class="position-input"></td>
-                <td><input type="number" placeholder="100" style="width: 60px;" class="position-input"></td>
-                <td><input type="number" placeholder="150.00" step="0.01" style="width: 70px;" class="position-input"></td>
+                <td><input type="text" placeholder="SYMBOL" class="position-input calc-input-small"></td>
+                <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
+                <td><input type="number" placeholder="150.00" step="0.01" class="position-input calc-input-medium"></td>
                 <td class="value-display">-</td>
                 <td class="var-display">-</td>
-                <td class="var-percent-display" style="font-size: 0.9em; color: #ffaa00;">-</td>
+                <td class="var-percent-display calc-var-percent">-</td>
                 <td class="weight-display">-</td>
-                <td class="asset-class-display" style="font-size: 0.8em; color: #00aa00;">-</td>
+                <td class="asset-class-display calc-asset-class">-</td>
                 <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
             `;
             tbody.appendChild(newRow);
@@ -1580,8 +1582,8 @@ function addSymbolToPortfolio(symbol) {
 
                 // Calculate VaR percentage (VaR / Position Value * 100)
                 const varPercent = value > 0 ? (positionVar / value * 100) : 0;
-                const varColor = varPercent > 10 ? '#ff0000' : varPercent > 5 ? '#ff8800' : '#ffaa00';
-                varPercentDisplay.innerHTML = `<span style="color: ${varColor};">${varPercent.toFixed(2)}%</span>`;
+                const varColorClass = varPercent > 10 ? 'calc-var-color-red' : varPercent > 5 ? 'calc-var-color-orange' : 'calc-var-color-yellow';
+                varPercentDisplay.innerHTML = `<span class="${varColorClass}">${varPercent.toFixed(2)}%</span>`;
 
                 // Show asset class with appropriate styling
                 const assetClass = window.varData[symbol].asset_class;
@@ -1590,16 +1592,16 @@ function addSymbolToPortfolio(symbol) {
                                    assetClass === 'futures' ? 'Future' : assetClass;
 
                 // Color coding for asset classes
-                const assetColor = assetClass === 'stocks' ? '#00ff00' :
-                                  assetClass === 'cfd' ? '#ffaa00' :
-                                  assetClass === 'futures' ? '#ff8800' : '#00aa00';
+                const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                                       assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                                       assetClass === 'futures' ? 'calc-asset-color-futures' : 'calc-asset-color-unknown';
 
-                assetClassDisplay.innerHTML = `<span style="color: ${assetColor};">${assetDisplay}</span>`;
+                assetClassDisplay.innerHTML = `<span class="${assetColorClass}">${assetDisplay}</span>`;
 
                 // Check if symbol is in current filtered dataset
                 const inFilteredDataset = filteredVarData[symbol] !== undefined;
                 if (!inFilteredDataset && activeDataset !== 'all') {
-                    assetClassDisplay.innerHTML += ` <small style="color: #888;">⚠️</small>`;
+                    assetClassDisplay.innerHTML += ` <small class="calc-filter-warning">⚠️</small>`;
                     assetClassDisplay.title = `This ${assetDisplay} is not in the current ${getDatasetDisplayName()} filter`;
                 }
 
@@ -1610,8 +1612,8 @@ function addSymbolToPortfolio(symbol) {
         }
 else if (symbol) {
                 varDisplay.textContent = 'Unknown';
-                varPercentDisplay.innerHTML = '<span style="color: #ff0000;">Unknown</span>';
-                assetClassDisplay.innerHTML = '<span style="color: #ff0000;">Unknown</span>';
+                varPercentDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+                assetClassDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
             } else {
                 varPercentDisplay.textContent = '-';
                 assetClassDisplay.textContent = '-';
@@ -1667,8 +1669,10 @@ else if (symbol) {
                     });
                     totalValue += value;
                     totalVaR += positionVaR;
-        }
-if (positions.length === 0) {
+                }
+            }
+
+            if (positions.length === 0) {
                 alert('Please add at least one position');
                 return;
             }
@@ -1699,15 +1703,15 @@ if (positions.length === 0) {
             });
 
             let output = `
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Total Portfolio Value:</div>
                     <div class="result-value">$${totalValue.toLocaleString()}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Portfolio VaR (${confidence}%, ${timeHorizon} day${timeHorizon > 1 ? 's' : ''}):</div>
                     <div class="result-value">$${adjustedPortfolioVaR.toFixed(2)} (${(adjustedPortfolioVaR/totalValue*100).toFixed(2)}% of portfolio)</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Daily VaR (estimated):</div>
                     <div class="result-value">$${(totalVaR * confidenceAdjustment).toFixed(2)} (${(totalVaR * confidenceAdjustment/totalValue*100).toFixed(2)}% of portfolio)</div>
                 </div>
@@ -1717,8 +1721,8 @@ if (positions.length === 0) {
             const assetClassCount = Object.keys(assetClassBreakdown).length;
             if (assetClassCount > 1 || (assetClassCount === 1 && !assetClassBreakdown['unknown'])) {
                 output += `
-                    <div style="margin-bottom: 15px; padding: 10px; background: rgba(0,255,0,0.05); border: 1px solid #00aa00; border-radius: 4px;">
-                        <h4 style="color: #00aa00; margin: 0 0 10px 0;">📊 Asset Class Breakdown</h4>
+                    <div class="calc-portfolio-breakdown">
+                        <h4 class="calc-breakdown-title">📊 Asset Class Breakdown</h4>
                 `;
 
                 Object.entries(assetClassBreakdown).forEach(([assetClass, data]) => {
@@ -1728,17 +1732,17 @@ if (positions.length === 0) {
                                        assetClass === 'futures' ? 'Futures' :
                                        assetClass === 'unknown' ? 'Unknown' : assetClass;
 
-                    const assetColor = assetClass === 'stocks' ? '#00ff00' :
-                                      assetClass === 'cfd' ? '#ffaa00' :
-                                      assetClass === 'futures' ? '#ff8800' :
-                                      assetClass === 'unknown' ? '#ff0000' : '#00aa00';
+                    const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                                           assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                                           assetClass === 'futures' ? 'calc-asset-color-futures' :
+                                           assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
 
                     const filterStatus = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️' : '';
                     const filterNote = filterStatus ? ` (outside current ${getDatasetDisplayName()} filter)` : '';
 
                     output += `
-                        <div style="margin-bottom: 5px;">
-                            <span style="color: ${assetColor}; font-weight: bold;">${assetDisplay}${filterStatus}</span>:
+                        <div class="calc-asset-item">
+                            <span class="${assetColorClass}" style="font-weight: bold;">${assetDisplay}${filterStatus}</span>:
                             $${data.value.toLocaleString()} (${percentage}%) |
                             ${data.count} position${data.count > 1 ? 's' : ''} |
                             VaR: $${data.var.toFixed(2)}${filterNote}
@@ -1749,7 +1753,7 @@ if (positions.length === 0) {
                 output += `</div>`;
             }
 
-            output += `<h4 style="color: #00ff00; margin: 20px 0 10px 0;">Position Breakdown:</h4>`;
+            output += `<h4 class="calc-result-title" style="margin: 20px 0 10px 0;">Position Breakdown:</h4>`;
             for (let pos of positions) {
                 const dataSource = pos.hasRealData ? '📊' : '⚠️';
                 const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
@@ -1765,16 +1769,16 @@ if (positions.length === 0) {
                                    assetClass === 'futures' ? 'Future' :
                                    assetClass === 'unknown' ? 'Unknown' : assetClass;
 
-                const assetColor = assetClass === 'stocks' ? '#00ff00' :
-                                  assetClass === 'cfd' ? '#ffaa00' :
-                                  assetClass === 'futures' ? '#ff8800' :
-                                  assetClass === 'unknown' ? '#ff0000' : '#00aa00';
+                const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                                       assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                                       assetClass === 'futures' ? 'calc-asset-color-futures' :
+                                       assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
 
                 const filterWarning = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️ Outside current filter' : '';
 
                 output += `
-                    <div style="margin-bottom: 8px; padding: 8px; background: rgba(0,255,0,0.1); border-left: 2px solid ${borderColor};">
-                        <strong>${pos.symbol}</strong> <span style="color: ${assetColor}; font-size: 0.9em;">[${assetDisplay}]</span> ${dataSource} ${dataNote}${outlierWarning}${filterWarning}<br>
+                    <div class="calc-position-box" style="border-left-color: ${borderColor};">
+                        <strong class="calc-position-name">${pos.symbol}</strong> <span class="${assetColorClass}" style="font-size: 0.9em;">[${assetDisplay}]</span> ${dataSource} ${dataNote}${outlierWarning}${filterWarning}<br>
                         ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
                         Position VaR: $${pos.positionVaR.toFixed(2)} (VaR/share: $${pos.varPerShare.toFixed(2)})
                         ${riskAssessment ? `<br><span style="color: ${riskAssessment.color}; font-size: 0.9em;">${riskAssessment.recommendation}</span>` : ''}
@@ -1788,10 +1792,10 @@ if (positions.length === 0) {
 
             if (portfolioRiskAnalysis) {
                 output += `
-                    <div style="margin: 15px 0; padding: 10px; background: rgba(255,136,0,0.1); border: 2px solid ${portfolioRiskAnalysis.color}; border-radius: 4px;">
-                        <h4 style="color: ${portfolioRiskAnalysis.color}; margin: 0 0 8px 0;">🎯 Portfolio Risk Assessment</h4>
-                        <div style="color: ${portfolioRiskAnalysis.color}; font-weight: bold;">${portfolioRiskAnalysis.message}</div>
-                        <div style="color: #cccccc; font-size: 0.9em; margin-top: 5px;">
+                    <div class="calc-risk-assessment-box" style="border-color: ${portfolioRiskAnalysis.color};">
+                        <h4 class="calc-risk-title" style="color: ${portfolioRiskAnalysis.color};">🎯 Portfolio Risk Assessment</h4>
+                        <div class="calc-risk-message" style="color: ${portfolioRiskAnalysis.color};">${portfolioRiskAnalysis.message}</div>
+                        <div class="calc-risk-details">
                             High-risk positions: ${portfolioRiskAnalysis.highRiskCount}/${portfolioRiskAnalysis.totalCount}
                             (${((portfolioRiskAnalysis.highRiskCount / portfolioRiskAnalysis.totalCount) * 100).toFixed(1)}%)
                         </div>
@@ -1800,7 +1804,7 @@ if (positions.length === 0) {
             }
 
             output += `
-                <div class="warning-text" style="margin-top: 15px;">
+                <div class="warning-text calc-warning-main">
                     📊 ${realDataCount} position${realDataCount !== 1 ? 's' : ''} using real VaR data from market analysis<br>
                     ${estimatedCount > 0 ? `⚠️ ${estimatedCount} position${estimatedCount !== 1 ? 's' : ''} using estimated VaR (2% of position value)<br>` : ''}
                     ⚠️ This calculation assumes no correlation between positions. Actual portfolio VaR may be higher during market stress when correlations increase.<br>
@@ -1853,33 +1857,35 @@ if (positions.length === 0) {
                 } else {
                     currentDrawdown = peak - cumReturn;
                     maxDrawdown = Math.max(maxDrawdown, currentDrawdown);
-        }
-const output = `
-                <div style="margin-bottom: 15px;">
+                }
+            }
+
+            const output = `
+                <div class="calc-margin-bottom">
                     <div class="result-label">Sample Size:</div>
                     <div class="result-value">${returns.length} periods</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Mean Return (per period):</div>
                     <div class="result-value">${meanReturn.toFixed(3)}%</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Volatility (per period):</div>
                     <div class="result-value">${stdDev.toFixed(3)}%</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Annualized Return:</div>
                     <div class="result-value">${annualizedReturn.toFixed(2)}%</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Annualized Volatility:</div>
                     <div class="result-value">${annualizedVolatility.toFixed(2)}%</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Sharpe Ratio:</div>
                     <div class="result-value">${sharpeRatio.toFixed(3)}</div>
                 </div>
-                <div style="margin-bottom: 15px;">
+                <div class="calc-margin-bottom">
                     <div class="result-label">Maximum Drawdown:</div>
                     <div class="result-value">${maxDrawdown.toFixed(2)}%</div>
                 </div>
@@ -1921,7 +1927,8 @@ const output = `
                     color: "#00ff00"
                 };
         }
-function findSimilarSymbols(partial) {
+
+        function findSimilarSymbols(partial) {
             const matches = Object.keys(window.varData || {}).filter(symbol =>
                 symbol.includes(partial.toUpperCase())
             );
@@ -1962,7 +1969,7 @@ function findSimilarSymbols(partial) {
                 // Fall back to full dataset if not in filtered view
                 displaySymbolInfo(symbol, window.varData[symbol]);
                 document.getElementById('lookup-output').innerHTML += `
-                    <div style="color: #ffaa00; padding: 10px; margin-top: 10px; border: 1px solid #ffaa00; border-radius: 4px;">
+                    <div class="calc-lookup-info">
                         <p>💡 This symbol was found in the full database but not in the current ${getDatasetDisplayName()} filter.</p>
                     </div>
                 `;
@@ -1979,56 +1986,56 @@ function findSimilarSymbols(partial) {
         function displaySymbolInfo(symbol, data) {
             const riskAssessment = generateRiskAssessment(data);
             const outlierWarnings = data.outliers && data.outliers.length > 0 ?
-                `<div style="color: #ff8800; font-weight: bold; margin: 8px 0; padding: 8px; background: rgba(255,136,0,0.2); border-left: 3px solid #ff8800;">
+                `<div class="calc-outlier-warning" style="margin: 8px 0; padding: 8px; background: rgba(255,136,0,0.2); border-left: 3px solid #ff8800;">
                     🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')} detected
                 </div>` : '';
 
             const output = `
-                <div style="padding: 15px; border: 2px solid ${riskAssessment.color}; border-radius: 4px; background: rgba(0,255,0,0.05);">
-                    <h3 style="color: #00ff00; margin: 0 0 10px 0;">${symbol} - ${data.description}</h3>
+                <div class="calc-detailed-info" style="border-color: ${riskAssessment.color};">
+                    <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
 
-                    <div style="color: ${riskAssessment.color}; font-weight: bold; font-size: 1.1em; margin-bottom: 15px;">
+                    <div class="calc-risk-message" style="color: ${riskAssessment.color}; font-size: 1.1em; margin-bottom: 15px;">
                         ${riskAssessment.recommendation}
                     </div>
                     ${outlierWarnings}
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <div class="calc-detailed-grid">
                         <div>
-                            <h4 style="color: #00cc00; margin: 0 0 8px 0;">💰 Price & Risk Data</h4>
+                            <h4 class="calc-data-section-title">💰 Price & Risk Data</h4>
                             <div><strong>Current Price:</strong> $${data.price}</div>
                             <div><strong>VaR (1 lot):</strong> $${data.var.toFixed(6)}</div>
                             <div><strong>VaR %:</strong> ${(data.var / data.price * 100).toFixed(3)}%</div>
                             <div><strong>Sector:</strong> ${data.sector}</div>
                         </div>
                         <div>
-                            <h4 style="color: #00cc00; margin: 0 0 8px 0;">📊 ATR Values</h4>
+                            <h4 class="calc-data-section-title">📊 ATR Values</h4>
                             ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)} (${((data.atr_d1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
                             ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)} (${((data.atr_w1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
                             ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)} (${((data.atr_mn1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
-                            ${!data.atr_d1 ? '<div style="color: #ff8800;">ATR data not available</div>' : ''}
+                            ${!data.atr_d1 ? '<div class="calc-warning-text">ATR data not available</div>' : ''}
                         </div>
                     </div>
 
                     ${data.ev_data ? `
-                        <div style="margin: 15px 0; padding: 10px; background: rgba(0,255,255,0.1); border: 1px solid #00ffff; border-radius: 4px;">
-                            <h4 style="color: #00ffff; margin: 0 0 8px 0;">💼 Enterprise Value Data</h4>
+                        <div class="calc-ev-box">
+                            <h4 class="calc-ev-title">💼 Enterprise Value Data</h4>
                             <div><strong>Market Cap:</strong> $${(data.ev_data.market_cap / 1e9).toFixed(1)}B</div>
                             <div><strong>Enterprise Value:</strong> $${(data.ev_data.enterprise_value / 1e9).toFixed(1)}B</div>
                             <div><strong>MCap/EV Ratio:</strong> ${data.ev_data.mcap_ev_ratio.toFixed(1)}%</div>
                         </div>
                     ` : ''}
 
-                    <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,0,0.1); border: 1px solid #ffff00; border-radius: 4px;">
-                        <h4 style="color: #ffff00; margin: 0 0 8px 0;">🎯 Trading Suggestions</h4>
+                    <div class="calc-trading-box">
+                        <h4 class="calc-trading-title">🎯 Trading Suggestions</h4>
                         ${data.atr_d1 ? `
                             <div><strong>Conservative Stop (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
                             <div><strong>Aggressive Stop (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
                         ` : ''}
-                        <div style="margin-top: 8px; color: #cccc00;">💡 Use Stop Loss Calculator for custom risk management based on your timeframe</div>
-                        ${data.outliers && data.outliers.length > 0 ? '<div style="color: #ff8800; margin-top: 5px;">⚠️ Consider wider stops due to outlier volatility</div>' : ''}
+                        <div class="calc-trading-hint">💡 Use Stop Loss Calculator for custom risk management based on your timeframe</div>
+                        ${data.outliers && data.outliers.length > 0 ? '<div class="calc-trading-warning">⚠️ Consider wider stops due to outlier volatility</div>' : ''}
                     </div>
 
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <div class="calc-button-row">
                         <button class="quick-symbol-btn" class="use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
                         <button class="quick-symbol-btn" class="use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
                         <button class="quick-symbol-btn" class="find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
@@ -2042,24 +2049,24 @@ function findSimilarSymbols(partial) {
         window.showAllSymbols = function() {
             if (!window.varData) {
                 document.getElementById('lookup-output').innerHTML = `
-                    <div style="padding: 15px; border: 1px solid #ff0000; border-radius: 4px;">
-                        <h3 style="color: #ff0000; margin: 0 0 15px 0;">Error: Symbol data not loaded</h3>
-                        <p style="color: #ffaa00;">Please refresh the page to reload symbol data.</p>
+                    <div class="calc-error-container">
+                        <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
+                        <p class="calc-error-text">Please refresh the page to reload symbol data.</p>
                     </div>`;
                 return;
             }
             const symbols = Object.entries(window.varData);
             let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">All Available Symbols (${symbols.length} total)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 400px; overflow-y: auto;">
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">All Available Symbols (${symbols.length} total)</h3>
+                    <div class="calc-symbols-grid">
             `;
 
             symbols.forEach(([symbol, data]) => {
                 output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
+                    <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong> | $${data.price}<br>
-                        <small style="color: #00aa00;">${data.sector}</small>
+                        <small class="calc-symbol-sector">${data.sector}</small>
                     </div>
                 `;
             });
@@ -2080,17 +2087,17 @@ function findSimilarSymbols(partial) {
             );
 
             let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">${selectedSector} Sector (${filtered.length} symbols)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">${selectedSector} Sector (${filtered.length} symbols)</h3>
+                    <div class="calc-sector-grid">
             `;
 
             filtered.forEach(([symbol, data]) => {
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid #00aa00; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
+                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}">
                         <strong>${symbol}</strong><br>
                         <small>$${data.price} | VaR: $${data.var.toFixed(3)}</small><br>
-                        <small style="color: #00aa00;">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
+                        <small class="calc-sector-desc">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
                     </div>
                 `;
             });
@@ -2121,9 +2128,9 @@ function findSimilarSymbols(partial) {
         window.findSimilar = function(symbol) {
             const matches = findSimilarSymbols(symbol.substring(0, 2));
             let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">Symbols Similar to ${symbol} (${matches.length} found)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">Symbols Similar to ${symbol} (${matches.length} found)</h3>
+                    <div class="calc-sector-grid">
             `;
 
             matches.forEach(matchSymbol => {
@@ -2132,10 +2139,10 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${matchSymbol}">
+                    <div class="calc-sector-item quick-lookup" data-symbol="${matchSymbol}" style="border-color: ${riskAssessment.color};">
                         <strong>${matchSymbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
-                        <small style="color: #00aa00;">${data.sector}</small>
+                        <small class="calc-symbol-sector">${data.sector}</small>
                     </div>
                 `;
             });
@@ -2163,7 +2170,7 @@ function findSimilarSymbols(partial) {
 
             if (analysis.error) {
                 document.getElementById('lookup-output').innerHTML = `
-                    <div style="color: #ff8800; padding: 15px; border: 1px solid #ff8800; border-radius: 4px;">
+                    <div class="calc-error-box">
                         <h4>❌ ${analysis.error}</h4>
                         <p>Available sectors: ${[...new Set(Object.values(varData).map(d => d.sector))].join(', ')}</p>
                     </div>
@@ -2172,14 +2179,14 @@ function findSimilarSymbols(partial) {
             }
 
             let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">📊 ${analysis.sector} Sector Analysis</h3>
-                    <div style="margin-bottom: 15px;">
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">📊 ${analysis.sector} Sector Analysis</h3>
+                    <div class="calc-margin-bottom">
                         <div><strong>Total Symbols:</strong> ${analysis.symbolCount}</div>
                         <div><strong>Average VaR Ratio:</strong> ${(analysis.avgVarRatio * 100).toFixed(2)}%</div>
                         <div><strong>Outlier Symbols:</strong> ${analysis.outlierCount} (${((analysis.outlierCount / analysis.symbolCount) * 100).toFixed(1)}%)</div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-height: 300px; overflow-y: auto;">
+                    <div class="calc-symbols-grid" style="max-height: 300px;">
             `;
 
             analysis.data.forEach(([symbol, data]) => {
@@ -2187,7 +2194,7 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 6px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 3px; cursor: pointer; font-size: 0.9em;" class="quick-lookup" data-symbol="${symbol}">
+                    <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
                     </div>
@@ -2205,9 +2212,9 @@ function findSimilarSymbols(partial) {
             );
 
             let output = `
-                <div style="padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
-                    <h3 style="color: #00ff00; margin: 0 0 15px 0;">🔍 Wildcard Search: "${searchPattern}" (${matches.length} matches)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">🔍 Wildcard Search: "${searchPattern}" (${matches.length} matches)</h3>
+                    <div class="calc-sector-grid">
             `;
 
             matches.forEach(symbol => {
@@ -2216,10 +2223,10 @@ function findSimilarSymbols(partial) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div style="padding: 8px; background: rgba(0,255,0,0.1); border: 1px solid ${riskAssessment.color}; border-radius: 4px; cursor: pointer;" class="quick-lookup" data-symbol="${symbol}">
+                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
-                        <small style="color: #00aa00;">${data.sector}</small>
+                        <small class="calc-symbol-sector">${data.sector}</small>
                     </div>
                 `;
             });
@@ -2243,8 +2250,8 @@ function findSimilarSymbols(partial) {
                     const data = window.varData[symbol];
                     if (data.outliers && data.outliers.length >= 2) {
                         highRiskPositions++;
-        }
-}
+                    }
+                }
 
             if (totalPositions > 0) {
                 const riskPercentage = (highRiskPositions / totalPositions) * 100;
@@ -2343,9 +2350,9 @@ function findSimilarSymbols(partial) {
             // Clear any existing lookup results
             const lookupOutput = document.getElementById('lookup-output');
             if (lookupOutput && lookupOutput.innerHTML.trim() !== '') {
-                lookupOutput.innerHTML = '<p style="color: #00aa00;">Filters changed. Search again to see results from the selected filters.</p>';
+                lookupOutput.innerHTML = '<p class="calc-filter-text">Filters changed. Search again to see results from the selected filters.</p>';
             }
-        }
+        }  // Close updateActiveDataset function
 
         // Initialize on page load - trying direct approach due to SES extension
         console.log('Attempting direct initialization');
@@ -2502,10 +2509,8 @@ function findSimilarSymbols(partial) {
 
         // Try multiple initialization approaches with protection
         console.log('🚀 Setting up initialization handlers...');
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('📋 DOMContentLoaded event fired');
-            safeInitialize();
-        });
+        // Using safeInitialize directly instead of nested DOMContentLoaded
+        safeInitialize();
 
         console.log('🔍 DOMContentLoaded listener added, current state:', document.readyState);
 
@@ -2538,9 +2543,9 @@ function findSimilarSymbols(partial) {
         }, 500);
 
         // Calculator initialization complete
-    }  // Close updateActiveDataset function
-}  // Additional closing brace 1
-}  // Additional closing brace 2
-}  // Additional closing brace 3
-}  // Additional closing brace 4
-}  // Additional closing brace 5
+
+    }  // Close missing brace 1
+    }  // Close missing brace 2
+    }  // Close missing brace 3
+
+};  // Close DOMContentLoaded function
