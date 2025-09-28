@@ -81,7 +81,11 @@ window.calculateCompoundInterest = function() {
 
 // Show All Symbols function
 window.showAllSymbols = function() {
+    console.log('🔍 showAllSymbols() called');
+    console.log('📊 varData availability:', !!window.varData);
+
     if (!window.varData) {
+        console.error('❌ varData not loaded, showing error message');
         document.getElementById('lookup-output').innerHTML = `
             <div class="calc-error-container">
                 <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
@@ -89,6 +93,8 @@ window.showAllSymbols = function() {
             </div>`;
         return;
     }
+
+    console.log('✅ varData loaded, processing', Object.keys(window.varData).length, 'symbols');
     const symbols = Object.entries(window.varData);
     let output = `
         <div class="calc-symbols-container">
@@ -577,9 +583,22 @@ function getDatasetDisplayName() {
 // === GLOBAL LOOKUP AND PORTFOLIO FUNCTIONS ===
 
 window.lookupSymbol = function() {
-    const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
+    console.log('🔍 lookupSymbol() called');
+
+    const symbolInput = document.getElementById('symbol-lookup');
+    console.log('📝 Symbol input element:', symbolInput);
+
+    if (!symbolInput) {
+        console.error('❌ symbol-lookup input element not found');
+        alert('Error: Symbol input field not found');
+        return;
+    }
+
+    const symbol = symbolInput.value.toUpperCase().trim();
+    console.log('🎯 Looking up symbol:', symbol);
 
     if (!symbol) {
+        console.warn('⚠️ No symbol entered');
         alert('Please enter a symbol');
         return;
     }
@@ -709,8 +728,16 @@ window.findSimilar = function(symbol) {
 }
 
 window.performAdvancedSearch = function() {
-    const searchTerm = document.getElementById('lookup-symbol').value.toUpperCase().trim();
-    if (!searchTerm) return;
+    console.log('🔍 performAdvancedSearch() called');
+    const searchInput = document.getElementById('lookup-symbol');
+    console.log('📝 Search input element:', searchInput);
+
+    const searchTerm = searchInput ? searchInput.value.toUpperCase().trim() : '';
+    console.log('🎯 Search term:', searchTerm);
+    if (!searchTerm) {
+        console.warn('⚠️ No search term provided');
+        return;
+    }
 
     if (searchTerm.startsWith('SECTOR:')) {
         const sector = searchTerm.replace('SECTOR:', '').trim();
@@ -1010,9 +1037,9 @@ function updatePositionValue(input) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM ready - attaching direct listeners');
+    console.log('🚀 DOM ready - initializing calculator debug mode');
 
-    // Direct button listeners without any complex logic
+    // Direct button listeners with comprehensive debugging
     const buttons = [
         'calculate-compound-interest-btn',
         'calculate-stop-loss-btn',
@@ -1034,26 +1061,47 @@ document.addEventListener('DOMContentLoaded', function() {
         'advanced-search-btn': 'performAdvancedSearch'
     };
 
+    console.log('📋 Button mapping configured:', buttonFunctions);
+
     buttons.forEach(buttonId => {
         const btn = document.getElementById(buttonId);
         if (btn) {
-            btn.addEventListener('click', function() {
+            console.log(`✅ Found button: ${buttonId} -> function: ${buttonFunctions[buttonId]}`);
+            btn.addEventListener('click', function(event) {
+                console.log(`🔥 BUTTON CLICKED: ${buttonId} at ${new Date().toISOString()}`);
+                console.log('📍 Click event details:', {
+                    target: event.target.id,
+                    type: event.type,
+                    timestamp: event.timeStamp
+                });
+
                 const functionName = buttonFunctions[buttonId];
+                console.log(`🎯 Attempting to call function: ${functionName}`);
 
                 if (functionName && window[functionName]) {
+                    console.log(`✅ Function ${functionName} exists, executing...`);
                     try {
+                        const startTime = performance.now();
                         window[functionName]();
+                        const endTime = performance.now();
+                        console.log(`✅ Function ${functionName} completed successfully in ${(endTime - startTime).toFixed(2)}ms`);
                     } catch (error) {
-                        console.error('Error calling', functionName, ':', error);
+                        console.error(`❌ Error in ${functionName}:`, error);
+                        console.error('Stack trace:', error.stack);
                         alert('Error in calculator function: ' + error.message);
                     }
                 } else {
-                    console.error('Function not found:', functionName);
+                    console.error(`❌ Function not found: ${functionName}`);
+                    console.error('Available window functions:', Object.keys(window).filter(key => typeof window[key] === 'function'));
                     alert('Calculator function ' + functionName + ' not found. Please check the implementation.');
                 }
             });
+        } else {
+            console.error(`❌ Button not found in DOM: ${buttonId}`);
         }
     });
+
+    console.log('🔧 Event listeners attached to all available buttons');
 });
 
 window.selectCalculator = function(calculatorType, clickedElement) {
