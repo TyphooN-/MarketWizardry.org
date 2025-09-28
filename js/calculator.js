@@ -1018,7 +1018,9 @@ document.addEventListener('DOMContentLoaded', function() {
         'calculate-stop-loss-btn',
         'calculate-position-size-btn',
         'calculate-portfolio-var-btn',
-        'show-all-symbols-btn'
+        'show-all-symbols-btn',
+        'lookup-symbol-btn',
+        'advanced-search-btn'
     ];
 
     // Map button IDs to their actual functions
@@ -1027,7 +1029,9 @@ document.addEventListener('DOMContentLoaded', function() {
         'calculate-stop-loss-btn': 'calculateStopLoss',
         'calculate-position-size-btn': 'calculatePositionSize',
         'calculate-portfolio-var-btn': 'calculatePortfolioVaR',
-        'show-all-symbols-btn': 'showAllSymbols'
+        'show-all-symbols-btn': 'showAllSymbols',
+        'lookup-symbol-btn': 'lookupSymbol',
+        'advanced-search-btn': 'performAdvancedSearch'
     };
 
     buttons.forEach(buttonId => {
@@ -2564,28 +2568,19 @@ else if (symbol) {
                     }
                 };
 
+                // Form field event listeners (non-button events)
                 addEventListenerSafe('sl-symbol', 'change', autoFillStopLossData);
                 addEventListenerSafe('sl-risk-mode', 'change', toggleStopLossMode);
                 addEventListenerSafe('sl-timeframe', 'change', autoFillStopLossData);
-                addEventListenerSafe('calculate-stop-loss-btn', 'click', calculateStopLoss);
-
                 addEventListenerSafe('ps-risk-mode', 'change', togglePositionSizeMode);
                 addEventListenerSafe('ps-output-mode', 'change', updateOutputMode);
                 addEventListenerSafe('ps-symbol', 'change', autoFillPositionData);
                 addEventListenerSafe('ps-atr-timeframe', 'change', updatePositionAtrData);
                 addEventListenerSafe('ps-atr-multiplier', 'change', updatePositionAtrData);
-                addEventListenerSafe('calculate-position-size-btn', 'click', calculatePositionSize);
-
-                addEventListenerSafe('lookup-symbol-btn', 'click', lookupSymbol);
-                addEventListenerSafe('add-position-btn', 'click', addPosition);
-                addEventListenerSafe('calculate-portfolio-var-btn', 'click', calculatePortfolioVaR);
-
                 addEventListenerSafe('lookup-symbol', 'change', performAdvancedSearch);
-                addEventListenerSafe('advanced-search-btn', 'click', performAdvancedSearch);
-                addEventListenerSafe('show-all-symbols-btn', 'click', showAllSymbols);
-                addEventListenerSafe('calculate-compound-interest-btn', 'click', calculateCompoundInterest);
+                addEventListenerSafe('add-position-btn', 'click', addPosition);
 
-                console.log('Skipped all event listeners for testing');
+                console.log('✅ All event listeners properly configured');
 
                 // TEMPORARILY COMMENTED OUT FOR DEBUGGING
                 // Set up event delegation for dynamically generated elements
