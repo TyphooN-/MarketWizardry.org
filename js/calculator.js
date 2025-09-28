@@ -574,6 +574,286 @@ function getDatasetDisplayName() {
            activeDataset === 'futures' ? 'Futures' : activeDataset;
 }
 
+// === GLOBAL LOOKUP AND PORTFOLIO FUNCTIONS ===
+
+window.lookupSymbol = function() {
+    const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
+
+    if (!symbol) {
+        alert('Please enter a symbol');
+        return;
+    }
+
+    // Use the unified symbol display function
+    if (window.varData && window.varData[symbol]) {
+        displaySymbolInfoInPortfolio(symbol, window.varData[symbol]);
+    } else {
+        document.getElementById('symbol-details').innerHTML = `
+            <div class="calc-error-box">
+                Symbol "${symbol}" not found in database.
+            </div>
+        `;
+    }
+}
+
+// Unified symbol display function for Portfolio VaR
+function displaySymbolInfoInPortfolio(symbol, data) {
+    const riskAssessment = generateRiskAssessment(data);
+    const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+        `<div class="calc-outlier-warning">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+
+    const detailsDiv = document.getElementById('symbol-details');
+    const infoDiv = document.getElementById('symbol-info');
+
+    detailsDiv.innerHTML = `
+        <div class="calc-symbol-info-box" style="border-color: ${riskAssessment.color};">
+            <div class="calc-symbol-info-grid">
+                <div>
+                    <strong class="calc-symbol-name">${symbol}</strong> - ${data.description}<br>
+                    <span class="calc-symbol-sector">Sector:</span> ${data.sector}<br>
+                    <span class="calc-symbol-sector">Current Price:</span> $${data.price}
+                    ${outlierWarnings}
+                </div>
+                <div>
+                    <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
+                    <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                    <div class="calc-risk-message" style="color: ${riskAssessment.color};">${riskAssessment.recommendation}</div>
+                    <button class="add-symbol-to-portfolio calc-add-portfolio-btn" data-symbol="${symbol}">Add to Portfolio</button>
+                </div>
+            </div>
+        </div>
+    `;
+    infoDiv.className = infoDiv.className.replace(' display-none', '');
+}
+
+function addSymbolToPortfolio(symbol) {
+    const data = window.varData[symbol];
+    if (!data) return;
+
+    const tbody = document.getElementById('portfolio-positions');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td><input type="text" value="${symbol}" class="position-symbol-input calc-input-small"></td>
+        <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
+        <td><input type="number" value="${data.price}" step="0.01" class="position-price-input calc-input-medium"></td>
+        <td class="value-display">-</td>
+        <td class="var-display">$${data.var}</td>
+        <td class="weight-display">-</td>
+        <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
+    `;
+    tbody.appendChild(newRow);
+
+    // Hide symbol info
+    document.getElementById('symbol-info').className += ' display-none';
+    document.getElementById('symbol-lookup').value = '';
+}
+
+window.addPosition = function() {
+    const tbody = document.getElementById('portfolio-positions');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td><input type="text" placeholder="SYMBOL" class="position-input calc-input-small"></td>
+        <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
+        <td><input type="number" placeholder="150.00" step="0.01" class="position-input calc-input-medium"></td>
+        <td class="value-display">-</td>
+        <td class="var-display">-</td>
+        <td class="var-percent-display calc-var-percent">-</td>
+        <td class="weight-display">-</td>
+        <td class="asset-class-display calc-asset-class">-</td>
+        <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
+    `;
+    tbody.appendChild(newRow);
+}
+
+window.quickLookup = function(symbol) {
+    document.getElementById('lookup-symbol').value = symbol;
+    performSymbolLookup();
+}
+
+window.useInStopLoss = function(symbol) {
+    selectCalculator('stoploss');
+    document.getElementById('sl-symbol').value = symbol;
+    autoFillStopLossData();
+}
+
+window.useInPortfolio = function(symbol) {
+    selectCalculator('portfolio');
+    document.getElementById('symbol-lookup').value = symbol;
+    lookupSymbol();
+}
+
+window.findSimilar = function(symbol) {
+    const matches = findSimilarSymbols(symbol.substring(0, 2));
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">Symbols Similar to ${symbol} (${matches.length} found)</h3>
+            <div class="calc-sector-grid">
+    `;
+
+    matches.forEach(matchSymbol => {
+        const data = window.varData[matchSymbol];
+        const riskAssessment = generateRiskAssessment(data);
+        const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+        output += `
+            <div class="calc-sector-item quick-lookup" data-symbol="${matchSymbol}" style="border-color: ${riskAssessment.color};">
+                <strong>${matchSymbol}</strong> ${outlierIcon}<br>
+                <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+    document.getElementById('lookup-output').innerHTML = output;
+}
+
+window.performAdvancedSearch = function() {
+    const searchTerm = document.getElementById('lookup-symbol').value.toUpperCase().trim();
+    if (!searchTerm) return;
+
+    if (searchTerm.startsWith('SECTOR:')) {
+        const sector = searchTerm.replace('SECTOR:', '').trim();
+        showSectorAnalysis(sector);
+    } else if (searchTerm.includes('*')) {
+        showWildcardSearch(searchTerm);
+    } else {
+        performSymbolLookup();
+    }
+}
+
+function showSectorAnalysis(sectorName) {
+    const analysis = getSectorAnalysis(sectorName);
+
+    if (analysis.error) {
+        document.getElementById('lookup-output').innerHTML = `
+            <div class="calc-error-box">
+                <h4>❌ ${analysis.error}</h4>
+                <p>Available sectors: ${[...new Set(Object.values(varData).map(d => d.sector))].join(', ')}</p>
+            </div>
+        `;
+        return;
+    }
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">📊 ${analysis.sector} Sector Analysis</h3>
+            <div class="calc-margin-bottom">
+                <div><strong>Total Symbols:</strong> ${analysis.symbolCount}</div>
+                <div><strong>Average VaR Ratio:</strong> ${(analysis.avgVarRatio * 100).toFixed(2)}%</div>
+                <div><strong>Outlier Symbols:</strong> ${analysis.outlierCount} (${((analysis.outlierCount / analysis.symbolCount) * 100).toFixed(1)}%)</div>
+            </div>
+            <div class="calc-symbols-grid" style="max-height: 300px;">
+    `;
+
+    analysis.data.forEach(([symbol, data]) => {
+        const riskAssessment = generateRiskAssessment(data);
+        const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+        output += `
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
+                <strong>${symbol}</strong> ${outlierIcon}<br>
+                <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+    document.getElementById('lookup-output').innerHTML = output;
+}
+
+function showWildcardSearch(searchPattern) {
+    const pattern = searchPattern.replace(/\*/g, '');
+    const matches = Object.keys(window.varData || {}).filter(symbol =>
+        symbol.includes(pattern)
+    );
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">🔍 Wildcard Search: "${searchPattern}" (${matches.length} matches)</h3>
+            <div class="calc-sector-grid">
+    `;
+
+    matches.forEach(symbol => {
+        const data = window.varData[symbol];
+        const riskAssessment = generateRiskAssessment(data);
+        const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+        output += `
+            <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
+                <strong>${symbol}</strong> ${outlierIcon}<br>
+                <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+    document.getElementById('lookup-output').innerHTML = output;
+}
+
+// Portfolio position helper function
+function updatePositionValue(input) {
+    const row = input.closest('tr');
+    const inputs = row.querySelectorAll('input');
+    const symbol = inputs[0].value.toUpperCase().trim();
+    const shares = parseFloat(inputs[1].value) || 0;
+    const price = parseFloat(inputs[2].value) || 0;
+
+    const valueDisplay = row.querySelector('.value-display');
+    const varDisplay = row.querySelector('.var-display');
+    const varPercentDisplay = row.querySelector('.var-percent-display');
+    const assetClassDisplay = row.querySelector('.asset-class-display');
+
+    const value = shares * price;
+    valueDisplay.textContent = value > 0 ? '$' + value.toLocaleString() : '-';
+
+    if (symbol && window.varData && window.varData[symbol]) {
+        const data = window.varData[symbol];
+        const positionVaR = shares * data.var;
+        const varPercent = (data.var / data.price) * 100;
+
+        varDisplay.textContent = positionVaR > 0 ? '$' + positionVaR.toLocaleString() : '-';
+
+        const varColor = varPercent < 1 ? 'calc-var-color-green' :
+                        varPercent < 2 ? 'calc-var-color-yellow' :
+                        varPercent < 5 ? 'calc-var-color-orange' : 'calc-var-color-red';
+
+        varPercentDisplay.innerHTML = `<span class="${varColor}">${varPercent.toFixed(2)}%</span>`;
+
+        const assetClass = data.asset_class || 'unknown';
+        const assetDisplay = assetClass === 'stocks' ? 'Stock' :
+                           assetClass === 'cfd' ? 'CFD' :
+                           assetClass === 'futures' ? 'Future' : 'Unknown';
+
+        const assetColor = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                          assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                          assetClass === 'futures' ? 'calc-asset-color-futures' : 'calc-asset-color-unknown';
+
+        assetClassDisplay.innerHTML = `<span class="${assetColor}">${assetDisplay}</span>`;
+
+        // Check if symbol is in current filtered dataset
+        const inFilteredDataset = filteredVarData[symbol] !== undefined;
+        if (!inFilteredDataset && activeDataset !== 'all') {
+            assetClassDisplay.innerHTML += ` <small class="calc-filter-warning">⚠️</small>`;
+            assetClassDisplay.title = `This ${assetDisplay} is not in the current ${getDatasetDisplayName()} filter`;
+        }
+
+        // Auto-fill price if empty
+        if (price === 0) {
+            inputs[2].value = window.varData[symbol].price;
+            updatePositionValue(inputs[2]); // Recalculate
+        }
+    } else if (symbol) {
+        varDisplay.textContent = 'Unknown';
+        varPercentDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+        assetClassDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+    } else {
+        varPercentDisplay.textContent = '-';
+        assetClassDisplay.textContent = '-';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM ready - attaching direct listeners');
 
@@ -1702,94 +1982,9 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             'ZWS': { var: 1.323206, price: 47.47, sector: 'Industrials', description: 'Zurn Water Solutions Corp', asset_class: 'stocks', atr_d1: 1.148571, atr_w1: 2.307857, atr_mn1: 4.640000, outliers: [], ev_data: { market_cap: 7921905152, enterprise_value: 8288011776, mcap_ev_ratio: 95.6 } }
         };
 
-        window.lookupSymbol = function() {
-            const symbol = document.getElementById('symbol-lookup').value.toUpperCase().trim();
 
-            if (!symbol) {
-                alert('Please enter a symbol');
-                return;
-            }
 
-            // Use the unified symbol display function
-            if (window.varData && window.varData[symbol]) {
-                displaySymbolInfoInPortfolio(symbol, window.varData[symbol]);
-            } else {
-                document.getElementById('symbol-details').innerHTML = `
-                    <div class="calc-error-box">
-                        Symbol "${symbol}" not found in database.
-                    </div>
-                `;
-            }
-        }
 
-        // Unified symbol display function for Portfolio VaR
-        function displaySymbolInfoInPortfolio(symbol, data) {
-            const riskAssessment = generateRiskAssessment(data);
-            const outlierWarnings = data.outliers && data.outliers.length > 0 ?
-                `<div class="calc-outlier-warning">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
-
-            const detailsDiv = document.getElementById('symbol-details');
-            const infoDiv = document.getElementById('symbol-info');
-
-            detailsDiv.innerHTML = `
-                <div class="calc-symbol-info-box" style="border-color: ${riskAssessment.color};">
-                    <div class="calc-symbol-info-grid">
-                        <div>
-                            <strong class="calc-symbol-name">${symbol}</strong> - ${data.description}<br>
-                            <span class="calc-symbol-sector">Sector:</span> ${data.sector}<br>
-                            <span class="calc-symbol-sector">Current Price:</span> $${data.price}
-                            ${outlierWarnings}
-                        </div>
-                        <div>
-                            <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
-                            <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
-                            <div class="calc-risk-message" style="color: ${riskAssessment.color};">${riskAssessment.recommendation}</div>
-                            <button class="add-symbol-to-portfolio calc-add-portfolio-btn" data-symbol="${symbol}">Add to Portfolio</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            infoDiv.className = infoDiv.className.replace(' display-none', '');
-        }
-
-        function addSymbolToPortfolio(symbol) {
-            const data = window.varData[symbol];
-            if (!data) return;
-
-            const tbody = document.getElementById('portfolio-positions');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text" value="${symbol}" class="position-symbol-input calc-input-small"></td>
-                <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
-                <td><input type="number" value="${data.price}" step="0.01" class="position-price-input calc-input-medium"></td>
-                <td class="value-display">-</td>
-                <td class="var-display">$${data.var}</td>
-                <td class="weight-display">-</td>
-                <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
-            `;
-            tbody.appendChild(newRow);
-
-            // Hide symbol info
-            document.getElementById('symbol-info').className += ' display-none';
-            document.getElementById('symbol-lookup').value = '';
-        }
-
-        window.addPosition = function() {
-            const tbody = document.getElementById('portfolio-positions');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text" placeholder="SYMBOL" class="position-input calc-input-small"></td>
-                <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
-                <td><input type="number" placeholder="150.00" step="0.01" class="position-input calc-input-medium"></td>
-                <td class="value-display">-</td>
-                <td class="var-display">-</td>
-                <td class="var-percent-display calc-var-percent">-</td>
-                <td class="weight-display">-</td>
-                <td class="asset-class-display calc-asset-class">-</td>
-                <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
-            `;
-            tbody.appendChild(newRow);
-        }
 
         function updatePositionValue(input) {
             const row = input.closest('tr');
@@ -2023,10 +2218,6 @@ else if (symbol) {
             }
         }
 
-        window.quickLookup = function(symbol) {
-            document.getElementById('lookup-symbol').value = symbol;
-            performSymbolLookup();
-        }
 
         function displaySymbolInfo(symbol, data) {
             const riskAssessment = generateRiskAssessment(data);
@@ -2130,57 +2321,9 @@ else if (symbol) {
             return shuffled.slice(0, 5);
         }
 
-        window.useInStopLoss = function(symbol) {
-            selectCalculator('stoploss');
-            document.getElementById('sl-symbol').value = symbol;
-            autoFillStopLossData();
-        }
 
-        window.useInPortfolio = function(symbol) {
-            selectCalculator('portfolio');
-            document.getElementById('symbol-lookup').value = symbol;
-            lookupSymbol();
-        }
 
-        window.findSimilar = function(symbol) {
-            const matches = findSimilarSymbols(symbol.substring(0, 2));
-            let output = `
-                <div class="calc-symbols-container">
-                    <h3 class="calc-symbols-title">Symbols Similar to ${symbol} (${matches.length} found)</h3>
-                    <div class="calc-sector-grid">
-            `;
 
-            matches.forEach(matchSymbol => {
-                const data = window.varData[matchSymbol];
-                const riskAssessment = generateRiskAssessment(data);
-                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
-
-                output += `
-                    <div class="calc-sector-item quick-lookup" data-symbol="${matchSymbol}" style="border-color: ${riskAssessment.color};">
-                        <strong>${matchSymbol}</strong> ${outlierIcon}<br>
-                        <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
-                        <small class="calc-symbol-sector">${data.sector}</small>
-                    </div>
-                `;
-            });
-
-            output += `</div></div>`;
-            document.getElementById('lookup-output').innerHTML = output;
-        }
-
-        window.performAdvancedSearch = function() {
-            const searchTerm = document.getElementById('lookup-symbol').value.toUpperCase().trim();
-            if (!searchTerm) return;
-
-            if (searchTerm.startsWith('SECTOR:')) {
-                const sector = searchTerm.replace('SECTOR:', '').trim();
-                showSectorAnalysis(sector);
-            } else if (searchTerm.includes('*')) {
-                showWildcardSearch(searchTerm);
-            } else {
-                performSymbolLookup();
-            }
-        }
 
         function showSectorAnalysis(sectorName) {
             const analysis = getSectorAnalysis(sectorName);
