@@ -78,6 +78,37 @@ window.calculateCompoundInterest = function() {
         alert('Results calculated but display element not found');
     }
 };
+
+// Show All Symbols function
+window.showAllSymbols = function() {
+    if (!window.varData) {
+        document.getElementById('lookup-output').innerHTML = `
+            <div class="calc-error-container">
+                <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
+                <p class="calc-error-text">Please refresh the page to reload symbol data.</p>
+            </div>`;
+        return;
+    }
+    const symbols = Object.entries(window.varData);
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">All Available Symbols (${symbols.length} total)</h3>
+            <div class="calc-symbols-grid">
+    `;
+
+    symbols.forEach(([symbol, data]) => {
+        output += `
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}">
+                <strong>${symbol}</strong> | $${data.price}<br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+    document.getElementById('lookup-output').innerHTML = output;
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM ready - attaching direct listeners');
 
@@ -2046,34 +2077,6 @@ else if (symbol) {
             document.getElementById('lookup-output').innerHTML = output;
         }
 
-        window.showAllSymbols = function() {
-            if (!window.varData) {
-                document.getElementById('lookup-output').innerHTML = `
-                    <div class="calc-error-container">
-                        <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
-                        <p class="calc-error-text">Please refresh the page to reload symbol data.</p>
-                    </div>`;
-                return;
-            }
-            const symbols = Object.entries(window.varData);
-            let output = `
-                <div class="calc-symbols-container">
-                    <h3 class="calc-symbols-title">All Available Symbols (${symbols.length} total)</h3>
-                    <div class="calc-symbols-grid">
-            `;
-
-            symbols.forEach(([symbol, data]) => {
-                output += `
-                    <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}">
-                        <strong>${symbol}</strong> | $${data.price}<br>
-                        <small class="calc-symbol-sector">${data.sector}</small>
-                    </div>
-                `;
-            });
-
-            output += `</div></div>`;
-            document.getElementById('lookup-output').innerHTML = output;
-        }
 
         function filterSymbols() {
             const selectedSector = document.getElementById('lookup-filter').value;
