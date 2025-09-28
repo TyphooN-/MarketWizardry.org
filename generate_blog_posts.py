@@ -1164,9 +1164,9 @@ def update_blog_index(all_new_entries):
     # Replace the grid content or create it if it doesn't exist
     # More robust approach: Find content between flavor text and end, replace with grid structure
 
-    # Pattern to match content after main header and its crt-divider
-    # Look for the h1 Blog Explorer, its crt-divider, then replace everything after until end
-    sections_pattern = r'(        <h1>Blog Explorer</h1>\s*\n        <div class="crt-divider"></div>\s*\n)(.*?)(\n    </div>\n</body>\n</html>)'
+    # Pattern to match content after main header, flavor text, and its crt-divider
+    # Look for the h1 Blog Explorer, crt-divider, flavor text, crt-divider, then replace everything after until end
+    sections_pattern = r'(        <h1>Blog Explorer</h1>\s*\n        <div class="crt-divider"></div>\s*\n        <div class="flavor-text">.*?</div>\s*\n        <div class="crt-divider"></div>\s*\n)(.*?)(\n    </div>\n</body>\n</html>)'
     sections_match = re.search(sections_pattern, current_content, flags=re.DOTALL)
 
     if sections_match:
@@ -1175,8 +1175,8 @@ def update_blog_index(all_new_entries):
         new_content = re.sub(sections_pattern, replacement, current_content, flags=re.DOTALL)
     else:
         print("Sections pattern not found, trying alternative patterns...")
-        # Force complete rebuild - find header up to h1 and its crt-divider
-        header_pattern = r'(.*<h1>Blog Explorer</h1>\s*\n        <div class="crt-divider"></div>)'
+        # Force complete rebuild - find header up to flavor text and its crt-divider
+        header_pattern = r'(.*<h1>Blog Explorer</h1>\s*\n        <div class="crt-divider"></div>\s*\n        <div class="flavor-text">.*?</div>\s*\n        <div class="crt-divider"></div>)'
         header_match = re.search(header_pattern, current_content, flags=re.DOTALL)
         if header_match:
             print("Force rebuilding entire blog structure...")
