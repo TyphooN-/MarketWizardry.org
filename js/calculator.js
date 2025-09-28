@@ -109,6 +109,459 @@ window.showAllSymbols = function() {
     document.getElementById('lookup-output').innerHTML = output;
 };
 
+// Stop Loss Calculator - Global function for immediate access
+window.calculateStopLoss = function() {
+    const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
+    const positionSize = parseInt(document.getElementById('sl-position-size').value);
+    const riskValue = parseFloat(document.getElementById('sl-risk-value').value);
+    const riskMode = document.getElementById('sl-risk-mode').value;
+    const atr = parseFloat(document.getElementById('sl-atr').value);
+    const timeframe = document.getElementById('sl-timeframe').value;
+    const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
+
+    if (!entryPrice || !positionSize || !riskValue) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    const positionValue = entryPrice * positionSize;
+    let riskAmount, riskPercent;
+
+    // Calculate risk amount based on selected mode
+    if (riskMode === 'percent') {
+        riskPercent = riskValue;
+        riskAmount = positionValue * (riskValue / 100);
+    } else if (riskMode === 'var') {
+        // VaR percentage mode - target VaR as % of position
+        if (symbol && window.varData && window.varData[symbol]) {
+            const varPerShare = window.varData[symbol].var;
+            const targetVarAmount = positionValue * (riskValue / 100);
+            riskAmount = targetVarAmount;
+            riskPercent = riskValue; // This is VaR%, not risk%
+        } else {
+            alert('VaR mode requires a valid symbol. Please enter a symbol or switch to percentage mode.');
+            return;
+        }
+    } else if (riskMode === 'dollar') {
+        riskAmount = riskValue;
+        riskPercent = (riskAmount / positionValue) * 100;
+    }
+
+    const riskPerShare = riskAmount / positionSize;
+
+    // Timeframe-specific ATR multiplier recommendations
+    const timeframeData = {
+        'M5': {
+            multipliers: [0.5, 1.0, 1.5],
+            recommended: 1.0,
+            description: 'Scalping - Tight stops for quick exits',
+            notes: 'Very tight stops due to noise. Consider using tick-based stops.'
+        },
+        'M15': {
+            multipliers: [0.8, 1.2, 2.0],
+            recommended: 1.2,
+            description: 'Short-term Scalping - Balance between noise and movement',
+            notes: 'Still susceptible to market noise but allows for small moves.'
+        },
+        'H1': {
+            multipliers: [1.0, 1.5, 2.5],
+            recommended: 1.5,
+            description: 'Intraday Trading - Standard intraday volatility buffer',
+            notes: 'Good balance for hourly price action and trend following.'
+        },
+        'H4': {
+            multipliers: [1.5, 2.0, 3.0],
+            recommended: 2.0,
+            description: 'Swing Trading - Medium-term position holding',
+            notes: 'Allows for normal market fluctuations while protecting capital.'
+        },
+        'D1': {
+            multipliers: [2.0, 2.5, 3.5],
+            recommended: 2.5,
+            description: 'Daily Position Trading - Standard volatility protection',
+            notes: 'Classic 2-3x ATR for daily timeframe trend following.'
+        },
+        'W1': {
+            multipliers: [2.5, 3.0, 4.0],
+            recommended: 3.0,
+            description: 'Weekly Long-term - Wider stops for major moves',
+            notes: 'Accommodates weekly volatility and longer-term trends.'
+        },
+        'MN1': {
+            multipliers: [3.0, 4.0, 5.0],
+            recommended: 4.0,
+            description: 'Monthly Investment - Maximum trend capture',
+            notes: 'Very wide stops for long-term investment positions.'
+        }
+    };
+
+    const tfData = timeframeData[timeframe];
+    const percentageStop = entryPrice - riskPerShare;
+
+    let output = `
+        <div class="calc-margin-bottom">
+            <div class="result-label">Position Value:</div>
+            <div class="result-value">$${positionValue.toLocaleString()}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Maximum Risk Amount:</div>
+            <div class="result-value">$${riskAmount.toFixed(2)}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Risk-Based Stop Loss:</div>
+            <div class="result-value">$${percentageStop.toFixed(2)} (${((entryPrice - percentageStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
+        </div>
+    `;
+
+    // Add timeframe-specific recommendations
+    output += `
+        <div class="calc-timeframe-box">
+            <h4 class="calc-timeframe-title">📊 ${timeframe} Timeframe Recommendations</h4>
+            <div class="calc-timeframe-desc"><strong>${tfData.description}</strong></div>
+            <div class="calc-timeframe-notes">${tfData.notes}</div>
+        </div>
+    `;
+
+    if (atr) {
+        output += `<h4 class="calc-atr-title">ATR-Based Stop Loss Options (${timeframe}):</h4>`;
+
+        tfData.multipliers.forEach((multiplier, index) => {
+            const atrStop = entryPrice - (atr * multiplier);
+            const isRecommended = multiplier === tfData.recommended;
+            const label = index === 0 ? 'Conservative' : index === 1 ? 'Balanced' : 'Aggressive';
+            const extraClass = isRecommended ? ' calc-atr-recommended' : '';
+
+            output += `
+                <div class="calc-atr-option${extraClass}">
+                    <div class="result-label">${label} (${multiplier}x ATR)${isRecommended ? ' ⭐ RECOMMENDED' : ''}:</div>
+                    <div class="result-value">$${atrStop.toFixed(2)} (${((entryPrice - atrStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
+                    <div class="calc-atr-risk">Risk per share: $${(entryPrice - atrStop).toFixed(2)} | Total risk: $${((entryPrice - atrStop) * positionSize).toFixed(2)}</div>
+                </div>
+            `;
+        });
+
+        // Add comparison with risk-based stop
+        const recommendedStop = entryPrice - (atr * tfData.recommended);
+        const riskBasedRisk = (entryPrice - percentageStop) * positionSize;
+        const atrBasedRisk = (entryPrice - recommendedStop) * positionSize;
+
+        output += `
+            <div class="calc-comparison-box">
+                <h4 class="calc-comparison-title">📋 Stop Loss Comparison</h4>
+                <div class="calc-comparison-text">
+                    Risk-based (${riskPercent}%): $${riskBasedRisk.toFixed(2)} risk<br>
+                    ATR-based (${tfData.recommended}x): $${atrBasedRisk.toFixed(2)} risk<br>
+                    <strong>Difference: $${Math.abs(riskBasedRisk - atrBasedRisk).toFixed(2)} ${riskBasedRisk > atrBasedRisk ? '(ATR tighter)' : '(ATR wider)'}</strong>
+                </div>
+            </div>
+        `;
+    } else {
+        output += `
+            <div class="calc-warning-box">
+                <div class="calc-warning-text">💡 <strong>Add ATR value to see ${timeframe} timeframe recommendations!</strong></div>
+                <div class="calc-warning-subtext">
+                    Recommended multiplier for ${timeframe}: ${tfData.recommended}x ATR<br>
+                    ${tfData.description}
+                </div>
+            </div>
+        `;
+    }
+
+    output += `
+        <div class="warning-text calc-warning-main">
+            ⚠️ Stop Loss Guidelines:<br>
+            • Stop losses don't guarantee execution at your desired price during gaps<br>
+            • Consider using ATR from your actual trading timeframe for best results<br>
+            • Shorter timeframes need tighter stops but higher win rates<br>
+            • Longer timeframes allow wider stops but require more patience
+        </div>
+    `;
+
+    document.getElementById('sl-output').innerHTML = output;
+    document.getElementById('sl-results').classList.add('show');
+};
+
+// Position Size Calculator - Global function for immediate access
+window.calculatePositionSize = function() {
+    const accountSize = parseFloat(document.getElementById('ps-account-size').value);
+    const riskValue = parseFloat(document.getElementById('ps-risk-value').value);
+    const riskMode = document.getElementById('ps-risk-mode').value;
+    const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
+    const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
+    const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
+
+    if (!accountSize || !riskValue || !entryPrice || (riskMode !== 'shares' && !stopLoss)) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    let riskAmount, positionSize, riskPercent;
+    const riskPerShare = Math.abs(entryPrice - stopLoss);
+
+    // Calculate based on selected mode
+    if (riskMode === 'risk') {
+        riskPercent = riskValue;
+        riskAmount = accountSize * (riskValue / 100);
+        positionSize = Math.floor(riskAmount / riskPerShare);
+    } else if (riskMode === 'var') {
+        // VaR targeting mode
+        if (!symbol || !window.varData || !window.varData[symbol]) {
+            alert('VaR mode requires a valid symbol. Please enter a symbol.');
+            return;
+        }
+
+        // Calculate position size to achieve target VaR percentage
+        const varPerShare = window.varData[symbol].var;
+        const targetVarPercent = riskValue / 100; // Convert % to decimal
+
+        // Position size needed so that position VaR = targetVarPercent of position value
+        // positionSize * varPerShare = targetVarPercent * (positionSize * entryPrice)
+        // positionSize * varPerShare = targetVarPercent * positionSize * entryPrice
+        // varPerShare = targetVarPercent * entryPrice
+        // positionSize = any size that satisfies the VaR constraint
+
+        // Start with a reasonable position size based on account
+        const baseRiskPercent = 2; // 2% account risk as starting point
+        const baseRiskAmount = accountSize * (baseRiskPercent / 100);
+        positionSize = Math.floor(baseRiskAmount / riskPerShare);
+
+        // Adjust if VaR constraint can't be met
+        const positionValue = positionSize * entryPrice;
+        const actualVarPercent = (positionSize * varPerShare) / positionValue * 100;
+
+        riskAmount = positionSize * riskPerShare;
+        riskPercent = (riskAmount / accountSize) * 100;
+    } else if (riskMode === 'dollar') {
+        riskAmount = riskValue;
+        positionSize = Math.floor(riskAmount / riskPerShare);
+        riskPercent = (riskAmount / accountSize) * 100;
+    } else if (riskMode === 'shares') {
+        positionSize = riskValue;
+        riskAmount = positionSize * riskPerShare;
+        riskPercent = (riskAmount / accountSize) * 100;
+    }
+
+    const positionValue = positionSize * entryPrice;
+    const actualRisk = positionSize * riskPerShare;
+
+    const output = `
+        <div class="calc-margin-bottom">
+            <div class="result-label">Risk Amount:</div>
+            <div class="result-value">$${riskAmount.toFixed(2)}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Risk per Share:</div>
+            <div class="result-value">$${riskPerShare.toFixed(2)}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Recommended Position Size:</div>
+            <div class="result-value">${positionSize.toLocaleString()} shares</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Position Value:</div>
+            <div class="result-value">$${positionValue.toLocaleString()}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Actual Risk:</div>
+            <div class="result-value">$${actualRisk.toFixed(2)} (${(actualRisk/accountSize*100).toFixed(2)}% of account)</div>
+        </div>
+        <div class="warning-text">⚠️ This assumes perfect execution at your stop loss price. Market gaps can increase actual losses.</div>
+    `;
+
+    document.getElementById('ps-output').innerHTML = output;
+    document.getElementById('ps-results').classList.add('show');
+};
+
+// Portfolio VaR Calculator - Global function for immediate access
+window.calculatePortfolioVaR = function() {
+    const confidence = parseFloat(document.getElementById('pf-confidence').value);
+    const timeHorizon = parseInt(document.getElementById('pf-time-horizon').value);
+    const rows = document.querySelectorAll('#portfolio-positions tr');
+
+    let positions = [];
+    let totalValue = 0;
+    let totalVaR = 0;
+
+    for (let row of rows) {
+        const inputs = row.querySelectorAll('input');
+        const symbol = inputs[0].value.toUpperCase().trim();
+        const shares = parseFloat(inputs[1].value) || 0;
+        const price = parseFloat(inputs[2].value) || 0;
+
+        if (symbol && shares && price) {
+            const value = shares * price;
+            let positionVaR = 0;
+            let varPerShare = 0;
+
+            // Use real VaR data if available
+            if (window.varData && window.varData[symbol]) {
+                varPerShare = window.varData[symbol].var;
+                positionVaR = shares * varPerShare;
+            } else {
+                // Fallback: estimate VaR as 2% of position value for unknown symbols
+                positionVaR = value * 0.02;
+                varPerShare = price * 0.02;
+            }
+
+            positions.push({
+                symbol,
+                shares,
+                price,
+                value,
+                positionVaR,
+                varPerShare,
+                hasRealData: !!(window.varData && window.varData[symbol]),
+                assetClass: (window.varData && window.varData[symbol]) ? window.varData[symbol].asset_class : 'unknown'
+            });
+            totalValue += value;
+            totalVaR += positionVaR;
+        }
+    }
+
+    if (positions.length === 0) {
+        alert('Please add at least one position');
+        return;
+    }
+
+    // Update weights display
+    positions.forEach((pos, index) => {
+        const weight = (pos.value / totalValue * 100).toFixed(1);
+        rows[index].querySelector('.weight-display').textContent = weight + '%';
+        pos.weight = parseFloat(weight);
+    });
+
+    // Calculate portfolio VaR (simplified linear aggregation - no correlation)
+    // For different confidence levels, adjust the base VaR
+    const confidenceAdjustment = confidence === 95 ? 1.0 : confidence === 99 ? 1.4 : 1.8;
+    const timeAdjustment = Math.sqrt(timeHorizon);
+    const adjustedPortfolioVaR = totalVaR * confidenceAdjustment * timeAdjustment;
+
+    // Calculate asset class breakdown
+    const assetClassBreakdown = {};
+    positions.forEach(pos => {
+        const assetClass = pos.assetClass;
+        if (!assetClassBreakdown[assetClass]) {
+            assetClassBreakdown[assetClass] = { value: 0, var: 0, count: 0 };
+        }
+        assetClassBreakdown[assetClass].value += pos.value;
+        assetClassBreakdown[assetClass].var += pos.positionVaR;
+        assetClassBreakdown[assetClass].count += 1;
+    });
+
+    let output = `
+        <div class="calc-margin-bottom">
+            <div class="result-label">Total Portfolio Value:</div>
+            <div class="result-value">$${totalValue.toLocaleString()}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Portfolio VaR (${confidence}%, ${timeHorizon} day${timeHorizon > 1 ? 's' : ''}):</div>
+            <div class="result-value">$${adjustedPortfolioVaR.toFixed(2)} (${(adjustedPortfolioVaR/totalValue*100).toFixed(2)}% of portfolio)</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Daily VaR (estimated):</div>
+            <div class="result-value">$${(totalVaR * confidenceAdjustment).toFixed(2)} (${(totalVaR * confidenceAdjustment/totalValue*100).toFixed(2)}% of portfolio)</div>
+        </div>
+    `;
+
+    // Add asset class breakdown if more than one asset class
+    const assetClassCount = Object.keys(assetClassBreakdown).length;
+    if (assetClassCount > 1 || (assetClassCount === 1 && !assetClassBreakdown['unknown'])) {
+        output += `
+            <div class="calc-portfolio-breakdown">
+                <h4 class="calc-breakdown-title">📊 Asset Class Breakdown</h4>
+        `;
+
+        Object.entries(assetClassBreakdown).forEach(([assetClass, data]) => {
+            const percentage = (data.value / totalValue * 100).toFixed(1);
+            const assetDisplay = assetClass === 'cfd' ? 'CFDs' :
+                               assetClass === 'stocks' ? 'Stocks' :
+                               assetClass === 'futures' ? 'Futures' :
+                               assetClass === 'unknown' ? 'Unknown' : assetClass;
+
+            const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                                   assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                                   assetClass === 'futures' ? 'calc-asset-color-futures' :
+                                   assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
+
+            const filterStatus = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️' : '';
+            const filterNote = filterStatus ? ` (outside current ${getDatasetDisplayName()} filter)` : '';
+
+            output += `
+                <div class="calc-asset-item">
+                    <span class="${assetColorClass}" style="font-weight: bold;">${assetDisplay}${filterStatus}</span>:
+                    $${data.value.toLocaleString()} (${percentage}%) |
+                    ${data.count} position${data.count > 1 ? 's' : ''} |
+                    VaR: $${data.var.toFixed(2)}${filterNote}
+                </div>
+            `;
+        });
+
+        output += `</div>`;
+    }
+
+    output += `<h4 class="calc-result-title" style="margin: 20px 0 10px 0;">Position Breakdown:</h4>`;
+    for (let pos of positions) {
+        const dataSource = pos.hasRealData ? '📊' : '⚠️';
+        const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
+        const riskAssessment = pos.hasRealData ? generateRiskAssessment(window.varData[pos.symbol]) : null;
+        const outlierWarning = riskAssessment && window.varData[pos.symbol].outliers && window.varData[pos.symbol].outliers.length > 0 ?
+            ` 🚨 ${window.varData[pos.symbol].outliers.length} outlier${window.varData[pos.symbol].outliers.length > 1 ? 's' : ''}` : '';
+        const borderColor = riskAssessment ? riskAssessment.color : '#00ff00';
+
+        // Asset class display
+        const assetClass = pos.assetClass;
+        const assetDisplay = assetClass === 'cfd' ? 'CFD' :
+                           assetClass === 'stocks' ? 'Stock' :
+                           assetClass === 'futures' ? 'Future' :
+                           assetClass === 'unknown' ? 'Unknown' : assetClass;
+
+        const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                               assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                               assetClass === 'futures' ? 'calc-asset-color-futures' :
+                               assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
+
+        const filterWarning = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️ Outside current filter' : '';
+
+        output += `
+            <div class="calc-position-box" style="border-left-color: ${borderColor};">
+                <strong class="calc-position-name">${pos.symbol}</strong> <span class="${assetColorClass}" style="font-size: 0.9em;">[${assetDisplay}]</span> ${dataSource} ${dataNote}${outlierWarning}${filterWarning}<br>
+                ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
+                Position VaR: $${pos.positionVaR.toFixed(2)} (VaR/share: $${pos.varPerShare.toFixed(2)})
+                ${riskAssessment ? `<br><span style="color: ${riskAssessment.color}; font-size: 0.9em;">${riskAssessment.recommendation}</span>` : ''}
+            </div>
+        `;
+    }
+
+    const realDataCount = positions.filter(p => p.hasRealData).length;
+    const estimatedCount = positions.length - realDataCount;
+    const portfolioRiskAnalysis = analyzePortfolioRisk();
+
+    if (portfolioRiskAnalysis) {
+        output += `
+            <div class="calc-risk-assessment-box" style="border-color: ${portfolioRiskAnalysis.color};">
+                <h4 class="calc-risk-title" style="color: ${portfolioRiskAnalysis.color};">🎯 Portfolio Risk Assessment</h4>
+                <div class="calc-risk-message" style="color: ${portfolioRiskAnalysis.color};">${portfolioRiskAnalysis.message}</div>
+                <div class="calc-risk-details">
+                    High-risk positions: ${portfolioRiskAnalysis.highRiskCount}/${portfolioRiskAnalysis.totalCount}
+                    (${((portfolioRiskAnalysis.highRiskCount / portfolioRiskAnalysis.totalCount) * 100).toFixed(1)}%)
+                </div>
+            </div>
+        `;
+    }
+
+    output += `
+        <div class="warning-text calc-warning-main">
+            📊 ${realDataCount} position${realDataCount !== 1 ? 's' : ''} using real VaR data from market analysis<br>
+            ${estimatedCount > 0 ? `⚠️ ${estimatedCount} position${estimatedCount !== 1 ? 's' : ''} using estimated VaR (2% of position value)<br>` : ''}
+            ⚠️ This calculation assumes no correlation between positions. Actual portfolio VaR may be higher during market stress when correlations increase.<br>
+            💡 Use the Symbol Lookup Tool to analyze individual position risks and outlier status.
+        </div>
+    `;
+
+    document.getElementById('pf-output').innerHTML = output;
+    document.getElementById('pf-results').classList.add('show');
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM ready - attaching direct listeners');
 
@@ -191,7 +644,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             activeCalculator = calculatorType;
         }
 
-        console.log('🔍 DEBUG: Defining updateBreadcrumb function...');
         window.updateBreadcrumb = function(calculatorType) {
             const breadcrumbElement = document.getElementById('active-calculator-breadcrumb');
             const nameElement = document.getElementById('active-calculator-name');
@@ -212,7 +664,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             }
         }
 
-        console.log('🔍 DEBUG: Defining resetToCalculatorSelection function...');
         window.resetToCalculatorSelection = function() {
             // Hide all calculators
             const calculators = document.querySelectorAll('.calculator-content');
@@ -232,7 +683,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        console.log('🔍 DEBUG: Defining autoFillStopLossData function...');
         function autoFillStopLossData() {
             const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
             const timeframe = document.getElementById('sl-timeframe').value;
@@ -302,178 +752,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
             }
         }
 
-        console.log('🔍 DEBUG: Defining calculateStopLoss function...');
-        window.calculateStopLoss = function() {
-            const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
-            const positionSize = parseInt(document.getElementById('sl-position-size').value);
-            const riskValue = parseFloat(document.getElementById('sl-risk-value').value);
-            const riskMode = document.getElementById('sl-risk-mode').value;
-            const atr = parseFloat(document.getElementById('sl-atr').value);
-            const timeframe = document.getElementById('sl-timeframe').value;
-            const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
-
-            if (!entryPrice || !positionSize || !riskValue) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            const positionValue = entryPrice * positionSize;
-            let riskAmount, riskPercent;
-
-            // Calculate risk amount based on selected mode
-            if (riskMode === 'percent') {
-                riskPercent = riskValue;
-                riskAmount = positionValue * (riskValue / 100);
-            } else if (riskMode === 'var') {
-                // VaR percentage mode - target VaR as % of position
-                if (symbol && window.varData && window.varData[symbol]) {
-                    const varPerShare = window.varData[symbol].var;
-                    const targetVarAmount = positionValue * (riskValue / 100);
-                    riskAmount = targetVarAmount;
-                    riskPercent = riskValue; // This is VaR%, not risk%
-                } else {
-                    alert('VaR mode requires a valid symbol. Please enter a symbol or switch to percentage mode.');
-                    return;
-                }
-            } else if (riskMode === 'dollar') {
-                riskAmount = riskValue;
-                riskPercent = (riskAmount / positionValue) * 100;
-            }
-
-            const riskPerShare = riskAmount / positionSize;
-
-            // Timeframe-specific ATR multiplier recommendations
-            const timeframeData = {
-                'M5': {
-                    multipliers: [0.5, 1.0, 1.5],
-                    recommended: 1.0,
-                    description: 'Scalping - Tight stops for quick exits',
-                    notes: 'Very tight stops due to noise. Consider using tick-based stops.'
-                },
-                'M15': {
-                    multipliers: [0.8, 1.2, 2.0],
-                    recommended: 1.2,
-                    description: 'Short-term Scalping - Balance between noise and movement',
-                    notes: 'Still susceptible to market noise but allows for small moves.'
-                },
-                'H1': {
-                    multipliers: [1.0, 1.5, 2.5],
-                    recommended: 1.5,
-                    description: 'Intraday Trading - Standard intraday volatility buffer',
-                    notes: 'Good balance for hourly price action and trend following.'
-                },
-                'H4': {
-                    multipliers: [1.5, 2.0, 3.0],
-                    recommended: 2.0,
-                    description: 'Swing Trading - Medium-term position holding',
-                    notes: 'Allows for normal market fluctuations while protecting capital.'
-                },
-                'D1': {
-                    multipliers: [2.0, 2.5, 3.5],
-                    recommended: 2.5,
-                    description: 'Daily Position Trading - Standard volatility protection',
-                    notes: 'Classic 2-3x ATR for daily timeframe trend following.'
-                },
-                'W1': {
-                    multipliers: [2.5, 3.0, 4.0],
-                    recommended: 3.0,
-                    description: 'Weekly Long-term - Wider stops for major moves',
-                    notes: 'Accommodates weekly volatility and longer-term trends.'
-                },
-                'MN1': {
-                    multipliers: [3.0, 4.0, 5.0],
-                    recommended: 4.0,
-                    description: 'Monthly Investment - Maximum trend capture',
-                    notes: 'Very wide stops for long-term investment positions.'
-                }
-            };
-
-            const tfData = timeframeData[timeframe];
-            const percentageStop = entryPrice - riskPerShare;
-
-            let output = `
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Position Value:</div>
-                    <div class="result-value">$${positionValue.toLocaleString()}</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Maximum Risk Amount:</div>
-                    <div class="result-value">$${riskAmount.toFixed(2)}</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Risk-Based Stop Loss:</div>
-                    <div class="result-value">$${percentageStop.toFixed(2)} (${((entryPrice - percentageStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
-                </div>
-            `;
-
-            // Add timeframe-specific recommendations
-            output += `
-                <div class="calc-timeframe-box">
-                    <h4 class="calc-timeframe-title">📊 ${timeframe} Timeframe Recommendations</h4>
-                    <div class="calc-timeframe-desc"><strong>${tfData.description}</strong></div>
-                    <div class="calc-timeframe-notes">${tfData.notes}</div>
-                </div>
-            `;
-
-            if (atr) {
-                output += `<h4 class="calc-atr-title">ATR-Based Stop Loss Options (${timeframe}):</h4>`;
-
-                tfData.multipliers.forEach((multiplier, index) => {
-                    const atrStop = entryPrice - (atr * multiplier);
-                    const isRecommended = multiplier === tfData.recommended;
-                    const label = index === 0 ? 'Conservative' : index === 1 ? 'Balanced' : 'Aggressive';
-                    const extraClass = isRecommended ? ' calc-atr-recommended' : '';
-
-                    output += `
-                        <div class="calc-atr-option${extraClass}">
-                            <div class="result-label">${label} (${multiplier}x ATR)${isRecommended ? ' ⭐ RECOMMENDED' : ''}:</div>
-                            <div class="result-value">$${atrStop.toFixed(2)} (${((entryPrice - atrStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
-                            <div class="calc-atr-risk">Risk per share: $${(entryPrice - atrStop).toFixed(2)} | Total risk: $${((entryPrice - atrStop) * positionSize).toFixed(2)}</div>
-                        </div>
-                    `;
-                });
-
-                // Add comparison with risk-based stop
-                const recommendedStop = entryPrice - (atr * tfData.recommended);
-                const riskBasedRisk = (entryPrice - percentageStop) * positionSize;
-                const atrBasedRisk = (entryPrice - recommendedStop) * positionSize;
-
-                output += `
-                    <div class="calc-comparison-box">
-                        <h4 class="calc-comparison-title">📋 Stop Loss Comparison</h4>
-                        <div class="calc-comparison-text">
-                            Risk-based (${riskPercent}%): $${riskBasedRisk.toFixed(2)} risk<br>
-                            ATR-based (${tfData.recommended}x): $${atrBasedRisk.toFixed(2)} risk<br>
-                            <strong>Difference: $${Math.abs(riskBasedRisk - atrBasedRisk).toFixed(2)} ${riskBasedRisk > atrBasedRisk ? '(ATR tighter)' : '(ATR wider)'}</strong>
-                        </div>
-                    </div>
-                `;
-            } else {
-                output += `
-                    <div class="calc-warning-box">
-                        <div class="calc-warning-text">💡 <strong>Add ATR value to see ${timeframe} timeframe recommendations!</strong></div>
-                        <div class="calc-warning-subtext">
-                            Recommended multiplier for ${timeframe}: ${tfData.recommended}x ATR<br>
-                            ${tfData.description}
-                        </div>
-                    </div>
-                `;
-            }
-
-            output += `
-                <div class="warning-text calc-warning-main">
-                    ⚠️ Stop Loss Guidelines:<br>
-                    • Stop losses don't guarantee execution at your desired price during gaps<br>
-                    • Consider using ATR from your actual trading timeframe for best results<br>
-                    • Shorter timeframes need tighter stops but higher win rates<br>
-                    • Longer timeframes allow wider stops but require more patience
-                </div>
-            `;
-
-            document.getElementById('sl-output').innerHTML = output;
-            document.getElementById('sl-results').classList.add('show');
-        }
-
         function togglePositionSizeMode() {
             const mode = document.getElementById('ps-risk-mode').value;
             const label = document.getElementById('ps-risk-label');
@@ -502,96 +780,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
                     hint.textContent = '📈 Number of shares you want to buy';
                     break;
             }
-        }
-
-        window.calculatePositionSize = function() {
-            const accountSize = parseFloat(document.getElementById('ps-account-size').value);
-            const riskValue = parseFloat(document.getElementById('ps-risk-value').value);
-            const riskMode = document.getElementById('ps-risk-mode').value;
-            const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
-            const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
-            const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
-
-            if (!accountSize || !riskValue || !entryPrice || (riskMode !== 'shares' && !stopLoss)) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            let riskAmount, positionSize, riskPercent;
-            const riskPerShare = Math.abs(entryPrice - stopLoss);
-
-            // Calculate based on selected mode
-            if (riskMode === 'risk') {
-                riskPercent = riskValue;
-                riskAmount = accountSize * (riskValue / 100);
-                positionSize = Math.floor(riskAmount / riskPerShare);
-            } else if (riskMode === 'var') {
-                // VaR targeting mode
-                if (!symbol || !window.varData || !window.varData[symbol]) {
-                    alert('VaR mode requires a valid symbol. Please enter a symbol.');
-                    return;
-                }
-
-                // Calculate position size to achieve target VaR percentage
-                const varPerShare = window.varData[symbol].var;
-                const targetVarPercent = riskValue / 100; // Convert % to decimal
-
-                // Position size needed so that position VaR = targetVarPercent of position value
-                // positionSize * varPerShare = targetVarPercent * (positionSize * entryPrice)
-                // positionSize * varPerShare = targetVarPercent * positionSize * entryPrice
-                // varPerShare = targetVarPercent * entryPrice
-                // positionSize = any size that satisfies the VaR constraint
-
-                // Start with a reasonable position size based on account
-                const baseRiskPercent = 2; // 2% account risk as starting point
-                const baseRiskAmount = accountSize * (baseRiskPercent / 100);
-                positionSize = Math.floor(baseRiskAmount / riskPerShare);
-
-                // Adjust if VaR constraint can't be met
-                const positionValue = positionSize * entryPrice;
-                const actualVarPercent = (positionSize * varPerShare) / positionValue * 100;
-
-                riskAmount = positionSize * riskPerShare;
-                riskPercent = (riskAmount / accountSize) * 100;
-            } else if (riskMode === 'dollar') {
-                riskAmount = riskValue;
-                positionSize = Math.floor(riskAmount / riskPerShare);
-                riskPercent = (riskAmount / accountSize) * 100;
-            } else if (riskMode === 'shares') {
-                positionSize = riskValue;
-                riskAmount = positionSize * riskPerShare;
-                riskPercent = (riskAmount / accountSize) * 100;
-            }
-
-            const positionValue = positionSize * entryPrice;
-            const actualRisk = positionSize * riskPerShare;
-
-            const output = `
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Risk Amount:</div>
-                    <div class="result-value">$${riskAmount.toFixed(2)}</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Risk per Share:</div>
-                    <div class="result-value">$${riskPerShare.toFixed(2)}</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Recommended Position Size:</div>
-                    <div class="result-value">${positionSize.toLocaleString()} shares</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Position Value:</div>
-                    <div class="result-value">$${positionValue.toLocaleString()}</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Actual Risk:</div>
-                    <div class="result-value">$${actualRisk.toFixed(2)} (${(actualRisk/accountSize*100).toFixed(2)}% of account)</div>
-                </div>
-                <div class="warning-text">⚠️ This assumes perfect execution at your stop loss price. Market gaps can increase actual losses.</div>
-            `;
-
-            document.getElementById('ps-output').innerHTML = output;
-            document.getElementById('ps-results').classList.add('show');
         }
 
         // VALIDATED: Auto-updated from latest CSVs on 2025-09-17 08:21:55
@@ -1658,194 +1846,8 @@ else if (symbol) {
             }
         }
 
-        window.calculatePortfolioVaR = function() {
-            const confidence = parseFloat(document.getElementById('pf-confidence').value);
-            const timeHorizon = parseInt(document.getElementById('pf-time-horizon').value);
-            const rows = document.querySelectorAll('#portfolio-positions tr');
+        // Original calculatePortfolioVaR function removed - now global
 
-            let positions = [];
-            let totalValue = 0;
-            let totalVaR = 0;
-
-            for (let row of rows) {
-                const inputs = row.querySelectorAll('input');
-                const symbol = inputs[0].value.toUpperCase().trim();
-                const shares = parseFloat(inputs[1].value) || 0;
-                const price = parseFloat(inputs[2].value) || 0;
-
-                if (symbol && shares && price) {
-                    const value = shares * price;
-                    let positionVaR = 0;
-                    let varPerShare = 0;
-
-                    // Use real VaR data if available
-                    if (window.varData && window.varData[symbol]) {
-                        varPerShare = window.varData[symbol].var;
-                        positionVaR = shares * varPerShare;
-                    } else {
-                        // Fallback: estimate VaR as 2% of position value for unknown symbols
-                        positionVaR = value * 0.02;
-                        varPerShare = price * 0.02;
-                    }
-
-                    positions.push({
-                        symbol,
-                        shares,
-                        price,
-                        value,
-                        positionVaR,
-                        varPerShare,
-                        hasRealData: !!(window.varData && window.varData[symbol]),
-                        assetClass: (window.varData && window.varData[symbol]) ? window.varData[symbol].asset_class : 'unknown'
-                    });
-                    totalValue += value;
-                    totalVaR += positionVaR;
-                }
-            }
-
-            if (positions.length === 0) {
-                alert('Please add at least one position');
-                return;
-            }
-
-            // Update weights display
-            positions.forEach((pos, index) => {
-                const weight = (pos.value / totalValue * 100).toFixed(1);
-                rows[index].querySelector('.weight-display').textContent = weight + '%';
-                pos.weight = parseFloat(weight);
-            });
-
-            // Calculate portfolio VaR (simplified linear aggregation - no correlation)
-            // For different confidence levels, adjust the base VaR
-            const confidenceAdjustment = confidence === 95 ? 1.0 : confidence === 99 ? 1.4 : 1.8;
-            const timeAdjustment = Math.sqrt(timeHorizon);
-            const adjustedPortfolioVaR = totalVaR * confidenceAdjustment * timeAdjustment;
-
-            // Calculate asset class breakdown
-            const assetClassBreakdown = {};
-            positions.forEach(pos => {
-                const assetClass = pos.assetClass;
-                if (!assetClassBreakdown[assetClass]) {
-                    assetClassBreakdown[assetClass] = { value: 0, var: 0, count: 0 };
-                }
-                assetClassBreakdown[assetClass].value += pos.value;
-                assetClassBreakdown[assetClass].var += pos.positionVaR;
-                assetClassBreakdown[assetClass].count += 1;
-            });
-
-            let output = `
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Total Portfolio Value:</div>
-                    <div class="result-value">$${totalValue.toLocaleString()}</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Portfolio VaR (${confidence}%, ${timeHorizon} day${timeHorizon > 1 ? 's' : ''}):</div>
-                    <div class="result-value">$${adjustedPortfolioVaR.toFixed(2)} (${(adjustedPortfolioVaR/totalValue*100).toFixed(2)}% of portfolio)</div>
-                </div>
-                <div class="calc-margin-bottom">
-                    <div class="result-label">Daily VaR (estimated):</div>
-                    <div class="result-value">$${(totalVaR * confidenceAdjustment).toFixed(2)} (${(totalVaR * confidenceAdjustment/totalValue*100).toFixed(2)}% of portfolio)</div>
-                </div>
-            `;
-
-            // Add asset class breakdown if more than one asset class
-            const assetClassCount = Object.keys(assetClassBreakdown).length;
-            if (assetClassCount > 1 || (assetClassCount === 1 && !assetClassBreakdown['unknown'])) {
-                output += `
-                    <div class="calc-portfolio-breakdown">
-                        <h4 class="calc-breakdown-title">📊 Asset Class Breakdown</h4>
-                `;
-
-                Object.entries(assetClassBreakdown).forEach(([assetClass, data]) => {
-                    const percentage = (data.value / totalValue * 100).toFixed(1);
-                    const assetDisplay = assetClass === 'cfd' ? 'CFDs' :
-                                       assetClass === 'stocks' ? 'Stocks' :
-                                       assetClass === 'futures' ? 'Futures' :
-                                       assetClass === 'unknown' ? 'Unknown' : assetClass;
-
-                    const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
-                                           assetClass === 'cfd' ? 'calc-asset-color-cfd' :
-                                           assetClass === 'futures' ? 'calc-asset-color-futures' :
-                                           assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
-
-                    const filterStatus = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️' : '';
-                    const filterNote = filterStatus ? ` (outside current ${getDatasetDisplayName()} filter)` : '';
-
-                    output += `
-                        <div class="calc-asset-item">
-                            <span class="${assetColorClass}" style="font-weight: bold;">${assetDisplay}${filterStatus}</span>:
-                            $${data.value.toLocaleString()} (${percentage}%) |
-                            ${data.count} position${data.count > 1 ? 's' : ''} |
-                            VaR: $${data.var.toFixed(2)}${filterNote}
-                        </div>
-                    `;
-                });
-
-                output += `</div>`;
-            }
-
-            output += `<h4 class="calc-result-title" style="margin: 20px 0 10px 0;">Position Breakdown:</h4>`;
-            for (let pos of positions) {
-                const dataSource = pos.hasRealData ? '📊' : '⚠️';
-                const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
-                const riskAssessment = pos.hasRealData ? generateRiskAssessment(window.varData[pos.symbol]) : null;
-                const outlierWarning = riskAssessment && window.varData[pos.symbol].outliers && window.varData[pos.symbol].outliers.length > 0 ?
-                    ` 🚨 ${window.varData[pos.symbol].outliers.length} outlier${window.varData[pos.symbol].outliers.length > 1 ? 's' : ''}` : '';
-                const borderColor = riskAssessment ? riskAssessment.color : '#00ff00';
-
-                // Asset class display
-                const assetClass = pos.assetClass;
-                const assetDisplay = assetClass === 'cfd' ? 'CFD' :
-                                   assetClass === 'stocks' ? 'Stock' :
-                                   assetClass === 'futures' ? 'Future' :
-                                   assetClass === 'unknown' ? 'Unknown' : assetClass;
-
-                const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
-                                       assetClass === 'cfd' ? 'calc-asset-color-cfd' :
-                                       assetClass === 'futures' ? 'calc-asset-color-futures' :
-                                       assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
-
-                const filterWarning = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️ Outside current filter' : '';
-
-                output += `
-                    <div class="calc-position-box" style="border-left-color: ${borderColor};">
-                        <strong class="calc-position-name">${pos.symbol}</strong> <span class="${assetColorClass}" style="font-size: 0.9em;">[${assetDisplay}]</span> ${dataSource} ${dataNote}${outlierWarning}${filterWarning}<br>
-                        ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
-                        Position VaR: $${pos.positionVaR.toFixed(2)} (VaR/share: $${pos.varPerShare.toFixed(2)})
-                        ${riskAssessment ? `<br><span style="color: ${riskAssessment.color}; font-size: 0.9em;">${riskAssessment.recommendation}</span>` : ''}
-                    </div>
-                `;
-            }
-
-            const realDataCount = positions.filter(p => p.hasRealData).length;
-            const estimatedCount = positions.length - realDataCount;
-            const portfolioRiskAnalysis = analyzePortfolioRisk();
-
-            if (portfolioRiskAnalysis) {
-                output += `
-                    <div class="calc-risk-assessment-box" style="border-color: ${portfolioRiskAnalysis.color};">
-                        <h4 class="calc-risk-title" style="color: ${portfolioRiskAnalysis.color};">🎯 Portfolio Risk Assessment</h4>
-                        <div class="calc-risk-message" style="color: ${portfolioRiskAnalysis.color};">${portfolioRiskAnalysis.message}</div>
-                        <div class="calc-risk-details">
-                            High-risk positions: ${portfolioRiskAnalysis.highRiskCount}/${portfolioRiskAnalysis.totalCount}
-                            (${((portfolioRiskAnalysis.highRiskCount / portfolioRiskAnalysis.totalCount) * 100).toFixed(1)}%)
-                        </div>
-                    </div>
-                `;
-            }
-
-            output += `
-                <div class="warning-text calc-warning-main">
-                    📊 ${realDataCount} position${realDataCount !== 1 ? 's' : ''} using real VaR data from market analysis<br>
-                    ${estimatedCount > 0 ? `⚠️ ${estimatedCount} position${estimatedCount !== 1 ? 's' : ''} using estimated VaR (2% of position value)<br>` : ''}
-                    ⚠️ This calculation assumes no correlation between positions. Actual portfolio VaR may be higher during market stress when correlations increase.<br>
-                    💡 Use the Symbol Lookup Tool to analyze individual position risks and outlier status.
-                </div>
-            `;
-
-            document.getElementById('pf-output').innerHTML = output;
-            document.getElementById('pf-results').classList.add('show');
-        }
 
         function calculateRiskReturn() {
             const returnsText = document.getElementById('rr-returns').value;
@@ -2495,7 +2497,6 @@ else if (symbol) {
             }
         }
 
-        console.log('🔍 DEBUG: Reached initialization section...');
         // Prevent multiple initialization
         let calculatorInitialized = false;
 
