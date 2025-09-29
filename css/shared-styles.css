@@ -6,9 +6,10 @@
     box-sizing: border-box;
 }
 
-/* Prevent iframe content from creating any scrollbars */
+/* Allow natural browser scrolling for iframe content */
 html, body {
     overflow-x: hidden;
+    overflow-y: visible;
 }
 
 /* Container should never overflow */

@@ -43,6 +43,18 @@ function loadContent(page, clickedElement) {
         iframe.src = `${page}.html`;
     }
 
+    // Auto-resize iframe to content height when loaded
+    iframe.onload = function() {
+        try {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const height = iframeDoc.documentElement.scrollHeight;
+            iframe.style.height = height + 'px';
+        } catch (e) {
+            // Cross-origin restrictions - set a minimum height
+            iframe.style.height = 'calc(100vh - 40px)';
+        }
+    };
+
     // Update mobile breadcrumb
     updateMobileBreadcrumb(page);
 
