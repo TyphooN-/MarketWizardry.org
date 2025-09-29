@@ -1,5 +1,11 @@
 // Redirect to market-wizardry.html if accessed directly (not in iframe)
 if (window === window.top) {
+    // Load main.css for standalone access before redirect
+    const mainCssLink = document.createElement('link');
+    mainCssLink.rel = 'stylesheet';
+    mainCssLink.href = '/css/main.css';
+    document.head.appendChild(mainCssLink);
+
     // Small delay to ensure viewport takes effect on mobile
     setTimeout(() => {
         const currentPath = window.location.pathname;
@@ -13,4 +19,7 @@ if (window === window.top) {
             window.location.href = `/?page=${currentPage}`;
         }
     }, 100);
+} else {
+    // When in iframe, do NOT load main.css to avoid layout conflicts
+    // Only shared-styles.css should be loaded for iframe content
 }

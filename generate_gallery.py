@@ -97,7 +97,6 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
 {enhanced_meta_tags}
 {json_ld_schema}
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 {breadcrumbs_html}
@@ -181,7 +180,6 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 {enhanced_meta_tags}
 {json_ld_schema}
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 {breadcrumbs_html}
@@ -308,7 +306,6 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 {enhanced_meta_tags}
 {json_ld_schema}
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 {breadcrumbs_html}
@@ -500,7 +497,6 @@ document.addEventListener('DOMContentLoaded', function() {{
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
     <!-- Enhanced Breadcrumb Navigation with Schema Markup -->

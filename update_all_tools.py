@@ -567,7 +567,6 @@ class FinancialToolsUpdater:
 {meta_tags}
 
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 {breadcrumbs_html}
@@ -647,7 +646,6 @@ class FinancialToolsUpdater:
 {meta_tags}
 
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 {breadcrumbs_html}
@@ -728,7 +726,6 @@ class FinancialToolsUpdater:
 {meta_tags}
 
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 {breadcrumbs_html}

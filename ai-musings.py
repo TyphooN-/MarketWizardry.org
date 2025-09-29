@@ -114,7 +114,6 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
 {meta_tags}
 
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/ai-musings.css">
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
