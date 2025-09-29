@@ -660,6 +660,50 @@ window.calculatePositionSize = function() {
     document.getElementById('ps-results').classList.add('show');
 };
 
+// Add global portfolio analysis for outlier detection
+window.analyzePortfolioRisk = function() {
+    const rows = document.querySelectorAll('#portfolio-positions tr');
+    let highRiskPositions = 0;
+    let totalPositions = 0;
+
+    for (let row of rows) {
+        const inputs = row.querySelectorAll('input');
+        const symbol = inputs[0].value.toUpperCase().trim();
+
+        if (symbol && window.varData && window.varData[symbol]) {
+            totalPositions++;
+            const data = window.varData[symbol];
+            if (data.outliers && data.outliers.length >= 2) {
+                highRiskPositions++;
+            }
+        }
+    }
+
+    if (totalPositions > 0) {
+        const riskPercentage = (highRiskPositions / totalPositions) * 100;
+        let riskMessage = '';
+        let riskColor = '#00ff00';
+
+        if (riskPercentage > 60) {
+            riskMessage = '🚨 EXTREME PORTFOLIO RISK - Multiple high-risk outlier positions detected';
+            riskColor = '#00aa00';
+        } else if (riskPercentage > 30) {
+            riskMessage = '⚠️ ELEVATED PORTFOLIO RISK - Several outlier positions in portfolio';
+            riskColor = '#00aa00';
+        } else if (riskPercentage > 0) {
+            riskMessage = '⚡ MODERATE PORTFOLIO RISK - Some outlier positions detected';
+            riskColor = '#00aa00';
+        } else {
+            riskMessage = '✅ LOW PORTFOLIO RISK - No high-risk outlier positions';
+            riskColor = '#00ff00';
+        }
+
+        return { message: riskMessage, color: riskColor, highRiskCount: highRiskPositions, totalCount: totalPositions };
+    }
+
+    return null;
+};
+
 // Portfolio VaR Calculator - Global function for immediate access
 window.calculatePortfolioVaR = function() {
     const confidence = parseFloat(document.getElementById('pf-confidence').value);
@@ -822,7 +866,7 @@ window.calculatePortfolioVaR = function() {
 
     const realDataCount = positions.filter(p => p.hasRealData).length;
     const estimatedCount = positions.length - realDataCount;
-    const portfolioRiskAnalysis = analyzePortfolioRisk();
+    const portfolioRiskAnalysis = window.analyzePortfolioRisk();
 
     if (portfolioRiskAnalysis) {
         output += `
@@ -867,11 +911,8 @@ function getDatasetDisplayName() {
 window.lookupSymbol = function() {
     console.log('🔍 lookupSymbol() called');
 
-    // First, ensure we're in the lookup calculator view
-    if (window.selectCalculator) {
-        console.log('🔄 Switching to lookup calculator');
-        window.selectCalculator('lookup', null);
-    }
+    // Keep lookup within current calculator context (no switching)
+    console.log('💼 Performing symbol lookup within current calculator context');
 
     const symbolInput = document.getElementById('symbol-lookup');
     console.log('📝 Symbol input element:', symbolInput);
@@ -958,19 +999,14 @@ function addSymbolToPortfolio(symbol) {
 
     console.log('✅ Symbol data found, adding to portfolio');
 
-    // Auto-switch to Portfolio VaR calculator
-    if (window.selectCalculator) {
-        console.log('🔄 Switching to Portfolio VaR calculator');
-        window.selectCalculator('portfolio', null);
+    // Check if portfolio VaR calculator is already active
+    const isPortfolioActive = document.getElementById('portfolio-calculator') &&
+                              !document.getElementById('portfolio-calculator').classList.contains('display-none');
 
-        // Scroll to portfolio calculator section
-        setTimeout(() => {
-            const portfolioSection = document.getElementById('portfolio-calculator');
-            if (portfolioSection) {
-                portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                console.log('📜 Scrolled to portfolio calculator');
-            }
-        }, 100);
+    if (!isPortfolioActive) {
+        // Only show notification if not already in portfolio calculator
+        console.log('💼 Symbol added to portfolio. Switch to Portfolio VaR Calculator to manage positions.');
+        // You could add a toast notification here instead of auto-switching
     }
 
     const tbody = document.getElementById('portfolio-positions');
@@ -2926,48 +2962,7 @@ else if (symbol) {
             document.getElementById('lookup-output').innerHTML = output;
         }
 
-        // Add special portfolio analysis for outlier detection
-        function analyzePortfolioRisk() {
-            const rows = document.querySelectorAll('#portfolio-positions tr');
-            let highRiskPositions = 0;
-            let totalPositions = 0;
-
-            for (let row of rows) {
-                const inputs = row.querySelectorAll('input');
-                const symbol = inputs[0].value.toUpperCase().trim();
-
-                if (symbol && window.varData && window.varData[symbol]) {
-                    totalPositions++;
-                    const data = window.varData[symbol];
-                    if (data.outliers && data.outliers.length >= 2) {
-                        highRiskPositions++;
-                    }
-                }
-
-            if (totalPositions > 0) {
-                const riskPercentage = (highRiskPositions / totalPositions) * 100;
-                let riskMessage = '';
-                let riskColor = '#00ff00';
-
-                if (riskPercentage > 60) {
-                    riskMessage = '🚨 EXTREME PORTFOLIO RISK - Multiple high-risk outlier positions detected';
-                    riskColor = '#00aa00';
-                } else if (riskPercentage > 30) {
-                    riskMessage = '⚠️ ELEVATED PORTFOLIO RISK - Several outlier positions in portfolio';
-                    riskColor = '#00aa00';
-                } else if (riskPercentage > 0) {
-                    riskMessage = '⚡ MODERATE PORTFOLIO RISK - Some outlier positions detected';
-                    riskColor = '#00aa00';
-                } else {
-                    riskMessage = '✅ LOW PORTFOLIO RISK - No high-risk outlier positions';
-                    riskColor = '#00ff00';
-                }
-
-                return { message: riskMessage, color: riskColor, highRiskCount: highRiskPositions, totalCount: totalPositions };
-            }
-
-            return null;
-        }
+        // Moved analyzePortfolioRisk to global scope
 
         // Dataset filtering functionality
         // Variables moved to global scope - see above
