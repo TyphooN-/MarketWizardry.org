@@ -3211,24 +3211,9 @@ else if (symbol) {
 
                 // Set up calculator card click listeners
                 addDebug('🎯 Setting up calculator card listeners...');
-                const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
-                addDebug(`📊 Found ${calculatorCards.length} calculator cards`);
-                console.log('🔍 DOM query result:', calculatorCards);
-
-                calculatorCards.forEach((card, index) => {
-                    const calculatorType = card.getAttribute('data-calculator');
-                    addDebug(`🔧 Setting up card ${index}: ${calculatorType}`);
-                    console.log('🔧 Adding click listener to card:', calculatorType, card);
-
-                    card.addEventListener('click', function() {
-                        const clickedType = this.getAttribute('data-calculator');
-                        addDebug(`✅ Calculator card clicked: ${clickedType}`);
-                        console.log('✅ Calculator card clicked:', clickedType);
-                        selectCalculator(clickedType, this);
-                    });
-                });
-
-                addDebug('✅ Calculator card listeners enabled');
+                // Calculator cards are now handled by shared.js via data-action="select-calculator"
+                // No need for direct event listeners here - avoiding conflicts
+                addDebug('✅ Calculator cards handled by shared.js event delegation');
                 console.log('selectCalculator function exists:', typeof window.selectCalculator);
 
                 // Set up breadcrumb reset listener
