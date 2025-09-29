@@ -3444,6 +3444,4 @@ else if (symbol) {
 
         // Calculator initialization complete
 
-    } // Close first missing brace
-    } // Close second missing brace
-}; // Close DOMContentLoaded function
+}); // Close DOMContentLoaded function
