@@ -17,7 +17,8 @@ body {
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
+    min-height: 100vh;
 }
 
 h1 {
@@ -93,17 +94,18 @@ h1 {
 /* Grid Styles - For galleries and explorers */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    margin-top: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
 }
 
 /* Image Grid Styles - For NFT and AI art galleries */
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    margin-top: 20px;
+    margin: 20px auto;
     padding: 0 20px;
     max-width: 1400px;
     width: 100%;
@@ -632,14 +634,15 @@ header {
     margin: 0 auto;
 }
 
-/* Limit var/ev/atr explorer grids to 3 columns max */
-.grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    max-width: 1200px;
-    margin: 20px auto;
+/* Limit var/ev/atr explorer grids to 3 columns max on wide screens */
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
     .grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
