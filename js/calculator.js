@@ -84,6 +84,12 @@ window.showAllSymbols = function() {
     console.log('🔍 showAllSymbols() called');
     console.log('📊 varData availability:', !!window.varData);
 
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
     if (!window.varData) {
         console.error('❌ varData not loaded, showing error message');
         document.getElementById('lookup-output').innerHTML = `
@@ -585,6 +591,12 @@ function getDatasetDisplayName() {
 window.lookupSymbol = function() {
     console.log('🔍 lookupSymbol() called');
 
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
     const symbolInput = document.getElementById('symbol-lookup');
     console.log('📝 Symbol input element:', symbolInput);
 
@@ -729,6 +741,13 @@ window.findSimilar = function(symbol) {
 
 window.performAdvancedSearch = function() {
     console.log('🔍 performAdvancedSearch() called');
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
     const searchInput = document.getElementById('lookup-symbol');
     console.log('📝 Search input element:', searchInput);
 
