@@ -73,7 +73,6 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
     # Create breadcrumbs
     ai_musings_breadcrumbs = breadcrumb_paths['ai_musings'][:-1] + [{'name': 'AI Musings', 'url': None}]
     breadcrumbs_html = seo_manager.generate_breadcrumbs(ai_musings_breadcrumbs)
-    breadcrumb_css = seo_manager.generate_breadcrumb_css()
 
     # Create page config for AI Musings
     page_config = {
@@ -103,7 +102,7 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
                 <span class="word-count">{musing['word_count']} words</span>
                 <button class="expand-btn" data-action="toggle-musing" data-filename="{musing['filename']}" id="btn-{musing['filename']}">Expand</button>
             </div>
-            <div class="full-content" id="content-{musing['filename']}" style="display: none;">
+            <div class="full-content" id="content-{musing['filename']}">
                 <pre>{musing['content']}</pre>
             </div>
         </div>'''
@@ -114,129 +113,9 @@ def generate_ai_musings_html(output_file='ai-musings.html'):
 <head>
 {meta_tags}
 
+    <link rel="stylesheet" href="/css/ai-musings.css">
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
-    <style>
-        body {{
-            background-color: #000;
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            padding: 20px;
-            margin: 0;
-            line-height: 1.4;
-        }}
-        .container {{
-            max-width: 1000px;
-            margin: 0 auto;
-        }}
-        h1 {{
-            text-align: center;
-            padding-bottom: 10px;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }}
-        .crt-divider {{
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 30px auto;
-        }}
-        @keyframes scan {{
-            0% {{ opacity: 1; width: 0%; }}
-            50% {{ opacity: 0.5; }}
-            100% {{ opacity: 1; width: 100%; }}
-        }}
-        .flavor-text {{
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            font-style: italic;
-            font-weight: bold;
-            opacity: 0.9;
-            animation: flicker 1s infinite;
-        }}
-        @keyframes flicker {{
-            0% {{ opacity: 1; }}
-            50% {{ opacity: 0.8; }}
-            100% {{ opacity: 1; }}
-        }}
-        .musings-grid {{
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-top: 30px;
-        }}
-        .musing-entry {{
-            background-color: #001100;
-            border: 2px solid rgba(0, 255, 0, 0.3);
-            padding: 20px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }}
-        .musing-entry:hover {{
-            border-color: rgba(0, 255, 0, 0.6);
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-        }}
-        .musing-entry h3 {{
-            color: #00ff00;
-            margin-top: 0;
-            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
-            padding-bottom: 10px;
-        }}
-        .excerpt {{
-            color: #00aa00;
-            font-style: italic;
-            margin: 15px 0;
-        }}
-        .musing-meta {{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 15px 0;
-            padding-top: 10px;
-            border-top: 1px solid rgba(0, 255, 0, 0.2);
-        }}
-        .word-count {{
-            color: #004400;
-            font-size: 0.9em;
-        }}
-        .expand-btn {{
-            background-color: transparent;
-            color: #00ff00;
-            border: 1px solid #00ff00;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-family: "Courier New", monospace;
-            transition: all 0.2s ease;
-        }}
-        .expand-btn:hover {{
-            background-color: #00ff00;
-            color: #000;
-        }}
-        .full-content {{
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 255, 0, 0.3);
-        }}
-        .full-content pre {{
-            color: #00aa00;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: "Courier New", monospace;
-            margin: 0;
-            line-height: 1.6;
-        }}
-        .stats {{
-            text-align: center;
-            color: #00aa00;
-            margin: 20px 0;
-            font-size: 0.9em;
-        }}
-{breadcrumb_css}
-    </style>
 </head>
 <body>
 {breadcrumbs_html}
