@@ -982,7 +982,7 @@ function addSymbolToPortfolio(symbol) {
         <td class="value-display">-</td>
         <td class="var-display">$${data.var}</td>
         <td class="weight-display">-</td>
-        <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
+        <td><button class="remove-btn remove-position" title="Remove Position"></button></td>
     `;
     tbody.appendChild(newRow);
 
@@ -1003,7 +1003,7 @@ window.addPosition = function() {
         <td class="var-percent-display calc-var-percent">-</td>
         <td class="weight-display">-</td>
         <td class="asset-class-display calc-asset-class">-</td>
-        <td><button class="remove-btn" class="remove-position" title="Remove Position"></button></td>
+        <td><button class="remove-btn remove-position" title="Remove Position"></button></td>
     `;
     tbody.appendChild(newRow);
 }
@@ -1014,9 +1014,29 @@ window.quickLookup = function(symbol) {
 }
 
 window.useInStopLoss = function(symbol) {
-    selectCalculator('stoploss');
-    document.getElementById('sl-symbol').value = symbol;
-    autoFillStopLossData();
+    console.log('📊 useInStopLoss() called with symbol:', symbol);
+
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to stop loss calculator');
+        selectCalculator('stoploss');
+    } else {
+        console.error('❌ selectCalculator function not found');
+    }
+
+    const symbolInput = document.getElementById('sl-symbol');
+    if (symbolInput) {
+        symbolInput.value = symbol;
+        console.log('✅ Symbol set in stop loss calculator:', symbol);
+    } else {
+        console.error('❌ sl-symbol input not found');
+    }
+
+    if (window.autoFillStopLossData) {
+        autoFillStopLossData();
+        console.log('✅ Auto-fill stop loss data called');
+    } else {
+        console.error('❌ autoFillStopLossData function not found');
+    }
 }
 
 window.useInPortfolio = function(symbol) {
@@ -1166,10 +1186,7 @@ window.displaySymbolInfo = function(symbol, data) {
 
     const output = `
         <div class="calc-detailed-info">
-            <div class="calc-symbol-detail-header">
-                <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
-                <button class="calculate-btn calc-back-button" id="back-to-list-btn">← Back to List</button>
-            </div>
+            <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
 
             <div class="calc-risk-message-large">
                 ${riskAssessment.recommendation}
@@ -1213,9 +1230,9 @@ window.displaySymbolInfo = function(symbol, data) {
             </div>
 
             <div class="calc-button-row">
-                <button class="quick-symbol-btn" class="use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
-                <button class="quick-symbol-btn" class="use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
-                <button class="quick-symbol-btn" class="find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
+                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
             </div>
         </div>
     `;
@@ -3062,12 +3079,15 @@ else if (symbol) {
                         removePosition(e.target);
                     } else if (e.target.classList.contains('use-in-stop-loss')) {
                         const symbol = e.target.getAttribute('data-symbol');
+                        console.log('📊 USE IN STOP LOSS clicked for symbol:', symbol);
                         useInStopLoss(symbol);
                     } else if (e.target.classList.contains('use-in-portfolio')) {
                         const symbol = e.target.getAttribute('data-symbol');
+                        console.log('💼 USE IN PORTFOLIO clicked for symbol:', symbol);
                         useInPortfolio(symbol);
                     } else if (e.target.classList.contains('find-similar')) {
                         const symbol = e.target.getAttribute('data-symbol');
+                        console.log('🔍 FIND SIMILAR clicked for symbol:', symbol);
                         findSimilar(symbol);
                     } else if (e.target.classList.contains('quick-lookup')) {
                         const symbol = e.target.getAttribute('data-symbol');
