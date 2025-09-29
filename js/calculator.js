@@ -3445,3 +3445,41 @@ else if (symbol) {
         // Calculator initialization complete
 
 }); // Close DOMContentLoaded function
+
+// EMERGENCY FIX: Define selectCalculator outside DOMContentLoaded to test
+if (!window.selectCalculator) {
+    console.log('🚑 Emergency fix: defining selectCalculator outside DOMContentLoaded');
+    window.selectCalculator = function(calculatorType, clickedElement) {
+        console.log('⚡ Emergency selectCalculator called with:', calculatorType);
+
+        try {
+            // Hide all calculators
+            const calculators = document.querySelectorAll('.calculator-content');
+            calculators.forEach(calc => calc.classList.remove('active'));
+
+            // Remove active class from all cards
+            const cards = document.querySelectorAll('.calculator-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Show selected calculator
+            const targetId = calculatorType + '-calculator';
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.classList.add('active');
+                console.log('✅ Emergency calculator activated:', targetId);
+            } else {
+                console.error('❌ Could not find element with ID:', targetId);
+            }
+
+            // Add active class to selected card
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+            }
+
+        } catch (error) {
+            console.error('❌ Error in emergency selectCalculator:', error);
+        }
+    };
+
+    console.log('✅ Emergency selectCalculator defined! Type:', typeof window.selectCalculator);
+}
