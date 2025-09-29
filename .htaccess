@@ -40,7 +40,7 @@
     # style-src 'self' - only external stylesheets allowed, no unsafe-inline
     # script-src 'self' - only external scripts from same origin
     # img-src 'self' data: - allows images from same origin and data URIs
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self'; worker-src 'none'; child-src 'self'; form-action 'self'; base-uri 'self'; manifest-src 'self';"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self' https://www.youtube.com https://youtube.com; worker-src 'none'; child-src 'self'; form-action 'self'; base-uri 'self'; manifest-src 'self';"
 </IfModule>
 
 # Pretty URLs for SEO
