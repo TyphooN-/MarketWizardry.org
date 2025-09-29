@@ -974,6 +974,17 @@ function addSymbolToPortfolio(symbol) {
     }
 
     const tbody = document.getElementById('portfolio-positions');
+
+    // Remove placeholder row if it exists (has placeholder="AAPL" in symbol input)
+    const placeholderRow = tbody.querySelector('tr input[placeholder="AAPL"]');
+    if (placeholderRow) {
+        const placeholderRowElement = placeholderRow.closest('tr');
+        if (placeholderRowElement) {
+            placeholderRowElement.remove();
+            console.log('✅ Removed placeholder row');
+        }
+    }
+
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
         <td><input type="text" value="${symbol}" class="position-symbol-input calc-input-small"></td>
@@ -984,7 +995,15 @@ function addSymbolToPortfolio(symbol) {
         <td class="weight-display">-</td>
         <td><button class="remove-btn remove-position" title="Remove Position"></button></td>
     `;
-    tbody.appendChild(newRow);
+
+    // Insert at the beginning instead of appending to the end
+    if (tbody.children.length > 0) {
+        tbody.insertBefore(newRow, tbody.firstChild);
+        console.log('✅ Added symbol as first position in portfolio');
+    } else {
+        tbody.appendChild(newRow);
+        console.log('✅ Added symbol to empty portfolio');
+    }
 
     // Hide symbol info
     document.getElementById('symbol-info').className += ' display-none';
