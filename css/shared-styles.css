@@ -652,6 +652,80 @@ header {
     flex-wrap: wrap;
 }
 
+/* Copy notification styles for donate page */
+.copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.copy-notification.show {
+    opacity: 1;
+    animation: crt-flicker 0.5s ease-in-out;
+}
+
+@keyframes crt-flicker {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Matrix text animation styles for code.html */
+.matrix-text {
+    position: fixed;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    user-select: none;
+    animation: matrix-fall var(--duration) linear infinite;
+    opacity: 1;
+}
+
+@keyframes matrix-fall {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(calc(var(--height, 100vh)));
+        opacity: 0;
+    }
+}
+
+.matrix-char {
+    animation-delay: var(--delay, 0s);
+}
+
+/* Mobile matrix animation adjustment */
+@media screen and (max-width: 768px) {
+    .matrix-text {
+        position: absolute;
+    }
+
+    @keyframes matrix-fall {
+        0% {
+            transform: translateY(-50px);
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateY(calc(100vh + 100px));
+            opacity: 0;
+        }
+    }
+}
+
 /* Additional utility styles for common patterns */
 .display-flex {
     display: flex;
