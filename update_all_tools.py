@@ -566,10 +566,6 @@ class FinancialToolsUpdater:
 <head>
 {meta_tags}
 
-    <!-- CSP Compliant JavaScript Includes -->
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
-
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
 </head>
@@ -648,19 +644,7 @@ class FinancialToolsUpdater:
         html_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATR Explorer - MarketWizardry.org</title>
-    <link rel="canonical" href="https://marketwizardry.org/atr-explorer.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-
 {meta_tags}
-
-    <!-- CSP Compliant JavaScript Includes -->
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
 
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
@@ -741,19 +725,7 @@ class FinancialToolsUpdater:
         html_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="TyphooN">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EV Explorer - MarketWizardry.org</title>
-    <link rel="canonical" href="https://marketwizardry.org/ev-explorer.html">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-
 {meta_tags}
-
-    <!-- CSP Compliant JavaScript Includes -->
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
 
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
