@@ -79,6 +79,117 @@ window.calculateCompoundInterest = function() {
     }
 };
 
+// Global variable to store previous symbol list for back functionality
+let previousSymbolListState = null;
+
+// Function to show detailed symbol view with back button
+window.showSymbolDetail = function(symbol) {
+    console.log('🔍 showSymbolDetail() called for symbol:', symbol);
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    const data = window.varData[symbol];
+    if (!data) {
+        console.error('❌ No data found for symbol:', symbol);
+        alert(`Symbol ${symbol} not found in database`);
+        return;
+    }
+
+    console.log('✅ Showing detailed view for:', symbol);
+
+    const outputElement = document.getElementById('lookup-output');
+    if (!outputElement) {
+        console.error('❌ lookup-output element not found');
+        return;
+    }
+
+    // Generate detailed symbol information
+    const riskAssessment = generateRiskAssessment(data);
+    const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+        `<div class="calc-outlier-warning">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+
+    const output = `
+        <div class="calc-detailed-info">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 class="calc-detailed-title">📊 ${symbol} - Detailed Information</h3>
+                <button class="calculate-btn" id="back-to-list-btn" style="padding: 8px 16px; font-size: 14px;">← Back to List</button>
+            </div>
+
+            <div class="calc-detailed-grid">
+                <div>
+                    <h4 class="calc-data-section-title">Basic Information</h4>
+                    <strong class="calc-symbol-name">${symbol}</strong> - ${data.description}<br>
+                    <span class="calc-symbol-sector">Sector:</span> ${data.sector}<br>
+                    <span class="calc-symbol-sector">Industry:</span> ${data.industry || 'N/A'}<br>
+                    <span class="calc-symbol-sector">Asset Class:</span> ${data.assetClass || 'Stock'}<br>
+                    <span class="calc-symbol-sector">Current Price:</span> $${data.price}
+                    ${outlierWarnings}
+                </div>
+                <div>
+                    <h4 class="calc-data-section-title">Risk Metrics</h4>
+                    <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
+                    <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                    <span class="calc-symbol-var">ATR:</span> ${data.atr || 'N/A'}<br>
+                    <div class="calc-risk-message" style="color: #00ff00; margin-top: 10px; font-weight: bold;">
+                        ${riskAssessment.recommendation}
+                    </div>
+                </div>
+            </div>
+
+            ${riskAssessment.details ? `
+                <div class="calc-risk-assessment-box" style="border-color: #00ff00;">
+                    <h4 class="calc-risk-title" style="color: #00ff00;">Risk Assessment</h4>
+                    <div class="calc-risk-message">${riskAssessment.details}</div>
+                </div>
+            ` : ''}
+
+            <div class="calc-button-row">
+                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
+            </div>
+        </div>
+    `;
+
+    outputElement.innerHTML = output;
+
+    // Make the result box visible
+    const resultBox = outputElement.closest('.result-box');
+    if (resultBox) {
+        resultBox.classList.add('show');
+        console.log('✅ Added "show" class to result-box for symbol detail');
+    }
+
+    console.log('✅ Symbol detail view displayed for', symbol);
+};
+
+// Function to go back to previous symbol list
+window.backToSymbolList = function() {
+    console.log('🔙 backToSymbolList() called');
+
+    if (previousSymbolListState) {
+        console.log('✅ Restoring previous list state');
+        const outputElement = document.getElementById('lookup-output');
+        if (outputElement) {
+            outputElement.innerHTML = previousSymbolListState;
+
+            // Make the result box visible
+            const resultBox = outputElement.closest('.result-box');
+            if (resultBox) {
+                resultBox.classList.add('show');
+                console.log('✅ Restored previous symbol list');
+            }
+        }
+    } else {
+        console.log('⚠️ No previous list state, showing all symbols');
+        window.showAllSymbols();
+    }
+};
+
 // Show All Symbols function
 window.showAllSymbols = function() {
     console.log('🔍 showAllSymbols() called');
@@ -188,6 +299,10 @@ window.showAllSymbols = function() {
     if (finalElement) {
         finalElement.innerHTML = output;
 
+        // Store current list state for back functionality
+        previousSymbolListState = output;
+        console.log('💾 Stored current list state for back navigation');
+
         // CRITICAL: Make the result box visible by adding 'show' class
         const resultBox = finalElement.closest('.result-box');
         if (resultBox) {
@@ -259,6 +374,10 @@ window.showAllSymbolsUnfiltered = function() {
     const finalElement = document.getElementById('lookup-output');
     if (finalElement) {
         finalElement.innerHTML = output;
+
+        // Store current list state for back functionality
+        previousSymbolListState = output;
+        console.log('💾 Stored current unfiltered list state for back navigation');
 
         // CRITICAL: Make the result box visible by adding 'show' class
         const resultBox = finalElement.closest('.result-box');
@@ -1310,7 +1429,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'show-all-symbols-btn': 'showAllSymbols',
         'show-all-symbols-unfiltered-btn': 'showAllSymbolsUnfiltered',
         'lookup-symbol-btn': 'lookupSymbol',
-        'advanced-search-btn': 'performAdvancedSearch'
+        'advanced-search-btn': 'performAdvancedSearch',
+        'back-to-list-btn': 'backToSymbolList'
     };
 
     console.log('📋 Button mapping configured:', buttonFunctions);
@@ -2734,13 +2854,13 @@ else if (symbol) {
 
                 if (riskPercentage > 60) {
                     riskMessage = '🚨 EXTREME PORTFOLIO RISK - Multiple high-risk outlier positions detected';
-                    riskColor = '#ff0000';
+                    riskColor = '#00aa00';
                 } else if (riskPercentage > 30) {
                     riskMessage = '⚠️ ELEVATED PORTFOLIO RISK - Several outlier positions in portfolio';
-                    riskColor = '#ff8800';
+                    riskColor = '#00aa00';
                 } else if (riskPercentage > 0) {
                     riskMessage = '⚡ MODERATE PORTFOLIO RISK - Some outlier positions detected';
-                    riskColor = '#ffaa00';
+                    riskColor = '#00aa00';
                 } else {
                     riskMessage = '✅ LOW PORTFOLIO RISK - No high-risk outlier positions';
                     riskColor = '#00ff00';
@@ -2901,7 +3021,11 @@ else if (symbol) {
                         findSimilar(symbol);
                     } else if (e.target.classList.contains('quick-lookup')) {
                         const symbol = e.target.getAttribute('data-symbol');
-                        quickLookup(symbol);
+                        console.log('📋 Symbol clicked from list:', symbol);
+                        showSymbolDetail(symbol);
+                    } else if (e.target.id === 'back-to-list-btn') {
+                        console.log('🔙 Back button clicked');
+                        backToSymbolList();
                     }
                 });
 
