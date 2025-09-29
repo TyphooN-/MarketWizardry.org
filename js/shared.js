@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'stop-propagation':
                 e.stopPropagation();
                 break;
+            case 'show-symbol-detail':
+                handleShowSymbolDetail(e, targetElement);
+                break;
         }
     });
 });
@@ -374,6 +377,23 @@ function handleSelectCalculator(e, targetElement) {
     }
 }
 
+function handleShowSymbolDetail(e, targetElement) {
+    e.preventDefault();
+    const symbol = targetElement.getAttribute('data-symbol');
+    console.log('🎯 handleShowSymbolDetail called for symbol:', symbol);
+
+    if (symbol && window.showSymbolDetail) {
+        window.showSymbolDetail(symbol);
+        console.log('✅ showSymbolDetail called successfully from shared.js');
+    } else {
+        console.error('❌ Symbol or showSymbolDetail function not available:', {
+            symbol: symbol,
+            showSymbolDetailExists: !!window.showSymbolDetail
+        });
+        alert('Error: Unable to show symbol details');
+    }
+}
+
 // Make functions globally accessible for backward compatibility
 window.toggleMusing = toggleMusing;
 window.copyToClipboard = copyToClipboard;
@@ -384,3 +404,4 @@ window.openModal = openModal;
 window.closeModal = closeModal;
 window.loadAnalysisContent = loadAnalysisContent;
 window.handleSelectCalculator = handleSelectCalculator;
+window.handleShowSymbolDetail = handleShowSymbolDetail;

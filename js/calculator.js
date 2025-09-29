@@ -283,7 +283,7 @@ window.showAllSymbols = function() {
 
     symbols.forEach(([symbol, data]) => {
         output += `
-            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}">
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail">
                 <strong>${symbol}</strong> | $${data.price}<br>
                 <small class="calc-symbol-sector">${data.sector}</small>
             </div>
@@ -361,7 +361,7 @@ window.showAllSymbolsUnfiltered = function() {
 
     symbols.forEach(([symbol, data]) => {
         output += `
-            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}">
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail">
                 <strong>${symbol}</strong> | $${data.price}<br>
                 <small class="calc-symbol-sector">${data.sector}</small>
             </div>
@@ -1126,7 +1126,7 @@ window.findSimilar = function(symbol) {
         const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
         output += `
-            <div class="calc-sector-item quick-lookup" data-symbol="${matchSymbol}" style="border-color: ${riskAssessment.color};">
+            <div class="calc-sector-item quick-lookup" data-symbol="${matchSymbol}" data-action="show-symbol-detail" style="border-color: ${riskAssessment.color};">
                 <strong>${matchSymbol}</strong> ${outlierIcon}<br>
                 <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
                 <small class="calc-symbol-sector">${data.sector}</small>
@@ -1409,7 +1409,7 @@ function showWildcardSearch(searchPattern) {
         const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
         output += `
-            <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
+            <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail" style="border-color: ${riskAssessment.color};">
                 <strong>${symbol}</strong> ${outlierIcon}<br>
                 <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
                 <small class="calc-symbol-sector">${data.sector}</small>
@@ -2814,7 +2814,7 @@ else if (symbol) {
 
             filtered.forEach(([symbol, data]) => {
                 output += `
-                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}">
+                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail">
                         <strong>${symbol}</strong><br>
                         <small>$${data.price} | VaR: $${data.var.toFixed(3)}</small><br>
                         <small class="calc-sector-desc">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
@@ -2895,7 +2895,7 @@ else if (symbol) {
                 const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
                 output += `
-                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
+                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail" style="border-color: ${riskAssessment.color};">
                         <strong>${symbol}</strong> ${outlierIcon}<br>
                         <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
                         <small class="calc-symbol-sector">${data.sector}</small>
@@ -3278,19 +3278,26 @@ else if (symbol) {
 
                         // Wait for grid to be generated, then test clicking
                         setTimeout(() => {
-                            const symbolItems = document.querySelectorAll('.calc-symbol-item.quick-lookup');
-                            console.log(`🎯 Found ${symbolItems.length} symbol items in grid`);
+                            const symbolItems = document.querySelectorAll('.calc-symbol-item.quick-lookup[data-action="show-symbol-detail"]');
+                            console.log(`🎯 Found ${symbolItems.length} symbol items with data-action attribute`);
 
                             if (symbolItems.length > 0) {
                                 const firstSymbol = symbolItems[0];
                                 const symbolName = firstSymbol.getAttribute('data-symbol');
-                                console.log(`🖱️ Testing click on first symbol: ${symbolName}`);
+                                const dataAction = firstSymbol.getAttribute('data-action');
+                                console.log(`🖱️ Testing click on first symbol: ${symbolName} (action: ${dataAction})`);
+
+                                // Check if shared.js handler exists
+                                console.log('📋 Available handlers:', {
+                                    handleShowSymbolDetail: typeof window.handleShowSymbolDetail,
+                                    showSymbolDetail: typeof window.showSymbolDetail
+                                });
 
                                 // Simulate a click
                                 firstSymbol.click();
                                 console.log('✅ Click test completed - check if symbol detail view appeared');
                             } else {
-                                console.error('❌ No symbol items found for testing');
+                                console.error('❌ No symbol items with data-action found for testing');
                             }
                         }, 1000);
                     } else {
