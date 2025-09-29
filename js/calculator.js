@@ -379,10 +379,11 @@ window.calculatePortfolioVaR = function() {
 
         // Add portfolio risk analysis if available
         if (portfolioRiskAnalysis) {
+            const riskClass = portfolioRiskAnalysis.level || 'low';
             output += `
-                <div class="calc-risk-assessment-box" style="border-color: ${portfolioRiskAnalysis.color};">
-                    <h4 class="calc-risk-title" style="color: ${portfolioRiskAnalysis.color};">🎯 Portfolio Risk Assessment</h4>
-                    <div class="calc-risk-message" style="color: ${portfolioRiskAnalysis.color};">${portfolioRiskAnalysis.message}</div>
+                <div class="calc-risk-assessment-box risk-${riskClass}">
+                    <h4 class="calc-risk-title risk-${riskClass}">🎯 Portfolio Risk Assessment</h4>
+                    <div class="calc-risk-message risk-${riskClass}">${portfolioRiskAnalysis.message}</div>
                     <div class="calc-risk-details">
                         High-risk positions: ${portfolioRiskAnalysis.highRiskCount}/${portfolioRiskAnalysis.totalCount}
                         (${((portfolioRiskAnalysis.highRiskCount / portfolioRiskAnalysis.totalCount) * 100).toFixed(1)}%)
@@ -395,10 +396,10 @@ window.calculatePortfolioVaR = function() {
         output += `<h4 class="calc-result-title">Position Breakdown:</h4>`;
         positions.forEach(pos => {
             const dataSource = pos.hasRealData ? '📊 Real VaR data' : '⚠️ Estimated (2%)';
-            const borderColor = pos.hasRealData ? '#00ff00' : '#ffaa00';
+            const positionClass = pos.hasRealData ? 'position-real-data' : 'position-estimated-data';
 
             output += `
-                <div class="calc-position-box" style="border-left-color: ${borderColor};">
+                <div class="calc-position-box ${positionClass}">
                     <strong class="calc-position-name">${pos.symbol}</strong> ${dataSource}<br>
                     ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
                     Position VaR: $${pos.positionVaR.toFixed(2)}
@@ -439,25 +440,25 @@ window.analyzePortfolioRisk = function() {
 
     if (totalPositions > 0) {
         const riskPercentage = (highRiskPositions / totalPositions) * 100;
-        let riskMessage, riskColor;
+        let riskMessage, riskLevel;
 
         if (riskPercentage > 60) {
             riskMessage = '🚨 EXTREME PORTFOLIO RISK - Multiple high-risk outlier positions detected';
-            riskColor = '#ff0000';
+            riskLevel = 'extreme';
         } else if (riskPercentage > 30) {
             riskMessage = '⚠️ ELEVATED PORTFOLIO RISK - Several outlier positions in portfolio';
-            riskColor = '#ff8800';
+            riskLevel = 'elevated';
         } else if (riskPercentage > 0) {
             riskMessage = '⚡ MODERATE PORTFOLIO RISK - Some outlier positions detected';
-            riskColor = '#ffaa00';
+            riskLevel = 'moderate';
         } else {
             riskMessage = '✅ LOW PORTFOLIO RISK - No high-risk outlier positions';
-            riskColor = '#00ff00';
+            riskLevel = 'low';
         }
 
         return {
             message: riskMessage,
-            color: riskColor,
+            level: riskLevel,
             highRiskCount: highRiskPositions,
             totalCount: totalPositions
         };
@@ -616,7 +617,7 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                 ` : ''}
             </div>
             ${riskAssessment ? `
-            <div class="risk-assessment" style="border-color: ${riskAssessment.color}; color: ${riskAssessment.color};">
+            <div class="risk-assessment risk-${riskAssessment.level || 'low'}">
                 ${riskAssessment.recommendation}
             </div>
             ` : ''}
@@ -656,7 +657,7 @@ function generateRiskAssessment(data) {
     if (!data.outliers || data.outliers.length === 0) {
         return {
             recommendation: '✅ Normal risk profile - no significant outliers detected',
-            color: '#00ff00'
+            level: 'low'
         };
     }
 
@@ -664,17 +665,17 @@ function generateRiskAssessment(data) {
     if (outlierCount >= 3) {
         return {
             recommendation: '🚨 HIGH RISK - Multiple outliers detected. Exercise extreme caution.',
-            color: '#ff0000'
+            level: 'extreme'
         };
     } else if (outlierCount === 2) {
         return {
             recommendation: '⚠️ ELEVATED RISK - Two outliers detected. Monitor closely.',
-            color: '#ff8800'
+            level: 'elevated'
         };
     } else {
         return {
             recommendation: '⚡ MODERATE RISK - One outlier detected. Consider carefully.',
-            color: '#ffaa00'
+            level: 'moderate'
         };
     }
 }
