@@ -1610,63 +1610,66 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.selectCalculator = function(calculatorType, clickedElement) {
-            console.log('selectCalculator function called with:', calculatorType);
-            try {
-                // Hide all calculators
-                const calculators = document.querySelectorAll('.calculator-content');
-                // Hide calculators
-                calculators.forEach(calc => calc.classList.remove('active'));
+    console.log('selectCalculator function called with:', calculatorType);
+    try {
+        // Hide all calculators
+        const calculators = document.querySelectorAll('.calculator-content');
+        calculators.forEach(calc => calc.classList.remove('active'));
 
-                // Remove active class from all cards
-                const cards = document.querySelectorAll('.calculator-card');
-                // Remove active classes
-                cards.forEach(card => card.classList.remove('active'));
+        // Remove active class from all cards
+        const cards = document.querySelectorAll('.calculator-card');
+        cards.forEach(card => card.classList.remove('active'));
 
-                // Show selected calculator
-                const targetId = calculatorType + '-calculator';
-                // Show selected calculator
-                const targetElement = document.getElementById(targetId);
-                // Found target element
-                if (targetElement) {
-                    targetElement.classList.add('active');
-                    // Added active class
-                } else {
-                    console.error('Could not find element with ID:', targetId);
-                }
-            } catch (error) {
-                console.error('Error in selectCalculator:', error);
-            }
-
-            // Add active class to selected card
-            if (clickedElement) {
-                clickedElement.classList.add('active');
-            }
-
-            // Update breadcrumb navigation
-            updateBreadcrumb(calculatorType);
-
-            activeCalculator = calculatorType;
+        // Show selected calculator
+        const targetId = calculatorType + '-calculator';
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.classList.add('active');
+            console.log('✅ Calculator activated:', targetId);
+        } else {
+            console.error('Could not find element with ID:', targetId);
         }
+    } catch (error) {
+        console.error('Error in selectCalculator:', error);
+    }
 
-        window.updateBreadcrumb = function(calculatorType) {
-            const breadcrumbElement = document.getElementById('active-calculator-breadcrumb');
-            const nameElement = document.getElementById('active-calculator-name');
+    // Add active class to selected card
+    if (clickedElement) {
+        clickedElement.classList.add('active');
+    }
 
-            const calculatorNames = {
-                'stoploss': '🛑 Stop Loss Calculator',
-                'position': '⚖️ Position Size Calculator',
-                'portfolio': '📊 Portfolio VaR Calculator',
-                'lookup': '🔍 Symbol Lookup Tool',
-                'compound': '💰 Compound Interest Calculator'
-            };
+    // Update breadcrumb navigation
+    if (window.updateBreadcrumb) {
+        window.updateBreadcrumb(calculatorType);
+    }
 
-            if (calculatorType && calculatorNames[calculatorType]) {
-                nameElement.textContent = calculatorNames[calculatorType];
-                breadcrumbElement.className = breadcrumbElement.className.replace(' display-none', '');
-            } else {
-                breadcrumbElement.className += ' display-none';
-            }
-        }
+    window.activeCalculator = calculatorType;
+};
+
+window.updateBreadcrumb = function(calculatorType) {
+    const breadcrumbElement = document.getElementById('active-calculator-breadcrumb');
+    const nameElement = document.getElementById('active-calculator-name');
+
+    const calculatorNames = {
+        'stoploss': '🛑 Stop Loss Calculator',
+        'position': '⚖️ Position Size Calculator',
+        'portfolio': '📊 Portfolio VaR Calculator',
+        'lookup': '🔍 Symbol Lookup Tool',
+        'compound': '💰 Compound Interest Calculator'
+    };
+
+    if (calculatorType && calculatorNames[calculatorType]) {
+        nameElement.textContent = calculatorNames[calculatorType];
+        breadcrumbElement.className = breadcrumbElement.className.replace(' display-none', '');
+    } else {
+        breadcrumbElement.className += ' display-none';
+    }
+};
+
+// Verify functions are defined
+console.log('🔧 Functions defined:');
+console.log('- window.selectCalculator:', typeof window.selectCalculator);
+console.log('- window.updateBreadcrumb:', typeof window.updateBreadcrumb);
 
         window.resetToCalculatorSelection = function() {
             // Hide all calculators
