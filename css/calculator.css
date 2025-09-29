@@ -1,5 +1,41 @@
 /* Calculator Page Styles - External CSS to comply with CSP */
 
+/* CSP Compliance Classes - moved from inline styles */
+.data-filter-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+}
+
+.lookup-symbol-input {
+    text-transform: uppercase;
+    flex: 1;
+}
+
+.lookup-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.position-asset-bold {
+    font-weight: bold;
+}
+
+.position-asset-small {
+    font-size: 0.9em;
+}
+
+.risk-message-small {
+    font-size: 0.9em;
+}
+
+.symbols-grid-scrollable {
+    max-height: 300px;
+}
+
 /* Base Styles */
 body {
     background-color: #000;

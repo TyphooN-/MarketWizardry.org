@@ -420,7 +420,7 @@
             <h2>🔍 Symbol Lookup Tool</h2>
 
             <!-- Data Filtering -->
-            <div style="text-align: center; margin: 20px 0; padding: 15px; border: 1px solid #00ff00; border-radius: 4px;">
+            <div class="data-filter-container">
                 <div class="config-grid-responsive">
                     <div>
                         <label class="config-label">📊 Asset Class:</label>
@@ -474,12 +474,12 @@
                     <div class="input-group">
                         <label for="lookup-symbol">Advanced Symbol Search</label>
                         <div class="symbol-lookup-container">
-                            <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" style="text-transform: uppercase; flex: 1;">
+                            <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" class="lookup-symbol-input">
                             <button class="calculate-btn" id="advanced-search-btn" class="lookup-button">Search</button>
                         </div>
                         <small class="hint-text">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
                     </div>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div class="lookup-container">
                         <button class="calculate-btn" id="show-all-symbols-btn">Show Filtered Symbols</button>
                         <button class="calculate-btn" id="show-all-symbols-unfiltered-btn">Show ALL Symbols</button>
                     </div>
