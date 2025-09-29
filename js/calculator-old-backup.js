@@ -1,0 +1,3486 @@
+console.log('✓ calculator.js loaded successfully');
+let activeCalculator = null;
+
+// Direct event listener setup
+console.log('Setting up calculator event listeners...');
+
+// Compound interest calculation function
+window.calculateCompoundInterest = function() {
+
+    const principal = parseFloat(document.getElementById('ci-principal').value);
+    const rate = parseFloat(document.getElementById('ci-rate').value) / 100;
+    const time = parseFloat(document.getElementById('ci-time').value);
+    const compound = parseFloat(document.getElementById('ci-compound').value);
+    const monthlyContribution = parseFloat(document.getElementById('ci-monthly').value) || 0;
+
+    console.log('Input values:', {principal, rate, time, compound, monthlyContribution});
+
+    if (!principal || !rate || !time || !compound) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    // Calculate compound interest with monthly contributions
+    let balance = principal;
+    let totalContributions = principal;
+
+    for (let year = 1; year <= time; year++) {
+        // Add monthly contributions throughout the year
+        for (let month = 1; month <= 12; month++) {
+            balance += monthlyContribution;
+            totalContributions += monthlyContribution;
+
+            // Apply compound interest monthly if compounding frequency allows
+            const periodsPerYear = compound;
+            const ratePerPeriod = rate / periodsPerYear;
+
+            // Apply compounding based on frequency
+            for (let period = 1; period <= periodsPerYear / 12; period++) {
+                balance *= (1 + ratePerPeriod);
+            }
+        }
+    }
+
+    const totalInterest = balance - totalContributions;
+    const effectiveRate = ((balance / principal) ** (1 / time) - 1) * 100;
+
+    const output = `
+        <div class="calc-result-container">
+            <h3 class="calc-result-title">💰 Compound Interest Results</h3>
+            <div class="calc-result-grid">
+                <div>
+                    <strong class="calc-result-value">Initial Investment:</strong><br>
+                    $${principal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
+                    <strong class="calc-result-value">Monthly Contributions:</strong><br>
+                    $${monthlyContribution.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br><br>
+                    <strong class="calc-result-value">Total Contributions:</strong><br>
+                    $${totalContributions.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                </div>
+                <div>
+                    <strong class="calc-result-value">Final Balance:</strong><br>
+                    <span class="calc-result-amount">$${balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+                    <strong class="calc-result-value">Total Interest Earned:</strong><br>
+                    <span class="calc-result-positive">$${totalInterest.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span><br><br>
+                    <strong class="calc-result-value">Effective Annual Rate:</strong><br>
+                    <span class="calc-result-positive">${effectiveRate.toFixed(2)}%</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const resultsElement = document.getElementById('ci-results');
+    if (resultsElement) {
+        resultsElement.innerHTML = output;
+        resultsElement.classList.add('show');
+        console.log('✅ Results displayed successfully');
+    } else {
+        console.error('❌ Results element not found');
+        alert('Results calculated but display element not found');
+    }
+};
+
+// Global variable to store previous symbol list for back functionality
+let previousSymbolListState = null;
+
+// Function to show detailed symbol view with back button
+window.showSymbolDetail = function(symbol) {
+    console.log('🔍 showSymbolDetail() called for symbol:', symbol);
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    const data = window.varData[symbol];
+    if (!data) {
+        console.error('❌ No data found for symbol:', symbol);
+        alert(`Symbol ${symbol} not found in database`);
+        return;
+    }
+
+    console.log('✅ Showing detailed view for:', symbol);
+
+    const outputElement = document.getElementById('lookup-output');
+    if (!outputElement) {
+        console.error('❌ lookup-output element not found');
+        return;
+    }
+
+    // Generate detailed symbol information
+    const riskAssessment = generateRiskAssessment(data);
+    const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+        `<div class="calc-outlier-warning">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+
+    const output = `
+        <div class="calc-detailed-info">
+            <div class="calc-symbol-detail-header">
+                <h3 class="calc-detailed-title">📊 ${symbol} - Detailed Information</h3>
+                <button class="calculate-btn calc-back-button" id="back-to-list-btn" data-action="back-to-list">← Back to List</button>
+            </div>
+
+            <div class="calc-detailed-grid">
+                <div>
+                    <h4 class="calc-data-section-title">Basic Information</h4>
+                    <strong class="calc-symbol-name">${symbol}</strong> - ${data.description}<br>
+                    <span class="calc-symbol-sector">Sector:</span> ${data.sector}<br>
+                    <span class="calc-symbol-sector">Industry:</span> ${data.industry || 'N/A'}<br>
+                    <span class="calc-symbol-sector">Asset Class:</span> ${data.assetClass || 'Stock'}<br>
+                    <span class="calc-symbol-sector">Current Price:</span> $${data.price}
+                    ${outlierWarnings}
+                </div>
+                <div>
+                    <h4 class="calc-data-section-title">Risk Metrics</h4>
+                    <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
+                    <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                    <span class="calc-symbol-var">ATR:</span> ${data.atr || 'N/A'}<br>
+                    <div class="calc-risk-message-detail">
+                        ${riskAssessment.recommendation}
+                    </div>
+                </div>
+            </div>
+
+            ${riskAssessment.details ? `
+                <div class="calc-risk-assessment-box">
+                    <h4 class="calc-risk-title">Risk Assessment</h4>
+                    <div class="calc-risk-message">${riskAssessment.details}</div>
+                </div>
+            ` : ''}
+
+            <div class="calc-button-row">
+                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}" data-action="use-in-stop-loss">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}" data-action="use-in-portfolio">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}" data-action="find-similar">🔍 Find Similar</button>
+            </div>
+        </div>
+    `;
+
+    outputElement.innerHTML = output;
+
+    // Make the result box visible
+    const resultBox = outputElement.closest('.result-box');
+    if (resultBox) {
+        resultBox.classList.add('show');
+        console.log('✅ Added "show" class to result-box for symbol detail');
+    }
+
+    console.log('✅ Symbol detail view displayed for', symbol);
+};
+
+// Function to go back to previous symbol list
+window.backToSymbolList = function() {
+    console.log('🔙 backToSymbolList() called');
+
+    if (previousSymbolListState) {
+        console.log('✅ Restoring previous list state');
+        const outputElement = document.getElementById('lookup-output');
+        if (outputElement) {
+            outputElement.innerHTML = previousSymbolListState;
+
+            // Make the result box visible
+            const resultBox = outputElement.closest('.result-box');
+            if (resultBox) {
+                resultBox.classList.add('show');
+                console.log('✅ Restored previous symbol list');
+            }
+        }
+    } else {
+        console.log('⚠️ No previous list state, showing all symbols');
+        window.showAllSymbols();
+    }
+};
+
+// Show All Symbols function
+window.showAllSymbols = function() {
+    console.log('🔍 showAllSymbols() called');
+    console.log('📊 varData availability:', !!window.varData);
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    if (!window.varData) {
+        console.error('❌ varData not loaded, showing error message');
+        document.getElementById('lookup-output').innerHTML = `
+            <div class="calc-error-container">
+                <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
+                <p class="calc-error-text">Please refresh the page to reload symbol data.</p>
+            </div>`;
+        return;
+    }
+
+    console.log('✅ varData loaded, processing', Object.keys(window.varData).length, 'symbols');
+
+    // Check if output element exists and is accessible
+    const outputElement = document.getElementById('lookup-output');
+    console.log('📍 lookup-output element:', outputElement);
+    if (!outputElement) {
+        console.error('❌ lookup-output element not found in DOM');
+        alert('Error: Output display element not found');
+        return;
+    }
+
+    // Get current filter settings
+    const assetClassFilter = document.getElementById('dataset-selector')?.value || 'all';
+    const sectorFilter = document.getElementById('sector-selector')?.value || 'all';
+    const industryFilter = document.getElementById('industry-selector')?.value || 'all';
+
+    console.log('🎯 Current filters:', { assetClassFilter, sectorFilter, industryFilter });
+
+    // Show immediate feedback to user
+    outputElement.innerHTML = '<div class="calc-loading-message">🔄 Loading filtered symbols...</div>';
+    console.log('💭 Showing loading message to user');
+
+    // Apply filters
+    let symbols = Object.entries(window.varData);
+
+    // Filter by asset class
+    if (assetClassFilter && assetClassFilter !== 'all') {
+        symbols = symbols.filter(([symbol, data]) => {
+            if (assetClassFilter === 'stocks') return data.assetClass === 'Stock';
+            if (assetClassFilter === 'cfd') return data.assetClass === 'CFD';
+            if (assetClassFilter === 'futures') return data.assetClass === 'Futures';
+            return true;
+        });
+        console.log('📊 After asset class filter:', symbols.length, 'symbols');
+    }
+
+    // Filter by sector
+    if (sectorFilter && sectorFilter !== 'all' && sectorFilter !== '') {
+        symbols = symbols.filter(([symbol, data]) =>
+            data.sector && data.sector.toLowerCase().includes(sectorFilter.toLowerCase())
+        );
+        console.log('📊 After sector filter:', symbols.length, 'symbols');
+    }
+
+    // Filter by industry
+    if (industryFilter && industryFilter !== 'all' && industryFilter !== '') {
+        symbols = symbols.filter(([symbol, data]) =>
+            data.industry && data.industry.toLowerCase().includes(industryFilter.toLowerCase())
+        );
+        console.log('📊 After industry filter:', symbols.length, 'symbols');
+    }
+
+    console.log('✅ Final filtered symbols:', symbols.length);
+
+    // Create filter description
+    let filterDesc = '';
+    if (assetClassFilter !== 'all' || sectorFilter !== 'all' || industryFilter !== 'all') {
+        const filters = [];
+        if (assetClassFilter !== 'all') filters.push(`Asset: ${assetClassFilter}`);
+        if (sectorFilter !== 'all') filters.push(`Sector: ${sectorFilter}`);
+        if (industryFilter !== 'all') filters.push(`Industry: ${industryFilter}`);
+        filterDesc = ` - Filtered by: ${filters.join(', ')}`;
+    }
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">Available Symbols (${symbols.length} total)${filterDesc}</h3>
+            <div class="calc-symbols-grid">
+    `;
+
+    symbols.forEach(([symbol, data]) => {
+        output += `
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail">
+                <strong>${symbol}</strong> | $${data.price}<br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    console.log('📋 Generated FILTERED symbol grid with', symbols.length, 'symbols, each with quick-lookup class');
+
+    output += `</div></div>`;
+
+    console.log('📤 Setting innerHTML for lookup-output element');
+    console.log('📏 Output content length:', output.length, 'characters');
+
+    const finalElement = document.getElementById('lookup-output');
+    if (finalElement) {
+        finalElement.innerHTML = output;
+
+        // Store current list state for back functionality
+        previousSymbolListState = output;
+        console.log('💾 Stored current list state for back navigation');
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = finalElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box');
+        }
+
+        console.log('✅ Successfully set innerHTML');
+        console.log('🔍 Element now contains:', finalElement.innerHTML.substring(0, 100) + '...');
+    } else {
+        console.error('❌ lookup-output element disappeared!');
+    }
+};
+
+// Show ALL symbols function (ignores filters)
+window.showAllSymbolsUnfiltered = function() {
+    console.log('🔍 showAllSymbolsUnfiltered() called - ignoring all filters');
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    if (!window.varData) {
+        console.error('❌ varData not loaded, showing error message');
+        document.getElementById('lookup-output').innerHTML = `
+            <div class="calc-error-container">
+                <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
+                <p class="calc-error-text">Please refresh the page to reload symbol data.</p>
+            </div>`;
+        return;
+    }
+
+    const outputElement = document.getElementById('lookup-output');
+    if (!outputElement) {
+        console.error('❌ lookup-output element not found in DOM');
+        alert('Error: Output display element not found');
+        return;
+    }
+
+    // Show immediate feedback to user
+    outputElement.innerHTML = '<div class="calc-loading-message">🔄 Loading ALL symbols (ignoring filters)...</div>';
+    console.log('💭 Showing loading message for unfiltered symbols');
+
+    const symbols = Object.entries(window.varData);
+    console.log('✅ Showing all symbols unfiltered:', symbols.length);
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">ALL Available Symbols (${symbols.length} total) - No Filters Applied</h3>
+            <div class="calc-symbols-grid">
+    `;
+
+    symbols.forEach(([symbol, data]) => {
+        output += `
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail">
+                <strong>${symbol}</strong> | $${data.price}<br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    console.log('📋 Generated UNFILTERED symbol grid with', symbols.length, 'symbols, each with quick-lookup class');
+
+    output += `</div></div>`;
+
+    console.log('📤 Setting innerHTML for lookup-output element (unfiltered)');
+    console.log('📏 Output content length:', output.length, 'characters');
+
+    const finalElement = document.getElementById('lookup-output');
+    if (finalElement) {
+        finalElement.innerHTML = output;
+
+        // Store current list state for back functionality
+        previousSymbolListState = output;
+        console.log('💾 Stored current unfiltered list state for back navigation');
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = finalElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box (unfiltered)');
+        }
+
+        console.log('✅ Successfully set innerHTML (unfiltered)');
+        console.log('🔍 Element now contains:', finalElement.innerHTML.substring(0, 100) + '...');
+    } else {
+        console.error('❌ lookup-output element disappeared!');
+    }
+};
+
+// Stop Loss Calculator - Global function for immediate access
+window.calculateStopLoss = function() {
+    const entryPrice = parseFloat(document.getElementById('sl-entry-price').value);
+    const positionSize = parseInt(document.getElementById('sl-position-size').value);
+    const riskValue = parseFloat(document.getElementById('sl-risk-value').value);
+    const riskMode = document.getElementById('sl-risk-mode').value;
+    const atr = parseFloat(document.getElementById('sl-atr').value);
+    const timeframe = document.getElementById('sl-timeframe').value;
+    const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
+
+    if (!entryPrice || !positionSize || !riskValue) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    const positionValue = entryPrice * positionSize;
+    let riskAmount, riskPercent;
+
+    // Calculate risk amount based on selected mode
+    if (riskMode === 'percent') {
+        riskPercent = riskValue;
+        riskAmount = positionValue * (riskValue / 100);
+    } else if (riskMode === 'var') {
+        // VaR percentage mode - target VaR as % of position
+        if (symbol && window.varData && window.varData[symbol]) {
+            const varPerShare = window.varData[symbol].var;
+            const targetVarAmount = positionValue * (riskValue / 100);
+            riskAmount = targetVarAmount;
+            riskPercent = riskValue; // This is VaR%, not risk%
+        } else {
+            alert('VaR mode requires a valid symbol. Please enter a symbol or switch to percentage mode.');
+            return;
+        }
+    } else if (riskMode === 'dollar') {
+        riskAmount = riskValue;
+        riskPercent = (riskAmount / positionValue) * 100;
+    }
+
+    const riskPerShare = riskAmount / positionSize;
+
+    // Timeframe-specific ATR multiplier recommendations
+    const timeframeData = {
+        'M5': {
+            multipliers: [0.5, 1.0, 1.5],
+            recommended: 1.0,
+            description: 'Scalping - Tight stops for quick exits',
+            notes: 'Very tight stops due to noise. Consider using tick-based stops.'
+        },
+        'M15': {
+            multipliers: [0.8, 1.2, 2.0],
+            recommended: 1.2,
+            description: 'Short-term Scalping - Balance between noise and movement',
+            notes: 'Still susceptible to market noise but allows for small moves.'
+        },
+        'H1': {
+            multipliers: [1.0, 1.5, 2.5],
+            recommended: 1.5,
+            description: 'Intraday Trading - Standard intraday volatility buffer',
+            notes: 'Good balance for hourly price action and trend following.'
+        },
+        'H4': {
+            multipliers: [1.5, 2.0, 3.0],
+            recommended: 2.0,
+            description: 'Swing Trading - Medium-term position holding',
+            notes: 'Allows for normal market fluctuations while protecting capital.'
+        },
+        'D1': {
+            multipliers: [2.0, 2.5, 3.5],
+            recommended: 2.5,
+            description: 'Daily Position Trading - Standard volatility protection',
+            notes: 'Classic 2-3x ATR for daily timeframe trend following.'
+        },
+        'W1': {
+            multipliers: [2.5, 3.0, 4.0],
+            recommended: 3.0,
+            description: 'Weekly Long-term - Wider stops for major moves',
+            notes: 'Accommodates weekly volatility and longer-term trends.'
+        },
+        'MN1': {
+            multipliers: [3.0, 4.0, 5.0],
+            recommended: 4.0,
+            description: 'Monthly Investment - Maximum trend capture',
+            notes: 'Very wide stops for long-term investment positions.'
+        }
+    };
+
+    const tfData = timeframeData[timeframe];
+    const percentageStop = entryPrice - riskPerShare;
+
+    let output = `
+        <div class="calc-margin-bottom">
+            <div class="result-label">Position Value:</div>
+            <div class="result-value">$${positionValue.toLocaleString()}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Maximum Risk Amount:</div>
+            <div class="result-value">$${riskAmount.toFixed(2)}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Risk-Based Stop Loss:</div>
+            <div class="result-value">$${percentageStop.toFixed(2)} (${((entryPrice - percentageStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
+        </div>
+    `;
+
+    // Add timeframe-specific recommendations
+    output += `
+        <div class="calc-timeframe-box">
+            <h4 class="calc-timeframe-title">📊 ${timeframe} Timeframe Recommendations</h4>
+            <div class="calc-timeframe-desc"><strong>${tfData.description}</strong></div>
+            <div class="calc-timeframe-notes">${tfData.notes}</div>
+        </div>
+    `;
+
+    if (atr) {
+        output += `<h4 class="calc-atr-title">ATR-Based Stop Loss Options (${timeframe}):</h4>`;
+
+        tfData.multipliers.forEach((multiplier, index) => {
+            const atrStop = entryPrice - (atr * multiplier);
+            const isRecommended = multiplier === tfData.recommended;
+            const label = index === 0 ? 'Conservative' : index === 1 ? 'Balanced' : 'Aggressive';
+            const extraClass = isRecommended ? ' calc-atr-recommended' : '';
+
+            output += `
+                <div class="calc-atr-option${extraClass}">
+                    <div class="result-label">${label} (${multiplier}x ATR)${isRecommended ? ' ⭐ RECOMMENDED' : ''}:</div>
+                    <div class="result-value">$${atrStop.toFixed(2)} (${((entryPrice - atrStop) / entryPrice * 100).toFixed(2)}% below entry)</div>
+                    <div class="calc-atr-risk">Risk per share: $${(entryPrice - atrStop).toFixed(2)} | Total risk: $${((entryPrice - atrStop) * positionSize).toFixed(2)}</div>
+                </div>
+            `;
+        });
+
+        // Add comparison with risk-based stop
+        const recommendedStop = entryPrice - (atr * tfData.recommended);
+        const riskBasedRisk = (entryPrice - percentageStop) * positionSize;
+        const atrBasedRisk = (entryPrice - recommendedStop) * positionSize;
+
+        output += `
+            <div class="calc-comparison-box">
+                <h4 class="calc-comparison-title">📋 Stop Loss Comparison</h4>
+                <div class="calc-comparison-text">
+                    Risk-based (${riskPercent}%): $${riskBasedRisk.toFixed(2)} risk<br>
+                    ATR-based (${tfData.recommended}x): $${atrBasedRisk.toFixed(2)} risk<br>
+                    <strong>Difference: $${Math.abs(riskBasedRisk - atrBasedRisk).toFixed(2)} ${riskBasedRisk > atrBasedRisk ? '(ATR tighter)' : '(ATR wider)'}</strong>
+                </div>
+            </div>
+        `;
+    } else {
+        output += `
+            <div class="calc-warning-box">
+                <div class="calc-warning-text">💡 <strong>Add ATR value to see ${timeframe} timeframe recommendations!</strong></div>
+                <div class="calc-warning-subtext">
+                    Recommended multiplier for ${timeframe}: ${tfData.recommended}x ATR<br>
+                    ${tfData.description}
+                </div>
+            </div>
+        `;
+    }
+
+    output += `
+        <div class="warning-text calc-warning-main">
+            ⚠️ Stop Loss Guidelines:<br>
+            • Stop losses don't guarantee execution at your desired price during gaps<br>
+            • Consider using ATR from your actual trading timeframe for best results<br>
+            • Shorter timeframes need tighter stops but higher win rates<br>
+            • Longer timeframes allow wider stops but require more patience
+        </div>
+    `;
+
+    document.getElementById('sl-output').innerHTML = output;
+    document.getElementById('sl-results').classList.add('show');
+};
+
+// Position Size Calculator - Global function for immediate access
+window.calculatePositionSize = function() {
+    const accountSize = parseFloat(document.getElementById('ps-account-size').value);
+    const riskValue = parseFloat(document.getElementById('ps-risk-value').value);
+    const riskMode = document.getElementById('ps-risk-mode').value;
+    const entryPrice = parseFloat(document.getElementById('ps-entry-price').value);
+    const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
+    const symbol = document.getElementById('ps-symbol').value.toUpperCase().trim();
+
+    if (!accountSize || !riskValue || !entryPrice || (riskMode !== 'shares' && !stopLoss)) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    let riskAmount, positionSize, riskPercent;
+    const riskPerShare = Math.abs(entryPrice - stopLoss);
+
+    // Calculate based on selected mode
+    if (riskMode === 'risk') {
+        riskPercent = riskValue;
+        riskAmount = accountSize * (riskValue / 100);
+        positionSize = Math.floor(riskAmount / riskPerShare);
+    } else if (riskMode === 'var') {
+        // VaR targeting mode
+        if (!symbol || !window.varData || !window.varData[symbol]) {
+            alert('VaR mode requires a valid symbol. Please enter a symbol.');
+            return;
+        }
+
+        // Calculate position size to achieve target VaR percentage
+        const varPerShare = window.varData[symbol].var;
+        const targetVarPercent = riskValue / 100; // Convert % to decimal
+
+        // Position size needed so that position VaR = targetVarPercent of position value
+        // positionSize * varPerShare = targetVarPercent * (positionSize * entryPrice)
+        // positionSize * varPerShare = targetVarPercent * positionSize * entryPrice
+        // varPerShare = targetVarPercent * entryPrice
+        // positionSize = any size that satisfies the VaR constraint
+
+        // Start with a reasonable position size based on account
+        const baseRiskPercent = 2; // 2% account risk as starting point
+        const baseRiskAmount = accountSize * (baseRiskPercent / 100);
+        positionSize = Math.floor(baseRiskAmount / riskPerShare);
+
+        // Adjust if VaR constraint can't be met
+        const positionValue = positionSize * entryPrice;
+        const actualVarPercent = (positionSize * varPerShare) / positionValue * 100;
+
+        riskAmount = positionSize * riskPerShare;
+        riskPercent = (riskAmount / accountSize) * 100;
+    } else if (riskMode === 'dollar') {
+        riskAmount = riskValue;
+        positionSize = Math.floor(riskAmount / riskPerShare);
+        riskPercent = (riskAmount / accountSize) * 100;
+    } else if (riskMode === 'shares') {
+        positionSize = riskValue;
+        riskAmount = positionSize * riskPerShare;
+        riskPercent = (riskAmount / accountSize) * 100;
+    }
+
+    const positionValue = positionSize * entryPrice;
+    const actualRisk = positionSize * riskPerShare;
+
+    const output = `
+        <div class="calc-margin-bottom">
+            <div class="result-label">Risk Amount:</div>
+            <div class="result-value">$${riskAmount.toFixed(2)}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Risk per Share:</div>
+            <div class="result-value">$${riskPerShare.toFixed(2)}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Recommended Position Size:</div>
+            <div class="result-value">${positionSize.toLocaleString()} shares</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Position Value:</div>
+            <div class="result-value">$${positionValue.toLocaleString()}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Actual Risk:</div>
+            <div class="result-value">$${actualRisk.toFixed(2)} (${(actualRisk/accountSize*100).toFixed(2)}% of account)</div>
+        </div>
+        <div class="warning-text">⚠️ This assumes perfect execution at your stop loss price. Market gaps can increase actual losses.</div>
+    `;
+
+    document.getElementById('ps-output').innerHTML = output;
+    document.getElementById('ps-results').classList.add('show');
+};
+
+// Add global portfolio analysis for outlier detection
+window.analyzePortfolioRisk = function() {
+    const rows = document.querySelectorAll('#portfolio-positions tr');
+    let highRiskPositions = 0;
+    let totalPositions = 0;
+
+    for (let row of rows) {
+        const inputs = row.querySelectorAll('input');
+        const symbol = inputs[0].value.toUpperCase().trim();
+
+        if (symbol && window.varData && window.varData[symbol]) {
+            totalPositions++;
+            const data = window.varData[symbol];
+            if (data.outliers && data.outliers.length >= 2) {
+                highRiskPositions++;
+            }
+        }
+    }
+
+    if (totalPositions > 0) {
+        const riskPercentage = (highRiskPositions / totalPositions) * 100;
+        let riskMessage = '';
+        let riskColor = '#00ff00';
+
+        if (riskPercentage > 60) {
+            riskMessage = '🚨 EXTREME PORTFOLIO RISK - Multiple high-risk outlier positions detected';
+            riskColor = '#00aa00';
+        } else if (riskPercentage > 30) {
+            riskMessage = '⚠️ ELEVATED PORTFOLIO RISK - Several outlier positions in portfolio';
+            riskColor = '#00aa00';
+        } else if (riskPercentage > 0) {
+            riskMessage = '⚡ MODERATE PORTFOLIO RISK - Some outlier positions detected';
+            riskColor = '#00aa00';
+        } else {
+            riskMessage = '✅ LOW PORTFOLIO RISK - No high-risk outlier positions';
+            riskColor = '#00ff00';
+        }
+
+        return { message: riskMessage, color: riskColor, highRiskCount: highRiskPositions, totalCount: totalPositions };
+    }
+
+    return null;
+};
+
+// Portfolio VaR Calculator - Global function for immediate access
+window.calculatePortfolioVaR = function() {
+    const confidence = parseFloat(document.getElementById('pf-confidence').value);
+    const timeHorizon = parseInt(document.getElementById('pf-time-horizon').value);
+    const rows = document.querySelectorAll('#portfolio-positions tr');
+
+    let positions = [];
+    let totalValue = 0;
+    let totalVaR = 0;
+
+    for (let row of rows) {
+        const inputs = row.querySelectorAll('input');
+        const symbol = inputs[0].value.toUpperCase().trim();
+        const shares = parseFloat(inputs[1].value) || 0;
+        const price = parseFloat(inputs[2].value) || 0;
+
+        if (symbol && shares && price) {
+            const value = shares * price;
+            let positionVaR = 0;
+            let varPerShare = 0;
+
+            // Use real VaR data if available
+            if (window.varData && window.varData[symbol]) {
+                varPerShare = window.varData[symbol].var;
+                positionVaR = shares * varPerShare;
+            } else {
+                // Fallback: estimate VaR as 2% of position value for unknown symbols
+                positionVaR = value * 0.02;
+                varPerShare = price * 0.02;
+            }
+
+            positions.push({
+                symbol,
+                shares,
+                price,
+                value,
+                positionVaR,
+                varPerShare,
+                hasRealData: !!(window.varData && window.varData[symbol]),
+                assetClass: (window.varData && window.varData[symbol]) ? window.varData[symbol].asset_class : 'unknown'
+            });
+            totalValue += value;
+            totalVaR += positionVaR;
+        }
+    }
+
+    if (positions.length === 0) {
+        alert('Please add at least one position');
+        return;
+    }
+
+    // Update weights display
+    positions.forEach((pos, index) => {
+        const weight = (pos.value / totalValue * 100).toFixed(1);
+        rows[index].querySelector('.weight-display').textContent = weight + '%';
+        pos.weight = parseFloat(weight);
+    });
+
+    // Calculate portfolio VaR (simplified linear aggregation - no correlation)
+    // For different confidence levels, adjust the base VaR
+    const confidenceAdjustment = confidence === 95 ? 1.0 : confidence === 99 ? 1.4 : 1.8;
+    const timeAdjustment = Math.sqrt(timeHorizon);
+    const adjustedPortfolioVaR = totalVaR * confidenceAdjustment * timeAdjustment;
+
+    // Calculate asset class breakdown
+    const assetClassBreakdown = {};
+    positions.forEach(pos => {
+        const assetClass = pos.assetClass;
+        if (!assetClassBreakdown[assetClass]) {
+            assetClassBreakdown[assetClass] = { value: 0, var: 0, count: 0 };
+        }
+        assetClassBreakdown[assetClass].value += pos.value;
+        assetClassBreakdown[assetClass].var += pos.positionVaR;
+        assetClassBreakdown[assetClass].count += 1;
+    });
+
+    let output = `
+        <div class="calc-margin-bottom">
+            <div class="result-label">Total Portfolio Value:</div>
+            <div class="result-value">$${totalValue.toLocaleString()}</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Portfolio VaR (${confidence}%, ${timeHorizon} day${timeHorizon > 1 ? 's' : ''}):</div>
+            <div class="result-value">$${adjustedPortfolioVaR.toFixed(2)} (${(adjustedPortfolioVaR/totalValue*100).toFixed(2)}% of portfolio)</div>
+        </div>
+        <div class="calc-margin-bottom">
+            <div class="result-label">Daily VaR (estimated):</div>
+            <div class="result-value">$${(totalVaR * confidenceAdjustment).toFixed(2)} (${(totalVaR * confidenceAdjustment/totalValue*100).toFixed(2)}% of portfolio)</div>
+        </div>
+    `;
+
+    // Add asset class breakdown if more than one asset class
+    const assetClassCount = Object.keys(assetClassBreakdown).length;
+    if (assetClassCount > 1 || (assetClassCount === 1 && !assetClassBreakdown['unknown'])) {
+        output += `
+            <div class="calc-portfolio-breakdown">
+                <h4 class="calc-breakdown-title">📊 Asset Class Breakdown</h4>
+        `;
+
+        Object.entries(assetClassBreakdown).forEach(([assetClass, data]) => {
+            const percentage = (data.value / totalValue * 100).toFixed(1);
+            const assetDisplay = assetClass === 'cfd' ? 'CFDs' :
+                               assetClass === 'stocks' ? 'Stocks' :
+                               assetClass === 'futures' ? 'Futures' :
+                               assetClass === 'unknown' ? 'Unknown' : assetClass;
+
+            const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                                   assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                                   assetClass === 'futures' ? 'calc-asset-color-futures' :
+                                   assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
+
+            const filterStatus = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️' : '';
+            const filterNote = filterStatus ? ` (outside current ${getDatasetDisplayName()} filter)` : '';
+
+            output += `
+                <div class="calc-asset-item">
+                    <span class="${assetColorClass}" style="font-weight: bold;">${assetDisplay}${filterStatus}</span>:
+                    $${data.value.toLocaleString()} (${percentage}%) |
+                    ${data.count} position${data.count > 1 ? 's' : ''} |
+                    VaR: $${data.var.toFixed(2)}${filterNote}
+                </div>
+            `;
+        });
+
+        output += `</div>`;
+    }
+
+    output += `<h4 class="calc-result-title calc-position-breakdown-title">Position Breakdown:</h4>`;
+    for (let pos of positions) {
+        const dataSource = pos.hasRealData ? '📊' : '⚠️';
+        const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
+        const riskAssessment = pos.hasRealData ? generateRiskAssessment(window.varData[pos.symbol]) : null;
+        const outlierWarning = riskAssessment && window.varData[pos.symbol].outliers && window.varData[pos.symbol].outliers.length > 0 ?
+            ` 🚨 ${window.varData[pos.symbol].outliers.length} outlier${window.varData[pos.symbol].outliers.length > 1 ? 's' : ''}` : '';
+        const borderColor = riskAssessment ? riskAssessment.color : '#00ff00';
+
+        // Asset class display
+        const assetClass = pos.assetClass;
+        const assetDisplay = assetClass === 'cfd' ? 'CFD' :
+                           assetClass === 'stocks' ? 'Stock' :
+                           assetClass === 'futures' ? 'Future' :
+                           assetClass === 'unknown' ? 'Unknown' : assetClass;
+
+        const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                               assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                               assetClass === 'futures' ? 'calc-asset-color-futures' :
+                               assetClass === 'unknown' ? 'calc-asset-color-unknown' : 'calc-asset-color-unknown';
+
+        const filterWarning = activeDataset !== 'all' && assetClass !== activeDataset ? ' ⚠️ Outside current filter' : '';
+
+        output += `
+            <div class="calc-position-box" style="border-left-color: ${borderColor};">
+                <strong class="calc-position-name">${pos.symbol}</strong> <span class="${assetColorClass}" style="font-size: 0.9em;">[${assetDisplay}]</span> ${dataSource} ${dataNote}${outlierWarning}${filterWarning}<br>
+                ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
+                Position VaR: $${pos.positionVaR.toFixed(2)} (VaR/share: $${pos.varPerShare.toFixed(2)})
+                ${riskAssessment ? `<br><span style="color: ${riskAssessment.color}; font-size: 0.9em;">${riskAssessment.recommendation}</span>` : ''}
+            </div>
+        `;
+    }
+
+    const realDataCount = positions.filter(p => p.hasRealData).length;
+    const estimatedCount = positions.length - realDataCount;
+    const portfolioRiskAnalysis = window.analyzePortfolioRisk();
+
+    if (portfolioRiskAnalysis) {
+        output += `
+            <div class="calc-risk-assessment-box" style="border-color: ${portfolioRiskAnalysis.color};">
+                <h4 class="calc-risk-title" style="color: ${portfolioRiskAnalysis.color};">🎯 Portfolio Risk Assessment</h4>
+                <div class="calc-risk-message" style="color: ${portfolioRiskAnalysis.color};">${portfolioRiskAnalysis.message}</div>
+                <div class="calc-risk-details">
+                    High-risk positions: ${portfolioRiskAnalysis.highRiskCount}/${portfolioRiskAnalysis.totalCount}
+                    (${((portfolioRiskAnalysis.highRiskCount / portfolioRiskAnalysis.totalCount) * 100).toFixed(1)}%)
+                </div>
+            </div>
+        `;
+    }
+
+    output += `
+        <div class="warning-text calc-warning-main">
+            📊 ${realDataCount} position${realDataCount !== 1 ? 's' : ''} using real VaR data from market analysis<br>
+            ${estimatedCount > 0 ? `⚠️ ${estimatedCount} position${estimatedCount !== 1 ? 's' : ''} using estimated VaR (2% of position value)<br>` : ''}
+            ⚠️ This calculation assumes no correlation between positions. Actual portfolio VaR may be higher during market stress when correlations increase.<br>
+            💡 Use the Symbol Lookup Tool to analyze individual position risks and outlier status.
+        </div>
+    `;
+
+    document.getElementById('pf-output').innerHTML = output;
+    document.getElementById('pf-results').classList.add('show');
+};
+
+// Dataset filtering variables - Global scope for access by all functions
+let activeDataset = 'all';
+let filteredVarData = window.varData || {};
+
+// Helper function for dataset display names
+function getDatasetDisplayName() {
+    return activeDataset === 'all' ? 'All Assets' :
+           activeDataset === 'stocks' ? 'Stocks' :
+           activeDataset === 'cfd' ? 'CFDs' :
+           activeDataset === 'futures' ? 'Futures' : activeDataset;
+}
+
+// === GLOBAL LOOKUP AND PORTFOLIO FUNCTIONS ===
+
+window.lookupSymbol = function() {
+    console.log('🔍 lookupSymbol() called');
+
+    // Keep lookup within current calculator context (no switching)
+    console.log('💼 Performing symbol lookup within current calculator context');
+
+    const symbolInput = document.getElementById('symbol-lookup');
+    console.log('📝 Symbol input element:', symbolInput);
+
+    if (!symbolInput) {
+        console.error('❌ symbol-lookup input element not found');
+        alert('Error: Symbol input field not found');
+        return;
+    }
+
+    const symbol = symbolInput.value.toUpperCase().trim();
+    console.log('🎯 Looking up symbol:', symbol);
+
+    if (!symbol) {
+        console.warn('⚠️ No symbol entered');
+        alert('Please enter a symbol');
+        return;
+    }
+
+    // Use the unified symbol display function
+    if (window.varData && window.varData[symbol]) {
+        displaySymbolInfoInPortfolio(symbol, window.varData[symbol]);
+    } else {
+        document.getElementById('symbol-details').innerHTML = `
+            <div class="calc-error-box">
+                Symbol "${symbol}" not found in database.
+            </div>
+        `;
+    }
+}
+
+// Unified symbol display function for Portfolio VaR
+function displaySymbolInfoInPortfolio(symbol, data) {
+    const riskAssessment = generateRiskAssessment(data);
+    const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+        `<div class="calc-outlier-warning">🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')}</div>` : '';
+
+    const detailsDiv = document.getElementById('symbol-details');
+    const infoDiv = document.getElementById('symbol-info');
+
+    detailsDiv.innerHTML = `
+        <div class="calc-symbol-info-box" style="border-color: ${riskAssessment.color};">
+            <div class="calc-symbol-info-grid">
+                <div>
+                    <strong class="calc-symbol-name">${symbol}</strong> - ${data.description}<br>
+                    <span class="calc-symbol-sector">Sector:</span> ${data.sector}<br>
+                    <span class="calc-symbol-sector">Current Price:</span> $${data.price}
+                    ${outlierWarnings}
+                </div>
+                <div>
+                    <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
+                    <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
+                    <div class="calc-risk-message" style="color: ${riskAssessment.color};">${riskAssessment.recommendation}</div>
+                    <button class="add-symbol-to-portfolio calc-add-portfolio-btn" data-symbol="${symbol}" data-action="add-to-portfolio">Add to Portfolio</button>
+                </div>
+            </div>
+        </div>
+    `;
+    infoDiv.className = infoDiv.className.replace(' display-none', '');
+
+    // CRITICAL: Make result boxes visible by adding 'show' class
+    const detailsResultBox = detailsDiv.closest('.result-box');
+    if (detailsResultBox) {
+        detailsResultBox.classList.add('show');
+        console.log('✅ Added "show" class to symbol-details result-box');
+    }
+
+    const infoResultBox = infoDiv.closest('.result-box');
+    if (infoResultBox) {
+        infoResultBox.classList.add('show');
+        console.log('✅ Added "show" class to symbol-info result-box');
+    }
+}
+
+function addSymbolToPortfolio(symbol) {
+    console.log('💼 addSymbolToPortfolio() called with symbol:', symbol);
+
+    const data = window.varData[symbol];
+    if (!data) {
+        console.error('❌ No data found for symbol:', symbol);
+        alert(`Symbol ${symbol} not found in database`);
+        return;
+    }
+
+    console.log('✅ Symbol data found, adding to portfolio');
+
+    // Check if portfolio VaR calculator is already active
+    const isPortfolioActive = document.getElementById('portfolio-calculator') &&
+                              !document.getElementById('portfolio-calculator').classList.contains('display-none');
+
+    if (!isPortfolioActive) {
+        // Only show notification if not already in portfolio calculator
+        console.log('💼 Symbol added to portfolio. Switch to Portfolio VaR Calculator to manage positions.');
+        // You could add a toast notification here instead of auto-switching
+    }
+
+    const tbody = document.getElementById('portfolio-positions');
+
+    // Remove placeholder row if it exists (has placeholder="AAPL" in symbol input)
+    const placeholderRow = tbody.querySelector('tr input[placeholder="AAPL"]');
+    if (placeholderRow) {
+        const placeholderRowElement = placeholderRow.closest('tr');
+        if (placeholderRowElement) {
+            placeholderRowElement.remove();
+            console.log('✅ Removed placeholder row');
+        }
+    }
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td><input type="text" value="${symbol}" class="position-symbol-input calc-input-small"></td>
+        <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
+        <td><input type="number" value="${data.price}" step="0.01" class="position-price-input calc-input-medium"></td>
+        <td class="value-display">-</td>
+        <td class="var-display">$${data.var}</td>
+        <td class="weight-display">-</td>
+        <td><button class="remove-btn remove-position" title="Remove Position"></button></td>
+    `;
+
+    // Insert at the beginning instead of appending to the end
+    if (tbody.children.length > 0) {
+        tbody.insertBefore(newRow, tbody.firstChild);
+        console.log('✅ Added symbol as first position in portfolio');
+    } else {
+        tbody.appendChild(newRow);
+        console.log('✅ Added symbol to empty portfolio');
+    }
+
+    // Hide symbol info
+    document.getElementById('symbol-info').className += ' display-none';
+    document.getElementById('symbol-lookup').value = '';
+}
+
+window.addPosition = function() {
+    const tbody = document.getElementById('portfolio-positions');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td><input type="text" placeholder="SYMBOL" class="position-input calc-input-small"></td>
+        <td><input type="number" placeholder="100" class="position-input calc-input-small"></td>
+        <td><input type="number" placeholder="150.00" step="0.01" class="position-input calc-input-medium"></td>
+        <td class="value-display">-</td>
+        <td class="var-display">-</td>
+        <td class="var-percent-display calc-var-percent">-</td>
+        <td class="weight-display">-</td>
+        <td class="asset-class-display calc-asset-class">-</td>
+        <td><button class="remove-btn remove-position" title="Remove Position"></button></td>
+    `;
+    tbody.appendChild(newRow);
+}
+
+window.quickLookup = function(symbol) {
+    console.log('📋 quickLookup() called with symbol:', symbol);
+    showSymbolDetail(symbol);
+}
+
+window.useInStopLoss = function(symbol) {
+    console.log('📊 useInStopLoss() called with symbol:', symbol);
+
+    if (!symbol) {
+        console.error('❌ No symbol provided to useInStopLoss');
+        alert('Error: No symbol provided');
+        return;
+    }
+
+    // Ensure we switch to the calculator first
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to stop loss calculator');
+        selectCalculator('stoploss');
+
+        // Use setTimeout to ensure the calculator is loaded before setting values
+        setTimeout(() => {
+            const symbolInput = document.getElementById('sl-symbol');
+            if (symbolInput) {
+                symbolInput.value = symbol;
+                console.log('✅ Symbol set in stop loss calculator:', symbol);
+
+                // Trigger auto-fill after setting the symbol
+                if (window.autoFillStopLossData) {
+                    autoFillStopLossData();
+                    console.log('✅ Auto-fill stop loss data called');
+                } else {
+                    console.error('❌ autoFillStopLossData function not found');
+                }
+            } else {
+                console.error('❌ sl-symbol input not found');
+                alert('Error: Stop loss calculator input not found');
+            }
+        }, 100);
+    } else {
+        console.error('❌ selectCalculator function not found');
+        alert('Error: Calculator selection function not available');
+    }
+}
+
+window.useInPortfolio = function(symbol) {
+    console.log('💼 useInPortfolio() called with symbol:', symbol);
+
+    if (!symbol) {
+        console.error('❌ No symbol provided to useInPortfolio');
+        alert('Error: No symbol provided');
+        return;
+    }
+
+    if (window.addSymbolToPortfolio) {
+        addSymbolToPortfolio(symbol);
+        console.log('✅ Symbol added to portfolio:', symbol);
+    } else {
+        console.error('❌ addSymbolToPortfolio function not found');
+        alert('Error: Portfolio function not available');
+    }
+}
+
+// Helper function to find similar symbols
+function findSimilarSymbols(prefix) {
+    console.log('🔍 findSimilarSymbols() called with prefix:', prefix);
+    if (!window.varData) return [];
+
+    return Object.keys(window.varData).filter(sym =>
+        sym.startsWith(prefix.toUpperCase()) && sym !== prefix.toUpperCase()
+    ).slice(0, 20); // Limit to 20 results
+}
+
+window.findSimilar = function(symbol) {
+    console.log('🔍 findSimilar() called with symbol:', symbol);
+
+    if (!symbol) {
+        console.error('❌ No symbol provided to findSimilar');
+        alert('Error: No symbol provided');
+        return;
+    }
+
+    // Check if data is available
+    if (!window.varData) {
+        console.error('❌ varData not loaded');
+        alert('Error: Symbol data not loaded. Please refresh the page.');
+        return;
+    }
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    const symbolData = window.varData[symbol];
+    if (!symbolData) {
+        console.error('❌ No data found for symbol:', symbol);
+        alert(`Error: No data found for symbol ${symbol}`);
+        return;
+    }
+
+    // Find symbols in same sector
+    const sectorMatches = Object.entries(window.varData).filter(([sym, data]) =>
+        sym !== symbol && data.sector === symbolData.sector
+    ).slice(0, 10);
+
+    console.log('✅ Found', sectorMatches.length, 'symbols in same sector:', symbolData.sector);
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">Symbols Similar to ${symbol} - Same Sector: ${symbolData.sector} (${sectorMatches.length} found)</h3>
+            <div class="calc-sector-grid">
+    `;
+
+    sectorMatches.forEach(([matchSymbol, data]) => {
+        const riskAssessment = generateRiskAssessment(data);
+        const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+        output += `
+            <div class="calc-sector-item quick-lookup" data-symbol="${matchSymbol}" data-action="show-symbol-detail" style="border-color: ${riskAssessment.color};">
+                <strong>${matchSymbol}</strong> ${outlierIcon}<br>
+                <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+
+    const outputElement = document.getElementById('lookup-output');
+    if (outputElement) {
+        outputElement.innerHTML = output;
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = outputElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box for findSimilar');
+        }
+
+        console.log('✅ Find similar results displayed for', symbol);
+    } else {
+        console.error('❌ lookup-output element not found for findSimilar');
+    }
+}
+
+window.performAdvancedSearch = function() {
+    console.log('🔍 performAdvancedSearch() called');
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    const searchInput = document.getElementById('lookup-symbol');
+    console.log('📝 Search input element:', searchInput);
+
+    const searchTerm = searchInput ? searchInput.value.toUpperCase().trim() : '';
+    console.log('🎯 Search term:', searchTerm);
+    if (!searchTerm) {
+        console.warn('⚠️ No search term provided');
+        return;
+    }
+
+    if (searchTerm.startsWith('SECTOR:')) {
+        const sector = searchTerm.replace('SECTOR:', '').trim();
+        showSectorAnalysis(sector);
+    } else if (searchTerm.includes('*')) {
+        showWildcardSearch(searchTerm);
+    } else {
+        performSymbolLookup();
+    }
+}
+
+window.showNotFound = function(symbol) {
+    document.getElementById('lookup-output').innerHTML = `
+        <div class="calc-error-box">
+            <h4>❌ Symbol Not Found: ${symbol}</h4>
+            <p>This symbol was not found in our database.</p>
+            <div class="calc-suggestion-box">
+                <h5>💡 Suggestions:</h5>
+                <ul>
+                    <li>Check the spelling of the symbol</li>
+                    <li>Try using wildcards: *${symbol.substring(0, 2)}* for partial matches</li>
+                    <li>Use SECTOR: prefix to explore by sector (e.g., SECTOR:Technology)</li>
+                    <li>Browse available symbols using the filter dropdown</li>
+                </ul>
+            </div>
+        </div>
+    `;
+}
+
+window.performSymbolLookup = function() {
+    const symbol = document.getElementById('lookup-symbol').value.toUpperCase().trim();
+    if (symbol && filteredVarData[symbol]) {
+        displaySymbolInfo(symbol, filteredVarData[symbol]);
+    } else if (symbol && window.varData && window.varData[symbol]) {
+        // Fall back to full dataset if not in filtered view
+        displaySymbolInfo(symbol, window.varData[symbol]);
+        document.getElementById('lookup-output').innerHTML += `
+            <div class="calc-lookup-info">
+                <p>💡 This symbol was found in the full database but not in the current ${getDatasetDisplayName()} filter.</p>
+            </div>
+        `;
+    } else if (symbol) {
+        showNotFound(symbol);
+    }
+}
+
+window.displaySymbolInfo = function(symbol, data) {
+    const riskAssessment = generateRiskAssessment(data);
+    const outlierWarnings = data.outliers && data.outliers.length > 0 ?
+        `<div class="calc-outlier-warning-detail">
+            🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')} detected
+        </div>` : '';
+
+    const output = `
+        <div class="calc-detailed-info">
+            <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
+
+            <div class="calc-risk-message-large">
+                ${riskAssessment.recommendation}
+            </div>
+            ${outlierWarnings}
+
+            <div class="calc-detailed-grid">
+                <div>
+                    <h4 class="calc-data-section-title">💰 Price & Risk Data</h4>
+                    <div><strong>Current Price:</strong> $${data.price}</div>
+                    <div><strong>VaR (1 lot):</strong> $${data.var.toFixed(6)}</div>
+                    <div><strong>VaR %:</strong> ${(data.var / data.price * 100).toFixed(3)}%</div>
+                    <div><strong>Sector:</strong> ${data.sector}</div>
+                </div>
+                <div>
+                    <h4 class="calc-data-section-title">📊 ATR Values</h4>
+                    ${data.atr_d1 ? `<div><strong>ATR Daily:</strong> $${data.atr_d1.toFixed(6)} (${((data.atr_d1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                    ${data.atr_w1 ? `<div><strong>ATR Weekly:</strong> $${data.atr_w1.toFixed(6)} (${((data.atr_w1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                    ${data.atr_mn1 ? `<div><strong>ATR Monthly:</strong> $${data.atr_mn1.toFixed(6)} (${((data.atr_mn1 / data.price) * 100).toFixed(2)}%)</div>` : ''}
+                    ${!data.atr_d1 ? '<div class="calc-warning-text">ATR data not available</div>' : ''}
+                </div>
+            </div>
+
+            ${data.ev_data ? `
+                <div class="calc-ev-box">
+                    <h4 class="calc-ev-title">💼 Enterprise Value Data</h4>
+                    <div><strong>Market Cap:</strong> $${(data.ev_data.market_cap / 1e9).toFixed(1)}B</div>
+                    <div><strong>Enterprise Value:</strong> $${(data.ev_data.enterprise_value / 1e9).toFixed(1)}B</div>
+                    <div><strong>MCap/EV Ratio:</strong> ${data.ev_data.mcap_ev_ratio.toFixed(1)}%</div>
+                </div>
+            ` : ''}
+
+            <div class="calc-trading-box">
+                <h4 class="calc-trading-title">🎯 Trading Suggestions</h4>
+                ${data.atr_d1 ? `
+                    <div><strong>Conservative Stop (2.5x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2.5)).toFixed(2)} (${((data.atr_d1 * 2.5) / data.price * 100).toFixed(2)}% below current)</div>
+                    <div><strong>Aggressive Stop (2x ATR D1):</strong> $${(data.price - (data.atr_d1 * 2)).toFixed(2)} (${((data.atr_d1 * 2) / data.price * 100).toFixed(2)}% below current)</div>
+                ` : ''}
+                <div class="calc-trading-hint">💡 Use Stop Loss Calculator for custom risk management based on your timeframe</div>
+                ${data.outliers && data.outliers.length > 0 ? '<div class="calc-trading-warning">⚠️ Consider wider stops due to outlier volatility</div>' : ''}
+            </div>
+
+            <div class="calc-button-row">
+                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}" data-action="use-in-stop-loss">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}" data-action="use-in-portfolio">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}" data-action="find-similar">🔍 Find Similar</button>
+            </div>
+        </div>
+    `;
+
+    const outputElement = document.getElementById('lookup-output');
+    if (outputElement) {
+        outputElement.innerHTML = output;
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = outputElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box for displaySymbolInfo');
+        }
+
+        console.log('✅ Symbol info displayed for', symbol);
+    } else {
+        console.error('❌ lookup-output element not found for displaySymbolInfo');
+    }
+}
+
+window.generateRiskAssessment = function(data) {
+    const outlierCount = data.outliers ? data.outliers.length : 0;
+    const varRatio = data.var / data.price;
+
+    if (outlierCount >= 3) {
+        return {
+            recommendation: "⚠️ EXTREME RISK - Multiple outlier indicators",
+            color: "#00aa00"
+        };
+    } else if (outlierCount >= 2) {
+        return {
+            recommendation: "⚠️ HIGH RISK - Multiple outlier indicators detected",
+            color: "#00aa00"
+        };
+    } else if (outlierCount === 1) {
+        return {
+            recommendation: "⚡ MODERATE RISK - Single outlier indicator",
+            color: "#00aa00"
+        };
+    } else if (varRatio > 0.05) {
+        return {
+            recommendation: "📊 ELEVATED VOLATILITY - High VaR ratio",
+            color: "#00aa00"
+        };
+    } else {
+        return {
+            recommendation: "✅ LOW RISK - Complete data available, no outliers",
+            color: "#00ff00"
+        };
+    }
+}
+
+window.getSectorAnalysis = function(sector) {
+    const sectorSymbols = Object.entries(window.varData || {}).filter(([symbol, data]) =>
+        data.sector.toLowerCase() === sector.toLowerCase()
+    );
+
+    if (sectorSymbols.length === 0) {
+        return { error: `No symbols found in sector: ${sector}` };
+    }
+
+    const avgVarRatio = sectorSymbols.reduce((sum, [symbol, data]) =>
+        sum + (data.var / data.price), 0) / sectorSymbols.length;
+
+    const outlierCount = sectorSymbols.filter(([symbol, data]) =>
+        data.outliers && data.outliers.length > 0).length;
+
+    return {
+        sector,
+        symbolCount: sectorSymbols.length,
+        symbols: sectorSymbols.map(([symbol]) => symbol),
+        avgVarRatio,
+        outlierCount,
+        data: sectorSymbols
+    };
+}
+
+function showSectorAnalysis(sectorName) {
+    const analysis = getSectorAnalysis(sectorName);
+
+    if (analysis.error) {
+        document.getElementById('lookup-output').innerHTML = `
+            <div class="calc-error-box">
+                <h4>❌ ${analysis.error}</h4>
+                <p>Available sectors: ${[...new Set(Object.values(varData).map(d => d.sector))].join(', ')}</p>
+            </div>
+        `;
+        return;
+    }
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">📊 ${analysis.sector} Sector Analysis</h3>
+            <div class="calc-margin-bottom">
+                <div><strong>Total Symbols:</strong> ${analysis.symbolCount}</div>
+                <div><strong>Average VaR Ratio:</strong> ${(analysis.avgVarRatio * 100).toFixed(2)}%</div>
+                <div><strong>Outlier Symbols:</strong> ${analysis.outlierCount} (${((analysis.outlierCount / analysis.symbolCount) * 100).toFixed(1)}%)</div>
+            </div>
+            <div class="calc-symbols-grid" style="max-height: 300px;">
+    `;
+
+    analysis.data.forEach(([symbol, data]) => {
+        const riskAssessment = generateRiskAssessment(data);
+        const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+        output += `
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
+                <strong>${symbol}</strong> ${outlierIcon}<br>
+                <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+    document.getElementById('lookup-output').innerHTML = output;
+}
+
+function showWildcardSearch(searchPattern) {
+    const pattern = searchPattern.replace(/\*/g, '');
+    const matches = Object.keys(window.varData || {}).filter(symbol =>
+        symbol.includes(pattern)
+    );
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">🔍 Wildcard Search: "${searchPattern}" (${matches.length} matches)</h3>
+            <div class="calc-sector-grid">
+    `;
+
+    matches.forEach(symbol => {
+        const data = window.varData[symbol];
+        const riskAssessment = generateRiskAssessment(data);
+        const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+        output += `
+            <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail" style="border-color: ${riskAssessment.color};">
+                <strong>${symbol}</strong> ${outlierIcon}<br>
+                <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+    document.getElementById('lookup-output').innerHTML = output;
+}
+
+// Portfolio position helper function
+function updatePositionValue(input) {
+    const row = input.closest('tr');
+    const inputs = row.querySelectorAll('input');
+    const symbol = inputs[0].value.toUpperCase().trim();
+    const shares = parseFloat(inputs[1].value) || 0;
+    const price = parseFloat(inputs[2].value) || 0;
+
+    const valueDisplay = row.querySelector('.value-display');
+    const varDisplay = row.querySelector('.var-display');
+    const varPercentDisplay = row.querySelector('.var-percent-display');
+    const assetClassDisplay = row.querySelector('.asset-class-display');
+
+    const value = shares * price;
+    valueDisplay.textContent = value > 0 ? '$' + value.toLocaleString() : '-';
+
+    if (symbol && window.varData && window.varData[symbol]) {
+        const data = window.varData[symbol];
+        const positionVaR = shares * data.var;
+        const varPercent = (data.var / data.price) * 100;
+
+        varDisplay.textContent = positionVaR > 0 ? '$' + positionVaR.toLocaleString() : '-';
+
+        const varColor = varPercent < 1 ? 'calc-var-color-green' :
+                        varPercent < 2 ? 'calc-var-color-yellow' :
+                        varPercent < 5 ? 'calc-var-color-orange' : 'calc-var-color-red';
+
+        varPercentDisplay.innerHTML = `<span class="${varColor}">${varPercent.toFixed(2)}%</span>`;
+
+        const assetClass = data.asset_class || 'unknown';
+        const assetDisplay = assetClass === 'stocks' ? 'Stock' :
+                           assetClass === 'cfd' ? 'CFD' :
+                           assetClass === 'futures' ? 'Future' : 'Unknown';
+
+        const assetColor = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                          assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                          assetClass === 'futures' ? 'calc-asset-color-futures' : 'calc-asset-color-unknown';
+
+        assetClassDisplay.innerHTML = `<span class="${assetColor}">${assetDisplay}</span>`;
+
+        // Check if symbol is in current filtered dataset
+        const inFilteredDataset = filteredVarData[symbol] !== undefined;
+        if (!inFilteredDataset && activeDataset !== 'all') {
+            assetClassDisplay.innerHTML += ` <small class="calc-filter-warning">⚠️</small>`;
+            assetClassDisplay.title = `This ${assetDisplay} is not in the current ${getDatasetDisplayName()} filter`;
+        }
+
+        // Auto-fill price if empty
+        if (price === 0) {
+            inputs[2].value = window.varData[symbol].price;
+            updatePositionValue(inputs[2]); // Recalculate
+        }
+    } else if (symbol) {
+        varDisplay.textContent = 'Unknown';
+        varPercentDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+        assetClassDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+    } else {
+        varPercentDisplay.textContent = '-';
+        assetClassDisplay.textContent = '-';
+    }
+}
+
+// TEMPORARY: Commenting out DOMContentLoaded to fix syntax error
+// document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DOM ready - initializing calculator debug mode');
+
+    // Direct button listeners with comprehensive debugging
+    const buttons = [
+        'calculate-compound-interest-btn',
+        'calculate-stop-loss-btn',
+        'calculate-position-size-btn',
+        'calculate-portfolio-var-btn',
+        'show-all-symbols-btn',
+        'show-all-symbols-unfiltered-btn',
+        'lookup-symbol-btn',
+        'advanced-search-btn'
+    ];
+
+    // Map button IDs to their actual functions
+    const buttonFunctions = {
+        'calculate-compound-interest-btn': 'calculateCompoundInterest',
+        'calculate-stop-loss-btn': 'calculateStopLoss',
+        'calculate-position-size-btn': 'calculatePositionSize',
+        'calculate-portfolio-var-btn': 'calculatePortfolioVaR',
+        'show-all-symbols-btn': 'showAllSymbols',
+        'show-all-symbols-unfiltered-btn': 'showAllSymbolsUnfiltered',
+        'lookup-symbol-btn': 'lookupSymbol',
+        'advanced-search-btn': 'performAdvancedSearch',
+        'back-to-list-btn': 'backToSymbolList'
+    };
+
+    console.log('📋 Button mapping configured:', buttonFunctions);
+
+    buttons.forEach(buttonId => {
+        const btn = document.getElementById(buttonId);
+        if (btn) {
+            console.log(`✅ Found button: ${buttonId} -> function: ${buttonFunctions[buttonId]}`);
+            btn.addEventListener('click', function(event) {
+                console.log(`🔥 BUTTON CLICKED: ${buttonId} at ${new Date().toISOString()}`);
+                console.log('📍 Click event details:', {
+                    target: event.target.id,
+                    type: event.type,
+                    timestamp: event.timeStamp
+                });
+
+                const functionName = buttonFunctions[buttonId];
+                console.log(`🎯 Attempting to call function: ${functionName}`);
+
+                if (functionName && window[functionName]) {
+                    console.log(`✅ Function ${functionName} exists, executing...`);
+                    try {
+                        const startTime = performance.now();
+                        window[functionName]();
+                        const endTime = performance.now();
+                        console.log(`✅ Function ${functionName} completed successfully in ${(endTime - startTime).toFixed(2)}ms`);
+                    } catch (error) {
+                        console.error(`❌ Error in ${functionName}:`, error);
+                        console.error('Stack trace:', error.stack);
+                        alert('Error in calculator function: ' + error.message);
+                    }
+                } else {
+                    console.error(`❌ Function not found: ${functionName}`);
+                    console.error('Available window functions:', Object.keys(window).filter(key => typeof window[key] === 'function'));
+                    alert('Calculator function ' + functionName + ' not found. Please check the implementation.');
+                }
+            });
+        } else {
+            console.error(`❌ Button not found in DOM: ${buttonId}`);
+        }
+    });
+
+    console.log('🔧 Event listeners attached to all available buttons');
+});
+
+window.selectCalculator = function(calculatorType, clickedElement) {
+    console.log('selectCalculator function called with:', calculatorType);
+    try {
+        // Hide all calculators
+        const calculators = document.querySelectorAll('.calculator-content');
+        calculators.forEach(calc => calc.classList.remove('active'));
+
+        // Remove active class from all cards
+        const cards = document.querySelectorAll('.calculator-card');
+        cards.forEach(card => card.classList.remove('active'));
+
+        // Show selected calculator
+        const targetId = calculatorType + '-calculator';
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.classList.add('active');
+            console.log('✅ Calculator activated:', targetId);
+        } else {
+            console.error('Could not find element with ID:', targetId);
+        }
+    } catch (error) {
+        console.error('Error in selectCalculator:', error);
+    }
+
+    // Add active class to selected card
+    if (clickedElement) {
+        clickedElement.classList.add('active');
+    }
+
+    // Update breadcrumb navigation
+    if (window.updateBreadcrumb) {
+        window.updateBreadcrumb(calculatorType);
+    }
+
+    window.activeCalculator = calculatorType;
+};
+
+window.updateBreadcrumb = function(calculatorType) {
+    const breadcrumbElement = document.getElementById('active-calculator-breadcrumb');
+    const nameElement = document.getElementById('active-calculator-name');
+
+    const calculatorNames = {
+        'stoploss': '🛑 Stop Loss Calculator',
+        'position': '⚖️ Position Size Calculator',
+        'portfolio': '📊 Portfolio VaR Calculator',
+        'lookup': '🔍 Symbol Lookup Tool',
+        'compound': '💰 Compound Interest Calculator'
+    };
+
+    if (calculatorType && calculatorNames[calculatorType]) {
+        nameElement.textContent = calculatorNames[calculatorType];
+        breadcrumbElement.className = breadcrumbElement.className.replace(' display-none', '');
+    } else {
+        breadcrumbElement.className += ' display-none';
+    }
+};
+
+// Verify functions are defined
+console.log('🔧 Functions defined:');
+console.log('- window.selectCalculator:', typeof window.selectCalculator);
+console.log('- window.updateBreadcrumb:', typeof window.updateBreadcrumb);
+
+        window.resetToCalculatorSelection = function() {
+            // Hide all calculators
+            const calculators = document.querySelectorAll('.calculator-content');
+            calculators.forEach(calc => calc.classList.remove('active'));
+
+            // Remove active class from all cards
+            const cards = document.querySelectorAll('.calculator-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Hide breadcrumb active calculator
+            document.getElementById('active-calculator-breadcrumb').className += ' display-none';
+
+            // Reset active calculator
+            activeCalculator = null;
+
+            // Scroll to top to show calculator selection
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function autoFillStopLossData() {
+            const symbol = document.getElementById('sl-symbol').value.toUpperCase().trim();
+            const timeframe = document.getElementById('sl-timeframe').value;
+
+            if (symbol && window.varData && window.varData[symbol]) {
+                const data = window.varData[symbol];
+
+                // Auto-fill price if not already filled
+                const priceField = document.getElementById('sl-entry-price');
+                if (!priceField.value || priceField.value == 0) {
+                    priceField.value = data.price;
+                }
+
+                // Auto-fill ATR based on timeframe
+                const atrField = document.getElementById('sl-atr');
+                let atrValue = null;
+
+                if (timeframe === 'D1' && data.atr_d1) {
+                    atrValue = data.atr_d1;
+                } else if (timeframe === 'W1' && data.atr_w1) {
+                    atrValue = data.atr_w1;
+                } else if (timeframe === 'MN1' && data.atr_mn1) {
+                    atrValue = data.atr_mn1;
+                } else if (data.atr_d1) {
+                    // Default to daily ATR for shorter timeframes
+                    atrValue = data.atr_d1;
+                }
+
+                if (atrValue) {
+                    atrField.value = atrValue.toFixed(6);
+                }
+
+                // Show a small notification
+                const atrLabel = document.querySelector('label[for="sl-atr"]');
+                const originalText = atrLabel.innerHTML;
+                atrLabel.innerHTML = `ATR (${timeframe}) - Auto-filled for ${symbol} ✓`;
+                atrLabel.className += ' calc-var-color-green';
+
+                setTimeout(() => {
+                    atrLabel.innerHTML = originalText;
+                    atrLabel.className = atrLabel.className.replace(' calc-var-color-green', '');
+                }, 3000);
+        }
+
+        function toggleStopLossMode() {
+            const mode = document.getElementById('sl-risk-mode').value;
+            const label = document.getElementById('sl-risk-label');
+            const input = document.getElementById('sl-risk-value');
+            const hint = document.getElementById('sl-risk-hint');
+
+            switch(mode) {
+                case 'percent':
+                    label.textContent = 'Risk Percentage (%)';
+                    input.placeholder = '2.0';
+                    hint.textContent = '📊 Percentage of portfolio to risk on this trade';
+                    break;
+                case 'var':
+                    label.textContent = 'VaR Target (%)';
+                    input.placeholder = '5.0';
+                    hint.textContent = '🎯 Target VaR percentage of position value';
+                    break;
+                case 'dollar':
+                    label.textContent = 'Risk Amount ($)';
+                    input.placeholder = '500.00';
+                    hint.textContent = '💰 Dollar amount willing to risk on this trade';
+                    break;
+            }
+        }
+
+        function togglePositionSizeMode() {
+            const mode = document.getElementById('ps-risk-mode').value;
+            const label = document.getElementById('ps-risk-label');
+            const input = document.getElementById('ps-risk-value');
+            const hint = document.getElementById('ps-risk-hint');
+
+            switch(mode) {
+                case 'risk':
+                    label.textContent = 'Risk per Trade (%)';
+                    input.placeholder = '1.0';
+                    hint.textContent = '📊 Percentage of account to risk on this trade';
+                    break;
+                case 'var':
+                    label.textContent = 'VaR Target (%)';
+                    input.placeholder = '5.0';
+                    hint.textContent = '🎯 Target VaR as percentage of position value';
+                    break;
+                case 'dollar':
+                    label.textContent = 'Dollar Risk ($)';
+                    input.placeholder = '100.00';
+                    hint.textContent = '💰 Dollar amount willing to risk on this trade';
+                    break;
+                case 'shares':
+                    label.textContent = 'Target Shares (#)';
+                    input.placeholder = '100';
+                    hint.textContent = '📈 Number of shares you want to buy';
+                    break;
+            }
+        }
+
+        // VALIDATED: Auto-updated from latest CSVs on 2025-09-17 08:21:55
+        const varData = window.varData = {
+            // Data hash: 7153ca7a | Updated: 2025-09-17 08:21:55 | Symbols: 903
+            '6A_Z': { var: 482.417627, price: 0.67, sector: 'Currency', description: 'Australian Dollar December', asset_class: 'futures', atr_d1: 0.004789, atr_w1: 0.011379, atr_mn1: 0.029532, outliers: [] },
+            '6B_Z': { var: 581.751591, price: 1.37, sector: 'Currency', description: 'British Pound December', asset_class: 'futures', atr_d1: 0.008293, atr_w1: 0.020500, atr_mn1: 0.049450, outliers: [] },
+            '6C_Z': { var: 337.574885, price: 0.73, sector: 'Currency', description: 'Canadian Dollar December', asset_class: 'futures', atr_d1: 0.002982, atr_w1: 0.007518, atr_mn1: 0.019743, outliers: [] },
+            '6E_Z': { var: 1037.000635, price: 1.19, sector: 'Currency', description: 'Euro FX December', asset_class: 'futures', atr_d1: 0.006836, atr_w1: 0.018586, atr_mn1: 0.041421, outliers: [] },
+            '6J_Z': { var: 592.862381, price: 0.01, sector: 'Currency', description: 'Japanese Yen December', asset_class: 'futures', atr_d1: 0.000048, atr_w1: 0.000122, atr_mn1: 0.000346, outliers: [] },
+            '6N_Z': { var: 532.468889, price: 0.60, sector: 'Currency', description: 'New Zeland Dollar December', asset_class: 'futures', atr_d1: 0.004629, atr_w1: 0.011261, atr_mn1: 0.029221, outliers: [] },
+            '6S_Z': { var: 1200.430697, price: 1.29, sector: 'Currency', description: 'Swixx Franc December', asset_class: 'futures', atr_d1: 0.008029, atr_w1: 0.018525, atr_mn1: 0.038893, outliers: [] },
+            'A': { var: 4.307536, price: 127.17, sector: 'Healthcare', description: 'Agilent Technologies Inc', asset_class: 'stocks', atr_d1: 3.237143, atr_w1: 7.667143, atr_mn1: 16.881429, outliers: [], ev_data: { market_cap: 36058365952, enterprise_value: 38117421056, mcap_ev_ratio: 94.6 } },
+            'AA': { var: 1.469251, price: 33.49, sector: 'Basic Materials', description: 'Alcoa Corp', asset_class: 'stocks', atr_d1: 1.135000, atr_w1: 2.443571, atr_mn1: 7.420000, outliers: [], ev_data: { market_cap: 8668474368, enterprise_value: 9911464960, mcap_ev_ratio: 87.5 } },
+            'AAL': { var: 0.524029, price: 12.42, sector: 'Industrials', description: 'American Airlines Group Inc', asset_class: 'stocks', atr_d1: 0.416429, atr_w1: 1.080000, atr_mn1: 2.597857, outliers: [], ev_data: { market_cap: 8267653632, enterprise_value: 36895653888, mcap_ev_ratio: 22.4 } },
+            'AAP': { var: 2.296900, price: 63.77, sector: 'Consumer Cyclical', description: 'Advance Auto Parts Inc', asset_class: 'stocks', atr_d1: 1.981429, atr_w1: 6.625000, atr_mn1: 11.542857, outliers: ['atr', 'ev'], ev_data: { market_cap: 3792845312, enterprise_value: 6187848192, mcap_ev_ratio: 61.3 } },
+            'AAPL': { var: 5.785469, price: 238.23, sector: 'Technology', description: 'Apple Inc', asset_class: 'stocks', atr_d1: 4.534286, atr_w1: 11.047857, atr_mn1: 25.568571, outliers: [], ev_data: { market_cap: 3534241136640, enterprise_value: 3580728180736, mcap_ev_ratio: 98.7 } },
+            'AAXJ': { var: 1.142213, price: 91.53, sector: 'Financial', description: 'iShares MSCI All Country Asia', asset_class: 'stocks', atr_d1: 0.900714, atr_w1: 2.367143, atr_mn1: 6.227857, outliers: [] },
+            'ABBV': { var: 3.851616, price: 216.22, sector: 'Healthcare', description: 'AbbVie Inc', asset_class: 'stocks', atr_d1: 3.416429, atr_w1: 8.409286, atr_mn1: 22.704286, outliers: [], ev_data: { market_cap: 382036246528, enterprise_value: 448583729152, mcap_ev_ratio: 85.2 } },
+            'ABT': { var: 2.262731, price: 132.80, sector: 'Healthcare', description: 'Abbott Laboratories', asset_class: 'stocks', atr_d1: 2.312143, atr_w1: 5.849286, atr_mn1: 10.755000, outliers: [], ev_data: { market_cap: 231063470080, enterprise_value: 237515341824, mcap_ev_ratio: 97.3 } },
+            'ACHC': { var: 1.265244, price: 21.71, sector: 'Healthcare', description: 'Acadia Healthcare Co Inc', asset_class: 'stocks', atr_d1: 1.115714, atr_w1: 2.400000, atr_mn1: 10.252857, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 2004844544, enterprise_value: 4401349120, mcap_ev_ratio: 45.6 } },
+            'ACM': { var: 2.221795, price: 127.85, sector: 'Industrials', description: 'AECOM', asset_class: 'stocks', atr_d1: 2.187143, atr_w1: 4.918571, atr_mn1: 11.598571, outliers: [], ev_data: { market_cap: 16918651904, enterprise_value: 18507773952, mcap_ev_ratio: 91.4 } },
+            'ACN': { var: 5.672348, price: 236.67, sector: 'Technology', description: 'Accenture Plc', asset_class: 'stocks', atr_d1: 5.841429, atr_w1: 16.982143, atr_mn1: 38.713571, outliers: [], ev_data: { market_cap: 147497811968, enterprise_value: 147020398592, mcap_ev_ratio: 100.3 } },
+            'ADBE': { var: 8.799195, price: 352.81, sector: 'Technology', description: 'Adobe Inc', asset_class: 'stocks', atr_d1: 10.021429, atr_w1: 21.232143, atr_mn1: 58.496429, outliers: [], ev_data: { market_cap: 149628076032, enterprise_value: 149900787712, mcap_ev_ratio: 99.8 } },
+            'ADI': { var: 6.775032, price: 244.45, sector: 'Technology', description: 'Analog Devices Inc', asset_class: 'stocks', atr_d1: 4.597143, atr_w1: 12.482143, atr_mn1: 30.380000, outliers: [], ev_data: { market_cap: 120086216704, enterprise_value: 125323042816, mcap_ev_ratio: 95.8 } },
+            'ADM': { var: 1.298146, price: 62.40, sector: 'Consumer Defensive', description: 'Archer-Daniels-Midland Co', asset_class: 'stocks', atr_d1: 1.236429, atr_w1: 3.299286, atr_mn1: 6.257857, outliers: [], ev_data: { market_cap: 29956929536, enterprise_value: 39764959232, mcap_ev_ratio: 75.3 } },
+            'ADP': { var: 5.157680, price: 289.05, sector: 'Industrials', description: 'Automatic Data Processing Inc', asset_class: 'stocks', atr_d1: 4.926429, atr_w1: 10.465714, atr_mn1: 24.563571, outliers: [], ev_data: { market_cap: 116931870720, enterprise_value: 118350839808, mcap_ev_ratio: 98.8 } },
+            'ADSK': { var: 11.443994, price: 318.66, sector: 'Technology', description: 'Autodesk Inc', asset_class: 'stocks', atr_d1: 7.875000, atr_w1: 16.702857, atr_mn1: 34.462857, outliers: [], ev_data: { market_cap: 67842633728, enterprise_value: 68340629504, mcap_ev_ratio: 99.3 } },
+            'AEP': { var: 1.371363, price: 106.87, sector: 'Utilities', description: 'American Electric Power Co Inc', asset_class: 'stocks', atr_d1: 1.390000, atr_w1: 3.497857, atr_mn1: 8.851429, outliers: ['var'], ev_data: { market_cap: 57137496064, enterprise_value: 104467972096, mcap_ev_ratio: 54.7 } },
+            'AES': { var: 0.302371, price: 12.72, sector: 'Utilities', description: 'AES Corp/The', asset_class: 'stocks', atr_d1: 0.327857, atr_w1: 1.025714, atr_mn1: 2.742857, outliers: ['ev'], ev_data: { market_cap: 9043035136, enterprise_value: 45078028288, mcap_ev_ratio: 20.1 } },
+            'AFG': { var: 2.249929, price: 138.90, sector: 'Financial', description: 'American Financial Group Inc/O', asset_class: 'stocks', atr_d1: 3.158571, atr_w1: 5.280000, atr_mn1: 12.635714, outliers: ['atr'], ev_data: { market_cap: 11565148160, enterprise_value: 11976518656, mcap_ev_ratio: 96.6 } },
+            'AFL': { var: 1.667935, price: 107.59, sector: 'Financial', description: 'Aflac Inc', asset_class: 'stocks', atr_d1: 1.698571, atr_w1: 3.808571, atr_mn1: 10.022143, outliers: ['atr'], ev_data: { market_cap: 57563860992, enterprise_value: 63184912384, mcap_ev_ratio: 91.1 } },
+            'AGCO': { var: 3.375391, price: 111.24, sector: 'Industrials', description: 'AGCO Corp', asset_class: 'stocks', atr_d1: 3.024286, atr_w1: 7.397857, atr_mn1: 14.847143, outliers: ['atr'], ev_data: { market_cap: 8294035456, enterprise_value: 10860484608, mcap_ev_ratio: 76.4 } },
+            'AIG': { var: 1.353767, price: 76.36, sector: 'Financial', description: 'American International Group I', asset_class: 'stocks', atr_d1: 1.223571, atr_w1: 3.152857, atr_mn1: 7.846429, outliers: [], ev_data: { market_cap: 42292662272, enterprise_value: 39653654528, mcap_ev_ratio: 106.7 } },
+            'AIZ': { var: 4.005499, price: 205.51, sector: 'Financial', description: 'Assurant Inc', asset_class: 'stocks', atr_d1: 4.629286, atr_w1: 9.517143, atr_mn1: 23.340714, outliers: [], ev_data: { market_cap: 10366338048, enterprise_value: 10647740416, mcap_ev_ratio: 97.4 } },
+            'AJG': { var: 6.089060, price: 291.94, sector: 'Financial', description: 'Arthur J Gallagher & Co', asset_class: 'stocks', atr_d1: 5.187143, atr_w1: 13.139286, atr_mn1: 32.737857, outliers: [], ev_data: { market_cap: 74719559680, enterprise_value: 73836445696, mcap_ev_ratio: 101.2 } },
+            'AKAM': { var: 1.981523, price: 76.38, sector: 'Technology', description: 'Akamai Technologies Inc', asset_class: 'stocks', atr_d1: 1.857143, atr_w1: 3.851429, atr_mn1: 11.845714, outliers: ['ev'], ev_data: { market_cap: 10951822336, enterprise_value: 15256278016, mcap_ev_ratio: 71.8 } },
+            'AL': { var: 1.781626, price: 63.61, sector: 'Industrials', description: 'Air Lease Corp', asset_class: 'stocks', atr_d1: 0.792857, atr_w1: 2.874286, atr_mn1: 7.164286, outliers: ['ev'], ev_data: { market_cap: 7103783424, enterprise_value: 26969399296, mcap_ev_ratio: 26.3 } },
+            'ALB': { var: 5.512368, price: 80.96, sector: 'Basic Materials', description: 'Albemarle Corp', asset_class: 'stocks', atr_d1: 4.182857, atr_w1: 9.710000, atr_mn1: 18.308571, outliers: ['var', 'atr'], ev_data: { market_cap: 9525262336, enterprise_value: 13958194176, mcap_ev_ratio: 68.2 } },
+            'ALGN': { var: 5.595716, price: 132.03, sector: 'Healthcare', description: 'Align Technology Inc', asset_class: 'stocks', atr_d1: 4.433571, atr_w1: 17.219286, atr_mn1: 40.682857, outliers: ['atr', 'ev'], ev_data: { market_cap: 9555158016, enterprise_value: 8777016320, mcap_ev_ratio: 108.9 } },
+            'ALK': { var: 2.618835, price: 57.78, sector: 'Industrials', description: 'Alaska Air Group Inc', asset_class: 'stocks', atr_d1: 2.084286, atr_w1: 4.525000, atr_mn1: 10.642143, outliers: [], ev_data: { market_cap: 6641856000, enterprise_value: 10890882048, mcap_ev_ratio: 61.0 } },
+            'ALL': { var: 4.612022, price: 196.32, sector: 'Financial', description: 'Allstate Corp/The', asset_class: 'stocks', atr_d1: 3.016429, atr_w1: 8.516429, atr_mn1: 20.511429, outliers: ['var'], ev_data: { market_cap: 51726028800, enterprise_value: 51169095680, mcap_ev_ratio: 101.1 } },
+            'ALLY': { var: 1.070419, price: 43.35, sector: 'Financial', description: 'Ally Financial Inc', asset_class: 'stocks', atr_d1: 0.892857, atr_w1: 2.132857, atr_mn1: 5.907857, outliers: [], ev_data: { market_cap: 13328086016, enterprise_value: 24889088000, mcap_ev_ratio: 53.5 } },
+            'ALNY': { var: 14.161278, price: 461.83, sector: 'Healthcare', description: 'Alnylam Pharmaceuticals Inc', asset_class: 'stocks', atr_d1: 12.292143, atr_w1: 25.139286, atr_mn1: 53.282143, outliers: [], ev_data: { market_cap: 60458876928, enterprise_value: 60341035008, mcap_ev_ratio: 100.2 } },
+            'AMAT': { var: 4.772487, price: 173.80, sector: 'Technology', description: 'Applied Materials Inc', asset_class: 'stocks', atr_d1: 3.684286, atr_w1: 12.180714, atr_mn1: 33.019286, outliers: [], ev_data: { market_cap: 138249240576, enterprise_value: 135918092288, mcap_ev_ratio: 101.7 } },
+            'AMD': { var: 7.019569, price: 160.59, sector: 'Technology', description: 'Advanced Micro Devices Inc', asset_class: 'stocks', atr_d1: 5.208571, atr_w1: 15.418571, atr_mn1: 30.767143, outliers: [], ev_data: { market_cap: 260400922624, enterprise_value: 259556491264, mcap_ev_ratio: 100.3 } },
+            'AME': { var: 3.239290, price: 187.30, sector: 'Industrials', description: 'AMETEK Inc', asset_class: 'stocks', atr_d1: 3.232857, atr_w1: 6.608571, atr_mn1: 17.402857, outliers: [], ev_data: { market_cap: 43250757632, enterprise_value: 44829736960, mcap_ev_ratio: 96.5 } },
+            'AMG': { var: 4.166703, price: 234.83, sector: 'Financial', description: 'Affiliated Managers Group Inc', asset_class: 'stocks', atr_d1: 5.325714, atr_w1: 11.423571, atr_mn1: 25.520714, outliers: [], ev_data: { market_cap: 6670593024, enterprise_value: 10335684608, mcap_ev_ratio: 64.5 } },
+            'AMGN': { var: 4.438770, price: 273.07, sector: 'Healthcare', description: 'Amgen Inc', asset_class: 'stocks', atr_d1: 4.640000, atr_w1: 13.560000, atr_mn1: 34.034286, outliers: [], ev_data: { market_cap: 147018579968, enterprise_value: 195194552320, mcap_ev_ratio: 75.3 } },
+            'AMKR': { var: 0.688291, price: 27.10, sector: 'Technology', description: 'Amkor Technology Inc', asset_class: 'stocks', atr_d1: 0.626429, atr_w1: 1.660714, atr_mn1: 5.196429, outliers: [], ev_data: { market_cap: 6682747392, enterprise_value: 6486739968, mcap_ev_ratio: 103.0 } },
+            'AMP': { var: 11.322776, price: 486.01, sector: 'Financial', description: 'Ameriprise Financial Inc', asset_class: 'stocks', atr_d1: 11.304286, atr_w1: 22.895714, atr_mn1: 56.757143, outliers: ['ev'], ev_data: { market_cap: 45828251648, enterprise_value: 41157234688, mcap_ev_ratio: 111.3 } },
+            'AMT': { var: 4.385451, price: 194.65, sector: 'Real Estate', description: 'American Tower Corp', asset_class: 'stocks', atr_d1: 4.672857, atr_w1: 9.852857, atr_mn1: 23.397857, outliers: [], ev_data: { market_cap: 91182514176, enterprise_value: 141085868032, mcap_ev_ratio: 64.6 } },
+            'AMZN': { var: 6.900676, price: 234.32, sector: 'Consumer Cyclical', description: 'Amazon.com Inc', asset_class: 'stocks', atr_d1: 4.762857, atr_w1: 11.352143, atr_mn1: 26.707143, outliers: [], ev_data: { market_cap: 2496119701504, enterprise_value: 2562405957632, mcap_ev_ratio: 97.4 } },
+            'AN': { var: 5.389918, price: 220.29, sector: 'Consumer Cyclical', description: 'AutoNation Inc', asset_class: 'stocks', atr_d1: 4.611429, atr_w1: 12.092143, atr_mn1: 27.862857, outliers: ['ev'], ev_data: { market_cap: 8291549184, enterprise_value: 17541548032, mcap_ev_ratio: 47.3 } },
+            'ANET': { var: 7.268015, price: 142.35, sector: 'Technology', description: 'Arista Networks Inc', asset_class: 'stocks', atr_d1: 5.477143, atr_w1: 11.243571, atr_mn1: 20.999286, outliers: [], ev_data: { market_cap: 178676645888, enterprise_value: 169831579648, mcap_ev_ratio: 105.2 } },
+            'AON': { var: 6.387473, price: 356.57, sector: 'Financial', description: 'Aon PLC', asset_class: 'stocks', atr_d1: 5.839286, atr_w1: 15.223571, atr_mn1: 35.877857, outliers: [], ev_data: { market_cap: 76886122496, enterprise_value: 94080974848, mcap_ev_ratio: 81.7 } },
+            'AOS': { var: 1.775381, price: 73.65, sector: 'Industrials', description: 'A O Smith Corp', asset_class: 'stocks', atr_d1: 1.497143, atr_w1: 3.666429, atr_mn1: 8.532143, outliers: ['ev'], ev_data: { market_cap: 10314969088, enterprise_value: 20784877568, mcap_ev_ratio: 49.6 } },
+            'APA': { var: 1.170215, price: 24.49, sector: 'Energy', description: 'APA Corp', asset_class: 'stocks', atr_d1: 0.862143, atr_w1: 1.802143, atr_mn1: 4.528571, outliers: ['var'], ev_data: { market_cap: 8769334272, enterprise_value: 14221345792, mcap_ev_ratio: 61.7 } },
+            'APD': { var: 4.532248, price: 285.29, sector: 'Basic Materials', description: 'Air Products and Chemicals Inc', asset_class: 'stocks', atr_d1: 4.274286, atr_w1: 12.854286, atr_mn1: 35.299286, outliers: ['var', 'atr'], ev_data: { market_cap: 63416766464, enterprise_value: 81686462464, mcap_ev_ratio: 77.6 } },
+            'APH': { var: 3.456197, price: 119.14, sector: 'Technology', description: 'Amphenol Corp', asset_class: 'stocks', atr_d1: 2.901429, atr_w1: 6.010714, atr_mn1: 11.000000, outliers: [], ev_data: { market_cap: 145338318848, enterprise_value: 150254845952, mcap_ev_ratio: 96.7 } },
+            'APLS': { var: 0.847457, price: 23.83, sector: 'Healthcare', description: 'Apellis Pharmaceuticals Inc', asset_class: 'stocks', atr_d1: 1.025000, atr_w1: 2.286429, atr_mn1: 6.626429, outliers: ['atr'], ev_data: { market_cap: 3008227840, enterprise_value: 3175195904, mcap_ev_ratio: 94.7 } },
+            'ARCC': { var: 0.374127, price: 21.17, sector: 'Financial', description: 'Ares Capital Corp', asset_class: 'stocks', atr_d1: 0.251429, atr_w1: 0.601429, atr_mn1: 1.657143, outliers: [], ev_data: { market_cap: 14925564928, enterprise_value: 28522573824, mcap_ev_ratio: 52.3 } },
+            'ARES': { var: 5.201371, price: 178.80, sector: 'Financial', description: 'Ares Management Corp', asset_class: 'stocks', atr_d1: 4.367143, atr_w1: 10.304286, atr_mn1: 25.277857, outliers: [], ev_data: { market_cap: 58353139712, enterprise_value: 57355571200, mcap_ev_ratio: 101.7 } },
+            'ARKG': { var: 0.953797, price: 26.57, sector: 'Financial', description: 'ARK Genomic Revolution ETF', asset_class: 'stocks', atr_d1: 0.691429, atr_w1: 1.767143, atr_mn1: 4.386429, outliers: ['var', 'atr'] },
+            'ARKK': { var: 2.288797, price: 81.07, sector: 'Financial', description: 'ARK Innovation ETF', asset_class: 'stocks', atr_d1: 1.531429, atr_w1: 4.486429, atr_mn1: 9.974286, outliers: ['var', 'atr'] },
+            'ARKW': { var: 4.241913, price: 166.93, sector: 'Financial', description: 'ARK Next Generation Internet E', asset_class: 'stocks', atr_d1: 3.238571, atr_w1: 8.647143, atr_mn1: 18.585714, outliers: ['atr'] },
+            'ARMK': { var: 0.659183, price: 37.57, sector: 'Consumer Cyclical', description: 'Aramark', asset_class: 'stocks', atr_d1: 0.742857, atr_w1: 1.964286, atr_mn1: 4.272857, outliers: [], ev_data: { market_cap: 9938376704, enterprise_value: 16025101312, mcap_ev_ratio: 62.0 } },
+            'ARW': { var: 3.273644, price: 127.34, sector: 'Technology', description: 'Arrow Electronics Inc', asset_class: 'stocks', atr_d1: 3.017143, atr_w1: 7.370714, atr_mn1: 15.128571, outliers: ['ev'], ev_data: { market_cap: 6540716032, enterprise_value: 9215354880, mcap_ev_ratio: 71.0 } },
+            'ARWR': { var: 2.332844, price: 29.56, sector: 'Healthcare', description: 'Arrowhead Pharmaceuticals Inc', asset_class: 'stocks', atr_d1: 1.618571, atr_w1: 2.700714, atr_mn1: 5.730000, outliers: ['var', 'atr'], ev_data: { market_cap: 4067550464, enterprise_value: 3880144128, mcap_ev_ratio: 104.8 } },
+            'ASH': { var: 1.525347, price: 51.40, sector: 'Basic Materials', description: 'Ashland Inc', asset_class: 'stocks', atr_d1: 1.446429, atr_w1: 3.432143, atr_mn1: 9.032857, outliers: [], ev_data: { market_cap: 2342889472, enterprise_value: 3640540928, mcap_ev_ratio: 64.4 } },
+            'AUDCAD': { var: 327.368859, price: 0.92, sector: 'Currency', description: 'Australian Dollar vs Canadian Dollar', asset_class: 'cfd', atr_d1: 0.005523, atr_w1: 0.012203, atr_mn1: 0.025819, outliers: [] },
+            'AUDCHF': { var: 381.430023, price: 0.53, sector: 'Currency', description: 'Australian Dollar vs Swiss Franc', asset_class: 'cfd', atr_d1: 0.003944, atr_w1: 0.008548, atr_mn1: 0.023921, outliers: [] },
+            'AUDJPY': { var: 387.655037, price: 97.88, sector: 'Currency', description: 'Australian Dollar vs Japanese Yen', asset_class: 'cfd', atr_d1: 0.572929, atr_w1: 1.656214, atr_mn1: 5.288500, outliers: [] },
+            'AUDNZD': { var: 258.429179, price: 1.12, sector: 'Currency', description: 'Australian Dollar vs New Zealand Dollar', asset_class: 'cfd', atr_d1: 0.004023, atr_w1: 0.008326, atr_mn1: 0.020060, outliers: [] },
+            'AUDUSD': { var: 488.179150, price: 0.67, sector: 'Currency', description: 'Australian Dollar vs US Dollar', asset_class: 'cfd', atr_d1: 0.004994, atr_w1: 0.011392, atr_mn1: 0.029379, outliers: [] },
+            'AUS200': { var: 542.680687, price: 8840.60, sector: 'Undefined', description: 'Australian Stock Index', asset_class: 'cfd', atr_d1: 82.742857, atr_w1: 168.671429, atr_mn1: 486.507143, outliers: [] },
+            'AVGO': { var: 21.294804, price: 360.27, sector: 'Technology', description: 'Broadcom Inc', asset_class: 'stocks', atr_d1: 14.755714, atr_w1: 23.230000, atr_mn1: 43.927143, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 1700049584128, enterprise_value: 177339006976, mcap_ev_ratio: 958.6 } },
+            'AVTR': { var: 0.515514, price: 12.71, sector: 'Basic Materials', description: 'Avantor Inc', asset_class: 'stocks', atr_d1: 0.406429, atr_w1: 1.225714, atr_mn1: 3.300714, outliers: ['atr'], ev_data: { market_cap: 8664902656, enterprise_value: 12239741952, mcap_ev_ratio: 70.8 } },
+            'AVY': { var: 3.189459, price: 166.30, sector: 'Industrials', description: 'Avery Dennison Corp', asset_class: 'stocks', atr_d1: 2.810714, atr_w1: 7.867857, atr_mn1: 17.247857, outliers: [], ev_data: { market_cap: 12962881536, enterprise_value: 16257380352, mcap_ev_ratio: 79.7 } },
+            'AWI': { var: 3.133861, price: 195.25, sector: 'Industrials', description: 'Armstrong World Industries Inc', asset_class: 'stocks', atr_d1: 3.983571, atr_w1: 8.584286, atr_mn1: 19.162857, outliers: ['var', 'atr'], ev_data: { market_cap: 8437531648, enterprise_value: 8989188096, mcap_ev_ratio: 93.9 } },
+            'AWK': { var: 2.247568, price: 136.46, sector: 'Utilities', description: 'American Water Works Co Inc', asset_class: 'stocks', atr_d1: 2.157143, atr_w1: 5.822857, atr_mn1: 12.602857, outliers: [], ev_data: { market_cap: 26582239232, enterprise_value: 41479180288, mcap_ev_ratio: 64.1 } },
+            'AXON': { var: 26.303350, price: 752.55, sector: 'Industrials', description: 'Axon Enterprise Inc', asset_class: 'stocks', atr_d1: 20.999286, atr_w1: 63.984286, atr_mn1: 122.238571, outliers: ['atr', 'ev'], ev_data: { market_cap: 58930896896, enterprise_value: 58751586304, mcap_ev_ratio: 100.3 } },
+            'AXP': { var: 7.383802, price: 327.40, sector: 'Financial', description: 'American Express Co', asset_class: 'stocks', atr_d1: 6.188571, atr_w1: 15.511429, atr_mn1: 35.210714, outliers: [], ev_data: { market_cap: 227581247488, enterprise_value: 230695419904, mcap_ev_ratio: 98.7 } },
+            'AXTA': { var: 0.874396, price: 30.82, sector: 'Basic Materials', description: 'Axalta Coating Systems Ltd', asset_class: 'stocks', atr_d1: 0.797143, atr_w1: 1.720714, atr_mn1: 4.315000, outliers: [], ev_data: { market_cap: 6670478848, enterprise_value: 9506484224, mcap_ev_ratio: 70.2 } },
+            'AYI': { var: 10.067851, price: 342.22, sector: 'Industrials', description: 'Acuity Inc', asset_class: 'stocks', atr_d1: 8.801429, atr_w1: 18.628571, atr_mn1: 42.614286, outliers: [], ev_data: { market_cap: 10457537536, enterprise_value: 11068974080, mcap_ev_ratio: 94.5 } },
+            'AZO': { var: 77.376544, price: 4222.25, sector: 'Consumer Cyclical', description: 'AutoZone Inc', asset_class: 'stocks', atr_d1: 63.835714, atr_w1: 156.455714, atr_mn1: 310.665000, outliers: [], ev_data: { market_cap: 70660857856, enterprise_value: 82969477120, mcap_ev_ratio: 85.2 } },
+            'AZTA': { var: 1.249399, price: 30.59, sector: 'Technology', description: 'Azenta Inc', asset_class: 'stocks', atr_d1: 1.218571, atr_w1: 3.426429, atr_mn1: 9.201429, outliers: ['atr', 'ev'], ev_data: { market_cap: 1402236416, enterprise_value: 1136008320, mcap_ev_ratio: 123.4 } },
+            'BA': { var: 5.670329, price: 214.86, sector: 'Industrials', description: 'Boeing Co/The', asset_class: 'stocks', atr_d1: 4.942143, atr_w1: 13.810000, atr_mn1: 27.240000, outliers: [], ev_data: { market_cap: 162589097984, enterprise_value: 195983032320, mcap_ev_ratio: 83.0 } },
+            'BAC': { var: 0.889759, price: 50.69, sector: 'Financial', description: 'Bank of America Corp', asset_class: 'stocks', atr_d1: 0.805000, atr_w1: 2.143571, atr_mn1: 5.354286, outliers: [], ev_data: { market_cap: 375236067328, enterprise_value: 379859959808, mcap_ev_ratio: 98.8 } },
+            'BAH': { var: 2.442307, price: 101.77, sector: 'Industrials', description: 'Booz Allen Hamilton Holding Co', asset_class: 'stocks', atr_d1: 2.624286, atr_w1: 5.985000, atr_mn1: 22.403571, outliers: [], ev_data: { market_cap: 12550446080, enterprise_value: 16024413184, mcap_ev_ratio: 78.3 } },
+            'BALL': { var: 1.106817, price: 49.76, sector: 'Consumer Cyclical', description: 'Ball Corp', asset_class: 'stocks', atr_d1: 1.139286, atr_w1: 2.551429, atr_mn1: 5.997857, outliers: [], ev_data: { market_cap: 13533969408, enterprise_value: 20678965248, mcap_ev_ratio: 65.4 } },
+            'BAX': { var: 0.742618, price: 23.90, sector: 'Healthcare', description: 'Baxter International Inc', asset_class: 'stocks', atr_d1: 0.607143, atr_w1: 2.022857, atr_mn1: 4.932143, outliers: [], ev_data: { market_cap: 12260133888, enterprise_value: 20272134144, mcap_ev_ratio: 60.5 } },
+            'BBY': { var: 2.637228, price: 74.17, sector: 'Consumer Cyclical', description: 'Best Buy Co Inc', asset_class: 'stocks', atr_d1: 2.311429, atr_w1: 5.108571, atr_mn1: 12.950714, outliers: [], ev_data: { market_cap: 15555877888, enterprise_value: 18012897280, mcap_ev_ratio: 86.4 } },
+            'BC': { var: 2.293899, price: 65.96, sector: 'Consumer Cyclical', description: 'Brunswick Corp/DE', asset_class: 'stocks', atr_d1: 1.990714, atr_w1: 4.981429, atr_mn1: 11.342857, outliers: [], ev_data: { market_cap: 4287007232, enterprise_value: 6386807296, mcap_ev_ratio: 67.1 } },
+            'BDX': { var: 3.916634, price: 186.34, sector: 'Healthcare', description: 'Becton Dickinson and Co', asset_class: 'stocks', atr_d1: 3.552857, atr_w1: 8.570000, atr_mn1: 21.257143, outliers: [], ev_data: { market_cap: 53372817408, enterprise_value: 71956897792, mcap_ev_ratio: 74.2 } },
+            'BEN': { var: 0.563573, price: 24.26, sector: 'Financial', description: 'Franklin Resources Inc', asset_class: 'stocks', atr_d1: 0.458571, atr_w1: 1.127143, atr_mn1: 2.898571, outliers: [], ev_data: { market_cap: 12585286656, enterprise_value: 15397797888, mcap_ev_ratio: 81.7 } },
+            'BFAM': { var: 2.833199, price: 110.34, sector: 'Consumer Cyclical', description: 'Bright Horizons Family Solutio', asset_class: 'stocks', atr_d1: 2.655000, atr_w1: 6.342143, atr_mn1: 16.100000, outliers: [], ev_data: { market_cap: 6279795200, enterprise_value: 7847849984, mcap_ev_ratio: 80.0 } },
+            'BIIB': { var: 5.048212, price: 143.86, sector: 'Healthcare', description: 'Biogen Inc', asset_class: 'stocks', atr_d1: 4.423571, atr_w1: 9.043571, atr_mn1: 19.869286, outliers: ['var', 'atr'], ev_data: { market_cap: 21065644032, enterprise_value: 24907249664, mcap_ev_ratio: 84.6 } },
+            'BILL': { var: 4.379087, price: 51.41, sector: 'Technology', description: 'Bill Holdings Inc', asset_class: 'stocks', atr_d1: 2.711429, atr_w1: 4.170000, atr_mn1: 14.742143, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 5220681728, enterprise_value: 4787947520, mcap_ev_ratio: 109.0 } },
+            'BIO': { var: 9.905601, price: 283.19, sector: 'Healthcare', description: 'Bio-Rad Laboratories Inc', asset_class: 'stocks', atr_d1: 8.740000, atr_w1: 22.765000, atr_mn1: 50.381429, outliers: [], ev_data: { market_cap: 7523951104, enterprise_value: 7671358464, mcap_ev_ratio: 98.1 } },
+            'BJ': { var: 3.791272, price: 99.53, sector: 'Consumer Defensive', description: 'BJ\'s Wholesale Club Holdings I', asset_class: 'stocks', atr_d1: 1.723571, atr_w1: 5.294286, atr_mn1: 11.542857, outliers: [], ev_data: { market_cap: 13101518848, enterprise_value: 15691134976, mcap_ev_ratio: 83.5 } },
+            'BK': { var: 1.479958, price: 105.58, sector: 'Financial', description: 'Bank of New York Mellon Corp/T', asset_class: 'stocks', atr_d1: 1.875000, atr_w1: 3.800000, atr_mn1: 9.059286, outliers: ['ev'], ev_data: { market_cap: 74395877376, enterprise_value: -53306146816, mcap_ev_ratio: -139.6 } },
+            'BKNG': { var: 102.552132, price: 5482.85, sector: 'Consumer Cyclical', description: 'Booking Holdings Inc', asset_class: 'stocks', atr_d1: 113.174286, atr_w1: 241.585714, atr_mn1: 600.279286, outliers: [], ev_data: { market_cap: 177444519936, enterprise_value: 179088441344, mcap_ev_ratio: 99.1 } },
+            'BKR': { var: 1.059989, price: 47.27, sector: 'Energy', description: 'Baker Hughes Co', asset_class: 'stocks', atr_d1: 0.965714, atr_w1: 2.407143, atr_mn1: 5.577143, outliers: [], ev_data: { market_cap: 46563061760, enterprise_value: 49681072128, mcap_ev_ratio: 93.7 } },
+            'BL': { var: 1.445158, price: 54.78, sector: 'Technology', description: 'Blackline Inc', asset_class: 'stocks', atr_d1: 1.460000, atr_w1: 3.612143, atr_mn1: 8.332857, outliers: [], ev_data: { market_cap: 3383405824, enterprise_value: 3463219200, mcap_ev_ratio: 97.7 } },
+            'BLD': { var: 12.901269, price: 416.70, sector: 'Industrials', description: 'TopBuild Corp', asset_class: 'stocks', atr_d1: 10.354286, atr_w1: 29.827143, atr_mn1: 71.216429, outliers: ['var'], ev_data: { market_cap: 11658467328, enterprise_value: 12831850496, mcap_ev_ratio: 90.9 } },
+            'BLDR': { var: 7.241352, price: 137.20, sector: 'Industrials', description: 'Builders FirstSource Inc', asset_class: 'stocks', atr_d1: 4.843571, atr_w1: 12.367143, atr_mn1: 30.798571, outliers: ['atr'], ev_data: { market_cap: 15495350272, enterprise_value: 20722853888, mcap_ev_ratio: 74.8 } },
+            'BLK': { var: 20.315030, price: 1120.70, sector: 'Financial', description: 'BlackRock Inc', asset_class: 'stocks', atr_d1: 16.755000, atr_w1: 45.852857, atr_mn1: 106.527857, outliers: [], ev_data: { market_cap: 173263470592, enterprise_value: 178776850432, mcap_ev_ratio: 96.9 } },
+            'BMRN': { var: 1.553041, price: 53.97, sector: 'Healthcare', description: 'BioMarin Pharmaceutical Inc', asset_class: 'stocks', atr_d1: 1.567857, atr_w1: 3.180000, atr_mn1: 9.498571, outliers: ['ev'], ev_data: { market_cap: 10357288960, enterprise_value: 9529008128, mcap_ev_ratio: 108.7 } },
+            'BMY': { var: 0.799712, price: 46.31, sector: 'Healthcare', description: 'Bristol-Myers Squibb Co', asset_class: 'stocks', atr_d1: 0.890714, atr_w1: 2.469286, atr_mn1: 6.612857, outliers: [], ev_data: { market_cap: 94322286592, enterprise_value: 131782451200, mcap_ev_ratio: 71.6 } },
+            'BR': { var: 3.843883, price: 245.76, sector: 'Technology', description: 'Broadridge Financial Solutions', asset_class: 'stocks', atr_d1: 3.991429, atr_w1: 10.951429, atr_mn1: 20.979286, outliers: [], ev_data: { market_cap: 28768053248, enterprise_value: 31664932864, mcap_ev_ratio: 90.9 } },
+            'BRKR': { var: 2.157901, price: 33.36, sector: 'Healthcare', description: 'Bruker Corp', asset_class: 'stocks', atr_d1: 1.552143, atr_w1: 4.545714, atr_mn1: 9.886429, outliers: ['var', 'atr'], ev_data: { market_cap: 5046173696, enterprise_value: 7487785984, mcap_ev_ratio: 67.4 } },
+            'BRKb': { var: 6.453319, price: 491.15, sector: 'Undefined', description: 'Berkshire Hathaway Inc. B', asset_class: 'stocks', atr_d1: 6.098571, atr_w1: 14.705714, atr_mn1: 44.400714, outliers: ['var'] },
+            'BRO': { var: 1.770145, price: 90.94, sector: 'Financial', description: 'Brown & Brown Inc', asset_class: 'stocks', atr_d1: 1.663571, atr_w1: 4.317143, atr_mn1: 11.051429, outliers: [], ev_data: { market_cap: 29989324800, enterprise_value: 28896309248, mcap_ev_ratio: 103.8 } },
+            'BRSL': { var: 0.349756, price: 16.72, sector: 'Consumer Cyclical', description: 'Brightstar Lottery', asset_class: 'stocks', atr_d1: 0.398571, atr_w1: 1.195000, atr_mn1: 2.620000, outliers: ['ev'], ev_data: { market_cap: 3163431168, enterprise_value: 9257400320, mcap_ev_ratio: 34.2 } },
+            'BSX': { var: 2.023397, price: 99.00, sector: 'Healthcare', description: 'Boston Scientific Corp', asset_class: 'stocks', atr_d1: 2.068571, atr_w1: 4.255000, atr_mn1: 8.873571, outliers: [], ev_data: { market_cap: 146663620608, enterprise_value: 158391779328, mcap_ev_ratio: 92.6 } },
+            'BURL': { var: 8.932701, price: 267.85, sector: 'Consumer Cyclical', description: 'Burlington Stores Inc', asset_class: 'stocks', atr_d1: 9.155000, atr_w1: 19.922143, atr_mn1: 39.812857, outliers: [], ev_data: { market_cap: 16843581440, enterprise_value: 21735266304, mcap_ev_ratio: 77.5 } },
+            'BWA': { var: 0.943209, price: 43.64, sector: 'Consumer Cyclical', description: 'BorgWarner Inc', asset_class: 'stocks', atr_d1: 0.853571, atr_w1: 1.963571, atr_mn1: 4.360000, outliers: [], ev_data: { market_cap: 9423915008, enterprise_value: 11605909504, mcap_ev_ratio: 81.2 } },
+            'BX': { var: 5.220019, price: 183.86, sector: 'Financial', description: 'Blackstone Group Inc/The', asset_class: 'stocks', atr_d1: 4.065714, atr_w1: 10.535714, atr_mn1: 25.671429, outliers: ['ev'], ev_data: { market_cap: 225738604544, enterprise_value: 168350466048, mcap_ev_ratio: 134.1 } },
+            'BYD': { var: 1.414458, price: 82.17, sector: 'Consumer Cyclical', description: 'Boyd Gaming Corp', asset_class: 'stocks', atr_d1: 1.539286, atr_w1: 3.952143, atr_mn1: 8.544286, outliers: [], ev_data: { market_cap: 6587131904, enterprise_value: 10632846336, mcap_ev_ratio: 62.0 } },
+            'BZ_X': { var: 1482.065704, price: 68.53, sector: 'Commodities', description: 'Brent Crude Oil November', asset_class: 'futures', atr_d1: 1.412143, atr_w1: 4.825714, atr_mn1: 8.029286, outliers: [] },
+            'C': { var: 1.980358, price: 100.72, sector: 'Financial', description: 'Citigroup Inc', asset_class: 'stocks', atr_d1: 1.887857, atr_w1: 4.782143, atr_mn1: 9.686429, outliers: ['ev'], ev_data: { market_cap: 185268174848, enterprise_value: -11239798784, mcap_ev_ratio: -1648.3 } },
+            'CABO': { var: 10.484381, price: 171.68, sector: 'Communication Services', description: 'Cable One Inc', asset_class: 'stocks', atr_d1: 9.025000, atr_w1: 18.204286, atr_mn1: 67.221429, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 961037440, enterprise_value: 4274213888, mcap_ev_ratio: 22.5 } },
+            'CACC': { var: 27.168696, price: 501.33, sector: 'Financial', description: 'Credit Acceptance Corp', asset_class: 'stocks', atr_d1: 19.925000, atr_w1: 40.337857, atr_mn1: 81.642857, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 5630087680, enterprise_value: 12031267840, mcap_ev_ratio: 46.8 } },
+            'CACI': { var: 11.309044, price: 492.51, sector: 'Technology', description: 'CACI International Inc', asset_class: 'stocks', atr_d1: 13.228571, atr_w1: 29.307857, atr_mn1: 73.662143, outliers: [], ev_data: { market_cap: 10807093248, enterprise_value: 14118205440, mcap_ev_ratio: 76.5 } },
+            'CADCHF': { var: 403.430083, price: 0.57, sector: 'Currency', description: 'Canadian Dollar vs Swiss Franc', asset_class: 'cfd', atr_d1: 0.003356, atr_w1: 0.007987, atr_mn1: 0.019869, outliers: [] },
+            'CADJPY': { var: 426.446157, price: 106.56, sector: 'Currency', description: 'Canadian Dollar vs Japanese Yen', asset_class: 'cfd', atr_d1: 0.640786, atr_w1: 1.585786, atr_mn1: 5.039857, outliers: [] },
+            'CAG': { var: 0.514260, price: 18.98, sector: 'Consumer Defensive', description: 'Conagra Brands Inc', asset_class: 'stocks', atr_d1: 0.428571, atr_w1: 1.037857, atr_mn1: 2.857857, outliers: [], ev_data: { market_cap: 9066465280, enterprise_value: 17285369856, mcap_ev_ratio: 52.5 } },
+            'CAH': { var: 2.854958, price: 148.63, sector: 'Healthcare', description: 'Cardinal Health Inc', asset_class: 'stocks', atr_d1: 2.665714, atr_w1: 7.530714, atr_mn1: 14.606429, outliers: [], ev_data: { market_cap: 35429863424, enterprise_value: 41090813952, mcap_ev_ratio: 86.2 } },
+            'CAR': { var: 5.286439, price: 155.52, sector: 'Industrials', description: 'Avis Budget Group Inc', asset_class: 'stocks', atr_d1: 4.938571, atr_w1: 19.710714, atr_mn1: 30.153571, outliers: ['atr', 'ev'], ev_data: { market_cap: 5462383616, enterprise_value: 34175383552, mcap_ev_ratio: 16.0 } },
+            'CARR': { var: 2.055129, price: 61.04, sector: 'Industrials', description: 'Carrier Global Corp', asset_class: 'stocks', atr_d1: 1.897143, atr_w1: 4.199286, atr_mn1: 9.235714, outliers: [], ev_data: { market_cap: 52116660224, enterprise_value: 62514638848, mcap_ev_ratio: 83.4 } },
+            'CASY': { var: 12.813986, price: 560.84, sector: 'Consumer Defensive', description: 'Casey\'s General Stores Inc', asset_class: 'stocks', atr_d1: 12.342857, atr_w1: 23.346429, atr_mn1: 47.490714, outliers: [], ev_data: { market_cap: 20865400832, enterprise_value: 23298125824, mcap_ev_ratio: 89.6 } },
+            'CAT': { var: 11.166025, price: 440.55, sector: 'Industrials', description: 'Caterpillar Inc', asset_class: 'stocks', atr_d1: 8.014286, atr_w1: 20.180714, atr_mn1: 48.680714, outliers: [], ev_data: { market_cap: 206444658688, enterprise_value: 240550707200, mcap_ev_ratio: 85.8 } },
+            'CB': { var: 4.421010, price: 272.26, sector: 'Financial', description: 'Chubb Ltd', asset_class: 'stocks', atr_d1: 3.805000, atr_w1: 8.498571, atr_mn1: 22.644286, outliers: ['atr', 'ev'], ev_data: { market_cap: 108451643392, enterprise_value: 128379731968, mcap_ev_ratio: 84.5 } },
+            'CBRE': { var: 3.525176, price: 162.93, sector: 'Real Estate', description: 'CBRE Group Inc', asset_class: 'stocks', atr_d1: 2.963571, atr_w1: 7.232857, atr_mn1: 18.916429, outliers: [], ev_data: { market_cap: 48453689344, enterprise_value: 56801914880, mcap_ev_ratio: 85.3 } },
+            'CC': { var: 0.807491, price: 17.14, sector: 'Basic Materials', description: 'Chemours Co/The', asset_class: 'stocks', atr_d1: 0.659286, atr_w1: 1.755714, atr_mn1: 4.012143, outliers: ['ev'], ev_data: { market_cap: 2556841728, enterprise_value: 6467847168, mcap_ev_ratio: 39.5 } },
+            'CCI': { var: 2.023161, price: 93.61, sector: 'Real Estate', description: 'Crown Castle Inc', asset_class: 'stocks', atr_d1: 2.330000, atr_w1: 4.891429, atr_mn1: 11.612857, outliers: [], ev_data: { market_cap: 40746930176, enterprise_value: 70218932224, mcap_ev_ratio: 58.0 } },
+            'CCK': { var: 2.950893, price: 95.29, sector: 'Consumer Cyclical', description: 'Crown Holdings Inc', asset_class: 'stocks', atr_d1: 2.142857, atr_w1: 4.482143, atr_mn1: 10.253571, outliers: [], ev_data: { market_cap: 11094124544, enterprise_value: 17215270912, mcap_ev_ratio: 64.4 } },
+            'CCL': { var: 1.119442, price: 31.19, sector: 'Consumer Cyclical', description: 'Carnival Corp', asset_class: 'stocks', atr_d1: 0.884286, atr_w1: 2.272857, atr_mn1: 4.547857, outliers: [], ev_data: { market_cap: 42303455232, enterprise_value: 67472785408, mcap_ev_ratio: 62.7 } },
+            'CDNS': { var: 14.174586, price: 349.50, sector: 'Technology', description: 'Cadence Design Systems Inc', asset_class: 'stocks', atr_d1: 10.711429, atr_w1: 19.456429, atr_mn1: 47.827143, outliers: [], ev_data: { market_cap: 95101730816, enterprise_value: 94578925568, mcap_ev_ratio: 100.6 } },
+            'CDW': { var: 3.780803, price: 166.32, sector: 'Technology', description: 'CDW Corp/DE', asset_class: 'stocks', atr_d1: 4.232143, atr_w1: 8.898571, atr_mn1: 25.342857, outliers: [], ev_data: { market_cap: 21775783936, enterprise_value: 27476803584, mcap_ev_ratio: 79.3 } },
+            'CE': { var: 2.761940, price: 45.52, sector: 'Basic Materials', description: 'Celanese Corp', asset_class: 'stocks', atr_d1: 1.976429, atr_w1: 5.827857, atr_mn1: 18.300000, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 4973671424, enterprise_value: 17542660096, mcap_ev_ratio: 28.4 } },
+            'CF': { var: 1.695217, price: 84.90, sector: 'Basic Materials', description: 'CF Industries Holdings Inc', asset_class: 'stocks', atr_d1: 1.710714, atr_w1: 6.482857, atr_mn1: 11.794286, outliers: [], ev_data: { market_cap: 13761225728, enterprise_value: 18259222528, mcap_ev_ratio: 75.4 } },
+            'CFG': { var: 1.122716, price: 51.12, sector: 'Financial', description: 'Citizens Financial Group Inc', asset_class: 'stocks', atr_d1: 0.901429, atr_w1: 2.359286, atr_mn1: 6.371429, outliers: [], ev_data: { market_cap: 22054875136, enterprise_value: 27648874496, mcap_ev_ratio: 79.8 } },
+            'CFR': { var: 2.806553, price: 125.83, sector: 'Financial', description: 'Cullen/Frost Bankers Inc', asset_class: 'stocks', atr_d1: 2.690714, atr_w1: 6.758571, atr_mn1: 17.385714, outliers: ['ev'], ev_data: { market_cap: 8079257600, enterprise_value: 6033828864, mcap_ev_ratio: 133.9 } },
+            'CG': { var: 1.950874, price: 67.18, sector: 'Financial', description: 'Carlyle Group Inc/The', asset_class: 'stocks', atr_d1: 1.682143, atr_w1: 4.454286, atr_mn1: 9.703571, outliers: [], ev_data: { market_cap: 24227002368, enterprise_value: 34050293760, mcap_ev_ratio: 71.2 } },
+            'CGNX': { var: 1.014764, price: 44.34, sector: 'Technology', description: 'Cognex Corp', asset_class: 'stocks', atr_d1: 0.878571, atr_w1: 2.655714, atr_mn1: 6.591429, outliers: [], ev_data: { market_cap: 7427852288, enterprise_value: 7282834432, mcap_ev_ratio: 102.0 } },
+            'CHD': { var: 1.912013, price: 91.59, sector: 'Consumer Defensive', description: 'Church & Dwight Co Inc', asset_class: 'stocks', atr_d1: 1.683571, atr_w1: 3.607143, atr_mn1: 8.699286, outliers: [], ev_data: { market_cap: 22295093248, enterprise_value: 23781568512, mcap_ev_ratio: 93.7 } },
+            'CHDN': { var: 2.308205, price: 96.12, sector: 'Consumer Cyclical', description: 'Churchill Downs Inc', asset_class: 'stocks', atr_d1: 2.622143, atr_w1: 6.137143, atr_mn1: 13.745000, outliers: [], ev_data: { market_cap: 6736841728, enterprise_value: 11671143424, mcap_ev_ratio: 57.7 } },
+            'CHE': { var: 11.520271, price: 449.17, sector: 'Healthcare', description: 'Chemed Corp', asset_class: 'stocks', atr_d1: 12.079286, atr_w1: 29.286429, atr_mn1: 61.668571, outliers: [], ev_data: { market_cap: 6522729984, enterprise_value: 6393672192, mcap_ev_ratio: 102.0 } },
+            'CHFJPY': { var: 546.982974, price: 186.30, sector: 'Currency', description: 'Swiss Frank vs Japanese Yen', asset_class: 'cfd', atr_d1: 0.900071, atr_w1: 2.179286, atr_mn1: 6.474143, outliers: [] },
+            'CHGG': { var: 0.175328, price: 1.50, sector: 'Consumer Defensive', description: 'Chegg Inc', asset_class: 'stocks', atr_d1: 0.182143, atr_w1: 0.309286, atr_mn1: 0.720000, outliers: ['var'], ev_data: { market_cap: 162490496, enterprise_value: 161688480, mcap_ev_ratio: 100.5 } },
+            'CHRW': { var: 2.504121, price: 133.92, sector: 'Industrials', description: 'CH Robinson Worldwide Inc', asset_class: 'stocks', atr_d1: 2.580714, atr_w1: 6.495000, atr_mn1: 12.755714, outliers: [], ev_data: { market_cap: 15797033984, enterprise_value: 17332787200, mcap_ev_ratio: 91.1 } },
+            'CHTR': { var: 5.462438, price: 261.19, sector: 'Communication Services', description: 'Charter Communications Inc', asset_class: 'stocks', atr_d1: 7.330000, atr_w1: 26.040000, atr_mn1: 61.119286, outliers: ['ev'], ev_data: { market_cap: 35661176832, enterprise_value: 135497170944, mcap_ev_ratio: 26.3 } },
+            'CHWY': { var: 2.867691, price: 38.22, sector: 'Consumer Cyclical', description: 'Chewy Inc', asset_class: 'stocks', atr_d1: 1.751429, atr_w1: 3.538571, atr_mn1: 7.376429, outliers: ['var', 'atr'], ev_data: { market_cap: 15837828096, enterprise_value: 15774226432, mcap_ev_ratio: 100.4 } },
+            'CI': { var: 4.438729, price: 294.09, sector: 'Healthcare', description: 'Cigna Group', asset_class: 'stocks', atr_d1: 5.161429, atr_w1: 16.368571, atr_mn1: 43.336429, outliers: [], ev_data: { market_cap: 78532886528, enterprise_value: 104374910976, mcap_ev_ratio: 75.2 } },
+            'CIEN': { var: 12.815349, price: 137.79, sector: 'Technology', description: 'Ciena Corp', asset_class: 'stocks', atr_d1: 6.119286, atr_w1: 9.568571, atr_mn1: 16.197857, outliers: ['var'], ev_data: { market_cap: 19431835648, enterprise_value: 19653249024, mcap_ev_ratio: 98.9 } },
+            'CINF': { var: 2.632034, price: 153.33, sector: 'Financial', description: 'Cincinnati Financial Corp', asset_class: 'stocks', atr_d1: 2.619286, atr_w1: 6.296429, atr_mn1: 15.143571, outliers: [], ev_data: { market_cap: 23967750144, enterprise_value: 23756814336, mcap_ev_ratio: 100.9 } },
+            'CL': { var: 1.386132, price: 81.55, sector: 'Consumer Defensive', description: 'Colgate-Palmolive Co', asset_class: 'stocks', atr_d1: 1.348571, atr_w1: 3.397857, atr_mn1: 7.879286, outliers: [], ev_data: { market_cap: 65853849600, enterprise_value: 73549832192, mcap_ev_ratio: 89.5 } },
+            'CLF': { var: 0.561955, price: 11.74, sector: 'Basic Materials', description: 'Cleveland-Cliffs Inc', asset_class: 'stocks', atr_d1: 0.462143, atr_w1: 1.254286, atr_mn1: 2.798571, outliers: [], ev_data: { market_cap: 5797825536, enterprise_value: 13708828672, mcap_ev_ratio: 42.3 } },
+            'CLX': { var: 2.651813, price: 124.85, sector: 'Consumer Defensive', description: 'Clorox Co/The', asset_class: 'stocks', atr_d1: 2.142857, atr_w1: 5.625714, atr_mn1: 13.585000, outliers: [], ev_data: { market_cap: 15270278144, enterprise_value: 18180329472, mcap_ev_ratio: 84.0 } },
+            'CL_V': { var: 1533.433235, price: 64.59, sector: 'Commodities', description: 'Light Sweet Crude October', asset_class: 'futures', atr_d1: 1.439286, atr_w1: 4.811429, atr_mn1: 7.856429, outliers: [] },
+            'CL_X': { var: 1512.435277, price: 64.23, sector: 'Commodities', description: 'Light Sweet Crude November', asset_class: 'futures', atr_d1: 1.408571, atr_w1: 4.755714, atr_mn1: 7.797143, outliers: [] },
+            'CMA': { var: 1.660059, price: 68.52, sector: 'Financial', description: 'Comerica Inc', asset_class: 'stocks', atr_d1: 1.880000, atr_w1: 3.916429, atr_mn1: 8.960714, outliers: [], ev_data: { market_cap: 8798821376, enterprise_value: 12303853568, mcap_ev_ratio: 71.5 } },
+            'CMCSA': { var: 0.504289, price: 32.28, sector: 'Communication Services', description: 'Comcast Corp', asset_class: 'stocks', atr_d1: 0.630714, atr_w1: 1.470714, atr_mn1: 4.021429, outliers: [], ev_data: { market_cap: 119221460992, enterprise_value: 211669352448, mcap_ev_ratio: 56.3 } },
+            'CME': { var: 4.057643, price: 260.00, sector: 'Financial', description: 'CME Group Inc', asset_class: 'stocks', atr_d1: 4.017857, atr_w1: 8.935714, atr_mn1: 19.030000, outliers: [], ev_data: { market_cap: 93637533696, enterprise_value: 95312084992, mcap_ev_ratio: 98.2 } },
+            'CMG': { var: 0.676502, price: 39.27, sector: 'Consumer Cyclical', description: 'Chipotle Mexican Grill Inc', asset_class: 'stocks', atr_d1: 0.794286, atr_w1: 3.104286, atr_mn1: 7.764286, outliers: ['atr'], ev_data: { market_cap: 52696584192, enterprise_value: 55930875904, mcap_ev_ratio: 94.2 } },
+            'CMI': { var: 8.605585, price: 415.87, sector: 'Industrials', description: 'Cummins Inc', asset_class: 'stocks', atr_d1: 7.152857, atr_w1: 18.450000, atr_mn1: 43.515714, outliers: [], ev_data: { market_cap: 57241817088, enterprise_value: 63935832064, mcap_ev_ratio: 89.5 } },
+            'CMS': { var: 0.797362, price: 70.00, sector: 'Utilities', description: 'CMS Energy Corp', asset_class: 'stocks', atr_d1: 0.828571, atr_w1: 2.022857, atr_mn1: 5.213571, outliers: ['var'], ev_data: { market_cap: 20941477888, enterprise_value: 38943510528, mcap_ev_ratio: 53.8 } },
+            'CNC': { var: 1.698755, price: 31.81, sector: 'Healthcare', description: 'Centene Corp', asset_class: 'stocks', atr_d1: 1.320000, atr_w1: 4.226429, atr_mn1: 9.959286, outliers: ['atr'], ev_data: { market_cap: 15618028544, enterprise_value: 16011029504, mcap_ev_ratio: 97.5 } },
+            'CNP': { var: 0.474419, price: 37.68, sector: 'Utilities', description: 'CenterPoint Energy Inc', asset_class: 'stocks', atr_d1: 0.523571, atr_w1: 1.217857, atr_mn1: 2.915000, outliers: ['var'], ev_data: { market_cap: 24580368384, enterprise_value: 45402361856, mcap_ev_ratio: 54.1 } },
+            'COF': { var: 5.543067, price: 224.80, sector: 'Financial', description: 'Capital One Financial Corp', asset_class: 'stocks', atr_d1: 4.712143, atr_w1: 11.197857, atr_mn1: 27.574286, outliers: [], ev_data: { market_cap: 143514009600, enterprise_value: 143777071104, mcap_ev_ratio: 99.8 } },
+            'COHR': { var: 5.404826, price: 105.13, sector: 'Technology', description: 'Coherent Inc', asset_class: 'stocks', atr_d1: 4.524286, atr_w1: 11.295714, atr_mn1: 24.484286, outliers: [], ev_data: { market_cap: 16276947968, enterprise_value: 22405715968, mcap_ev_ratio: 72.6 } },
+            'COIN': { var: 15.212271, price: 328.00, sector: 'Technology', description: 'Coinbase Global Inc', asset_class: 'stocks', atr_d1: 10.884286, atr_w1: 44.837857, outliers: ['atr'], ev_data: { market_cap: 84252540928, enterprise_value: 81409646592, mcap_ev_ratio: 103.5 } },
+            'COLM': { var: 1.615126, price: 53.93, sector: 'Consumer Cyclical', description: 'Columbia Sportswear Co', asset_class: 'stocks', atr_d1: 1.567857, atr_w1: 4.367143, atr_mn1: 10.575714, outliers: [], ev_data: { market_cap: 2952108544, enterprise_value: 2854268672, mcap_ev_ratio: 103.4 } },
+            'COO': { var: 3.743660, price: 65.20, sector: 'Healthcare', description: 'Cooper Cos Inc/The', asset_class: 'stocks', atr_d1: 2.504286, atr_w1: 4.645714, atr_mn1: 12.092143, outliers: ['var'], ev_data: { market_cap: 12954394624, enterprise_value: 15307988992, mcap_ev_ratio: 84.6 } },
+            'COP': { var: 2.627295, price: 94.48, sector: 'Energy', description: 'ConocoPhillips', asset_class: 'stocks', atr_d1: 2.213571, atr_w1: 5.372857, atr_mn1: 12.414286, outliers: [], ev_data: { market_cap: 118074793984, enterprise_value: 136264007680, mcap_ev_ratio: 86.7 } },
+            'COR': { var: 7.741961, price: 290.21, sector: 'Healthcare', description: 'Cencora Inc', asset_class: 'stocks', atr_d1: 5.995714, atr_w1: 12.673571, atr_mn1: 26.513571, outliers: [], ev_data: { market_cap: 56224620544, enterprise_value: 64369709056, mcap_ev_ratio: 87.3 } },
+            'COST': { var: 18.757608, price: 952.15, sector: 'Consumer Defensive', description: 'Costco Wholesale Corp', asset_class: 'stocks', atr_d1: 11.728571, atr_w1: 30.489286, atr_mn1: 94.797143, outliers: [], ev_data: { market_cap: 422221152256, enterprise_value: 415729221632, mcap_ev_ratio: 101.6 } },
+            'COTY': { var: 0.428168, price: 4.21, sector: 'Consumer Defensive', description: 'Coty Inc', asset_class: 'stocks', atr_d1: 0.172857, atr_w1: 0.489286, atr_mn1: 1.150000, outliers: ['var'], ev_data: { market_cap: 3672361984, enterprise_value: 8073361920, mcap_ev_ratio: 45.5 } },
+            'CPAY': { var: 8.551503, price: 306.37, sector: 'Technology', description: 'Corpay Inc', asset_class: 'stocks', atr_d1: 7.342143, atr_w1: 20.759286, atr_mn1: 47.425000, outliers: [], ev_data: { market_cap: 21628485632, enterprise_value: 27666757632, mcap_ev_ratio: 78.2 } },
+            'CPRT': { var: 1.155086, price: 46.59, sector: 'Industrials', description: 'Copart Inc', asset_class: 'stocks', atr_d1: 1.185000, atr_w1: 1.967857, atr_mn1: 6.557143, outliers: ['ev'], ev_data: { market_cap: 45030207488, enterprise_value: 40372973568, mcap_ev_ratio: 111.5 } },
+            'CRL': { var: 5.266351, price: 151.76, sector: 'Healthcare', description: 'Charles River Laboratories Int', asset_class: 'stocks', atr_d1: 5.924286, atr_w1: 14.475000, atr_mn1: 35.775714, outliers: [], ev_data: { market_cap: 7492360192, enterprise_value: 10144777216, mcap_ev_ratio: 73.9 } },
+            'CRM': { var: 7.370482, price: 239.31, sector: 'Technology', description: 'salesforce.com Inc', asset_class: 'stocks', atr_d1: 7.251429, atr_w1: 15.120000, atr_mn1: 38.255714, outliers: [], ev_data: { market_cap: 227823124480, enterprise_value: 224260112384, mcap_ev_ratio: 101.6 } },
+            'CROX': { var: 3.073436, price: 79.37, sector: 'Consumer Cyclical', description: 'Crocs Inc', asset_class: 'stocks', atr_d1: 3.137143, atr_w1: 9.543571, atr_mn1: 22.795000, outliers: ['atr'], ev_data: { market_cap: 4314228224, enterprise_value: 5887193088, mcap_ev_ratio: 73.3 } },
+            'CRWD': { var: 14.139715, price: 445.05, sector: 'Technology', description: 'Crowdstrike Holdings Inc', asset_class: 'stocks', atr_d1: 13.082857, atr_w1: 29.787857, atr_mn1: 80.884286, outliers: [], ev_data: { market_cap: 111669960704, enterprise_value: 107546124288, mcap_ev_ratio: 103.8 } },
+            'CSCO': { var: 1.151079, price: 66.99, sector: 'Technology', description: 'Cisco Systems Inc/Delaware', asset_class: 'stocks', atr_d1: 1.026429, atr_w1: 2.648571, atr_mn1: 5.580714, outliers: [], ev_data: { market_cap: 264587689984, enterprise_value: 277557477376, mcap_ev_ratio: 95.3 } },
+            'CSGP': { var: 2.091089, price: 88.19, sector: 'Real Estate', description: 'CoStar Group Inc', asset_class: 'stocks', atr_d1: 2.010000, atr_w1: 5.054286, atr_mn1: 10.435714, outliers: ['ev'], ev_data: { market_cap: 37336272896, enterprise_value: 34513207296, mcap_ev_ratio: 108.2 } },
+            'CSL': { var: 14.319619, price: 341.63, sector: 'Industrials', description: 'Carlisle Cos Inc', asset_class: 'stocks', atr_d1: 11.720000, atr_w1: 31.932143, atr_mn1: 58.009286, outliers: [], ev_data: { market_cap: 14546353152, enterprise_value: 17009781760, mcap_ev_ratio: 85.5 } },
+            'CSX': { var: 0.891706, price: 32.47, sector: 'Industrials', description: 'CSX Corp', asset_class: 'stocks', atr_d1: 0.541429, atr_w1: 1.618571, atr_mn1: 3.371429, outliers: [], ev_data: { market_cap: 60533174272, enterprise_value: 79887073280, mcap_ev_ratio: 75.8 } },
+            'CTAS': { var: 3.572502, price: 199.29, sector: 'Industrials', description: 'Cintas Corp', asset_class: 'stocks', atr_d1: 3.396429, atr_w1: 7.764286, atr_mn1: 20.752857, outliers: [], ev_data: { market_cap: 80309477376, enterprise_value: 82699976704, mcap_ev_ratio: 97.1 } },
+            'CTLT': { var: 0.709553, price: 63.50, sector: 'Healthcare', description: 'Catalent Inc', asset_class: 'stocks', atr_d1: 0.498571, atr_w1: 1.170714, atr_mn1: 5.627143, outliers: ['var'] },
+            'CTSH': { var: 1.255649, price: 69.23, sector: 'Technology', description: 'Cognizant Technology Solutions', asset_class: 'stocks', atr_d1: 1.427857, atr_w1: 3.479286, atr_mn1: 8.277857, outliers: [], ev_data: { market_cap: 33782349824, enterprise_value: 33151346688, mcap_ev_ratio: 101.9 } },
+            'CTVA': { var: 1.993959, price: 69.93, sector: 'Basic Materials', description: 'Corteva Inc', asset_class: 'stocks', atr_d1: 1.743571, atr_w1: 2.844286, atr_mn1: 7.200714, outliers: ['atr'], ev_data: { market_cap: 47455506432, enterprise_value: 49314537472, mcap_ev_ratio: 96.2 } },
+            'CVNA': { var: 13.659282, price: 366.15, sector: 'Consumer Cyclical', description: 'Carvana Co', asset_class: 'stocks', atr_d1: 13.126429, atr_w1: 32.870000, atr_mn1: 68.904286, outliers: [], ev_data: { market_cap: 42637705216, enterprise_value: 54587863040, mcap_ev_ratio: 78.1 } },
+            'CVS': { var: 1.996353, price: 73.48, sector: 'Healthcare', description: 'CVS Health Corp', asset_class: 'stocks', atr_d1: 1.707143, atr_w1: 3.890000, atr_mn1: 10.648571, outliers: [], ev_data: { market_cap: 93196894208, enterprise_value: 161919614976, mcap_ev_ratio: 57.6 } },
+            'CVX': { var: 3.256233, price: 159.57, sector: 'Energy', description: 'Chevron Corp', asset_class: 'stocks', atr_d1: 2.650714, atr_w1: 7.265000, atr_mn1: 16.172143, outliers: [], ev_data: { market_cap: 321444347904, enterprise_value: 301925597184, mcap_ev_ratio: 106.5 } },
+            'D': { var: 1.081627, price: 59.49, sector: 'Utilities', description: 'Dominion Energy Inc', asset_class: 'stocks', atr_d1: 0.880714, atr_w1: 2.303571, atr_mn1: 5.081429, outliers: ['ev'], ev_data: { market_cap: 50693980160, enterprise_value: 101731958784, mcap_ev_ratio: 49.8 } },
+            'DAL': { var: 1.975805, price: 57.94, sector: 'Industrials', description: 'Delta Air Lines Inc', asset_class: 'stocks', atr_d1: 1.775000, atr_w1: 4.419286, atr_mn1: 10.537857, outliers: [], ev_data: { market_cap: 37779570688, enterprise_value: 56578355200, mcap_ev_ratio: 66.8 } },
+            'DAR': { var: 1.643181, price: 33.86, sector: 'Consumer Defensive', description: 'Darling Ingredients Inc', asset_class: 'stocks', atr_d1: 1.052143, atr_w1: 3.280714, atr_mn1: 7.355714, outliers: [], ev_data: { market_cap: 5357759488, enterprise_value: 9554610176, mcap_ev_ratio: 56.1 } },
+            'DAY': { var: 6.599265, price: 69.06, sector: 'Technology', description: 'Dayforce Inc', asset_class: 'stocks', atr_d1: 0.465714, atr_w1: 4.392857, atr_mn1: 10.747143, outliers: ['var', 'atr'], ev_data: { market_cap: 10899314688, enterprise_value: 11634162688, mcap_ev_ratio: 93.7 } },
+            'DBX': { var: 0.720395, price: 32.15, sector: 'Technology', description: 'Dropbox Inc', asset_class: 'stocks', atr_d1: 0.662857, atr_w1: 1.562143, atr_mn1: 3.450714, outliers: [], ev_data: { market_cap: 8681427968, enterprise_value: 10769931264, mcap_ev_ratio: 80.6 } },
+            'DD': { var: 1.650343, price: 77.22, sector: 'Basic Materials', description: 'DuPont de Nemours Inc', asset_class: 'stocks', atr_d1: 1.452143, atr_w1: 4.030000, atr_mn1: 9.340714, outliers: [], ev_data: { market_cap: 32312389632, enterprise_value: 38609367040, mcap_ev_ratio: 83.7 } },
+            'DDOG': { var: 5.532549, price: 134.58, sector: 'Technology', description: 'Datadog Inc', asset_class: 'stocks', atr_d1: 4.526429, atr_w1: 12.527143, atr_mn1: 22.993571, outliers: [], ev_data: { market_cap: 46937587712, enterprise_value: 44292808704, mcap_ev_ratio: 106.0 } },
+            'DE': { var: 9.257634, price: 469.26, sector: 'Industrials', description: 'Deere & Co', asset_class: 'stocks', atr_d1: 9.214286, atr_w1: 22.950000, atr_mn1: 53.574286, outliers: [], ev_data: { market_cap: 126703198208, enterprise_value: 186962378752, mcap_ev_ratio: 67.8 } },
+            'DECK': { var: 3.919517, price: 118.68, sector: 'Consumer Cyclical', description: 'Deckers Outdoor Corp', asset_class: 'stocks', atr_d1: 3.270000, atr_w1: 9.467143, atr_mn1: 29.119286, outliers: ['ev'], ev_data: { market_cap: 17606832128, enterprise_value: 16194078720, mcap_ev_ratio: 108.7 } },
+            'DELL': { var: 5.901584, price: 127.72, sector: 'Technology', description: 'Dell Technologies Inc', asset_class: 'stocks', atr_d1: 4.495000, atr_w1: 10.105714, atr_mn1: 24.479286, outliers: ['atr'], ev_data: { market_cap: 85848580096, enterprise_value: 107221606400, mcap_ev_ratio: 80.1 } },
+            'DG': { var: 2.489549, price: 104.24, sector: 'Consumer Defensive', description: 'Dollar General Corp', asset_class: 'stocks', atr_d1: 3.036429, atr_w1: 5.319286, atr_mn1: 15.455714, outliers: [], ev_data: { market_cap: 22937245696, enterprise_value: 38720614400, mcap_ev_ratio: 59.2 } },
+            'DGRO': { var: 0.562797, price: 67.16, sector: 'Financial', description: 'iShares Core Dividend Growth E', asset_class: 'stocks', atr_d1: 0.443571, atr_w1: 1.277857, atr_mn1: 3.506429, outliers: ['var'] },
+            'DGX': { var: 3.574320, price: 180.46, sector: 'Healthcare', description: 'Quest Diagnostics Inc', asset_class: 'stocks', atr_d1: 3.128571, atr_w1: 7.263571, atr_mn1: 15.165714, outliers: [], ev_data: { market_cap: 20146032640, enterprise_value: 26329110528, mcap_ev_ratio: 76.5 } },
+            'DHI': { var: 6.463696, price: 171.84, sector: 'Consumer Cyclical', description: 'DR Horton Inc', asset_class: 'stocks', atr_d1: 4.477143, atr_w1: 11.125000, atr_mn1: 24.123571, outliers: [], ev_data: { market_cap: 51184910336, enterprise_value: 56741326848, mcap_ev_ratio: 90.2 } },
+            'DHR': { var: 5.026837, price: 190.46, sector: 'Healthcare', description: 'Danaher Corp', asset_class: 'stocks', atr_d1: 4.585000, atr_w1: 12.150714, atr_mn1: 25.460714, outliers: [], ev_data: { market_cap: 136386420736, enterprise_value: 151992352768, mcap_ev_ratio: 89.7 } },
+            'DIA': { var: 5.013068, price: 458.89, sector: 'Financial', description: 'SPDR Dow Jones Industrial Aver', asset_class: 'stocks', atr_d1: 3.565000, atr_w1: 10.131429, atr_mn1: 27.335714, outliers: [] },
+            'DIS': { var: 1.760069, price: 115.34, sector: 'Communication Services', description: 'Walt Disney Co/The', asset_class: 'stocks', atr_d1: 2.035000, atr_w1: 4.680000, atr_mn1: 12.660714, outliers: [], ev_data: { market_cap: 207175483392, enterprise_value: 248682921984, mcap_ev_ratio: 83.3 } },
+            'DKS': { var: 8.520529, price: 223.30, sector: 'Consumer Cyclical', description: 'Dick\'s Sporting Goods Inc', asset_class: 'stocks', atr_d1: 8.150000, atr_w1: 15.172857, atr_mn1: 35.730714, outliers: [], ev_data: { market_cap: 19967326208, enterprise_value: 21212078080, mcap_ev_ratio: 94.1 } },
+            'DLB': { var: 1.619931, price: 72.00, sector: 'Technology', description: 'Dolby Laboratories Inc', asset_class: 'stocks', atr_d1: 1.342857, atr_w1: 3.415714, atr_mn1: 8.013571, outliers: ['ev'], ev_data: { market_cap: 6890239488, enterprise_value: 6230911488, mcap_ev_ratio: 110.6 } },
+            'DLTR': { var: 3.552200, price: 95.58, sector: 'Consumer Defensive', description: 'Dollar Tree Inc', asset_class: 'stocks', atr_d1: 3.920714, atr_w1: 5.874286, atr_mn1: 14.025000, outliers: [], ev_data: { market_cap: 19474866176, enterprise_value: 26151249920, mcap_ev_ratio: 74.5 } },
+            'DNLI': { var: 0.579013, price: 13.28, sector: 'Healthcare', description: 'Denali Therapeutics Inc', asset_class: 'stocks', atr_d1: 0.777857, atr_w1: 1.410000, atr_mn1: 5.345000, outliers: ['atr', 'ev'], ev_data: { market_cap: 1938771200, enterprise_value: 1087795840, mcap_ev_ratio: 178.2 } },
+            'DOCU': { var: 3.201873, price: 81.93, sector: 'Technology', description: 'DocuSign Inc', asset_class: 'stocks', atr_d1: 2.700000, atr_w1: 5.243571, atr_mn1: 14.512857, outliers: [], ev_data: { market_cap: 16432207872, enterprise_value: 15714704384, mcap_ev_ratio: 104.6 } },
+            'DOV': { var: 4.118747, price: 172.76, sector: 'Industrials', description: 'Dover Corp', asset_class: 'stocks', atr_d1: 3.362143, atr_w1: 7.363571, atr_mn1: 18.862857, outliers: [], ev_data: { market_cap: 23665215488, enterprise_value: 25469542400, mcap_ev_ratio: 92.9 } },
+            'DOW': { var: 0.925014, price: 24.49, sector: 'Basic Materials', description: 'Dow Inc', asset_class: 'stocks', atr_d1: 0.800714, atr_w1: 2.700000, atr_mn1: 5.649286, outliers: ['ev'], ev_data: { market_cap: 17352501248, enterprise_value: 33861763072, mcap_ev_ratio: 51.2 } },
+            'DOX': { var: 1.682288, price: 84.16, sector: 'Technology', description: 'Amdocs Ltd', asset_class: 'stocks', atr_d1: 1.673571, atr_w1: 3.525000, atr_mn1: 7.303571, outliers: [], ev_data: { market_cap: 9237128192, enterprise_value: 9775254528, mcap_ev_ratio: 94.5 } },
+            'DPZ': { var: 10.147422, price: 442.35, sector: 'Consumer Cyclical', description: 'Domino\'s Pizza Inc', asset_class: 'stocks', atr_d1: 9.852143, atr_w1: 22.532143, atr_mn1: 56.265714, outliers: [], ev_data: { market_cap: 15275302912, enterprise_value: 21376546816, mcap_ev_ratio: 71.5 } },
+            'DRI': { var: 2.257154, price: 210.52, sector: 'Consumer Cyclical', description: 'Darden Restaurants Inc', asset_class: 'stocks', atr_d1: 2.952143, atr_w1: 7.588571, atr_mn1: 19.450714, outliers: ['var'], ev_data: { market_cap: 24489613312, enterprise_value: 32155285504, mcap_ev_ratio: 76.2 } },
+            'DT': { var: 1.573945, price: 47.88, sector: 'Technology', description: 'Dynatrace Inc', asset_class: 'stocks', atr_d1: 1.451429, atr_w1: 3.595000, atr_mn1: 7.249286, outliers: ['ev'], ev_data: { market_cap: 14418016256, enterprise_value: 13397572608, mcap_ev_ratio: 107.6 } },
+            'DTE': { var: 1.682506, price: 134.12, sector: 'Utilities', description: 'DTE Energy Co', asset_class: 'stocks', atr_d1: 1.548571, atr_w1: 4.001429, atr_mn1: 10.187857, outliers: ['var'], ev_data: { market_cap: 27812638720, enterprise_value: 51777613824, mcap_ev_ratio: 53.7 } },
+            'DUK': { var: 1.305174, price: 120.32, sector: 'Utilities', description: 'Duke Energy Corp', asset_class: 'stocks', atr_d1: 1.268571, atr_w1: 3.596429, atr_mn1: 8.626429, outliers: ['var', 'ev'], ev_data: { market_cap: 93509287936, enterprise_value: 183730339840, mcap_ev_ratio: 50.9 } },
+            'DVA': { var: 3.318265, price: 130.09, sector: 'Healthcare', description: 'DaVita Inc', asset_class: 'stocks', atr_d1: 2.900000, atr_w1: 7.880000, atr_mn1: 21.214286, outliers: ['ev'], ev_data: { market_cap: 9302864896, enterprise_value: 23301464064, mcap_ev_ratio: 39.9 } },
+            'DVN': { var: 1.077736, price: 34.98, sector: 'Energy', description: 'Devon Energy Corp', asset_class: 'stocks', atr_d1: 0.947857, atr_w1: 2.169286, atr_mn1: 5.816429, outliers: [], ev_data: { market_cap: 22198956032, enterprise_value: 29780955136, mcap_ev_ratio: 74.5 } },
+            'DVY': { var: 1.548120, price: 139.29, sector: 'Financial', description: 'iShares Select Dividend ETF', asset_class: 'stocks', atr_d1: 1.235714, atr_w1: 3.162143, atr_mn1: 9.048571, outliers: [] },
+            'DXC': { var: 0.394756, price: 14.09, sector: 'Technology', description: 'DXC Technology Co', asset_class: 'stocks', atr_d1: 0.377857, atr_w1: 1.152857, atr_mn1: 3.195000, outliers: ['ev'], ev_data: { market_cap: 2518515968, enterprise_value: 5787511296, mcap_ev_ratio: 43.5 } },
+            'DXCM': { var: 3.360471, price: 76.74, sector: 'Healthcare', description: 'Dexcom Inc', asset_class: 'stocks', atr_d1: 2.380714, atr_w1: 5.860000, atr_mn1: 15.137857, outliers: [], ev_data: { market_cap: 30019467264, enterprise_value: 29289095168, mcap_ev_ratio: 102.5 } },
+            'EA': { var: 3.464230, price: 172.72, sector: 'Communication Services', description: 'Electronic Arts Inc', asset_class: 'stocks', atr_d1: 3.402143, atr_w1: 8.238571, atr_mn1: 17.849286, outliers: [], ev_data: { market_cap: 43055624192, enterprise_value: 43634671616, mcap_ev_ratio: 98.7 } },
+            'EBAY': { var: 2.178778, price: 88.83, sector: 'Consumer Cyclical', description: 'eBay Inc', asset_class: 'stocks', atr_d1: 2.376429, atr_w1: 5.265714, atr_mn1: 8.879286, outliers: [], ev_data: { market_cap: 40604450816, enterprise_value: 44016451584, mcap_ev_ratio: 92.2 } },
+            'ECL': { var: 4.160677, price: 264.10, sector: 'Basic Materials', description: 'Ecolab Inc', asset_class: 'stocks', atr_d1: 3.759286, atr_w1: 9.287143, atr_mn1: 21.550714, outliers: [], ev_data: { market_cap: 74894016512, enterprise_value: 81145962496, mcap_ev_ratio: 92.3 } },
+            'EEFT': { var: 2.327015, price: 89.49, sector: 'Financial', description: 'Euronet Worldwide Inc', asset_class: 'stocks', atr_d1: 2.039286, atr_w1: 6.530000, atr_mn1: 13.650000, outliers: [], ev_data: { market_cap: 3541102336, enterprise_value: 3998857984, mcap_ev_ratio: 88.6 } },
+            'EEM': { var: 0.647575, price: 53.04, sector: 'Financial', description: 'iShares MSCI Emerging Markets', asset_class: 'stocks', atr_d1: 0.448571, atr_w1: 1.285714, atr_mn1: 3.378571, outliers: [] },
+            'EFA': { var: 1.062787, price: 93.40, sector: 'Financial', description: 'iShares MSCI EAFE ETF', asset_class: 'stocks', atr_d1: 0.729286, atr_w1: 2.323571, atr_mn1: 5.885000, outliers: [] },
+            'EFAV': { var: 0.770271, price: 85.99, sector: 'Financial', description: 'iShares MSCI EAFE Min Vol Fact', asset_class: 'stocks', atr_d1: 0.539286, atr_w1: 1.609286, atr_mn1: 4.770714, outliers: ['var'] },
+            'EFG': { var: 1.481414, price: 113.88, sector: 'Financial', description: 'iShares MSCI EAFE Growth ETF', asset_class: 'stocks', atr_d1: 1.067143, atr_w1: 3.035000, atr_mn1: 8.140714, outliers: [] },
+            'EFV': { var: 0.752839, price: 67.92, sector: 'Financial', description: 'iShares MSCI EAFE Value ETF', asset_class: 'stocks', atr_d1: 0.542857, atr_w1: 1.785714, atr_mn1: 4.279286, outliers: [] },
+            'EFX': { var: 10.852919, price: 260.71, sector: 'Industrials', description: 'Equifax Inc', asset_class: 'stocks', atr_d1: 7.082143, atr_w1: 15.180000, atr_mn1: 34.599286, outliers: [], ev_data: { market_cap: 32102672384, enterprise_value: 37100421120, mcap_ev_ratio: 86.5 } },
+            'EHC': { var: 1.989948, price: 123.85, sector: 'Healthcare', description: 'Encompass Health Corp', asset_class: 'stocks', atr_d1: 2.422143, atr_w1: 5.977143, atr_mn1: 11.773571, outliers: [], ev_data: { market_cap: 12470638592, enterprise_value: 15865317376, mcap_ev_ratio: 78.6 } },
+            'EIX': { var: 1.594462, price: 55.19, sector: 'Utilities', description: 'Edison International', asset_class: 'stocks', atr_d1: 1.595000, atr_w1: 3.157857, atr_mn1: 8.700714, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 21235138560, enterprise_value: 64441139200, mcap_ev_ratio: 33.0 } },
+            'EL': { var: 3.594401, price: 88.44, sector: 'Consumer Defensive', description: 'Estee Lauder Cos Inc/The', asset_class: 'stocks', atr_d1: 2.525714, atr_w1: 6.647857, atr_mn1: 16.580000, outliers: [], ev_data: { market_cap: 31857373184, enterprise_value: 38403411968, mcap_ev_ratio: 83.0 } },
+            'ELAN': { var: 0.682955, price: 18.65, sector: 'Healthcare', description: 'Elanco Animal Health Inc', asset_class: 'stocks', atr_d1: 0.565714, atr_w1: 1.123571, atr_mn1: 2.639286, outliers: ['var'], ev_data: { market_cap: 9255645184, enterprise_value: 12925639680, mcap_ev_ratio: 71.6 } },
+            'ELV': { var: 9.329599, price: 309.97, sector: 'Healthcare', description: 'Elevance Health Inc', asset_class: 'stocks', atr_d1: 8.292857, atr_w1: 23.254286, atr_mn1: 58.429286, outliers: [], ev_data: { market_cap: 69805178880, enterprise_value: 65328275456, mcap_ev_ratio: 106.9 } },
+            'EMB': { var: 0.629525, price: 95.56, sector: 'Financial', description: 'iShares JP Morgan USD Emerging', asset_class: 'stocks', atr_d1: 0.449286, atr_w1: 0.892857, atr_mn1: 2.666429, outliers: ['var'] },
+            'EME': { var: 13.086876, price: 620.79, sector: 'Industrials', description: 'EMCOR Group Inc', asset_class: 'stocks', atr_d1: 15.657857, atr_w1: 39.539286, atr_mn1: 79.861429, outliers: [], ev_data: { market_cap: 27708653568, enterprise_value: 27901128704, mcap_ev_ratio: 99.3 } },
+            'EMN': { var: 2.539472, price: 66.00, sector: 'Basic Materials', description: 'Eastman Chemical Co', asset_class: 'stocks', atr_d1: 1.991429, atr_w1: 5.783571, atr_mn1: 12.187857, outliers: [], ev_data: { market_cap: 7577763328, enterprise_value: 12573438976, mcap_ev_ratio: 60.3 } },
+            'EMR': { var: 3.029477, price: 129.48, sector: 'Industrials', description: 'Emerson Electric Co', asset_class: 'stocks', atr_d1: 2.562857, atr_w1: 7.002857, atr_mn1: 16.335000, outliers: [], ev_data: { market_cap: 72618082304, enterprise_value: 85284085760, mcap_ev_ratio: 85.1 } },
+            'ENOV': { var: 1.207610, price: 33.31, sector: 'Industrials', description: 'Enovis Corp', asset_class: 'stocks', atr_d1: 0.980000, atr_w1: 3.186429, atr_mn1: 7.195000, outliers: ['atr', 'ev'], ev_data: { market_cap: 1904564480, enterprise_value: 3328035584, mcap_ev_ratio: 57.2 } },
+            'ENPH': { var: 2.218345, price: 39.02, sector: 'Technology', description: 'Enphase Energy Inc', asset_class: 'stocks', atr_d1: 1.728571, atr_w1: 5.560714, atr_mn1: 20.361429, outliers: ['var', 'atr'], ev_data: { market_cap: 5097981952, enterprise_value: 4802526720, mcap_ev_ratio: 106.2 } },
+            'ENTG': { var: 4.211460, price: 92.81, sector: 'Technology', description: 'Entegris Inc', asset_class: 'stocks', atr_d1: 3.055714, atr_w1: 8.779286, atr_mn1: 19.009286, outliers: ['ev'], ev_data: { market_cap: 14021153792, enterprise_value: 17716475904, mcap_ev_ratio: 79.1 } },
+            'EOG': { var: 3.151812, price: 120.88, sector: 'Energy', description: 'EOG Resources Inc', asset_class: 'stocks', atr_d1: 2.625000, atr_w1: 6.604286, atr_mn1: 14.570000, outliers: [], ev_data: { market_cap: 65977794560, enterprise_value: 65357844480, mcap_ev_ratio: 100.9 } },
+            'EPAM': { var: 7.093303, price: 154.81, sector: 'Technology', description: 'EPAM Systems Inc', asset_class: 'stocks', atr_d1: 5.610714, atr_w1: 13.690714, atr_mn1: 35.330714, outliers: ['var', 'ev'], ev_data: { market_cap: 8609070080, enterprise_value: 7731000320, mcap_ev_ratio: 111.4 } },
+            'EQH': { var: 1.299941, price: 52.87, sector: 'Financial', description: 'Equitable Holdings Inc', asset_class: 'stocks', atr_d1: 1.312857, atr_w1: 3.015000, atr_mn1: 6.785714, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 15815500800, enterprise_value: 9561288704, mcap_ev_ratio: 165.4 } },
+            'EQT': { var: 1.358115, price: 49.87, sector: 'Energy', description: 'EQT Corp', asset_class: 'stocks', atr_d1: 1.495000, atr_w1: 3.567857, atr_mn1: 7.472857, outliers: [], ev_data: { market_cap: 31171946496, enterprise_value: 42605780992, mcap_ev_ratio: 73.2 } },
+            'ES': { var: 1.526731, price: 63.51, sector: 'Utilities', description: 'Eversource Energy', asset_class: 'stocks', atr_d1: 1.040000, atr_w1: 2.495000, atr_mn1: 6.320000, outliers: ['var', 'ev'], ev_data: { market_cap: 23536113664, enterprise_value: 53127516160, mcap_ev_ratio: 44.3 } },
+            'ESGU': { var: 1.388860, price: 143.79, sector: 'Financial', description: 'iShares ESG Aware MSCI USA ETF', asset_class: 'stocks', atr_d1: 1.115714, atr_w1: 2.964286, atr_mn1: 8.535000, outliers: ['var'] },
+            'ESI': { var: 0.586580, price: 26.49, sector: 'Basic Materials', description: 'Element Solutions Inc', asset_class: 'stocks', atr_d1: 0.613571, atr_w1: 1.422143, atr_mn1: 3.361429, outliers: [], ev_data: { market_cap: 6405266432, enterprise_value: 7525757952, mcap_ev_ratio: 85.1 } },
+            'ESNT': { var: 1.265927, price: 62.70, sector: 'Financial', description: 'Essent Group Ltd', asset_class: 'stocks', atr_d1: 1.101429, atr_w1: 2.783571, atr_mn1: 6.240714, outliers: [], ev_data: { market_cap: 6156391936, enterprise_value: 5975869952, mcap_ev_ratio: 103.0 } },
+            'ESTC': { var: 4.079191, price: 86.77, sector: 'Technology', description: 'Elastic NV', asset_class: 'stocks', atr_d1: 3.868571, atr_w1: 6.995714, atr_mn1: 20.410000, outliers: ['ev'], ev_data: { market_cap: 9196692480, enterprise_value: 8296520192, mcap_ev_ratio: 110.8 } },
+            'ES_U': { var: 2968.680025, price: 6611.75, sector: 'Indexes', description: 'E-Mini S&P 500 September', asset_class: 'futures', atr_d1: 52.250000, atr_w1: 145.660714, atr_mn1: 397.446429, outliers: [] },
+            'ES_Z': { var: 3006.375856, price: 6668.50, sector: 'Indexes', description: 'E-Mini S&P 500 December', asset_class: 'futures', atr_d1: 52.732143, atr_w1: 146.892857, atr_mn1: 400.892857, outliers: [] },
+            'ETN': { var: 9.051469, price: 372.02, sector: 'Industrials', description: 'Eaton Corp PLC', asset_class: 'stocks', atr_d1: 7.932857, atr_w1: 20.212143, atr_mn1: 49.995714, outliers: [], ev_data: { market_cap: 144504274944, enterprise_value: 155595259904, mcap_ev_ratio: 92.9 } },
+            'ETR': { var: 1.388844, price: 88.33, sector: 'Utilities', description: 'Entergy Corp', asset_class: 'stocks', atr_d1: 1.340000, atr_w1: 3.068571, atr_mn1: 7.690714, outliers: [], ev_data: { market_cap: 39400058880, enterprise_value: 68945223680, mcap_ev_ratio: 57.1 } },
+            'ETSY': { var: 3.258763, price: 59.62, sector: 'Consumer Cyclical', description: 'Etsy Inc', asset_class: 'stocks', atr_d1: 2.471429, atr_w1: 6.995714, atr_mn1: 11.377857, outliers: ['atr'], ev_data: { market_cap: 5888041984, enterprise_value: 7551271936, mcap_ev_ratio: 78.0 } },
+            'EURAUD': { var: 563.483541, price: 1.78, sector: 'Currency', description: 'Euro vs Australian Dollar', asset_class: 'cfd', atr_d1: 0.008564, atr_w1: 0.023465, atr_mn1: 0.063008, outliers: [] },
+            'EURCAD': { var: 587.184247, price: 1.63, sector: 'Currency', description: 'Euro vs Canadian Dollar', asset_class: 'cfd', atr_d1: 0.007386, atr_w1: 0.019998, atr_mn1: 0.044316, outliers: [] },
+            'EURCHF': { var: 369.581120, price: 0.93, sector: 'Currency', description: 'Euro vs Swiss Franc', asset_class: 'cfd', atr_d1: 0.003169, atr_w1: 0.007749, atr_mn1: 0.021506, outliers: [] },
+            'EURGBP': { var: 408.514240, price: 0.87, sector: 'Currency', description: 'Euro vs Great Britain Pound ', asset_class: 'cfd', atr_d1: 0.003317, atr_w1: 0.008641, atr_mn1: 0.018601, outliers: [] },
+            'EURJPY': { var: 478.796043, price: 173.75, sector: 'Currency', description: 'Euro vs Japanese Yen', asset_class: 'cfd', atr_d1: 0.824000, atr_w1: 2.170500, atr_mn1: 7.286786, outliers: [] },
+            'EURMXN': { var: 537.878447, price: 21.69, sector: 'Currency', description: 'Euro vs. Mexican Peso', asset_class: 'cfd', atr_d1: 0.126421, atr_w1: 0.311978, atr_mn1: 1.052661, outliers: [] },
+            'EURNOK': { var: 734.907366, price: 11.58, sector: 'Currency', description: 'Euro vs Norwegian Kroner', asset_class: 'cfd', atr_d1: 0.074766, atr_w1: 0.175384, atr_mn1: 0.432366, outliers: [] },
+            'EURNZD': { var: 756.893926, price: 1.98, sector: 'Currency', description: 'Euro vs New Zealand Dollar', asset_class: 'cfd', atr_d1: 0.009744, atr_w1: 0.026279, atr_mn1: 0.064809, outliers: [] },
+            'EURSEK': { var: 461.056229, price: 10.95, sector: 'Currency', description: 'Euro vs Swedish krona', asset_class: 'cfd', atr_d1: 0.063034, atr_w1: 0.150589, atr_mn1: 0.325559, outliers: [] },
+            'EURTRY': { var: 799.640522, price: 49.01, sector: 'Currency', description: 'Euro vs. Turkish Lira', asset_class: 'cfd', atr_d1: 0.308297, atr_w1: 0.812319, atr_mn1: 2.048891, outliers: [] },
+            'EURUSD': { var: 832.299862, price: 1.19, sector: 'Currency', description: 'Euro vs US Dollar', asset_class: 'cfd', atr_d1: 0.006866, atr_w1: 0.018510, atr_mn1: 0.041244, outliers: [] },
+            'EVR': { var: 9.773403, price: 345.81, sector: 'Financial', description: 'Evercore Inc', asset_class: 'stocks', atr_d1: 7.980000, atr_w1: 20.044286, atr_mn1: 47.915714, outliers: [], ev_data: { market_cap: 13336345600, enterprise_value: 13912098816, mcap_ev_ratio: 95.9 } },
+            'EVRG': { var: 0.768815, price: 71.43, sector: 'Utilities', description: 'Evergy Inc', asset_class: 'stocks', atr_d1: 0.857143, atr_w1: 2.247857, atr_mn1: 5.022143, outliers: ['var'], ev_data: { market_cap: 16421559296, enterprise_value: 31245881344, mcap_ev_ratio: 52.6 } },
+            'EW': { var: 1.271400, price: 75.09, sector: 'Healthcare', description: 'Edwards Lifesciences Corp', asset_class: 'stocks', atr_d1: 1.487857, atr_w1: 3.594286, atr_mn1: 9.462857, outliers: ['ev'], ev_data: { market_cap: 44085338112, enterprise_value: 40786939904, mcap_ev_ratio: 108.1 } },
+            'EWBC': { var: 2.548480, price: 106.76, sector: 'Financial', description: 'East West Bancorp Inc', asset_class: 'stocks', atr_d1: 2.595714, atr_w1: 6.056429, atr_mn1: 14.750714, outliers: ['ev'], ev_data: { market_cap: 14709742592, enterprise_value: 13533471744, mcap_ev_ratio: 108.7 } },
+            'EWJ': { var: 1.336490, price: 81.41, sector: 'Financial', description: 'iShares MSCI Japan ETF', asset_class: 'stocks', atr_d1: 0.946429, atr_w1: 2.449286, atr_mn1: 5.775714, outliers: [] },
+            'EWT': { var: 1.251867, price: 63.39, sector: 'Financial', description: 'iShares MSCI Taiwan ETF', asset_class: 'stocks', atr_d1: 0.743571, atr_w1: 2.234286, atr_mn1: 5.434286, outliers: [] },
+            'EWY': { var: 1.746449, price: 80.71, sector: 'Financial', description: 'iShares MSCI South Korea ETF', asset_class: 'stocks', atr_d1: 1.012857, atr_w1: 2.882143, atr_mn1: 6.437857, outliers: [] },
+            'EWZ': { var: 0.687083, price: 30.68, sector: 'Financial', description: 'iShares MSCI Brazil ETF', asset_class: 'stocks', atr_d1: 0.467143, atr_w1: 1.108571, atr_mn1: 3.135714, outliers: [] },
+            'EXC': { var: 0.503184, price: 42.74, sector: 'Utilities', description: 'Exelon Corp', asset_class: 'stocks', atr_d1: 0.537857, atr_w1: 1.363571, atr_mn1: 3.220714, outliers: ['var', 'ev'], ev_data: { market_cap: 43156873216, enterprise_value: 91283759104, mcap_ev_ratio: 47.3 } },
+            'EXEL': { var: 0.928136, price: 39.15, sector: 'Healthcare', description: 'Exelixis Inc', asset_class: 'stocks', atr_d1: 0.975000, atr_w1: 3.079286, atr_mn1: 5.995714, outliers: [], ev_data: { market_cap: 10536605696, enterprise_value: 9925330944, mcap_ev_ratio: 106.2 } },
+            'EXP': { var: 9.850181, price: 235.27, sector: 'Basic Materials', description: 'Eagle Materials Inc', asset_class: 'stocks', atr_d1: 6.454286, atr_w1: 15.368571, atr_mn1: 39.742143, outliers: [], ev_data: { market_cap: 7594434048, enterprise_value: 8884388864, mcap_ev_ratio: 85.5 } },
+            'EXPD': { var: 1.733221, price: 125.03, sector: 'Industrials', description: 'Expeditors International of Wa', asset_class: 'stocks', atr_d1: 2.272143, atr_w1: 5.252143, atr_mn1: 12.142857, outliers: ['var'], ev_data: { market_cap: 16937733120, enterprise_value: 16369988608, mcap_ev_ratio: 103.5 } },
+            'EXPE': { var: 5.635971, price: 225.24, sector: 'Consumer Cyclical', description: 'Expedia Group Inc', asset_class: 'stocks', atr_d1: 5.181429, atr_w1: 12.519286, atr_mn1: 28.837143, outliers: [], ev_data: { market_cap: 27833624576, enterprise_value: 28909531136, mcap_ev_ratio: 96.3 } },
+            'EZU': { var: 0.811793, price: 61.02, sector: 'Financial', description: 'iShares MSCI Eurozone ETF', asset_class: 'stocks', atr_d1: 0.506429, atr_w1: 1.755714, atr_mn1: 4.223571, outliers: [] },
+            'F': { var: 0.250994, price: 11.61, sector: 'Consumer Cyclical', description: 'Ford Motor Co', asset_class: 'stocks', atr_d1: 0.183571, atr_w1: 0.562857, atr_mn1: 1.475714, outliers: ['ev'], ev_data: { market_cap: 46206173184, enterprise_value: 178466766848, mcap_ev_ratio: 25.9 } },
+            'FAF': { var: 1.680012, price: 65.89, sector: 'Financial', description: 'First American Financial Corp', asset_class: 'stocks', atr_d1: 1.723571, atr_w1: 3.932857, atr_mn1: 7.690714, outliers: ['var'], ev_data: { market_cap: 6707601920, enterprise_value: 7270102016, mcap_ev_ratio: 92.3 } },
+            'FANG': { var: 4.441388, price: 138.41, sector: 'Energy', description: 'Diamondback Energy Inc', asset_class: 'stocks', atr_d1: 3.743571, atr_w1: 8.966429, atr_mn1: 22.902143, outliers: [], ev_data: { market_cap: 40070651904, enterprise_value: 57842569216, mcap_ev_ratio: 69.3 } },
+            'FAST': { var: 1.112088, price: 47.26, sector: 'Industrials', description: 'Fastenal Co', asset_class: 'stocks', atr_d1: 1.025714, atr_w1: 2.145714, atr_mn1: 4.342143, outliers: [], ev_data: { market_cap: 54225993728, enterprise_value: 54533230592, mcap_ev_ratio: 99.4 } },
+            'FBIN': { var: 2.525961, price: 58.42, sector: 'Consumer Cyclical', description: 'Fortune Innovations Inc', asset_class: 'stocks', atr_d1: 1.595714, atr_w1: 3.846429, atr_mn1: 10.508571, outliers: [], ev_data: { market_cap: 6999474176, enterprise_value: 9760366592, mcap_ev_ratio: 71.7 } },
+            'FCHI40': { var: 1139.363863, price: 7836.50, sector: 'Undefined', description: 'France 40', asset_class: 'cfd', atr_d1: 83.742857, atr_w1: 231.878571, atr_mn1: 526.085714, outliers: [] },
+            'FCX': { var: 1.575827, price: 45.33, sector: 'Basic Materials', description: 'Freeport-McMoRan Inc', asset_class: 'stocks', atr_d1: 1.405000, atr_w1: 3.247143, atr_mn1: 7.680714, outliers: [], ev_data: { market_cap: 65040379904, enterprise_value: 82077728768, mcap_ev_ratio: 79.2 } },
+            'FDAX_U': { var: 5743.729972, price: 23403.00, sector: 'Indexes', description: 'DAX Index September', asset_class: 'futures', atr_d1: 258.000000, atr_w1: 706.928571, atr_mn1: 1515.714286, outliers: [] },
+            'FDAX_Z': { var: 5751.762557, price: 23535.00, sector: 'Indexes', description: 'DAX Index December', asset_class: 'futures', atr_d1: 262.642857, atr_w1: 711.857143, atr_mn1: 1523.857143, outliers: [] },
+            'FDN': { var: 4.486453, price: 283.22, sector: 'Financial', description: 'First Trust Dow Jones Internet', asset_class: 'stocks', atr_d1: 3.692857, atr_w1: 8.660714, atr_mn1: 23.210714, outliers: [] },
+            'FDS': { var: 11.007366, price: 345.59, sector: 'Financial', description: 'FactSet Research Systems Inc', asset_class: 'stocks', atr_d1: 8.428571, atr_w1: 17.629286, atr_mn1: 43.760714, outliers: ['var', 'atr'], ev_data: { market_cap: 13050529792, enterprise_value: 14278175744, mcap_ev_ratio: 91.4 } },
+            'FDX': { var: 6.391188, price: 227.67, sector: 'Industrials', description: 'FedEx Corp', asset_class: 'stocks', atr_d1: 4.441429, atr_w1: 13.227143, atr_mn1: 31.456429, outliers: [] },
+            'FE': { var: 0.402226, price: 43.10, sector: 'Utilities', description: 'FirstEnergy Corp', asset_class: 'stocks', atr_d1: 0.461429, atr_w1: 1.185000, atr_mn1: 3.194286, outliers: ['var', 'ev'], ev_data: { market_cap: 24857243648, enterprise_value: 51426238464, mcap_ev_ratio: 48.3 } },
+            'FESX_U': { var: 494.562797, price: 5388.00, sector: 'Indexes', description: 'Euro Stoxx 50 September', asset_class: 'futures', atr_d1: 52.000000, atr_w1: 150.571429, atr_mn1: 369.500000, outliers: [] },
+            'FESX_Z': { var: 496.638733, price: 5398.00, sector: 'Indexes', description: 'Euro Stoxx 50 December', asset_class: 'futures', atr_d1: 54.785714, atr_w1: 150.857143, atr_mn1: 369.928571, outliers: [] },
+            'FFIV': { var: 7.830926, price: 323.85, sector: 'Technology', description: 'F5 Networks Inc', asset_class: 'stocks', atr_d1: 7.295000, atr_w1: 15.121429, atr_mn1: 32.704286, outliers: [], ev_data: { market_cap: 18597382144, enterprise_value: 17430233088, mcap_ev_ratio: 106.7 } },
+            'FGBL_Z': { var: 456.520368, price: 128.73, sector: 'Indexes', description: 'Bund December', asset_class: 'futures', atr_d1: 0.482857, atr_w1: 1.227857, atr_mn1: 3.345714, outliers: [] },
+            'FHN': { var: 0.441221, price: 22.28, sector: 'Financial', description: 'First Horizon Corp', asset_class: 'stocks', atr_d1: 0.447143, atr_w1: 1.108571, atr_mn1: 2.769286, outliers: [], ev_data: { market_cap: 11307548672, enterprise_value: 13047539712, mcap_ev_ratio: 86.7 } },
+            'FI': { var: 2.524530, price: 133.00, sector: 'Technology', description: 'Fiserv Inc', asset_class: 'stocks', atr_d1: 2.507143, atr_w1: 8.981429, atr_mn1: 25.942143, outliers: [], ev_data: { market_cap: 72161976320, enterprise_value: 101416992768, mcap_ev_ratio: 71.2 } },
+            'FICO': { var: 51.905216, price: 1560.50, sector: 'Technology', description: 'Fair Isaac Corp', asset_class: 'stocks', atr_d1: 41.977857, atr_w1: 120.776429, atr_mn1: 345.017143, outliers: [], ev_data: { market_cap: 37290708992, enterprise_value: 39902269440, mcap_ev_ratio: 93.5 } },
+            'FIS': { var: 1.589102, price: 66.43, sector: 'Technology', description: 'Fidelity National Information', asset_class: 'stocks', atr_d1: 1.432143, atr_w1: 3.684286, atr_mn1: 8.278571, outliers: [], ev_data: { market_cap: 34706862080, enterprise_value: 47101833216, mcap_ev_ratio: 73.7 } },
+            'FITB': { var: 0.928274, price: 45.01, sector: 'Financial', description: 'Fifth Third Bancorp', asset_class: 'stocks', atr_d1: 0.730714, atr_w1: 2.007143, atr_mn1: 5.190714, outliers: [], ev_data: { market_cap: 29784913920, enterprise_value: 45936926720, mcap_ev_ratio: 64.8 } },
+            'FIVE': { var: 6.748969, price: 149.31, sector: 'Consumer Cyclical', description: 'Five Below Inc', asset_class: 'stocks', atr_d1: 6.199286, atr_w1: 9.779286, atr_mn1: 23.810714, outliers: [], ev_data: { market_cap: 8219987968, enterprise_value: 9568444416, mcap_ev_ratio: 85.9 } },
+            'FIVN': { var: 1.161118, price: 25.56, sector: 'Technology', description: 'Five9 Inc', asset_class: 'stocks', atr_d1: 0.972857, atr_w1: 2.567857, atr_mn1: 7.421429, outliers: ['atr'], ev_data: { market_cap: 1970198912, enterprise_value: 2133826560, mcap_ev_ratio: 92.3 } },
+            'FLEX': { var: 1.521036, price: 57.21, sector: 'Technology', description: 'Flex Ltd', asset_class: 'stocks', atr_d1: 1.358571, atr_w1: 3.696429, atr_mn1: 6.794286, outliers: [], ev_data: { market_cap: 21390340096, enterprise_value: 23493580800, mcap_ev_ratio: 91.0 } },
+            'FLS': { var: 1.166755, price: 56.33, sector: 'Industrials', description: 'Flowserve Corp', asset_class: 'stocks', atr_d1: 1.177857, atr_w1: 3.467143, atr_mn1: 8.102857, outliers: [], ev_data: { market_cap: 7356487680, enterprise_value: 8451074048, mcap_ev_ratio: 87.0 } },
+            'FMC': { var: 1.160698, price: 37.07, sector: 'Basic Materials', description: 'FMC Corp', asset_class: 'stocks', atr_d1: 1.060714, atr_w1: 2.785000, atr_mn1: 9.370000, outliers: [], ev_data: { market_cap: 4625491456, enterprise_value: 8505076224, mcap_ev_ratio: 54.4 } },
+            'FND': { var: 5.526488, price: 89.87, sector: 'Consumer Cyclical', description: 'Floor & Decor Holdings Inc', asset_class: 'stocks', atr_d1: 2.994286, atr_w1: 6.988571, atr_mn1: 17.734286, outliers: ['var'], ev_data: { market_cap: 9664190464, enterprise_value: 11439197184, mcap_ev_ratio: 84.5 } },
+            'FNF': { var: 1.169054, price: 58.49, sector: 'Financial', description: 'Fidelity National Financial In', asset_class: 'stocks', atr_d1: 1.292143, atr_w1: 2.966429, atr_mn1: 7.112857, outliers: [], ev_data: { market_cap: 15884926976, enterprise_value: 17239900160, mcap_ev_ratio: 92.1 } },
+            'FOX': { var: 1.695754, price: 52.05, sector: 'Communication Services', description: 'Twenty-First Century Fox Inc Class B', asset_class: 'stocks', atr_d1: 1.505714, atr_w1: 3.017143, atr_mn1: 5.442857, outliers: [], ev_data: { market_cap: 24342861824, enterprise_value: 26156048384, mcap_ev_ratio: 93.1 } },
+            'FOXA': { var: 1.878201, price: 57.49, sector: 'Communication Services', description: 'Fox Corp', asset_class: 'stocks', atr_d1: 1.707143, atr_w1: 3.319286, atr_mn1: 5.890000, outliers: [], ev_data: { market_cap: 24294121472, enterprise_value: 28691148800, mcap_ev_ratio: 84.7 } },
+            'FOXF': { var: 1.181702, price: 27.04, sector: 'Consumer Cyclical', description: 'Fox Factory Holding Corp', asset_class: 'stocks', atr_d1: 1.045000, atr_w1: 3.055000, atr_mn1: 7.017857, outliers: ['atr'], ev_data: { market_cap: 1128616192, enterprise_value: 1848322048, mcap_ev_ratio: 61.1 } },
+            'FRPT': { var: 3.188149, price: 54.03, sector: 'Consumer Defensive', description: 'Freshpet Inc', asset_class: 'stocks', atr_d1: 2.320000, atr_w1: 6.136429, atr_mn1: 22.817143, outliers: ['var', 'atr'], ev_data: { market_cap: 2635577856, enterprise_value: 2887043584, mcap_ev_ratio: 91.3 } },
+            'FSLR': { var: 11.699003, price: 206.05, sector: 'Technology', description: 'First Solar Inc', asset_class: 'stocks', atr_d1: 7.403571, atr_w1: 21.680714, atr_mn1: 44.246429, outliers: ['var', 'atr'], ev_data: { market_cap: 22012651520, enterprise_value: 21925812224, mcap_ev_ratio: 100.4 } },
+            'FTEC': { var: 3.362606, price: 215.55, sector: 'Financial', description: 'Fidelity MSCI Information Tech', asset_class: 'stocks', atr_d1: 2.675714, atr_w1: 6.696429, atr_mn1: 18.132143, outliers: [] },
+            'FTNT': { var: 2.528726, price: 79.83, sector: 'Technology', description: 'Fortinet Inc', asset_class: 'stocks', atr_d1: 1.575000, atr_w1: 7.376429, atr_mn1: 14.274286, outliers: [], ev_data: { market_cap: 61132697600, enterprise_value: 57659269120, mcap_ev_ratio: 106.0 } },
+            'FTV': { var: 1.142585, price: 48.82, sector: 'Technology', description: 'Fortive Corp', asset_class: 'stocks', atr_d1: 0.937143, atr_w1: 4.074286, atr_mn1: 9.668571, outliers: [], ev_data: { market_cap: 16493880320, enterprise_value: 19645597696, mcap_ev_ratio: 84.0 } },
+            'FVD': { var: 0.480924, price: 45.84, sector: 'Financial', description: 'First Trust Value Line Dividen', asset_class: 'stocks', atr_d1: 0.340000, atr_w1: 0.902143, atr_mn1: 2.385714, outliers: ['var'] },
+            'G': { var: 0.800742, price: 41.36, sector: 'Technology', description: 'Genpact Ltd', asset_class: 'stocks', atr_d1: 0.845714, atr_w1: 2.316429, atr_mn1: 5.794286, outliers: [], ev_data: { market_cap: 7202579456, enterprise_value: 8066291200, mcap_ev_ratio: 89.3 } },
+            'GAP': { var: 0.916467, price: 22.64, sector: 'Consumer Cyclical', description: 'Gap Inc/The', asset_class: 'stocks', atr_d1: 0.913571, atr_w1: 1.646429, atr_mn1: 4.067857, outliers: [], ev_data: { market_cap: 8400503808, enterprise_value: 11560509440, mcap_ev_ratio: 72.7 } },
+            'GBPAUD': { var: 591.661104, price: 2.04, sector: 'Currency', description: 'Great Britain Pound vs Australian Dollar', asset_class: 'cfd', atr_d1: 0.009881, atr_w1: 0.028308, atr_mn1: 0.066687, outliers: [] },
+            'GBPCAD': { var: 731.151079, price: 1.88, sector: 'Currency', description: 'Great Britain Pound vs Canadian Dollar', asset_class: 'cfd', atr_d1: 0.009934, atr_w1: 0.022023, atr_mn1: 0.053716, outliers: [] },
+            'GBPCHF': { var: 665.839213, price: 1.07, sector: 'Currency', description: 'Great Britain Pound vs Swiss Franc', asset_class: 'cfd', atr_d1: 0.005894, atr_w1: 0.013987, atr_mn1: 0.033591, outliers: [] },
+            'GBPJPY': { var: 563.974406, price: 199.99, sector: 'Currency', description: 'British Pound vs Japanese Yen', asset_class: 'cfd', atr_d1: 1.009500, atr_w1: 2.572643, atr_mn1: 9.133000, outliers: [] },
+            'GBPMXN': { var: 625.938209, price: 24.97, sector: 'Currency', description: 'British Pound vs. Mexican Peso', asset_class: 'cfd', atr_d1: 0.150844, atr_w1: 0.379966, atr_mn1: 1.218947, outliers: [] },
+            'GBPNOK': { var: 919.833744, price: 13.33, sector: 'Currency', description: 'British Pound vs Norwegian Kroner', asset_class: 'cfd', atr_d1: 0.090503, atr_w1: 0.229967, atr_mn1: 0.501890, outliers: [] },
+            'GBPNZD': { var: 807.196146, price: 2.28, sector: 'Currency', description: 'Great Britan Pound vs New Zealand Dollar', asset_class: 'cfd', atr_d1: 0.012275, atr_w1: 0.029214, atr_mn1: 0.072121, outliers: [] },
+            'GBPSEK': { var: 613.191889, price: 12.61, sector: 'Currency', description: 'British Pound vs Swedish krona', asset_class: 'cfd', atr_d1: 0.078874, atr_w1: 0.207792, atr_mn1: 0.438480, outliers: [] },
+            'GBPTRY': { var: 921.863107, price: 56.41, sector: 'Currency', description: 'British Pound vs. Turkish Lira', asset_class: 'cfd', atr_d1: 0.353905, atr_w1: 0.868682, atr_mn1: 2.157775, outliers: [] },
+            'GBPUSD': { var: 928.826167, price: 1.37, sector: 'Currency', description: 'Great Britan Pound vs US Dollar', asset_class: 'cfd', atr_d1: 0.008601, atr_w1: 0.020590, atr_mn1: 0.049542, outliers: [] },
+            'GC_Z': { var: 3907.347796, price: 3727.30, sector: 'Commodities', description: 'Gold December', asset_class: 'futures', atr_d1: 48.207143, atr_w1: 114.335714, atr_mn1: 235.635714, outliers: [] },
+            'GD': { var: 3.769414, price: 327.61, sector: 'Indexes', description: 'General Dynamics Corp', asset_class: 'stocks', atr_d1: 3.527857, atr_w1: 10.823571, atr_mn1: 25.085000, outliers: ['var'], ev_data: { market_cap: 87799308288, enterprise_value: 96763428864, mcap_ev_ratio: 90.7 } },
+            'GDAXI': { var: 2742.452480, price: 23410.80, sector: 'Undefined', description: 'Germany 40', asset_class: 'cfd', atr_d1: 257.385714, atr_w1: 707.228571, atr_mn1: 1514.471429, outliers: [] },
+            'GDDY': { var: 3.168617, price: 144.23, sector: 'Technology', description: 'GoDaddy Inc', asset_class: 'stocks', atr_d1: 3.591429, atr_w1: 9.150714, atr_mn1: 23.995000, outliers: [], ev_data: { market_cap: 20151205888, enterprise_value: 22878054400, mcap_ev_ratio: 88.1 } },
+            'GDX': { var: 1.752867, price: 69.05, sector: 'Financial', description: 'VanEck Vectors Gold Miners ETF', asset_class: 'stocks', atr_d1: 1.423571, atr_w1: 3.322857, atr_mn1: 6.490000, outliers: ['atr'] },
+            'GDXJ': { var: 2.724193, price: 88.84, sector: 'Financial', description: 'VanEck Vectors Junior Gold Min', asset_class: 'stocks', atr_d1: 2.164286, atr_w1: 4.659286, atr_mn1: 9.125714, outliers: ['var', 'atr'] },
+            'GE': { var: 5.453665, price: 293.08, sector: 'Industrials', description: 'General Electric Co', asset_class: 'stocks', atr_d1: 5.960714, atr_w1: 14.312857, atr_mn1: 28.207143, outliers: [], ev_data: { market_cap: 310677110784, enterprise_value: 319424921600, mcap_ev_ratio: 97.3 } },
+            'GEN': { var: 0.513164, price: 28.60, sector: 'Healthcare', description: 'Gen Digital Inc', asset_class: 'stocks', atr_d1: 0.540714, atr_w1: 1.584286, atr_mn1: 3.134286, outliers: [], ev_data: { market_cap: 17712408576, enterprise_value: 25817395200, mcap_ev_ratio: 68.6 } },
+            'GGG': { var: 1.804552, price: 84.77, sector: 'Industrials', description: 'Graco Inc', asset_class: 'stocks', atr_d1: 1.541429, atr_w1: 3.480714, atr_mn1: 7.947143, outliers: [], ev_data: { market_cap: 14042566656, enterprise_value: 13559029760, mcap_ev_ratio: 103.6 } },
+            'GH': { var: 2.446857, price: 55.45, sector: 'Healthcare', description: 'Guardant Health Inc', asset_class: 'stocks', atr_d1: 2.741429, atr_w1: 6.011429, atr_mn1: 12.462857, outliers: ['atr'], ev_data: { market_cap: 6908712448, enterprise_value: 7720049664, mcap_ev_ratio: 89.5 } },
+            'GILD': { var: 2.289945, price: 110.86, sector: 'Healthcare', description: 'Gilead Sciences Inc', asset_class: 'stocks', atr_d1: 2.115714, atr_w1: 5.600000, atr_mn1: 11.495000, outliers: [], ev_data: { market_cap: 137556197376, enterprise_value: 158444404736, mcap_ev_ratio: 86.8 } },
+            'GIS': { var: 0.902275, price: 49.65, sector: 'Consumer Defensive', description: 'General Mills Inc', asset_class: 'stocks', atr_d1: 0.832143, atr_w1: 2.145000, atr_mn1: 5.863571, outliers: [], ev_data: { market_cap: 26499039232, enterprise_value: 41827508224, mcap_ev_ratio: 63.4 } },
+            'GL': { var: 2.072768, price: 141.48, sector: 'Financial', description: 'Globe Life Inc', asset_class: 'stocks', atr_d1: 2.717143, atr_w1: 6.708571, atr_mn1: 13.895714, outliers: [], ev_data: { market_cap: 11537335296, enterprise_value: 14368669696, mcap_ev_ratio: 80.3 } },
+            'GLD': { var: 4.195901, price: 339.61, sector: 'Financial', description: 'SPDR Gold Shares', asset_class: 'stocks', atr_d1: 3.475000, atr_w1: 8.426429, atr_mn1: 19.259286, outliers: [] },
+            'GLW': { var: 1.824867, price: 78.72, sector: 'Technology', description: 'Corning Inc', asset_class: 'stocks', atr_d1: 1.873571, atr_w1: 3.372857, atr_mn1: 6.713571, outliers: [], ev_data: { market_cap: 67415912448, enterprise_value: 74852892672, mcap_ev_ratio: 90.1 } },
+            'GM': { var: 1.025283, price: 58.51, sector: 'Consumer Cyclical', description: 'General Motors Co', asset_class: 'stocks', atr_d1: 1.070000, atr_w1: 2.847143, atr_mn1: 7.147857, outliers: ['ev'], ev_data: { market_cap: 55658479616, enterprise_value: 173864468480, mcap_ev_ratio: 32.0 } },
+            'GMED': { var: 1.505081, price: 57.85, sector: 'Healthcare', description: 'Globus Medical Inc', asset_class: 'stocks', atr_d1: 1.353571, atr_w1: 3.371429, atr_mn1: 10.366429, outliers: [], ev_data: { market_cap: 7811696640, enterprise_value: 7703674368, mcap_ev_ratio: 101.4 } },
+            'GNRC': { var: 5.579828, price: 184.03, sector: 'Industrials', description: 'Generac Holdings Inc', asset_class: 'stocks', atr_d1: 4.931429, atr_w1: 12.882857, atr_mn1: 26.652857, outliers: ['atr'], ev_data: { market_cap: 10896702464, enterprise_value: 12164636672, mcap_ev_ratio: 89.6 } },
+            'GNTX': { var: 0.543260, price: 28.53, sector: 'Consumer Cyclical', description: 'Gentex Corp', asset_class: 'stocks', atr_d1: 0.523571, atr_w1: 1.413571, atr_mn1: 3.215714, outliers: [], ev_data: { market_cap: 6257631232, enterprise_value: 6132602880, mcap_ev_ratio: 102.0 } },
+            'GOOG': { var: 9.569824, price: 251.53, sector: 'Communication Services', description: 'Alphabet Inc Class C', asset_class: 'stocks', atr_d1: 6.186429, atr_w1: 11.469286, atr_mn1: 24.536429, outliers: [], ev_data: { market_cap: 3039667945472, enterprise_value: 2987193532416, mcap_ev_ratio: 101.8 } },
+            'GOOGL': { var: 9.668445, price: 251.29, sector: 'Communication Services', description: 'Alphabet Inc', asset_class: 'stocks', atr_d1: 6.269286, atr_w1: 11.595714, atr_mn1: 24.558571, outliers: [], ev_data: { market_cap: 3038332846080, enterprise_value: 2984049115136, mcap_ev_ratio: 101.8 } },
+            'GPC': { var: 3.358569, price: 139.76, sector: 'Consumer Cyclical', description: 'Genuine Parts Co', asset_class: 'stocks', atr_d1: 2.728571, atr_w1: 6.342857, atr_mn1: 15.179286, outliers: [], ev_data: { market_cap: 19421417472, enterprise_value: 25401229312, mcap_ev_ratio: 76.5 } },
+            'GPK': { var: 0.624154, price: 20.35, sector: 'Consumer Cyclical', description: 'Graphic Packaging Holding Co', asset_class: 'stocks', atr_d1: 0.512143, atr_w1: 1.289286, atr_mn1: 3.020000, outliers: [], ev_data: { market_cap: 6025704448, enterprise_value: 11739186176, mcap_ev_ratio: 51.3 } },
+            'GPN': { var: 2.139426, price: 84.37, sector: 'Industrials', description: 'Global Payments Inc', asset_class: 'stocks', atr_d1: 1.730714, atr_w1: 5.432143, atr_mn1: 14.288571, outliers: [], ev_data: { market_cap: 20449345536, enterprise_value: 35334225920, mcap_ev_ratio: 57.9 } },
+            'GS': { var: 19.696755, price: 786.48, sector: 'Financial', description: 'Goldman Sachs Group Inc/The', asset_class: 'stocks', atr_d1: 15.610714, atr_w1: 35.402143, atr_mn1: 79.157143, outliers: ['ev'], ev_data: { market_cap: 237796425728, enterprise_value: 13139186688, mcap_ev_ratio: 1809.8 } },
+            'GSLC': { var: 1.223901, price: 129.44, sector: 'Financial', description: 'Goldman Sachs ActiveBeta U.S.', asset_class: 'stocks', atr_d1: 0.998571, atr_w1: 2.682857, atr_mn1: 7.741429, outliers: ['var'] },
+            'GT': { var: 0.204927, price: 8.53, sector: 'Consumer Cyclical', description: 'Goodyear Tire & Rubber Co/The', asset_class: 'stocks', atr_d1: 0.182143, atr_w1: 0.912857, atr_mn1: 2.148571, outliers: [], ev_data: { market_cap: 2437112064, enterprise_value: 10808116224, mcap_ev_ratio: 22.5 } },
+            'GTLS': { var: 0.699988, price: 199.40, sector: 'Industrials', description: 'Chart Industries Inc', asset_class: 'stocks', atr_d1: 1.178571, atr_w1: 9.392143, atr_mn1: 37.702143, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 8962112512, enterprise_value: 12558113792, mcap_ev_ratio: 71.4 } },
+            'GWRE': { var: 18.615455, price: 247.17, sector: 'Technology', description: 'Guidewire Software Inc', asset_class: 'stocks', atr_d1: 8.745000, atr_w1: 15.018571, atr_mn1: 29.208571, outliers: ['var'], ev_data: { market_cap: 21237460992, enterprise_value: 20777156608, mcap_ev_ratio: 102.2 } },
+            'GWW': { var: 20.359027, price: 995.07, sector: 'Industrials', description: 'WW Grainger Inc', asset_class: 'stocks', atr_d1: 19.298571, atr_w1: 49.707143, atr_mn1: 103.818571, outliers: [], ev_data: { market_cap: 47527989248, enterprise_value: 50069032960, mcap_ev_ratio: 94.9 } },
+            'H': { var: 4.139137, price: 143.33, sector: 'Consumer Cyclical', description: 'Hyatt Hotels Corp', asset_class: 'stocks', atr_d1: 3.300000, atr_w1: 8.893571, atr_mn1: 19.710000, outliers: [], ev_data: { market_cap: 13689683968, enterprise_value: 19428683776, mcap_ev_ratio: 70.5 } },
+            'HAL': { var: 0.846161, price: 22.43, sector: 'Energy', description: 'Halliburton Co', asset_class: 'stocks', atr_d1: 0.651429, atr_w1: 1.786429, atr_mn1: 4.081429, outliers: ['var', 'atr'], ev_data: { market_cap: 19115335680, enterprise_value: 25680338944, mcap_ev_ratio: 74.4 } },
+            'HALO': { var: 1.383777, price: 75.83, sector: 'Healthcare', description: 'Halozyme Therapeutics Inc', asset_class: 'stocks', atr_d1: 1.760000, atr_w1: 3.572857, atr_mn1: 10.811429, outliers: [], ev_data: { market_cap: 8871870464, enterprise_value: 9861764096, mcap_ev_ratio: 90.0 } },
+            'HAS': { var: 1.917749, price: 74.92, sector: 'Consumer Cyclical', description: 'Hasbro Inc', asset_class: 'stocks', atr_d1: 1.650714, atr_w1: 3.697143, atr_mn1: 8.845714, outliers: [], ev_data: { market_cap: 10474002432, enterprise_value: 13304768512, mcap_ev_ratio: 78.7 } },
+            'HBAN': { var: 0.373138, price: 17.45, sector: 'Financial', description: 'Huntington Bancshares Inc/OH', asset_class: 'stocks', atr_d1: 0.303571, atr_w1: 0.795714, atr_mn1: 2.067857, outliers: [], ev_data: { market_cap: 25428801536, enterprise_value: 34254884864, mcap_ev_ratio: 74.2 } },
+            'HCA': { var: 10.871077, price: 400.21, sector: 'Healthcare', description: 'HCA Healthcare Inc', asset_class: 'stocks', atr_d1: 10.484286, atr_w1: 24.300000, atr_mn1: 46.907857, outliers: [], ev_data: { market_cap: 93539098624, enterprise_value: 142018904064, mcap_ev_ratio: 65.9 } },
+            'HD': { var: 10.020370, price: 422.81, sector: 'Consumer Cyclical', description: 'Home Depot Inc/The', asset_class: 'stocks', atr_d1: 5.775714, atr_w1: 16.645000, atr_mn1: 41.697857, outliers: ['ev'], ev_data: { market_cap: 419505864704, enterprise_value: 898127429632, mcap_ev_ratio: 46.7 } },
+            'HDV': { var: 1.092107, price: 121.26, sector: 'Financial', description: 'iShares Core High Dividend ETF', asset_class: 'stocks', atr_d1: 0.924286, atr_w1: 2.247857, atr_mn1: 6.283571, outliers: ['var'] },
+            'HEI': { var: 13.230055, price: 322.63, sector: 'Industrials', description: 'HEICO Corp', asset_class: 'stocks', atr_d1: 8.534286, atr_w1: 15.701429, atr_mn1: 33.055714, outliers: [], ev_data: { market_cap: 39244333056, enterprise_value: 47631654912, mcap_ev_ratio: 82.4 } },
+            'HELE': { var: 1.109160, price: 23.45, sector: 'Consumer Defensive', description: 'Helen of Troy Ltd', asset_class: 'stocks', atr_d1: 1.067857, atr_w1: 3.510714, atr_mn1: 14.254286, outliers: ['atr', 'ev'], ev_data: { market_cap: 537613120, enterprise_value: 1422824192, mcap_ev_ratio: 37.8 } },
+            'HE_V': { var: 608.560719, price: 97.28, sector: 'Utilities', description: 'Lean Hogs October', asset_class: 'futures', atr_d1: 1.485714, atr_w1: 3.223214, atr_mn1: 5.864286, outliers: [] },
+            'HG_Z': { var: 1597.547171, price: 4.70, sector: 'Commodities', description: 'Copper December', asset_class: 'futures', atr_d1: 0.070214, atr_w1: 0.333143, atr_mn1: 0.641786, outliers: [] },
+            'HIG': { var: 2.124133, price: 130.01, sector: 'Financial', description: 'Hartford Insurance Group Inc', asset_class: 'stocks', atr_d1: 2.000000, atr_w1: 4.647857, atr_mn1: 11.805714, outliers: [], ev_data: { market_cap: 36453949440, enterprise_value: 37342904320, mcap_ev_ratio: 97.6 } },
+            'HII': { var: 4.431863, price: 273.20, sector: 'Industrials', description: 'Huntington Ingalls Industries', asset_class: 'stocks', atr_d1: 4.979286, atr_w1: 13.621429, atr_mn1: 35.588571, outliers: [], ev_data: { market_cap: 10720139264, enterprise_value: 13286148096, mcap_ev_ratio: 80.7 } },
+            'HLT': { var: 5.604990, price: 274.21, sector: 'Consumer Cyclical', description: 'Hilton Worldwide Holdings Inc', asset_class: 'stocks', atr_d1: 4.761429, atr_w1: 11.472143, atr_mn1: 24.723571, outliers: [], ev_data: { market_cap: 64414932992, enterprise_value: 75777867776, mcap_ev_ratio: 85.0 } },
+            'HOG': { var: 1.028014, price: 30.16, sector: 'Consumer Cyclical', description: 'Harley-Davidson Inc', asset_class: 'stocks', atr_d1: 0.831429, atr_w1: 2.093571, atr_mn1: 4.890000, outliers: ['ev'], ev_data: { market_cap: 3653883136, enterprise_value: 9488576512, mcap_ev_ratio: 38.5 } },
+            'HOLX': { var: 1.225546, price: 63.38, sector: 'Healthcare', description: 'Hologic Inc', asset_class: 'stocks', atr_d1: 1.166429, atr_w1: 2.592143, atr_mn1: 7.180000, outliers: [], ev_data: { market_cap: 14085795840, enterprise_value: 14725013504, mcap_ev_ratio: 95.7 } },
+            'HON': { var: 3.863103, price: 211.31, sector: 'Industrials', description: 'Honeywell International Inc', asset_class: 'stocks', atr_d1: 3.305714, atr_w1: 7.985000, atr_mn1: 19.165000, outliers: [], ev_data: { market_cap: 133931524096, enterprise_value: 161461436416, mcap_ev_ratio: 82.9 } },
+            'HO_V': { var: 2495.180713, price: 2.40, sector: 'Commodities', description: 'Heating Oil October', asset_class: 'futures', atr_d1: 0.053721, atr_w1: 0.180236, atr_mn1: 0.263650, outliers: [] },
+            'HPE': { var: 0.617072, price: 24.43, sector: 'Technology', description: 'Hewlett Packard Enterprise Co', asset_class: 'stocks', atr_d1: 0.665714, atr_w1: 1.478571, atr_mn1: 3.387143, outliers: ['ev'], ev_data: { market_cap: 32234164224, enterprise_value: 52119166976, mcap_ev_ratio: 61.8 } },
+            'HPQ': { var: 0.813876, price: 27.71, sector: 'Technology', description: 'HP Inc', asset_class: 'stocks', atr_d1: 0.751429, atr_w1: 1.586429, atr_mn1: 4.307143, outliers: [], ev_data: { market_cap: 25909940224, enterprise_value: 33813936128, mcap_ev_ratio: 76.6 } },
+            'HQY': { var: 3.733501, price: 91.98, sector: 'Healthcare', description: 'HealthEquity Inc', asset_class: 'stocks', atr_d1: 2.930000, atr_w1: 7.002857, atr_mn1: 16.055000, outliers: [], ev_data: { market_cap: 7886748160, enterprise_value: 8637314048, mcap_ev_ratio: 91.3 } },
+            'HSIC': { var: 1.639420, price: 68.41, sector: 'Healthcare', description: 'Henry Schein Inc', asset_class: 'stocks', atr_d1: 1.866429, atr_w1: 4.032143, atr_mn1: 9.573571, outliers: ['ev'], ev_data: { market_cap: 8293518336, enterprise_value: 12960545792, mcap_ev_ratio: 64.0 } },
+            'HUBB': { var: 11.021049, price: 436.45, sector: 'Industrials', description: 'Hubbell Inc', asset_class: 'stocks', atr_d1: 11.750714, atr_w1: 22.991429, atr_mn1: 55.297857, outliers: [], ev_data: { market_cap: 23139280896, enterprise_value: 24751484928, mcap_ev_ratio: 93.5 } },
+            'HUBS': { var: 18.138474, price: 503.21, sector: 'Technology', description: 'HubSpot Inc', asset_class: 'stocks', atr_d1: 14.845714, atr_w1: 39.397143, atr_mn1: 113.621429, outliers: [], ev_data: { market_cap: 26480916480, enterprise_value: 25386477568, mcap_ev_ratio: 104.3 } },
+            'HUM': { var: 13.643754, price: 272.47, sector: 'Healthcare', description: 'Humana Inc', asset_class: 'stocks', atr_d1: 10.780714, atr_w1: 20.382857, atr_mn1: 53.824286, outliers: ['ev'], ev_data: { market_cap: 32752472064, enterprise_value: 24026421248, mcap_ev_ratio: 136.3 } },
+            'HUN': { var: 0.473918, price: 10.89, sector: 'Basic Materials', description: 'Huntsman Corp', asset_class: 'stocks', atr_d1: 0.421429, atr_w1: 1.120714, atr_mn1: 2.977857, outliers: ['atr', 'ev'], ev_data: { market_cap: 1893896704, enterprise_value: 4163898112, mcap_ev_ratio: 45.5 } },
+            'HWM': { var: 3.860681, price: 187.80, sector: 'Industrials', description: 'Howmet Aerospace Inc', asset_class: 'stocks', atr_d1: 3.918571, atr_w1: 10.802857, atr_mn1: 19.307857, outliers: [], ev_data: { market_cap: 75570003968, enterprise_value: 78508056576, mcap_ev_ratio: 96.3 } },
+            'HXL': { var: 1.473942, price: 62.85, sector: 'Industrials', description: 'Hexcel Corp', asset_class: 'stocks', atr_d1: 1.588571, atr_w1: 3.426429, atr_mn1: 7.405000, outliers: [], ev_data: { market_cap: 4984640512, enterprise_value: 5735143424, mcap_ev_ratio: 86.9 } },
+            'IBB': { var: 2.555457, price: 140.96, sector: 'Financial', description: 'iShares Nasdaq Biotechnology E', asset_class: 'stocks', atr_d1: 1.993571, atr_w1: 4.882857, atr_mn1: 12.203571, outliers: [] },
+            'IBKR': { var: 2.047766, price: 62.54, sector: 'Financial', description: 'Interactive Brokers Group Inc', asset_class: 'stocks', atr_d1: 1.777857, atr_w1: 4.520714, atr_mn1: 8.521429, outliers: ['ev'], ev_data: { market_cap: 106204758016, enterprise_value: -47041945600, mcap_ev_ratio: -225.8 } },
+            'IBM': { var: 4.681718, price: 257.88, sector: 'Technology', description: 'International Business Machine', asset_class: 'stocks', atr_d1: 5.010000, atr_w1: 13.097143, atr_mn1: 29.853571, outliers: [], ev_data: { market_cap: 239884763136, enterprise_value: 292235837440, mcap_ev_ratio: 82.1 } },
+            'ICE': { var: 2.718402, price: 171.67, sector: 'Financial', description: 'Intercontinental Exchange Inc', asset_class: 'stocks', atr_d1: 2.241429, atr_w1: 4.996429, atr_mn1: 13.585714, outliers: [], ev_data: { market_cap: 98113298432, enterprise_value: 116859314176, mcap_ev_ratio: 84.0 } },
+            'ICLN': { var: 0.376587, price: 14.90, sector: 'Financial', description: 'iShares Global Clean Energy ET', asset_class: 'stocks', atr_d1: 0.213571, atr_w1: 0.549286, atr_mn1: 1.217857, outliers: [] },
+            'IDXX': { var: 12.790881, price: 647.13, sector: 'Healthcare', description: 'IDEXX Laboratories Inc', asset_class: 'stocks', atr_d1: 13.666429, atr_w1: 35.532143, atr_mn1: 67.835714, outliers: [], ev_data: { market_cap: 51655041024, enterprise_value: 52727709696, mcap_ev_ratio: 98.0 } },
+            'IEX': { var: 3.880336, price: 163.85, sector: 'Industrials', description: 'IDEX Corp', asset_class: 'stocks', atr_d1: 3.253571, atr_w1: 9.664286, atr_mn1: 22.754286, outliers: [], ev_data: { market_cap: 12335070208, enterprise_value: 13439498240, mcap_ev_ratio: 91.8 } },
+            'IFF': { var: 1.417599, price: 64.64, sector: 'Basic Materials', description: 'International Flavors & Fragra', asset_class: 'stocks', atr_d1: 1.290714, atr_w1: 3.922143, atr_mn1: 9.018571, outliers: [], ev_data: { market_cap: 16535636992, enterprise_value: 22601641984, mcap_ev_ratio: 73.2 } },
+            'IGV': { var: 2.030538, price: 112.81, sector: 'Financial', description: 'iShares Expanded Tech-Software', asset_class: 'stocks', atr_d1: 1.680714, atr_w1: 4.113571, atr_mn1: 10.460714, outliers: [] },
+            'IHI': { var: 1.056320, price: 60.38, sector: 'Financial', description: 'iShares U.S. Medical Devices E', asset_class: 'stocks', atr_d1: 0.795000, atr_w1: 1.841429, atr_mn1: 4.190000, outliers: [] },
+            'IJH': { var: 0.992189, price: 65.44, sector: 'Financial', description: 'iShares Core S&P Mid-Cap ETF', asset_class: 'stocks', atr_d1: 0.735000, atr_w1: 1.877857, atr_mn1: 5.033571, outliers: [] },
+            'IJR': { var: 2.278785, price: 118.03, sector: 'Financial', description: 'iShares Core S&P Small-Cap ETF', asset_class: 'stocks', atr_d1: 1.485000, atr_w1: 4.063571, atr_mn1: 11.036429, outliers: [] },
+            'IJS': { var: 2.291013, price: 109.97, sector: 'Financial', description: 'iShares S&P Small-Cap 600 Valu', asset_class: 'stocks', atr_d1: 1.426429, atr_w1: 4.118571, atr_mn1: 10.495000, outliers: [] },
+            'ILMN': { var: 4.093097, price: 101.71, sector: 'Healthcare', description: 'Illumina Inc', asset_class: 'stocks', atr_d1: 3.174286, atr_w1: 7.731429, atr_mn1: 21.072857, outliers: [], ev_data: { market_cap: 15597476864, enterprise_value: 17040476160, mcap_ev_ratio: 91.5 } },
+            'INCY': { var: 1.909197, price: 83.91, sector: 'Healthcare', description: 'Incyte Corp', asset_class: 'stocks', atr_d1: 1.886429, atr_w1: 4.325000, atr_mn1: 10.817857, outliers: ['ev'], ev_data: { market_cap: 16383656960, enterprise_value: 14004338688, mcap_ev_ratio: 117.0 } },
+            'INDA': { var: 0.590906, price: 53.87, sector: 'Financial', description: 'iShares MSCI India ETF', asset_class: 'stocks', atr_d1: 0.360714, atr_w1: 1.116429, atr_mn1: 3.305714, outliers: [] },
+            'INGR': { var: 1.694186, price: 126.06, sector: 'Consumer Defensive', description: 'Ingredion Inc', asset_class: 'stocks', atr_d1: 1.932143, atr_w1: 4.823571, atr_mn1: 11.845714, outliers: ['var'], ev_data: { market_cap: 8068823040, enterprise_value: 8884250624, mcap_ev_ratio: 90.8 } },
+            'INSP': { var: 4.272265, price: 81.20, sector: 'Healthcare', description: 'Inspire Medical Systems Inc', asset_class: 'stocks', atr_d1: 4.146429, atr_w1: 13.622143, atr_mn1: 35.135000, outliers: ['atr', 'ev'], ev_data: { market_cap: 2389603584, enterprise_value: 2121768704, mcap_ev_ratio: 112.6 } },
+            'INTC': { var: 1.265263, price: 25.28, sector: 'Technology', description: 'Intel Corp', asset_class: 'stocks', atr_d1: 0.659286, atr_w1: 2.266429, atr_mn1: 6.000714, outliers: ['ev'], ev_data: { market_cap: 118017474560, enterprise_value: 145837293568, mcap_ev_ratio: 80.9 } },
+            'INTU': { var: 16.384021, price: 651.92, sector: 'Technology', description: 'Intuit Inc', asset_class: 'stocks', atr_d1: 11.440000, atr_w1: 35.100000, atr_mn1: 76.011429, outliers: [] },
+            'IONS': { var: 8.244489, price: 61.26, sector: 'Healthcare', description: 'Ionis Pharmaceuticals Inc', asset_class: 'stocks', atr_d1: 2.998571, atr_w1: 4.327857, atr_mn1: 5.818571, outliers: ['var', 'atr'], ev_data: { market_cap: 9773059072, enterprise_value: 9466018816, mcap_ev_ratio: 103.2 } },
+            'IP': { var: 1.007819, price: 46.26, sector: 'Consumer Cyclical', description: 'International Paper Co', asset_class: 'stocks', atr_d1: 1.112143, atr_w1: 3.525000, atr_mn1: 6.804286, outliers: [], ev_data: { market_cap: 24413888512, enterprise_value: 33919891456, mcap_ev_ratio: 72.0 } },
+            'IPG': { var: 0.644566, price: 26.37, sector: 'Communication Services', description: 'Interpublic Group of Cos Inc/T', asset_class: 'stocks', atr_d1: 0.582143, atr_w1: 1.405000, atr_mn1: 3.449286, outliers: [], ev_data: { market_cap: 9654771712, enterprise_value: 12347681792, mcap_ev_ratio: 78.2 } },
+            'IPGP': { var: 2.969494, price: 81.68, sector: 'Technology', description: 'IPG Photonics Corp', asset_class: 'stocks', atr_d1: 2.745000, atr_w1: 6.465000, atr_mn1: 13.667857, outliers: ['ev'], ev_data: { market_cap: 3450210304, enterprise_value: 2567475712, mcap_ev_ratio: 134.4 } },
+            'IQV': { var: 6.030527, price: 187.67, sector: 'Healthcare', description: 'IQVIA Holdings Inc', asset_class: 'stocks', atr_d1: 4.859286, atr_w1: 13.297143, atr_mn1: 29.735714, outliers: [], ev_data: { market_cap: 31757699072, enterprise_value: 45322698752, mcap_ev_ratio: 70.1 } },
+            'IR': { var: 2.197385, price: 77.86, sector: 'Industrials', description: 'Ingersoll Rand Inc', asset_class: 'stocks', atr_d1: 1.896429, atr_w1: 5.075714, atr_mn1: 11.528571, outliers: [], ev_data: { market_cap: 30882097152, enterprise_value: 34624360448, mcap_ev_ratio: 89.2 } },
+            'IRDM': { var: 1.336817, price: 18.19, sector: 'Communication Services', description: 'Iridium Communications Inc', asset_class: 'stocks', atr_d1: 1.146429, atr_w1: 2.680714, atr_mn1: 5.301429, outliers: ['var', 'atr'], ev_data: { market_cap: 1927030272, enterprise_value: 3656888832, mcap_ev_ratio: 52.7 } },
+            'ISRG': { var: 15.929853, price: 434.67, sector: 'Healthcare', description: 'Intuitive Surgical Inc', asset_class: 'stocks', atr_d1: 12.555714, atr_w1: 28.190714, atr_mn1: 61.840000, outliers: [], ev_data: { market_cap: 155758247936, enterprise_value: 150538944512, mcap_ev_ratio: 103.5 } },
+            'IT': { var: 9.766327, price: 251.06, sector: 'Technology', description: 'Gartner Inc', asset_class: 'stocks', atr_d1: 6.940000, atr_w1: 25.989286, atr_mn1: 64.870000, outliers: ['atr'], ev_data: { market_cap: 19000598528, enterprise_value: 19664666624, mcap_ev_ratio: 96.6 } },
+            'ITOT': { var: 1.435603, price: 144.14, sector: 'Financial', description: 'iShares Core S&P Total US Stoc', asset_class: 'stocks', atr_d1: 1.094286, atr_w1: 3.030714, atr_mn1: 8.664286, outliers: ['var'] },
+            'ITT': { var: 4.062445, price: 182.58, sector: 'Industrials', description: 'ITT Inc', asset_class: 'stocks', atr_d1: 3.862857, atr_w1: 7.436429, atr_mn1: 19.305714, outliers: [], ev_data: { market_cap: 14183519232, enterprise_value: 14885319680, mcap_ev_ratio: 95.3 } },
+            'ITW': { var: 5.019475, price: 262.40, sector: 'Industrials', description: 'Illinois Tool Works Inc', asset_class: 'stocks', atr_d1: 3.745000, atr_w1: 9.410000, atr_mn1: 21.879286, outliers: [], ev_data: { market_cap: 76326354944, enterprise_value: 84476362752, mcap_ev_ratio: 90.4 } },
+            'IUSG': { var: 2.033538, price: 163.41, sector: 'Financial', description: 'iShares Core S&P U.S. Growth E', asset_class: 'stocks', atr_d1: 1.793571, atr_w1: 4.147857, atr_mn1: 11.675714, outliers: [] },
+            'IUSV': { var: 0.922909, price: 98.44, sector: 'Financial', description: 'iShares Core S&P U.S. Value ET', asset_class: 'stocks', atr_d1: 0.740714, atr_w1: 1.950000, atr_mn1: 5.680714, outliers: ['var'] },
+            'IVE': { var: 1.854975, price: 203.03, sector: 'Financial', description: 'iShares S&P 500 Value ETF', asset_class: 'stocks', atr_d1: 1.416429, atr_w1: 3.865000, atr_mn1: 11.497857, outliers: ['var'] },
+            'IVW': { var: 1.513584, price: 119.81, sector: 'Financial', description: 'iShares S&P 500 Growth ETF', asset_class: 'stocks', atr_d1: 1.277857, atr_w1: 2.995000, atr_mn1: 8.507857, outliers: [] },
+            'IVZ': { var: 0.450812, price: 22.12, sector: 'Financial', description: 'Invesco Ltd', asset_class: 'stocks', atr_d1: 0.444286, atr_w1: 1.278571, atr_mn1: 2.745000, outliers: [], ev_data: { market_cap: 9855804416, enterprise_value: 14913299456, mcap_ev_ratio: 66.1 } },
+            'IWB': { var: 3.470121, price: 361.95, sector: 'Financial', description: 'iShares Russell 1000 ETF', asset_class: 'stocks', atr_d1: 2.803571, atr_w1: 7.485000, atr_mn1: 21.595000, outliers: ['var'] },
+            'IWD': { var: 1.947312, price: 201.57, sector: 'Financial', description: 'iShares Russell 1000 Value ETF', asset_class: 'stocks', atr_d1: 1.542143, atr_w1: 3.969286, atr_mn1: 11.993571, outliers: ['var'] },
+            'IWF': { var: 5.916458, price: 463.59, sector: 'Financial', description: 'iShares Russell 1000 Growth ET', asset_class: 'stocks', atr_d1: 5.107143, atr_w1: 12.106429, atr_mn1: 33.849286, outliers: [] },
+            'IWM': { var: 4.462315, price: 238.46, sector: 'Financial', description: 'iShares Russell 2000 ETF', asset_class: 'stocks', atr_d1: 2.767143, atr_w1: 8.236429, atr_mn1: 21.298571, outliers: [] },
+            'IWN': { var: 3.387965, price: 175.05, sector: 'Financial', description: 'iShares Russell 2000 Value ETF', asset_class: 'stocks', atr_d1: 2.154286, atr_w1: 6.418571, atr_mn1: 16.104286, outliers: [] },
+            'IWO': { var: 5.945013, price: 314.33, sector: 'Financial', description: 'iShares Russell 2000 Growth ET', asset_class: 'stocks', atr_d1: 4.110714, atr_w1: 11.090000, atr_mn1: 28.562143, outliers: [] },
+            'IWS': { var: 1.796964, price: 138.37, sector: 'Financial', description: 'iShares Russell Mid-Cap Value', asset_class: 'stocks', atr_d1: 1.347857, atr_w1: 3.455714, atr_mn1: 9.263571, outliers: [] },
+            'IYR': { var: 1.443113, price: 96.69, sector: 'Financial', description: 'iShares U.S. Real Estate ETF', asset_class: 'stocks', atr_d1: 1.012857, atr_w1: 2.396429, atr_mn1: 6.824286, outliers: [] },
+            'IYW': { var: 2.906824, price: 190.15, sector: 'Financial', description: 'iShares US Technology ETF', asset_class: 'stocks', atr_d1: 2.360714, atr_w1: 5.722143, atr_mn1: 15.820000, outliers: [] },
+            'J': { var: 2.499056, price: 146.26, sector: 'Industrials', description: 'Jacobs Solutions Inc', asset_class: 'stocks', atr_d1: 2.160000, atr_w1: 6.025714, atr_mn1: 15.600714, outliers: [], ev_data: { market_cap: 17471381504, enterprise_value: 20100001792, mcap_ev_ratio: 86.9 } },
+            'JBHT': { var: 5.377194, price: 137.80, sector: 'Industrials', description: 'JB Hunt Transport Services Inc', asset_class: 'stocks', atr_d1: 3.555714, atr_w1: 8.413571, atr_mn1: 19.822857, outliers: [], ev_data: { market_cap: 13338943488, enterprise_value: 15325799424, mcap_ev_ratio: 87.0 } },
+            'JBL': { var: 5.969433, price: 213.38, sector: 'Technology', description: 'Jabil Inc', asset_class: 'stocks', atr_d1: 4.740000, atr_w1: 14.809286, atr_mn1: 24.922857, outliers: [], ev_data: { market_cap: 23187265536, enterprise_value: 25054308352, mcap_ev_ratio: 92.5 } },
+            'JCI': { var: 2.240568, price: 107.03, sector: 'Industrials', description: 'Johnson Controls International', asset_class: 'stocks', atr_d1: 2.510000, atr_w1: 4.728571, atr_mn1: 10.272857, outliers: [], ev_data: { market_cap: 69993021440, enterprise_value: 82122063872, mcap_ev_ratio: 85.2 } },
+            'JEF': { var: 1.925960, price: 66.59, sector: 'Financial', description: 'Jefferies Financial Group Inc', asset_class: 'stocks', atr_d1: 1.678571, atr_w1: 3.617143, atr_mn1: 10.810714, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 13696992256, enterprise_value: -4296929280, mcap_ev_ratio: -318.8 } },
+            'JKHY': { var: 2.878378, price: 159.28, sector: 'Technology', description: 'Jack Henry & Associates Inc', asset_class: 'stocks', atr_d1: 2.645714, atr_w1: 6.957143, atr_mn1: 15.205714, outliers: [], ev_data: { market_cap: 11591654400, enterprise_value: 11540885504, mcap_ev_ratio: 100.4 } },
+            'JLL': { var: 7.289899, price: 311.87, sector: 'Real Estate', description: 'Jones Lang LaSalle Inc', asset_class: 'stocks', atr_d1: 6.761429, atr_w1: 15.646429, atr_mn1: 40.991429, outliers: ['atr'], ev_data: { market_cap: 14775353344, enterprise_value: 18606262272, mcap_ev_ratio: 79.4 } },
+            'JNJ': { var: 1.836050, price: 176.65, sector: 'Healthcare', description: 'Johnson & Johnson', asset_class: 'stocks', atr_d1: 2.180000, atr_w1: 5.685000, atr_mn1: 12.826429, outliers: ['var', 'atr'], ev_data: { market_cap: 424975695872, enterprise_value: 456856469504, mcap_ev_ratio: 93.0 } },
+            'JPM': { var: 5.675173, price: 309.62, sector: 'Financial', description: 'JPMorgan Chase & Co', asset_class: 'stocks', atr_d1: 5.146429, atr_w1: 11.619286, atr_mn1: 28.160714, outliers: ['ev'], ev_data: { market_cap: 850195185664, enterprise_value: 498193399808, mcap_ev_ratio: 170.7 } },
+            'K': { var: 0.501119, price: 79.43, sector: 'Consumer Defensive', description: 'Kellogg Co', asset_class: 'stocks', atr_d1: 0.437857, atr_w1: 1.034286, atr_mn1: 3.135000, outliers: ['var'], ev_data: { market_cap: 27611871232, enterprise_value: 33871888384, mcap_ev_ratio: 81.5 } },
+            'KBR': { var: 0.887233, price: 48.26, sector: 'Industrials', description: 'KBR Inc', asset_class: 'stocks', atr_d1: 1.183571, atr_w1: 2.571429, atr_mn1: 7.922857, outliers: ['ev'], ev_data: { market_cap: 6212761600, enterprise_value: 8626743296, mcap_ev_ratio: 72.0 } },
+            'KDP': { var: 1.347849, price: 26.96, sector: 'Consumer Defensive', description: 'Keurig Dr Pepper Inc', asset_class: 'stocks', atr_d1: 0.777143, atr_w1: 1.566429, atr_mn1: 3.119286, outliers: ['var'], ev_data: { market_cap: 36623540224, enterprise_value: 54504144896, mcap_ev_ratio: 67.2 } },
+            'KEY': { var: 0.432956, price: 18.63, sector: 'Financial', description: 'KeyCorp', asset_class: 'stocks', atr_d1: 0.350000, atr_w1: 0.896429, atr_mn1: 2.365000, outliers: [], ev_data: { market_cap: 20428165120, enterprise_value: 35038089216, mcap_ev_ratio: 58.3 } },
+            'KEYS': { var: 4.211994, price: 172.67, sector: 'Technology', description: 'Keysight Technologies Inc', asset_class: 'stocks', atr_d1: 3.130000, atr_w1: 8.038571, atr_mn1: 21.595000, outliers: [], ev_data: { market_cap: 29571262464, enterprise_value: 29699305472, mcap_ev_ratio: 99.6 } },
+            'KE_Z': { var: 413.285790, price: 522.75, sector: 'Commodities', description: 'Hard Red Wheat December', asset_class: 'futures', atr_d1: 8.767857, atr_w1: 24.803571, atr_mn1: 61.000000, outliers: [] },
+            'KHC': { var: 0.872537, price: 25.96, sector: 'Consumer Defensive', description: 'Kraft Heinz Co/The', asset_class: 'stocks', atr_d1: 0.670000, atr_w1: 1.267143, atr_mn1: 2.995714, outliers: [], ev_data: { market_cap: 30690748416, enterprise_value: 49116647424, mcap_ev_ratio: 62.5 } },
+            'KKR': { var: 4.370429, price: 144.63, sector: 'Financial', description: 'KKR & Co Inc', asset_class: 'stocks', atr_d1: 3.601429, atr_w1: 9.215000, atr_mn1: 24.937857, outliers: [], ev_data: { market_cap: 133626150912, enterprise_value: 188295249920, mcap_ev_ratio: 71.0 } },
+            'KLAC': { var: 28.797536, price: 995.34, sector: 'Technology', description: 'KLA Corp', asset_class: 'stocks', atr_d1: 22.062143, atr_w1: 58.950714, atr_mn1: 126.340714, outliers: [], ev_data: { market_cap: 130716606464, enterprise_value: 132310630400, mcap_ev_ratio: 98.8 } },
+            'KMB': { var: 2.287508, price: 125.06, sector: 'Consumer Defensive', description: 'Kimberly-Clark Corp', asset_class: 'stocks', atr_d1: 2.114286, atr_w1: 4.887143, atr_mn1: 12.639286, outliers: [], ev_data: { market_cap: 41485770752, enterprise_value: 48261763072, mcap_ev_ratio: 86.0 } },
+            'KMI': { var: 0.401205, price: 27.21, sector: 'Energy', description: 'Kinder Morgan Inc', asset_class: 'stocks', atr_d1: 0.457143, atr_w1: 1.200000, atr_mn1: 3.022857, outliers: [], ev_data: { market_cap: 60462796800, enterprise_value: 94497734656, mcap_ev_ratio: 64.0 } },
+            'KMX': { var: 2.040832, price: 60.36, sector: 'Consumer Cyclical', description: 'CarMax Inc', asset_class: 'stocks', atr_d1: 1.872143, atr_w1: 4.502857, atr_mn1: 12.172857, outliers: ['ev'], ev_data: { market_cap: 9056844800, enterprise_value: 28281014272, mcap_ev_ratio: 32.0 } },
+            'KNX': { var: 1.583711, price: 42.65, sector: 'Industrials', description: 'Knight-Swift Transportation Ho', asset_class: 'stocks', atr_d1: 1.270714, atr_w1: 2.925000, atr_mn1: 7.480000, outliers: [], ev_data: { market_cap: 6907573248, enterprise_value: 9834828800, mcap_ev_ratio: 70.2 } },
+            'KO': { var: 0.847415, price: 66.26, sector: 'Consumer Defensive', description: 'Coca-Cola Co/The', asset_class: 'stocks', atr_d1: 0.837143, atr_w1: 2.037857, atr_mn1: 5.061429, outliers: ['var'], ev_data: { market_cap: 285075079168, enterprise_value: 322587918336, mcap_ev_ratio: 88.4 } },
+            'KR': { var: 1.320792, price: 66.76, sector: 'Consumer Defensive', description: 'Kroger Co/The', asset_class: 'stocks', atr_d1: 1.400000, atr_w1: 3.413571, atr_mn1: 6.077857, outliers: [], ev_data: { market_cap: 44132159488, enterprise_value: 70224003072, mcap_ev_ratio: 62.8 } },
+            'KRE': { var: 1.385116, price: 63.71, sector: 'Financial', description: 'SPDR S&P Regional Banking ETF', asset_class: 'stocks', atr_d1: 1.030714, atr_w1: 2.887857, atr_mn1: 7.766429, outliers: ['atr'] },
+            'KSS': { var: 1.754817, price: 16.67, sector: 'Consumer Cyclical', description: 'Kohl\'s Corp', asset_class: 'stocks', atr_d1: 1.232857, atr_w1: 2.365714, atr_mn1: 3.835000, outliers: ['var'], ev_data: { market_cap: 1866048768, enterprise_value: 8548043264, mcap_ev_ratio: 21.8 } },
+            'L': { var: 1.281649, price: 96.10, sector: 'Financial', description: 'Loews Corp', asset_class: 'stocks', atr_d1: 1.386429, atr_w1: 2.930714, atr_mn1: 7.380714, outliers: ['var', 'ev'], ev_data: { market_cap: 19890079744, enterprise_value: 24189116416, mcap_ev_ratio: 82.2 } },
+            'LAD': { var: 11.566895, price: 333.07, sector: 'Consumer Cyclical', description: 'Lithia Motors Inc', asset_class: 'stocks', atr_d1: 9.252857, atr_w1: 23.264286, atr_mn1: 53.725000, outliers: ['ev'], ev_data: { market_cap: 8513625088, enterprise_value: 22633009152, mcap_ev_ratio: 37.6 } },
+            'LAZR': { var: 0.177062, price: 2.12, sector: 'Consumer Cyclical', description: 'Luminar Technologies Inc', asset_class: 'stocks', atr_d1: 0.119286, atr_w1: 0.507143, atr_mn1: 4.680000, outliers: ['var'], ev_data: { market_cap: 145093072, enterprise_value: 514704288, mcap_ev_ratio: 28.2 } },
+            'LDOS': { var: 2.777684, price: 182.84, sector: 'Technology', description: 'Leidos Holdings Inc', asset_class: 'stocks', atr_d1: 2.962143, atr_w1: 8.140000, atr_mn1: 21.123571, outliers: [], ev_data: { market_cap: 23424466944, enterprise_value: 28240527360, mcap_ev_ratio: 82.9 } },
+            'LEA': { var: 2.940041, price: 105.16, sector: 'Consumer Cyclical', description: 'Lear Corp', asset_class: 'stocks', atr_d1: 2.980714, atr_w1: 7.297143, atr_mn1: 14.287143, outliers: [], ev_data: { market_cap: 5596749824, enterprise_value: 8381448704, mcap_ev_ratio: 66.8 } },
+            'LEG': { var: 0.409454, price: 9.53, sector: 'Consumer Cyclical', description: 'Leggett & Platt Inc', asset_class: 'stocks', atr_d1: 0.370000, atr_w1: 0.925000, atr_mn1: 2.235000, outliers: [], ev_data: { market_cap: 1288541696, enterprise_value: 2876141312, mcap_ev_ratio: 44.8 } },
+            'LEN': { var: 4.740843, price: 134.08, sector: 'Consumer Cyclical', description: 'Lennar Corp', asset_class: 'stocks', atr_d1: 3.397143, atr_w1: 9.252857, atr_mn1: 20.960000, outliers: [], ev_data: { market_cap: 34474270720, enterprise_value: 32814264320, mcap_ev_ratio: 105.1 } },
+            'LEVI': { var: 0.490132, price: 22.62, sector: 'Consumer Cyclical', description: 'Levi Strauss & Co', asset_class: 'stocks', atr_d1: 0.525000, atr_w1: 1.382857, atr_mn1: 3.060714, outliers: [], ev_data: { market_cap: 8902215680, enterprise_value: 10410625024, mcap_ev_ratio: 85.5 } },
+            'LE_V': { var: 1569.091332, price: 233.60, sector: 'Commodities', description: 'Live Cattle October', asset_class: 'futures', atr_d1: 3.603571, atr_w1: 7.435714, atr_mn1: 12.869643, outliers: [] },
+            'LH': { var: 5.090484, price: 274.89, sector: 'Healthcare', description: 'Labcorp Holdings Inc', asset_class: 'stocks', atr_d1: 5.421429, atr_w1: 12.043571, atr_mn1: 24.663571, outliers: [], ev_data: { market_cap: 22776879104, enterprise_value: 28749578240, mcap_ev_ratio: 79.2 } },
+            'LHX': { var: 3.822589, price: 284.71, sector: 'Industrials', description: 'L3Harris Technologies Inc', asset_class: 'stocks', atr_d1: 3.923571, atr_w1: 11.037143, atr_mn1: 23.765000, outliers: ['var'], ev_data: { market_cap: 53185495040, enterprise_value: 64805437440, mcap_ev_ratio: 82.1 } },
+            'LII': { var: 22.438784, price: 552.28, sector: 'Industrials', description: 'Lennox International Inc', asset_class: 'stocks', atr_d1: 16.511429, atr_w1: 42.600714, atr_mn1: 76.555000, outliers: ['var', 'atr'], ev_data: { market_cap: 19332415488, enterprise_value: 20823103488, mcap_ev_ratio: 92.8 } },
+            'LITE': { var: 8.344622, price: 171.48, sector: 'Technology', description: 'Lumentum Holdings Inc', asset_class: 'stocks', atr_d1: 6.932857, atr_w1: 12.089286, atr_mn1: 22.064286, outliers: [], ev_data: { market_cap: 11945909248, enterprise_value: 13677009920, mcap_ev_ratio: 87.3 } },
+            'LKQ': { var: 0.854609, price: 31.52, sector: 'Consumer Cyclical', description: 'LKQ Corp', asset_class: 'stocks', atr_d1: 0.684286, atr_w1: 2.322143, atr_mn1: 5.582143, outliers: [], ev_data: { market_cap: 8109875200, enterprise_value: 13766881280, mcap_ev_ratio: 58.9 } },
+            'LLY': { var: 19.379173, price: 763.91, sector: 'Healthcare', description: 'Eli Lilly & Co', asset_class: 'stocks', atr_d1: 15.314286, atr_w1: 56.349286, atr_mn1: 144.895714, outliers: ['atr'], ev_data: { market_cap: 685529694208, enterprise_value: 708188045312, mcap_ev_ratio: 96.8 } },
+            'LMT': { var: 6.875390, price: 474.65, sector: 'Industrials', description: 'Lockheed Martin Corp', asset_class: 'stocks', atr_d1: 7.135714, atr_w1: 22.487857, atr_mn1: 54.570714, outliers: [], ev_data: { market_cap: 110737113088, enterprise_value: 131082141696, mcap_ev_ratio: 84.5 } },
+            'LNC': { var: 0.835774, price: 39.50, sector: 'Financial', description: 'Lincoln National Corp', asset_class: 'stocks', atr_d1: 0.995000, atr_w1: 2.232857, atr_mn1: 5.815000, outliers: ['atr', 'ev'], ev_data: { market_cap: 7477035008, enterprise_value: -23950948352, mcap_ev_ratio: -31.2 } },
+            'LNT': { var: 0.953898, price: 63.69, sector: 'Utilities', description: 'Alliant Energy Corp', asset_class: 'stocks', atr_d1: 0.777857, atr_w1: 2.017857, atr_mn1: 5.111429, outliers: [], ev_data: { market_cap: 16348366848, enterprise_value: 27326382080, mcap_ev_ratio: 59.8 } },
+            'LNW': { var: 2.934205, price: 89.09, sector: 'Consumer Cyclical', description: 'Light & Wonder Inc', asset_class: 'stocks', atr_d1: 2.697143, atr_w1: 8.030714, atr_mn1: 17.387143, outliers: [], ev_data: { market_cap: 7445223936, enterprise_value: 12214223872, mcap_ev_ratio: 61.0 } },
+            'LOW': { var: 5.526518, price: 271.09, sector: 'Consumer Cyclical', description: 'Lowe\'s Cos Inc', asset_class: 'stocks', atr_d1: 4.186429, atr_w1: 11.883571, atr_mn1: 27.426429, outliers: [], ev_data: { market_cap: 151714381824, enterprise_value: 185548357632, mcap_ev_ratio: 81.8 } },
+            'LPLA': { var: 12.028561, price: 336.17, sector: 'Financial', description: 'LPL Financial Holdings Inc', asset_class: 'stocks', atr_d1: 11.112143, atr_w1: 24.714286, atr_mn1: 53.442857, outliers: ['var'], ev_data: { market_cap: 26903777280, enterprise_value: 28355495936, mcap_ev_ratio: 94.9 } },
+            'LPX': { var: 4.414363, price: 94.35, sector: 'Industrials', description: 'Louisiana-Pacific Corp', asset_class: 'stocks', atr_d1: 2.603571, atr_w1: 6.720714, atr_mn1: 16.160714, outliers: [], ev_data: { market_cap: 6541379072, enterprise_value: 6658802176, mcap_ev_ratio: 98.2 } },
+            'LRCX': { var: 4.723163, price: 120.61, sector: 'Technology', description: 'Lam Research Corp', asset_class: 'stocks', atr_d1: 3.208571, atr_w1: 7.313571, atr_mn1: 15.213571, outliers: [], ev_data: { market_cap: 152469241856, enterprise_value: 149240578048, mcap_ev_ratio: 102.2 } },
+            'LSCC': { var: 1.675374, price: 66.27, sector: 'Technology', description: 'Lattice Semiconductor Corp', asset_class: 'stocks', atr_d1: 2.103571, atr_w1: 5.381429, atr_mn1: 12.779286, outliers: [], ev_data: { market_cap: 9054301184, enterprise_value: 8732185600, mcap_ev_ratio: 103.7 } },
+            'LSTR': { var: 4.143251, price: 131.26, sector: 'Industrials', description: 'Landstar System Inc', asset_class: 'stocks', atr_d1: 3.562857, atr_w1: 8.308571, atr_mn1: 18.016429, outliers: [], ev_data: { market_cap: 4546886144, enterprise_value: 4265134336, mcap_ev_ratio: 106.6 } },
+            'LUV': { var: 1.005280, price: 31.63, sector: 'Industrials', description: 'Southwest Airlines Co', asset_class: 'stocks', atr_d1: 0.932143, atr_w1: 2.589286, atr_mn1: 4.870000, outliers: [], ev_data: { market_cap: 16580185088, enterprise_value: 18082174976, mcap_ev_ratio: 91.7 } },
+            'LVS': { var: 1.304395, price: 51.92, sector: 'Consumer Cyclical', description: 'Las Vegas Sands Corp', asset_class: 'stocks', atr_d1: 1.102857, atr_w1: 3.003571, atr_mn1: 7.095714, outliers: [], ev_data: { market_cap: 35599507456, enterprise_value: 48259387392, mcap_ev_ratio: 73.8 } },
+            'LW': { var: 1.723371, price: 57.71, sector: 'Consumer Defensive', description: 'Lamb Weston Holdings Inc', asset_class: 'stocks', atr_d1: 1.555000, atr_w1: 4.075000, atr_mn1: 11.485714, outliers: [], ev_data: { market_cap: 8046358528, enterprise_value: 11996882944, mcap_ev_ratio: 67.1 } },
+            'LYB': { var: 1.933413, price: 52.62, sector: 'Basic Materials', description: 'LyondellBasell Industries NV', asset_class: 'stocks', atr_d1: 1.661429, atr_w1: 5.197143, atr_mn1: 9.251429, outliers: [], ev_data: { market_cap: 16934767616, enterprise_value: 28702789632, mcap_ev_ratio: 59.0 } },
+            'LYFT': { var: 1.174556, price: 20.19, sector: 'Technology', description: 'Lyft Inc', asset_class: 'stocks', atr_d1: 0.867143, atr_w1: 1.626429, atr_mn1: 3.328571, outliers: ['var', 'ev'], ev_data: { market_cap: 8307659776, enterprise_value: 7324725248, mcap_ev_ratio: 113.4 } },
+            'LYV': { var: 3.354252, price: 170.68, sector: 'Communication Services', description: 'Live Nation Entertainment Inc', asset_class: 'stocks', atr_d1: 3.145714, atr_w1: 8.107857, atr_mn1: 17.780714, outliers: [], ev_data: { market_cap: 39528919040, enterprise_value: 42837118976, mcap_ev_ratio: 92.3 } },
+            'M': { var: 1.469678, price: 17.47, sector: 'Consumer Cyclical', description: 'Macy\'s Inc', asset_class: 'stocks', atr_d1: 0.724286, atr_w1: 1.271429, atr_mn1: 2.537857, outliers: ['var', 'ev'], ev_data: { market_cap: 4680059392, enterprise_value: 9332055040, mcap_ev_ratio: 50.2 } },
+            'MA': { var: 7.890144, price: 587.60, sector: 'Financial', description: 'Mastercard Inc', asset_class: 'stocks', atr_d1: 8.460000, atr_w1: 23.983571, atr_mn1: 46.822143, outliers: ['var', 'atr'], ev_data: { market_cap: 530130731008, enterprise_value: 539754627072, mcap_ev_ratio: 98.2 } },
+            'MAN': { var: 2.115223, price: 38.86, sector: 'Industrials', description: 'ManpowerGroup Inc', asset_class: 'stocks', atr_d1: 1.615714, atr_w1: 3.823571, atr_mn1: 8.852143, outliers: [], ev_data: { market_cap: 1772023296, enterprise_value: 3205622784, mcap_ev_ratio: 55.3 } },
+            'MANH': { var: 5.930038, price: 214.74, sector: 'Technology', description: 'Manhattan Associates Inc', asset_class: 'stocks', atr_d1: 5.747857, atr_w1: 13.782857, atr_mn1: 38.716429, outliers: [], ev_data: { market_cap: 12956607488, enterprise_value: 12716056576, mcap_ev_ratio: 101.9 } },
+            'MAR': { var: 6.379438, price: 268.00, sector: 'Consumer Cyclical', description: 'Marriott International Inc/MD', asset_class: 'stocks', atr_d1: 4.783571, atr_w1: 12.570000, atr_mn1: 31.055000, outliers: [], ev_data: { market_cap: 72720883712, enterprise_value: 88585838592, mcap_ev_ratio: 82.1 } },
+            'MAS': { var: 2.332610, price: 73.40, sector: 'Industrials', description: 'Masco Corp', asset_class: 'stocks', atr_d1: 1.557143, atr_w1: 4.228571, atr_mn1: 9.498571, outliers: [], ev_data: { market_cap: 15346381824, enterprise_value: 18414354432, mcap_ev_ratio: 83.3 } },
+            'MASI': { var: 4.800329, price: 143.79, sector: 'Healthcare', description: 'Masimo Corp', asset_class: 'stocks', atr_d1: 3.928571, atr_w1: 12.748571, atr_mn1: 25.698571, outliers: [], ev_data: { market_cap: 7768446464, enterprise_value: 8261048320, mcap_ev_ratio: 94.0 } },
+            'MAT': { var: 0.408908, price: 17.38, sector: 'Consumer Cyclical', description: 'Mattel Inc', asset_class: 'stocks', atr_d1: 0.410000, atr_w1: 1.139286, atr_mn1: 2.992143, outliers: [], ev_data: { market_cap: 5599835648, enterprise_value: 7411038208, mcap_ev_ratio: 75.6 } },
+            'MCD': { var: 3.528174, price: 303.94, sector: 'Consumer Cyclical', description: 'McDonald\'s Corp', asset_class: 'stocks', atr_d1: 3.955000, atr_w1: 9.751429, atr_mn1: 23.369286, outliers: ['var'], ev_data: { market_cap: 216428953600, enterprise_value: 270442086400, mcap_ev_ratio: 80.0 } },
+            'MCHI': { var: 1.379273, price: 64.88, sector: 'Financial', description: 'iShares MSCI China ETF', asset_class: 'stocks', atr_d1: 0.957857, atr_w1: 2.102857, atr_mn1: 6.690000, outliers: [] },
+            'MCHP': { var: 2.017495, price: 64.51, sector: 'Technology', description: 'Microchip Technology Inc', asset_class: 'stocks', atr_d1: 2.066429, atr_w1: 5.642857, atr_mn1: 12.797143, outliers: [], ev_data: { market_cap: 34782375936, enterprise_value: 39710355456, mcap_ev_ratio: 87.6 } },
+            'MCK': { var: 15.196803, price: 695.26, sector: 'Healthcare', description: 'McKesson Corp', asset_class: 'stocks', atr_d1: 11.387857, atr_w1: 31.420714, atr_mn1: 70.867143, outliers: [], ev_data: { market_cap: 86254084096, enterprise_value: 94885355520, mcap_ev_ratio: 90.9 } },
+            'MCO': { var: 9.197631, price: 508.30, sector: 'Financial', description: 'Moody\'s Corp', asset_class: 'stocks', atr_d1: 7.631429, atr_w1: 18.397143, atr_mn1: 47.296429, outliers: [], ev_data: { market_cap: 91114373120, enterprise_value: 96372187136, mcap_ev_ratio: 94.5 } },
+            'MDB': { var: 47.768991, price: 327.36, sector: 'Technology', description: 'MongoDB Inc', asset_class: 'stocks', atr_d1: 17.289286, atr_w1: 28.025000, atr_mn1: 65.447857, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 26633805824, enterprise_value: 24357591040, mcap_ev_ratio: 109.3 } },
+            'MDLZ': { var: 0.906017, price: 62.77, sector: 'Consumer Defensive', description: 'Mondelez International Inc', asset_class: 'stocks', atr_d1: 1.052143, atr_w1: 2.934286, atr_mn1: 5.925000, outliers: [], ev_data: { market_cap: 81130659840, enterprise_value: 101185380352, mcap_ev_ratio: 80.2 } },
+            'MDT': { var: 2.273079, price: 94.31, sector: 'Healthcare', description: 'Medtronic Plc', asset_class: 'stocks', atr_d1: 1.501429, atr_w1: 3.265714, atr_mn1: 8.007143, outliers: [], ev_data: { market_cap: 120816582656, enterprise_value: 141544177664, mcap_ev_ratio: 85.4 } },
+            'MDY': { var: 9.122608, price: 599.27, sector: 'Financial', description: 'SPDR S&P MidCap 400 ETF Trust', asset_class: 'stocks', atr_d1: 6.732143, atr_w1: 17.236429, atr_mn1: 45.804286, outliers: [] },
+            'MEDP': { var: 12.903449, price: 490.54, sector: 'Healthcare', description: 'Medpace Holdings Inc', asset_class: 'stocks', atr_d1: 12.902857, atr_w1: 34.366429, atr_mn1: 62.978571, outliers: [], ev_data: { market_cap: 13787201536, enterprise_value: 14049161216, mcap_ev_ratio: 98.1 } },
+            'MET': { var: 1.451388, price: 78.84, sector: 'Financial', description: 'MetLife Inc', asset_class: 'stocks', atr_d1: 1.387857, atr_w1: 3.355714, atr_mn1: 9.353571, outliers: [], ev_data: { market_cap: 52357496832, enterprise_value: 70074499072, mcap_ev_ratio: 74.7 } },
+            'META': { var: 16.150369, price: 781.16, sector: 'Communication Services', description: 'Meta Platforms Inc', asset_class: 'stocks', atr_d1: 13.167143, atr_w1: 37.132143, atr_mn1: 90.462143, outliers: [], ev_data: { market_cap: 1956957126656, enterprise_value: 1959447232512, mcap_ev_ratio: 99.9 } },
+            'MGM': { var: 1.181373, price: 35.36, sector: 'Consumer Cyclical', description: 'MGM Resorts International', asset_class: 'stocks', atr_d1: 1.020000, atr_w1: 2.645714, atr_mn1: 5.858571, outliers: ['ev'], ev_data: { market_cap: 9624674304, enterprise_value: 39820812288, mcap_ev_ratio: 24.2 } },
+            'MHK': { var: 5.575430, price: 136.99, sector: 'Consumer Cyclical', description: 'Mohawk Industries Inc', asset_class: 'stocks', atr_d1: 3.690000, atr_w1: 9.163571, atr_mn1: 21.185714, outliers: [], ev_data: { market_cap: 8497780224, enterprise_value: 10585681920, mcap_ev_ratio: 80.3 } },
+            'MIDD': { var: 4.760562, price: 134.98, sector: 'Industrials', description: 'Middleby Corp/The', asset_class: 'stocks', atr_d1: 3.777143, atr_w1: 10.898571, atr_mn1: 21.397143, outliers: ['atr'], ev_data: { market_cap: 6826412544, enterprise_value: 8715006976, mcap_ev_ratio: 78.3 } },
+            'MKL': { var: 35.663107, price: 1925.51, sector: 'Financial', description: 'Markel Group Inc', asset_class: 'stocks', atr_d1: 31.086429, atr_w1: 70.308571, atr_mn1: 161.312857, outliers: [], ev_data: { market_cap: 24256540672, enterprise_value: 23556014080, mcap_ev_ratio: 103.0 } },
+            'MKSI': { var: 4.795529, price: 118.88, sector: 'Technology', description: 'MKS Inc', asset_class: 'stocks', atr_d1: 3.989286, atr_w1: 9.162143, atr_mn1: 21.062857, outliers: [], ev_data: { market_cap: 7948267520, enterprise_value: 11971267584, mcap_ev_ratio: 66.4 } },
+            'MKTX': { var: 4.970296, price: 183.59, sector: 'Financial', description: 'MarketAxess Holdings Inc', asset_class: 'stocks', atr_d1: 4.269286, atr_w1: 9.880000, atr_mn1: 29.914286, outliers: [], ev_data: { market_cap: 6835333632, enterprise_value: 6356139520, mcap_ev_ratio: 107.5 } },
+            'MLM': { var: 12.672995, price: 610.75, sector: 'Basic Materials', description: 'Martin Marietta Materials Inc', asset_class: 'stocks', atr_d1: 12.032143, atr_w1: 24.076429, atr_mn1: 65.352143, outliers: [], ev_data: { market_cap: 36772188160, enterprise_value: 42359189504, mcap_ev_ratio: 86.8 } },
+            'MMC': { var: 3.380236, price: 197.09, sector: 'Financial', description: 'Marsh & McLennan Cos Inc', asset_class: 'stocks', atr_d1: 3.158571, atr_w1: 7.466429, atr_mn1: 18.910000, outliers: [], ev_data: { market_cap: 96766353408, enterprise_value: 116908359680, mcap_ev_ratio: 82.8 } },
+            'MMM': { var: 3.777251, price: 156.46, sector: 'Industrials', description: '3M Co', asset_class: 'stocks', atr_d1: 3.186429, atr_w1: 7.755714, atr_mn1: 16.953571, outliers: [], ev_data: { market_cap: 83356598272, enterprise_value: 93070770176, mcap_ev_ratio: 89.6 } },
+            'MNST': { var: 1.124599, price: 66.19, sector: 'Consumer Defensive', description: 'Monster Beverage Corp', asset_class: 'stocks', atr_d1: 1.098571, atr_w1: 2.960000, atr_mn1: 5.957857, outliers: [], ev_data: { market_cap: 64600481792, enterprise_value: 62593789952, mcap_ev_ratio: 103.2 } },
+            'MO': { var: 0.971889, price: 64.83, sector: 'Consumer Defensive', description: 'Altria Group Inc', asset_class: 'stocks', atr_d1: 0.958571, atr_w1: 2.302857, atr_mn1: 5.143571, outliers: [], ev_data: { market_cap: 108873670656, enterprise_value: 132491124736, mcap_ev_ratio: 82.2 } },
+            'MODG': { var: 0.364653, price: 9.63, sector: 'Consumer Cyclical', description: 'Topgolf Callaway Brands Corp', asset_class: 'stocks', atr_d1: 0.345000, atr_w1: 1.157857, atr_mn1: 2.382857, outliers: [], ev_data: { market_cap: 1766952192, enterprise_value: 5538748416, mcap_ev_ratio: 31.9 } },
+            'MOH': { var: 7.361339, price: 176.85, sector: 'Healthcare', description: 'Molina Healthcare Inc', asset_class: 'stocks', atr_d1: 6.880714, atr_w1: 22.152143, atr_mn1: 53.130000, outliers: ['atr', 'ev'], ev_data: { market_cap: 9563589632, enterprise_value: 4317590016, mcap_ev_ratio: 221.5 } },
+            'MOS': { var: 0.715390, price: 33.85, sector: 'Basic Materials', description: 'Mosaic Co/The', asset_class: 'stocks', atr_d1: 0.725000, atr_w1: 2.196429, atr_mn1: 4.875714, outliers: [], ev_data: { market_cap: 10733723648, enterprise_value: 15296631808, mcap_ev_ratio: 70.2 } },
+            'MPC': { var: 3.277673, price: 182.77, sector: 'Energy', description: 'Marathon Petroleum Corp', asset_class: 'stocks', atr_d1: 4.378571, atr_w1: 8.787143, atr_mn1: 22.670000, outliers: [], ev_data: { market_cap: 55632621568, enterprise_value: 90634674176, mcap_ev_ratio: 61.4 } },
+            'MPWR': { var: 24.680348, price: 858.20, sector: 'Technology', description: 'Monolithic Power Systems Inc', asset_class: 'stocks', atr_d1: 23.995000, atr_w1: 58.395000, atr_mn1: 146.847857, outliers: [], ev_data: { market_cap: 41044402176, enterprise_value: 39568146432, mcap_ev_ratio: 103.7 } },
+            'MRK': { var: 1.714565, price: 81.10, sector: 'Healthcare', description: 'Merck & Co Inc', asset_class: 'stocks', atr_d1: 1.460000, atr_w1: 4.435714, atr_mn1: 10.935714, outliers: [], ev_data: { market_cap: 202544971776, enterprise_value: 229392236544, mcap_ev_ratio: 88.3 } },
+            'MRNA': { var: 1.210823, price: 24.83, sector: 'Healthcare', description: 'Moderna Inc', asset_class: 'stocks', atr_d1: 1.139286, atr_w1: 3.437857, atr_mn1: 13.414286, outliers: ['atr', 'ev'], ev_data: { market_cap: 9664747520, enterprise_value: 4901224448, mcap_ev_ratio: 197.2 } },
+            'MRVL': { var: 5.643195, price: 68.94, sector: 'Technology', description: 'Marvell Technology Inc', asset_class: 'stocks', atr_d1: 3.090714, atr_w1: 7.185714, atr_mn1: 21.029286, outliers: ['var', 'atr'], ev_data: { market_cap: 59364204544, enterprise_value: 62899724288, mcap_ev_ratio: 94.4 } },
+            'MS': { var: 2.773861, price: 156.18, sector: 'Financial', description: 'Morgan Stanley', asset_class: 'stocks', atr_d1: 2.843571, atr_w1: 6.567857, atr_mn1: 16.550000, outliers: ['ev'], ev_data: { market_cap: 248725733376, enterprise_value: 175753068544, mcap_ev_ratio: 141.5 } },
+            'MSCI': { var: 14.154322, price: 567.72, sector: 'Financial', description: 'MSCI Inc', asset_class: 'stocks', atr_d1: 11.548571, atr_w1: 27.560000, atr_mn1: 57.675000, outliers: [], ev_data: { market_cap: 43867615232, enterprise_value: 48179462144, mcap_ev_ratio: 91.1 } },
+            'MSFT': { var: 8.073736, price: 509.52, sector: 'Technology', description: 'Microsoft Corp', asset_class: 'stocks', atr_d1: 7.268571, atr_w1: 17.370714, atr_mn1: 42.285714, outliers: [], ev_data: { market_cap: 3783780990976, enterprise_value: 3848375631872, mcap_ev_ratio: 98.3 } },
+            'MSI': { var: 7.555077, price: 477.82, sector: 'Technology', description: 'Motorola Solutions Inc', asset_class: 'stocks', atr_d1: 8.622143, atr_w1: 15.692857, atr_mn1: 40.330000, outliers: [], ev_data: { market_cap: 79443451904, enterprise_value: 84585398272, mcap_ev_ratio: 93.9 } },
+            'MSM': { var: 2.288928, price: 92.11, sector: 'Industrials', description: 'MSC Industrial Direct Co Inc', asset_class: 'stocks', atr_d1: 2.270714, atr_w1: 4.561429, atr_mn1: 10.474286, outliers: [], ev_data: { market_cap: 5112152064, enterprise_value: 5627683840, mcap_ev_ratio: 90.8 } },
+            'MSTR': { var: 15.824255, price: 335.30, sector: 'Technology', description: 'Strategy Inc', asset_class: 'stocks', atr_d1: 12.205714, atr_w1: 35.990714, atr_mn1: 111.303571, outliers: ['atr'], ev_data: { market_cap: 95015772160, enterprise_value: 106073432064, mcap_ev_ratio: 89.6 } },
+            'MTB': { var: 4.217211, price: 195.81, sector: 'Financial', description: 'M&T Bank Corp', asset_class: 'stocks', atr_d1: 3.922857, atr_w1: 9.239286, atr_mn1: 23.892857, outliers: ['ev'], ev_data: { market_cap: 30516207616, enterprise_value: 26152267776, mcap_ev_ratio: 116.7 } },
+            'MTD': { var: 36.897357, price: 1280.11, sector: 'Healthcare', description: 'Mettler-Toledo International I', asset_class: 'stocks', atr_d1: 33.439286, atr_w1: 80.640000, atr_mn1: 187.367143, outliers: [], ev_data: { market_cap: 26286383104, enterprise_value: 28408530944, mcap_ev_ratio: 92.5 } },
+            'MTN': { var: 4.729537, price: 149.31, sector: 'Consumer Cyclical', description: 'Vail Resorts Inc', asset_class: 'stocks', atr_d1: 3.950000, atr_w1: 9.088571, atr_mn1: 20.871429, outliers: [], ev_data: { market_cap: 5530877440, enterprise_value: 8356600320, mcap_ev_ratio: 66.2 } },
+            'MTUM': { var: 3.465494, price: 253.54, sector: 'Financial', description: 'iShares MSCI USA Momentum Fact', asset_class: 'stocks', atr_d1: 3.079286, atr_w1: 6.065000, atr_mn1: 18.850000, outliers: [] },
+            'MTZ': { var: 7.957221, price: 192.12, sector: 'Industrials', description: 'MasTec Inc', asset_class: 'stocks', atr_d1: 6.157143, atr_w1: 13.594286, atr_mn1: 25.036429, outliers: ['var', 'atr'], ev_data: { market_cap: 15147180032, enterprise_value: 17443604480, mcap_ev_ratio: 86.8 } },
+            'MU': { var: 7.762232, price: 158.99, sector: 'Technology', description: 'Micron Technology Inc', asset_class: 'stocks', atr_d1: 5.470000, atr_w1: 11.490000, atr_mn1: 24.875000, outliers: [], ev_data: { market_cap: 177740234752, enterprise_value: 181966372864, mcap_ev_ratio: 97.7 } },
+            'NBIX': { var: 3.913508, price: 141.65, sector: 'Healthcare', description: 'Neurocrine Biosciences Inc', asset_class: 'stocks', atr_d1: 3.805714, atr_w1: 6.897143, atr_mn1: 19.612143, outliers: [], ev_data: { market_cap: 13974673408, enterprise_value: 13488874496, mcap_ev_ratio: 103.6 } },
+            'NCLH': { var: 1.165727, price: 25.59, sector: 'Consumer Cyclical', description: 'Norwegian Cruise Line Holdings', asset_class: 'stocks', atr_d1: 0.868571, atr_w1: 2.050714, atr_mn1: 4.716429, outliers: ['ev'], ev_data: { market_cap: 11560548352, enterprise_value: 25965688832, mcap_ev_ratio: 44.5 } },
+            'NDAQ': { var: 1.416704, price: 92.52, sector: 'Financial', description: 'Nasdaq Inc', asset_class: 'stocks', atr_d1: 1.413571, atr_w1: 3.047143, atr_mn1: 8.127857, outliers: [], ev_data: { market_cap: 53098991616, enterprise_value: 62051012608, mcap_ev_ratio: 85.6 } },
+            'NDSN': { var: 5.531152, price: 226.46, sector: 'Industrials', description: 'Nordson Corp', asset_class: 'stocks', atr_d1: 4.576429, atr_w1: 10.817143, atr_mn1: 26.537143, outliers: [], ev_data: { market_cap: 12705408000, enterprise_value: 14766716928, mcap_ev_ratio: 86.0 } },
+            'NDX': { var: 2961.397013, price: 24305.40, sector: 'Indexes', description: 'US Tech 100', asset_class: 'cfd', atr_d1: 269.464286, atr_w1: 668.992857, atr_mn1: 1877.228571, outliers: [] },
+            'NEE': { var: 1.115520, price: 69.88, sector: 'Utilities', description: 'NextEra Energy Inc', asset_class: 'stocks', atr_d1: 1.320714, atr_w1: 3.919286, atr_mn1: 7.981429, outliers: ['atr'], ev_data: { market_cap: 143800221696, enterprise_value: 245396406272, mcap_ev_ratio: 58.6 } },
+            'NEM': { var: 1.773165, price: 79.12, sector: 'Basic Materials', description: 'Newmont Corp', asset_class: 'stocks', atr_d1: 1.727857, atr_w1: 4.489286, atr_mn1: 8.680714, outliers: ['ev'], ev_data: { market_cap: 86799515648, enterprise_value: 88301969408, mcap_ev_ratio: 98.3 } },
+            'NET': { var: 6.367420, price: 220.21, sector: 'Technology', description: 'Cloudflare Inc', asset_class: 'stocks', atr_d1: 7.144286, atr_w1: 16.624286, atr_mn1: 28.612857, outliers: [], ev_data: { market_cap: 78760214528, enterprise_value: 78262714368, mcap_ev_ratio: 100.6 } },
+            'NFLX': { var: 29.615306, price: 1201.75, sector: 'Communication Services', description: 'Netflix Inc', asset_class: 'stocks', atr_d1: 26.793571, atr_w1: 65.342143, atr_mn1: 133.269286, outliers: [], ev_data: { market_cap: 510127931392, enterprise_value: 518671761408, mcap_ev_ratio: 98.4 } },
+            'NG_V': { var: 1223.266593, price: 3.12, sector: 'Commodities', description: 'Natural Gas October', asset_class: 'futures', atr_d1: 0.130429, atr_w1: 0.348714, atr_mn1: 0.990143, outliers: [] },
+            'NG_X': { var: 1232.250630, price: 3.37, sector: 'Commodities', description: 'Natural Gas November', asset_class: 'futures', atr_d1: 0.128571, atr_w1: 0.376857, atr_mn1: 1.081214, outliers: [] },
+            'NI': { var: 0.863283, price: 39.36, sector: 'Utilities', description: 'NiSource Inc', asset_class: 'stocks', atr_d1: 0.760000, atr_w1: 1.515714, atr_mn1: 3.150000, outliers: [], ev_data: { market_cap: 18537562112, enterprise_value: 36112760832, mcap_ev_ratio: 51.3 } },
+            'NI225': { var: 83707.948882, price: 44759.00, sector: 'Undefined', description: 'Japan Stock Index Nikkei 225 ', asset_class: 'cfd', atr_d1: 715.000000, atr_w1: 1653.642857, atr_mn1: 3879.857143, outliers: [] },
+            'NKE': { var: 1.662048, price: 72.77, sector: 'Consumer Cyclical', description: 'NIKE Inc', asset_class: 'stocks', atr_d1: 1.545000, atr_w1: 4.986429, atr_mn1: 11.038571, outliers: [], ev_data: { market_cap: 107444469760, enterprise_value: 109314727936, mcap_ev_ratio: 98.3 } },
+            'NOC': { var: 8.203320, price: 581.31, sector: 'Industrials', description: 'Northrop Grumman Corp', asset_class: 'stocks', atr_d1: 8.062857, atr_w1: 23.535714, atr_mn1: 54.157143, outliers: [], ev_data: { market_cap: 82954502144, enterprise_value: 99141492736, mcap_ev_ratio: 83.7 } },
+            'NOV': { var: 0.442586, price: 13.32, sector: 'Energy', description: 'NOV Inc', asset_class: 'stocks', atr_d1: 0.403571, atr_w1: 0.969286, atr_mn1: 2.401429, outliers: ['var', 'atr'], ev_data: { market_cap: 4939154432, enterprise_value: 6061331968, mcap_ev_ratio: 81.5 } },
+            'NOW': { var: 29.500598, price: 933.23, sector: 'Technology', description: 'ServiceNow Inc', asset_class: 'stocks', atr_d1: 26.180714, atr_w1: 61.317857, atr_mn1: 137.670000, outliers: [], ev_data: { market_cap: 193409794048, enterprise_value: 189686775808, mcap_ev_ratio: 102.0 } },
+            'NQ_U': { var: 5936.068983, price: 24285.00, sector: 'Indexes', description: 'E-mini Nasdaq 100 September', asset_class: 'futures', atr_d1: 264.428571, atr_w1: 666.196429, atr_mn1: 1901.375000, outliers: [] },
+            'NQ_Z': { var: 6022.560811, price: 24524.50, sector: 'Indexes', description: 'E-mini Nasdaq 100 December', asset_class: 'futures', atr_d1: 267.642857, atr_w1: 672.642857, atr_mn1: 1920.089286, outliers: [] },
+            'NRG': { var: 5.607051, price: 164.39, sector: 'Utilities', description: 'NRG Energy Inc', asset_class: 'stocks', atr_d1: 4.860000, atr_w1: 13.303571, atr_mn1: 22.705000, outliers: [], ev_data: { market_cap: 31765239808, enterprise_value: 43358208000, mcap_ev_ratio: 73.3 } },
+            'NSC': { var: 4.806429, price: 278.14, sector: 'Industrials', description: 'Norfolk Southern Corp', asset_class: 'stocks', atr_d1: 4.343571, atr_w1: 11.656429, atr_mn1: 28.372857, outliers: [], ev_data: { market_cap: 62390603776, enterprise_value: 79061155840, mcap_ev_ratio: 78.9 } },
+            'NTAP': { var: 3.723913, price: 123.35, sector: 'Technology', description: 'NetApp Inc', asset_class: 'stocks', atr_d1: 3.370714, atr_w1: 6.084286, atr_mn1: 15.749286, outliers: [], ev_data: { market_cap: 24626872320, enterprise_value: 24041920512, mcap_ev_ratio: 102.4 } },
+            'NTNX': { var: 3.564116, price: 77.86, sector: 'Technology', description: 'Nutanix Inc', asset_class: 'stocks', atr_d1: 2.731429, atr_w1: 5.154286, atr_mn1: 12.169286, outliers: [], ev_data: { market_cap: 20829581312, enterprise_value: 20364873728, mcap_ev_ratio: 102.3 } },
+            'NTRS': { var: 2.174405, price: 129.63, sector: 'Financial', description: 'Northern Trust Corp', asset_class: 'stocks', atr_d1: 2.607857, atr_w1: 6.428571, atr_mn1: 13.353571, outliers: [], ev_data: { market_cap: 24642932736, enterprise_value: 33262004224, mcap_ev_ratio: 74.1 } },
+            'NUE': { var: 3.322645, price: 143.24, sector: 'Basic Materials', description: 'Nucor Corp', asset_class: 'stocks', atr_d1: 3.527143, atr_w1: 8.167143, atr_mn1: 21.752143, outliers: [], ev_data: { market_cap: 32807436288, enterprise_value: 38308499456, mcap_ev_ratio: 85.6 } },
+            'NVDA': { var: 5.191250, price: 175.01, sector: 'Technology', description: 'NVIDIA Corp', asset_class: 'stocks', atr_d1: 4.854286, atr_w1: 10.228571, atr_mn1: 27.852857, outliers: [], ev_data: { market_cap: 4257803665408, enterprise_value: 4273132011520, mcap_ev_ratio: 99.6 } },
+            'NVST': { var: 0.759124, price: 21.10, sector: 'Healthcare', description: 'Envista Holdings Corp', asset_class: 'stocks', atr_d1: 0.631429, atr_w1: 1.398571, atr_mn1: 3.363571, outliers: [], ev_data: { market_cap: 3511419904, enterprise_value: 3997019648, mcap_ev_ratio: 87.9 } },
+            'NWL': { var: 0.309033, price: 5.86, sector: 'Consumer Defensive', description: 'Newell Brands Inc', asset_class: 'stocks', atr_d1: 0.225714, atr_w1: 0.665000, atr_mn1: 1.811429, outliers: [], ev_data: { market_cap: 2455926016, enterprise_value: 8157925888, mcap_ev_ratio: 30.1 } },
+            'NWSA': { var: 0.699521, price: 29.74, sector: 'Communication Services', description: 'News Corp', asset_class: 'stocks', atr_d1: 0.640000, atr_w1: 1.197857, atr_mn1: 2.590714, outliers: [], ev_data: { market_cap: 17299736576, enterprise_value: 17941608448, mcap_ev_ratio: 96.4 } },
+            'NXST': { var: 6.439291, price: 203.84, sector: 'Communication Services', description: 'Nexstar Media Group Inc', asset_class: 'stocks', atr_d1: 5.725000, atr_w1: 12.835000, atr_mn1: 25.338571, outliers: ['ev'], ev_data: { market_cap: 6152591360, enterprise_value: 12591585280, mcap_ev_ratio: 48.9 } },
+            'NYT': { var: 0.776828, price: 58.39, sector: 'Communication Services', description: 'New York Times Co/The', asset_class: 'stocks', atr_d1: 1.077143, atr_w1: 2.776429, atr_mn1: 5.873571, outliers: ['var'], ev_data: { market_cap: 9493977088, enterprise_value: 8953720832, mcap_ev_ratio: 106.0 } },
+            'NZDCAD': { var: 423.874982, price: 0.82, sector: 'Currency', description: 'New Zealand Dollar vs Canadian Dollar', asset_class: 'cfd', atr_d1: 0.005782, atr_w1: 0.012474, atr_mn1: 0.026358, outliers: [] },
+            'NZDCHF': { var: 450.276988, price: 0.47, sector: 'Currency', description: 'New Zealand Dollar vs Swiss Franc', asset_class: 'cfd', atr_d1: 0.003546, atr_w1: 0.008014, atr_mn1: 0.021431, outliers: [] },
+            'NZDJPY': { var: 474.256606, price: 87.68, sector: 'Currency', description: 'New Zealand vs Japanise Yen', asset_class: 'cfd', atr_d1: 0.481929, atr_w1: 1.417571, atr_mn1: 4.473500, outliers: [] },
+            'NZDUSD': { var: 527.985946, price: 0.60, sector: 'Currency', description: 'New Zealand Dollar vs US Dollar', asset_class: 'cfd', atr_d1: 0.004901, atr_w1: 0.011399, atr_mn1: 0.028966, outliers: [] },
+            'OC': { var: 5.502450, price: 149.80, sector: 'Industrials', description: 'Owens Corning', asset_class: 'stocks', atr_d1: 4.151429, atr_w1: 10.605000, atr_mn1: 26.268571, outliers: [], ev_data: { market_cap: 12509016064, enterprise_value: 18533677056, mcap_ev_ratio: 67.5 } },
+            'ODFL': { var: 5.209716, price: 147.07, sector: 'Industrials', description: 'Old Dominion Freight Line Inc', asset_class: 'stocks', atr_d1: 4.295714, atr_w1: 11.219286, atr_mn1: 28.704286, outliers: [], ev_data: { market_cap: 30898900992, enterprise_value: 30672857088, mcap_ev_ratio: 100.7 } },
+            'OEF': { var: 3.412278, price: 329.59, sector: 'Financial', description: 'iShares S&P 100 ETF', asset_class: 'stocks', atr_d1: 2.842143, atr_w1: 7.294286, atr_mn1: 20.019286, outliers: ['var'] },
+            'OGE': { var: 0.590759, price: 43.68, sector: 'Utilities', description: 'OGE Energy Corp', asset_class: 'stocks', atr_d1: 0.611429, atr_w1: 1.341429, atr_mn1: 3.350714, outliers: ['var'], ev_data: { market_cap: 8788878336, enterprise_value: 14833074176, mcap_ev_ratio: 59.3 } },
+            'OKE': { var: 1.378906, price: 72.60, sector: 'Energy', description: 'ONEOK Inc', asset_class: 'stocks', atr_d1: 1.506429, atr_w1: 3.904286, atr_mn1: 12.228571, outliers: [], ev_data: { market_cap: 45707694080, enterprise_value: 78151688192, mcap_ev_ratio: 58.5 } },
+            'OKTA': { var: 2.506799, price: 90.13, sector: 'Technology', description: 'Okta Inc', asset_class: 'stocks', atr_d1: 2.910000, atr_w1: 6.093571, atr_mn1: 15.810714, outliers: ['ev'], ev_data: { market_cap: 15851636736, enterprise_value: 13933626368, mcap_ev_ratio: 113.8 } },
+            'OLED': { var: 4.017304, price: 137.08, sector: 'Technology', description: 'Universal Display Corp', asset_class: 'stocks', atr_d1: 3.988571, atr_w1: 9.472143, atr_mn1: 29.526429, outliers: ['ev'], ev_data: { market_cap: 6511234560, enterprise_value: 6007862784, mcap_ev_ratio: 108.4 } },
+            'OLLI': { var: 4.194415, price: 135.54, sector: 'Consumer Defensive', description: 'Ollie\'s Bargain Outlet Holding', asset_class: 'stocks', atr_d1: 4.513571, atr_w1: 8.720714, atr_mn1: 17.545000, outliers: [], ev_data: { market_cap: 8282394624, enterprise_value: 8630908928, mcap_ev_ratio: 96.0 } },
+            'OLN': { var: 1.328005, price: 25.46, sector: 'Basic Materials', description: 'Olin Corp', asset_class: 'stocks', atr_d1: 1.041429, atr_w1: 2.328571, atr_mn1: 6.086429, outliers: ['ev'], ev_data: { market_cap: 2911906816, enterprise_value: 6002795008, mcap_ev_ratio: 48.5 } },
+            'OMC': { var: 1.796257, price: 77.00, sector: 'Communication Services', description: 'Omnicom Group Inc', asset_class: 'stocks', atr_d1: 1.723571, atr_w1: 4.179286, atr_mn1: 10.028571, outliers: [], ev_data: { market_cap: 14897299456, enterprise_value: 19715989504, mcap_ev_ratio: 75.6 } },
+            'OMCL': { var: 1.279332, price: 32.45, sector: 'Healthcare', description: 'Omnicell Inc', asset_class: 'stocks', atr_d1: 1.092857, atr_w1: 2.217857, atr_mn1: 7.823571, outliers: [], ev_data: { market_cap: 1484596608, enterprise_value: 1467244928, mcap_ev_ratio: 101.2 } },
+            'OMF': { var: 1.536636, price: 60.60, sector: 'Financial', description: 'OneMain Holdings Inc', asset_class: 'stocks', atr_d1: 1.237143, atr_w1: 2.933571, atr_mn1: 7.951429, outliers: ['ev'], ev_data: { market_cap: 7196389888, enterprise_value: 28587395072, mcap_ev_ratio: 25.2 } },
+            'ON': { var: 1.566648, price: 49.60, sector: 'Technology', description: 'ON Semiconductor Corp', asset_class: 'stocks', atr_d1: 1.575000, atr_w1: 4.910000, atr_mn1: 11.415714, outliers: [], ev_data: { market_cap: 20268752896, enterprise_value: 21097650176, mcap_ev_ratio: 96.1 } },
+            'ORCL': { var: 43.949628, price: 306.73, sector: 'Technology', description: 'Oracle Corp', asset_class: 'stocks', atr_d1: 16.882857, atr_w1: 25.799286, atr_mn1: 30.109286, outliers: ['var', 'atr'], ev_data: { market_cap: 871410368512, enterprise_value: 959724453888, mcap_ev_ratio: 90.8 } },
+            'ORI': { var: 0.741432, price: 39.25, sector: 'Financial', description: 'Old Republic International Cor', asset_class: 'stocks', atr_d1: 0.672143, atr_w1: 1.421429, atr_mn1: 3.498571, outliers: [], ev_data: { market_cap: 9740023808, enterprise_value: 9809921024, mcap_ev_ratio: 99.3 } },
+            'ORLY': { var: 1.908493, price: 105.51, sector: 'Consumer Cyclical', description: 'O\'Reilly Automotive Inc', asset_class: 'stocks', atr_d1: 1.607143, atr_w1: 3.635714, atr_mn1: 7.595714, outliers: [], ev_data: { market_cap: 89423101952, enterprise_value: 97529765888, mcap_ev_ratio: 91.7 } },
+            'OSK': { var: 3.188374, price: 136.11, sector: 'Industrials', description: 'Oshkosh Corp', asset_class: 'stocks', atr_d1: 2.870714, atr_w1: 7.159286, atr_mn1: 17.522857, outliers: [], ev_data: { market_cap: 8702120960, enterprise_value: 10008722432, mcap_ev_ratio: 86.9 } },
+            'OTIS': { var: 1.437125, price: 89.33, sector: 'Industrials', description: 'Otis Worldwide Corp', asset_class: 'stocks', atr_d1: 1.130000, atr_w1: 4.147857, atr_mn1: 9.095714, outliers: ['atr'], ev_data: { market_cap: 35012694016, enterprise_value: 42611716096, mcap_ev_ratio: 82.2 } },
+            'OXY': { var: 1.164625, price: 47.71, sector: 'Energy', description: 'Occidental Petroleum Corp', asset_class: 'stocks', atr_d1: 1.067143, atr_w1: 2.878571, atr_mn1: 6.517143, outliers: [], ev_data: { market_cap: 47016853504, enterprise_value: 77605838848, mcap_ev_ratio: 60.6 } },
+            'OZK': { var: 1.115098, price: 51.19, sector: 'Financial', description: 'Bank OZK', asset_class: 'stocks', atr_d1: 1.107143, atr_w1: 2.830000, atr_mn1: 6.966429, outliers: ['ev'], ev_data: { market_cap: 5767219200, enterprise_value: 4826099712, mcap_ev_ratio: 119.5 } },
+            'PANW': { var: 3.756116, price: 201.49, sector: 'Technology', description: 'Palo Alto Networks Inc', asset_class: 'stocks', atr_d1: 4.189286, atr_w1: 12.960714, atr_mn1: 27.346429, outliers: [], ev_data: { market_cap: 134676316160, enterprise_value: 132185178112, mcap_ev_ratio: 101.9 } },
+            'PAYC': { var: 6.501482, price: 214.18, sector: 'Technology', description: 'Paycom Software Inc', asset_class: 'stocks', atr_d1: 4.922857, atr_w1: 15.288571, atr_mn1: 33.867143, outliers: [], ev_data: { market_cap: 12000658432, enterprise_value: 11549657088, mcap_ev_ratio: 103.9 } },
+            'PAYX': { var: 2.596925, price: 131.65, sector: 'Industrials', description: 'Paychex Inc', asset_class: 'stocks', atr_d1: 2.395000, atr_w1: 6.426429, atr_mn1: 13.355000, outliers: [], ev_data: { market_cap: 47331733504, enterprise_value: 50796998656, mcap_ev_ratio: 93.2 } },
+            'PCAR': { var: 2.812208, price: 102.97, sector: 'Industrials', description: 'PACCAR Inc', asset_class: 'stocks', atr_d1: 2.330000, atr_w1: 5.097143, atr_mn1: 12.037143, outliers: [], ev_data: { market_cap: 54012096512, enterprise_value: 61807333376, mcap_ev_ratio: 87.4 } },
+            'PCTY': { var: 4.474632, price: 165.86, sector: 'Technology', description: 'Paylocity Holding Corp', asset_class: 'stocks', atr_d1: 3.834286, atr_w1: 10.743571, atr_mn1: 24.788571, outliers: [], ev_data: { market_cap: 9149654016, enterprise_value: 9076311040, mcap_ev_ratio: 100.8 } },
+            'PEG': { var: 1.306970, price: 81.25, sector: 'Utilities', description: 'Public Service Enterprise Grou', asset_class: 'stocks', atr_d1: 1.165714, atr_w1: 3.083571, atr_mn1: 8.595000, outliers: ['atr'], ev_data: { market_cap: 40535277568, enterprise_value: 63782256640, mcap_ev_ratio: 63.6 } },
+            'PEGA': { var: 1.652522, price: 58.18, sector: 'Technology', description: 'Pegasystems Inc', asset_class: 'stocks', atr_d1: 1.459286, atr_w1: 4.229286, atr_mn1: 8.769286, outliers: [], ev_data: { market_cap: 9929540608, enterprise_value: 9596971008, mcap_ev_ratio: 103.5 } },
+            'PEN': { var: 10.078611, price: 263.71, sector: 'Healthcare', description: 'Penumbra Inc', asset_class: 'stocks', atr_d1: 9.067857, atr_w1: 16.050000, atr_mn1: 41.870000, outliers: [], ev_data: { market_cap: 10255203328, enterprise_value: 10057416704, mcap_ev_ratio: 102.0 } },
+            'PENN': { var: 0.608681, price: 18.93, sector: 'Consumer Cyclical', description: 'Penn Entertainment Inc', asset_class: 'stocks', atr_d1: 0.573571, atr_w1: 1.515714, atr_mn1: 3.775714, outliers: ['ev'], ev_data: { market_cap: 2762414336, enterprise_value: 13063402496, mcap_ev_ratio: 21.1 } },
+            'PEP': { var: 2.806990, price: 140.06, sector: 'Consumer Defensive', description: 'PepsiCo Inc', asset_class: 'stocks', atr_d1: 2.884286, atr_w1: 6.232143, atr_mn1: 13.472857, outliers: [], ev_data: { market_cap: 191712280576, enterprise_value: 235237867520, mcap_ev_ratio: 81.5 } },
+            'PFE': { var: 0.531096, price: 23.90, sector: 'Healthcare', description: 'Pfizer Inc', asset_class: 'stocks', atr_d1: 0.417143, atr_w1: 1.150000, atr_mn1: 2.750714, outliers: [], ev_data: { market_cap: 135884644352, enterprise_value: 184996659200, mcap_ev_ratio: 73.5 } },
+            'PFF': { var: 0.192835, price: 32.13, sector: 'Financial', description: 'iShares Preferred & Income Sec', asset_class: 'stocks', atr_d1: 0.145714, atr_w1: 0.417857, atr_mn1: 1.160000, outliers: ['var'] },
+            'PFG': { var: 1.372620, price: 80.10, sector: 'Financial', description: 'Principal Financial Group Inc', asset_class: 'stocks', atr_d1: 1.655000, atr_w1: 3.340714, atr_mn1: 9.706429, outliers: [], ev_data: { market_cap: 17841487872, enterprise_value: 17534824448, mcap_ev_ratio: 101.7 } },
+            'PFGC': { var: 2.411318, price: 105.00, sector: 'Consumer Defensive', description: 'Performance Food Group Co', asset_class: 'stocks', atr_d1: 2.113571, atr_w1: 4.863571, atr_mn1: 10.183571, outliers: [], ev_data: { market_cap: 16393800704, enterprise_value: 24202612736, mcap_ev_ratio: 67.7 } },
+            'PG': { var: 2.182788, price: 158.08, sector: 'Consumer Defensive', description: 'Procter & Gamble Co/The', asset_class: 'stocks', atr_d1: 1.960000, atr_w1: 4.745714, atr_mn1: 13.340000, outliers: ['var'], ev_data: { market_cap: 369914445824, enterprise_value: 398230814720, mcap_ev_ratio: 92.9 } },
+            'PGNY': { var: 0.781837, price: 21.79, sector: 'Healthcare', description: 'Progyny Inc', asset_class: 'stocks', atr_d1: 0.721429, atr_w1: 1.947143, atr_mn1: 4.478571, outliers: ['var', 'ev'], ev_data: { market_cap: 1871836928, enterprise_value: 1595374080, mcap_ev_ratio: 117.3 } },
+            'PGR': { var: 4.150735, price: 245.47, sector: 'Financial', description: 'Progressive Corp/The', asset_class: 'stocks', atr_d1: 3.781429, atr_w1: 10.268571, atr_mn1: 27.032143, outliers: [], ev_data: { market_cap: 143650406400, enterprise_value: 148270497792, mcap_ev_ratio: 96.9 } },
+            'PH': { var: 13.502644, price: 755.82, sector: 'Industrials', description: 'Parker-Hannifin Corp', asset_class: 'stocks', atr_d1: 13.895000, atr_w1: 32.911429, atr_mn1: 80.282857, outliers: [], ev_data: { market_cap: 95524560896, enterprise_value: 104552677376, mcap_ev_ratio: 91.4 } },
+            'PHM': { var: 4.633803, price: 134.13, sector: 'Consumer Cyclical', description: 'PulteGroup Inc', asset_class: 'stocks', atr_d1: 3.315714, atr_w1: 8.351429, atr_mn1: 18.543571, outliers: [], ev_data: { market_cap: 26412281856, enterprise_value: 27440537600, mcap_ev_ratio: 96.3 } },
+            'PII': { var: 2.504352, price: 58.52, sector: 'Consumer Cyclical', description: 'Polaris Inc', asset_class: 'stocks', atr_d1: 2.322857, atr_w1: 5.432143, atr_mn1: 11.647143, outliers: [], ev_data: { market_cap: 3286889984, enterprise_value: 4919192576, mcap_ev_ratio: 66.8 } },
+            'PINS': { var: 1.066762, price: 36.27, sector: 'Communication Services', description: 'Pinterest Inc', asset_class: 'stocks', atr_d1: 1.107857, atr_w1: 2.437857, atr_mn1: 6.408571, outliers: ['ev'], ev_data: { market_cap: 24647462912, enterprise_value: 22132287488, mcap_ev_ratio: 111.4 } },
+            'PKG': { var: 6.671250, price: 211.96, sector: 'Consumer Cyclical', description: 'Packaging Corp of America', asset_class: 'stocks', atr_d1: 4.257857, atr_w1: 10.915000, atr_mn1: 22.666429, outliers: ['atr', 'ev'], ev_data: { market_cap: 19027816448, enterprise_value: 20829048832, mcap_ev_ratio: 91.4 } },
+            'PLD': { var: 3.484796, price: 114.07, sector: 'Real Estate', description: 'Prologis Inc', asset_class: 'stocks', atr_d1: 2.276429, atr_w1: 4.939286, atr_mn1: 13.448571, outliers: ['var'], ev_data: { market_cap: 105827016704, enterprise_value: 144699949056, mcap_ev_ratio: 73.1 } },
+            'PLNT': { var: 2.244748, price: 100.77, sector: 'Consumer Cyclical', description: 'Planet Fitness Inc', asset_class: 'stocks', atr_d1: 2.280000, atr_w1: 5.964286, atr_mn1: 12.490000, outliers: [], ev_data: { market_cap: 8488219648, enterprise_value: 10648398848, mcap_ev_ratio: 79.7 } },
+            'PL_F': { var: 2062.857066, price: 1419.90, sector: 'Commodities', description: 'Platinum January', asset_class: 'futures', atr_d1: 43.492857, atr_w1: 109.071429, atr_mn1: 144.021429, outliers: [] },
+            'PL_V': { var: 2041.296597, price: 1403.20, sector: 'Commodities', description: 'Platinum October', asset_class: 'futures', atr_d1: 43.514286, atr_w1: 108.021429, atr_mn1: 142.700000, outliers: [] },
+            'PM': { var: 3.996566, price: 163.31, sector: 'Consumer Defensive', description: 'Philip Morris International In', asset_class: 'stocks', atr_d1: 3.582857, atr_w1: 8.896429, atr_mn1: 16.106429, outliers: [], ev_data: { market_cap: 253661904896, enterprise_value: 302967783424, mcap_ev_ratio: 83.7 } },
+            'PNC': { var: 3.969511, price: 201.14, sector: 'Financial', description: 'PNC Financial Services Group I', asset_class: 'stocks', atr_d1: 3.414286, atr_w1: 7.964286, atr_mn1: 22.602857, outliers: [], ev_data: { market_cap: 79131582464, enterprise_value: 136333656064, mcap_ev_ratio: 58.0 } },
+            'PNFP': { var: 2.168894, price: 94.88, sector: 'Financial', description: 'Pinnacle Financial Partners In', asset_class: 'stocks', atr_d1: 2.276429, atr_w1: 8.197857, atr_mn1: 19.235714, outliers: ['atr'], ev_data: { market_cap: 7341432832, enterprise_value: 6876255232, mcap_ev_ratio: 106.8 } },
+            'PNW': { var: 1.143155, price: 86.07, sector: 'Utilities', description: 'Pinnacle West Capital Corp', asset_class: 'stocks', atr_d1: 0.998571, atr_w1: 2.779286, atr_mn1: 7.282143, outliers: ['var', 'ev'], ev_data: { market_cap: 10258779136, enterprise_value: 24345634816, mcap_ev_ratio: 42.1 } },
+            'PODD': { var: 7.336213, price: 332.49, sector: 'Healthcare', description: 'Insulet Corp', asset_class: 'stocks', atr_d1: 8.340714, atr_w1: 17.148571, atr_mn1: 39.247857, outliers: [], ev_data: { market_cap: 23953881088, enterprise_value: 24231974912, mcap_ev_ratio: 98.9 } },
+            'POOL': { var: 13.299118, price: 329.09, sector: 'Consumer Cyclical', description: 'Pool Corp', asset_class: 'stocks', atr_d1: 8.055714, atr_w1: 21.714286, atr_mn1: 44.370714, outliers: [], ev_data: { market_cap: 12250753024, enterprise_value: 13589848064, mcap_ev_ratio: 90.1 } },
+            'POST': { var: 2.500843, price: 103.35, sector: 'Consumer Defensive', description: 'Post Holdings Inc', asset_class: 'stocks', atr_d1: 2.172857, atr_w1: 4.927857, atr_mn1: 10.185714, outliers: ['ev'], ev_data: { market_cap: 5599315968, enterprise_value: 11875518464, mcap_ev_ratio: 47.2 } },
+            'PPG': { var: 2.296315, price: 108.44, sector: 'Basic Materials', description: 'PPG Industries Inc', asset_class: 'stocks', atr_d1: 2.063571, atr_w1: 5.725714, atr_mn1: 11.948571, outliers: [], ev_data: { market_cap: 24456851456, enterprise_value: 31210852352, mcap_ev_ratio: 78.4 } },
+            'PPL': { var: 0.423470, price: 35.51, sector: 'Utilities', description: 'PPL Corp', asset_class: 'stocks', atr_d1: 0.435000, atr_w1: 1.102143, atr_mn1: 2.699286, outliers: ['var'], ev_data: { market_cap: 26245388288, enterprise_value: 43805396992, mcap_ev_ratio: 59.9 } },
+            'PRU': { var: 2.090981, price: 102.17, sector: 'Financial', description: 'Prudential Financial Inc', asset_class: 'stocks', atr_d1: 1.905000, atr_w1: 4.292143, atr_mn1: 12.488571, outliers: [], ev_data: { market_cap: 35950977024, enterprise_value: 51040800768, mcap_ev_ratio: 70.4 } },
+            'PSA': { var: 6.421903, price: 285.58, sector: 'Real Estate', description: 'Public Storage', asset_class: 'stocks', atr_d1: 4.950714, atr_w1: 11.715000, atr_mn1: 33.238571, outliers: [], ev_data: { market_cap: 49970765824, enterprise_value: 63760289792, mcap_ev_ratio: 78.4 } },
+            'PSTG': { var: 10.557039, price: 87.10, sector: 'Technology', description: 'Pure Storage Inc', asset_class: 'stocks', atr_d1: 3.802857, atr_w1: 5.817143, atr_mn1: 12.740000, outliers: ['var'], ev_data: { market_cap: 28463798272, enterprise_value: 27309041664, mcap_ev_ratio: 104.2 } },
+            'PTC': { var: 4.457540, price: 205.05, sector: 'Technology', description: 'PTC Inc', asset_class: 'stocks', atr_d1: 4.502857, atr_w1: 11.231429, atr_mn1: 21.267143, outliers: [], ev_data: { market_cap: 24551575552, enterprise_value: 25763911680, mcap_ev_ratio: 95.3 } },
+            'PVH': { var: 3.024441, price: 83.50, sector: 'Consumer Cyclical', description: 'PVH Corp', asset_class: 'stocks', atr_d1: 2.896429, atr_w1: 5.793571, atr_mn1: 15.479286, outliers: ['ev'], ev_data: { market_cap: 3990575104, enterprise_value: 8031773696, mcap_ev_ratio: 49.7 } },
+            'PWR': { var: 8.797795, price: 378.66, sector: 'Industrials', description: 'Quanta Services Inc', asset_class: 'stocks', atr_d1: 9.351429, atr_w1: 23.845714, atr_mn1: 49.991429, outliers: [], ev_data: { market_cap: 56360026112, enterprise_value: 60969111552, mcap_ev_ratio: 92.4 } },
+            'PYPL': { var: 1.552453, price: 66.91, sector: 'Financial', description: 'PayPal Holdings Inc', asset_class: 'stocks', atr_d1: 1.482857, atr_w1: 4.480000, atr_mn1: 10.735714, outliers: [], ev_data: { market_cap: 63867015168, enterprise_value: 66031046656, mcap_ev_ratio: 96.7 } },
+            'QCOM': { var: 3.066617, price: 164.31, sector: 'Technology', description: 'QUALCOMM Inc', asset_class: 'stocks', atr_d1: 3.307143, atr_w1: 8.452143, atr_mn1: 22.968571, outliers: [], ev_data: { market_cap: 177107075072, enterprise_value: 178733383680, mcap_ev_ratio: 99.1 } },
+            'QQQ': { var: 7.287964, price: 591.45, sector: 'Financial', description: 'Invesco QQQ Trust Series 1', asset_class: 'stocks', atr_d1: 5.785000, atr_w1: 14.662857, atr_mn1: 42.500714, outliers: [] },
+            'QRVO': { var: 2.049055, price: 87.09, sector: 'Technology', description: 'Qorvo Inc', asset_class: 'stocks', atr_d1: 2.658571, atr_w1: 5.465000, atr_mn1: 16.022857, outliers: [], ev_data: { market_cap: 8055365632, enterprise_value: 8439083520, mcap_ev_ratio: 95.5 } },
+            'QTWO': { var: 3.000631, price: 81.74, sector: 'Technology', description: 'Q2 Holdings Inc', asset_class: 'stocks', atr_d1: 2.192857, atr_w1: 5.972857, atr_mn1: 14.713571, outliers: [], ev_data: { market_cap: 5091553280, enterprise_value: 5098806272, mcap_ev_ratio: 99.9 } },
+            'QUAL': { var: 1.812540, price: 190.86, sector: 'Financial', description: 'iShares MSCI USA Quality Facto', asset_class: 'stocks', atr_d1: 1.417143, atr_w1: 3.968571, atr_mn1: 11.120714, outliers: ['var'] },
+            'RARE': { var: 1.073386, price: 29.51, sector: 'Healthcare', description: 'Ultragenyx Pharmaceutical Inc', asset_class: 'stocks', atr_d1: 1.005000, atr_w1: 3.427857, atr_mn1: 8.530000, outliers: ['atr'], ev_data: { market_cap: 2841034752, enterprise_value: 3238257920, mcap_ev_ratio: 87.7 } },
+            'RB_V': { var: 1827.055961, price: 2.04, sector: 'Commodities', description: 'RBOB Gasoline October', asset_class: 'futures', atr_d1: 0.044579, atr_w1: 0.115014, atr_mn1: 0.207386, outliers: [] },
+            'RCL': { var: 12.716789, price: 321.45, sector: 'Consumer Cyclical', description: 'Royal Caribbean Cruises Ltd', asset_class: 'stocks', atr_d1: 10.770714, atr_w1: 25.685714, atr_mn1: 45.917143, outliers: [], ev_data: { market_cap: 87382728704, enterprise_value: 106575618048, mcap_ev_ratio: 82.0 } },
+            'REGN': { var: 17.019297, price: 576.17, sector: 'Healthcare', description: 'Regeneron Pharmaceuticals Inc', asset_class: 'stocks', atr_d1: 13.659286, atr_w1: 32.063571, atr_mn1: 116.527857, outliers: ['ev'], ev_data: { market_cap: 60948885504, enterprise_value: 54862000128, mcap_ev_ratio: 111.1 } },
+            'RF': { var: 0.566952, price: 26.58, sector: 'Financial', description: 'Regions Financial Corp', asset_class: 'stocks', atr_d1: 0.496429, atr_w1: 1.251429, atr_mn1: 3.078571, outliers: [] },
+            'RGA': { var: 3.297869, price: 187.07, sector: 'Financial', description: 'Reinsurance Group of America I', asset_class: 'stocks', atr_d1: 4.510000, atr_w1: 9.672857, atr_mn1: 25.737143, outliers: [], ev_data: { market_cap: 12352930816, enterprise_value: 12258922496, mcap_ev_ratio: 100.8 } },
+            'RGEN': { var: 5.004769, price: 120.21, sector: 'Healthcare', description: 'Repligen Corp', asset_class: 'stocks', atr_d1: 4.720714, atr_w1: 11.901429, atr_mn1: 29.127143, outliers: [], ev_data: { market_cap: 6736847360, enterprise_value: 6714058752, mcap_ev_ratio: 100.3 } },
+            'RGLD': { var: 5.075275, price: 190.91, sector: 'Basic Materials', description: 'Royal Gold Inc', asset_class: 'stocks', atr_d1: 4.122143, atr_w1: 9.738571, atr_mn1: 20.236429, outliers: ['ev'], ev_data: { market_cap: 12546692096, enterprise_value: 12371516416, mcap_ev_ratio: 101.4 } },
+            'RH': { var: 16.724838, price: 231.34, sector: 'Consumer Cyclical', description: 'RH', asset_class: 'stocks', atr_d1: 11.239286, atr_w1: 29.731429, atr_mn1: 78.077857, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 4324494336, enterprise_value: 8201783808, mcap_ev_ratio: 52.7 } },
+            'RHI': { var: 1.280430, price: 35.52, sector: 'Industrials', description: 'Robert Half Inc', asset_class: 'stocks', atr_d1: 1.101429, atr_w1: 2.951429, atr_mn1: 8.064286, outliers: [], ev_data: { market_cap: 3611734528, enterprise_value: 3412450816, mcap_ev_ratio: 105.8 } },
+            'RJF': { var: 3.779515, price: 169.36, sector: 'Financial', description: 'Raymond James Financial Inc', asset_class: 'stocks', atr_d1: 3.704286, atr_w1: 7.113571, atr_mn1: 19.660714, outliers: ['ev'], ev_data: { market_cap: 33709854720, enterprise_value: 23013849088, mcap_ev_ratio: 146.5 } },
+            'RL': { var: 7.990577, price: 315.84, sector: 'Consumer Cyclical', description: 'Ralph Lauren Corp', asset_class: 'stocks', atr_d1: 7.365714, atr_w1: 17.333571, atr_mn1: 37.620714, outliers: [], ev_data: { market_cap: 19060310016, enterprise_value: 20022603776, mcap_ev_ratio: 95.2 } },
+            'RMD': { var: 6.851764, price: 273.69, sector: 'Healthcare', description: 'ResMed Inc', asset_class: 'stocks', atr_d1: 5.953571, atr_w1: 11.710714, atr_mn1: 27.786429, outliers: [], ev_data: { market_cap: 39912730624, enterprise_value: 39555047424, mcap_ev_ratio: 100.9 } },
+            'RNG': { var: 1.281740, price: 31.25, sector: 'Technology', description: 'RingCentral Inc', asset_class: 'stocks', atr_d1: 1.027143, atr_w1: 2.925714, atr_mn1: 5.935000, outliers: ['ev'], ev_data: { market_cap: 2825837824, enterprise_value: 4163307264, mcap_ev_ratio: 67.9 } },
+            'ROK': { var: 9.084985, price: 342.42, sector: 'Industrials', description: 'Rockwell Automation Inc', asset_class: 'stocks', atr_d1: 7.350000, atr_w1: 17.483571, atr_mn1: 36.453571, outliers: [], ev_data: { market_cap: 38481661952, enterprise_value: 42026795008, mcap_ev_ratio: 91.6 } },
+            'ROKU': { var: 3.781570, price: 98.04, sector: 'Communication Services', description: 'Roku Inc', asset_class: 'stocks', atr_d1: 3.128571, atr_w1: 7.982857, atr_mn1: 17.299286, outliers: ['var', 'ev'], ev_data: { market_cap: 14425179136, enterprise_value: 12739023872, mcap_ev_ratio: 113.2 } },
+            'ROL': { var: 1.184488, price: 55.24, sector: 'Consumer Cyclical', description: 'Rollins Inc', asset_class: 'stocks', atr_d1: 1.000000, atr_w1: 1.987857, atr_mn1: 4.408571, outliers: [], ev_data: { market_cap: 26766667776, enterprise_value: 27610814464, mcap_ev_ratio: 96.9 } },
+            'ROP': { var: 9.720024, price: 503.09, sector: 'Industrials', description: 'Roper Technologies Inc', asset_class: 'stocks', atr_d1: 8.013571, atr_w1: 18.504286, atr_mn1: 45.128571, outliers: [], ev_data: { market_cap: 54069579776, enterprise_value: 62671560704, mcap_ev_ratio: 86.3 } },
+            'ROST': { var: 2.963675, price: 146.49, sector: 'Consumer Cyclical', description: 'Ross Stores Inc', asset_class: 'stocks', atr_d1: 2.913571, atr_w1: 6.870714, atr_mn1: 17.079286, outliers: [], ev_data: { market_cap: 47899549696, enterprise_value: 48850354176, mcap_ev_ratio: 98.1 } },
+            'RPM': { var: 3.174651, price: 125.58, sector: 'Basic Materials', description: 'RPM International Inc', asset_class: 'stocks', atr_d1: 2.576429, atr_w1: 6.622857, atr_mn1: 14.192143, outliers: [], ev_data: { market_cap: 16090421248, enterprise_value: 18829932544, mcap_ev_ratio: 85.5 } },
+            'RRR': { var: 1.106338, price: 59.78, sector: 'Consumer Cyclical', description: 'Red Rock Resorts Inc', asset_class: 'stocks', atr_d1: 1.292143, atr_w1: 3.763571, atr_mn1: 8.100714, outliers: [], ev_data: { market_cap: 6117707264, enterprise_value: 6949588480, mcap_ev_ratio: 88.0 } },
+            'RRX': { var: 5.962669, price: 141.29, sector: 'Industrials', description: 'Regal Rexnord Corp', asset_class: 'stocks', atr_d1: 4.448571, atr_w1: 10.632857, atr_mn1: 27.510000, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 9377346560, enterprise_value: 14055407616, mcap_ev_ratio: 66.7 } },
+            'RS': { var: 6.124841, price: 291.00, sector: 'Basic Materials', description: 'Reliance Inc', asset_class: 'stocks', atr_d1: 6.735714, atr_w1: 16.717857, atr_mn1: 34.662143, outliers: [], ev_data: { market_cap: 15271574528, enterprise_value: 16774386688, mcap_ev_ratio: 91.0 } },
+            'RSG': { var: 3.277165, price: 225.30, sector: 'Industrials', description: 'Republic Services Inc', asset_class: 'stocks', atr_d1: 3.325714, atr_w1: 7.697857, atr_mn1: 17.510714, outliers: [], ev_data: { market_cap: 70351634432, enterprise_value: 83447586816, mcap_ev_ratio: 84.3 } },
+            'RSP': { var: 2.091513, price: 188.20, sector: 'Financial', description: 'Invesco S&P 500 Equal Weight E', asset_class: 'stocks', atr_d1: 1.591429, atr_w1: 4.200714, atr_mn1: 11.312857, outliers: [] },
+            'RTX': { var: 3.384667, price: 158.81, sector: 'Industrials', description: 'RTX Corp', asset_class: 'stocks', atr_d1: 2.665714, atr_w1: 6.058571, atr_mn1: 12.271429, outliers: [], ev_data: { market_cap: 212265680896, enterprise_value: 252646866944, mcap_ev_ratio: 84.0 } },
+            'RTY_U': { var: 2207.648071, price: 2404.90, sector: 'Indexes', description: 'E-Mini Rusell 2000 Index September', asset_class: 'futures', atr_d1: 31.050000, atr_w1: 93.250000, atr_mn1: 229.892857, outliers: [] },
+            'RTY_Z': { var: 2220.654752, price: 2422.10, sector: 'Indexes', description: 'E-Mini Rusell 2000 Index December', asset_class: 'futures', atr_d1: 31.385714, atr_w1: 94.028571, atr_mn1: 231.657143, outliers: [] },
+            'RVTY': { var: 3.764669, price: 85.27, sector: 'Healthcare', description: 'Revvity Inc', asset_class: 'stocks', atr_d1: 2.875714, atr_w1: 7.927857, atr_mn1: 15.980714, outliers: [], ev_data: { market_cap: 9898704896, enterprise_value: 12281679872, mcap_ev_ratio: 80.6 } },
+            'SAIA': { var: 18.140335, price: 329.28, sector: 'Industrials', description: 'Saia Inc', asset_class: 'stocks', atr_d1: 11.831429, atr_w1: 31.445000, atr_mn1: 91.275714, outliers: ['atr'], ev_data: { market_cap: 8752589824, enterprise_value: 9153931264, mcap_ev_ratio: 95.6 } },
+            'SAIC': { var: 3.676452, price: 103.11, sector: 'Technology', description: 'Science Applications Internati', asset_class: 'stocks', atr_d1: 3.372857, atr_w1: 6.942857, atr_mn1: 16.323571, outliers: [], ev_data: { market_cap: 4745788928, enterprise_value: 7142788608, mcap_ev_ratio: 66.4 } },
+            'SAM': { var: 6.951788, price: 222.05, sector: 'Consumer Defensive', description: 'Boston Beer Co Inc/The', asset_class: 'stocks', atr_d1: 6.027857, atr_w1: 15.073571, atr_mn1: 35.439286, outliers: ['atr', 'ev'], ev_data: { market_cap: 2421080320, enterprise_value: 2125378304, mcap_ev_ratio: 113.9 } },
+            'SBUX': { var: 2.000551, price: 84.36, sector: 'Consumer Cyclical', description: 'Starbucks Corp', asset_class: 'stocks', atr_d1: 1.711429, atr_w1: 4.999286, atr_mn1: 13.537857, outliers: [], ev_data: { market_cap: 95903383552, enterprise_value: 117390458880, mcap_ev_ratio: 81.7 } },
+            'SCHB': { var: 0.256144, price: 25.52, sector: 'Financial', description: 'Schwab US Broad Market ETF', asset_class: 'stocks', atr_d1: 0.185000, atr_w1: 0.525000, atr_mn1: 1.520714, outliers: ['var'] },
+            'SCHD': { var: 0.278213, price: 27.43, sector: 'Financial', description: 'Schwab US Dividend Equity ETF', asset_class: 'stocks', atr_d1: 0.229286, atr_w1: 0.647857, atr_mn1: 1.730000, outliers: ['var'] },
+            'SCHF': { var: 0.256356, price: 23.30, sector: 'Financial', description: 'Schwab International Equity ET', asset_class: 'stocks', atr_d1: 0.173571, atr_w1: 0.536429, atr_mn1: 1.382857, outliers: [] },
+            'SCHG': { var: 0.400180, price: 31.71, sector: 'Financial', description: 'Schwab U.S. Large-Cap Growth E', asset_class: 'stocks', atr_d1: 0.319286, atr_w1: 0.803571, atr_mn1: 2.287857, outliers: [] },
+            'SCHV': { var: 0.273224, price: 28.88, sector: 'Financial', description: 'Schwab U.S. Large-Cap Value ET', asset_class: 'stocks', atr_d1: 0.215714, atr_w1: 0.543571, atr_mn1: 1.664286, outliers: ['var'] },
+            'SCHW': { var: 2.408446, price: 90.99, sector: 'Financial', description: 'Charles Schwab Corp/The', asset_class: 'stocks', atr_d1: 2.027143, atr_w1: 3.778571, atr_mn1: 9.707857, outliers: ['ev'], ev_data: { market_cap: 165239472128, enterprise_value: 145210408960, mcap_ev_ratio: 113.8 } },
+            'SCI': { var: 1.710830, price: 79.89, sector: 'Consumer Cyclical', description: 'Service Corp International/US', asset_class: 'stocks', atr_d1: 1.542143, atr_w1: 2.940000, atr_mn1: 7.930000, outliers: [], ev_data: { market_cap: 11193956352, enterprise_value: 15977158656, mcap_ev_ratio: 70.1 } },
+            'SCZ': { var: 0.951495, price: 77.32, sector: 'Financial', description: 'iShares MSCI EAFE Small-Cap ET', asset_class: 'stocks', atr_d1: 0.649286, atr_w1: 1.753571, atr_mn1: 4.730714, outliers: [] },
+            'SEE': { var: 0.788147, price: 33.93, sector: 'Consumer Cyclical', description: 'Sealed Air Corp', asset_class: 'stocks', atr_d1: 0.783571, atr_w1: 1.933571, atr_mn1: 4.815714, outliers: [], ev_data: { market_cap: 4982107648, enterprise_value: 9069903872, mcap_ev_ratio: 54.9 } },
+            'SF': { var: 2.487834, price: 113.23, sector: 'Financial', description: 'Stifel Financial Corp', asset_class: 'stocks', atr_d1: 2.645000, atr_w1: 5.355000, atr_mn1: 14.922857, outliers: ['ev'], ev_data: { market_cap: 11541462016, enterprise_value: 10250617856, mcap_ev_ratio: 112.6 } },
+            'SGI': { var: 2.258480, price: 85.22, sector: 'Consumer Cyclical', description: 'Somnigroup International Inc', asset_class: 'stocks', atr_d1: 1.835714, atr_w1: 4.338571, outliers: ['var'], ev_data: { market_cap: 17878259712, enterprise_value: 24633067520, mcap_ev_ratio: 72.6 } },
+            'SHW': { var: 9.926658, price: 352.88, sector: 'Basic Materials', description: 'Sherwin-Williams Co/The', asset_class: 'stocks', atr_d1: 7.124286, atr_w1: 16.895000, atr_mn1: 39.343571, outliers: [], ev_data: { market_cap: 88064417792, enterprise_value: 101040881664, mcap_ev_ratio: 87.2 } },
+            'SITE': { var: 6.533802, price: 141.24, sector: 'Industrials', description: 'SiteOne Landscape Supply Inc', asset_class: 'stocks', atr_d1: 4.541429, atr_w1: 10.977143, atr_mn1: 22.835000, outliers: ['var', 'atr'], ev_data: { market_cap: 6286807552, enterprise_value: 7159581184, mcap_ev_ratio: 87.8 } },
+            'SI_Z': { var: 4335.872556, price: 42.85, sector: 'Commodities', description: 'Silver December', asset_class: 'futures', atr_d1: 0.940714, atr_w1: 1.932500, atr_mn1: 4.190357, outliers: [] },
+            'SJM': { var: 3.435026, price: 104.59, sector: 'Consumer Defensive', description: 'J M Smucker Co/The', asset_class: 'stocks', atr_d1: 3.187857, atr_w1: 6.381429, atr_mn1: 12.610714, outliers: [], ev_data: { market_cap: 11152849920, enterprise_value: 19241465856, mcap_ev_ratio: 58.0 } },
+            'SKYY': { var: 3.334060, price: 134.83, sector: 'Financial', description: 'First Trust Cloud Computing ET', asset_class: 'stocks', atr_d1: 2.565714, atr_w1: 5.678571, atr_mn1: 13.343571, outliers: [] },
+            'SLAB': { var: 5.090771, price: 134.72, sector: 'Technology', description: 'Silicon Laboratories Inc', asset_class: 'stocks', atr_d1: 4.227143, atr_w1: 12.851429, atr_mn1: 25.375000, outliers: ['ev'], ev_data: { market_cap: 4413985792, enterprise_value: 3998447360, mcap_ev_ratio: 110.4 } },
+            'SLB': { var: 1.082985, price: 35.27, sector: 'Energy', description: 'Schlumberger Ltd', asset_class: 'stocks', atr_d1: 0.968571, atr_w1: 2.418571, atr_mn1: 5.687143, outliers: ['var'], ev_data: { market_cap: 52644335616, enterprise_value: 58186919936, mcap_ev_ratio: 90.5 } },
+            'SLM': { var: 0.831282, price: 28.06, sector: 'Financial', description: 'SLM Corp', asset_class: 'stocks', atr_d1: 0.891429, atr_w1: 2.075000, atr_mn1: 4.282143, outliers: ['atr'], ev_data: { market_cap: 5845807104, enterprise_value: 8365855744, mcap_ev_ratio: 69.9 } },
+            'SLV': { var: 0.750813, price: 38.61, sector: 'Financial', description: 'iShares Silver Trust', asset_class: 'stocks', atr_d1: 0.587143, atr_w1: 1.377143, atr_mn1: 3.255000, outliers: [] },
+            'SMG': { var: 1.697286, price: 60.52, sector: 'Basic Materials', description: 'Scotts Miracle-Gro Co/The', asset_class: 'stocks', atr_d1: 1.679286, atr_w1: 4.560714, atr_mn1: 13.536429, outliers: [], ev_data: { market_cap: 3493185280, enterprise_value: 5915884032, mcap_ev_ratio: 59.0 } },
+            'SMH': { var: 6.239071, price: 307.54, sector: 'Financial', description: 'VanEck Vectors Semiconductor E', asset_class: 'stocks', atr_d1: 4.889286, atr_w1: 13.132143, atr_mn1: 35.266429, outliers: [] },
+            'SNA': { var: 7.281044, price: 334.02, sector: 'Industrials', description: 'Snap-on Inc', asset_class: 'stocks', atr_d1: 6.506429, atr_w1: 14.272143, atr_mn1: 33.157857, outliers: [], ev_data: { market_cap: 17423097856, enterprise_value: 17289287680, mcap_ev_ratio: 100.8 } },
+            'SNAP': { var: 0.245371, price: 7.76, sector: 'Communication Services', description: 'Snap Inc', asset_class: 'stocks', atr_d1: 0.230000, atr_w1: 0.810000, atr_mn1: 2.591429, outliers: [], ev_data: { market_cap: 13079283712, enterprise_value: 14378254336, mcap_ev_ratio: 91.0 } },
+            'SNPS': { var: 61.511558, price: 426.24, sector: 'Technology', description: 'Synopsys Inc', asset_class: 'stocks', atr_d1: 31.601429, atr_w1: 52.000000, atr_mn1: 83.036429, outliers: ['var', 'atr'], ev_data: { market_cap: 79123496960, enterprise_value: 91669618688, mcap_ev_ratio: 86.3 } },
+            'SNV': { var: 1.177395, price: 50.69, sector: 'Financial', description: 'Synovus Financial Corp', asset_class: 'stocks', atr_d1: 1.291429, atr_w1: 3.759286, atr_mn1: 8.594286, outliers: ['atr'], ev_data: { market_cap: 7019318272, enterprise_value: 8816063488, mcap_ev_ratio: 79.6 } },
+            'SNX': { var: 2.793383, price: 150.19, sector: 'Technology', description: 'SYNNEX Corp', asset_class: 'stocks', atr_d1: 2.941429, atr_w1: 7.331429, atr_mn1: 16.792143, outliers: [], ev_data: { market_cap: 12345325568, enterprise_value: 15683928064, mcap_ev_ratio: 78.7 } },
+            'SO': { var: 1.058713, price: 91.44, sector: 'Utilities', description: 'Southern Co/The', asset_class: 'stocks', atr_d1: 0.921429, atr_w1: 2.544286, atr_mn1: 6.330000, outliers: ['var'], ev_data: { market_cap: 100500570112, enterprise_value: 173388333056, mcap_ev_ratio: 58.0 } },
+            'SOXX': { var: 5.370947, price: 258.87, sector: 'Financial', description: 'iShares PHLX Semiconductor ETF', asset_class: 'stocks', atr_d1: 4.075000, atr_w1: 11.929286, atr_mn1: 30.902143, outliers: [] },
+            'SP500': { var: 589.321908, price: 6618.30, sector: 'Indexes', description: 'SP500', asset_class: 'cfd', atr_d1: 52.864286, atr_w1: 146.100000, atr_mn1: 395.035714, outliers: [] },
+            'SPA35': { var: 2267.705160, price: 15185.10, sector: 'Undefined', description: 'Spanish IBEX35 Index', asset_class: 'cfd', atr_d1: 171.971429, atr_w1: 440.557143, atr_mn1: 975.885714, outliers: [] },
+            'SPDW': { var: 0.481836, price: 42.82, sector: 'Financial', description: 'SPDR Portfolio Developed World', asset_class: 'stocks', atr_d1: 0.327143, atr_w1: 1.017143, atr_mn1: 2.567857, outliers: [] },
+            'SPG': { var: 3.048961, price: 181.58, sector: 'Real Estate', description: 'Simon Property Group Inc', asset_class: 'stocks', atr_d1: 2.852857, atr_w1: 6.893571, atr_mn1: 17.177857, outliers: ['var', 'atr'], ev_data: { market_cap: 68470616064, enterprise_value: 84633722880, mcap_ev_ratio: 80.9 } },
+            'SPGI': { var: 8.325615, price: 541.41, sector: 'Financial', description: 'S&P Global Inc', asset_class: 'stocks', atr_d1: 7.732857, atr_w1: 17.030714, atr_mn1: 45.800000, outliers: [], ev_data: { market_cap: 165255823360, enterprise_value: 179994836992, mcap_ev_ratio: 91.8 } },
+            'SPLV': { var: 0.773385, price: 72.35, sector: 'Financial', description: 'Invesco S&P 500 Low Volatility', asset_class: 'stocks', atr_d1: 0.573571, atr_w1: 1.332143, atr_mn1: 3.778571, outliers: ['var'] },
+            'SPR': { var: 0.974292, price: 38.69, sector: 'Industrials', description: 'Spirit AeroSystems Holdings In', asset_class: 'stocks', atr_d1: 0.910000, atr_w1: 1.965000, atr_mn1: 3.617857, outliers: ['ev'], ev_data: { market_cap: 4533547520, enterprise_value: 9617046528, mcap_ev_ratio: 47.1 } },
+            'SPY': { var: 6.228693, price: 660.12, sector: 'Financial', description: 'SPDR S&P 500 ETF Trust', asset_class: 'stocks', atr_d1: 4.813571, atr_w1: 13.369286, atr_mn1: 37.898571, outliers: ['var'] },
+            'SPYG': { var: 1.313540, price: 103.86, sector: 'Financial', description: 'SPDR Portfolio S&P 500 Growth', asset_class: 'stocks', atr_d1: 1.100000, atr_w1: 2.587143, atr_mn1: 7.351429, outliers: [] },
+            'SPYV': { var: 0.497254, price: 54.65, sector: 'Financial', description: 'SPDR Portfolio S&P 500 Value E', asset_class: 'stocks', atr_d1: 0.376429, atr_w1: 1.026429, atr_mn1: 3.069286, outliers: ['var'] },
+            'SRE': { var: 1.754794, price: 82.74, sector: 'Utilities', description: 'Sempra Energy', asset_class: 'stocks', atr_d1: 1.720714, atr_w1: 3.078571, atr_mn1: 8.915714, outliers: ['atr'], ev_data: { market_cap: 53959434240, enterprise_value: 100223467520, mcap_ev_ratio: 53.8 } },
+            'SRPT': { var: 1.019000, price: 18.08, sector: 'Healthcare', description: 'Sarepta Therapeutics Inc', asset_class: 'stocks', atr_d1: 0.914286, atr_w1: 5.117143, atr_mn1: 21.784286, outliers: ['var', 'atr'], ev_data: { market_cap: 1894563200, enterprise_value: 2332767232, mcap_ev_ratio: 81.2 } },
+            'SSNC': { var: 1.308116, price: 88.60, sector: 'Technology', description: 'SS&C Technologies Holdings Inc', asset_class: 'stocks', atr_d1: 1.483571, atr_w1: 3.273571, atr_mn1: 8.141429, outliers: ['ev'], ev_data: { market_cap: 21603788800, enterprise_value: 28215474176, mcap_ev_ratio: 76.6 } },
+            'ST': { var: 1.171351, price: 31.69, sector: 'Technology', description: 'Sensata Technologies Holding P', asset_class: 'stocks', atr_d1: 0.884286, atr_w1: 2.144286, atr_mn1: 5.020714, outliers: [], ev_data: { market_cap: 4610931200, enterprise_value: 7180319232, mcap_ev_ratio: 64.2 } },
+            'STE': { var: 5.120198, price: 248.42, sector: 'Healthcare', description: 'STERIS PLC', asset_class: 'stocks', atr_d1: 4.556429, atr_w1: 10.094286, atr_mn1: 22.417857, outliers: [], ev_data: { market_cap: 24424683520, enterprise_value: 26208956416, mcap_ev_ratio: 93.2 } },
+            'STLD': { var: 4.592458, price: 140.17, sector: 'Basic Materials', description: 'Steel Dynamics Inc', asset_class: 'stocks', atr_d1: 3.446429, atr_w1: 8.082143, atr_mn1: 19.729286, outliers: [], ev_data: { market_cap: 20560121856, enterprise_value: 23823456256, mcap_ev_ratio: 86.3 } },
+            'STOXX50E': { var: 574.067601, price: 5395.90, sector: 'Undefined', description: 'Europe 50', asset_class: 'cfd', atr_d1: 53.314286, atr_w1: 154.685714, atr_mn1: 371.657143, outliers: [] },
+            'STT': { var: 1.983432, price: 110.57, sector: 'Financial', description: 'State Street Corp', asset_class: 'stocks', atr_d1: 2.100000, atr_w1: 4.943571, atr_mn1: 10.934286, outliers: ['ev'], ev_data: { market_cap: 31345461248, enterprise_value: -52912500736, mcap_ev_ratio: -59.2 } },
+            'STZ': { var: 4.517275, price: 134.90, sector: 'Consumer Defensive', description: 'Constellation Brands Inc', asset_class: 'stocks', atr_d1: 4.432143, atr_w1: 9.163571, atr_mn1: 22.423571, outliers: ['atr'], ev_data: { market_cap: 23746910208, enterprise_value: 35499237376, mcap_ev_ratio: 66.9 } },
+            'SWK': { var: 3.250560, price: 78.00, sector: 'Industrials', description: 'Stanley Black & Decker Inc', asset_class: 'stocks', atr_d1: 2.219286, atr_w1: 5.412143, atr_mn1: 14.892857, outliers: [], ev_data: { market_cap: 12044364800, enterprise_value: 18875885568, mcap_ev_ratio: 63.8 } },
+            'SWKS': { var: 1.805131, price: 74.41, sector: 'Technology', description: 'Skyworks Solutions Inc', asset_class: 'stocks', atr_d1: 2.065000, atr_w1: 4.462857, atr_mn1: 13.098571, outliers: [], ev_data: { market_cap: 11016326144, enterprise_value: 10906193920, mcap_ev_ratio: 101.0 } },
+            'SYF': { var: 1.542605, price: 74.58, sector: 'Financial', description: 'Synchrony Financial', asset_class: 'stocks', atr_d1: 1.700000, atr_w1: 4.110714, atr_mn1: 9.660714, outliers: ['ev'], ev_data: { market_cap: 27729481728, enterprise_value: 25503449088, mcap_ev_ratio: 108.7 } },
+            'SYK': { var: 7.909597, price: 376.90, sector: 'Healthcare', description: 'Stryker Corp', asset_class: 'stocks', atr_d1: 6.720000, atr_w1: 14.057857, atr_mn1: 33.029286, outliers: [], ev_data: { market_cap: 143984459776, enterprise_value: 158648582144, mcap_ev_ratio: 90.8 } },
+            'SYNA': { var: 3.155606, price: 73.06, sector: 'Technology', description: 'Synaptics Inc', asset_class: 'stocks', atr_d1: 2.114286, atr_w1: 5.127857, atr_mn1: 13.857857, outliers: [], ev_data: { market_cap: 2799883008, enterprise_value: 3230286080, mcap_ev_ratio: 86.7 } },
+            'SYY': { var: 1.400469, price: 81.64, sector: 'Consumer Defensive', description: 'Sysco Corp', asset_class: 'stocks', atr_d1: 1.399286, atr_w1: 2.726429, atr_mn1: 5.988571, outliers: [], ev_data: { market_cap: 38988623872, enterprise_value: 52439654400, mcap_ev_ratio: 74.3 } },
+            'T': { var: 0.562324, price: 29.38, sector: 'Communication Services', description: 'AT&T Inc', asset_class: 'stocks', atr_d1: 0.527143, atr_w1: 1.086429, atr_mn1: 2.416429, outliers: [], ev_data: { market_cap: 209720934400, enterprise_value: 369315807232, mcap_ev_ratio: 56.8 } },
+            'TAP': { var: 0.983556, price: 47.45, sector: 'Consumer Defensive', description: 'Molson Coors Beverage Co', asset_class: 'stocks', atr_d1: 0.957857, atr_w1: 2.351429, atr_mn1: 6.346429, outliers: [], ev_data: { market_cap: 9394318336, enterprise_value: 15659425792, mcap_ev_ratio: 60.0 } },
+            'TDG': { var: 39.897422, price: 1286.21, sector: 'Industrials', description: 'TransDigm Group Inc', asset_class: 'stocks', atr_d1: 33.775714, atr_w1: 78.146429, atr_mn1: 147.392143, outliers: [], ev_data: { market_cap: 72225865728, enterprise_value: 94497849344, mcap_ev_ratio: 76.4 } },
+            'TDOC': { var: 0.306562, price: 7.88, sector: 'Healthcare', description: 'Teladoc Health Inc', asset_class: 'stocks', atr_d1: 0.221429, atr_w1: 0.814286, atr_mn1: 2.470000, outliers: [], ev_data: { market_cap: 1390558208, enterprise_value: 1746026496, mcap_ev_ratio: 79.6 } },
+            'TDY': { var: 11.254430, price: 556.04, sector: 'Technology', description: 'Teledyne Technologies Inc', asset_class: 'stocks', atr_d1: 9.927143, atr_w1: 23.652857, atr_mn1: 44.300000, outliers: [], ev_data: { market_cap: 26100944896, enterprise_value: 28413851648, mcap_ev_ratio: 91.9 } },
+            'TECH': { var: 2.274169, price: 51.74, sector: 'Healthcare', description: 'Bio-Techne Corp', asset_class: 'stocks', atr_d1: 1.966429, atr_w1: 5.083571, atr_mn1: 11.087857, outliers: [], ev_data: { market_cap: 8054379008, enterprise_value: 8336229376, mcap_ev_ratio: 96.6 } },
+            'TER': { var: 3.777656, price: 114.30, sector: 'Technology', description: 'Teradyne Inc', asset_class: 'stocks', atr_d1: 3.917857, atr_w1: 9.067143, atr_mn1: 23.301429, outliers: [], ev_data: { market_cap: 18123300864, enterprise_value: 17829818368, mcap_ev_ratio: 101.6 } },
+            'TFC': { var: 0.943877, price: 44.58, sector: 'Financial', description: 'Truist Financial Corp', asset_class: 'stocks', atr_d1: 0.763571, atr_w1: 2.081429, atr_mn1: 5.283571, outliers: [], ev_data: { market_cap: 57740853248, enterprise_value: 76103909376, mcap_ev_ratio: 75.9 } },
+            'TFX': { var: 3.724744, price: 126.09, sector: 'Healthcare', description: 'Teleflex Inc', asset_class: 'stocks', atr_d1: 3.429286, atr_w1: 6.871429, atr_mn1: 23.044286, outliers: [], ev_data: { market_cap: 5563433472, enterprise_value: 7401565696, mcap_ev_ratio: 75.2 } },
+            'TGT': { var: 2.893711, price: 89.71, sector: 'Consumer Defensive', description: 'Target Corp', asset_class: 'stocks', atr_d1: 1.664286, atr_w1: 6.202857, atr_mn1: 17.697857, outliers: [], ev_data: { market_cap: 40768679936, enterprise_value: 56829689856, mcap_ev_ratio: 71.7 } },
+            'THC': { var: 5.682302, price: 182.76, sector: 'Healthcare', description: 'Tenet Healthcare Corp', asset_class: 'stocks', atr_d1: 5.493571, atr_w1: 13.795714, atr_mn1: 27.520714, outliers: [], ev_data: { market_cap: 16152330240, enterprise_value: 31255330816, mcap_ev_ratio: 51.7 } },
+            'THO': { var: 4.181740, price: 106.02, sector: 'Consumer Cyclical', description: 'Thor Industries Inc', asset_class: 'stocks', atr_d1: 3.101429, atr_w1: 7.315714, atr_mn1: 16.653571, outliers: [], ev_data: { market_cap: 5596669440, enterprise_value: 6185233920, mcap_ev_ratio: 90.5 } },
+            'TIP': { var: 0.478028, price: 111.91, sector: 'Financial', description: 'iShares TIPS Bond ETF', asset_class: 'stocks', atr_d1: 0.325000, atr_w1: 0.772857, atr_mn1: 2.425714, outliers: ['var', 'atr'] },
+            'TJX': { var: 2.119265, price: 139.69, sector: 'Consumer Cyclical', description: 'TJX Cos Inc/The', asset_class: 'stocks', atr_d1: 1.750000, atr_w1: 4.596429, atr_mn1: 10.555000, outliers: [], ev_data: { market_cap: 155310784512, enterprise_value: 163792601088, mcap_ev_ratio: 94.8 } },
+            'TKR': { var: 2.412455, price: 77.94, sector: 'Industrials', description: 'Timken Co/The', asset_class: 'stocks', atr_d1: 1.964286, atr_w1: 4.810000, atr_mn1: 10.326429, outliers: [], ev_data: { market_cap: 5425886208, enterprise_value: 7501086208, mcap_ev_ratio: 72.3 } },
+            'TLT': { var: 1.068030, price: 90.38, sector: 'Financial', description: 'iShares 20+ Year Treasury Bond', asset_class: 'stocks', atr_d1: 0.841429, atr_w1: 1.761429, atr_mn1: 5.355000, outliers: [] },
+            'TMO': { var: 12.635556, price: 482.09, sector: 'Healthcare', description: 'Thermo Fisher Scientific Inc', asset_class: 'stocks', atr_d1: 10.522143, atr_w1: 28.885714, atr_mn1: 62.179286, outliers: [], ev_data: { market_cap: 181533196288, enterprise_value: 210463244288, mcap_ev_ratio: 86.3 } },
+            'TMUS': { var: 4.636894, price: 238.08, sector: 'Communication Services', description: 'T-Mobile US Inc', asset_class: 'stocks', atr_d1: 4.732857, atr_w1: 11.825000, atr_mn1: 27.322143, outliers: [], ev_data: { market_cap: 267422302208, enterprise_value: 375844077568, mcap_ev_ratio: 71.2 } },
+            'TNDM': { var: 0.610370, price: 12.44, sector: 'Healthcare', description: 'Tandem Diabetes Care Inc', asset_class: 'stocks', atr_d1: 0.642143, atr_w1: 2.104286, atr_mn1: 7.913571, outliers: ['atr'], ev_data: { market_cap: 839888960, enterprise_value: 978435520, mcap_ev_ratio: 85.8 } },
+            'TNL': { var: 1.807543, price: 61.64, sector: 'Consumer Cyclical', description: 'Travel + Leisure Co', asset_class: 'stocks', atr_d1: 1.300000, atr_w1: 3.773571, atr_mn1: 7.677857, outliers: ['ev'], ev_data: { market_cap: 4007706368, enterprise_value: 9463707648, mcap_ev_ratio: 42.3 } },
+            'TOL': { var: 4.502342, price: 141.58, sector: 'Consumer Cyclical', description: 'Toll Brothers Inc', asset_class: 'stocks', atr_d1: 3.212857, atr_w1: 8.372857, atr_mn1: 22.648571, outliers: [], ev_data: { market_cap: 13618918400, enterprise_value: 15854078976, mcap_ev_ratio: 85.9 } },
+            'TPL': { var: 33.061396, price: 937.95, sector: 'Energy', description: 'Texas Pacific Land Corp', asset_class: 'stocks', atr_d1: 29.232857, atr_w1: 66.663571, atr_mn1: 277.232857, outliers: ['atr'], ev_data: { market_cap: 21508526080, enterprise_value: 20685971456, mcap_ev_ratio: 104.0 } },
+            'TPR': { var: 2.353096, price: 109.49, sector: 'Consumer Cyclical', description: 'Tapestry Inc', asset_class: 'stocks', atr_d1: 2.910000, atr_w1: 7.059286, atr_mn1: 13.694286, outliers: [], ev_data: { market_cap: 22789578752, enterprise_value: 25569136640, mcap_ev_ratio: 89.1 } },
+            'TREX': { var: 2.645640, price: 58.32, sector: 'Industrials', description: 'Trex Co Inc', asset_class: 'stocks', atr_d1: 2.079286, atr_w1: 5.695714, atr_mn1: 12.550714, outliers: ['atr'], ev_data: { market_cap: 6250670080, enterprise_value: 6539633664, mcap_ev_ratio: 95.6 } },
+            'TRGP': { var: 3.340019, price: 163.28, sector: 'Energy', description: 'Targa Resources Corp', asset_class: 'stocks', atr_d1: 4.126429, atr_w1: 9.314286, atr_mn1: 26.190714, outliers: [], ev_data: { market_cap: 35063386112, enterprise_value: 51924062208, mcap_ev_ratio: 67.5 } },
+            'TRIP': { var: 0.877148, price: 18.07, sector: 'Consumer Cyclical', description: 'TripAdvisor Inc', asset_class: 'stocks', atr_d1: 0.664286, atr_w1: 1.703571, atr_mn1: 3.365000, outliers: [], ev_data: { market_cap: 2097379968, enterprise_value: 2147372672, mcap_ev_ratio: 97.7 } },
+            'TRMB': { var: 2.164071, price: 80.93, sector: 'Technology', description: 'Trimble Inc', asset_class: 'stocks', atr_d1: 1.634286, atr_w1: 3.981429, atr_mn1: 8.893571, outliers: [], ev_data: { market_cap: 19277867008, enterprise_value: 20524376064, mcap_ev_ratio: 93.9 } },
+            'TROW': { var: 3.296401, price: 103.90, sector: 'Financial', description: 'T Rowe Price Group Inc', asset_class: 'stocks', atr_d1: 2.662143, atr_w1: 5.420714, atr_mn1: 12.210714, outliers: [], ev_data: { market_cap: 22782248960, enterprise_value: 21497372672, mcap_ev_ratio: 106.0 } },
+            'TRU': { var: 3.445506, price: 90.34, sector: 'Industrials', description: 'TransUnion', asset_class: 'stocks', atr_d1: 3.047857, atr_w1: 6.512143, atr_mn1: 13.750000, outliers: [], ev_data: { market_cap: 17528104960, enterprise_value: 22141304832, mcap_ev_ratio: 79.2 } },
+            'TRV': { var: 4.950978, price: 272.52, sector: 'Financial', description: 'Travelers Cos Inc/The', asset_class: 'stocks', atr_d1: 4.370714, atr_w1: 10.937857, atr_mn1: 24.675714, outliers: [], ev_data: { market_cap: 61225193472, enterprise_value: 63990149120, mcap_ev_ratio: 95.7 } },
+            'TSCO': { var: 1.337905, price: 59.01, sector: 'Consumer Cyclical', description: 'Tractor Supply Co', asset_class: 'stocks', atr_d1: 1.177857, atr_w1: 2.950000, atr_mn1: 6.902143, outliers: [], ev_data: { market_cap: 31261870080, enterprise_value: 36921962496, mcap_ev_ratio: 84.7 } },
+            'TSLA': { var: 20.268844, price: 421.33, sector: 'Consumer Cyclical', description: 'Tesla Inc', asset_class: 'stocks', atr_d1: 14.222857, atr_w1: 31.673571, atr_mn1: 82.242143, outliers: [], ev_data: { market_cap: 1359914205184, enterprise_value: 1337023791104, mcap_ev_ratio: 101.7 } },
+            'TSN': { var: 0.932963, price: 54.40, sector: 'Consumer Defensive', description: 'Tyson Foods Inc', asset_class: 'stocks', atr_d1: 0.982857, atr_w1: 2.148571, atr_mn1: 5.926429, outliers: [], ev_data: { market_cap: 19332487168, enterprise_value: 26979508224, mcap_ev_ratio: 71.7 } },
+            'TTC': { var: 2.545510, price: 79.60, sector: 'Industrials', description: 'Toro Co/The', asset_class: 'stocks', atr_d1: 2.092143, atr_w1: 4.144286, atr_mn1: 10.182857, outliers: [], ev_data: { market_cap: 7781015552, enterprise_value: 8721618944, mcap_ev_ratio: 89.2 } },
+            'TTD': { var: 2.644506, price: 44.90, sector: 'Technology', description: 'Trade Desk Inc/The', asset_class: 'stocks', atr_d1: 1.867857, atr_w1: 8.215714, atr_mn1: 22.267857, outliers: ['var', 'atr'], ev_data: { market_cap: 21951096832, enterprise_value: 20607377408, mcap_ev_ratio: 106.5 } },
+            'TTEK': { var: 0.723094, price: 36.51, sector: 'Industrials', description: 'Tetra Tech Inc', asset_class: 'stocks', atr_d1: 0.748571, atr_w1: 1.722143, atr_mn1: 5.140000, outliers: [], ev_data: { market_cap: 9583331328, enterprise_value: 10412306432, mcap_ev_ratio: 92.0 } },
+            'TTWO': { var: 5.580841, price: 248.43, sector: 'Communication Services', description: 'Take-Two Interactive Software', asset_class: 'stocks', atr_d1: 4.864286, atr_w1: 11.384286, atr_mn1: 22.870714, outliers: [], ev_data: { market_cap: 45698752512, enterprise_value: 47170605056, mcap_ev_ratio: 96.9 } },
+            'TWLO': { var: 3.261251, price: 102.14, sector: 'Communication Services', description: 'Twilio Inc', asset_class: 'stocks', atr_d1: 3.297857, atr_w1: 11.935714, atr_mn1: 22.222857, outliers: ['atr', 'ev'], ev_data: { market_cap: 15667145728, enterprise_value: 14227095552, mcap_ev_ratio: 110.1 } },
+            'TXG': { var: 0.754075, price: 13.21, sector: 'Healthcare', description: '10X Genomics Inc', asset_class: 'stocks', atr_d1: 0.588571, atr_w1: 1.607857, atr_mn1: 4.175000, outliers: ['var'], ev_data: { market_cap: 1634553728, enterprise_value: 1274041216, mcap_ev_ratio: 128.3 } },
+            'TXN': { var: 4.547078, price: 178.17, sector: 'Technology', description: 'Texas Instruments Inc', asset_class: 'stocks', atr_d1: 4.647143, atr_w1: 12.720000, atr_mn1: 27.398571, outliers: [], ev_data: { market_cap: 161490010112, enterprise_value: 170174038016, mcap_ev_ratio: 94.9 } },
+            'TXRH': { var: 2.667120, price: 165.91, sector: 'Consumer Cyclical', description: 'Texas Roadhouse Inc', asset_class: 'stocks', atr_d1: 3.063571, atr_w1: 8.625714, atr_mn1: 20.525000, outliers: [], ev_data: { market_cap: 11004883968, enterprise_value: 11766418432, mcap_ev_ratio: 93.5 } },
+            'TXT': { var: 1.830035, price: 83.48, sector: 'Industrials', description: 'Textron Inc', asset_class: 'stocks', atr_d1: 1.712143, atr_w1: 3.978571, atr_mn1: 8.920000, outliers: [], ev_data: { market_cap: 14867642368, enterprise_value: 17602668544, mcap_ev_ratio: 84.5 } },
+            'TYL': { var: 10.183556, price: 535.41, sector: 'Technology', description: 'Tyler Technologies Inc', asset_class: 'stocks', atr_d1: 11.582143, atr_w1: 26.034286, atr_mn1: 59.127857, outliers: [], ev_data: { market_cap: 23130785792, enterprise_value: 22880163840, mcap_ev_ratio: 101.1 } },
+            'UAL': { var: 3.490359, price: 104.29, sector: 'Industrials', description: 'United Airlines Holdings Inc', asset_class: 'stocks', atr_d1: 3.214286, atr_w1: 8.272857, atr_mn1: 18.677143, outliers: [], ev_data: { market_cap: 33732874240, enterprise_value: 50902884352, mcap_ev_ratio: 66.3 } },
+            'UBER': { var: 2.752026, price: 97.97, sector: 'Technology', description: 'Uber Technologies Inc', asset_class: 'stocks', atr_d1: 2.607143, atr_w1: 5.845714, atr_mn1: 13.385000, outliers: [], ev_data: { market_cap: 204016648192, enterprise_value: 210020515840, mcap_ev_ratio: 97.1 } },
+            'UGI': { var: 0.558152, price: 33.12, sector: 'Utilities', description: 'UGI Corp', asset_class: 'stocks', atr_d1: 0.496429, atr_w1: 1.325000, atr_mn1: 3.255000, outliers: [], ev_data: { market_cap: 7118282752, enterprise_value: 13732289536, mcap_ev_ratio: 51.8 } },
+            'UHS': { var: 4.463467, price: 186.43, sector: 'Healthcare', description: 'Universal Health Services Inc', asset_class: 'stocks', atr_d1: 4.528571, atr_w1: 13.257857, atr_mn1: 30.550000, outliers: [], ev_data: { market_cap: 11853343744, enterprise_value: 16838778880, mcap_ev_ratio: 70.4 } },
+            'UK100': { var: 963.309220, price: 9220.90, sector: 'Undefined', description: 'London Stock Exchange IndexFTSE 100', asset_class: 'cfd', atr_d1: 71.864286, atr_w1: 160.307143, atr_mn1: 436.585714, outliers: [] },
+            'ULTA': { var: 23.527185, price: 525.95, sector: 'Consumer Cyclical', description: 'Ulta Beauty Inc', asset_class: 'stocks', atr_d1: 15.688571, atr_w1: 27.531429, atr_mn1: 60.867143, outliers: [], ev_data: { market_cap: 23549577216, enterprise_value: 25594638336, mcap_ev_ratio: 92.0 } },
+            'UNH': { var: 12.992866, price: 339.91, sector: 'Healthcare', description: 'UnitedHealth Group Inc', asset_class: 'stocks', atr_d1: 10.063571, atr_w1: 24.189286, atr_mn1: 87.656429, outliers: [], ev_data: { market_cap: 307729891328, enterprise_value: 364962775040, mcap_ev_ratio: 84.3 } },
+            'UNM': { var: 1.311199, price: 74.29, sector: 'Financial', description: 'Unum Group', asset_class: 'stocks', atr_d1: 1.427857, atr_w1: 3.691429, atr_mn1: 8.432143, outliers: [], ev_data: { market_cap: 12638926848, enterprise_value: 13185045504, mcap_ev_ratio: 95.9 } },
+            'UNP': { var: 3.304992, price: 216.13, sector: 'Industrials', description: 'Union Pacific Corp', asset_class: 'stocks', atr_d1: 3.185000, atr_w1: 8.735000, atr_mn1: 22.133571, outliers: [], ev_data: { market_cap: 128096641024, enterprise_value: 160973438976, mcap_ev_ratio: 79.6 } },
+            'UPS': { var: 1.701620, price: 85.19, sector: 'Industrials', description: 'United Parcel Service Inc', asset_class: 'stocks', atr_d1: 1.532143, atr_w1: 4.798571, atr_mn1: 14.069286, outliers: [], ev_data: { market_cap: 72212963328, enterprise_value: 94862934016, mcap_ev_ratio: 76.1 } },
+            'URI': { var: 25.926005, price: 960.52, sector: 'Industrials', description: 'United Rentals Inc', asset_class: 'stocks', atr_d1: 20.992143, atr_w1: 52.022143, atr_mn1: 125.128571, outliers: [], ev_data: { market_cap: 61680693248, enterprise_value: 75587715072, mcap_ev_ratio: 81.6 } },
+            'USB': { var: 0.914011, price: 48.50, sector: 'Financial', description: 'US Bancorp', asset_class: 'stocks', atr_d1: 0.745714, atr_w1: 2.116429, atr_mn1: 5.519286, outliers: [], ev_data: { market_cap: 75304034304, enterprise_value: 103339008000, mcap_ev_ratio: 72.9 } },
+            'USDCAD': { var: 463.878330, price: 1.37, sector: 'Currency', description: 'US Dollar vs Canadian Dollar', asset_class: 'cfd', atr_d1: 0.005718, atr_w1: 0.013979, atr_mn1: 0.038207, outliers: [] },
+            'USDCHF': { var: 733.274878, price: 0.79, sector: 'Currency', description: 'US Dollar vs Swiss Franc', asset_class: 'cfd', atr_d1: 0.005454, atr_w1: 0.012981, atr_mn1: 0.032072, outliers: [] },
+            'USDJPY': { var: 698.196356, price: 146.49, sector: 'Currency', description: 'US Dollar vs Japanese Yen', asset_class: 'cfd', atr_d1: 1.039643, atr_w1: 2.602357, atr_mn1: 7.837500, outliers: [] },
+            'USDMXN': { var: 522.656890, price: 18.29, sector: 'Currency', description: 'US Dollar vs. Mexican Peso', asset_class: 'cfd', atr_d1: 0.123776, atr_w1: 0.322443, atr_mn1: 1.010892, outliers: [] },
+            'USDNOK': { var: 829.498207, price: 9.77, sector: 'Currency', description: 'US Dollar vs Norwegian Krone', asset_class: 'cfd', atr_d1: 0.082271, atr_w1: 0.191226, atr_mn1: 0.513706, outliers: [] },
+            'USDSEK': { var: 931.293922, price: 9.23, sector: 'Currency', description: 'US dollar vs Swedish krona', asset_class: 'cfd', atr_d1: 0.080250, atr_w1: 0.215876, atr_mn1: 0.530860, outliers: [] },
+            'USDSGD': { var: 369.148825, price: 1.28, sector: 'Currency', description: 'US Dollar vs Singapore Dollar', asset_class: 'cfd', atr_d1: 0.004856, atr_w1: 0.011314, atr_mn1: 0.033389, outliers: [] },
+            'USDTRY': { var: 319.677528, price: 41.27, sector: 'Currency', description: 'US Dollar vs. Turkish Lira', asset_class: 'cfd', atr_d1: 0.129841, atr_w1: 0.418791, atr_mn1: 1.119327, outliers: [] },
+            'USFD': { var: 1.374045, price: 77.78, sector: 'Consumer Defensive', description: 'US Foods Holding Corp', asset_class: 'stocks', atr_d1: 1.410714, atr_w1: 3.314286, atr_mn1: 8.025714, outliers: [], ev_data: { market_cap: 17495863296, enterprise_value: 22446833664, mcap_ev_ratio: 77.9 } },
+            'USMV': { var: 0.722768, price: 93.15, sector: 'Financial', description: 'iShares MSCI USA Min Vol Facto', asset_class: 'stocks', atr_d1: 0.619286, atr_w1: 1.467857, atr_mn1: 4.492857, outliers: ['var'] },
+            'UTHR': { var: 49.759346, price: 398.22, sector: 'Healthcare', description: 'United Therapeutics Corp', asset_class: 'stocks', atr_d1: 20.107857, atr_w1: 27.423571, atr_mn1: 42.625714, outliers: ['var', 'atr', 'ev'], ev_data: { market_cap: 17998710784, enterprise_value: 14949995520, mcap_ev_ratio: 120.4 } },
+            'V': { var: 5.078774, price: 340.10, sector: 'Financial', description: 'Visa Inc', asset_class: 'stocks', atr_d1: 5.019286, atr_w1: 14.661429, atr_mn1: 29.009286, outliers: ['var', 'atr'], ev_data: { market_cap: 659977863168, enterprise_value: 661991915520, mcap_ev_ratio: 99.7 } },
+            'VAC': { var: 2.993874, price: 78.28, sector: 'Consumer Cyclical', description: 'Marriott Vacations Worldwide C', asset_class: 'stocks', atr_d1: 2.140000, atr_w1: 6.759286, atr_mn1: 13.884286, outliers: ['ev'], ev_data: { market_cap: 2695880960, enterprise_value: 7925049856, mcap_ev_ratio: 34.0 } },
+            'VDE': { var: 2.131635, price: 126.48, sector: 'Financial', description: 'Vanguard Energy ETF', asset_class: 'stocks', atr_d1: 1.957143, atr_w1: 5.005714, atr_mn1: 12.588571, outliers: [] },
+            'VEA': { var: 0.677222, price: 60.24, sector: 'Financial', description: 'Vanguard FTSE Developed Market', asset_class: 'stocks', atr_d1: 0.445714, atr_w1: 1.437857, atr_mn1: 3.572857, outliers: [] },
+            'VEEV': { var: 11.182561, price: 274.70, sector: 'Healthcare', description: 'Veeva Systems Inc', asset_class: 'stocks', atr_d1: 8.285714, atr_w1: 13.495000, atr_mn1: 31.373571, outliers: ['ev'], ev_data: { market_cap: 44891123712, enterprise_value: 38572863488, mcap_ev_ratio: 116.4 } },
+            'VFC': { var: 0.638132, price: 14.71, sector: 'Consumer Cyclical', description: 'VF Corp', asset_class: 'stocks', atr_d1: 0.605000, atr_w1: 1.429286, atr_mn1: 4.875714, outliers: ['atr'], ev_data: { market_cap: 5738163200, enterprise_value: 10770774016, mcap_ev_ratio: 53.3 } },
+            'VGT': { var: 11.288403, price: 724.44, sector: 'Financial', description: 'Vanguard Information Technolog', asset_class: 'stocks', atr_d1: 9.041429, atr_w1: 22.387857, atr_mn1: 60.639286, outliers: [] },
+            'VHT': { var: 3.210500, price: 254.84, sector: 'Financial', description: 'Vanguard Health Care ETF', asset_class: 'stocks', atr_d1: 2.610000, atr_w1: 7.607857, atr_mn1: 17.777857, outliers: [] },
+            'VIR': { var: 0.435248, price: 4.86, sector: 'Healthcare', description: 'Vir Biotechnology Inc', asset_class: 'stocks', atr_d1: 0.355000, atr_w1: 0.648571, atr_mn1: 2.367143, outliers: [], ev_data: { market_cap: 675131776, enterprise_value: 161620688, mcap_ev_ratio: 417.7 } },
+            'VIRT': { var: 0.918485, price: 35.42, sector: 'Financial', description: 'Virtu Financial Inc', asset_class: 'stocks', atr_d1: 1.160714, atr_w1: 2.490714, atr_mn1: 5.628571, outliers: ['ev'], ev_data: { market_cap: 7538642944, enterprise_value: -4800806912, mcap_ev_ratio: -157.0 } },
+            'VLO': { var: 3.410258, price: 162.40, sector: 'Energy', description: 'Valero Energy Corp', asset_class: 'stocks', atr_d1: 4.127143, atr_w1: 9.250714, atr_mn1: 21.141429, outliers: [], ev_data: { market_cap: 50524442624, enterprise_value: 59503398912, mcap_ev_ratio: 84.9 } },
+            'VLUE': { var: 1.492761, price: 121.17, sector: 'Financial', description: 'iShares MSCI USA Value Factor', asset_class: 'stocks', atr_d1: 1.144286, atr_w1: 3.124286, atr_mn1: 8.180000, outliers: [] },
+            'VMC': { var: 6.375599, price: 293.04, sector: 'Basic Materials', description: 'Vulcan Materials Co', asset_class: 'stocks', atr_d1: 5.292143, atr_w1: 11.047143, atr_mn1: 31.632857, outliers: [], ev_data: { market_cap: 38574923776, enterprise_value: 43762069504, mcap_ev_ratio: 88.1 } },
+            'VNQ': { var: 1.421357, price: 92.14, sector: 'Financial', description: 'Vanguard Real Estate ETF', asset_class: 'stocks', atr_d1: 0.972857, atr_w1: 2.377857, atr_mn1: 6.610714, outliers: [] },
+            'VOE': { var: 1.958857, price: 172.21, sector: 'Financial', description: 'Vanguard Mid-Cap Value ETF', asset_class: 'stocks', atr_d1: 1.467857, atr_w1: 3.759286, atr_mn1: 10.838571, outliers: [] },
+            'VOYA': { var: 1.406670, price: 75.74, sector: 'Financial', description: 'Voya Financial Inc', asset_class: 'stocks', atr_d1: 1.881429, atr_w1: 4.007143, atr_mn1: 10.072143, outliers: [], ev_data: { market_cap: 7273759232, enterprise_value: 12647846912, mcap_ev_ratio: 57.5 } },
+            'VPL': { var: 1.196536, price: 89.71, sector: 'Financial', description: 'Vanguard FTSE Pacific ETF', asset_class: 'stocks', atr_d1: 0.863571, atr_w1: 2.242857, atr_mn1: 5.625000, outliers: [] },
+            'VRNS': { var: 1.709526, price: 57.48, sector: 'Technology', description: 'Varonis Systems Inc', asset_class: 'stocks', atr_d1: 1.756429, atr_w1: 3.607143, atr_mn1: 7.154286, outliers: [], ev_data: { market_cap: 6404606464, enterprise_value: 6350821888, mcap_ev_ratio: 100.8 } },
+            'VRSK': { var: 5.033733, price: 251.85, sector: 'Industrials', description: 'Verisk Analytics Inc', asset_class: 'stocks', atr_d1: 5.134286, atr_w1: 11.973571, atr_mn1: 25.058571, outliers: [], ev_data: { market_cap: 35184431104, enterprise_value: 37983219712, mcap_ev_ratio: 92.6 } },
+            'VRSN': { var: 4.552793, price: 287.51, sector: 'Technology', description: 'VeriSign Inc', asset_class: 'stocks', atr_d1: 4.886429, atr_w1: 13.956429, atr_mn1: 23.759286, outliers: [], ev_data: { market_cap: 26852169728, enterprise_value: 28047497216, mcap_ev_ratio: 95.7 } },
+            'VRTX': { var: 7.400524, price: 392.36, sector: 'Healthcare', description: 'Vertex Pharmaceuticals Inc', asset_class: 'stocks', atr_d1: 6.916429, atr_w1: 24.976429, atr_mn1: 60.392857, outliers: [], ev_data: { market_cap: 100341178368, enterprise_value: 95485648896, mcap_ev_ratio: 105.1 } },
+            'VST': { var: 8.695345, price: 209.34, sector: 'Utilities', description: 'Vistra Corp', asset_class: 'stocks', atr_d1: 8.072857, atr_w1: 17.840000, atr_mn1: 39.011429, outliers: [], ev_data: { market_cap: 70959071232, enterprise_value: 91044143104, mcap_ev_ratio: 77.9 } },
+            'VT': { var: 1.313142, price: 137.36, sector: 'Financial', description: 'Vanguard Total World Stock ETF', asset_class: 'stocks', atr_d1: 0.929286, atr_w1: 2.787857, atr_mn1: 7.300000, outliers: ['var'] },
+            'VTI': { var: 3.224421, price: 325.59, sector: 'Financial', description: 'Vanguard Total Stock Market ET', asset_class: 'stocks', atr_d1: 2.435000, atr_w1: 6.776429, atr_mn1: 19.348571, outliers: ['var'] },
+            'VTRS': { var: 0.190300, price: 9.56, sector: 'Healthcare', description: 'Viatris Inc', asset_class: 'stocks', atr_d1: 0.214286, atr_w1: 0.553571, atr_mn1: 1.552857, outliers: [], ev_data: { market_cap: 11192370176, enterprise_value: 25142073344, mcap_ev_ratio: 44.5 } },
+            'VVV': { var: 0.944204, price: 40.74, sector: 'Energy', description: 'Valvoline Inc', asset_class: 'stocks', atr_d1: 0.920714, atr_w1: 2.295000, atr_mn1: 5.061429, outliers: [] },
+            'VWO': { var: 0.594521, price: 54.20, sector: 'Financial', description: 'Vanguard FTSE Emerging Markets', asset_class: 'stocks', atr_d1: 0.417857, atr_w1: 1.240714, atr_mn1: 3.357857, outliers: [] },
+            'VXF': { var: 3.272788, price: 209.35, sector: 'Financial', description: 'Vanguard Extended Market ETF', asset_class: 'stocks', atr_d1: 2.339286, atr_w1: 6.335000, atr_mn1: 17.565714, outliers: [] },
+            'VXUS': { var: 0.784850, price: 73.74, sector: 'Financial', description: 'Vanguard Total International S', asset_class: 'stocks', atr_d1: 0.522857, atr_w1: 1.689286, atr_mn1: 4.255000, outliers: ['var'] },
+            'VYX': { var: 0.606297, price: 12.82, sector: 'Technology', description: 'NCR Voyix Corp', asset_class: 'stocks', atr_d1: 0.442143, atr_w1: 1.067857, atr_mn1: 2.430000, outliers: ['var'], ev_data: { market_cap: 1768012800, enterprise_value: 3105017088, mcap_ev_ratio: 56.9 } },
+            'VZ': { var: 0.647868, price: 43.77, sector: 'Communication Services', description: 'Verizon Communications Inc', asset_class: 'stocks', atr_d1: 0.621429, atr_w1: 1.444286, atr_mn1: 3.988571, outliers: [], ev_data: { market_cap: 184421842944, enterprise_value: 356994056192, mcap_ev_ratio: 51.7 } },
+            'W': { var: 4.573543, price: 87.54, sector: 'Consumer Cyclical', description: 'Wayfair Inc', asset_class: 'stocks', atr_d1: 3.249286, atr_w1: 7.602857, atr_mn1: 13.867857, outliers: [], ev_data: { market_cap: 11311625216, enterprise_value: 13843619840, mcap_ev_ratio: 81.7 } },
+            'WAB': { var: 3.217290, price: 187.88, sector: 'Industrials', description: 'Westinghouse Air Brake Technol', asset_class: 'stocks', atr_d1: 3.425000, atr_w1: 8.381429, atr_mn1: 21.245000, outliers: [], ev_data: { market_cap: 32197361664, enterprise_value: 35862323200, mcap_ev_ratio: 89.8 } },
+            'WAL': { var: 2.662406, price: 87.60, sector: 'Financial', description: 'Western Alliance Bancorp', asset_class: 'stocks', atr_d1: 2.222857, atr_w1: 5.695714, atr_mn1: 14.654286, outliers: ['var'], ev_data: { market_cap: 9636317184, enterprise_value: 13811066880, mcap_ev_ratio: 69.8 } },
+            'WAT': { var: 11.300926, price: 303.45, sector: 'Healthcare', description: 'Waters Corp', asset_class: 'stocks', atr_d1: 8.944286, atr_w1: 23.132857, atr_mn1: 51.567143, outliers: [], ev_data: { market_cap: 18040563712, enterprise_value: 19268587520, mcap_ev_ratio: 93.6 } },
+            'WCC': { var: 6.574847, price: 216.83, sector: 'Industrials', description: 'WESCO International Inc', asset_class: 'stocks', atr_d1: 5.380000, atr_w1: 12.487857, atr_mn1: 31.582857, outliers: ['ev'], ev_data: { market_cap: 10511142912, enterprise_value: 16162158592, mcap_ev_ratio: 65.0 } },
+            'WDAY': { var: 4.902014, price: 219.12, sector: 'Technology', description: 'Workday Inc', asset_class: 'stocks', atr_d1: 5.343571, atr_w1: 14.280000, atr_mn1: 33.047143, outliers: ['ev'], ev_data: { market_cap: 58475667456, enterprise_value: 54065668096, mcap_ev_ratio: 108.2 } },
+            'WDC': { var: 3.251475, price: 103.07, sector: 'Technology', description: 'Western Digital Corp', asset_class: 'stocks', atr_d1: 2.927857, atr_w1: 5.482857, atr_mn1: 13.338571, outliers: [] },
+            'WEC': { var: 1.475042, price: 109.00, sector: 'Utilities', description: 'WEC Energy Group Inc', asset_class: 'stocks', atr_d1: 1.345000, atr_w1: 3.267143, atr_mn1: 7.771429, outliers: ['var'], ev_data: { market_cap: 34983616512, enterprise_value: 55969959936, mcap_ev_ratio: 62.5 } },
+            'WEX': { var: 5.057561, price: 172.35, sector: 'Indexes', description: 'WEX Inc', asset_class: 'stocks', atr_d1: 5.160714, atr_w1: 10.801429, atr_mn1: 27.710714, outliers: [], ev_data: { market_cap: 5892089344, enterprise_value: 6418890752, mcap_ev_ratio: 91.8 } },
+            'WFC': { var: 1.758202, price: 81.41, sector: 'Financial', description: 'Wells Fargo & Co', asset_class: 'stocks', atr_d1: 1.692857, atr_w1: 4.055000, atr_mn1: 9.421429, outliers: [], ev_data: { market_cap: 260727996416, enterprise_value: 278127149056, mcap_ev_ratio: 93.7 } },
+            'WH': { var: 2.668427, price: 84.78, sector: 'Consumer Cyclical', description: 'Wyndham Hotels & Resorts Inc', asset_class: 'stocks', atr_d1: 2.267857, atr_w1: 5.575000, atr_mn1: 10.837143, outliers: [], ev_data: { market_cap: 6470424064, enterprise_value: 8997428224, mcap_ev_ratio: 71.9 } },
+            'WHR': { var: 3.526376, price: 90.22, sector: 'Consumer Cyclical', description: 'Whirlpool Corp', asset_class: 'stocks', atr_d1: 2.665714, atr_w1: 8.611429, atr_mn1: 18.074286, outliers: ['ev'], ev_data: { market_cap: 5047264256, enterprise_value: 12565265408, mcap_ev_ratio: 40.2 } },
+            'WK': { var: 4.009306, price: 79.63, sector: 'Technology', description: 'Workiva Inc', asset_class: 'stocks', atr_d1: 2.930000, atr_w1: 6.603571, atr_mn1: 15.272857, outliers: [], ev_data: { market_cap: 4434194944, enterprise_value: 4363777536, mcap_ev_ratio: 101.6 } },
+            'WM': { var: 3.420596, price: 214.21, sector: 'Industrials', description: 'Waste Management Inc', asset_class: 'stocks', atr_d1: 2.889286, atr_w1: 7.892857, atr_mn1: 18.562143, outliers: [], ev_data: { market_cap: 86157287424, enterprise_value: 109738344448, mcap_ev_ratio: 78.5 } },
+            'WMB': { var: 0.907540, price: 58.00, sector: 'Energy', description: 'Williams Cos Inc/The', asset_class: 'stocks', atr_d1: 1.070714, atr_w1: 2.821429, atr_mn1: 6.283571, outliers: [], ev_data: { market_cap: 70767386624, enterprise_value: 100838227968, mcap_ev_ratio: 70.2 } },
+            'WMS': { var: 6.472804, price: 145.17, sector: 'Industrials', description: 'Advanced Drainage Systems Inc', asset_class: 'stocks', atr_d1: 4.865000, atr_w1: 10.795714, atr_mn1: 23.459286, outliers: [], ev_data: { market_cap: 11242248192, enterprise_value: 11912697856, mcap_ev_ratio: 94.4 } },
+            'WMT': { var: 2.484686, price: 103.40, sector: 'Consumer Defensive', description: 'Walmart Inc', asset_class: 'stocks', atr_d1: 1.382857, atr_w1: 3.719286, atr_mn1: 9.157857, outliers: [], ev_data: { market_cap: 824552128512, enterprise_value: 888427249664, mcap_ev_ratio: 92.8 } },
+            'WRB': { var: 1.133233, price: 71.48, sector: 'Financial', description: 'W R Berkley Corp', asset_class: 'stocks', atr_d1: 1.132143, atr_w1: 2.715000, atr_mn1: 6.850714, outliers: [], ev_data: { market_cap: 27089104896, enterprise_value: 27171270656, mcap_ev_ratio: 99.7 } },
+            'WS30': { var: 49.754959, price: 45829.00, sector: 'Undefined', description: 'Wall Street 30', asset_class: 'cfd', atr_d1: 378.642857, atr_w1: 1085.428571, atr_mn1: 2821.142857, outliers: [] },
+            'WSM': { var: 6.979376, price: 196.68, sector: 'Consumer Cyclical', description: 'Williams-Sonoma Inc', asset_class: 'stocks', atr_d1: 5.775000, atr_w1: 13.539286, atr_mn1: 31.860000, outliers: [], ev_data: { market_cap: 23878148096, enterprise_value: 24286636032, mcap_ev_ratio: 98.3 } },
+            'WSO': { var: 12.220546, price: 396.81, sector: 'Industrials', description: 'Watsco Inc', asset_class: 'stocks', atr_d1: 10.123571, atr_w1: 27.002143, atr_mn1: 63.953571, outliers: [], ev_data: { market_cap: 16294874112, enterprise_value: 15601356800, mcap_ev_ratio: 104.4 } },
+            'WST': { var: 6.717559, price: 258.43, sector: 'Healthcare', description: 'West Pharmaceutical Services I', asset_class: 'stocks', atr_d1: 5.819286, atr_w1: 18.465000, atr_mn1: 46.020714, outliers: [], ev_data: { market_cap: 18577250304, enterprise_value: 18316793856, mcap_ev_ratio: 101.4 } },
+            'WTRG': { var: 0.672067, price: 37.38, sector: 'Utilities', description: 'Essential Utilities Inc', asset_class: 'stocks', atr_d1: 0.652143, atr_w1: 1.432857, atr_mn1: 3.565000, outliers: [], ev_data: { market_cap: 10461493248, enterprise_value: 18379751424, mcap_ev_ratio: 56.9 } },
+            'WU': { var: 0.189619, price: 8.21, sector: 'Financial', description: 'Western Union Co/The', asset_class: 'stocks', atr_d1: 0.167857, atr_w1: 0.470000, atr_mn1: 1.059286, outliers: [], ev_data: { market_cap: 2648329472, enterprise_value: 4377931776, mcap_ev_ratio: 60.5 } },
+            'WWD': { var: 3.401503, price: 240.73, sector: 'Industrials', description: 'Woodward Inc', asset_class: 'stocks', atr_d1: 5.590714, atr_w1: 12.972143, atr_mn1: 27.592857, outliers: ['ev'], ev_data: { market_cap: 14418273280, enterprise_value: 14935089152, mcap_ev_ratio: 96.5 } },
+            'WYNN': { var: 4.057372, price: 120.97, sector: 'Consumer Cyclical', description: 'Wynn Resorts Ltd', asset_class: 'stocks', atr_d1: 3.516429, atr_w1: 7.215714, atr_mn1: 15.512143, outliers: [], ev_data: { market_cap: 12547944448, enterprise_value: 21843283968, mcap_ev_ratio: 57.4 } },
+            'X': { var: 4.593418, price: 54.86, sector: 'Basic Materials', description: 'United States Steel Corp', asset_class: 'stocks', atr_d1: 1.071429, atr_w1: 4.747143, atr_mn1: 7.917143, outliers: [] },
+            'XAGUSD': { var: 3993.761826, price: 42.54, sector: 'Commodities', description: 'Silver Spot', asset_class: 'cfd', atr_d1: 0.863929, atr_w1: 1.792286, atr_mn1: 3.846429, outliers: [] },
+            'XAUUSD': { var: 3901.026579, price: 3690.34, sector: 'Commodities', description: 'Gold vs US Dollar ', asset_class: 'cfd', atr_d1: 48.317857, atr_w1: 103.675714, atr_mn1: 226.115000, outliers: [] },
+            'XBI': { var: 2.159554, price: 93.75, sector: 'Financial', description: 'SPDR S&P Biotech ETF', asset_class: 'stocks', atr_d1: 1.665000, atr_w1: 3.629286, atr_mn1: 9.761429, outliers: [] },
+            'XEL': { var: 0.948225, price: 72.10, sector: 'Utilities', description: 'Xcel Energy Inc', asset_class: 'stocks', atr_d1: 1.030714, atr_w1: 2.535714, atr_mn1: 6.037143, outliers: ['var'], ev_data: { market_cap: 42647728128, enterprise_value: 74569744384, mcap_ev_ratio: 57.2 } },
+            'XLB': { var: 1.321607, price: 90.70, sector: 'Financial', description: 'Materials Select Sector SPDR F', asset_class: 'stocks', atr_d1: 1.072143, atr_w1: 2.915714, atr_mn1: 6.717857, outliers: [] },
+            'XLC': { var: 1.496449, price: 118.60, sector: 'Financial', description: 'Communication Services Select', asset_class: 'stocks', atr_d1: 1.254286, atr_w1: 3.049286, atr_mn1: 7.193571, outliers: [] },
+            'XLE': { var: 1.526508, price: 89.78, sector: 'Financial', description: 'Energy Select Sector SPDR Fund', asset_class: 'stocks', atr_d1: 1.405000, atr_w1: 3.520714, atr_mn1: 8.853571, outliers: [] },
+            'XLF': { var: 0.691208, price: 53.58, sector: 'Financial', description: 'Financial Select Sector SPDR F', asset_class: 'stocks', atr_d1: 0.554286, atr_w1: 1.402143, atr_mn1: 3.907857, outliers: [] },
+            'XLI': { var: 1.939702, price: 151.90, sector: 'Financial', description: 'Industrial Select Sector SPDR', asset_class: 'stocks', atr_d1: 1.619286, atr_w1: 3.739286, atr_mn1: 10.260714, outliers: [] },
+            'XLK': { var: 4.066471, price: 272.48, sector: 'Financial', description: 'Technology Select Sector SPDR', asset_class: 'stocks', atr_d1: 3.362857, atr_w1: 8.130000, atr_mn1: 22.980714, outliers: [] },
+            'XLP': { var: 0.889694, price: 79.78, sector: 'Financial', description: 'Consumer Staples Select Sector', asset_class: 'stocks', atr_d1: 0.750714, atr_w1: 1.718571, atr_mn1: 4.312143, outliers: [] },
+            'XLU': { var: 0.960776, price: 84.17, sector: 'Financial', description: 'Utilities Select Sector SPDR F', asset_class: 'stocks', atr_d1: 0.888571, atr_w1: 2.125714, atr_mn1: 5.308571, outliers: [] },
+            'XLV': { var: 1.685442, price: 136.91, sector: 'Financial', description: 'Health Care Select Sector SPDR', asset_class: 'stocks', atr_d1: 1.419286, atr_w1: 4.272143, atr_mn1: 9.720000, outliers: [] },
+            'XLY': { var: 4.197644, price: 242.26, sector: 'Financial', description: 'Consumer Discretionary Select', asset_class: 'stocks', atr_d1: 2.784286, atr_w1: 7.080714, atr_mn1: 19.238571, outliers: [] },
+            'XNGUSD': { var: 1238.903387, price: 3.35, sector: 'Undefined', description: 'Natural Gas Spot USD', asset_class: 'cfd', atr_d1: 0.133143, atr_w1: 0.337500, atr_mn1: 0.815500, outliers: [] },
+            'XOM': { var: 2.112036, price: 114.66, sector: 'Energy', description: 'Exxon Mobil Corp', asset_class: 'stocks', atr_d1: 1.912143, atr_w1: 5.400714, atr_mn1: 10.964286, outliers: [], ev_data: { market_cap: 488909504512, enterprise_value: 520915156992, mcap_ev_ratio: 93.9 } },
+            'XPO': { var: 6.182059, price: 135.79, sector: 'Industrials', description: 'XPO Inc', asset_class: 'stocks', atr_d1: 4.721429, atr_w1: 10.290714, atr_mn1: 24.112857, outliers: [], ev_data: { market_cap: 15944974336, enterprise_value: 19969986560, mcap_ev_ratio: 79.8 } },
+            'XRAY': { var: 0.495920, price: 13.62, sector: 'Healthcare', description: 'DENTSPLY SIRONA Inc', asset_class: 'stocks', atr_d1: 0.393571, atr_w1: 1.208571, atr_mn1: 3.372857, outliers: [], ev_data: { market_cap: 2716972032, enterprise_value: 4867970048, mcap_ev_ratio: 55.8 } },
+            'XTIUSD': { var: 1498.436930, price: 64.28, sector: 'Undefined', description: 'US Crude (Spot) vs US Dollar', asset_class: 'cfd', atr_d1: 1.431429, atr_w1: 4.830714, atr_mn1: 8.992857, outliers: [] },
+            'XYL': { var: 2.833263, price: 140.89, sector: 'Industrials', description: 'Xylem Inc/NY', asset_class: 'stocks', atr_d1: 2.568571, atr_w1: 5.164286, atr_mn1: 12.736429, outliers: [], ev_data: { market_cap: 34252654592, enterprise_value: 35441610752, mcap_ev_ratio: 96.6 } },
+            'XYZ': { var: 2.855137, price: 75.98, sector: 'Technology', description: 'Block Inc', asset_class: 'stocks', atr_d1: 2.152143, atr_w1: 6.084286, atr_mn1: 15.247143, outliers: [], ev_data: { market_cap: 46194274304, enterprise_value: 44799909888, mcap_ev_ratio: 103.1 } },
+            'YETI': { var: 1.283365, price: 35.70, sector: 'Consumer Cyclical', description: 'YETI Holdings Inc', asset_class: 'stocks', atr_d1: 1.180000, atr_w1: 3.269286, atr_mn1: 6.395000, outliers: [], ev_data: { market_cap: 2888332544, enterprise_value: 2795643392, mcap_ev_ratio: 103.3 } },
+            'YM_U': { var: 2501.674891, price: 45798.00, sector: 'Indexes', description: 'E-Mini DJIA September', asset_class: 'futures', atr_d1: 379.428571, atr_w1: 1091.285714, atr_mn1: 2714.214286, outliers: [] },
+            'YM_Z': { var: 2518.032382, price: 46136.00, sector: 'Indexes', description: 'E-Mini DJIA December', asset_class: 'futures', atr_d1: 382.071429, atr_w1: 1097.857143, atr_mn1: 2733.428571, outliers: [] },
+            'YUM': { var: 2.638622, price: 148.24, sector: 'Consumer Cyclical', description: 'Yum! Brands Inc', asset_class: 'stocks', atr_d1: 2.545714, atr_w1: 6.129286, atr_mn1: 12.795000, outliers: [], ev_data: { market_cap: 41078099968, enterprise_value: 52716056576, mcap_ev_ratio: 77.9 } },
+            'ZBH': { var: 2.207123, price: 99.15, sector: 'Healthcare', description: 'Zimmer Biomet Holdings Inc', asset_class: 'stocks', atr_d1: 1.998571, atr_w1: 4.885714, atr_mn1: 11.307857, outliers: [], ev_data: { market_cap: 19635275776, enterprise_value: 27173670912, mcap_ev_ratio: 72.3 } },
+            'ZBRA': { var: 10.289818, price: 318.26, sector: 'Technology', description: 'Zebra Technologies Corp', asset_class: 'stocks', atr_d1: 8.039286, atr_w1: 21.035714, atr_mn1: 51.564286, outliers: [], ev_data: { market_cap: 16189620224, enterprise_value: 17677604864, mcap_ev_ratio: 91.6 } },
+            'ZC_Z': { var: 377.125212, price: 429.00, sector: 'Commodities', description: 'Corn December', asset_class: 'futures', atr_d1: 6.839286, atr_w1: 17.803571, atr_mn1: 40.017857, outliers: [] },
+            'ZD': { var: 1.474992, price: 38.34, sector: 'Communication Services', description: 'Ziff Davis Inc', asset_class: 'stocks', atr_d1: 1.340714, atr_w1: 3.557857, atr_mn1: 8.596429, outliers: ['atr'], ev_data: { market_cap: 1569181056, enterprise_value: 1946077440, mcap_ev_ratio: 80.6 } },
+            'ZG': { var: 3.905693, price: 85.32, sector: 'Communication Services', description: 'Zillow Group Inc', asset_class: 'stocks', atr_d1: 2.780000, atr_w1: 5.692857, atr_mn1: 13.222857, outliers: ['ev'], ev_data: { market_cap: 21264021504, enterprise_value: 19439179776, mcap_ev_ratio: 109.4 } },
+            'ZION': { var: 1.483635, price: 56.59, sector: 'Financial', description: 'Zions Bancorp NA', asset_class: 'stocks', atr_d1: 1.370714, atr_w1: 3.165000, atr_mn1: 8.150000, outliers: [], ev_data: { market_cap: 8340755968, enterprise_value: 11704744960, mcap_ev_ratio: 71.3 } },
+            'ZL_Z': { var: 590.090780, price: 53.21, sector: 'Commodities', description: 'Soybean Oil December', asset_class: 'futures', atr_d1: 0.988571, atr_w1: 2.630714, atr_mn1: 5.132143, outliers: [] },
+            'ZM': { var: 4.470664, price: 85.32, sector: 'Communication Services', description: 'Zoom Communications Inc', asset_class: 'stocks', atr_d1: 1.863571, atr_w1: 4.357857, atr_mn1: 10.610714, outliers: ['ev'], ev_data: { market_cap: 25499420672, enterprise_value: 17775063040, mcap_ev_ratio: 143.5 } },
+            'ZM_Z': { var: 423.205514, price: 286.20, sector: 'Commodities', description: 'Soybean Meal December', asset_class: 'futures', atr_d1: 4.264286, atr_w1: 10.021429, atr_mn1: 30.257143, outliers: [] },
+            'ZN_Z': { var: 446.519526, price: 113.50, sector: 'Financial', description: '10Y US Treasury Note December', asset_class: 'futures', atr_d1: 0.443080, atr_w1: 1.043527, atr_mn1: 2.909598, outliers: [] },
+            'ZS': { var: 7.408364, price: 282.65, sector: 'Technology', description: 'Zscaler Inc', asset_class: 'stocks', atr_d1: 8.697857, atr_w1: 16.327857, atr_mn1: 38.636429, outliers: [], ev_data: { market_cap: 44634546176, enterprise_value: 42858668032, mcap_ev_ratio: 104.1 } },
+            'ZS_X': { var: 660.835925, price: 1049.00, sector: 'Commodities', description: 'Soybeans November', asset_class: 'futures', atr_d1: 12.392857, atr_w1: 35.607143, atr_mn1: 77.125000, outliers: [] },
+            'ZTS': { var: 2.540885, price: 147.60, sector: 'Healthcare', description: 'Zoetis Inc', asset_class: 'stocks', atr_d1: 2.910000, atr_w1: 7.485714, atr_mn1: 18.306429, outliers: [], ev_data: { market_cap: 65351770112, enterprise_value: 70716833792, mcap_ev_ratio: 92.4 } },
+            'ZWS': { var: 1.323206, price: 47.47, sector: 'Industrials', description: 'Zurn Water Solutions Corp', asset_class: 'stocks', atr_d1: 1.148571, atr_w1: 2.307857, atr_mn1: 4.640000, outliers: [], ev_data: { market_cap: 7921905152, enterprise_value: 8288011776, mcap_ev_ratio: 95.6 } }
+        };
+
+
+
+
+
+        function updatePositionValue(input) {
+            const row = input.closest('tr');
+            const inputs = row.querySelectorAll('input');
+            const symbol = inputs[0].value.toUpperCase().trim();
+            const shares = parseFloat(inputs[1].value) || 0;
+            const price = parseFloat(inputs[2].value) || 0;
+
+            const valueDisplay = row.querySelector('.value-display');
+            const varDisplay = row.querySelector('.var-display');
+            const varPercentDisplay = row.querySelector('.var-percent-display');
+            const assetClassDisplay = row.querySelector('.asset-class-display');
+
+            const value = shares * price;
+            valueDisplay.textContent = value > 0 ? `$${value.toLocaleString()}` : '-';
+
+            // Update VaR and asset class if symbol is found in database
+            if (symbol && window.varData && window.varData[symbol]) {
+                const positionVar = shares * window.varData[symbol].var;
+                varDisplay.textContent = `$${positionVar.toFixed(2)}`;
+
+                // Calculate VaR percentage (VaR / Position Value * 100)
+                const varPercent = value > 0 ? (positionVar / value * 100) : 0;
+                const varColorClass = varPercent > 10 ? 'calc-var-color-red' : varPercent > 5 ? 'calc-var-color-orange' : 'calc-var-color-yellow';
+                varPercentDisplay.innerHTML = `<span class="${varColorClass}">${varPercent.toFixed(2)}%</span>`;
+
+                // Show asset class with appropriate styling
+                const assetClass = window.varData[symbol].asset_class;
+                const assetDisplay = assetClass === 'cfd' ? 'CFD' :
+                                   assetClass === 'stocks' ? 'Stock' :
+                                   assetClass === 'futures' ? 'Future' : assetClass;
+
+                // Color coding for asset classes
+                const assetColorClass = assetClass === 'stocks' ? 'calc-asset-color-stock' :
+                                       assetClass === 'cfd' ? 'calc-asset-color-cfd' :
+                                       assetClass === 'futures' ? 'calc-asset-color-futures' : 'calc-asset-color-unknown';
+
+                assetClassDisplay.innerHTML = `<span class="${assetColorClass}">${assetDisplay}</span>`;
+
+                // Check if symbol is in current filtered dataset
+                const inFilteredDataset = filteredVarData[symbol] !== undefined;
+                if (!inFilteredDataset && activeDataset !== 'all') {
+                    assetClassDisplay.innerHTML += ` <small class="calc-filter-warning">⚠️</small>`;
+                    assetClassDisplay.title = `This ${assetDisplay} is not in the current ${getDatasetDisplayName()} filter`;
+                }
+
+                // Auto-fill price if empty
+                if (price === 0) {
+                    inputs[2].value = window.varData[symbol].price;
+                    updatePositionValue(inputs[2]); // Recalculate
+        }
+else if (symbol) {
+                varDisplay.textContent = 'Unknown';
+                varPercentDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+                assetClassDisplay.innerHTML = '<span class="calc-var-unknown">Unknown</span>';
+            } else {
+                varPercentDisplay.textContent = '-';
+                assetClassDisplay.textContent = '-';
+            }
+        }
+
+        window.removePosition = function(button) {
+            const row = button.closest('tr');
+            if (document.getElementById('portfolio-positions').children.length > 1) {
+                row.remove();
+            }
+        }
+
+        // Original calculatePortfolioVaR function removed - now global
+
+
+        function calculateRiskReturn() {
+            const returnsText = document.getElementById('rr-returns').value;
+            const riskFreeRate = parseFloat(document.getElementById('rr-risk-free').value) || 0;
+            const periodsPerYear = parseInt(document.getElementById('rr-periods').value);
+
+            if (!returnsText) {
+                alert('Please enter returns data');
+                return;
+            }
+
+            const returns = returnsText.split(',').map(r => parseFloat(r.trim())).filter(r => !isNaN(r));
+
+            if (returns.length < 2) {
+                alert('Please enter at least 2 return values');
+                return;
+            }
+
+            // Calculate metrics
+            const meanReturn = returns.reduce((a, b) => a + b, 0) / returns.length;
+            const variance = returns.reduce((sum, r) => sum + Math.pow(r - meanReturn, 2), 0) / (returns.length - 1);
+            const stdDev = Math.sqrt(variance);
+
+            // Annualized metrics
+            const annualizedReturn = meanReturn * periodsPerYear;
+            const annualizedVolatility = stdDev * Math.sqrt(periodsPerYear);
+            const excessReturn = annualizedReturn - riskFreeRate;
+            const sharpeRatio = excessReturn / annualizedVolatility;
+
+            // Drawdown calculation
+            let peak = returns[0];
+            let maxDrawdown = 0;
+            let currentDrawdown = 0;
+
+            for (let i = 1; i < returns.length; i++) {
+                const cumReturn = returns.slice(0, i+1).reduce((a, b) => a + b, 0);
+                if (cumReturn > peak) {
+                    peak = cumReturn;
+                    currentDrawdown = 0;
+                } else {
+                    currentDrawdown = peak - cumReturn;
+                    maxDrawdown = Math.max(maxDrawdown, currentDrawdown);
+                }
+            }
+
+            const output = `
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Sample Size:</div>
+                    <div class="result-value">${returns.length} periods</div>
+                </div>
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Mean Return (per period):</div>
+                    <div class="result-value">${meanReturn.toFixed(3)}%</div>
+                </div>
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Volatility (per period):</div>
+                    <div class="result-value">${stdDev.toFixed(3)}%</div>
+                </div>
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Annualized Return:</div>
+                    <div class="result-value">${annualizedReturn.toFixed(2)}%</div>
+                </div>
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Annualized Volatility:</div>
+                    <div class="result-value">${annualizedVolatility.toFixed(2)}%</div>
+                </div>
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Sharpe Ratio:</div>
+                    <div class="result-value">${sharpeRatio.toFixed(3)}</div>
+                </div>
+                <div class="calc-margin-bottom">
+                    <div class="result-label">Maximum Drawdown:</div>
+                    <div class="result-value">${maxDrawdown.toFixed(2)}%</div>
+                </div>
+                <div class="warning-text">⚠️ Past performance does not guarantee future results. These metrics are based on historical data only.</div>
+            `;
+
+            document.getElementById('rr-output').innerHTML = output;
+            document.getElementById('rr-results').classList.add('show');
+        }
+
+        // Symbol Lookup Functions
+
+        function filterSymbols() {
+            const selectedSector = document.getElementById('lookup-filter').value;
+            if (!selectedSector) {
+                showAllSymbols();
+                return;
+            }
+
+            const filtered = Object.entries(window.varData || {}).filter(([symbol, data]) =>
+                data.sector === selectedSector
+            );
+
+            let output = `
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">${selectedSector} Sector (${filtered.length} symbols)</h3>
+                    <div class="calc-sector-grid">
+            `;
+
+            filtered.forEach(([symbol, data]) => {
+                output += `
+                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail">
+                        <strong>${symbol}</strong><br>
+                        <small>$${data.price} | VaR: $${data.var.toFixed(3)}</small><br>
+                        <small class="calc-sector-desc">${data.description.length > 25 ? data.description.substring(0, 25) + '...' : data.description}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function getRandomSymbols() {
+            if (!window.varData) return [];
+            const symbols = Object.keys(window.varData);
+            const shuffled = symbols.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 5);
+        }
+
+
+
+
+
+        function showSectorAnalysis(sectorName) {
+            const analysis = getSectorAnalysis(sectorName);
+
+            if (analysis.error) {
+                document.getElementById('lookup-output').innerHTML = `
+                    <div class="calc-error-box">
+                        <h4>❌ ${analysis.error}</h4>
+                        <p>Available sectors: ${[...new Set(Object.values(varData).map(d => d.sector))].join(', ')}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let output = `
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">📊 ${analysis.sector} Sector Analysis</h3>
+                    <div class="calc-margin-bottom">
+                        <div><strong>Total Symbols:</strong> ${analysis.symbolCount}</div>
+                        <div><strong>Average VaR Ratio:</strong> ${(analysis.avgVarRatio * 100).toFixed(2)}%</div>
+                        <div><strong>Outlier Symbols:</strong> ${analysis.outlierCount} (${((analysis.outlierCount / analysis.symbolCount) * 100).toFixed(1)}%)</div>
+                    </div>
+                    <div class="calc-symbols-grid" style="max-height: 300px;">
+            `;
+
+            analysis.data.forEach(([symbol, data]) => {
+                const riskAssessment = generateRiskAssessment(data);
+                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+                output += `
+                    <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}" style="border-color: ${riskAssessment.color};">
+                        <strong>${symbol}</strong> ${outlierIcon}<br>
+                        <small>$${data.price} | ${(data.var/data.price*100).toFixed(2)}%</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        function showWildcardSearch(searchPattern) {
+            const pattern = searchPattern.replace(/\*/g, '');
+            const matches = Object.keys(window.varData || {}).filter(symbol =>
+                symbol.includes(pattern)
+            );
+
+            let output = `
+                <div class="calc-symbols-container">
+                    <h3 class="calc-symbols-title">🔍 Wildcard Search: "${searchPattern}" (${matches.length} matches)</h3>
+                    <div class="calc-sector-grid">
+            `;
+
+            matches.forEach(symbol => {
+                const data = window.varData[symbol];
+                const riskAssessment = generateRiskAssessment(data);
+                const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
+
+                output += `
+                    <div class="calc-sector-item quick-lookup" data-symbol="${symbol}" data-action="show-symbol-detail" style="border-color: ${riskAssessment.color};">
+                        <strong>${symbol}</strong> ${outlierIcon}<br>
+                        <small>$${data.price} | VaR: ${(data.var/data.price*100).toFixed(2)}%</small><br>
+                        <small class="calc-symbol-sector">${data.sector}</small>
+                    </div>
+                `;
+            });
+
+            output += `</div></div>`;
+            document.getElementById('lookup-output').innerHTML = output;
+        }
+
+        // Moved analyzePortfolioRisk to global scope
+
+        // Dataset filtering functionality
+        // Variables moved to global scope - see above
+
+        function updateActiveDataset() {
+            const assetSelector = document.getElementById('dataset-selector');
+            const sectorSelector = document.getElementById('sector-selector');
+            const industrySelector = document.getElementById('industry-selector');
+            const infoSpan = document.getElementById('dataset-info');
+
+            activeDataset = assetSelector.value;
+            const activeSector = sectorSelector.value;
+            const activeIndustry = industrySelector.value;
+
+            // Filter the data based on all selections
+            filteredVarData = {};
+            let matchCount = 0;
+
+            Object.entries(window.varData || {}).forEach(([symbol, data]) => {
+                let matches = true;
+
+                // Asset class filter
+                if (activeDataset !== 'all' && data.asset_class !== activeDataset) {
+                    matches = false;
+                }
+
+                // Sector filter
+                if (activeSector !== 'all' && data.sector !== activeSector) {
+                    matches = false;
+                }
+
+                // Industry filter
+                if (activeIndustry !== 'all' && data.industry !== activeIndustry) {
+                    matches = false;
+                }
+
+                if (matches) {
+                    filteredVarData[symbol] = data;
+                    matchCount++;
+                }
+            });
+
+            // Update info display
+            let infoText = '';
+            const filters = [];
+
+            if (activeDataset !== 'all') {
+                const assetName = activeDataset === 'cfd' ? 'CFDs' :
+                                 activeDataset === 'stocks' ? 'Stocks' :
+                                 activeDataset === 'futures' ? 'Futures' : activeDataset;
+                filters.push(assetName);
+            }
+
+            if (activeSector !== 'all') {
+                filters.push(activeSector);
+            }
+
+            if (activeIndustry !== 'all') {
+                filters.push(activeIndustry);
+            }
+
+            if (filters.length === 0) {
+                infoText = `Currently showing: All symbols (${matchCount} total)`;
+            } else {
+                infoText = `Currently showing: ${filters.join(' + ')} (${matchCount} symbols)`;
+            }
+
+            infoSpan.textContent = infoText;
+
+            // Clear any existing lookup results
+            const lookupOutput = document.getElementById('lookup-output');
+            if (lookupOutput && lookupOutput.innerHTML.trim() !== '') {
+                lookupOutput.innerHTML = '<p class="calc-filter-text">Filters changed. Search again to see results from the selected filters.</p>';
+            }
+        }  // Close updateActiveDataset function
+
+        // Initialize on page load - trying direct approach due to SES extension
+        console.log('Attempting direct initialization');
+
+        function initializeCalculator() {
+            console.log('🎉 initializeCalculator called');
+            const debugOutput = document.getElementById('debugOutput');
+
+            function addDebug(message) {
+                console.log(message);
+                if (debugOutput) {
+                    debugOutput.innerHTML += '<br>' + message;
+                }
+            }
+
+            addDebug('initializeCalculator called');
+            try {
+                addDebug('Basic test - trying minimal functionality');
+                // updateActiveDataset(); // Set initial state - KEEP COMMENTED FOR NOW
+                // console.log('updateActiveDataset called successfully');
+
+                // Set up dataset selector event listeners
+                // document.getElementById('dataset-selector').addEventListener('change', updateActiveDataset);
+                // document.getElementById('sector-selector').addEventListener('change', updateActiveDataset);
+                // document.getElementById('industry-selector').addEventListener('change', updateActiveDataset);
+                console.log('Skipped dataset selector event listeners');
+
+                // Set up calculator form event listeners with error handling
+                const addEventListenerSafe = (id, event, handler) => {
+                    try {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.addEventListener(event, handler);
+                            addDebug(`✅ Added ${event} listener to ${id}`);
+                        } else {
+                            addDebug(`❌ Element not found: ${id}`);
+                        }
+                    } catch (error) {
+                        addDebug(`❌ Error adding listener to ${id}: ${error.message}`);
+                    }
+                };
+
+                // Form field event listeners (non-button events)
+                addEventListenerSafe('sl-symbol', 'change', autoFillStopLossData);
+                addEventListenerSafe('sl-risk-mode', 'change', toggleStopLossMode);
+                addEventListenerSafe('sl-timeframe', 'change', autoFillStopLossData);
+                addEventListenerSafe('ps-risk-mode', 'change', togglePositionSizeMode);
+                addEventListenerSafe('ps-output-mode', 'change', updateOutputMode);
+                addEventListenerSafe('ps-symbol', 'change', autoFillPositionData);
+                addEventListenerSafe('ps-atr-timeframe', 'change', updatePositionAtrData);
+                addEventListenerSafe('ps-atr-multiplier', 'change', updatePositionAtrData);
+                addEventListenerSafe('lookup-symbol', 'change', performAdvancedSearch);
+                addEventListenerSafe('add-position-btn', 'click', addPosition);
+
+                console.log('✅ All event listeners properly configured');
+
+                // Debug: Verify key functions exist
+                console.log('🔍 Function availability check:');
+                console.log('- showSymbolDetail:', typeof window.showSymbolDetail);
+                console.log('- quickLookup:', typeof window.quickLookup);
+                console.log('- backToSymbolList:', typeof window.backToSymbolList);
+                console.log('- displaySymbolInfo:', typeof window.displaySymbolInfo);
+
+                // Helper function to find the closest element with a specific class
+                function findClosestElementWithClass(element, className) {
+                    let current = element;
+                    while (current && current !== document) {
+                        if (current.classList && current.classList.contains(className)) {
+                            return current;
+                        }
+                        current = current.parentElement;
+                    }
+                    return null;
+                }
+
+                // Set up event delegation for dynamically generated elements with comprehensive debugging
+                document.addEventListener('click', function(e) {
+                    console.log('🖱️ Document click event detected');
+                    console.log('📍 Click target:', e.target);
+                    console.log('🏷️ Target tagName:', e.target.tagName);
+                    console.log('🎨 Target classList:', Array.from(e.target.classList));
+                    console.log('📊 Target data-symbol:', e.target.getAttribute('data-symbol'));
+                    console.log('🆔 Target id:', e.target.id);
+
+                    // Check if any parent has quick-lookup class for debugging
+                    const quickLookupParent = findClosestElementWithClass(e.target, 'quick-lookup');
+                    if (quickLookupParent) {
+                        console.log('🎯 Found quick-lookup parent element:', quickLookupParent);
+                        console.log('📊 Parent data-symbol:', quickLookupParent.getAttribute('data-symbol'));
+                    }
+
+                    // Check for various button clicks using the findClosestElementWithClass helper
+                    // This ensures consistent handling of nested elements and click detection
+                    if (e.target.classList.contains('add-symbol-to-portfolio')) {
+                        const symbol = e.target.getAttribute('data-symbol');
+                        addSymbolToPortfolio(symbol);
+                    } else if (e.target.classList.contains('position-remove-btn') || e.target.classList.contains('remove-position')) {
+                        removePosition(e.target);
+                    } else if (findClosestElementWithClass(e.target, 'use-in-stop-loss')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'use-in-stop-loss');
+                        const symbol = buttonElement.getAttribute('data-symbol');
+                        console.log('📊 USE IN STOP LOSS clicked for symbol:', symbol);
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.useInStopLoss) {
+                            useInStopLoss(symbol);
+                        } else {
+                            console.error('❌ useInStopLoss function or symbol not available');
+                            alert('Error: Stop Loss function not available');
+                        }
+                    } else if (findClosestElementWithClass(e.target, 'use-in-portfolio')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'use-in-portfolio');
+                        const symbol = buttonElement.getAttribute('data-symbol');
+                        console.log('💼 USE IN PORTFOLIO clicked for symbol:', symbol);
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.useInPortfolio) {
+                            useInPortfolio(symbol);
+                        } else {
+                            console.error('❌ useInPortfolio function or symbol not available');
+                            alert('Error: Portfolio function not available');
+                        }
+                    } else if (findClosestElementWithClass(e.target, 'find-similar')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'find-similar');
+                        const symbol = buttonElement.getAttribute('data-symbol');
+                        console.log('🔍 FIND SIMILAR clicked for symbol:', symbol);
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.findSimilar) {
+                            findSimilar(symbol);
+                        } else {
+                            console.error('❌ findSimilar function or symbol not available');
+                            alert('Error: Find Similar function not available');
+                        }
+                    } else if (findClosestElementWithClass(e.target, 'quick-lookup')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'quick-lookup');
+                        const symbol = buttonElement.getAttribute('data-symbol');
+                        console.log('🎯 QUICK-LOOKUP MATCH! Symbol clicked from list:', symbol);
+                        console.log('🔄 Calling showSymbolDetail...');
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.showSymbolDetail) {
+                            showSymbolDetail(symbol);
+                            console.log('✅ showSymbolDetail called successfully');
+                        } else {
+                            console.error('❌ showSymbolDetail function not found or symbol missing!');
+                            if (!symbol) {
+                                console.error('❌ No data-symbol attribute found on element:', buttonElement);
+                            }
+                            alert('Error: Unable to load symbol details');
+                        }
+                    } else if (e.target.id === 'back-to-list-btn') {
+                        console.log('🔙 BACK BUTTON CLICKED');
+                        backToSymbolList();
+                    } else {
+                        console.log('⚠️ No matching event handler found for this click');
+                    }
+                });
+
+                // Set up event delegation for position inputs
+                document.addEventListener('change', function(e) {
+                    if (e.target.classList.contains('position-symbol-input') ||
+                        e.target.classList.contains('position-shares-input') ||
+                        e.target.classList.contains('position-price-input') ||
+                        e.target.classList.contains('position-input')) {
+                        updatePositionValue(e.target);
+                    }
+                });
+
+                console.log('Event delegation temporarily disabled for debugging');
+
+                // Set up calculator card click listeners
+                addDebug('🎯 Setting up calculator card listeners...');
+                // Temporary fallback: Add direct listeners while debugging shared.js issue
+                const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
+                console.log('🔧 Setting up direct calculator card listeners as fallback');
+                console.log('📊 Found calculator cards:', calculatorCards.length);
+
+                calculatorCards.forEach((card, index) => {
+                    const calculatorType = card.getAttribute('data-calculator');
+                    console.log(`🔧 Adding direct listener to card ${index}: ${calculatorType}`);
+
+                    card.addEventListener('click', function(e) {
+                        console.log('✅ Direct calculator card click detected:', calculatorType);
+                        console.log('✅ selectCalculator function exists:', typeof window.selectCalculator);
+
+                        if (window.selectCalculator) {
+                            window.selectCalculator(calculatorType, this);
+                        } else {
+                            console.error('❌ selectCalculator function not available');
+                        }
+                    });
+                });
+
+                console.log('✅ Direct calculator card listeners enabled as fallback');
+
+                // Test if selectCalculator is available
+                console.log('🧪 Testing selectCalculator availability:');
+                console.log('- typeof window.selectCalculator:', typeof window.selectCalculator);
+                console.log('- window.selectCalculator function:', window.selectCalculator);
+
+                // Add a test click function for debugging
+                window.testCalculatorSelection = function() {
+                    console.log('🧪 Manual test: calling selectCalculator with "lookup"');
+                    if (window.selectCalculator) {
+                        window.selectCalculator('lookup', null);
+                    } else {
+                        console.error('❌ selectCalculator not available in test');
+                    }
+                };
+                console.log('🔧 Added window.testCalculatorSelection for debugging');
+                console.log('selectCalculator function exists:', typeof window.selectCalculator);
+
+                // Set up breadcrumb reset listener
+                const breadcrumbReset = document.getElementById('calculator-breadcrumb-reset');
+                if (breadcrumbReset) {
+                    breadcrumbReset.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        // Breadcrumb reset clicked
+                        resetToCalculatorSelection();
+                        return false;
+                    });
+                }
+                console.log('Calculator initialization complete');
+
+                // Test function availability
+                console.log('🧪 Testing function availability:');
+                console.log('- useInStopLoss:', typeof window.useInStopLoss);
+                console.log('- useInPortfolio:', typeof window.useInPortfolio);
+                console.log('- findSimilar:', typeof window.findSimilar);
+                console.log('- calculateStopLoss:', typeof window.calculateStopLoss);
+                console.log('- addSymbolToPortfolio:', typeof window.addSymbolToPortfolio);
+                console.log('- selectCalculator:', typeof window.selectCalculator);
+
+                // Add a global test function for debugging
+                window.testCalculatorButtons = function() {
+                    console.log('🧪 Running calculator button functionality test...');
+
+                    // Test with a sample symbol
+                    const testSymbol = 'AAPL';
+
+                    try {
+                        console.log('Testing useInStopLoss...');
+                        if (window.useInStopLoss) window.useInStopLoss(testSymbol);
+
+                        setTimeout(() => {
+                            console.log('Testing useInPortfolio...');
+                            if (window.useInPortfolio) window.useInPortfolio(testSymbol);
+                        }, 500);
+
+                        setTimeout(() => {
+                            console.log('Testing findSimilar...');
+                            if (window.findSimilar) window.findSimilar(testSymbol);
+                        }, 1000);
+
+                        console.log('✅ All button functions tested successfully');
+                    } catch (error) {
+                        console.error('❌ Error during button function testing:', error);
+                    }
+                };
+
+                console.log('✨ Test function available: window.testCalculatorButtons()');
+
+                // Add test function for symbol grid clicks
+                window.testSymbolGridClicks = function() {
+                    console.log('🧪 Testing symbol grid click functionality...');
+
+                    // First, trigger the show all symbols to create a grid
+                    if (window.showAllSymbols) {
+                        console.log('📊 Generating symbol grid...');
+                        showAllSymbols();
+
+                        // Wait for grid to be generated, then test clicking
+                        setTimeout(() => {
+                            const symbolItems = document.querySelectorAll('.calc-symbol-item.quick-lookup[data-action="show-symbol-detail"]');
+                            console.log(`🎯 Found ${symbolItems.length} symbol items with data-action attribute`);
+
+                            if (symbolItems.length > 0) {
+                                const firstSymbol = symbolItems[0];
+                                const symbolName = firstSymbol.getAttribute('data-symbol');
+                                const dataAction = firstSymbol.getAttribute('data-action');
+                                console.log(`🖱️ Testing click on first symbol: ${symbolName} (action: ${dataAction})`);
+
+                                // Check if shared.js handler exists
+                                console.log('📋 Available handlers:', {
+                                    handleShowSymbolDetail: typeof window.handleShowSymbolDetail,
+                                    showSymbolDetail: typeof window.showSymbolDetail
+                                });
+
+                                // Simulate a click
+                                firstSymbol.click();
+                                console.log('✅ Click test completed - check if symbol detail view appeared');
+                            } else {
+                                console.error('❌ No symbol items with data-action found for testing');
+                            }
+                        }, 1000);
+                    } else {
+                        console.error('❌ showAllSymbols function not available');
+                    }
+                };
+
+                console.log('✨ Symbol grid test function available: window.testSymbolGridClicks()');
+
+                // Add comprehensive test function for all button functionality
+                window.testAllButtonFunctionality = function() {
+                    console.log('🧪 Testing ALL button functionality...');
+
+                    // First, generate symbol grid
+                    if (window.showAllSymbols) {
+                        console.log('📊 Generating symbol grid...');
+                        showAllSymbols();
+
+                        setTimeout(() => {
+                            // Test clicking a symbol to show detail view
+                            const symbolItems = document.querySelectorAll('.calc-symbol-item.quick-lookup[data-action="show-symbol-detail"]');
+                            if (symbolItems.length > 0) {
+                                const firstSymbol = symbolItems[0];
+                                const symbolName = firstSymbol.getAttribute('data-symbol');
+                                console.log(`🖱️ Testing symbol detail for: ${symbolName}`);
+                                firstSymbol.click();
+
+                                // Test detail view buttons after symbol detail loads
+                                setTimeout(() => {
+                                    console.log('🔍 Testing detail view buttons...');
+
+                                    // Test back button
+                                    const backButton = document.querySelector('[data-action="back-to-list"]');
+                                    console.log('🔙 Back button found:', !!backButton);
+
+                                    // Test action buttons
+                                    const stopLossBtn = document.querySelector('[data-action="use-in-stop-loss"]');
+                                    const portfolioBtn = document.querySelector('[data-action="use-in-portfolio"]');
+                                    const findSimilarBtn = document.querySelector('[data-action="find-similar"]');
+
+                                    console.log('📊 Stop Loss button found:', !!stopLossBtn);
+                                    console.log('💼 Portfolio button found:', !!portfolioBtn);
+                                    console.log('🔍 Find Similar button found:', !!findSimilarBtn);
+
+                                    console.log('✅ All button availability test completed');
+                                }, 500);
+                            }
+                        }, 1000);
+                    }
+                };
+
+                console.log('✨ Complete test function available: window.testAllButtonFunctionality()');
+
+            } catch (error) {
+                console.error('Error in initializeCalculator:', error);
+            }
+        }
+
+        // Prevent multiple initialization
+        let calculatorInitialized = false;
+
+        function safeInitialize() {
+            console.log('🔄 safeInitialize called, initialized =', calculatorInitialized);
+            if (calculatorInitialized) {
+                console.log('❌ Calculator already initialized, skipping');
+                return;
+            }
+            console.log('✅ Proceeding with initialization...');
+            calculatorInitialized = true;
+            initializeCalculator();
+        }
+
+        // Try multiple initialization approaches with protection
+        console.log('🚀 Setting up initialization handlers...');
+        // Using safeInitialize directly instead of nested DOMContentLoaded
+        safeInitialize();
+
+        console.log('🔍 DOMContentLoaded listener added, current state:', document.readyState);
+
+        // Fallback for SES extension blocking DOMContentLoaded
+        setTimeout(function() {
+            console.log('⏰ Timeout fallback initialization');
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                safeInitialize();
+            }
+        }, 100);
+
+        // Another fallback
+        if (document.readyState === 'loading') {
+            console.log('⏳ Document still loading, waiting...');
+        } else {
+            console.log('🎯 Document ready, initializing immediately');
+            safeInitialize();
+        }
+
+        // Force initialization after a short delay regardless of state
+        console.log('🔧 Setting up forced initialization fallback...');
+        setTimeout(function() {
+            console.log('🚨 Forced initialization attempt after 500ms');
+            if (!calculatorInitialized) {
+                console.log('⚡ Calculator not yet initialized, forcing now...');
+                safeInitialize();
+            } else {
+                console.log('✅ Calculator already initialized, skipping forced init');
+            }
+        }, 500);
+
+        // Calculator initialization complete
+
+// }); // Close DOMContentLoaded function
+
+// EMERGENCY FIX: Define selectCalculator outside DOMContentLoaded to test
+if (!window.selectCalculator) {
+    console.log('🚑 Emergency fix: defining selectCalculator outside DOMContentLoaded');
+    window.selectCalculator = function(calculatorType, clickedElement) {
+        console.log('⚡ Emergency selectCalculator called with:', calculatorType);
+
+        try {
+            // Hide all calculators
+            const calculators = document.querySelectorAll('.calculator-content');
+            calculators.forEach(calc => calc.classList.remove('active'));
+
+            // Remove active class from all cards
+            const cards = document.querySelectorAll('.calculator-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Show selected calculator
+            const targetId = calculatorType + '-calculator';
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.classList.add('active');
+                console.log('✅ Emergency calculator activated:', targetId);
+            } else {
+                console.error('❌ Could not find element with ID:', targetId);
+            }
+
+            // Add active class to selected card
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+            }
+
+        } catch (error) {
+            console.error('❌ Error in emergency selectCalculator:', error);
+        }
+    };
+
+    console.log('✅ Emergency selectCalculator defined! Type:', typeof window.selectCalculator);
+}
