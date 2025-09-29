@@ -572,10 +572,6 @@ class FinancialToolsUpdater:
 
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
-    <style>
-{breadcrumb_css}
-{modal_css}
-    </style>
 </head>
 <body>
 {breadcrumbs_html}
@@ -668,16 +664,6 @@ class FinancialToolsUpdater:
 
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
-    <style>
-        .stats {{
-            text-align: center;
-            color: #00aa00;
-            margin: 20px 0;
-            font-size: 0.9em;
-        }}
-{breadcrumb_css}
-{modal_css}
-    </style>
 </head>
 <body>
 {breadcrumbs_html}
@@ -771,16 +757,6 @@ class FinancialToolsUpdater:
 
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
-    <style>
-        .stats {{
-            text-align: center;
-            color: #00aa00;
-            margin: 20px 0;
-            font-size: 0.9em;
-        }}
-{breadcrumb_css}
-{modal_css}
-    </style>
 </head>
 <body>
 {breadcrumbs_html}
