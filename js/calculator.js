@@ -1016,32 +1016,58 @@ window.quickLookup = function(symbol) {
 window.useInStopLoss = function(symbol) {
     console.log('📊 useInStopLoss() called with symbol:', symbol);
 
+    if (!symbol) {
+        console.error('❌ No symbol provided to useInStopLoss');
+        alert('Error: No symbol provided');
+        return;
+    }
+
+    // Ensure we switch to the calculator first
     if (window.selectCalculator) {
         console.log('🔄 Switching to stop loss calculator');
         selectCalculator('stoploss');
+
+        // Use setTimeout to ensure the calculator is loaded before setting values
+        setTimeout(() => {
+            const symbolInput = document.getElementById('sl-symbol');
+            if (symbolInput) {
+                symbolInput.value = symbol;
+                console.log('✅ Symbol set in stop loss calculator:', symbol);
+
+                // Trigger auto-fill after setting the symbol
+                if (window.autoFillStopLossData) {
+                    autoFillStopLossData();
+                    console.log('✅ Auto-fill stop loss data called');
+                } else {
+                    console.error('❌ autoFillStopLossData function not found');
+                }
+            } else {
+                console.error('❌ sl-symbol input not found');
+                alert('Error: Stop loss calculator input not found');
+            }
+        }, 100);
     } else {
         console.error('❌ selectCalculator function not found');
-    }
-
-    const symbolInput = document.getElementById('sl-symbol');
-    if (symbolInput) {
-        symbolInput.value = symbol;
-        console.log('✅ Symbol set in stop loss calculator:', symbol);
-    } else {
-        console.error('❌ sl-symbol input not found');
-    }
-
-    if (window.autoFillStopLossData) {
-        autoFillStopLossData();
-        console.log('✅ Auto-fill stop loss data called');
-    } else {
-        console.error('❌ autoFillStopLossData function not found');
+        alert('Error: Calculator selection function not available');
     }
 }
 
 window.useInPortfolio = function(symbol) {
     console.log('💼 useInPortfolio() called with symbol:', symbol);
-    addSymbolToPortfolio(symbol);  // Use the same function as Add to Portfolio
+
+    if (!symbol) {
+        console.error('❌ No symbol provided to useInPortfolio');
+        alert('Error: No symbol provided');
+        return;
+    }
+
+    if (window.addSymbolToPortfolio) {
+        addSymbolToPortfolio(symbol);
+        console.log('✅ Symbol added to portfolio:', symbol);
+    } else {
+        console.error('❌ addSymbolToPortfolio function not found');
+        alert('Error: Portfolio function not available');
+    }
 }
 
 // Helper function to find similar symbols
@@ -1057,6 +1083,19 @@ function findSimilarSymbols(prefix) {
 window.findSimilar = function(symbol) {
     console.log('🔍 findSimilar() called with symbol:', symbol);
 
+    if (!symbol) {
+        console.error('❌ No symbol provided to findSimilar');
+        alert('Error: No symbol provided');
+        return;
+    }
+
+    // Check if data is available
+    if (!window.varData) {
+        console.error('❌ varData not loaded');
+        alert('Error: Symbol data not loaded. Please refresh the page.');
+        return;
+    }
+
     // First, ensure we're in the lookup calculator view
     if (window.selectCalculator) {
         console.log('🔄 Switching to lookup calculator');
@@ -1066,6 +1105,7 @@ window.findSimilar = function(symbol) {
     const symbolData = window.varData[symbol];
     if (!symbolData) {
         console.error('❌ No data found for symbol:', symbol);
+        alert(`Error: No data found for symbol ${symbol}`);
         return;
     }
 
@@ -3047,6 +3087,18 @@ else if (symbol) {
                 console.log('- backToSymbolList:', typeof window.backToSymbolList);
                 console.log('- displaySymbolInfo:', typeof window.displaySymbolInfo);
 
+                // Helper function to find the closest element with a specific class
+                function findClosestElementWithClass(element, className) {
+                    let current = element;
+                    while (current && current !== document) {
+                        if (current.classList && current.classList.contains(className)) {
+                            return current;
+                        }
+                        current = current.parentElement;
+                    }
+                    return null;
+                }
+
                 // Set up event delegation for dynamically generated elements with comprehensive debugging
                 document.addEventListener('click', function(e) {
                     console.log('🖱️ Document click event detected');
@@ -3077,18 +3129,42 @@ else if (symbol) {
                         addSymbolToPortfolio(symbol);
                     } else if (e.target.classList.contains('position-remove-btn') || e.target.classList.contains('remove-position')) {
                         removePosition(e.target);
-                    } else if (e.target.classList.contains('use-in-stop-loss')) {
-                        const symbol = e.target.getAttribute('data-symbol');
+                    } else if (findClosestElementWithClass(e.target, 'use-in-stop-loss')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'use-in-stop-loss');
+                        const symbol = buttonElement.getAttribute('data-symbol');
                         console.log('📊 USE IN STOP LOSS clicked for symbol:', symbol);
-                        useInStopLoss(symbol);
-                    } else if (e.target.classList.contains('use-in-portfolio')) {
-                        const symbol = e.target.getAttribute('data-symbol');
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.useInStopLoss) {
+                            useInStopLoss(symbol);
+                        } else {
+                            console.error('❌ useInStopLoss function or symbol not available');
+                            alert('Error: Stop Loss function not available');
+                        }
+                    } else if (findClosestElementWithClass(e.target, 'use-in-portfolio')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'use-in-portfolio');
+                        const symbol = buttonElement.getAttribute('data-symbol');
                         console.log('💼 USE IN PORTFOLIO clicked for symbol:', symbol);
-                        useInPortfolio(symbol);
-                    } else if (e.target.classList.contains('find-similar')) {
-                        const symbol = e.target.getAttribute('data-symbol');
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.useInPortfolio) {
+                            useInPortfolio(symbol);
+                        } else {
+                            console.error('❌ useInPortfolio function or symbol not available');
+                            alert('Error: Portfolio function not available');
+                        }
+                    } else if (findClosestElementWithClass(e.target, 'find-similar')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'find-similar');
+                        const symbol = buttonElement.getAttribute('data-symbol');
                         console.log('🔍 FIND SIMILAR clicked for symbol:', symbol);
-                        findSimilar(symbol);
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.findSimilar) {
+                            findSimilar(symbol);
+                        } else {
+                            console.error('❌ findSimilar function or symbol not available');
+                            alert('Error: Find Similar function not available');
+                        }
                     } else if (e.target.classList.contains('quick-lookup')) {
                         const symbol = e.target.getAttribute('data-symbol');
                         console.log('🎯 QUICK-LOOKUP MATCH! Symbol clicked from list:', symbol);
@@ -3152,6 +3228,44 @@ else if (symbol) {
                     });
                 }
                 console.log('Calculator initialization complete');
+
+                // Test function availability
+                console.log('🧪 Testing function availability:');
+                console.log('- useInStopLoss:', typeof window.useInStopLoss);
+                console.log('- useInPortfolio:', typeof window.useInPortfolio);
+                console.log('- findSimilar:', typeof window.findSimilar);
+                console.log('- calculateStopLoss:', typeof window.calculateStopLoss);
+                console.log('- addSymbolToPortfolio:', typeof window.addSymbolToPortfolio);
+                console.log('- selectCalculator:', typeof window.selectCalculator);
+
+                // Add a global test function for debugging
+                window.testCalculatorButtons = function() {
+                    console.log('🧪 Running calculator button functionality test...');
+
+                    // Test with a sample symbol
+                    const testSymbol = 'AAPL';
+
+                    try {
+                        console.log('Testing useInStopLoss...');
+                        if (window.useInStopLoss) window.useInStopLoss(testSymbol);
+
+                        setTimeout(() => {
+                            console.log('Testing useInPortfolio...');
+                            if (window.useInPortfolio) window.useInPortfolio(testSymbol);
+                        }, 500);
+
+                        setTimeout(() => {
+                            console.log('Testing findSimilar...');
+                            if (window.findSimilar) window.findSimilar(testSymbol);
+                        }, 1000);
+
+                        console.log('✅ All button functions tested successfully');
+                    } catch (error) {
+                        console.error('❌ Error during button function testing:', error);
+                    }
+                };
+
+                console.log('✨ Test function available: window.testCalculatorButtons()');
 
             } catch (error) {
                 console.error('Error in initializeCalculator:', error);
