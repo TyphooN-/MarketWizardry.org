@@ -73,7 +73,6 @@ body {
     background-color: #000;
     font-family: "Courier New", monospace;
     color: #00ff00;
-    overflow-x: hidden;
 }
 /* CRT screen effect */
 .crt {
@@ -450,8 +449,17 @@ body {
 .grid-container img {
     max-width: 100%;
     height: auto;
-    border: 2px solid rgba(0, 255, 0, 0.5);
+    border: 3px solid #00ff00;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4), inset 0 0 20px rgba(0, 255, 0, 0.1);
     object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.grid-container img:hover {
+    border-color: #00ff88;
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.7), inset 0 0 30px rgba(0, 255, 0, 0.2);
+    transform: scale(1.02);
 }
 
 /* Text box styling */
