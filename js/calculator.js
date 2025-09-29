@@ -111,14 +111,62 @@ window.showAllSymbols = function() {
         return;
     }
 
+    // Get current filter settings
+    const assetClassFilter = document.getElementById('dataset-selector')?.value || 'all';
+    const sectorFilter = document.getElementById('sector-selector')?.value || 'all';
+    const industryFilter = document.getElementById('industry-selector')?.value || 'all';
+
+    console.log('🎯 Current filters:', { assetClassFilter, sectorFilter, industryFilter });
+
     // Show immediate feedback to user
-    outputElement.innerHTML = '<div style="color: #00ff00; text-align: center; padding: 20px;">🔄 Loading all symbols...</div>';
+    outputElement.innerHTML = '<div style="color: #00ff00; text-align: center; padding: 20px;">🔄 Loading filtered symbols...</div>';
     console.log('💭 Showing loading message to user');
 
-    const symbols = Object.entries(window.varData);
+    // Apply filters
+    let symbols = Object.entries(window.varData);
+
+    // Filter by asset class
+    if (assetClassFilter && assetClassFilter !== 'all') {
+        symbols = symbols.filter(([symbol, data]) => {
+            if (assetClassFilter === 'stocks') return data.assetClass === 'Stock';
+            if (assetClassFilter === 'cfd') return data.assetClass === 'CFD';
+            if (assetClassFilter === 'futures') return data.assetClass === 'Futures';
+            return true;
+        });
+        console.log('📊 After asset class filter:', symbols.length, 'symbols');
+    }
+
+    // Filter by sector
+    if (sectorFilter && sectorFilter !== 'all' && sectorFilter !== '') {
+        symbols = symbols.filter(([symbol, data]) =>
+            data.sector && data.sector.toLowerCase().includes(sectorFilter.toLowerCase())
+        );
+        console.log('📊 After sector filter:', symbols.length, 'symbols');
+    }
+
+    // Filter by industry
+    if (industryFilter && industryFilter !== 'all' && industryFilter !== '') {
+        symbols = symbols.filter(([symbol, data]) =>
+            data.industry && data.industry.toLowerCase().includes(industryFilter.toLowerCase())
+        );
+        console.log('📊 After industry filter:', symbols.length, 'symbols');
+    }
+
+    console.log('✅ Final filtered symbols:', symbols.length);
+
+    // Create filter description
+    let filterDesc = '';
+    if (assetClassFilter !== 'all' || sectorFilter !== 'all' || industryFilter !== 'all') {
+        const filters = [];
+        if (assetClassFilter !== 'all') filters.push(`Asset: ${assetClassFilter}`);
+        if (sectorFilter !== 'all') filters.push(`Sector: ${sectorFilter}`);
+        if (industryFilter !== 'all') filters.push(`Industry: ${industryFilter}`);
+        filterDesc = ` - Filtered by: ${filters.join(', ')}`;
+    }
+
     let output = `
         <div class="calc-symbols-container">
-            <h3 class="calc-symbols-title">All Available Symbols (${symbols.length} total)</h3>
+            <h3 class="calc-symbols-title">Available Symbols (${symbols.length} total)${filterDesc}</h3>
             <div class="calc-symbols-grid">
     `;
 
@@ -148,6 +196,78 @@ window.showAllSymbols = function() {
         }
 
         console.log('✅ Successfully set innerHTML');
+        console.log('🔍 Element now contains:', finalElement.innerHTML.substring(0, 100) + '...');
+    } else {
+        console.error('❌ lookup-output element disappeared!');
+    }
+};
+
+// Show ALL symbols function (ignores filters)
+window.showAllSymbolsUnfiltered = function() {
+    console.log('🔍 showAllSymbolsUnfiltered() called - ignoring all filters');
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    if (!window.varData) {
+        console.error('❌ varData not loaded, showing error message');
+        document.getElementById('lookup-output').innerHTML = `
+            <div class="calc-error-container">
+                <h3 class="calc-error-title">Error: Symbol data not loaded</h3>
+                <p class="calc-error-text">Please refresh the page to reload symbol data.</p>
+            </div>`;
+        return;
+    }
+
+    const outputElement = document.getElementById('lookup-output');
+    if (!outputElement) {
+        console.error('❌ lookup-output element not found in DOM');
+        alert('Error: Output display element not found');
+        return;
+    }
+
+    // Show immediate feedback to user
+    outputElement.innerHTML = '<div style="color: #00ff00; text-align: center; padding: 20px;">🔄 Loading ALL symbols (ignoring filters)...</div>';
+    console.log('💭 Showing loading message for unfiltered symbols');
+
+    const symbols = Object.entries(window.varData);
+    console.log('✅ Showing all symbols unfiltered:', symbols.length);
+
+    let output = `
+        <div class="calc-symbols-container">
+            <h3 class="calc-symbols-title">ALL Available Symbols (${symbols.length} total) - No Filters Applied</h3>
+            <div class="calc-symbols-grid">
+    `;
+
+    symbols.forEach(([symbol, data]) => {
+        output += `
+            <div class="calc-symbol-item quick-lookup" data-symbol="${symbol}">
+                <strong>${symbol}</strong> | $${data.price}<br>
+                <small class="calc-symbol-sector">${data.sector}</small>
+            </div>
+        `;
+    });
+
+    output += `</div></div>`;
+
+    console.log('📤 Setting innerHTML for lookup-output element (unfiltered)');
+    console.log('📏 Output content length:', output.length, 'characters');
+
+    const finalElement = document.getElementById('lookup-output');
+    if (finalElement) {
+        finalElement.innerHTML = output;
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = finalElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box (unfiltered)');
+        }
+
+        console.log('✅ Successfully set innerHTML (unfiltered)');
         console.log('🔍 Element now contains:', finalElement.innerHTML.substring(0, 100) + '...');
     } else {
         console.error('❌ lookup-output element disappeared!');
@@ -704,8 +824,31 @@ function displaySymbolInfoInPortfolio(symbol, data) {
 }
 
 function addSymbolToPortfolio(symbol) {
+    console.log('💼 addSymbolToPortfolio() called with symbol:', symbol);
+
     const data = window.varData[symbol];
-    if (!data) return;
+    if (!data) {
+        console.error('❌ No data found for symbol:', symbol);
+        alert(`Symbol ${symbol} not found in database`);
+        return;
+    }
+
+    console.log('✅ Symbol data found, adding to portfolio');
+
+    // Auto-switch to Portfolio VaR calculator
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to Portfolio VaR calculator');
+        window.selectCalculator('portfolio', null);
+
+        // Scroll to portfolio calculator section
+        setTimeout(() => {
+            const portfolioSection = document.getElementById('portfolio-calculator');
+            if (portfolioSection) {
+                portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                console.log('📜 Scrolled to portfolio calculator');
+            }
+        }, 100);
+    }
 
     const tbody = document.getElementById('portfolio-positions');
     const newRow = document.createElement('tr');
@@ -754,21 +897,48 @@ window.useInStopLoss = function(symbol) {
 }
 
 window.useInPortfolio = function(symbol) {
-    selectCalculator('portfolio');
-    document.getElementById('symbol-lookup').value = symbol;
-    lookupSymbol();
+    console.log('💼 useInPortfolio() called with symbol:', symbol);
+    addSymbolToPortfolio(symbol);  // Use the same function as Add to Portfolio
+}
+
+// Helper function to find similar symbols
+function findSimilarSymbols(prefix) {
+    console.log('🔍 findSimilarSymbols() called with prefix:', prefix);
+    if (!window.varData) return [];
+
+    return Object.keys(window.varData).filter(sym =>
+        sym.startsWith(prefix.toUpperCase()) && sym !== prefix.toUpperCase()
+    ).slice(0, 20); // Limit to 20 results
 }
 
 window.findSimilar = function(symbol) {
-    const matches = findSimilarSymbols(symbol.substring(0, 2));
+    console.log('🔍 findSimilar() called with symbol:', symbol);
+
+    // First, ensure we're in the lookup calculator view
+    if (window.selectCalculator) {
+        console.log('🔄 Switching to lookup calculator');
+        window.selectCalculator('lookup', null);
+    }
+
+    const symbolData = window.varData[symbol];
+    if (!symbolData) {
+        console.error('❌ No data found for symbol:', symbol);
+        return;
+    }
+
+    // Find symbols in same sector
+    const sectorMatches = Object.entries(window.varData).filter(([sym, data]) =>
+        sym !== symbol && data.sector === symbolData.sector
+    ).slice(0, 10);
+
+    console.log('✅ Found', sectorMatches.length, 'symbols in same sector:', symbolData.sector);
     let output = `
         <div class="calc-symbols-container">
-            <h3 class="calc-symbols-title">Symbols Similar to ${symbol} (${matches.length} found)</h3>
+            <h3 class="calc-symbols-title">Symbols Similar to ${symbol} - Same Sector: ${symbolData.sector} (${sectorMatches.length} found)</h3>
             <div class="calc-sector-grid">
     `;
 
-    matches.forEach(matchSymbol => {
-        const data = window.varData[matchSymbol];
+    sectorMatches.forEach(([matchSymbol, data]) => {
         const riskAssessment = generateRiskAssessment(data);
         const outlierIcon = data.outliers && data.outliers.length > 0 ? '🚨' : '✅';
 
@@ -782,7 +952,22 @@ window.findSimilar = function(symbol) {
     });
 
     output += `</div></div>`;
-    document.getElementById('lookup-output').innerHTML = output;
+
+    const outputElement = document.getElementById('lookup-output');
+    if (outputElement) {
+        outputElement.innerHTML = output;
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = outputElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box for findSimilar');
+        }
+
+        console.log('✅ Find similar results displayed for', symbol);
+    } else {
+        console.error('❌ lookup-output element not found for findSimilar');
+    }
 }
 
 window.performAdvancedSearch = function() {
@@ -1111,6 +1296,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'calculate-position-size-btn',
         'calculate-portfolio-var-btn',
         'show-all-symbols-btn',
+        'show-all-symbols-unfiltered-btn',
         'lookup-symbol-btn',
         'advanced-search-btn'
     ];
@@ -1122,6 +1308,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'calculate-position-size-btn': 'calculatePositionSize',
         'calculate-portfolio-var-btn': 'calculatePortfolioVaR',
         'show-all-symbols-btn': 'showAllSymbols',
+        'show-all-symbols-unfiltered-btn': 'showAllSymbolsUnfiltered',
         'lookup-symbol-btn': 'lookupSymbol',
         'advanced-search-btn': 'performAdvancedSearch'
     };
