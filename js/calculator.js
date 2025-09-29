@@ -290,6 +290,8 @@ window.showAllSymbols = function() {
         `;
     });
 
+    console.log('📋 Generated FILTERED symbol grid with', symbols.length, 'symbols, each with quick-lookup class');
+
     output += `</div></div>`;
 
     console.log('📤 Setting innerHTML for lookup-output element');
@@ -365,6 +367,8 @@ window.showAllSymbolsUnfiltered = function() {
             </div>
         `;
     });
+
+    console.log('📋 Generated UNFILTERED symbol grid with', symbols.length, 'symbols, each with quick-lookup class');
 
     output += `</div></div>`;
 
@@ -3019,9 +3023,38 @@ else if (symbol) {
 
                 console.log('✅ All event listeners properly configured');
 
-                // TEMPORARILY COMMENTED OUT FOR DEBUGGING
-                // Set up event delegation for dynamically generated elements
+                // Debug: Verify key functions exist
+                console.log('🔍 Function availability check:');
+                console.log('- showSymbolDetail:', typeof window.showSymbolDetail);
+                console.log('- quickLookup:', typeof window.quickLookup);
+                console.log('- backToSymbolList:', typeof window.backToSymbolList);
+                console.log('- displaySymbolInfo:', typeof window.displaySymbolInfo);
+
+                // Set up event delegation for dynamically generated elements with comprehensive debugging
                 document.addEventListener('click', function(e) {
+                    console.log('🖱️ Document click event detected');
+                    console.log('📍 Click target:', e.target);
+                    console.log('🏷️ Target tagName:', e.target.tagName);
+                    console.log('🎨 Target classList:', Array.from(e.target.classList));
+                    console.log('📊 Target data-symbol:', e.target.getAttribute('data-symbol'));
+                    console.log('🆔 Target id:', e.target.id);
+
+                    // Check if target has any parent with quick-lookup class
+                    let currentElement = e.target;
+                    let foundQuickLookup = false;
+                    while (currentElement && currentElement !== document) {
+                        if (currentElement.classList && currentElement.classList.contains('quick-lookup')) {
+                            console.log('🎯 Found quick-lookup parent:', currentElement);
+                            foundQuickLookup = true;
+                            break;
+                        }
+                        currentElement = currentElement.parentElement;
+                    }
+
+                    if (foundQuickLookup) {
+                        console.log('✅ Using parent quick-lookup element for symbol click');
+                        e.target = currentElement; // Use the parent element with quick-lookup class
+                    }
                     if (e.target.classList.contains('add-symbol-to-portfolio')) {
                         const symbol = e.target.getAttribute('data-symbol');
                         addSymbolToPortfolio(symbol);
@@ -3038,11 +3071,19 @@ else if (symbol) {
                         findSimilar(symbol);
                     } else if (e.target.classList.contains('quick-lookup')) {
                         const symbol = e.target.getAttribute('data-symbol');
-                        console.log('📋 Symbol clicked from list:', symbol);
-                        showSymbolDetail(symbol);
+                        console.log('🎯 QUICK-LOOKUP MATCH! Symbol clicked from list:', symbol);
+                        console.log('🔄 Calling showSymbolDetail...');
+                        if (window.showSymbolDetail) {
+                            showSymbolDetail(symbol);
+                            console.log('✅ showSymbolDetail called successfully');
+                        } else {
+                            console.error('❌ showSymbolDetail function not found!');
+                        }
                     } else if (e.target.id === 'back-to-list-btn') {
-                        console.log('🔙 Back button clicked');
+                        console.log('🔙 BACK BUTTON CLICKED');
                         backToSymbolList();
+                    } else {
+                        console.log('⚠️ No matching event handler found for this click');
                     }
                 });
 
