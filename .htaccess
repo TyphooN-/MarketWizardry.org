@@ -33,7 +33,7 @@
     Header always set X-Content-Type-Options nosniff
     Header always set X-Frame-Options SAMEORIGIN
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), accelerometer=(), gyroscope=(), autoplay=(), encrypted-media=(), picture-in-picture=(), clipboard-write=()"
 
     # Content Security Policy - strict configuration for security
     # All inline styles moved to external CSS files for CSP compliance
