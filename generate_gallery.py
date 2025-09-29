@@ -1213,7 +1213,6 @@ document.addEventListener('DOMContentLoaded', function() {{
         color: #00aa00;
         margin-bottom: 20px;
         padding: 10px 0;
-        text-align: left;
     }}
 
     .breadcrumb a {{

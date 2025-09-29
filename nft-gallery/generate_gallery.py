@@ -547,7 +547,6 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         color: #00aa00;
         margin-bottom: 20px;
         padding: 10px 0;
-        text-align: left;
     }
 
     .breadcrumb a {
