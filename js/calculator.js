@@ -101,6 +101,20 @@ window.showAllSymbols = function() {
     }
 
     console.log('✅ varData loaded, processing', Object.keys(window.varData).length, 'symbols');
+
+    // Check if output element exists and is accessible
+    const outputElement = document.getElementById('lookup-output');
+    console.log('📍 lookup-output element:', outputElement);
+    if (!outputElement) {
+        console.error('❌ lookup-output element not found in DOM');
+        alert('Error: Output display element not found');
+        return;
+    }
+
+    // Show immediate feedback to user
+    outputElement.innerHTML = '<div style="color: #00ff00; text-align: center; padding: 20px;">🔄 Loading all symbols...</div>';
+    console.log('💭 Showing loading message to user');
+
     const symbols = Object.entries(window.varData);
     let output = `
         <div class="calc-symbols-container">
@@ -118,7 +132,26 @@ window.showAllSymbols = function() {
     });
 
     output += `</div></div>`;
-    document.getElementById('lookup-output').innerHTML = output;
+
+    console.log('📤 Setting innerHTML for lookup-output element');
+    console.log('📏 Output content length:', output.length, 'characters');
+
+    const finalElement = document.getElementById('lookup-output');
+    if (finalElement) {
+        finalElement.innerHTML = output;
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = finalElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box');
+        }
+
+        console.log('✅ Successfully set innerHTML');
+        console.log('🔍 Element now contains:', finalElement.innerHTML.substring(0, 100) + '...');
+    } else {
+        console.error('❌ lookup-output element disappeared!');
+    }
 };
 
 // Stop Loss Calculator - Global function for immediate access
@@ -655,6 +688,19 @@ function displaySymbolInfoInPortfolio(symbol, data) {
         </div>
     `;
     infoDiv.className = infoDiv.className.replace(' display-none', '');
+
+    // CRITICAL: Make result boxes visible by adding 'show' class
+    const detailsResultBox = detailsDiv.closest('.result-box');
+    if (detailsResultBox) {
+        detailsResultBox.classList.add('show');
+        console.log('✅ Added "show" class to symbol-details result-box');
+    }
+
+    const infoResultBox = infoDiv.closest('.result-box');
+    if (infoResultBox) {
+        infoResultBox.classList.add('show');
+        console.log('✅ Added "show" class to symbol-info result-box');
+    }
 }
 
 function addSymbolToPortfolio(symbol) {
