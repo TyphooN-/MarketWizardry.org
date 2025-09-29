@@ -1005,8 +1005,8 @@ window.addPosition = function() {
 }
 
 window.quickLookup = function(symbol) {
-    document.getElementById('lookup-symbol').value = symbol;
-    performSymbolLookup();
+    console.log('📋 quickLookup() called with symbol:', symbol);
+    showSymbolDetail(symbol);
 }
 
 window.useInStopLoss = function(symbol) {
@@ -1156,15 +1156,18 @@ window.performSymbolLookup = function() {
 window.displaySymbolInfo = function(symbol, data) {
     const riskAssessment = generateRiskAssessment(data);
     const outlierWarnings = data.outliers && data.outliers.length > 0 ?
-        `<div class="calc-outlier-warning" style="margin: 8px 0; padding: 8px; background: rgba(255,136,0,0.2); border-left: 3px solid #ff8800;">
+        `<div class="calc-outlier-warning-detail">
             🚨 ${data.outliers.length} Outlier Alert${data.outliers.length > 1 ? 's' : ''}: ${data.outliers.map(o => o.toUpperCase()).join(', ')} detected
         </div>` : '';
 
     const output = `
-        <div class="calc-detailed-info" style="border-color: ${riskAssessment.color};">
-            <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
+        <div class="calc-detailed-info">
+            <div class="calc-symbol-detail-header">
+                <h3 class="calc-detailed-title">${symbol} - ${data.description}</h3>
+                <button class="calculate-btn calc-back-button" id="back-to-list-btn">← Back to List</button>
+            </div>
 
-            <div class="calc-risk-message" style="color: ${riskAssessment.color}; font-size: 1.1em; margin-bottom: 15px;">
+            <div class="calc-risk-message-large">
                 ${riskAssessment.recommendation}
             </div>
             ${outlierWarnings}
@@ -1213,7 +1216,21 @@ window.displaySymbolInfo = function(symbol, data) {
         </div>
     `;
 
-    document.getElementById('lookup-output').innerHTML = output;
+    const outputElement = document.getElementById('lookup-output');
+    if (outputElement) {
+        outputElement.innerHTML = output;
+
+        // CRITICAL: Make the result box visible by adding 'show' class
+        const resultBox = outputElement.closest('.result-box');
+        if (resultBox) {
+            resultBox.classList.add('show');
+            console.log('✅ Added "show" class to result-box for displaySymbolInfo');
+        }
+
+        console.log('✅ Symbol info displayed for', symbol);
+    } else {
+        console.error('❌ lookup-output element not found for displaySymbolInfo');
+    }
 }
 
 window.generateRiskAssessment = function(data) {
