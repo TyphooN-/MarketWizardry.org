@@ -804,7 +804,10 @@ function displaySymbolGrid(symbols, title) {
     document.getElementById('lookup-output').innerHTML = output;
 
     // Make results visible
-    document.getElementById('lu-results').classList.add('show');
+    const resultsElement = document.getElementById('lookup-results');
+    if (resultsElement) {
+        resultsElement.classList.add('show');
+    }
 }
 
 // ===== SYMBOL INTERACTION FUNCTIONS =====
