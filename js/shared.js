@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
         let targetElement = e.target.closest('[data-action]');
         const action = targetElement ? targetElement.getAttribute('data-action') : null;
 
+        // Debug logging for calculator card clicks
+        if (e.target.closest('.calculator-card')) {
+            console.log('📊 Calculator card clicked! Target:', e.target);
+            console.log('📊 Found targetElement with data-action:', targetElement);
+            console.log('📊 Action detected:', action);
+        }
+
         // Handle modal background clicks
         if (e.target.id === 'analysisModal') {
             closeModal();
@@ -383,12 +390,22 @@ function handleOpenImage(e) {
 // Calculator selection functionality
 function handleSelectCalculator(e, targetElement) {
     e.preventDefault();
+    console.log('📊 handleSelectCalculator called with:', {
+        targetElement: targetElement,
+        calculatorType: targetElement ? targetElement.getAttribute('data-calculator') : null,
+        selectCalculatorExists: !!window.selectCalculator
+    });
+
     const calculatorType = targetElement.getAttribute('data-calculator');
 
     if (calculatorType && window.selectCalculator) {
+        console.log('✅ Calling window.selectCalculator with type:', calculatorType);
         window.selectCalculator(calculatorType, targetElement);
     } else {
-        console.error('Calculator type not found or selectCalculator function not available');
+        console.error('❌ Calculator type not found or selectCalculator function not available:', {
+            calculatorType: calculatorType,
+            selectCalculatorExists: !!window.selectCalculator
+        });
     }
 }
 

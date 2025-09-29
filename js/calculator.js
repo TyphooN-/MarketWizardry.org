@@ -3211,9 +3211,44 @@ else if (symbol) {
 
                 // Set up calculator card click listeners
                 addDebug('🎯 Setting up calculator card listeners...');
-                // Calculator cards are now handled by shared.js via data-action="select-calculator"
-                // No need for direct event listeners here - avoiding conflicts
-                addDebug('✅ Calculator cards handled by shared.js event delegation');
+                // Temporary fallback: Add direct listeners while debugging shared.js issue
+                const calculatorCards = document.querySelectorAll('.calculator-card[data-calculator]');
+                console.log('🔧 Setting up direct calculator card listeners as fallback');
+                console.log('📊 Found calculator cards:', calculatorCards.length);
+
+                calculatorCards.forEach((card, index) => {
+                    const calculatorType = card.getAttribute('data-calculator');
+                    console.log(`🔧 Adding direct listener to card ${index}: ${calculatorType}`);
+
+                    card.addEventListener('click', function(e) {
+                        console.log('✅ Direct calculator card click detected:', calculatorType);
+                        console.log('✅ selectCalculator function exists:', typeof window.selectCalculator);
+
+                        if (window.selectCalculator) {
+                            window.selectCalculator(calculatorType, this);
+                        } else {
+                            console.error('❌ selectCalculator function not available');
+                        }
+                    });
+                });
+
+                console.log('✅ Direct calculator card listeners enabled as fallback');
+
+                // Test if selectCalculator is available
+                console.log('🧪 Testing selectCalculator availability:');
+                console.log('- typeof window.selectCalculator:', typeof window.selectCalculator);
+                console.log('- window.selectCalculator function:', window.selectCalculator);
+
+                // Add a test click function for debugging
+                window.testCalculatorSelection = function() {
+                    console.log('🧪 Manual test: calling selectCalculator with "lookup"');
+                    if (window.selectCalculator) {
+                        window.selectCalculator('lookup', null);
+                    } else {
+                        console.error('❌ selectCalculator not available in test');
+                    }
+                };
+                console.log('🔧 Added window.testCalculatorSelection for debugging');
                 console.log('selectCalculator function exists:', typeof window.selectCalculator);
 
                 // Set up breadcrumb reset listener
