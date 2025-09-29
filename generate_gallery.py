@@ -520,11 +520,12 @@ document.addEventListener('DOMContentLoaded', function() {{
         </span>
     </nav>
 
-    <h1>AI Art</h1>
-    <div class="crt-divider"></div>
-    <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
-    <div class="crt-divider"></div>
-    <div class="image-grid" id="imageGrid">
+    <div class="container">
+        <h1>AI Art</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Robot-generated 'art' for humans who've given up on actual creativity. Watch machines mock your artistic soul while you pretend it's profound.</div>
+        <div class="crt-divider"></div>
+        <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
 
@@ -546,6 +547,8 @@ document.addEventListener('DOMContentLoaded', function() {{
         </div>
     </div>
     </div>
+    </div>
+
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
     <script src="/js/gallery.js"></script>
