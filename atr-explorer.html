@@ -57,8 +57,227 @@
     <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
 
+    <!-- CSP Compliant JavaScript Includes -->
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .stats {
+            text-align: center;
+            color: #00aa00;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+
+    /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb a {
+        color: #00ff00 !important;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff !important;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
+
+    /* Mobile breadcrumb optimization */
+    @media screen and (max-width: 768px) {
+        .breadcrumb {
+            display: none;
+        }
+    }
+
+        /* Grid Styles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .file-entry {
+            background-color: #000;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .file-entry:hover {
+            background-color: #001100;
+            color: #00ff00;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        .file-entry a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .file-entry a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #000;
+            margin: 5% auto;
+            padding: 10px;
+            border: 2px solid #00ff00;
+            max-width: fit-content;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.5);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #00ff00;
+            font-size: 1.2em;
+        }
+        .modal-header a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 2px 5px;
+            margin-left: 10px;
+        }
+        .modal-header a:hover {
+            text-decoration: underline;
+        }
+        .close-button {
+            color: #00ff00;
+            font-size: 28px;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            padding: 0 5px;
+            line-height: 1;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: #001100;
+        }
+        .modal-body {
+            white-space: pre;
+            max-height: 60vh;
+            overflow-y: auto;
+            overflow-x: auto;
+            color: #00ff00;
+            font-size: 1.2em;
+            padding: 15px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+            padding: 0 15px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            transition: all 0.2s ease;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            transform: scale(1.02);
+        }
+        .nav-counter {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+
+        @media screen and (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding-top: 20px;
+            }
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-header {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .modal-header h2 {
+                font-size: 1em;
+                margin-bottom: 8px;
+                flex: 1 0 100%;
+            }
+            .modal-header a {
+                font-size: 0.7em;
+                padding: 4px 8px;
+                margin: 2px;
+            }
+            .modal-body {
+                font-size: 0.65em;
+                white-space: pre;
+                overflow-x: auto;
+                max-height: calc(90vh - 160px);
+                padding: 10px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .nav-counter {
+                font-size: 0.8em;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
@@ -84,14 +303,14 @@
 
         <div class="grid">
             
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.26">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.26">
-                    Darwinex-Live (Futures) - 2025.09.26
-                </a>
-            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.26.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.26">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.26.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.26">
                     Darwinex-Live (CFD) - 2025.09.26
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.26">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.26.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.26">
+                    Darwinex-Live (Futures) - 2025.09.26
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.26-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.26.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.26">
@@ -104,24 +323,24 @@
                     Darwinex-Live (Stocks) - 2025.09.25
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.25">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.25">
-                    Darwinex-Live (CFD) - 2025.09.25
-                </a>
-            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.25-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.25.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.25">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.25-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.25.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.25">
                     Darwinex-Live (Futures) - 2025.09.25
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.24">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.24">
-                    Darwinex-Live (Futures) - 2025.09.24
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.25">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.25.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.25">
+                    Darwinex-Live (CFD) - 2025.09.25
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.24.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.24">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.24.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.24">
                     Darwinex-Live (CFD) - 2025.09.24
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.24">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.24.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.24">
+                    Darwinex-Live (Futures) - 2025.09.24
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.24-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.24.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.24">
@@ -134,19 +353,14 @@
                     Darwinex-Live (CFD) - 2025.09.23
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.23">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.23">
-                    Darwinex-Live (Stocks) - 2025.09.23
-                </a>
-            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.23-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.23.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.23">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.23-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.23.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.23">
                     Darwinex-Live (Futures) - 2025.09.23
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.22">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.22">
-                    Darwinex-Live (Futures) - 2025.09.22
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.23">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.23.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.23">
+                    Darwinex-Live (Stocks) - 2025.09.23
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.22.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.22">
@@ -154,14 +368,14 @@
                     Darwinex-Live (Stocks) - 2025.09.22
                 </a>
             </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.22">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.22.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.22">
+                    Darwinex-Live (Futures) - 2025.09.22
+                </a>
+            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.22.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.22">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.22-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.22.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.22">
                     Darwinex-Live (CFD) - 2025.09.22
-                </a>
-            </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.19">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.19">
-                    Darwinex-Live (Futures) - 2025.09.19
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.19-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.19.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.19">
@@ -174,6 +388,16 @@
                     Darwinex-Live (Stocks) - 2025.09.19
                 </a>
             </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.19">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.19.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.19">
+                    Darwinex-Live (Futures) - 2025.09.19
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.18">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.18">
+                    Darwinex-Live (Futures) - 2025.09.18
+                </a>
+            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.18">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.18.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.18">
                     Darwinex-Live (Stocks) - 2025.09.18
@@ -184,9 +408,9 @@
                     Darwinex-Live (CFD) - 2025.09.18
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.18">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.18.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.18">
-                    Darwinex-Live (Futures) - 2025.09.18
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.17">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.17">
+                    Darwinex-Live (Futures) - 2025.09.17
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.17-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.17.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.17">
@@ -199,16 +423,6 @@
                     Darwinex-Live (CFD) - 2025.09.17
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.17">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.17.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.17">
-                    Darwinex-Live (Futures) - 2025.09.17
-                </a>
-            </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.16">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.16">
-                    Darwinex-Live (Futures) - 2025.09.16
-                </a>
-            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.16-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.16.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.16">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.16-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.16.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.16">
                     Darwinex-Live (CFD) - 2025.09.16
@@ -219,6 +433,16 @@
                     Darwinex-Live (Stocks) - 2025.09.16
                 </a>
             </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.16">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.16.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.16">
+                    Darwinex-Live (Futures) - 2025.09.16
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.15">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.15">
+                    Darwinex-Live (Futures) - 2025.09.15
+                </a>
+            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.15.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.15">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.15.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.15">
                     Darwinex-Live (Stocks) - 2025.09.15
@@ -227,11 +451,6 @@
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.15.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.15">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.15.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.15">
                     Darwinex-Live (CFD) - 2025.09.15
-                </a>
-            </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.15">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.15.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.15">
-                    Darwinex-Live (Futures) - 2025.09.15
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.12-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.12.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.12">
@@ -279,11 +498,6 @@
                     Darwinex-Live (CFD) - 2025.09.10
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.09">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.09">
-                    Darwinex-Live (Futures) - 2025.09.09
-                </a>
-            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.09.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.09">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.09.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.09">
                     Darwinex-Live (CFD) - 2025.09.09
@@ -292,6 +506,16 @@
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.09.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.09">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.09.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.09">
                     Darwinex-Live (Stocks) - 2025.09.09
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.09">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.09.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.09">
+                    Darwinex-Live (Futures) - 2025.09.09
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.08">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.08">
+                    Darwinex-Live (Futures) - 2025.09.08
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.08-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.08.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.08">
@@ -304,9 +528,9 @@
                     Darwinex-Live (CFD) - 2025.09.08
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.08">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.08.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.08">
-                    Darwinex-Live (Futures) - 2025.09.08
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.05">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.05">
+                    Darwinex-Live (Futures) - 2025.09.05
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.05-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.05.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.05">
@@ -319,16 +543,6 @@
                     Darwinex-Live (CFD) - 2025.09.05
                 </a>
             </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.05">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.05.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.05">
-                    Darwinex-Live (Futures) - 2025.09.05
-                </a>
-            </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.04">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.04">
-                    Darwinex-Live (Futures) - 2025.09.04
-                </a>
-            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.04.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.04">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.04.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.04">
                     Darwinex-Live (CFD) - 2025.09.04
@@ -337,6 +551,11 @@
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.04.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.04">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.09.04.csv" data-display-name="Darwinex-Live (Stocks) - 2025.09.04">
                     Darwinex-Live (Stocks) - 2025.09.04
+                </a>
+            </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.04">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.09.04.csv" data-display-name="Darwinex-Live (Futures) - 2025.09.04">
+                    Darwinex-Live (Futures) - 2025.09.04
                 </a>
             </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.03-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.09.03.csv" data-display-name="Darwinex-Live (CFD) - 2025.09.03">
@@ -369,6 +588,11 @@
                     Darwinex-Live (CFD) - 2025.09.02
                 </a>
             </div>
+            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29.csv" data-display-name="Darwinex-Live (Futures) - 2025.08.29">
+                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29.csv" data-display-name="Darwinex-Live (Futures) - 2025.08.29">
+                    Darwinex-Live (Futures) - 2025.08.29
+                </a>
+            </div>
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.29.csv" data-display-name="Darwinex-Live (Stocks) - 2025.08.29">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Stocks-2025.08.29.csv" data-display-name="Darwinex-Live (Stocks) - 2025.08.29">
                     Darwinex-Live (Stocks) - 2025.08.29
@@ -377,11 +601,6 @@
             <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.08.29.csv" data-display-name="Darwinex-Live (CFD) - 2025.08.29">
                 <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-CFD-2025.08.29.csv" data-display-name="Darwinex-Live (CFD) - 2025.08.29">
                     Darwinex-Live (CFD) - 2025.08.29
-                </a>
-            </div>
-            <div class="file-entry" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29.csv" data-display-name="Darwinex-Live (Futures) - 2025.08.29">
-                <a href="#" data-action="open-modal-with-file" data-outlier-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29-outlier.txt" data-csv-file="atr-explorer/SymbolsExport-Darwinex-Live-Futures-2025.08.29.csv" data-display-name="Darwinex-Live (Futures) - 2025.08.29">
-                    Darwinex-Live (Futures) - 2025.08.29
                 </a>
             </div>
         </div>
@@ -406,8 +625,6 @@
         </div>
     </div>
 
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <script src="/js/atr-explorer.js"></script>
 </body>
 </html>

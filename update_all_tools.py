@@ -528,7 +528,7 @@ class FinancialToolsUpdater:
             'ev': '/js/ev-explorer.js'
         }
         js_file = js_file_map.get(explorer_type, '/js/var-explorer.js')
-        return f'<script src="/js/redirect.js"></script>\n    <script src="/js/shared.js"></script>\n    <script src="{js_file}"></script>'
+        return f'<script src="{js_file}"></script>'
 
     def generate_var_explorer(self, data):
         """Generate VaR Explorer page with full modal functionality"""
@@ -566,52 +566,13 @@ class FinancialToolsUpdater:
 <head>
 {meta_tags}
 
+    <!-- CSP Compliant JavaScript Includes -->
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+
+    <link rel="stylesheet" href="/css/shared-styles.css">
+    <link rel="stylesheet" href="/css/main.css">
     <style>
-        body {{
-            background-color: #000;
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            padding: 20px;
-            margin: 0;
-        }}
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-        }}
-        h1 {{
-            text-align: center;
-            padding-bottom: 10px;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }}
-        .crt-divider {{
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 30px auto;
-        }}
-        @keyframes scan {{
-            0% {{ opacity: 1; width: 0%; }}
-            50% {{ opacity: 0.5; }}
-            100% {{ opacity: 1; width: 100%; }}
-        }}
-        .flavor-text {{
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            font-style: italic;
-            font-weight: bold;
-            opacity: 0.9;
-            animation: flicker 1s infinite;
-        }}
-        @keyframes flicker {{
-            0% {{ opacity: 1; }}
-            50% {{ opacity: 0.8; }}
-            100% {{ opacity: 1; }}
-        }}
 {breadcrumb_css}
 {modal_css}
     </style>
@@ -701,52 +662,13 @@ class FinancialToolsUpdater:
 
 {meta_tags}
 
+    <!-- CSP Compliant JavaScript Includes -->
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+
+    <link rel="stylesheet" href="/css/shared-styles.css">
+    <link rel="stylesheet" href="/css/main.css">
     <style>
-        body {{
-            background-color: #000;
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            padding: 20px;
-            margin: 0;
-        }}
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-        }}
-        h1 {{
-            text-align: center;
-            padding-bottom: 10px;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }}
-        .crt-divider {{
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 30px auto;
-        }}
-        @keyframes scan {{
-            0% {{ opacity: 1; width: 0%; }}
-            50% {{ opacity: 0.5; }}
-            100% {{ opacity: 1; width: 100%; }}
-        }}
-        .flavor-text {{
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            font-style: italic;
-            font-weight: bold;
-            opacity: 0.9;
-            animation: flicker 1s infinite;
-        }}
-        @keyframes flicker {{
-            0% {{ opacity: 1; }}
-            50% {{ opacity: 0.8; }}
-            100% {{ opacity: 1; }}
-        }}
         .stats {{
             text-align: center;
             color: #00aa00;
@@ -843,52 +765,13 @@ class FinancialToolsUpdater:
 
 {meta_tags}
 
+    <!-- CSP Compliant JavaScript Includes -->
+    <script src="/js/redirect.js"></script>
+    <script src="/js/shared.js"></script>
+
+    <link rel="stylesheet" href="/css/shared-styles.css">
+    <link rel="stylesheet" href="/css/main.css">
     <style>
-        body {{
-            background-color: #000;
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            padding: 20px;
-            margin: 0;
-        }}
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-        }}
-        h1 {{
-            text-align: center;
-            padding-bottom: 10px;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }}
-        .crt-divider {{
-            width: 100%;
-            height: 1px;
-            background-color: #00ff00;
-            animation: scan 1s infinite;
-            margin: 30px auto;
-        }}
-        @keyframes scan {{
-            0% {{ opacity: 1; width: 0%; }}
-            50% {{ opacity: 0.5; }}
-            100% {{ opacity: 1; width: 100%; }}
-        }}
-        .flavor-text {{
-            color: #00ff00;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            font-style: italic;
-            font-weight: bold;
-            opacity: 0.9;
-            animation: flicker 1s infinite;
-        }}
-        @keyframes flicker {{
-            0% {{ opacity: 1; }}
-            50% {{ opacity: 0.8; }}
-            100% {{ opacity: 1; }}
-        }}
         .stats {{
             text-align: center;
             color: #00aa00;
