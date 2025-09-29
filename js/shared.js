@@ -71,6 +71,21 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'show-symbol-detail':
                 handleShowSymbolDetail(e, targetElement);
                 break;
+            case 'use-in-stop-loss':
+                handleUseInStopLoss(e, targetElement);
+                break;
+            case 'use-in-portfolio':
+                handleUseInPortfolio(e, targetElement);
+                break;
+            case 'find-similar':
+                handleFindSimilar(e, targetElement);
+                break;
+            case 'add-to-portfolio':
+                handleAddToPortfolio(e, targetElement);
+                break;
+            case 'back-to-list':
+                handleBackToList(e, targetElement);
+                break;
         }
     });
 });
@@ -394,6 +409,75 @@ function handleShowSymbolDetail(e, targetElement) {
     }
 }
 
+function handleUseInStopLoss(e, targetElement) {
+    e.preventDefault();
+    const symbol = targetElement.getAttribute('data-symbol');
+    console.log('📊 handleUseInStopLoss called for symbol:', symbol);
+
+    if (symbol && window.useInStopLoss) {
+        window.useInStopLoss(symbol);
+        console.log('✅ useInStopLoss called successfully from shared.js');
+    } else {
+        console.error('❌ Symbol or useInStopLoss function not available');
+        alert('Error: Stop Loss function not available');
+    }
+}
+
+function handleUseInPortfolio(e, targetElement) {
+    e.preventDefault();
+    const symbol = targetElement.getAttribute('data-symbol');
+    console.log('💼 handleUseInPortfolio called for symbol:', symbol);
+
+    if (symbol && window.useInPortfolio) {
+        window.useInPortfolio(symbol);
+        console.log('✅ useInPortfolio called successfully from shared.js');
+    } else {
+        console.error('❌ Symbol or useInPortfolio function not available');
+        alert('Error: Portfolio function not available');
+    }
+}
+
+function handleFindSimilar(e, targetElement) {
+    e.preventDefault();
+    const symbol = targetElement.getAttribute('data-symbol');
+    console.log('🔍 handleFindSimilar called for symbol:', symbol);
+
+    if (symbol && window.findSimilar) {
+        window.findSimilar(symbol);
+        console.log('✅ findSimilar called successfully from shared.js');
+    } else {
+        console.error('❌ Symbol or findSimilar function not available');
+        alert('Error: Find Similar function not available');
+    }
+}
+
+function handleAddToPortfolio(e, targetElement) {
+    e.preventDefault();
+    const symbol = targetElement.getAttribute('data-symbol');
+    console.log('📈 handleAddToPortfolio called for symbol:', symbol);
+
+    if (symbol && window.addSymbolToPortfolio) {
+        window.addSymbolToPortfolio(symbol);
+        console.log('✅ addSymbolToPortfolio called successfully from shared.js');
+    } else {
+        console.error('❌ Symbol or addSymbolToPortfolio function not available');
+        alert('Error: Add to Portfolio function not available');
+    }
+}
+
+function handleBackToList(e, targetElement) {
+    e.preventDefault();
+    console.log('🔙 handleBackToList called');
+
+    if (window.backToSymbolList) {
+        window.backToSymbolList();
+        console.log('✅ backToSymbolList called successfully from shared.js');
+    } else {
+        console.error('❌ backToSymbolList function not available');
+        alert('Error: Back to List function not available');
+    }
+}
+
 // Make functions globally accessible for backward compatibility
 window.toggleMusing = toggleMusing;
 window.copyToClipboard = copyToClipboard;
@@ -405,3 +489,8 @@ window.closeModal = closeModal;
 window.loadAnalysisContent = loadAnalysisContent;
 window.handleSelectCalculator = handleSelectCalculator;
 window.handleShowSymbolDetail = handleShowSymbolDetail;
+window.handleUseInStopLoss = handleUseInStopLoss;
+window.handleUseInPortfolio = handleUseInPortfolio;
+window.handleFindSimilar = handleFindSimilar;
+window.handleAddToPortfolio = handleAddToPortfolio;
+window.handleBackToList = handleBackToList;

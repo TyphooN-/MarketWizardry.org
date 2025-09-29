@@ -116,7 +116,7 @@ window.showSymbolDetail = function(symbol) {
         <div class="calc-detailed-info">
             <div class="calc-symbol-detail-header">
                 <h3 class="calc-detailed-title">📊 ${symbol} - Detailed Information</h3>
-                <button class="calculate-btn calc-back-button" id="back-to-list-btn">← Back to List</button>
+                <button class="calculate-btn calc-back-button" id="back-to-list-btn" data-action="back-to-list">← Back to List</button>
             </div>
 
             <div class="calc-detailed-grid">
@@ -148,9 +148,9 @@ window.showSymbolDetail = function(symbol) {
             ` : ''}
 
             <div class="calc-button-row">
-                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
-                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
-                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
+                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}" data-action="use-in-stop-loss">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}" data-action="use-in-portfolio">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}" data-action="find-similar">🔍 Find Similar</button>
             </div>
         </div>
     `;
@@ -925,7 +925,7 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                     <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
                     <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
                     <div class="calc-risk-message" style="color: ${riskAssessment.color};">${riskAssessment.recommendation}</div>
-                    <button class="add-symbol-to-portfolio calc-add-portfolio-btn" data-symbol="${symbol}">Add to Portfolio</button>
+                    <button class="add-symbol-to-portfolio calc-add-portfolio-btn" data-symbol="${symbol}" data-action="add-to-portfolio">Add to Portfolio</button>
                 </div>
             </div>
         </div>
@@ -1270,9 +1270,9 @@ window.displaySymbolInfo = function(symbol, data) {
             </div>
 
             <div class="calc-button-row">
-                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}">📊 Use in Stop Loss Calc</button>
-                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}">📈 Add to Portfolio</button>
-                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}">🔍 Find Similar</button>
+                <button class="quick-symbol-btn use-in-stop-loss" data-symbol="${symbol}" data-action="use-in-stop-loss">📊 Use in Stop Loss Calc</button>
+                <button class="quick-symbol-btn use-in-portfolio" data-symbol="${symbol}" data-action="use-in-portfolio">📈 Add to Portfolio</button>
+                <button class="quick-symbol-btn find-similar" data-symbol="${symbol}" data-action="find-similar">🔍 Find Similar</button>
             </div>
         </div>
     `;
@@ -3306,6 +3306,50 @@ else if (symbol) {
                 };
 
                 console.log('✨ Symbol grid test function available: window.testSymbolGridClicks()');
+
+                // Add comprehensive test function for all button functionality
+                window.testAllButtonFunctionality = function() {
+                    console.log('🧪 Testing ALL button functionality...');
+
+                    // First, generate symbol grid
+                    if (window.showAllSymbols) {
+                        console.log('📊 Generating symbol grid...');
+                        showAllSymbols();
+
+                        setTimeout(() => {
+                            // Test clicking a symbol to show detail view
+                            const symbolItems = document.querySelectorAll('.calc-symbol-item.quick-lookup[data-action="show-symbol-detail"]');
+                            if (symbolItems.length > 0) {
+                                const firstSymbol = symbolItems[0];
+                                const symbolName = firstSymbol.getAttribute('data-symbol');
+                                console.log(`🖱️ Testing symbol detail for: ${symbolName}`);
+                                firstSymbol.click();
+
+                                // Test detail view buttons after symbol detail loads
+                                setTimeout(() => {
+                                    console.log('🔍 Testing detail view buttons...');
+
+                                    // Test back button
+                                    const backButton = document.querySelector('[data-action="back-to-list"]');
+                                    console.log('🔙 Back button found:', !!backButton);
+
+                                    // Test action buttons
+                                    const stopLossBtn = document.querySelector('[data-action="use-in-stop-loss"]');
+                                    const portfolioBtn = document.querySelector('[data-action="use-in-portfolio"]');
+                                    const findSimilarBtn = document.querySelector('[data-action="find-similar"]');
+
+                                    console.log('📊 Stop Loss button found:', !!stopLossBtn);
+                                    console.log('💼 Portfolio button found:', !!portfolioBtn);
+                                    console.log('🔍 Find Similar button found:', !!findSimilarBtn);
+
+                                    console.log('✅ All button availability test completed');
+                                }, 500);
+                            }
+                        }, 1000);
+                    }
+                };
+
+                console.log('✨ Complete test function available: window.testAllButtonFunctionality()');
 
             } catch (error) {
                 console.error('Error in initializeCalculator:', error);
