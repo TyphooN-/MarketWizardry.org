@@ -99,8 +99,8 @@ body {
     pointer-events: none;
     z-index: 2;
 }
-/* Container */
-.container {
+/* Container - Only for pages with sidebar layout */
+.layout-sidebar .container {
     display: grid;
     grid-template-columns: 200px 1fr;
     height: 100vh;
@@ -235,7 +235,7 @@ body {
         display: flex;
     }
 
-    .container {
+    .layout-sidebar .container {
         display: block;
         height: 100vh;
     }
