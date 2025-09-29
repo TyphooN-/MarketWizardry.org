@@ -540,7 +540,7 @@ class FinancialToolsUpdater:
         modal_css = self._generate_modal_system_css()
         modal_js = self._generate_modal_javascript('var')
 
-        var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': 'VaR Explorer', 'url': None}]
+        var_breadcrumbs = self.breadcrumb_paths['var_explorer'][:-1] + [{'name': self.breadcrumb_paths['var_explorer'][-1]['name'], 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(var_breadcrumbs)
         breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
 
@@ -620,7 +620,7 @@ class FinancialToolsUpdater:
         modal_css = self._generate_modal_system_css()
         modal_js = self._generate_modal_javascript('atr')
 
-        atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': 'ATR Explorer', 'url': None}]
+        atr_breadcrumbs = self.breadcrumb_paths['atr_explorer'][:-1] + [{'name': self.breadcrumb_paths['atr_explorer'][-1]['name'], 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(atr_breadcrumbs)
         breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
 
@@ -701,7 +701,7 @@ class FinancialToolsUpdater:
         modal_css = self._generate_modal_system_css()
         modal_js = self._generate_modal_javascript('ev')
 
-        ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': 'EV Explorer', 'url': None}]
+        ev_breadcrumbs = self.breadcrumb_paths['ev_explorer'][:-1] + [{'name': self.breadcrumb_paths['ev_explorer'][-1]['name'], 'url': None}]
         breadcrumbs_html = self.seo_manager.generate_breadcrumbs(ev_breadcrumbs)
         breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
 
