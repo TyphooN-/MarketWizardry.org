@@ -1020,6 +1020,20 @@ h2 {
     border-radius: 3px;
     cursor: pointer;
     font-size: 0.9em;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.calc-symbol-item:hover {
+    background: rgba(0,255,0,0.2);
+    border-color: #00ff00;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,255,0,0.3);
+}
+
+.calc-symbol-item:active {
+    transform: translateY(0);
+    background: rgba(0,255,0,0.3);
 }
 
 .calc-symbol-sector {
@@ -1038,6 +1052,20 @@ h2 {
     border: 1px solid #00aa00;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.calc-sector-item:hover {
+    background: rgba(0,255,0,0.2);
+    border-color: #00ff00;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,255,0,0.3);
+}
+
+.calc-sector-item:active {
+    transform: translateY(0);
+    background: rgba(0,255,0,0.3);
 }
 
 .calc-sector-desc {

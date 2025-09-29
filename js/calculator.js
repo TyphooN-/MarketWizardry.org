@@ -3108,22 +3108,15 @@ else if (symbol) {
                     console.log('📊 Target data-symbol:', e.target.getAttribute('data-symbol'));
                     console.log('🆔 Target id:', e.target.id);
 
-                    // Check if target has any parent with quick-lookup class
-                    let currentElement = e.target;
-                    let foundQuickLookup = false;
-                    while (currentElement && currentElement !== document) {
-                        if (currentElement.classList && currentElement.classList.contains('quick-lookup')) {
-                            console.log('🎯 Found quick-lookup parent:', currentElement);
-                            foundQuickLookup = true;
-                            break;
-                        }
-                        currentElement = currentElement.parentElement;
+                    // Check if any parent has quick-lookup class for debugging
+                    const quickLookupParent = findClosestElementWithClass(e.target, 'quick-lookup');
+                    if (quickLookupParent) {
+                        console.log('🎯 Found quick-lookup parent element:', quickLookupParent);
+                        console.log('📊 Parent data-symbol:', quickLookupParent.getAttribute('data-symbol'));
                     }
 
-                    if (foundQuickLookup) {
-                        console.log('✅ Using parent quick-lookup element for symbol click');
-                        e.target = currentElement; // Use the parent element with quick-lookup class
-                    }
+                    // Check for various button clicks using the findClosestElementWithClass helper
+                    // This ensures consistent handling of nested elements and click detection
                     if (e.target.classList.contains('add-symbol-to-portfolio')) {
                         const symbol = e.target.getAttribute('data-symbol');
                         addSymbolToPortfolio(symbol);
@@ -3165,15 +3158,22 @@ else if (symbol) {
                             console.error('❌ findSimilar function or symbol not available');
                             alert('Error: Find Similar function not available');
                         }
-                    } else if (e.target.classList.contains('quick-lookup')) {
-                        const symbol = e.target.getAttribute('data-symbol');
+                    } else if (findClosestElementWithClass(e.target, 'quick-lookup')) {
+                        const buttonElement = findClosestElementWithClass(e.target, 'quick-lookup');
+                        const symbol = buttonElement.getAttribute('data-symbol');
                         console.log('🎯 QUICK-LOOKUP MATCH! Symbol clicked from list:', symbol);
                         console.log('🔄 Calling showSymbolDetail...');
-                        if (window.showSymbolDetail) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (symbol && window.showSymbolDetail) {
                             showSymbolDetail(symbol);
                             console.log('✅ showSymbolDetail called successfully');
                         } else {
-                            console.error('❌ showSymbolDetail function not found!');
+                            console.error('❌ showSymbolDetail function not found or symbol missing!');
+                            if (!symbol) {
+                                console.error('❌ No data-symbol attribute found on element:', buttonElement);
+                            }
+                            alert('Error: Unable to load symbol details');
                         }
                     } else if (e.target.id === 'back-to-list-btn') {
                         console.log('🔙 BACK BUTTON CLICKED');
@@ -3266,6 +3266,39 @@ else if (symbol) {
                 };
 
                 console.log('✨ Test function available: window.testCalculatorButtons()');
+
+                // Add test function for symbol grid clicks
+                window.testSymbolGridClicks = function() {
+                    console.log('🧪 Testing symbol grid click functionality...');
+
+                    // First, trigger the show all symbols to create a grid
+                    if (window.showAllSymbols) {
+                        console.log('📊 Generating symbol grid...');
+                        showAllSymbols();
+
+                        // Wait for grid to be generated, then test clicking
+                        setTimeout(() => {
+                            const symbolItems = document.querySelectorAll('.calc-symbol-item.quick-lookup');
+                            console.log(`🎯 Found ${symbolItems.length} symbol items in grid`);
+
+                            if (symbolItems.length > 0) {
+                                const firstSymbol = symbolItems[0];
+                                const symbolName = firstSymbol.getAttribute('data-symbol');
+                                console.log(`🖱️ Testing click on first symbol: ${symbolName}`);
+
+                                // Simulate a click
+                                firstSymbol.click();
+                                console.log('✅ Click test completed - check if symbol detail view appeared');
+                            } else {
+                                console.error('❌ No symbol items found for testing');
+                            }
+                        }, 1000);
+                    } else {
+                        console.error('❌ showAllSymbols function not available');
+                    }
+                };
+
+                console.log('✨ Symbol grid test function available: window.testSymbolGridClicks()');
 
             } catch (error) {
                 console.error('Error in initializeCalculator:', error);
