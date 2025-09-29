@@ -199,6 +199,44 @@ h1 {
     font-size: 0.9em;
 }
 
+/* Blog Entry Styles */
+.blog-entry {
+    background-color: #000;
+    border: 2px solid rgba(0, 255, 0, 0.5);
+    padding: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.blog-entry:hover {
+    background-color: #001100;
+    color: #00ff00;
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.blog-entry a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.blog-entry a:hover {
+    text-decoration: underline;
+}
+
+.blog-entry .date {
+    color: #00aa00;
+    font-size: 0.8em;
+    font-style: italic;
+    display: block;
+    margin-bottom: 8px;
+}
+
 /* Modal Styles - Common across all pages */
 .modal {
     display: none;
@@ -276,7 +314,7 @@ h1 {
     font-weight: bold;
     cursor: pointer;
     padding: 8px 12px;
-    border-radius: 50%;
+    border-radius: 3px;
     width: 40px;
     height: 40px;
     display: flex;
@@ -451,6 +489,22 @@ header {
 /* Explorer specific grid adjustments */
 .explorer-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Limit var/ev/atr explorer grids to 3 columns max */
+.grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+@media (min-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
 }
 
 /* Error and loading states */
