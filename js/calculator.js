@@ -114,9 +114,9 @@ window.showSymbolDetail = function(symbol) {
 
     const output = `
         <div class="calc-detailed-info">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div class="calc-symbol-detail-header">
                 <h3 class="calc-detailed-title">📊 ${symbol} - Detailed Information</h3>
-                <button class="calculate-btn" id="back-to-list-btn" style="padding: 8px 16px; font-size: 14px;">← Back to List</button>
+                <button class="calculate-btn calc-back-button" id="back-to-list-btn">← Back to List</button>
             </div>
 
             <div class="calc-detailed-grid">
@@ -134,15 +134,15 @@ window.showSymbolDetail = function(symbol) {
                     <span class="calc-symbol-var">1-Day VaR (95%):</span> $${data.var}<br>
                     <span class="calc-symbol-var">VaR %:</span> ${(data.var/data.price*100).toFixed(2)}%<br>
                     <span class="calc-symbol-var">ATR:</span> ${data.atr || 'N/A'}<br>
-                    <div class="calc-risk-message" style="color: #00ff00; margin-top: 10px; font-weight: bold;">
+                    <div class="calc-risk-message-detail">
                         ${riskAssessment.recommendation}
                     </div>
                 </div>
             </div>
 
             ${riskAssessment.details ? `
-                <div class="calc-risk-assessment-box" style="border-color: #00ff00;">
-                    <h4 class="calc-risk-title" style="color: #00ff00;">Risk Assessment</h4>
+                <div class="calc-risk-assessment-box">
+                    <h4 class="calc-risk-title">Risk Assessment</h4>
                     <div class="calc-risk-message">${riskAssessment.details}</div>
                 </div>
             ` : ''}
@@ -230,7 +230,7 @@ window.showAllSymbols = function() {
     console.log('🎯 Current filters:', { assetClassFilter, sectorFilter, industryFilter });
 
     // Show immediate feedback to user
-    outputElement.innerHTML = '<div style="color: #00ff00; text-align: center; padding: 20px;">🔄 Loading filtered symbols...</div>';
+    outputElement.innerHTML = '<div class="calc-loading-message">🔄 Loading filtered symbols...</div>';
     console.log('💭 Showing loading message to user');
 
     // Apply filters
@@ -345,7 +345,7 @@ window.showAllSymbolsUnfiltered = function() {
     }
 
     // Show immediate feedback to user
-    outputElement.innerHTML = '<div style="color: #00ff00; text-align: center; padding: 20px;">🔄 Loading ALL symbols (ignoring filters)...</div>';
+    outputElement.innerHTML = '<div class="calc-loading-message">🔄 Loading ALL symbols (ignoring filters)...</div>';
     console.log('💭 Showing loading message for unfiltered symbols');
 
     const symbols = Object.entries(window.varData);
@@ -783,7 +783,7 @@ window.calculatePortfolioVaR = function() {
         output += `</div>`;
     }
 
-    output += `<h4 class="calc-result-title" style="margin: 20px 0 10px 0;">Position Breakdown:</h4>`;
+    output += `<h4 class="calc-result-title calc-position-breakdown-title">Position Breakdown:</h4>`;
     for (let pos of positions) {
         const dataSource = pos.hasRealData ? '📊' : '⚠️';
         const dataNote = pos.hasRealData ? 'Real VaR data' : 'Estimated (2%)';
@@ -1223,22 +1223,22 @@ window.generateRiskAssessment = function(data) {
     if (outlierCount >= 3) {
         return {
             recommendation: "⚠️ EXTREME RISK - Multiple outlier indicators",
-            color: "#ff0000"
+            color: "#00aa00"
         };
     } else if (outlierCount >= 2) {
         return {
             recommendation: "⚠️ HIGH RISK - Multiple outlier indicators detected",
-            color: "#ff8800"
+            color: "#00aa00"
         };
     } else if (outlierCount === 1) {
         return {
             recommendation: "⚡ MODERATE RISK - Single outlier indicator",
-            color: "#ffaa00"
+            color: "#00aa00"
         };
     } else if (varRatio > 0.05) {
         return {
             recommendation: "📊 ELEVATED VOLATILITY - High VaR ratio",
-            color: "#cccc00"
+            color: "#00aa00"
         };
     } else {
         return {
