@@ -6,6 +6,16 @@
     box-sizing: border-box;
 }
 
+/* Prevent iframe content from creating any scrollbars */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Container should never overflow */
+.container {
+    overflow: visible;
+}
+
 body {
     background-color: #000;
     color: #00ff00;
