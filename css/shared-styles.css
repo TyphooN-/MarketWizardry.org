@@ -177,8 +177,8 @@ h1 {
     width: 100%;
     max-width: 100%;
     flex-grow: 1;
-    overflow-y: scroll;
-    overflow-x: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     font-family: "Courier New", monospace;
     white-space: pre-wrap;
     border: 2px solid #00ff00;
@@ -312,7 +312,7 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: visible;
     background-color: rgba(0,0,0,0.8);
     padding-top: 60px;
 }
@@ -559,7 +559,7 @@ h1 {
     .modal-text {
         font-size: 0.65em;
         white-space: pre;
-        overflow-x: auto;
+        overflow-x: hidden;
         max-height: calc(90vh - 160px);
         padding: 10px;
     }
@@ -567,7 +567,7 @@ h1 {
     .modal-body {
         font-size: 0.65em;
         white-space: pre;
-        overflow-x: auto;
+        overflow-x: hidden;
         max-height: calc(90vh - 160px);
         padding: 10px;
     }
@@ -831,7 +831,7 @@ header {
     white-space: pre;
     max-height: 60vh;
     overflow-y: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
     color: #00ff00;
     font-size: 1.2em;
     padding: 15px;
