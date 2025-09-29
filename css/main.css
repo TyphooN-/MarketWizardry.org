@@ -133,8 +133,9 @@ body {
     text-decoration: none;
 }
 .content-frame {
-    min-height: calc(100vh - 40px);
-    padding: 0;
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding: 20px;
 }
 .menu-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -267,7 +268,7 @@ body {
 
     .content-frame {
         width: 100%;
-        min-height: calc(100vh - 50px);
+        height: 100vh;
         padding: 0;
         margin-top: 50px;
     }
@@ -314,8 +315,9 @@ body {
 
     .content-frame {
         flex: 1;
-        min-height: calc(100vh - 50px);
-        padding: 0;
+        height: calc(100vh - 50px);
+        padding: 10px;
+        overflow-y: auto;
     }
 
     .content-frame.menu-open {
@@ -374,7 +376,7 @@ body {
     }
 
     .content-frame {
-        padding: 0;
+        padding: 8px;
     }
 }
 
@@ -468,12 +470,10 @@ body {
     margin: auto;
 }
 
-/* iframe styling - allow content to determine height */
+/* iframe styling */
 iframe {
-    border: none;
-    margin: 0;
-    display: block;
-    width: 100%;
+    border: 2px solid rgba(0, 255, 0, 0.5);
+    margin: 20px 0;
 }
 
 /* CRT divider animation */
@@ -523,8 +523,9 @@ iframe {
 
     iframe {
         width: 100%;
-        margin: 0;
-        border: none;
+        height: auto;
+        min-height: 300px;
+        margin: 10px 0;
     }
 }
 
@@ -555,8 +556,7 @@ iframe {
     }
 
     iframe {
-        margin: 0;
-        border: none;
-        width: 100%;
+        min-height: 250px;
+        margin: 8px 0;
     }
 }
