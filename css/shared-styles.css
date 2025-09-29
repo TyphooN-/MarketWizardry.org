@@ -175,6 +175,28 @@ h1 {
     animation: flicker 1s infinite;
 }
 
+/* Blog Content Styles - Comprehensive from old inline styles */
+.blog-container {
+    min-height: 100vh;
+}
+
+.modal-text {
+    width: 100%;
+    max-width: 100%;
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+    white-space: pre-wrap;
+    color: #00ff00;
+    font-size: 0.85em;
+    line-height: 1.4;
+    background-color: rgba(0, 17, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    padding: 10px;
+    margin: 5px 0;
+}
+
 /* Blog Content Styles */
 .content-section {
     border: 2px solid rgba(0, 255, 0, 0.5);
@@ -548,4 +570,45 @@ header {
     border: 2px solid #ff0000;
     padding: 20px;
     margin: 20px 0;
+}
+
+/* Calculator specific utility styles */
+.data-filtering-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+}
+
+.symbol-input-uppercase {
+    text-transform: uppercase;
+    flex: 1;
+}
+
+.button-flex-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Additional utility styles for common patterns */
+.display-flex {
+    display: flex;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
 }
