@@ -472,8 +472,10 @@ body {
 
 /* iframe styling */
 iframe {
-    border: 2px solid rgba(0, 255, 0, 0.5);
-    margin: 20px 0;
+    border: none;
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* CRT divider animation */
@@ -523,9 +525,9 @@ iframe {
 
     iframe {
         width: 100%;
-        height: auto;
-        min-height: 300px;
-        margin: 10px 0;
+        height: 100%;
+        margin: 0;
+        border: none;
     }
 }
 
@@ -556,7 +558,9 @@ iframe {
     }
 
     iframe {
-        min-height: 250px;
-        margin: 8px 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: none;
     }
 }
