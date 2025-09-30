@@ -5,32 +5,33 @@
 
     // Removed background floating particles as per user request
 
-    // Draw a Fibonacci spiral using SVG
+    // Draw a Fibonacci spiral using SVG (optimized)
     function createFibonacciSpiral(x, y) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.style.position = 'fixed';
         svg.style.left = '0px';
         svg.style.top = '0px';
-        svg.style.width = '400px';
-        svg.style.height = '400px';
+        svg.style.width = '300px';
+        svg.style.height = '300px';
         svg.style.pointerEvents = 'none';
         svg.style.zIndex = '7';
         svg.style.overflow = 'visible';
+        svg.style.willChange = 'transform, opacity';
 
         // Create path for Fibonacci spiral
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
-        // Generate Fibonacci spiral path using parametric equations
-        let pathData = 'M 200 200 '; // Start at center of SVG
+        // Generate Fibonacci spiral path - reduced steps for performance
+        let pathData = 'M 150 150 '; // Start at center of SVG
         const goldenRatio = 1.618033988749;
-        const turns = 3; // Number of spiral turns
-        const steps = 200;
+        const turns = 2.5; // Reduced turns
+        const steps = 80; // Reduced from 200 to 80 for better performance
 
         for (let i = 0; i <= steps; i++) {
             const t = (i / steps) * turns * 2 * Math.PI;
-            const r = 5 * Math.pow(goldenRatio, t / (Math.PI / 2)); // Fibonacci spiral equation
-            const spiralX = 200 + r * Math.cos(t);
-            const spiralY = 200 + r * Math.sin(t);
+            const r = 5 * Math.pow(goldenRatio, t / (Math.PI / 2));
+            const spiralX = 150 + r * Math.cos(t);
+            const spiralY = 150 + r * Math.sin(t);
             pathData += `L ${spiralX} ${spiralY} `;
         }
 
@@ -39,29 +40,29 @@
 
         const color = colors[Math.floor(Math.random() * colors.length)];
         path.setAttribute('stroke', color);
-        path.setAttribute('stroke-width', '3');
-        path.setAttribute('filter', `drop-shadow(0 0 8px ${color})`);
+        path.setAttribute('stroke-width', '2.5');
+        path.style.filter = `drop-shadow(0 0 6px ${color})`;
 
         svg.appendChild(path);
         document.body.appendChild(svg);
 
-        // Animate the spiral with inline keyframes
-        const spinSpeed = 1 + Math.random() * 2; // Random spin speed 1-3s
+        // Animate with CSS class for better performance
+        const spinSpeed = 1.2 + Math.random() * 0.8; // 1.2-2s (reduced range)
         const spinDirection = Math.random() > 0.5 ? 1 : -1;
-        const rotation = spinDirection * (360 + Math.random() * 720); // 1-3 full rotations
+        const rotation = spinDirection * (360 + Math.random() * 360); // 1-2 rotations (reduced)
 
         const keyframes = [
             {
-                transform: `translate(${x - 200}px, ${y - 200}px) scale(0.1) rotate(0deg)`,
+                transform: `translate(${x - 150}px, ${y - 150}px) scale(0.1) rotate(0deg)`,
                 opacity: 0
             },
             {
-                transform: `translate(${x - 200}px, ${y - 200}px) scale(0.3) rotate(${rotation * 0.15}deg)`,
+                transform: `translate(${x - 150}px, ${y - 150}px) scale(0.4) rotate(${rotation * 0.2}deg)`,
                 opacity: 1,
-                offset: 0.15
+                offset: 0.2
             },
             {
-                transform: `translate(${x - 200}px, ${y - 200}px) scale(1.5) rotate(${rotation}deg)`,
+                transform: `translate(${x - 150}px, ${y - 150}px) scale(1.2) rotate(${rotation}deg)`,
                 opacity: 0
             }
         ];
@@ -80,11 +81,11 @@
     }
 
     function createExplosion(x, y) {
-        // Create 2-3 Fibonacci spirals spinning at different speeds
-        const spiralCount = 2 + Math.floor(Math.random() * 2); // 2 or 3 spirals
+        // Create 1-2 Fibonacci spirals (reduced for performance)
+        const spiralCount = 1 + Math.floor(Math.random() * 2); // 1 or 2 spirals
 
         for (let i = 0; i < spiralCount; i++) {
-            setTimeout(() => createFibonacciSpiral(x, y), i * 100);
+            setTimeout(() => createFibonacciSpiral(x, y), i * 150);
         }
     }
 
@@ -113,8 +114,8 @@
     // Run cleanup every 5 seconds
     setInterval(cleanupOrphanedParticles, 5000);
 
-    // Random explosions around the page (less frequent for performance)
-    const explosionInterval = setInterval(randomExplosion, 2500);
+    // Random explosions around the page (optimized timing)
+    const explosionInterval = setInterval(randomExplosion, 3000);
 
     // Random glitch effect on the floating text
     const errorText = document.getElementById('floatingError');
@@ -130,9 +131,8 @@
         createExplosion(e.clientX, e.clientY);
     });
 
-    // Initial burst of explosions (reduced)
-    setTimeout(() => randomExplosion(), 1000);
-    setTimeout(() => randomExplosion(), 2500);
+    // Initial explosion
+    setTimeout(() => randomExplosion(), 1500);
 
     // Clean up on page unload
     window.addEventListener('beforeunload', () => {
