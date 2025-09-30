@@ -3,16 +3,20 @@
 (function() {
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff6600', '#00ff88', '#ff0088', '#88ff00'];
 
-    // Removed background floating particles as per user request
+    // Detect mobile device for performance optimization
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
 
-    // Draw a Fibonacci spiral using SVG (optimized)
+    // Draw a Fibonacci spiral using SVG (mobile optimized)
     function createFibonacciSpiral(x, y) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.style.position = 'fixed';
         svg.style.left = '0px';
         svg.style.top = '0px';
-        svg.style.width = '300px';
-        svg.style.height = '300px';
+
+        // Smaller size for mobile
+        const size = isMobile ? 200 : 300;
+        svg.style.width = size + 'px';
+        svg.style.height = size + 'px';
         svg.style.pointerEvents = 'none';
         svg.style.zIndex = '7';
         svg.style.overflow = 'visible';
@@ -21,17 +25,18 @@
         // Create path for Fibonacci spiral
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
-        // Generate Fibonacci spiral path - reduced steps for performance
-        let pathData = 'M 150 150 '; // Start at center of SVG
+        // Generate Fibonacci spiral path - further reduced for mobile
+        const center = size / 2;
+        let pathData = `M ${center} ${center} `;
         const goldenRatio = 1.618033988749;
-        const turns = 2.5; // Reduced turns
-        const steps = 80; // Reduced from 200 to 80 for better performance
+        const turns = isMobile ? 2 : 2.5; // Fewer turns on mobile
+        const steps = isMobile ? 40 : 80; // Fewer steps on mobile (50% reduction)
 
         for (let i = 0; i <= steps; i++) {
             const t = (i / steps) * turns * 2 * Math.PI;
             const r = 5 * Math.pow(goldenRatio, t / (Math.PI / 2));
-            const spiralX = 150 + r * Math.cos(t);
-            const spiralY = 150 + r * Math.sin(t);
+            const spiralX = center + r * Math.cos(t);
+            const spiralY = center + r * Math.sin(t);
             pathData += `L ${spiralX} ${spiralY} `;
         }
 
@@ -40,29 +45,33 @@
 
         const color = colors[Math.floor(Math.random() * colors.length)];
         path.setAttribute('stroke', color);
-        path.setAttribute('stroke-width', '2.5');
-        path.style.filter = `drop-shadow(0 0 6px ${color})`;
+        path.setAttribute('stroke-width', isMobile ? '2' : '2.5');
+
+        // Remove drop-shadow on mobile for better performance
+        if (!isMobile) {
+            path.style.filter = `drop-shadow(0 0 6px ${color})`;
+        }
 
         svg.appendChild(path);
         document.body.appendChild(svg);
 
-        // Animate with CSS class for better performance
-        const spinSpeed = 1.2 + Math.random() * 0.8; // 1.2-2s (reduced range)
+        // Simpler animation for mobile
+        const spinSpeed = isMobile ? 1.0 : (1.2 + Math.random() * 0.8);
         const spinDirection = Math.random() > 0.5 ? 1 : -1;
-        const rotation = spinDirection * (360 + Math.random() * 360); // 1-2 rotations (reduced)
+        const rotation = spinDirection * (isMobile ? 360 : (360 + Math.random() * 360));
 
         const keyframes = [
             {
-                transform: `translate(${x - 150}px, ${y - 150}px) scale(0.1) rotate(0deg)`,
+                transform: `translate(${x - center}px, ${y - center}px) scale(0.1) rotate(0deg)`,
                 opacity: 0
             },
             {
-                transform: `translate(${x - 150}px, ${y - 150}px) scale(0.4) rotate(${rotation * 0.2}deg)`,
+                transform: `translate(${x - center}px, ${y - center}px) scale(${isMobile ? 0.6 : 0.4}) rotate(${rotation * 0.2}deg)`,
                 opacity: 1,
                 offset: 0.2
             },
             {
-                transform: `translate(${x - 150}px, ${y - 150}px) scale(1.2) rotate(${rotation}deg)`,
+                transform: `translate(${x - center}px, ${y - center}px) scale(${isMobile ? 1 : 1.2}) rotate(${rotation}deg)`,
                 opacity: 0
             }
         ];
@@ -81,15 +90,13 @@
     }
 
     function createExplosion(x, y) {
-        // Create 1-2 Fibonacci spirals (reduced for performance)
-        const spiralCount = 1 + Math.floor(Math.random() * 2); // 1 or 2 spirals
+        // Create fewer spirals on mobile
+        const spiralCount = isMobile ? 1 : (1 + Math.floor(Math.random() * 2));
 
         for (let i = 0; i < spiralCount; i++) {
-            setTimeout(() => createFibonacciSpiral(x, y), i * 150);
+            setTimeout(() => createFibonacciSpiral(x, y), i * (isMobile ? 200 : 150));
         }
     }
-
-    // Removed emoji fireworks - spirals only
 
     function randomExplosion() {
         const x = Math.random() * window.innerWidth;
@@ -111,19 +118,21 @@
         });
     }
 
-    // Run cleanup every 5 seconds
-    setInterval(cleanupOrphanedParticles, 5000);
+    // Run cleanup less frequently on mobile
+    setInterval(cleanupOrphanedParticles, isMobile ? 10000 : 5000);
 
-    // Random explosions around the page (optimized timing)
-    const explosionInterval = setInterval(randomExplosion, 3000);
+    // Random explosions - less frequent on mobile
+    const explosionInterval = setInterval(randomExplosion, isMobile ? 5000 : 3000);
 
-    // Random glitch effect on the floating text
-    const errorText = document.getElementById('floatingError');
-    if (errorText) {
-        setInterval(() => {
-            errorText.classList.add('glitch-effect');
-            setTimeout(() => errorText.classList.remove('glitch-effect'), 300);
-        }, 3000 + Math.random() * 2000);
+    // Random glitch effect on the floating text - disabled on mobile
+    if (!isMobile) {
+        const errorText = document.getElementById('floatingError');
+        if (errorText) {
+            setInterval(() => {
+                errorText.classList.add('glitch-effect');
+                setTimeout(() => errorText.classList.remove('glitch-effect'), 300);
+            }, 3000 + Math.random() * 2000);
+        }
     }
 
     // Click anywhere to create explosion
@@ -131,13 +140,15 @@
         createExplosion(e.clientX, e.clientY);
     });
 
-    // Initial explosion
-    setTimeout(() => randomExplosion(), 1500);
+    // Initial explosion - skip on mobile for faster load
+    if (!isMobile) {
+        setTimeout(() => randomExplosion(), 1500);
+    }
 
     // Clean up on page unload
     window.addEventListener('beforeunload', () => {
         clearInterval(explosionInterval);
     });
 
-    console.log('🌀 404 Effects loaded - Fibonacci spiral explosions activated!');
+    console.log('🌀 404 Effects loaded - Fibonacci spiral explosions activated!' + (isMobile ? ' (Mobile optimized)' : ''));
 })();

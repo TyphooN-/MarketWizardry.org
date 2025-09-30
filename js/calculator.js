@@ -790,14 +790,16 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                 ` : ''}
             </div>
 
+            ${riskAssessment && riskAssessment.outliers && riskAssessment.outliers.length > 0 ? `
             <div class="symbol-metrics" style="margin-top: 15px;">
-                ${data.outliers && data.outliers.length > 0 ? `
-                <div class="metric-item warning">
-                    <span class="metric-label">⚠️ Risk Outliers:</span>
-                    <span class="metric-value">${data.outliers.join(', ')}</span>
-                </div>
-                ` : ''}
+                <h4 style="color: #ff8800; margin-bottom: 10px;">⚠️ Risk Factors Detected</h4>
+                ${riskAssessment.outliers.map(outlier => `
+                    <div class="metric-item warning">
+                        <span class="metric-value">${outlier}</span>
+                    </div>
+                `).join('')}
             </div>
+            ` : ''}
             ${riskAssessment ? `
             <div class="risk-assessment risk-${riskAssessment.level || 'low'}">
                 ${riskAssessment.recommendation}
@@ -823,28 +825,55 @@ function displaySymbolInfoInPortfolio(symbol, data) {
 };
 
 function generateRiskAssessment(data) {
-    if (!data.outliers || data.outliers.length === 0) {
-        return {
-            recommendation: '✅ Normal risk profile - no significant outliers detected',
-            level: 'low'
-        };
+    // Calculate dynamic risk metrics
+    const varRatio = (data.var / data.price) * 100;
+
+    // Calculate outliers dynamically based on risk metrics
+    const detectedOutliers = [];
+
+    // VaR/Ask ratio thresholds
+    if (varRatio > 8) {
+        detectedOutliers.push('VaR/Ask > 8%');
+    } else if (varRatio > 5) {
+        detectedOutliers.push('VaR/Ask > 5%');
     }
 
-    const outlierCount = data.outliers.length;
-    if (outlierCount >= 3) {
+    // ATR/Price ratio if available
+    if (data.atr_d1) {
+        const atrRatio = (data.atr_d1 / data.price) * 100;
+        if (atrRatio > 8) {
+            detectedOutliers.push('ATR/Price > 8%');
+        }
+    }
+
+    // Check for data outliers array as backup
+    if (data.outliers && data.outliers.length > 0) {
+        data.outliers.forEach(o => {
+            if (!detectedOutliers.includes(o)) {
+                detectedOutliers.push(o);
+            }
+        });
+    }
+
+    const outlierCount = detectedOutliers.length;
+
+    if (outlierCount === 0) {
         return {
-            recommendation: '🚨 HIGH RISK - Multiple outliers detected. Exercise extreme caution.',
-            level: 'extreme'
+            recommendation: `✅ Normal risk profile (VaR/Ask: ${varRatio.toFixed(2)}%)`,
+            level: 'low',
+            outliers: []
         };
-    } else if (outlierCount === 2) {
+    } else if (outlierCount >= 2) {
         return {
-            recommendation: '⚠️ ELEVATED RISK - Two outliers detected. Monitor closely.',
-            level: 'elevated'
+            recommendation: `🚨 HIGH RISK - ${outlierCount} risk factors detected: ${detectedOutliers.join(', ')}. Exercise extreme caution.`,
+            level: 'extreme',
+            outliers: detectedOutliers
         };
     } else {
         return {
-            recommendation: '⚡ MODERATE RISK - One outlier detected. Consider carefully.',
-            level: 'moderate'
+            recommendation: `⚠️ ELEVATED RISK - ${detectedOutliers[0]}. Monitor closely.`,
+            level: 'elevated',
+            outliers: detectedOutliers
         };
     }
 }
@@ -1021,10 +1050,21 @@ window.useInPortfolio = function(symbol) {
         return;
     }
 
-    if (window.addSymbolToPortfolio) {
-        window.addSymbolToPortfolio(symbol);
-        console.log('✅ Symbol added to portfolio:', symbol);
+    // Switch to portfolio calculator
+    if (window.selectCalculator) {
+        window.selectCalculator('portfolio');
     }
+
+    // Add symbol to portfolio
+    setTimeout(() => {
+        if (window.addSymbolToPortfolio) {
+            window.addSymbolToPortfolio(symbol);
+            console.log('✅ Symbol added to portfolio:', symbol);
+        } else {
+            console.error('❌ addSymbolToPortfolio function not found');
+            alert('Unable to add symbol to portfolio. Please add manually.');
+        }
+    }, 200);
 };
 
 window.findSimilar = function(symbol) {
