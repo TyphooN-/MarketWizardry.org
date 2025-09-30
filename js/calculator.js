@@ -946,40 +946,43 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             console.log('🗑️ Remove position button clicked');
             window.removePosition(e.target);
+            return;
         }
 
-        // Handle symbol detail clicks
-        const symbolDetailElement = e.target.closest('[data-action="show-symbol-detail"]');
-        if (symbolDetailElement) {
-            e.preventDefault();
-            const symbol = symbolDetailElement.getAttribute('data-symbol');
-            if (symbol) {
-                console.log('🎯 Symbol detail clicked:', symbol);
-                window.showSymbolDetail(symbol);
-            }
-        }
+        // Handle data-action elements
+        const actionElement = e.target.closest('[data-action]');
+        if (actionElement) {
+            const action = actionElement.getAttribute('data-action');
+            const symbol = actionElement.getAttribute('data-symbol');
 
-        // Handle other symbol action buttons
-        const actionButton = e.target.closest('[data-action]');
-        if (actionButton) {
-            const action = actionButton.getAttribute('data-action');
-            const symbol = actionButton.getAttribute('data-symbol');
+            console.log('🔘 Action element clicked:', action, 'symbol:', symbol);
 
-            if (symbol) {
-                e.preventDefault();
-                console.log('🔘 Symbol action clicked:', action, symbol);
-
-                switch(action) {
-                    case 'use-in-stop-loss':
+            switch(action) {
+                case 'show-symbol-detail':
+                    if (symbol) {
+                        e.preventDefault();
+                        console.log('🎯 Showing symbol detail for:', symbol);
+                        window.showSymbolDetail(symbol);
+                    }
+                    break;
+                case 'use-in-stop-loss':
+                    if (symbol) {
+                        e.preventDefault();
                         window.useInStopLoss(symbol);
-                        break;
-                    case 'add-to-portfolio':
+                    }
+                    break;
+                case 'add-to-portfolio':
+                    if (symbol) {
+                        e.preventDefault();
                         window.useInPortfolio(symbol);
-                        break;
-                    case 'find-similar':
+                    }
+                    break;
+                case 'find-similar':
+                    if (symbol) {
+                        e.preventDefault();
                         window.findSimilar(symbol);
-                        break;
-                }
+                    }
+                    break;
             }
         }
     });
