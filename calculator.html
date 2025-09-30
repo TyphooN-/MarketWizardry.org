@@ -490,14 +490,9 @@
             </div>
 
             <!-- Symbol Details Container for Lookup Tool -->
-            <div class="grid-two-col" style="margin-top: 20px;">
-                <div class="result-box">
-                    <div class="result-label">Symbol Details:</div>
-                    <div id="lookup-symbol-details"></div>
-                </div>
-                <div class="result-box">
-                    <div id="lookup-symbol-info" class="display-none"></div>
-                </div>
+            <div id="lookup-details-container" class="result-box" style="margin-top: 20px;">
+                <div class="result-label">Selected Symbol Details:</div>
+                <div id="lookup-symbol-details"></div>
             </div>
         </div>
 
@@ -621,11 +616,6 @@
 
         <div class="crt-divider"></div>
 
-    </div>
-
-    <div id="debugInfo" class="debug-info">
-        <h3>Calculator Debug Information:</h3>
-        <div id="debugOutput"></div>
     </div>
 
     <script src="/js/calculator-jsonld.js"></script>

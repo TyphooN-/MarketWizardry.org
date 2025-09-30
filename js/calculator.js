@@ -588,15 +588,9 @@ function displaySymbolInfoInPortfolio(symbol, data) {
 
     // Use lookup-specific divs if in lookup tool, otherwise use portfolio divs
     const detailsDiv = document.getElementById(isLookupTool ? 'lookup-symbol-details' : 'symbol-details');
-    const infoDiv = document.getElementById(isLookupTool ? 'lookup-symbol-info' : 'symbol-info');
 
-    if (!detailsDiv || !infoDiv) {
-        console.error('❌ Symbol display divs not found:', {
-            activeCalc: activeCalc,
-            isLookupTool: isLookupTool,
-            detailsDiv: !!detailsDiv,
-            infoDiv: !!infoDiv
-        });
+    if (!detailsDiv) {
+        console.error('❌ Symbol display div not found');
         return;
     }
 
@@ -609,22 +603,68 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                 <h3>${symbol}</h3>
                 <span class="symbol-price">$${data.price}</span>
             </div>
+
+            <div class="symbol-info-summary">
+                <p><strong>${data.description || symbol}</strong></p>
+            </div>
+
             <div class="symbol-metrics">
                 <div class="metric-item">
-                    <span class="metric-label">VaR (1-day, 95%):</span>
-                    <span class="metric-value">$${data.var.toFixed(3)}</span>
+                    <span class="metric-label">Current Price (Ask):</span>
+                    <span class="metric-value">$${data.price} USD per share</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">VaR (per share, 1-day, 95%):</span>
+                    <span class="metric-value">$${data.var.toFixed(3)} USD</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">VaR/Ask Ratio:</span>
+                    <span class="metric-value">${((data.var / data.price) * 100).toFixed(2)}% (risk per dollar invested)</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">VaR (1 lot = 100 shares):</span>
+                    <span class="metric-value">$${(data.var * 100).toFixed(2)} USD</span>
                 </div>
                 <div class="metric-item">
                     <span class="metric-label">Sector:</span>
                     <span class="metric-value">${data.sector || 'Unknown'}</span>
                 </div>
                 <div class="metric-item">
+                    <span class="metric-label">Industry:</span>
+                    <span class="metric-value">${data.industry || 'Unknown'}</span>
+                </div>
+                <div class="metric-item">
                     <span class="metric-label">Asset Class:</span>
                     <span class="metric-value">${data.asset_class || 'Unknown'}</span>
                 </div>
+            </div>
+
+            <div class="symbol-metrics" style="margin-top: 15px;">
+                <h4 style="color: #00ff00; margin-bottom: 10px;">📊 Average True Range (ATR) - Volatility Metrics</h4>
+                ${data.atr_d1 ? `
+                <div class="metric-item">
+                    <span class="metric-label">ATR (Daily - D1):</span>
+                    <span class="metric-value">$${data.atr_d1.toFixed(3)} USD per share</span>
+                </div>
+                ` : ''}
+                ${data.atr_w1 ? `
+                <div class="metric-item">
+                    <span class="metric-label">ATR (Weekly - W1):</span>
+                    <span class="metric-value">$${data.atr_w1.toFixed(3)} USD per share</span>
+                </div>
+                ` : ''}
+                ${data.atr_mn1 ? `
+                <div class="metric-item">
+                    <span class="metric-label">ATR (Monthly - MN1):</span>
+                    <span class="metric-value">$${data.atr_mn1.toFixed(3)} USD per share</span>
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="symbol-metrics" style="margin-top: 15px;">
                 ${data.outliers && data.outliers.length > 0 ? `
                 <div class="metric-item warning">
-                    <span class="metric-label">Risk Outliers:</span>
+                    <span class="metric-label">⚠️ Risk Outliers:</span>
                     <span class="metric-value">${data.outliers.join(', ')}</span>
                 </div>
                 ` : ''}
@@ -648,22 +688,9 @@ function displaySymbolInfoInPortfolio(symbol, data) {
         </div>
     `;
 
-    infoDiv.innerHTML = `
-        <div class="symbol-info-summary">
-            <p><strong>${data.description || symbol}</strong></p>
-            <p>Current Price: $${data.price} | VaR: $${data.var.toFixed(3)}</p>
-        </div>
-    `;
-
-    // Show the info panels
-    infoDiv.className = infoDiv.className.replace(' display-none', '');
-
-    // Make result boxes visible
+    // Make result box visible
     const detailsResultBox = detailsDiv.closest('.result-box');
-    const infoResultBox = infoDiv.closest('.result-box');
-
     if (detailsResultBox) detailsResultBox.classList.add('show');
-    if (infoResultBox) infoResultBox.classList.add('show');
 };
 
 function generateRiskAssessment(data) {
