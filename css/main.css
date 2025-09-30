@@ -134,7 +134,8 @@ body {
 }
 .content-frame {
     height: calc(100vh - 40px);
-    padding: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 .menu-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -315,7 +316,8 @@ body {
     .content-frame {
         flex: 1;
         height: calc(100vh - 50px);
-        padding: 0;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
     .content-frame.menu-open {
@@ -374,7 +376,8 @@ body {
     }
 
     .content-frame {
-        padding: 0;
+        padding: 8px;
+        box-sizing: border-box;
     }
 }
 
