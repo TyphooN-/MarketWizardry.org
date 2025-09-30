@@ -1040,8 +1040,33 @@ h2 {
 
 .calc-symbols-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    background: rgba(0, 20, 0, 0.3);
+}
+
+.calc-symbols-grid::-webkit-scrollbar {
+    width: 10px;
+}
+
+.calc-symbols-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.calc-symbols-grid::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 5px;
+}
+
+.calc-symbols-grid::-webkit-scrollbar-thumb:hover {
+    background: #00ff88;
 }
 
 .calc-symbol-item {
@@ -1204,4 +1229,103 @@ h2 {
 
 .position-estimated {
     border-left-color: #ffaa00;
+}
+
+/* Symbol Action Buttons */
+.symbol-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.symbol-action-btn {
+    padding: 8px 16px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 150px;
+}
+
+.symbol-action-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff88;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.3);
+}
+
+.symbol-action-btn:active {
+    transform: translateY(0);
+    background: rgba(0, 255, 0, 0.3);
+}
+
+/* Symbol Details Card */
+.symbol-details-card {
+    background: rgba(0, 20, 0, 0.3);
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.symbol-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00ff00;
+}
+
+.symbol-header h3 {
+    color: #00ff00;
+    margin: 0;
+}
+
+.symbol-price {
+    color: #00ff88;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.symbol-metrics {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background: rgba(0, 255, 0, 0.05);
+    border-left: 3px solid #00aa00;
+}
+
+.metric-item.warning {
+    border-left-color: #ff8800;
+    background: rgba(255, 136, 0, 0.1);
+}
+
+.metric-label {
+    color: #00aa00;
+    font-weight: bold;
+}
+
+.metric-value {
+    color: #00ff00;
+}
+
+.risk-assessment {
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
 }
