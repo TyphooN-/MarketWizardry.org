@@ -83,12 +83,18 @@ h1 {
 
 .breadcrumb a {
     color: #00ff00 !important;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: all 0.2s ease;
+}
+
+.breadcrumb a:visited {
+    color: #00ff00 !important;
+    text-decoration: none !important;
 }
 
 .breadcrumb a:hover {
     color: #ffffff !important;
+    text-decoration: none !important;
 }
 
 .breadcrumb .separator {
@@ -141,6 +147,30 @@ h1 {
 }
 
 .image-container img:hover {
+    border-color: #00ff88;
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.7), inset 0 0 30px rgba(0, 255, 0, 0.2);
+    transform: scale(1.02);
+}
+
+/* Grid container for side-by-side images */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.grid-container img {
+    max-width: 100%;
+    height: auto;
+    border: 3px solid #00ff00;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4), inset 0 0 20px rgba(0, 255, 0, 0.1);
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.grid-container img:hover {
     border-color: #00ff88;
     box-shadow: 0 0 25px rgba(0, 255, 0, 0.7), inset 0 0 30px rgba(0, 255, 0, 0.2);
     transform: scale(1.02);
@@ -443,9 +473,6 @@ h1 {
 
 /* Missing modal button styles */
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
     background: none;
     border: 2px solid #00ff00;
     color: #00ff00;
@@ -454,6 +481,7 @@ h1 {
     cursor: pointer;
     padding: 5px 10px;
     border-radius: 3px;
+    flex-shrink: 0;
 }
 
 .close-button:hover {
@@ -557,6 +585,12 @@ h1 {
         padding: 15px;
     }
 
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+    }
+
     .modal-text {
         font-size: 0.65em;
         white-space: pre;
@@ -595,8 +629,6 @@ h1 {
     .close-button {
         font-size: 18px;
         padding: 3px 8px;
-        top: 5px;
-        right: 10px;
     }
 
     .filename-display {
