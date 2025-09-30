@@ -115,6 +115,11 @@ function openMusing(index) {
     document.getElementById('modalTitle').textContent = musing.title;
     updateCounter();
 
+    // Set the download link
+    const downloadLink = document.getElementById('downloadLink');
+    downloadLink.href = `/ai-musings/${musing.filename}`;
+    downloadLink.download = musing.filename;
+
     // Load the content
     fetch(`/ai-musings/${musing.filename}`)
         .then(response => {
