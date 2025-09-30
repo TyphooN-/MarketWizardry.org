@@ -89,67 +89,24 @@
         }
     }
 
-    function createEmojiFirework(x, y) {
-        const particleCount = 13; // Fibonacci number for performance
-        const goldenAngle = 137.508; // Golden angle in degrees
-
-        for (let i = 1; i <= particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'emoji-particle';
-            particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-            // Use transform to position, not left/top to avoid expanding viewport
-            particle.style.position = 'fixed';
-            particle.style.left = '0px';
-            particle.style.top = '0px';
-
-            // Create spiral arm trajectory
-            const angle = i * goldenAngle;
-            const scale = 22;
-            const radius = Math.sqrt(i) * scale;
-
-            // Final position on the spiral
-            const endX = x + Math.cos(angle * Math.PI / 180) * radius;
-            const endY = y + Math.sin(angle * Math.PI / 180) * radius;
-
-            // Start from center
-            particle.style.setProperty('--startX', x + 'px');
-            particle.style.setProperty('--startY', y + 'px');
-            particle.style.setProperty('--endX', endX + 'px');
-            particle.style.setProperty('--endY', endY + 'px');
-
-            const duration = 1.5;
-            particle.style.animation = 'fireworkSpiralPath ' + duration + 's ease-out forwards';
-            particle.style.animationDelay = (i * 0.05) + 's';
-
-            document.body.appendChild(particle);
-
-            // Ensure particle is removed after animation completes
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.remove();
-                }
-            }, (duration + i * 0.05) * 1000 + 100);
-        }
-    }
+    // Removed emoji fireworks - spirals only
 
     function randomExplosion() {
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * window.innerHeight;
 
         createExplosion(x, y);
-        createEmojiFirework(x, y);
     }
 
-    // Cleanup function to remove any orphaned particles
+    // Cleanup function to remove any orphaned spirals
     function cleanupOrphanedParticles() {
-        const particles = document.querySelectorAll('.emoji-particle, .explosion, .floating-bg-particle, .spiral-trail, svg');
-        particles.forEach(particle => {
-            const rect = particle.getBoundingClientRect();
-            // Remove if particle is way off screen or invisible
+        const spirals = document.querySelectorAll('svg');
+        spirals.forEach(spiral => {
+            const rect = spiral.getBoundingClientRect();
+            // Remove if spiral is way off screen or invisible
             if (rect.bottom < -500 || rect.top > window.innerHeight + 500 ||
                 rect.right < -500 || rect.left > window.innerWidth + 500) {
-                particle.remove();
+                spiral.remove();
             }
         });
     }
@@ -172,7 +129,6 @@
     // Click anywhere to create explosion
     document.addEventListener('click', (e) => {
         createExplosion(e.clientX, e.clientY);
-        createEmojiFirework(e.clientX, e.clientY);
     });
 
     // Initial burst of explosions (reduced)
@@ -184,5 +140,5 @@
         clearInterval(explosionInterval);
     });
 
-    console.log('🎆 404 Effects loaded - Financial salvation explosions activated!');
+    console.log('🌀 404 Effects loaded - Fibonacci spiral explosions activated!');
 })();
