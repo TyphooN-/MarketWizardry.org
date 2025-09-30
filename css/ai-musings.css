@@ -1,8 +1,13 @@
 /* AI Musings Page Styles - External CSS to comply with CSP */
 
-/* Hidden content divs */
+/* Hidden content divs - initially hidden until expanded */
 .full-content {
     display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 255, 0, 0.3);
+    line-height: 1.6;
+    color: #cccccc;
 }
 
 /* Main layout and body styles */
@@ -139,14 +144,6 @@ h1 {
 .read-more:hover {
     background-color: #00ff00;
     color: #000;
-}
-
-.full-content {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(0, 255, 0, 0.3);
-    line-height: 1.6;
-    color: #cccccc;
 }
 
 .full-content pre {
