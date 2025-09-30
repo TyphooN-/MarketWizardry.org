@@ -582,10 +582,23 @@ window.lookupSymbol = function() {
 };
 
 function displaySymbolInfoInPortfolio(symbol, data) {
-    const detailsDiv = document.getElementById('symbol-details');
-    const infoDiv = document.getElementById('symbol-info');
+    // Determine which calculator is active to use correct div IDs
+    const activeCalc = window.activeCalculator;
+    const isLookupTool = activeCalc === 'lookup';
 
-    if (!detailsDiv || !infoDiv) return;
+    // Use lookup-specific divs if in lookup tool, otherwise use portfolio divs
+    const detailsDiv = document.getElementById(isLookupTool ? 'lookup-symbol-details' : 'symbol-details');
+    const infoDiv = document.getElementById(isLookupTool ? 'lookup-symbol-info' : 'symbol-info');
+
+    if (!detailsDiv || !infoDiv) {
+        console.error('❌ Symbol display divs not found:', {
+            activeCalc: activeCalc,
+            isLookupTool: isLookupTool,
+            detailsDiv: !!detailsDiv,
+            infoDiv: !!infoDiv
+        });
+        return;
+    }
 
     // Generate risk assessment
     const riskAssessment = generateRiskAssessment(data);
