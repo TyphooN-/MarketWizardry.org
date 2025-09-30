@@ -20,6 +20,9 @@ if (window === window.top) {
         }
     }, 100);
 } else {
-    // When in iframe, do NOT load main.css to avoid layout conflicts
-    // Only shared-styles.css should be loaded for iframe content
+    // When in iframe, load iframe-content.css instead of main.css to avoid layout conflicts
+    const iframeCssLink = document.createElement('link');
+    iframeCssLink.rel = 'stylesheet';
+    iframeCssLink.href = '/css/iframe-content.css';
+    document.head.appendChild(iframeCssLink);
 }
