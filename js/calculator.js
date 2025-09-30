@@ -1102,6 +1102,58 @@ console.log('✅ Symbol lookup functions loaded');/**
 
 console.log('🔧 Loading Calculator initialization...');
 
+// ===== PORTFOLIO MODE TOGGLE =====
+window.togglePortfolioMode = function() {
+    const mode = document.getElementById('pf-mode')?.value || 'manual';
+    const accountControls = document.getElementById('account-risk-controls');
+    const suggestedLotsHeaders = document.querySelectorAll('.suggested-lots-header, .suggested-lots-cell');
+    const accountVarHeaders = document.querySelectorAll('.account-var-header, .account-var-display');
+    const sharesCells = document.querySelectorAll('.shares-cell input');
+
+    if (mode === 'account-risk') {
+        // Show account risk controls
+        accountControls?.classList.remove('var-group-hidden');
+        suggestedLotsHeaders.forEach(el => el.classList.remove('var-group-hidden'));
+        accountVarHeaders.forEach(el => el.classList.remove('var-group-hidden'));
+
+        // Make shares input readonly in account risk mode
+        sharesCells.forEach(input => {
+            input.setAttribute('readonly', 'readonly');
+            input.classList.add('readonly-input');
+        });
+    } else {
+        // Hide account risk controls
+        accountControls?.classList.add('var-group-hidden');
+        suggestedLotsHeaders.forEach(el => el.classList.add('var-group-hidden'));
+        accountVarHeaders.forEach(el => el.classList.add('var-group-hidden'));
+
+        // Make shares input editable in manual mode
+        sharesCells.forEach(input => {
+            input.removeAttribute('readonly');
+            input.classList.remove('readonly-input');
+        });
+    }
+};
+
+window.calculateSuggestedLots = function(symbol, varPerShare, accountCapital, targetVarPercent) {
+    // Calculate target VaR in dollars
+    const targetVarDollars = accountCapital * (targetVarPercent / 100);
+
+    // Calculate suggested shares (rounded to nearest lot of 100)
+    const suggestedShares = Math.floor(targetVarDollars / varPerShare / 100) * 100;
+
+    // Calculate actual VaR with suggested shares
+    const actualVarDollars = suggestedShares * varPerShare;
+    const actualVarPercent = (actualVarDollars / accountCapital) * 100;
+
+    return {
+        suggestedShares: suggestedShares,
+        lots: suggestedShares / 100,
+        actualVarDollars: actualVarDollars,
+        actualVarPercent: actualVarPercent
+    };
+};
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Calculator DOM ready - initializing...');
@@ -1163,6 +1215,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (psEntryPrice) {
         psEntryPrice.addEventListener('input', updateATRStopSuggestion);
+    }
+
+    // Set up portfolio VaR mode switching
+    const pfMode = document.getElementById('pf-mode');
+    if (pfMode) {
+        pfMode.addEventListener('change', togglePortfolioMode);
     }
 
     // Set up portfolio position removal handlers (delegated)
