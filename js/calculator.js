@@ -178,17 +178,18 @@ window.calculatePositionSize = function() {
 
     try {
         const accountSize = parseFloat(document.getElementById('ps-account-size')?.value) || 0;
-        const riskPercent = parseFloat(document.getElementById('ps-risk-percent')?.value) || 0;
+        const riskPercent = parseFloat(document.getElementById('ps-risk-value')?.value) || 0;
         const entryPrice = parseFloat(document.getElementById('ps-entry-price')?.value) || 0;
-        const stopPrice = parseFloat(document.getElementById('ps-stop-price')?.value) || 0;
+        const stopPrice = parseFloat(document.getElementById('ps-stop-loss')?.value) || 0;
+        const symbol = document.getElementById('ps-symbol')?.value.toUpperCase().trim() || '';
 
         if (!accountSize || !riskPercent || !entryPrice || !stopPrice) {
-            alert('Please fill in all required fields');
+            alert('Please fill in all required fields: Account Size, Risk Amount, Entry Price, and Stop Loss Price');
             return;
         }
 
         if (stopPrice >= entryPrice) {
-            alert('Stop price must be lower than entry price');
+            alert('Stop Loss price must be lower than Entry price for a long position');
             return;
         }
 
@@ -197,10 +198,11 @@ window.calculatePositionSize = function() {
         const positionSize = Math.floor(riskAmount / riskPerShare);
         const positionValue = positionSize * entryPrice;
         const actualRisk = positionSize * riskPerShare;
+        const percentOfAccount = (positionValue / accountSize) * 100;
 
         const output = `
             <div class="result-section">
-                <h4>📊 Position Size Analysis</h4>
+                <h4>📊 Position Size Analysis${symbol ? ' for ' + symbol : ''}</h4>
                 <div class="result-grid">
                     <div class="result-item">
                         <span class="result-label">Position Size:</span>
@@ -208,7 +210,7 @@ window.calculatePositionSize = function() {
                     </div>
                     <div class="result-item">
                         <span class="result-label">Position Value:</span>
-                        <span class="result-value">$${positionValue.toLocaleString()}</span>
+                        <span class="result-value">$${positionValue.toLocaleString()} (${percentOfAccount.toFixed(1)}% of account)</span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">Risk per Share:</span>
@@ -217,6 +219,14 @@ window.calculatePositionSize = function() {
                     <div class="result-item">
                         <span class="result-label">Total Risk:</span>
                         <span class="result-value">$${actualRisk.toFixed(2)} (${(actualRisk/accountSize*100).toFixed(2)}%)</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Entry Price:</span>
+                        <span class="result-value">$${entryPrice.toFixed(2)}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Stop Loss Price:</span>
+                        <span class="result-value">$${stopPrice.toFixed(2)}</span>
                     </div>
                 </div>
             </div>
@@ -604,6 +614,9 @@ window.lookupSymbolForPositionCalc = function() {
 
     const data = window.varData[symbol];
 
+    // Store data for ATR calculations
+    window.currentPSSymbolData = data;
+
     // Auto-fill entry price
     const entryPriceInput = document.getElementById('ps-entry-price');
     if (entryPriceInput) {
@@ -615,6 +628,9 @@ window.lookupSymbolForPositionCalc = function() {
     if (varPerShareInput) {
         varPerShareInput.value = data.var.toFixed(3);
     }
+
+    // Calculate ATR stop suggestion
+    updateATRStopSuggestion();
 
     // Show success message
     const outputDiv = document.getElementById('ps-output');
@@ -644,13 +660,55 @@ window.lookupSymbolForPositionCalc = function() {
                     <span class="result-value">$${data.atr_d1.toFixed(3)}</span>
                 </div>
                 ` : ''}
-                <p style="margin-top: 10px; color: #00aa00;">Entry price and VaR have been auto-filled. Adjust values if needed and click Calculate.</p>
+                ${data.atr_w1 ? `
+                <div class="result-row">
+                    <span class="result-label-inline">ATR (Weekly):</span>
+                    <span class="result-value">$${data.atr_w1.toFixed(3)}</span>
+                </div>
+                ` : ''}
+                ${data.atr_mn1 ? `
+                <div class="result-row">
+                    <span class="result-label-inline">ATR (Monthly):</span>
+                    <span class="result-value">$${data.atr_mn1.toFixed(3)}</span>
+                </div>
+                ` : ''}
+                <p style="margin-top: 10px; color: #00aa00;">Entry price, VaR, and ATR stop suggestion have been auto-filled. Adjust values if needed and click Calculate.</p>
             </div>
         `;
     }
 
     console.log('✅ Symbol data auto-filled:', symbol);
 };
+
+// Update ATR Stop Suggestion
+function updateATRStopSuggestion() {
+    const data = window.currentPSSymbolData;
+    if (!data) return;
+
+    const timeframe = document.getElementById('ps-atr-timeframe')?.value || 'none';
+    const multiplier = parseFloat(document.getElementById('ps-atr-multiplier')?.value) || 2.0;
+    const entryPrice = parseFloat(document.getElementById('ps-entry-price')?.value) || data.price;
+
+    const suggestionInput = document.getElementById('ps-atr-suggestion');
+    if (!suggestionInput) return;
+
+    let atr = 0;
+    if (timeframe === 'd1' && data.atr_d1) {
+        atr = data.atr_d1;
+    } else if (timeframe === 'w1' && data.atr_w1) {
+        atr = data.atr_w1;
+    } else if (timeframe === 'mn1' && data.atr_mn1) {
+        atr = data.atr_mn1;
+    }
+
+    if (atr > 0 && timeframe !== 'none') {
+        const stopDistance = atr * multiplier;
+        const suggestedStop = entryPrice - stopDistance;
+        suggestionInput.value = suggestedStop.toFixed(2);
+    } else {
+        suggestionInput.value = '';
+    }
+}
 
 function displaySymbolInfoInPortfolio(symbol, data) {
     // Determine which calculator is active to use correct div IDs
@@ -1052,6 +1110,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Set up ATR stop suggestion updates for position calculator
+    const atrTimeframe = document.getElementById('ps-atr-timeframe');
+    const atrMultiplier = document.getElementById('ps-atr-multiplier');
+    const psEntryPrice = document.getElementById('ps-entry-price');
+
+    if (atrTimeframe) {
+        atrTimeframe.addEventListener('change', updateATRStopSuggestion);
+    }
+    if (atrMultiplier) {
+        atrMultiplier.addEventListener('input', updateATRStopSuggestion);
+    }
+    if (psEntryPrice) {
+        psEntryPrice.addEventListener('input', updateATRStopSuggestion);
+    }
+
     // Set up portfolio position removal handlers (delegated)
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('remove-btn') || e.target.classList.contains('position-remove-btn')) {
@@ -1136,9 +1209,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'sl-account-size': () => window.calculateStopLoss(),
         'sl-risk-percent': () => window.calculateStopLoss(),
         'ps-account-size': () => window.calculatePositionSize(),
-        'ps-risk-percent': () => window.calculatePositionSize(),
+        'ps-risk-value': () => window.calculatePositionSize(),
         'ps-entry-price': () => window.calculatePositionSize(),
-        'ps-stop-price': () => window.calculatePositionSize(),
+        'ps-stop-loss': () => window.calculatePositionSize(),
+        'ps-symbol': () => window.lookupSymbolForPositionCalc(),
         'ci-principal': () => window.calculateCompoundInterest(),
         'ci-rate': () => window.calculateCompoundInterest(),
         'ci-time': () => window.calculateCompoundInterest(),
