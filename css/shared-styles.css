@@ -239,6 +239,7 @@ nav.breadcrumb a:hover {
     overflow-y: auto;
     overflow-x: auto;
     font-family: "Courier New", monospace;
+    font-size: clamp(0.8rem, 1.8vw, 1.1rem);
     white-space: pre-wrap;
     border: 2px solid #00ff00;
     padding: 20px;
@@ -655,7 +656,7 @@ nav.breadcrumb a:hover {
     }
 
     .modal-text {
-        font-size: 0.65em;
+        font-size: clamp(0.6rem, 2vw, 0.8rem);
         white-space: pre;
         overflow-x: auto;
         max-width: 90vw;
@@ -664,7 +665,7 @@ nav.breadcrumb a:hover {
     }
 
     .modal-body {
-        font-size: 0.65em;
+        font-size: clamp(0.6rem, 2vw, 0.8rem);
         white-space: pre;
         overflow-x: auto;
         max-width: 90vw;
@@ -932,6 +933,6 @@ header {
     overflow-y: auto;
     overflow-x: auto;
     color: #00ff00;
-    font-size: 1.2em;
+    font-size: clamp(0.7rem, 1.5vw, 1.2rem);
     padding: 15px;
 }
