@@ -979,96 +979,137 @@ header {
     transform: scale(1.1);
 }
 
-/* Nuclear explosion effect */
+/* Nuclear explosion effect - localized pixel art style */
 .nuke-flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,150,0,0.9) 20%, rgba(255,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 100;
     opacity: 0;
-    animation: nuclear-flash 1.5s ease-out forwards;
+    animation: nuclear-flash-pixel 0.8s steps(4) forwards;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    box-shadow:
+        0 0 0 2px #ffff00,
+        0 0 0 4px #ff8800,
+        0 0 0 6px #ff0000;
 }
 
-@keyframes nuclear-flash {
+@keyframes nuclear-flash-pixel {
     0% {
         opacity: 0;
-        transform: scale(0);
+        transform: translate(-50%, -50%) scale(1);
     }
-    15% {
+    25% {
         opacity: 1;
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(2);
     }
-    35% {
-        opacity: 0.8;
-        transform: scale(1.5);
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(4);
+        background: #ffff00;
     }
-    60% {
-        opacity: 0.4;
-        transform: scale(3);
+    75% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(6);
+        background: #ff8800;
     }
     100% {
         opacity: 0;
-        transform: scale(6);
+        transform: translate(-50%, -50%) scale(8);
+        background: #ff0000;
     }
 }
 
 .nuke-mushroom {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 9998;
-}
-
-.nuke-stem {
-    width: 40px;
-    height: 0;
-    background: linear-gradient(to top, rgba(255,100,0,0.9), rgba(255,200,0,0.6));
-    box-shadow: 0 0 30px rgba(255,100,0,0.8);
-    animation: mushroom-stem 2s ease-out forwards;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+}
+
+.nuke-stem {
+    width: 4px;
+    height: 0;
+    background: #ff6600;
+    animation: mushroom-stem-pixel 0.6s steps(3) forwards;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    box-shadow:
+        -2px 0 0 0 #ff8800,
+        2px 0 0 0 #ff8800,
+        -4px 0 0 0 #ffaa00,
+        4px 0 0 0 #ffaa00;
 }
 
 .nuke-cap {
     width: 0;
     height: 0;
-    background: radial-gradient(circle, rgba(255,150,0,0.9) 0%, rgba(255,50,0,0.7) 50%, rgba(100,0,0,0.5) 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 60px rgba(255,100,0,0.8);
-    animation: mushroom-cap 2s ease-out forwards;
+    background: #ff4400;
+    animation: mushroom-cap-pixel 0.6s steps(3) forwards;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    box-shadow:
+        0 2px 0 0 #ff6600,
+        0 4px 0 0 #ff8800,
+        0 6px 0 0 #ffaa00;
 }
 
-@keyframes mushroom-stem {
+@keyframes mushroom-stem-pixel {
     0% {
         height: 0;
     }
+    33% {
+        height: 20px;
+    }
+    66% {
+        height: 40px;
+    }
     100% {
-        height: 40vh;
+        height: 50px;
     }
 }
 
-@keyframes mushroom-cap {
+@keyframes mushroom-cap-pixel {
     0% {
         width: 0;
         height: 0;
         bottom: 0;
     }
+    33% {
+        width: 12px;
+        height: 8px;
+        bottom: 15px;
+    }
+    66% {
+        width: 24px;
+        height: 16px;
+        bottom: 35px;
+    }
     100% {
-        width: 30vw;
-        height: 20vh;
-        bottom: 35vh;
+        width: 32px;
+        height: 20px;
+        bottom: 45px;
     }
 }
 
