@@ -604,16 +604,17 @@ class FinancialToolsUpdater:
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
-                <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" data-action="close-modal">&times;</span>
+                <div class="crt-divider"></div>
+                <div class="modal-button-bar">
+                    <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                    <button class="nav-button" data-action="previous">← Previous</button>
+                    <span class="nav-counter" id="nav-counter">1 of 1</span>
+                    <button class="nav-button" data-action="next">Next →</button>
+                    <button class="close-button" data-action="close-modal">Close</button>
+                </div>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-button" data-action="previous">Previous</button>
-                <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>
@@ -683,16 +684,17 @@ class FinancialToolsUpdater:
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
-                <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" data-action="close-modal">&times;</span>
+                <div class="crt-divider"></div>
+                <div class="modal-button-bar">
+                    <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                    <button class="nav-button" data-action="previous">← Previous</button>
+                    <span class="nav-counter" id="nav-counter">1 of 1</span>
+                    <button class="nav-button" data-action="next">Next →</button>
+                    <button class="close-button" data-action="close-modal">Close</button>
+                </div>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-button" data-action="previous">Previous</button>
-                <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>
@@ -762,16 +764,17 @@ class FinancialToolsUpdater:
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
-                <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                <span class="close-button" data-action="close-modal">&times;</span>
+                <div class="crt-divider"></div>
+                <div class="modal-button-bar">
+                    <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                    <button class="nav-button" data-action="previous">← Previous</button>
+                    <span class="nav-counter" id="nav-counter">1 of 1</span>
+                    <button class="nav-button" data-action="next">Next →</button>
+                    <button class="close-button" data-action="close-modal">Close</button>
+                </div>
             </div>
             <div class="modal-body">
                 <pre id="outlier-content">Loading...</pre>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-button" data-action="previous">Previous</button>
-                <span class="nav-counter" id="nav-counter">1 of 1</span>
-                <button class="nav-button" data-action="next">Next</button>
             </div>
         </div>
     </div>

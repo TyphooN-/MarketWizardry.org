@@ -87,15 +87,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">AI Musing</h2>
-                <a id="downloadLink" href="#" download>Download File</a>
-                <span class="close-button" data-action="close">&times;</span>
+                <div class="crt-divider"></div>
+                <div class="modal-button-bar">
+                    <a id="downloadLink" href="#" download>Download File</a>
+                    <button class="nav-button" id="prevButton" data-action="previous">← Previous</button>
+                    <span class="image-counter" id="navCounter"></span>
+                    <button class="nav-button" id="nextButton" data-action="next">Next →</button>
+                    <button class="close-button" data-action="close">Close</button>
+                </div>
             </div>
             <pre id="textContent" class="modal-text"></pre>
-            <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" data-action="previous">← Previous</button>
-                <span class="image-counter" id="navCounter"></span>
-                <button class="nav-button" id="nextButton" data-action="next">Next →</button>
-            </div>
         </div>
     </div>
 
