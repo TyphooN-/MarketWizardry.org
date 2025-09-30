@@ -27,14 +27,16 @@ function triggerNuclearExplosion(button) {
     const debrisContainer = document.createElement('div');
     debrisContainer.className = 'nuke-debris';
 
-    // Create 8 debris particles flying in different directions
-    const debrisColors = ['#ff8800', '#ff4400', '#ffaa00', '#ff6600'];
+    // Create 8 debris particles flying in different directions - Area 51 style
+    const debrisColors = ['#ffcc00', '#ff8800', '#ff4400', '#ff6600'];
     for (let i = 1; i <= 8; i++) {
         const particle = document.createElement('div');
         particle.className = 'debris-particle';
-        particle.style.background = debrisColors[Math.floor(Math.random() * debrisColors.length)];
-        particle.style.animation = `debris-fly-${i} 0.5s steps(3) forwards`;
-        particle.style.animationDelay = '0.1s'; // Start after initial flash
+        const color = debrisColors[Math.floor(Math.random() * debrisColors.length)];
+        particle.style.background = color;
+        particle.style.boxShadow = `0 0 2px ${color}`;
+        particle.style.animation = `debris-fly-${i} 0.4s steps(4) forwards`;
+        particle.style.animationDelay = '0.15s'; // Start after initial flash
         debrisContainer.appendChild(particle);
     }
 

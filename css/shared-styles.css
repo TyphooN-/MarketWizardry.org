@@ -981,95 +981,87 @@ header {
     transform: scale(1.1);
 }
 
-/* Nuclear explosion effect - barrel explosion style */
+/* Nuclear explosion effect - Area 51 arcade barrel explosion style */
 .nuke-flash {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: #ffff00;
+    background: #fff;
     pointer-events: none;
     z-index: 100;
     opacity: 0;
-    animation: barrel-explosion 0.6s steps(6) forwards;
+    animation: area51-explosion 0.5s steps(5) forwards;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
-@keyframes barrel-explosion {
+@keyframes area51-explosion {
     0% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(0.5);
-        background: #ffffff;
+        transform: translate(-50%, -50%) scale(0.3);
+        background: #fff;
         box-shadow:
-            0 0 0 0px #ffff00,
-            0 0 0 0px #ff8800,
-            0 0 0 0px #ff4400,
-            0 0 0 0px #ff0000;
+            0 0 0 2px #fff,
+            0 0 0 4px #fff;
     }
-    16% {
+    20% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-        background: #ffff00;
+        transform: translate(-50%, -50%) scale(0.8);
+        background: #ffff44;
         box-shadow:
-            0 0 0 4px #ffffff,
-            0 0 0 8px #ffff00,
+            0 0 0 3px #fff,
+            0 0 0 6px #ffff44,
+            0 0 0 9px #ffcc00,
+            0 0 0 12px #ff8800;
+    }
+    40% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3);
+        background: #ffcc00;
+        box-shadow:
+            0 0 0 4px #ffff44,
+            0 0 0 8px #ffcc00,
             0 0 0 12px #ff8800,
-            0 0 0 16px #ff4400;
+            0 0 0 16px #ff4400,
+            0 0 0 20px #ff0000;
     }
-    33% {
+    60% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.5);
+        transform: translate(-50%, -50%) scale(1.8);
         background: #ff8800;
         box-shadow:
-            0 0 0 6px #ffff00,
-            0 0 0 12px #ff8800,
-            0 0 0 18px #ff4400,
-            0 0 0 24px #ff0000;
+            0 0 0 5px #ffcc00,
+            0 0 0 10px #ff8800,
+            0 0 0 15px #ff4400,
+            0 0 0 20px #ff0000,
+            0 0 0 25px #cc0000;
     }
-    50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(2);
+    80% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(2.2);
         background: #ff4400;
         box-shadow:
-            0 0 0 8px #ff8800,
-            0 0 0 16px #ff4400,
-            0 0 0 24px #ff0000,
-            0 0 0 32px #880000;
-    }
-    66% {
-        opacity: 0.8;
-        transform: translate(-50%, -50%) scale(2.5);
-        background: #ff0000;
-        box-shadow:
-            0 0 0 10px #ff4400,
-            0 0 0 20px #ff0000,
-            0 0 0 30px #880000,
-            0 0 0 40px #440000;
-    }
-    83% {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) scale(3);
-        background: #880000;
-        box-shadow:
-            0 0 0 12px #ff0000,
-            0 0 0 24px #880000,
-            0 0 0 36px #440000,
-            0 0 0 48px #220000;
+            0 0 0 6px #ff8800,
+            0 0 0 12px #ff4400,
+            0 0 0 18px #ff0000,
+            0 0 0 24px #cc0000,
+            0 0 0 30px #880000;
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(3.5);
-        background: #440000;
+        transform: translate(-50%, -50%) scale(2.5);
+        background: #ff0000;
         box-shadow:
-            0 0 0 14px #880000,
-            0 0 0 28px #440000,
-            0 0 0 42px #220000,
-            0 0 0 56px #000000;
+            0 0 0 7px #ff4400,
+            0 0 0 14px #ff0000,
+            0 0 0 21px #cc0000,
+            0 0 0 28px #880000,
+            0 0 0 35px #440000;
     }
 }
 
@@ -1084,12 +1076,14 @@ header {
 
 .debris-particle {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     background: #ff8800;
+    border-radius: 1px;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    box-shadow: 0 0 2px rgba(255, 136, 0, 0.8);
 }
 
 @keyframes debris-fly-1 {

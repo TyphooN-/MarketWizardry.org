@@ -498,9 +498,9 @@ window.addPosition = function() {
 window.removePosition = function(button) {
     const row = button.closest('tr');
     const tbody = document.getElementById('portfolio-positions');
-    if (tbody.children.length > 1) {
-        row.remove();
-    }
+    // Always allow removal - user can re-add positions
+    row.remove();
+    console.log('🗑️ Position removed, remaining positions:', tbody.children.length);
 };
 
 window.addSymbolToPortfolio = function(symbol) {
