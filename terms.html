@@ -83,15 +83,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Terms Document</h2>
-                <a id="downloadLink" href="#" download>Download File</a>
-                <span class="close-button">&times;</span>
+                <div class="crt-divider"></div>
+                <div class="modal-button-bar">
+                    <a id="downloadLink" href="#" download>Download File</a>
+                    <button class="nav-button" id="prevButton" data-action="navigatePrevious">← Previous</button>
+                    <span class="nav-counter" id="navCounter"></span>
+                    <button class="nav-button" id="nextButton" data-action="navigateNext">Next →</button>
+                    <button class="close-button">Close</button>
+                </div>
             </div>
             <pre id="textContent" class="modal-body"></pre>
-            <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" data-action="navigatePrevious">← Previous</button>
-                <span class="nav-counter" id="navCounter"></span>
-                <button class="nav-button" id="nextButton" data-action="navigateNext">Next →</button>
-            </div>
         </div>
     </div>
     <script src="/js/terms.js"></script>
