@@ -48,18 +48,24 @@ class FinancialToolsUpdater:
         }
 
         for asset_type, source_path in mt_paths.items():
-            if os.path.exists(source_path):
+            dest_path = f'var-explorer/SymbolsExport-Darwinex-Live-{asset_type.title()}-{self.date_str}.csv'
+
+            # Check if destination already exists
+            if os.path.exists(dest_path):
+                print(f"⏭️  {asset_type.title()} CSV already exists for {self.date_str}, skipping copy")
+                files_copied += 1
+            elif os.path.exists(source_path):
                 shutil.copy(source_path, 'var-explorer/')
                 print(f"✅ Copied {asset_type.title()} CSV for {self.date_str}")
                 files_copied += 1
             else:
-                print(f"⚠️ Warning: {asset_type.title()} CSV not found for {self.date_str}")
+                print(f"⚠️ Warning: {asset_type.title()} CSV not found at source for {self.date_str}")
 
         if files_copied == 0:
-            print(f"❌ Error: No CSV files found for date {self.date_str}")
+            print(f"❌ Error: No CSV files found or copied for date {self.date_str}")
             return False
 
-        print(f"📊 Successfully copied {files_copied} CSV file(s)")
+        print(f"📊 {files_copied} CSV file(s) available for processing")
         return True
 
     def process_var_data(self):
@@ -103,6 +109,36 @@ class FinancialToolsUpdater:
         temp_csv_name = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}.csv"
         source_csv_path = f"var-explorer/{temp_csv_name}"
         temp_csv_path = f"ev-explorer/{temp_csv_name}"
+        ev_processed_name = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV.csv"
+        ev_processed_path = f"ev-explorer/{ev_processed_name}"
+
+        # Check if EV-processed CSV already exists
+        if os.path.exists(ev_processed_path):
+            print(f"⏭️  EV-processed CSV already exists for {self.date_str}, skipping EV scraping")
+
+            # Check if outlier files also exist
+            ev_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_outlier.txt"
+            ev_var_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_var_outlier.txt"
+
+            existing_ev_files = []
+            if os.path.exists(f"ev-explorer/{ev_outlier_file}"):
+                existing_ev_files.append(ev_outlier_file)
+            if os.path.exists(f"ev-explorer/{ev_var_outlier_file}"):
+                existing_ev_files.append(ev_var_outlier_file)
+
+            if existing_ev_files and not self.force_regenerate:
+                print(f"⏭️  {len(existing_ev_files)} EV outlier files already exist for {self.date_str}")
+                print("   Use --force to regenerate existing files")
+            else:
+                print("📊 Running EV outlier analysis...")
+                subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=False, text=True)
+                print("📈 Running EV VaR outlier analysis...")
+                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=False, text=True)
+
+            self.data_summary['ev_processed'] = True
+            return True
 
         if not os.path.exists(source_csv_path):
             print("⚠️ Warning: No stocks CSV available for EV processing")
@@ -127,30 +163,13 @@ class FinancialToolsUpdater:
             # evscrape.py removes the source file (temp_csv_path), so no need to remove it here if successful
 
             # Run EV outlier analysis in ev-explorer directory
-            ev_processed_name = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV.csv"
-            ev_processed_path = f"ev-explorer/{ev_processed_name}"
-
             if os.path.exists(ev_processed_path):
-                # Check if EV outlier files already exist for this date
-                ev_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_outlier.txt"
-                ev_var_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_var_outlier.txt"
-
-                existing_ev_files = []
-                if os.path.exists(f"ev-explorer/{ev_outlier_file}"):
-                    existing_ev_files.append(ev_outlier_file)
-                if os.path.exists(f"ev-explorer/{ev_var_outlier_file}"):
-                    existing_ev_files.append(ev_var_outlier_file)
-
-                if existing_ev_files and not self.force_regenerate:
-                    print(f"⏭️ Skipping EV processing - {len(existing_ev_files)} EV outlier files already exist for {self.date_str}")
-                    print("   Use --force to regenerate existing files")
-                else:
-                    print("📊 Running EV outlier analysis...")
-                    subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
-                                 cwd='ev-explorer', capture_output=False, text=True)
-                    print("📈 Running EV VaR outlier analysis...")
-                    subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
-                                 cwd='ev-explorer', capture_output=False, text=True)
+                print("📊 Running EV outlier analysis...")
+                subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=False, text=True)
+                print("📈 Running EV VaR outlier analysis...")
+                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=False, text=True)
 
             self.data_summary['ev_processed'] = True
             print("✅ EV data processed successfully within ev-explorer/")
@@ -839,6 +858,7 @@ class FinancialToolsUpdater:
                             'var': row['VaR_1_Lot'],
                             'price': row['BidPrice'],
                             'sector': row['SectorName'],
+                            'industry': row.get('IndustryName', 'Unknown'),
                             'description': row['Description'],
                             'asset_class': asset_type,
                             'atr_d1': row['ATR_D1'],
