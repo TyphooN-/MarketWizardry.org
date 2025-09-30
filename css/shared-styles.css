@@ -81,20 +81,18 @@ h1 {
     padding: 10px 0;
 }
 
-.breadcrumb a {
+nav.breadcrumb a,
+nav.breadcrumb a:link,
+nav.breadcrumb a:visited,
+nav.breadcrumb a:hover,
+nav.breadcrumb a:active {
     color: #00ff00 !important;
     text-decoration: none !important;
     transition: all 0.2s ease;
 }
 
-.breadcrumb a:visited {
-    color: #00ff00 !important;
-    text-decoration: none !important;
-}
-
-.breadcrumb a:hover {
+nav.breadcrumb a:hover {
     color: #ffffff !important;
-    text-decoration: none !important;
 }
 
 .breadcrumb .separator {
