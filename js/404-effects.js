@@ -135,6 +135,36 @@
         }
     }
 
+    // Rotating error code animation - optimized with CSS variable
+    const errorCode = document.getElementById('errorCode');
+    if (errorCode) {
+        function rotateErrorCode() {
+            // Random rotation parameters
+            const duration = 1500 + Math.random() * 1500; // 1.5-3 seconds
+            const angle = (Math.random() > 0.5 ? 1 : -1) * (8 + Math.random() * 12); // ±8° to ±20°
+
+            const keyframes = [
+                { transform: 'rotate(0deg)' },
+                { transform: `rotate(${angle}deg)` },
+                { transform: 'rotate(0deg)' }
+            ];
+
+            const animation = errorCode.animate(keyframes, {
+                duration: duration,
+                easing: 'ease-in-out'
+            });
+
+            // Schedule next rotation after this one finishes
+            animation.onfinish = () => {
+                const nextDelay = 3000 + Math.random() * 2000; // 3-5 seconds
+                setTimeout(rotateErrorCode, nextDelay);
+            };
+        }
+
+        // Start rotating after initial load
+        setTimeout(rotateErrorCode, 1500);
+    }
+
     // Click anywhere to create explosion
     document.addEventListener('click', (e) => {
         createExplosion(e.clientX, e.clientY);
