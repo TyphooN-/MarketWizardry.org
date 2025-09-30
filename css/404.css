@@ -11,15 +11,63 @@ body {
 .container {
     margin: 0 auto;
     text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: containerFloat 8s ease-in-out infinite;
+}
+
+@keyframes containerFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .error-code {
     font-size: 8em;
     font-weight: bold;
     color: #ff0000;
-    text-shadow: 0 0 20px #ff0000;
-    animation: glitch 2s infinite;
+    text-shadow:
+        0 0 20px #ff0000,
+        0 0 40px #ff00ff,
+        0 0 60px #00ffff;
+    animation: glitch 2s infinite, colorShift 4s ease-in-out infinite;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes colorShift {
+    0%, 100% {
+        color: #ff0000;
+        text-shadow:
+            0 0 20px #ff0000,
+            0 0 40px #ff00ff,
+            0 0 60px #00ffff;
+    }
+    25% {
+        color: #00ff00;
+        text-shadow:
+            0 0 20px #00ff00,
+            0 0 40px #ffff00,
+            0 0 60px #ff00ff;
+    }
+    50% {
+        color: #0000ff;
+        text-shadow:
+            0 0 20px #0000ff,
+            0 0 40px #00ffff,
+            0 0 60px #ff0000;
+    }
+    75% {
+        color: #ffff00;
+        text-shadow:
+            0 0 20px #ffff00,
+            0 0 40px #ff00ff,
+            0 0 60px #00ff00;
+    }
 }
 
 @keyframes glitch {
@@ -39,7 +87,32 @@ h1 {
     color: #00ff00;
     font-size: 2.5em;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px #00ff00;
+    text-shadow:
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00;
+    animation: titleWave 3s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes titleWave {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        transform: scale(1.05) rotate(1deg);
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(0deg);
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        transform: scale(1.05) rotate(-1deg);
+        filter: hue-rotate(270deg);
+    }
 }
 
 .magnifying-glass {
@@ -222,6 +295,66 @@ h1 {
     text-align: center;
 }
 
+/* Psychedelic Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 0, 0.1) 0%, transparent 50%);
+    animation: psychedelicBg 15s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes psychedelicBg {
+    0%, 100% {
+        filter: hue-rotate(0deg) blur(80px);
+        opacity: 0.3;
+    }
+    33% {
+        filter: hue-rotate(120deg) blur(100px);
+        opacity: 0.5;
+    }
+    66% {
+        filter: hue-rotate(240deg) blur(90px);
+        opacity: 0.4;
+    }
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+    );
+    animation: scanlines 8s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes scanlines {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+}
+
 /* Animated Error Text Container */
 .animated-error-container {
     position: relative;
@@ -229,6 +362,7 @@ h1 {
     width: 100%;
     overflow: visible;
     margin: 40px 0;
+    z-index: 2;
 }
 
 .floating-error-text {
@@ -242,12 +376,20 @@ h1 {
     text-shadow:
         0 0 10px #ff0000,
         0 0 20px #ff0000,
-        0 0 30px #ff0000;
+        0 0 30px #ff0000,
+        0 0 40px #ff00ff,
+        0 0 50px #00ffff;
     white-space: pre;
-    animation: float 10s ease-in-out infinite, pulse 2s ease-in-out infinite;
+    animation: float 10s ease-in-out infinite, pulse 2s ease-in-out infinite, rainbow 3s linear infinite;
     z-index: 10;
     text-align: center;
     line-height: 1.4;
+    filter: drop-shadow(0 0 20px currentColor);
+}
+
+@keyframes rainbow {
+    0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px currentColor); }
+    100% { filter: hue-rotate(360deg) drop-shadow(0 0 20px currentColor); }
 }
 
 @keyframes float {

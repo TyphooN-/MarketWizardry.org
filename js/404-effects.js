@@ -1,8 +1,60 @@
 // 404 Page Animation Effects - CSP Compliant
 
 (function() {
-    const emojis = ['💰', '💸', '💵', '💴', '💶', '💷', '🔥', '💥', '⚡', '💣', '🚀', '📉', '📊', '💀', '🎰', '🎲', '❌', '⚠️', '🤑', '💎', '🏦', '📈', '🎯', '💔'];
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff6600', '#00ff88'];
+    const emojis = ['💰', '💸', '💵', '💴', '💶', '💷', '🔥', '💥', '⚡', '💣', '🚀', '📉', '📊', '💀', '🎰', '🎲', '❌', '⚠️', '🤑', '💎', '🏦', '📈', '🎯', '💔', '🌈', '✨', '💫', '🎪', '🎨'];
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff6600', '#00ff88', '#ff0088', '#88ff00'];
+
+    // Create floating particles in background
+    function createFloatingParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'floating-bg-particle';
+        particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.fontSize = (0.5 + Math.random() * 1.5) + 'em';
+        particle.style.animationDuration = (10 + Math.random() * 20) + 's';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 30000);
+    }
+
+    // Add CSS for floating particles
+    const style = document.createElement('style');
+    style.textContent = `
+        .floating-bg-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+            animation: floatAround 15s ease-in-out infinite;
+        }
+        @keyframes floatAround {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(360deg);
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.3;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Create initial floating particles
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => createFloatingParticle(), i * 200);
+    }
+
+    // Keep creating new particles
+    setInterval(createFloatingParticle, 3000);
 
     function createExplosion(x, y) {
         const explosion = document.createElement('div');
