@@ -57,6 +57,47 @@
     setInterval(createFloatingParticle, 3000);
 
     function createExplosion(x, y) {
+        // Create spiral trail visualization
+        const spiralCount = 5;
+        const goldenAngle = 137.508;
+
+        for (let spiral = 0; spiral < spiralCount; spiral++) {
+            const spiralEl = document.createElement('div');
+            spiralEl.className = 'spiral-trail';
+            spiralEl.style.position = 'fixed';
+            spiralEl.style.left = '0px';
+            spiralEl.style.top = '0px';
+            spiralEl.style.width = '3px';
+            spiralEl.style.height = '3px';
+            spiralEl.style.borderRadius = '50%';
+            spiralEl.style.pointerEvents = 'none';
+            spiralEl.style.zIndex = '6';
+
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            spiralEl.style.backgroundColor = color;
+            spiralEl.style.boxShadow = `0 0 10px ${color}`;
+
+            // Calculate spiral path
+            const startAngle = (spiral / spiralCount) * 360;
+            spiralEl.style.setProperty('--centerX', x + 'px');
+            spiralEl.style.setProperty('--centerY', y + 'px');
+            spiralEl.style.setProperty('--startAngle', startAngle + 'deg');
+            spiralEl.style.setProperty('--goldenAngle', goldenAngle + 'deg');
+
+            const duration = 1.5 + Math.random() * 0.5;
+            spiralEl.style.animation = `spiralExpand ${duration}s ease-out forwards`;
+            spiralEl.style.animationDelay = (spiral * 0.05) + 's';
+
+            document.body.appendChild(spiralEl);
+
+            setTimeout(() => {
+                if (spiralEl.parentNode) {
+                    spiralEl.remove();
+                }
+            }, (duration + spiral * 0.05) * 1000 + 100);
+        }
+
+        // Create central burst
         const explosion = document.createElement('div');
         explosion.className = 'explosion';
         explosion.style.position = 'fixed';
@@ -64,8 +105,8 @@
         explosion.style.top = '0px';
         explosion.style.transform = `translate(${x}px, ${y}px)`;
 
-        // Create spiral rings instead of circular rings
-        for (let i = 0; i < 5; i++) {
+        // Create colorful expanding rings
+        for (let i = 0; i < 3; i++) {
             const ring = document.createElement('div');
             ring.className = 'explosion-ring';
             ring.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
@@ -85,10 +126,10 @@
     }
 
     function createEmojiFirework(x, y) {
-        const particleCount = 34; // Use Fibonacci number for better spiral
-        const goldenAngle = 137.508; // More precise golden angle
+        const particleCount = 55; // Use more particles for better spiral visibility
+        const goldenAngle = 137.508; // Golden angle in degrees
 
-        for (let i = 0; i < particleCount; i++) {
+        for (let i = 1; i <= particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'emoji-particle';
             particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -98,21 +139,30 @@
             particle.style.left = '0px';
             particle.style.top = '0px';
 
-            // Calculate fibonacci spiral trajectory
-            const angle = i * goldenAngle; // Each particle rotated by golden angle
-            const radius = Math.sqrt(i + 1) * 30; // Distance increases with square root (spiral pattern)
-            const tx = Math.cos(angle * Math.PI / 180) * radius;
-            const ty = Math.sin(angle * Math.PI / 180) * radius;
+            // Calculate fibonacci spiral positioning
+            // The key is that particles start at spiral positions and expand outward
+            const angle = i * goldenAngle; // Golden angle rotation
+            const radiusStart = Math.sqrt(i) * 8; // Starting radius (tight spiral)
+            const radiusEnd = Math.sqrt(i) * 45; // Ending radius (expanded spiral)
 
-            // Set initial position using transform
-            particle.style.transform = `translate(${x}px, ${y}px)`;
-            particle.style.setProperty('--tx', tx + 'px');
-            particle.style.setProperty('--ty', ty + 'px');
-            particle.style.setProperty('--startX', x + 'px');
-            particle.style.setProperty('--startY', y + 'px');
+            // Starting position (on the spiral)
+            const startX = x + Math.cos(angle * Math.PI / 180) * radiusStart;
+            const startY = y + Math.sin(angle * Math.PI / 180) * radiusStart;
 
-            const duration = 1.2 + Math.random() * 0.4;
-            particle.style.animation = 'fireworkSpiral ' + duration + 's ease-out forwards';
+            // Ending position (further out on the spiral)
+            const endX = x + Math.cos(angle * Math.PI / 180) * radiusEnd;
+            const endY = y + Math.sin(angle * Math.PI / 180) * radiusEnd;
+
+            // Set CSS variables for animation
+            particle.style.setProperty('--startX', startX + 'px');
+            particle.style.setProperty('--startY', startY + 'px');
+            particle.style.setProperty('--endX', endX + 'px');
+            particle.style.setProperty('--endY', endY + 'px');
+            particle.style.setProperty('--rotation', (angle * 2) + 'deg');
+
+            const duration = 1.5 + (i / particleCount) * 0.5; // Outer particles take longer
+            particle.style.animation = 'fireworkSpiralPath ' + duration + 's ease-out forwards';
+            particle.style.animationDelay = (i / particleCount) * 0.15 + 's'; // Stagger for spiral effect
 
             document.body.appendChild(particle);
 
@@ -121,7 +171,7 @@
                 if (particle.parentNode) {
                     particle.remove();
                 }
-            }, duration * 1000 + 100);
+            }, (duration + 0.15 * (i / particleCount)) * 1000 + 100);
         }
     }
 
@@ -135,7 +185,7 @@
 
     // Cleanup function to remove any orphaned particles
     function cleanupOrphanedParticles() {
-        const particles = document.querySelectorAll('.emoji-particle, .explosion, .floating-bg-particle');
+        const particles = document.querySelectorAll('.emoji-particle, .explosion, .floating-bg-particle, .spiral-trail');
         particles.forEach(particle => {
             const rect = particle.getBoundingClientRect();
             // Remove if particle is way off screen or invisible

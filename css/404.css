@@ -673,6 +673,40 @@ body::after {
     }
 }
 
+@keyframes fireworkSpiralPath {
+    0% {
+        transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(1);
+    }
+    100% {
+        transform: translate(var(--endX), var(--endY)) rotate(var(--rotation)) scale(0.2);
+        opacity: 0;
+    }
+}
+
+.spiral-trail {
+    position: fixed !important;
+    pointer-events: none;
+}
+
+@keyframes spiralExpand {
+    0% {
+        transform: translate(var(--centerX), var(--centerY)) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(
+            calc(var(--centerX) + cos(var(--startAngle) + 720deg) * 200px),
+            calc(var(--centerY) + sin(var(--startAngle) + 720deg) * 200px)
+        ) rotate(720deg) scale(3);
+        opacity: 0;
+    }
+}
+
 .glitch-effect {
     animation: glitchText 0.3s;
 }
