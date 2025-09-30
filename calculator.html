@@ -469,32 +469,34 @@
                 <span id="dataset-info" class="hint-text">Currently showing: All asset classes</span>
             </div>
 
-            <div class="grid-two-col">
-                <div>
-                    <div class="input-group">
-                        <label for="lookup-symbol">Advanced Symbol Search</label>
-                        <div class="symbol-lookup-container">
-                            <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" class="lookup-symbol-input">
-                            <button class="calculate-btn lookup-button" id="advanced-search-btn">Search</button>
-                        </div>
-                        <small class="hint-text">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
-                    </div>
-                    <div class="lookup-container">
-                        <button class="calculate-btn" id="show-all-symbols-btn">Show Filtered Symbols</button>
-                        <button class="calculate-btn" id="show-all-symbols-unfiltered-btn">Show ALL Symbols</button>
-                    </div>
+            <div class="input-group">
+                <label for="lookup-symbol">Advanced Symbol Search</label>
+                <div class="symbol-lookup-container">
+                    <input type="text" id="lookup-symbol" placeholder="AAPL, CC* (wildcards), SECTOR:Technology" class="lookup-symbol-input">
+                    <button class="calculate-btn lookup-button" id="advanced-search-btn">Search</button>
                 </div>
-                <div id="lookup-results" class="result-box">
-                    <div class="result-label">Symbol Information:</div>
-                    <div id="lookup-output">Enter a symbol to see comprehensive market data including VaR, ATR, price, and sector information.</div>
-                </div>
+                <small class="hint-text">💡 Try: SECTOR:Technology, CC* for wildcards, or exact symbols like BILL</small>
+            </div>
 
-                <!-- Symbol Details Container for Lookup Tool -->
+            <div class="lookup-container">
+                <button class="calculate-btn" id="show-all-symbols-btn">Show Filtered Symbols</button>
+                <button class="calculate-btn" id="show-all-symbols-unfiltered-btn">Show ALL Symbols</button>
+            </div>
+
+            <!-- Symbol Grid Results -->
+            <div id="lookup-results" class="result-box">
+                <div class="result-label">Symbol Search Results:</div>
+                <div id="lookup-output">Use the buttons above or search to display symbols</div>
+            </div>
+
+            <!-- Symbol Details Container for Lookup Tool -->
+            <div class="grid-two-col" style="margin-top: 20px;">
+                <div class="result-box">
+                    <div class="result-label">Symbol Details:</div>
+                    <div id="lookup-symbol-details"></div>
+                </div>
                 <div class="result-box">
                     <div id="lookup-symbol-info" class="display-none"></div>
-                </div>
-                <div class="result-box">
-                    <div id="lookup-symbol-details"></div>
                 </div>
             </div>
         </div>
