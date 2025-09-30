@@ -26,17 +26,19 @@ body {
 }
 
 .error-code {
-    font-size: 8em;
+    font-size: 2.5em;
     font-weight: bold;
     color: #ff0000;
     text-shadow:
         0 0 20px #ff0000,
         0 0 40px #ff00ff,
         0 0 60px #00ffff;
-    animation: glitch 2s infinite, colorShift 4s ease-in-out infinite;
+    animation: glitch 2s infinite, colorShift 4s ease-in-out infinite, wobble 3s ease-in-out infinite, psychedelicPulse 5s ease-in-out infinite;
     margin-bottom: 20px;
     position: relative;
     z-index: 2;
+    line-height: 1.4;
+    filter: drop-shadow(0 0 20px currentColor);
 }
 
 @keyframes colorShift {
@@ -71,16 +73,50 @@ body {
 }
 
 @keyframes glitch {
-    0%, 100% { transform: translate(0); }
-    10% { transform: translate(-2px, 2px); }
-    20% { transform: translate(2px, -2px); }
-    30% { transform: translate(-2px, -2px); }
-    40% { transform: translate(2px, 2px); }
-    50% { transform: translate(-2px, 2px); }
-    60% { transform: translate(2px, -2px); }
-    70% { transform: translate(-2px, -2px); }
-    80% { transform: translate(2px, 2px); }
-    90% { transform: translate(-2px, 2px); }
+    0%, 100% { transform: translate(0) skew(0deg); }
+    10% { transform: translate(-3px, 3px) skew(2deg); }
+    20% { transform: translate(3px, -3px) skew(-2deg); }
+    30% { transform: translate(-3px, -3px) skew(1deg); }
+    40% { transform: translate(3px, 3px) skew(-1deg); }
+    50% { transform: translate(-3px, 3px) skew(2deg); }
+    60% { transform: translate(3px, -3px) skew(-2deg); }
+    70% { transform: translate(-3px, -3px) skew(1deg); }
+    80% { transform: translate(3px, 3px) skew(-1deg); }
+    90% { transform: translate(-3px, 3px) skew(2deg); }
+}
+
+@keyframes wobble {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.05) rotate(1deg) translateX(-5px);
+    }
+    50% {
+        transform: scale(0.95) rotate(-1deg) translateX(5px);
+    }
+    75% {
+        transform: scale(1.05) rotate(0.5deg) translateY(-3px);
+    }
+}
+
+@keyframes psychedelicPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px currentColor) hue-rotate(0deg);
+        transform: scale(1);
+    }
+    25% {
+        filter: drop-shadow(0 0 40px currentColor) hue-rotate(90deg);
+        transform: scale(1.08);
+    }
+    50% {
+        filter: drop-shadow(0 0 60px currentColor) hue-rotate(180deg);
+        transform: scale(0.95);
+    }
+    75% {
+        filter: drop-shadow(0 0 40px currentColor) hue-rotate(270deg);
+        transform: scale(1.08);
+    }
 }
 
 h1 {
@@ -91,9 +127,24 @@ h1 {
         0 0 10px #00ff00,
         0 0 20px #00ff00,
         0 0 30px #00ff00;
-    animation: titleWave 3s ease-in-out infinite;
+    animation: titleWave 3s ease-in-out infinite, wobbleText 4s ease-in-out infinite;
     position: relative;
     z-index: 2;
+}
+
+@keyframes wobbleText {
+    0%, 100% {
+        transform: scale(1) skewX(0deg);
+    }
+    25% {
+        transform: scale(1.03) skewX(2deg);
+    }
+    50% {
+        transform: scale(0.97) skewX(-2deg);
+    }
+    75% {
+        transform: scale(1.03) skewX(1deg);
+    }
 }
 
 @keyframes titleWave {
@@ -182,7 +233,22 @@ h1 {
     font-style: italic;
     font-weight: bold;
     opacity: 0.9;
-    animation: flicker 1s infinite;
+    animation: flicker 1s infinite, gentleWobble 5s ease-in-out infinite;
+}
+
+@keyframes gentleWobble {
+    0%, 100% {
+        transform: translateX(0) skewX(0deg);
+    }
+    25% {
+        transform: translateX(2px) skewX(1deg);
+    }
+    50% {
+        transform: translateX(-2px) skewX(-1deg);
+    }
+    75% {
+        transform: translateX(1px) skewX(0.5deg);
+    }
 }
 
 .error-message {
@@ -204,12 +270,46 @@ h1 {
     margin: 10px;
     transition: all 0.3s ease;
     border-radius: 4px;
+    animation: navWobble 6s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes navWobble {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-3px) rotate(1deg);
+    }
+    66% {
+        transform: translateY(3px) rotate(-1deg);
+    }
 }
 
 .nav-link:hover {
     background-color: #00ff00;
     color: #000;
-    box-shadow: 0 0 15px #00ff00;
+    box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00, 0 0 45px #00ff00;
+    animation: navWobble 6s ease-in-out infinite, psychedelicShake 0.5s ease-in-out infinite;
+}
+
+@keyframes psychedelicShake {
+    0%, 100% {
+        transform: scale(1.05) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        transform: scale(1.08) rotate(1deg);
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        transform: scale(1.05) rotate(-1deg);
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        transform: scale(1.08) rotate(0.5deg);
+        filter: hue-rotate(270deg);
+    }
 }
 
 .nav-link:visited {
@@ -264,16 +364,47 @@ h1 {
 
 .crt-divider {
     width: 100%;
-    height: 1px;
-    background-color: #00ff00;
-    animation: scan 1s infinite;
+    height: 2px;
+    background: linear-gradient(90deg,
+        rgba(255, 0, 0, 0.8) 0%,
+        rgba(255, 255, 0, 0.8) 20%,
+        rgba(0, 255, 0, 0.8) 40%,
+        rgba(0, 255, 255, 0.8) 60%,
+        rgba(0, 0, 255, 0.8) 80%,
+        rgba(255, 0, 255, 0.8) 100%);
+    animation: scan 1s infinite, dividerWobble 3s ease-in-out infinite, rainbowShift 4s linear infinite;
     margin: 30px auto;
+    box-shadow: 0 0 10px currentColor;
 }
 
 @keyframes scan {
     0% { opacity: 1; width: 0%; }
-    50% { opacity: 0.5; }
+    50% { opacity: 0.7; }
     100% { opacity: 1; width: 100%; }
+}
+
+@keyframes dividerWobble {
+    0%, 100% {
+        transform: scaleX(1) skewX(0deg);
+    }
+    25% {
+        transform: scaleX(1.02) skewX(2deg);
+    }
+    50% {
+        transform: scaleX(0.98) skewX(-2deg);
+    }
+    75% {
+        transform: scaleX(1.02) skewX(1deg);
+    }
+}
+
+@keyframes rainbowShift {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
 }
 
 @keyframes flicker {
@@ -304,26 +435,47 @@ body::before {
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(255, 255, 0, 0.1) 0%, transparent 50%);
-    animation: psychedelicBg 15s ease-in-out infinite;
+        radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 60% 60%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(0, 255, 0, 0.15) 0%, transparent 50%);
+    animation: psychedelicBg 10s ease-in-out infinite, bgWobble 8s ease-in-out infinite;
     z-index: 0;
     pointer-events: none;
 }
 
 @keyframes psychedelicBg {
     0%, 100% {
-        filter: hue-rotate(0deg) blur(80px);
-        opacity: 0.3;
-    }
-    33% {
-        filter: hue-rotate(120deg) blur(100px);
+        filter: hue-rotate(0deg) blur(80px) saturate(1.5);
         opacity: 0.5;
     }
-    66% {
-        filter: hue-rotate(240deg) blur(90px);
-        opacity: 0.4;
+    25% {
+        filter: hue-rotate(90deg) blur(100px) saturate(2);
+        opacity: 0.7;
+    }
+    50% {
+        filter: hue-rotate(180deg) blur(120px) saturate(1.8);
+        opacity: 0.6;
+    }
+    75% {
+        filter: hue-rotate(270deg) blur(90px) saturate(2);
+        opacity: 0.7;
+    }
+}
+
+@keyframes bgWobble {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.05) rotate(2deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(-2deg);
+    }
+    75% {
+        transform: scale(1.05) rotate(1deg);
     }
 }
 
@@ -458,6 +610,7 @@ body::after {
     font-size: 2em;
     pointer-events: none;
     z-index: 8;
+    will-change: transform, opacity;
 }
 
 @keyframes firework {
@@ -504,18 +657,13 @@ body::after {
 
 @media (max-width: 768px) {
     .error-code {
-        font-size: 4em;
+        font-size: 1.5em;
+        line-height: 1.3;
     }
     h1 {
         font-size: 1.8em;
     }
     .flavor-text {
         font-size: 0.9em;
-    }
-    .floating-error-text {
-        font-size: 1.2em;
-    }
-    .animated-error-container {
-        height: 150px;
     }
 }

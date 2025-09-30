@@ -77,7 +77,8 @@
     }
 
     function createEmojiFirework(x, y) {
-        const particleCount = 15;
+        const particleCount = 21; // Fibonacci spirals work well with more particles
+        const goldenAngle = 137.5; // Golden angle in degrees for fibonacci spiral
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -85,20 +86,28 @@
             particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
             particle.style.left = x + 'px';
             particle.style.top = y + 'px';
+            particle.style.position = 'fixed';
 
-            // Calculate trajectory
-            const angle = (360 / particleCount) * i;
-            const distance = 100 + Math.random() * 150;
-            const tx = Math.cos(angle * Math.PI / 180) * distance;
-            const ty = Math.sin(angle * Math.PI / 180) * distance;
+            // Calculate fibonacci spiral trajectory
+            const angle = i * goldenAngle; // Each particle rotated by golden angle
+            const radius = Math.sqrt(i) * 35; // Distance increases with square root (spiral pattern)
+            const tx = Math.cos(angle * Math.PI / 180) * radius;
+            const ty = Math.sin(angle * Math.PI / 180) * radius;
 
             particle.style.setProperty('--tx', tx + 'px');
             particle.style.setProperty('--ty', ty + 'px');
-            particle.style.animation = 'firework ' + (0.8 + Math.random() * 0.6) + 's ease-out forwards';
+
+            const duration = 0.8 + Math.random() * 0.6;
+            particle.style.animation = 'firework ' + duration + 's ease-out forwards';
 
             document.body.appendChild(particle);
 
-            setTimeout(() => particle.remove(), 1500);
+            // Ensure particle is removed after animation completes
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            }, duration * 1000 + 100);
         }
     }
 
@@ -109,6 +118,22 @@
         createExplosion(x, y);
         createEmojiFirework(x, y);
     }
+
+    // Cleanup function to remove any orphaned particles
+    function cleanupOrphanedParticles() {
+        const particles = document.querySelectorAll('.emoji-particle, .explosion, .floating-bg-particle');
+        particles.forEach(particle => {
+            const rect = particle.getBoundingClientRect();
+            // Remove if particle is way off screen or invisible
+            if (rect.bottom < -500 || rect.top > window.innerHeight + 500 ||
+                rect.right < -500 || rect.left > window.innerWidth + 500) {
+                particle.remove();
+            }
+        });
+    }
+
+    // Run cleanup every 5 seconds
+    setInterval(cleanupOrphanedParticles, 5000);
 
     // Random explosions around the page
     const explosionInterval = setInterval(randomExplosion, 1200);
