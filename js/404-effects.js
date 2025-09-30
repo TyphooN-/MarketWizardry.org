@@ -59,46 +59,60 @@
     function createExplosion(x, y) {
         const explosion = document.createElement('div');
         explosion.className = 'explosion';
-        explosion.style.left = x + 'px';
-        explosion.style.top = y + 'px';
+        explosion.style.position = 'fixed';
+        explosion.style.left = '0px';
+        explosion.style.top = '0px';
+        explosion.style.transform = `translate(${x}px, ${y}px)`;
 
-        // Create multiple rings for explosion effect
-        for (let i = 0; i < 3; i++) {
+        // Create spiral rings instead of circular rings
+        for (let i = 0; i < 5; i++) {
             const ring = document.createElement('div');
             ring.className = 'explosion-ring';
             ring.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
-            ring.style.animationDelay = (i * 0.1) + 's';
+            ring.style.animationDelay = (i * 0.08) + 's';
+            ring.style.borderRadius = '50%';
+            ring.style.animation = `explodeSpiral ${0.8 + i * 0.1}s ease-out forwards`;
             explosion.appendChild(ring);
         }
 
         document.body.appendChild(explosion);
 
-        setTimeout(() => explosion.remove(), 1000);
+        setTimeout(() => {
+            if (explosion.parentNode) {
+                explosion.remove();
+            }
+        }, 1500);
     }
 
     function createEmojiFirework(x, y) {
-        const particleCount = 21; // Fibonacci spirals work well with more particles
-        const goldenAngle = 137.5; // Golden angle in degrees for fibonacci spiral
+        const particleCount = 34; // Use Fibonacci number for better spiral
+        const goldenAngle = 137.508; // More precise golden angle
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'emoji-particle';
             particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
+
+            // Use transform to position, not left/top to avoid expanding viewport
             particle.style.position = 'fixed';
+            particle.style.left = '0px';
+            particle.style.top = '0px';
 
             // Calculate fibonacci spiral trajectory
             const angle = i * goldenAngle; // Each particle rotated by golden angle
-            const radius = Math.sqrt(i) * 35; // Distance increases with square root (spiral pattern)
+            const radius = Math.sqrt(i + 1) * 30; // Distance increases with square root (spiral pattern)
             const tx = Math.cos(angle * Math.PI / 180) * radius;
             const ty = Math.sin(angle * Math.PI / 180) * radius;
 
+            // Set initial position using transform
+            particle.style.transform = `translate(${x}px, ${y}px)`;
             particle.style.setProperty('--tx', tx + 'px');
             particle.style.setProperty('--ty', ty + 'px');
+            particle.style.setProperty('--startX', x + 'px');
+            particle.style.setProperty('--startY', y + 'px');
 
-            const duration = 0.8 + Math.random() * 0.6;
-            particle.style.animation = 'firework ' + duration + 's ease-out forwards';
+            const duration = 1.2 + Math.random() * 0.4;
+            particle.style.animation = 'fireworkSpiral ' + duration + 's ease-out forwards';
 
             document.body.appendChild(particle);
 

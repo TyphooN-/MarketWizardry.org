@@ -6,6 +6,8 @@ body {
     padding: 20px;
     margin: 0;
     line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .container {
@@ -124,12 +126,23 @@ h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
     text-shadow:
-        0 0 10px #00ff00,
-        0 0 20px #00ff00,
-        0 0 30px #00ff00;
-    animation: titleWave 3s ease-in-out infinite, wobbleText 4s ease-in-out infinite;
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor;
+    animation: titleWave 3s ease-in-out infinite, wobbleText 4s ease-in-out infinite, colorCycle 5s linear infinite;
     position: relative;
     z-index: 2;
+}
+
+@keyframes colorCycle {
+    0% { color: #ff0000; }
+    14% { color: #ff7700; }
+    28% { color: #ffff00; }
+    42% { color: #00ff00; }
+    56% { color: #00ffff; }
+    70% { color: #0000ff; }
+    84% { color: #ff00ff; }
+    100% { color: #ff0000; }
 }
 
 @keyframes wobbleText {
@@ -168,59 +181,49 @@ h1 {
 
 .magnifying-glass {
     display: inline-block;
-    animation: magGlitchShimmer 3s infinite;
+    animation: magGlitchShimmer 3s infinite, colorCycle 4s linear infinite;
 }
 
 @keyframes magGlitchShimmer {
     0%, 100% {
         transform: translate(0);
-        color: #00ff00;
-        text-shadow: 0 0 10px #00ff00;
+        text-shadow: 0 0 10px currentColor;
     }
     10% {
         transform: translate(-1px, 1px);
-        color: #00ffff;
-        text-shadow: 0 0 15px #00ffff;
+        text-shadow: 0 0 15px currentColor;
     }
     20% {
         transform: translate(1px, -1px);
-        color: #ffff00;
-        text-shadow: 0 0 15px #ffff00;
+        text-shadow: 0 0 15px currentColor;
     }
     30% {
         transform: translate(-1px, -1px);
-        color: #ff00ff;
-        text-shadow: 0 0 15px #ff00ff;
+        text-shadow: 0 0 15px currentColor;
     }
     40% {
         transform: translate(1px, 1px);
-        color: #00ff00;
-        text-shadow: 0 0 20px #00ff00;
+        text-shadow: 0 0 20px currentColor;
     }
     50% {
         transform: translate(-1px, 1px);
-        color: #ffffff;
-        text-shadow: 0 0 25px #ffffff;
+        text-shadow: 0 0 25px currentColor;
     }
     60% {
         transform: translate(1px, -1px);
-        color: #00ffff;
-        text-shadow: 0 0 15px #00ffff;
+        text-shadow: 0 0 15px currentColor;
     }
     70% {
         transform: translate(-1px, -1px);
-        color: #ffff00;
-        text-shadow: 0 0 15px #ffff00;
+        text-shadow: 0 0 15px currentColor;
     }
     80% {
         transform: translate(1px, 1px);
-        color: #ff00ff;
-        text-shadow: 0 0 15px #ff00ff;
+        text-shadow: 0 0 15px currentColor;
     }
     90% {
         transform: translate(-1px, 1px);
-        color: #00ff00;
-        text-shadow: 0 0 10px #00ff00;
+        text-shadow: 0 0 10px currentColor;
     }
 }
 
@@ -233,7 +236,7 @@ h1 {
     font-style: italic;
     font-weight: bold;
     opacity: 0.9;
-    animation: flicker 1s infinite, gentleWobble 5s ease-in-out infinite;
+    animation: flicker 1s infinite, gentleWobble 5s ease-in-out infinite, colorCycle 7s linear infinite;
 }
 
 @keyframes gentleWobble {
@@ -265,14 +268,19 @@ h1 {
     display: inline-block;
     color: #00ff00;
     text-decoration: none;
-    border: 1px solid #00ff00;
+    border: 2px solid currentColor;
     padding: 10px 20px;
     margin: 10px;
     transition: all 0.3s ease;
     border-radius: 4px;
-    animation: navWobble 6s ease-in-out infinite;
+    animation: navWobble 6s ease-in-out infinite, colorCycle 6s linear infinite;
     position: relative;
 }
+
+.nav-link:nth-child(1) { animation-delay: 0s; }
+.nav-link:nth-child(2) { animation-delay: 1.5s; }
+.nav-link:nth-child(3) { animation-delay: 3s; }
+.nav-link:nth-child(4) { animation-delay: 4.5s; }
 
 @keyframes navWobble {
     0%, 100% {
@@ -287,10 +295,11 @@ h1 {
 }
 
 .nav-link:hover {
-    background-color: #00ff00;
-    color: #000;
-    box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00, 0 0 45px #00ff00;
-    animation: navWobble 6s ease-in-out infinite, psychedelicShake 0.5s ease-in-out infinite;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    box-shadow: 0 0 15px currentColor, 0 0 30px currentColor, 0 0 45px currentColor;
+    animation: navWobble 6s ease-in-out infinite, psychedelicShake 0.5s ease-in-out infinite, colorCycle 2s linear infinite;
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
 }
 
 @keyframes psychedelicShake {
@@ -335,6 +344,7 @@ h1 {
     color: #00ff00 !important;
     text-decoration: none;
     transition: all 0.2s ease;
+    animation: colorCycle 8s linear infinite;
 }
 
 .breadcrumb a:hover {
@@ -574,12 +584,14 @@ body::after {
 }
 
 .explosion {
-    position: fixed;
+    position: fixed !important;
     width: 150px;
     height: 150px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 5;
+    top: 0;
+    left: 0;
 }
 
 @keyframes explode {
@@ -596,6 +608,23 @@ body::after {
     }
 }
 
+@keyframes explodeSpiral {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 50%;
+    }
+    50% {
+        opacity: 1;
+        border-radius: 30%;
+    }
+    100% {
+        transform: scale(4) rotate(360deg);
+        opacity: 0;
+        border-radius: 20%;
+    }
+}
+
 .explosion-ring {
     position: absolute;
     width: 100%;
@@ -606,11 +635,20 @@ body::after {
 }
 
 .emoji-particle {
-    position: fixed;
+    position: fixed !important;
     font-size: 2em;
     pointer-events: none;
     z-index: 8;
     will-change: transform, opacity;
+    top: 0;
+    left: 0;
+}
+
+.floating-bg-particle {
+    position: fixed !important;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
 }
 
 @keyframes firework {
@@ -620,6 +658,17 @@ body::after {
     }
     100% {
         transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes fireworkSpiral {
+    0% {
+        transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--startX) + var(--tx)), calc(var(--startY) + var(--ty))) rotate(1080deg) scale(0.3);
         opacity: 0;
     }
 }
