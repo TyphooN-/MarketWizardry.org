@@ -5,7 +5,7 @@
  */
 
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-={}:<>?';
-const container = document.querySelector('body');
+const container = document.getElementById('matrixContainer') || document.querySelector('body');
 
 function createMatrixText() {
     const char = characters[Math.floor(Math.random() * characters.length)];
@@ -34,6 +34,19 @@ function createMatrixText() {
 
 // Initialize matrix animation
 function initMatrixAnimation() {
+    // Find the last crt-divider and position the container below it
+    const dividers = document.querySelectorAll('.crt-divider');
+    const lastDivider = dividers[dividers.length - 1];
+
+    if (lastDivider && container.id === 'matrixContainer') {
+        const rect = lastDivider.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const topPosition = rect.bottom + scrollTop;
+
+        container.style.top = topPosition + 'px';
+        container.style.height = `calc(100vh - ${rect.bottom}px)`;
+    }
+
     // Create periodic matrix text
     setInterval(createMatrixText, 50);
 
