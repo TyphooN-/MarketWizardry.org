@@ -875,9 +875,12 @@ class FinancialToolsUpdater:
                     symbol = row['Symbol']
                     if symbol in var_data:
                         var_data[symbol]['ev_data'] = {
-                            'market_cap': row['Market Cap'],
-                            'enterprise_value': row['Enterprise Value'],
-                            'mcap_ev_ratio': row['MCap/EV (%)']
+                            'market_cap': row.get('Market Cap', None),
+                            'enterprise_value': row.get('Enterprise Value', None),
+                            'mcap_ev_ratio': row.get('MCap/EV (%)', None),
+                            'next_earnings_date': row.get('Next Earnings Date', 'Not Available'),
+                            'next_dividend_date': row.get('Next Dividend Date', 'Not Available'),
+                            'var_to_ask_ratio': row.get('VaR_to_Ask_Ratio', None)
                         }
                         ev_symbols_processed += 1
 
