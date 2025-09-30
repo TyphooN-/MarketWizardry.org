@@ -581,6 +581,77 @@ window.lookupSymbol = function() {
     }
 };
 
+window.lookupSymbolForPositionCalc = function() {
+    console.log('🔍 lookupSymbolForPositionCalc called');
+
+    const symbolInput = document.getElementById('ps-symbol');
+    if (!symbolInput) {
+        console.error('❌ ps-symbol input not found');
+        alert('Error: Symbol input field not found');
+        return;
+    }
+
+    const symbol = symbolInput.value.toUpperCase().trim();
+    if (!symbol) {
+        alert('Please enter a symbol');
+        return;
+    }
+
+    if (!window.varData || !window.varData[symbol]) {
+        alert(`Symbol "${symbol}" not found in database. Please check the symbol and try again.`);
+        return;
+    }
+
+    const data = window.varData[symbol];
+
+    // Auto-fill entry price
+    const entryPriceInput = document.getElementById('ps-entry-price');
+    if (entryPriceInput) {
+        entryPriceInput.value = data.price;
+    }
+
+    // Auto-fill VaR per share
+    const varPerShareInput = document.getElementById('ps-var-per-share');
+    if (varPerShareInput) {
+        varPerShareInput.value = data.var.toFixed(3);
+    }
+
+    // Show success message
+    const outputDiv = document.getElementById('ps-output');
+    if (outputDiv) {
+        outputDiv.innerHTML = `
+            <div class="calc-success-box">
+                <h4>✅ Symbol Data Loaded: ${symbol}</h4>
+                <div class="result-row">
+                    <span class="result-label-inline">Description:</span>
+                    <span class="result-value">${data.description || symbol}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label-inline">Current Price:</span>
+                    <span class="result-value">$${data.price}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label-inline">VaR (per share):</span>
+                    <span class="result-value">$${data.var.toFixed(3)}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label-inline">Sector:</span>
+                    <span class="result-value">${data.sector || 'Unknown'}</span>
+                </div>
+                ${data.atr_d1 ? `
+                <div class="result-row">
+                    <span class="result-label-inline">ATR (Daily):</span>
+                    <span class="result-value">$${data.atr_d1.toFixed(3)}</span>
+                </div>
+                ` : ''}
+                <p style="margin-top: 10px; color: #00aa00;">Entry price and VaR have been auto-filled. Adjust values if needed and click Calculate.</p>
+            </div>
+        `;
+    }
+
+    console.log('✅ Symbol data auto-filled:', symbol);
+};
+
 function displaySymbolInfoInPortfolio(symbol, data) {
     // Determine which calculator is active to use correct div IDs
     const activeCalc = window.activeCalculator;
@@ -944,6 +1015,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'calculate-compound-interest-btn': () => window.calculateCompoundInterest(),
         'calculate-portfolio-var-btn': () => window.calculatePortfolioVaR(),
         'lookup-symbol-btn': () => window.lookupSymbol(),
+        'ps-lookup-symbol-btn': () => window.lookupSymbolForPositionCalc(),
         'show-all-symbols-btn': () => window.showAllSymbols(),
         'show-all-symbols-unfiltered-btn': () => window.showAllSymbolsUnfiltered(),
         'advanced-search-btn': () => window.performAdvancedSearch(),

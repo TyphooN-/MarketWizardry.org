@@ -299,8 +299,12 @@
                         <small id="ps-risk-hint" class="hint-text">📊 Percentage of account to risk</small>
                     </div>
                     <div class="input-group">
-                        <label for="ps-symbol">Symbol</label>
-                        <input type="text" id="ps-symbol" placeholder="CC" class="text-uppercase">
+                        <label for="ps-symbol">Symbol (Lookup for Auto-Fill)</label>
+                        <div class="symbol-lookup-container">
+                            <input type="text" id="ps-symbol" placeholder="CC" class="text-uppercase">
+                            <button class="calculate-btn lookup-button" id="ps-lookup-symbol-btn">Lookup</button>
+                        </div>
+                        <small class="hint-text">💡 Enter symbol and click Lookup to auto-fill price and VaR data</small>
                     </div>
                     <div class="input-group">
                         <label for="ps-entry-price">Entry Price ($)</label>
