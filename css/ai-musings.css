@@ -89,16 +89,17 @@ h1 {
 
 .musing-card-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 12px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    text-align: center;
 }
 
 .musing-card h3 {
     color: #00ff00;
-    margin: 0;
+    margin: 0 0 5px 0;
     font-size: 1.1em;
 }
 
@@ -113,6 +114,7 @@ h1 {
     font-size: 0.95em;
     line-height: 1.5;
     margin: 0;
+    text-align: center;
 }
 
 /* Breadcrumb styles */
