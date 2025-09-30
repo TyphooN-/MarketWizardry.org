@@ -6,37 +6,91 @@
 
     // Removed background floating particles as per user request
 
-    function createExplosion(x, y) {
-        // Simple central flash only
-        const explosion = document.createElement('div');
-        explosion.className = 'explosion';
-        explosion.style.position = 'fixed';
-        explosion.style.left = '0px';
-        explosion.style.top = '0px';
-        explosion.style.transform = `translate(${x}px, ${y}px)`;
+    // Draw a Fibonacci spiral using SVG
+    function createFibonacciSpiral(x, y) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.style.position = 'fixed';
+        svg.style.left = '0px';
+        svg.style.top = '0px';
+        svg.style.width = '400px';
+        svg.style.height = '400px';
+        svg.style.pointerEvents = 'none';
+        svg.style.zIndex = '7';
+        svg.style.overflow = 'visible';
 
-        // Just 2 simple expanding rings
-        for (let i = 0; i < 2; i++) {
-            const ring = document.createElement('div');
-            ring.className = 'explosion-ring';
-            ring.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
-            ring.style.animationDelay = (i * 0.1) + 's';
-            ring.style.borderRadius = '50%';
-            ring.style.animation = `explodeSpiral ${0.6 + i * 0.1}s ease-out forwards`;
-            explosion.appendChild(ring);
+        // Create path for Fibonacci spiral
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+        // Generate Fibonacci spiral path using parametric equations
+        let pathData = 'M 200 200 '; // Start at center of SVG
+        const goldenRatio = 1.618033988749;
+        const turns = 3; // Number of spiral turns
+        const steps = 200;
+
+        for (let i = 0; i <= steps; i++) {
+            const t = (i / steps) * turns * 2 * Math.PI;
+            const r = 5 * Math.pow(goldenRatio, t / (Math.PI / 2)); // Fibonacci spiral equation
+            const spiralX = 200 + r * Math.cos(t);
+            const spiralY = 200 + r * Math.sin(t);
+            pathData += `L ${spiralX} ${spiralY} `;
         }
 
-        document.body.appendChild(explosion);
+        path.setAttribute('d', pathData);
+        path.setAttribute('fill', 'none');
+
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        path.setAttribute('stroke', color);
+        path.setAttribute('stroke-width', '3');
+        path.setAttribute('filter', `drop-shadow(0 0 8px ${color})`);
+
+        svg.appendChild(path);
+        document.body.appendChild(svg);
+
+        // Animate the spiral with inline keyframes
+        const spinSpeed = 1 + Math.random() * 2; // Random spin speed 1-3s
+        const spinDirection = Math.random() > 0.5 ? 1 : -1;
+        const rotation = spinDirection * (360 + Math.random() * 720); // 1-3 full rotations
+
+        const keyframes = [
+            {
+                transform: `translate(${x - 200}px, ${y - 200}px) scale(0.1) rotate(0deg)`,
+                opacity: 0
+            },
+            {
+                transform: `translate(${x - 200}px, ${y - 200}px) scale(0.3) rotate(${rotation * 0.15}deg)`,
+                opacity: 1,
+                offset: 0.15
+            },
+            {
+                transform: `translate(${x - 200}px, ${y - 200}px) scale(1.5) rotate(${rotation}deg)`,
+                opacity: 0
+            }
+        ];
+
+        svg.animate(keyframes, {
+            duration: spinSpeed * 1000,
+            easing: 'ease-out',
+            fill: 'forwards'
+        });
 
         setTimeout(() => {
-            if (explosion.parentNode) {
-                explosion.remove();
+            if (svg.parentNode) {
+                svg.remove();
             }
-        }, 1000);
+        }, spinSpeed * 1000 + 100);
+    }
+
+    function createExplosion(x, y) {
+        // Create 2-3 Fibonacci spirals spinning at different speeds
+        const spiralCount = 2 + Math.floor(Math.random() * 2); // 2 or 3 spirals
+
+        for (let i = 0; i < spiralCount; i++) {
+            setTimeout(() => createFibonacciSpiral(x, y), i * 100);
+        }
     }
 
     function createEmojiFirework(x, y) {
-        const particleCount = 21; // Smaller Fibonacci number for performance
+        const particleCount = 13; // Fibonacci number for performance
         const goldenAngle = 137.508; // Golden angle in degrees
 
         for (let i = 1; i <= particleCount; i++) {
@@ -49,13 +103,9 @@
             particle.style.left = '0px';
             particle.style.top = '0px';
 
-            // Create clear Fibonacci spiral arms
-            // Each particle follows a spiral path outward
-            const angle = i * goldenAngle; // Golden angle rotation
-
-            // Use logarithmic spiral equation: r = a * e^(b*theta)
-            // Simplified: r = scale * sqrt(i) for Fibonacci-like growth
-            const scale = 18; // Adjust spacing
+            // Create spiral arm trajectory
+            const angle = i * goldenAngle;
+            const scale = 22;
             const radius = Math.sqrt(i) * scale;
 
             // Final position on the spiral
@@ -68,9 +118,9 @@
             particle.style.setProperty('--endX', endX + 'px');
             particle.style.setProperty('--endY', endY + 'px');
 
-            const duration = 1.2;
+            const duration = 1.5;
             particle.style.animation = 'fireworkSpiralPath ' + duration + 's ease-out forwards';
-            particle.style.animationDelay = (i * 0.03) + 's'; // Sequential release
+            particle.style.animationDelay = (i * 0.05) + 's';
 
             document.body.appendChild(particle);
 
@@ -79,7 +129,7 @@
                 if (particle.parentNode) {
                     particle.remove();
                 }
-            }, (duration + i * 0.03) * 1000 + 100);
+            }, (duration + i * 0.05) * 1000 + 100);
         }
     }
 
@@ -93,7 +143,7 @@
 
     // Cleanup function to remove any orphaned particles
     function cleanupOrphanedParticles() {
-        const particles = document.querySelectorAll('.emoji-particle, .explosion, .floating-bg-particle, .spiral-trail');
+        const particles = document.querySelectorAll('.emoji-particle, .explosion, .floating-bg-particle, .spiral-trail, svg');
         particles.forEach(particle => {
             const rect = particle.getBoundingClientRect();
             // Remove if particle is way off screen or invisible
