@@ -4,97 +4,56 @@
     const emojis = ['💰', '💸', '💵', '💴', '💶', '💷', '🔥', '💥', '⚡', '💣', '🚀', '📉', '📊', '💀', '🎰', '🎲', '❌', '⚠️', '🤑', '💎', '🏦', '📈', '🎯', '💔', '🌈', '✨', '💫', '🎪', '🎨'];
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff6600', '#00ff88', '#ff0088', '#88ff00'];
 
-    // Create floating particles in background
-    function createFloatingParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'floating-bg-particle';
-        particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.fontSize = (0.5 + Math.random() * 1.5) + 'em';
-        particle.style.animationDuration = (10 + Math.random() * 20) + 's';
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        document.body.appendChild(particle);
-
-        setTimeout(() => particle.remove(), 30000);
-    }
-
-    // Add CSS for floating particles
-    const style = document.createElement('style');
-    style.textContent = `
-        .floating-bg-particle {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.3;
-            animation: floatAround 15s ease-in-out infinite;
-        }
-        @keyframes floatAround {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            50% {
-                transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(360deg);
-                opacity: 0.5;
-            }
-            90% {
-                opacity: 0.3;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Create initial floating particles
-    for (let i = 0; i < 15; i++) {
-        setTimeout(() => createFloatingParticle(), i * 200);
-    }
-
-    // Keep creating new particles
-    setInterval(createFloatingParticle, 3000);
+    // Removed background floating particles as per user request
 
     function createExplosion(x, y) {
-        // Create spiral trail visualization
-        const spiralCount = 5;
+        // Create tighter spiral trail visualization with more arms
+        const spiralCount = 8; // More spiral arms
         const goldenAngle = 137.508;
 
         for (let spiral = 0; spiral < spiralCount; spiral++) {
-            const spiralEl = document.createElement('div');
-            spiralEl.className = 'spiral-trail';
-            spiralEl.style.position = 'fixed';
-            spiralEl.style.left = '0px';
-            spiralEl.style.top = '0px';
-            spiralEl.style.width = '3px';
-            spiralEl.style.height = '3px';
-            spiralEl.style.borderRadius = '50%';
-            spiralEl.style.pointerEvents = 'none';
-            spiralEl.style.zIndex = '6';
+            // Create multiple dots per spiral arm for visible trail
+            for (let j = 0; j < 20; j++) {
+                const spiralEl = document.createElement('div');
+                spiralEl.className = 'spiral-trail';
+                spiralEl.style.position = 'fixed';
+                spiralEl.style.left = '0px';
+                spiralEl.style.top = '0px';
+                spiralEl.style.width = '4px';
+                spiralEl.style.height = '4px';
+                spiralEl.style.borderRadius = '50%';
+                spiralEl.style.pointerEvents = 'none';
+                spiralEl.style.zIndex = '6';
 
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            spiralEl.style.backgroundColor = color;
-            spiralEl.style.boxShadow = `0 0 10px ${color}`;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                spiralEl.style.backgroundColor = color;
+                spiralEl.style.boxShadow = `0 0 15px ${color}`;
 
-            // Calculate spiral path
-            const startAngle = (spiral / spiralCount) * 360;
-            spiralEl.style.setProperty('--centerX', x + 'px');
-            spiralEl.style.setProperty('--centerY', y + 'px');
-            spiralEl.style.setProperty('--startAngle', startAngle + 'deg');
-            spiralEl.style.setProperty('--goldenAngle', goldenAngle + 'deg');
+                // Calculate tighter spiral path
+                const baseAngle = (spiral / spiralCount) * 360;
+                const angleOffset = j * goldenAngle / 4; // Tighter angle progression
+                const radius = Math.sqrt(j + 1) * 15; // Tighter radius
 
-            const duration = 1.5 + Math.random() * 0.5;
-            spiralEl.style.animation = `spiralExpand ${duration}s ease-out forwards`;
-            spiralEl.style.animationDelay = (spiral * 0.05) + 's';
+                const spiralX = x + Math.cos((baseAngle + angleOffset) * Math.PI / 180) * radius;
+                const spiralY = y + Math.sin((baseAngle + angleOffset) * Math.PI / 180) * radius;
 
-            document.body.appendChild(spiralEl);
+                spiralEl.style.setProperty('--startX', x + 'px');
+                spiralEl.style.setProperty('--startY', y + 'px');
+                spiralEl.style.setProperty('--endX', spiralX + 'px');
+                spiralEl.style.setProperty('--endY', spiralY + 'px');
 
-            setTimeout(() => {
-                if (spiralEl.parentNode) {
-                    spiralEl.remove();
-                }
-            }, (duration + spiral * 0.05) * 1000 + 100);
+                const duration = 1.8 + (j / 20) * 0.4;
+                spiralEl.style.animation = `spiralTrailExpand ${duration}s ease-out forwards`;
+                spiralEl.style.animationDelay = (j * 0.03 + spiral * 0.02) + 's';
+
+                document.body.appendChild(spiralEl);
+
+                setTimeout(() => {
+                    if (spiralEl.parentNode) {
+                        spiralEl.remove();
+                    }
+                }, (duration + j * 0.03 + spiral * 0.02) * 1000 + 100);
+            }
         }
 
         // Create central burst
@@ -126,7 +85,7 @@
     }
 
     function createEmojiFirework(x, y) {
-        const particleCount = 55; // Use more particles for better spiral visibility
+        const particleCount = 89; // Fibonacci number for better spiral
         const goldenAngle = 137.508; // Golden angle in degrees
 
         for (let i = 1; i <= particleCount; i++) {
@@ -139,11 +98,11 @@
             particle.style.left = '0px';
             particle.style.top = '0px';
 
-            // Calculate fibonacci spiral positioning
+            // Calculate fibonacci spiral positioning with TIGHTER spiral
             // The key is that particles start at spiral positions and expand outward
             const angle = i * goldenAngle; // Golden angle rotation
-            const radiusStart = Math.sqrt(i) * 8; // Starting radius (tight spiral)
-            const radiusEnd = Math.sqrt(i) * 45; // Ending radius (expanded spiral)
+            const radiusStart = Math.sqrt(i) * 3; // Much tighter starting radius
+            const radiusEnd = Math.sqrt(i) * 25; // Tighter ending radius for more compact spiral
 
             // Starting position (on the spiral)
             const startX = x + Math.cos(angle * Math.PI / 180) * radiusStart;
@@ -158,11 +117,11 @@
             particle.style.setProperty('--startY', startY + 'px');
             particle.style.setProperty('--endX', endX + 'px');
             particle.style.setProperty('--endY', endY + 'px');
-            particle.style.setProperty('--rotation', (angle * 2) + 'deg');
+            particle.style.setProperty('--rotation', (angle * 3) + 'deg'); // More rotation
 
-            const duration = 1.5 + (i / particleCount) * 0.5; // Outer particles take longer
+            const duration = 2.0 + (i / particleCount) * 0.8; // Longer duration for tighter spiral
             particle.style.animation = 'fireworkSpiralPath ' + duration + 's ease-out forwards';
-            particle.style.animationDelay = (i / particleCount) * 0.15 + 's'; // Stagger for spiral effect
+            particle.style.animationDelay = (i / particleCount) * 0.2 + 's'; // More stagger
 
             document.body.appendChild(particle);
 
@@ -171,7 +130,7 @@
                 if (particle.parentNode) {
                     particle.remove();
                 }
-            }, (duration + 0.15 * (i / particleCount)) * 1000 + 100);
+            }, (duration + 0.2 * (i / particleCount)) * 1000 + 100);
         }
     }
 

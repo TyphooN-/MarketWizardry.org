@@ -707,6 +707,21 @@ body::after {
     }
 }
 
+@keyframes spiralTrailExpand {
+    0% {
+        transform: translate(var(--startX), var(--startY)) scale(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+        transform: translate(var(--startX), var(--startY)) scale(1);
+    }
+    100% {
+        transform: translate(var(--endX), var(--endY)) scale(0.5);
+        opacity: 0;
+    }
+}
+
 .glitch-effect {
     animation: glitchText 0.3s;
 }
