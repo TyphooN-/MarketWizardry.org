@@ -137,7 +137,9 @@ nav.breadcrumb a:hover {
 
 .image-container img {
     max-width: 100%;
+    max-height: 80vh;
     height: auto;
+    width: auto;
     border: 3px solid #00ff00;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.4), inset 0 0 20px rgba(0, 255, 0, 0.1);
@@ -148,6 +150,19 @@ nav.breadcrumb a:hover {
     border-color: #00ff88;
     box-shadow: 0 0 25px rgba(0, 255, 0, 0.7), inset 0 0 30px rgba(0, 255, 0, 0.2);
     transform: scale(1.02);
+}
+
+/* Text box for lore content */
+.text-box {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    line-height: 1.6;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.05);
 }
 
 /* Grid container for side-by-side images */
@@ -785,6 +800,63 @@ header {
 }
 
 /* Copy notification styles for donate page */
+/* Donate Page Styles */
+.donate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px auto;
+    justify-content: center;
+}
+
+.donate-item {
+    text-align: center;
+    border: 2px solid rgba(0, 255, 0, 0.5);
+    padding: 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+.donate-item:hover {
+    border-color: #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.donate-item img {
+    width: 100%;
+    height: auto;
+    border: none;
+    display: block;
+    margin: 10px auto;
+    min-width: 200px;
+}
+
+.donate-item h3 {
+    color: #00ff00;
+    margin-top: 0;
+}
+
+.crypto-address {
+    font-size: 12px;
+    color: #00ff00;
+    word-break: break-all;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 3px;
+}
+
+.ko-fi-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .copy-notification {
     position: fixed;
     top: 50%;
@@ -819,20 +891,38 @@ header {
     position: fixed;
     color: #00ff00;
     font-family: "Courier New", monospace;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
     user-select: none;
-    animation: matrix-fall var(--duration) linear infinite;
+    animation: matrix-fall var(--duration) linear;
     opacity: 1;
+    text-shadow: 0 0 8px #00ff00, 0 0 12px #00ff00;
+    z-index: -1;
+    pointer-events: none;
 }
 
 @keyframes matrix-fall {
     0% {
-        transform: translateY(0);
-        opacity: 0.8;
+        transform: translateY(-50px);
+        opacity: 1;
+        filter: brightness(1.8);
+    }
+    10% {
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+    50% {
+        opacity: 0.7;
+        filter: brightness(1);
+    }
+    85% {
+        opacity: 0.3;
+        filter: brightness(0.7);
     }
     100% {
-        transform: translateY(calc(var(--height, 100vh)));
+        transform: translateY(calc(100vh + 50px));
         opacity: 0;
+        filter: brightness(0.3);
     }
 }
 
@@ -844,17 +934,7 @@ header {
 @media screen and (max-width: 768px) {
     .matrix-text {
         position: absolute;
-    }
-
-    @keyframes matrix-fall {
-        0% {
-            transform: translateY(-50px);
-            opacity: 0.8;
-        }
-        100% {
-            transform: translateY(calc(100vh + 100px));
-            opacity: 0;
-        }
+        font-size: 16px;
     }
 }
 
