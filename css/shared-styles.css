@@ -380,10 +380,15 @@ nav.breadcrumb a:hover {
 }
 
 .musing-card:hover {
-    background-color: #001100;
+    background-color: #000;
     color: #00ff00;
     transform: scale(1.02);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.musing-card-header {
+    text-align: center;
+    width: 100%;
 }
 
 .musing-card h3 {
@@ -394,6 +399,7 @@ nav.breadcrumb a:hover {
     margin-bottom: 8px;
     font-size: 1.1em;
     margin-top: 0;
+    text-align: center;
 }
 
 .musing-card .word-count {
