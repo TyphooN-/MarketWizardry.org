@@ -947,6 +947,41 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('🗑️ Remove position button clicked');
             window.removePosition(e.target);
         }
+
+        // Handle symbol detail clicks
+        const symbolDetailElement = e.target.closest('[data-action="show-symbol-detail"]');
+        if (symbolDetailElement) {
+            e.preventDefault();
+            const symbol = symbolDetailElement.getAttribute('data-symbol');
+            if (symbol) {
+                console.log('🎯 Symbol detail clicked:', symbol);
+                window.showSymbolDetail(symbol);
+            }
+        }
+
+        // Handle other symbol action buttons
+        const actionButton = e.target.closest('[data-action]');
+        if (actionButton) {
+            const action = actionButton.getAttribute('data-action');
+            const symbol = actionButton.getAttribute('data-symbol');
+
+            if (symbol) {
+                e.preventDefault();
+                console.log('🔘 Symbol action clicked:', action, symbol);
+
+                switch(action) {
+                    case 'use-in-stop-loss':
+                        window.useInStopLoss(symbol);
+                        break;
+                    case 'add-to-portfolio':
+                        window.useInPortfolio(symbol);
+                        break;
+                    case 'find-similar':
+                        window.findSimilar(symbol);
+                        break;
+                }
+            }
+        }
     });
 
     // Set up breadcrumb reset handler
