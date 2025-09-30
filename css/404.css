@@ -634,59 +634,7 @@ body::after {
     animation: explode 0.8s ease-out forwards;
 }
 
-.emoji-particle {
-    position: fixed !important;
-    font-size: 2em;
-    pointer-events: none;
-    z-index: 8;
-    will-change: transform, opacity;
-    top: 0;
-    left: 0;
-}
-
-.floating-bg-particle {
-    position: fixed !important;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.3;
-}
-
-@keyframes firework {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(0.2);
-        opacity: 0;
-    }
-}
-
-@keyframes fireworkSpiral {
-    0% {
-        transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(var(--startX) + var(--tx)), calc(var(--startY) + var(--ty))) rotate(1080deg) scale(0.3);
-        opacity: 0;
-    }
-}
-
-@keyframes fireworkSpiralPath {
-    0% {
-        transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(0.5);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-        transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(1);
-    }
-    100% {
-        transform: translate(var(--endX), var(--endY)) rotate(var(--rotation)) scale(0.2);
-        opacity: 0;
-    }
-}
+/* Emoji particle classes removed - using only Fibonacci spirals */
 
 .spiral-trail {
     position: fixed !important;
