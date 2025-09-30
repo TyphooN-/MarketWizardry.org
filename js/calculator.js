@@ -971,6 +971,14 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('🔘 Action element clicked:', action, 'symbol:', symbol);
 
             switch(action) {
+                case 'select-calculator':
+                    e.preventDefault();
+                    const calculatorType = actionElement.getAttribute('data-calculator');
+                    if (calculatorType) {
+                        console.log('🎯 Selecting calculator:', calculatorType);
+                        window.selectCalculator(calculatorType, actionElement);
+                    }
+                    break;
                 case 'show-symbol-detail':
                     if (symbol) {
                         e.preventDefault();
