@@ -363,6 +363,11 @@ nav.breadcrumb a:hover {
     line-height: 1.3;
 }
 
+/* AI Musings specific styles */
+.centered-title {
+    text-align: center;
+}
+
 /* AI Musings Card Styles (same as blog entries) */
 .musing-card {
     background-color: #000;
@@ -894,7 +899,7 @@ header {
     font-size: 20px;
     font-weight: bold;
     user-select: none;
-    animation: matrix-fall var(--duration) linear;
+    animation: matrix-fall var(--duration) linear forwards;
     opacity: 1;
     text-shadow: 0 0 8px #00ff00, 0 0 12px #00ff00;
     z-index: -1;

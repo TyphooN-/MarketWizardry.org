@@ -14,6 +14,7 @@ function createMatrixText() {
 
     // Random position (within viewable area)
     element.style.left = Math.random() * 100 + '%';
+    element.style.top = '-50px'; // Start above viewport
 
     // Random animation duration (speed)
     const duration = Math.random() * 3 + 2; // between 2-5 seconds
@@ -28,7 +29,7 @@ function createMatrixText() {
     // Remove element after animation
     setTimeout(() => {
         element.remove();
-    }, duration * 1000 + 2000);
+    }, duration * 1000 + 500);
 }
 
 // Initialize matrix animation
