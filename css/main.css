@@ -1,11 +1,14 @@
 /* Main Site Styles - External CSS to comply with CSP */
 
-/* Body styles for main layout */
-body {
+/* Prevent scrolling on main index page (iframe handles all scrolling) */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     background-color: #000;
     font-family: "Courier New", monospace;
     color: #00ff00;
-    overflow-x: hidden;
 }
 
 /* Utility Classes */
@@ -77,12 +80,7 @@ a {
     text-decoration: none;
     font-weight: bold;
 }
-body {
-    background-color: #000;
-    font-family: "Courier New", monospace;
-    color: #00ff00;
-    overflow-x: hidden;
-}
+
 /* CRT screen effect */
 .crt {
     animation: flicker 1s infinite;
