@@ -18,45 +18,50 @@ function triggerNuclearExplosion(button) {
     const originalOverflow = parent.style.overflow;
     parent.style.overflow = 'visible';
 
-    // Create flash overlay
+    // Create barrel explosion flash
     const flash = document.createElement('div');
     flash.className = 'nuke-flash';
     parent.appendChild(flash);
 
-    // Create mushroom cloud
-    const mushroom = document.createElement('div');
-    mushroom.className = 'nuke-mushroom';
+    // Create debris particles
+    const debrisContainer = document.createElement('div');
+    debrisContainer.className = 'nuke-debris';
 
-    const stem = document.createElement('div');
-    stem.className = 'nuke-stem';
+    // Create 8 debris particles flying in different directions
+    const debrisColors = ['#ff8800', '#ff4400', '#ffaa00', '#ff6600'];
+    for (let i = 1; i <= 8; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'debris-particle';
+        particle.style.background = debrisColors[Math.floor(Math.random() * debrisColors.length)];
+        particle.style.animation = `debris-fly-${i} 0.5s steps(3) forwards`;
+        particle.style.animationDelay = '0.1s'; // Start after initial flash
+        debrisContainer.appendChild(particle);
+    }
 
-    const cap = document.createElement('div');
-    cap.className = 'nuke-cap';
-
-    mushroom.appendChild(stem);
-    mushroom.appendChild(cap);
-    parent.appendChild(mushroom);
+    parent.appendChild(debrisContainer);
 
     // Cleanup after animation
     setTimeout(() => {
         flash.remove();
-        mushroom.remove();
+        debrisContainer.remove();
         // Restore original styles
         if (!originalPosition || originalPosition === 'static') {
             parent.style.position = '';
         }
         parent.style.overflow = originalOverflow;
-    }, 1500);
+    }, 1000);
 }
 
-// Attach to remove buttons
+// Attach to remove buttons - let calculator.js handle removal, we just add the visual effect
 document.addEventListener('DOMContentLoaded', function() {
     // Use event delegation for dynamically added buttons
+    // Listen for click in capture phase to run before calculator.js
     document.addEventListener('click', function(e) {
         const button = e.target.closest('.remove-btn, .position-remove-btn');
         if (button) {
             // Trigger explosion localized to the button's container
+            // Don't prevent default - let calculator.js handle the actual removal
             triggerNuclearExplosion(button);
         }
-    });
+    }, true); // Capture phase to run before calculator.js
 });
