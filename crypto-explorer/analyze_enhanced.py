@@ -42,6 +42,8 @@ def merge_data(df: pd.DataFrame, market_data: dict) -> pd.DataFrame:
     df['PercentMinted'] = None
     df['PriceChange24h%'] = None
     df['PriceChange7d%'] = None
+    df['PriceChange30d%'] = None
+    df['PriceChange1y%'] = None
     df['ATH'] = None
     df['ATHChange%'] = None
     df['FDV'] = None
@@ -60,6 +62,8 @@ def merge_data(df: pd.DataFrame, market_data: dict) -> pd.DataFrame:
             df.at[idx, 'PercentMinted'] = md.get('percent_minted')
             df.at[idx, 'PriceChange24h%'] = md.get('price_change_24h_percent')
             df.at[idx, 'PriceChange7d%'] = md.get('price_change_7d_percent')
+            df.at[idx, 'PriceChange30d%'] = md.get('price_change_30d_percent')
+            df.at[idx, 'PriceChange1y%'] = md.get('price_change_1y_percent')
             df.at[idx, 'ATH'] = md.get('ath_usd')
             df.at[idx, 'ATHChange%'] = md.get('ath_change_percent')
             df.at[idx, 'FDV'] = md.get('fully_diluted_valuation')
@@ -250,15 +254,17 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
             print(f"PRICE PERFORMANCE")
             print(f"{'='*80}")
             df_perf = df[df['PriceChange24h%'].notna()].copy()
-            print(f"{'Symbol':<12} {'Price':<18} {'24h Change':<12} {'7d Change':<12} {'ATH':<15} {'From ATH':<12}")
+            print(f"{'Symbol':<12} {'Price':<18} {'24h':<10} {'7d':<10} {'30d':<10} {'1y':<10} {'ATH':<15} {'From ATH':<12}")
             print("-" * 80)
             for i, row in df_perf.iterrows():
                 price = format_price(row['AskPrice'])
                 change_24h = f"{row['PriceChange24h%']:+.2f}%" if pd.notna(row['PriceChange24h%']) else "N/A"
                 change_7d = f"{row['PriceChange7d%']:+.2f}%" if pd.notna(row['PriceChange7d%']) else "N/A"
+                change_30d = f"{row['PriceChange30d%']:+.2f}%" if pd.notna(row['PriceChange30d%']) else "N/A"
+                change_1y = f"{row['PriceChange1y%']:+.2f}%" if pd.notna(row['PriceChange1y%']) else "N/A"
                 ath = format_large_number(row['ATH']) if pd.notna(row['ATH']) else "N/A"
                 ath_change = f"{row['ATHChange%']:+.2f}%" if pd.notna(row['ATHChange%']) else "N/A"
-                print(f"{row['Symbol']:<12} {price:<18} {change_24h:<12} {change_7d:<12} {ath:<15} {ath_change:<12}")
+                print(f"{row['Symbol']:<12} {price:<18} {change_24h:<10} {change_7d:<10} {change_30d:<10} {change_1y:<10} {ath:<15} {ath_change:<12}")
             print()
 
         # Liquidity & Trading Metrics
