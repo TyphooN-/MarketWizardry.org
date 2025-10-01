@@ -721,7 +721,7 @@ nav.breadcrumb a:hover {
         font-size: clamp(0.6rem, 2vw, 0.8rem);
         white-space: pre-wrap;
         word-wrap: break-word;
-        overflow-x: auto;
+        overflow-x: hidden;
         max-width: 90vw;
         max-height: calc(90vh - 160px);
         padding: 10px;
@@ -1467,7 +1467,7 @@ header {
     max-height: 70vh;
     max-width: 85vw;
     overflow-y: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
     color: #00ff00;
     font-size: clamp(0.6rem, 1vw, 0.75rem);
 }

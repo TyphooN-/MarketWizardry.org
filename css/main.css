@@ -155,12 +155,30 @@ a {
 }
 .menu-item {
     display: block; /* Ensures consistent spacing for all menu items */
-    padding: 15px;
-    margin: 5px 0;
+    padding: 12px 10px;
+    margin: 3px 0;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    flex-shrink: 0;
+}
+
+/* Adjust menu item spacing for shorter screens */
+@media screen and (min-width: 769px) and (max-height: 800px) {
+    .menu-item {
+        padding: 10px 8px;
+        margin: 2px 0;
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-height: 650px) {
+    .menu-item {
+        padding: 8px 6px;
+        margin: 1px 0;
+        font-size: 12px;
+    }
 }
 .menu-item a {
     display: block; /* Makes the link take full width */
@@ -184,39 +202,73 @@ a {
 /* Image item */
 .image-item {
     display: block;
-    padding: 15px;
-    margin: 5px 0;
+    padding: 10px;
+    margin: 0;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    flex-shrink: 1;
-    min-height: 50px;
+    flex-shrink: 0;
+    overflow: hidden;
 }
+
 .image-item img {
     max-width: 100%;
+    width: 100%;
     height: auto;
-    max-height: 30vh;
+    max-height: clamp(80px, 25vh, 200px);
     object-fit: contain;
     transition: max-height 0.3s ease;
+    display: block;
 }
 
-/* Scale image down when viewport is short */
-@media screen and (min-width: 769px) and (max-height: 900px) {
-    .image-item img {
-        max-height: 20vh;
+/* Progressive scaling based on viewport height */
+@media screen and (min-width: 769px) {
+    /* Very tall screens */
+    @media (min-height: 1000px) {
+        .image-item img {
+            max-height: clamp(120px, 20vh, 220px);
+        }
     }
-}
 
-@media screen and (min-width: 769px) and (max-height: 700px) {
-    .image-item img {
-        max-height: 15vh;
+    /* Standard desktop */
+    @media (max-height: 999px) and (min-height: 850px) {
+        .image-item img {
+            max-height: clamp(100px, 18vh, 180px);
+        }
+        .image-item {
+            padding: 8px;
+        }
     }
-}
 
-@media screen and (min-width: 769px) and (max-height: 600px) {
-    .image-item img {
-        max-height: 10vh;
+    /* Medium height */
+    @media (max-height: 849px) and (min-height: 750px) {
+        .image-item img {
+            max-height: clamp(80px, 15vh, 140px);
+        }
+        .image-item {
+            padding: 6px;
+        }
+    }
+
+    /* Shorter screens */
+    @media (max-height: 749px) and (min-height: 650px) {
+        .image-item img {
+            max-height: clamp(70px, 12vh, 110px);
+        }
+        .image-item {
+            padding: 5px;
+        }
+    }
+
+    /* Very short screens */
+    @media (max-height: 649px) {
+        .image-item img {
+            max-height: clamp(50px, 10vh, 80px);
+        }
+        .image-item {
+            padding: 4px;
+        }
     }
 }
 
