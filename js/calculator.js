@@ -784,6 +784,8 @@ window.addPosition = function() {
         <td class="account-var-display ${accountVarClass} table-cell-small">-</td>
         <td class="weight-display">-</td>
         <td class="asset-class-display table-cell-smaller">-</td>
+        <td class="sector-display table-cell-smaller">-</td>
+        <td class="industry-display table-cell-smaller">-</td>
         <td><button class="remove-btn position-remove-btn" title="Remove Position">✕</button></td>
     `;
     tbody.appendChild(newRow);
@@ -795,6 +797,51 @@ window.removePosition = function(button) {
     // Always allow removal - user can re-add positions
     row.remove();
     console.log('🗑️ Position removed, remaining positions:', tbody.children.length);
+};
+
+// Auto-fill portfolio row with symbol data
+window.autoFillPortfolioRow = function(row, symbol) {
+    console.log('🔍 Auto-filling row for symbol:', symbol);
+
+    if (!window.varData || !window.varData[symbol]) {
+        console.error('❌ Symbol data not found:', symbol);
+        return;
+    }
+
+    const data = window.varData[symbol];
+
+    // Update price input
+    const priceInput = row.querySelector('.table-input-price, .position-price-input');
+    if (priceInput && !priceInput.value) {
+        priceInput.value = data.price;
+    }
+
+    // Update VaR display
+    const varDisplay = row.querySelector('.var-display');
+    if (varDisplay) {
+        varDisplay.textContent = `$${data.var}`;
+    }
+
+    // Update asset class
+    const assetClassDisplay = row.querySelector('.asset-class-display');
+    if (assetClassDisplay) {
+        const display = window.getAssetClassDisplay(data.asset_class, data.sector);
+        assetClassDisplay.textContent = `${display.emoji} ${display.name}`;
+    }
+
+    // Update sector
+    const sectorDisplay = row.querySelector('.sector-display');
+    if (sectorDisplay) {
+        sectorDisplay.textContent = data.sector || '-';
+    }
+
+    // Update industry
+    const industryDisplay = row.querySelector('.industry-display');
+    if (industryDisplay) {
+        industryDisplay.textContent = data.industry || '-';
+    }
+
+    console.log('✅ Row auto-filled with data for:', symbol);
 };
 
 window.addSymbolToPortfolio = function(symbol) {
@@ -829,6 +876,7 @@ window.addSymbolToPortfolio = function(symbol) {
 
     // Create new row
     const newRow = document.createElement('tr');
+    const assetDisplay = window.getAssetClassDisplay(data.asset_class, data.sector);
     newRow.innerHTML = `
         <td><input type="text" value="${symbol}" class="table-input"></td>
         <td><input type="number" placeholder="100" class="table-input"></td>
@@ -837,10 +885,9 @@ window.addSymbolToPortfolio = function(symbol) {
         <td class="var-display">$${data.var}</td>
         <td class="var-percent-display">-</td>
         <td class="weight-display">-</td>
-        <td class="asset-class-display">${(() => {
-            const display = window.getAssetClassDisplay(data.asset_class, data.sector);
-            return `${display.emoji} ${display.name}`;
-        })()}</td>
+        <td class="asset-class-display">${assetDisplay.emoji} ${assetDisplay.name}</td>
+        <td class="sector-display">${data.sector || '-'}</td>
+        <td class="industry-display">${data.industry || '-'}</td>
         <td><button class="remove-btn position-remove-btn" title="Remove Position"></button></td>
     `;
 
@@ -1744,6 +1791,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize dropdown options
     initializeDropdowns();
+
+    // Add auto-lookup for portfolio symbol inputs (event delegation)
+    document.addEventListener('blur', function(e) {
+        if (e.target.classList.contains('position-symbol-input')) {
+            const symbolInput = e.target;
+            const symbol = symbolInput.value.toUpperCase().trim();
+
+            if (symbol && window.varData && window.varData[symbol]) {
+                const row = symbolInput.closest('tr');
+                if (row) {
+                    window.autoFillPortfolioRow(row, symbol);
+                }
+            }
+        }
+    }, true);
+
+    // Add Enter key handler for portfolio symbol inputs
+    document.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && e.target.classList.contains('position-symbol-input')) {
+            e.preventDefault();
+            const symbolInput = e.target;
+            const symbol = symbolInput.value.toUpperCase().trim();
+
+            if (symbol && window.varData && window.varData[symbol]) {
+                const row = symbolInput.closest('tr');
+                if (row) {
+                    window.autoFillPortfolioRow(row, symbol);
+                }
+                // Move to shares input
+                const sharesInput = row.querySelector('.position-shares-input, .table-input[type="number"]');
+                if (sharesInput) {
+                    sharesInput.focus();
+                }
+            }
+        }
+    });
 
     console.log('✅ Calculator initialization complete');
 
