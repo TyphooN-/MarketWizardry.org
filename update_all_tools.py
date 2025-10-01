@@ -76,7 +76,7 @@ class FinancialToolsUpdater:
         return True
 
     def process_var_data(self):
-        """Process VaR data using outlier.py script"""
+        """Process VaR data using outlier.py script - ONLY for current date"""
         print("📈 Processing VaR data...")
 
         try:
@@ -89,24 +89,54 @@ class FinancialToolsUpdater:
                 self.data_summary['var_outliers'] = len(existing_outlier_files)
                 return True
 
-            # Run outlier analysis script with overwrite flag if force regenerating
-            cmd = ['bash', 'run_outlier_analysis.sh']
-            if self.force_regenerate:
-                cmd.append('--overwrite')
-            result = subprocess.run(cmd, cwd='var-explorer', capture_output=True, text=True)
+            # IMPORTANT: Only process CSV files for current date to prevent mass regeneration
+            # Find CSV files for the current date only
+            csv_files = [f for f in os.listdir('var-explorer')
+                        if f.endswith('.csv') and self.date_str in f]
 
-            if result.returncode != 0:
-                print(f"⚠️ Warning: Outlier analysis script failed: {result.stderr}")
+            if not csv_files:
+                print(f"⚠️ Warning: No CSV files found for {self.date_str}")
+                return False
 
-            # Count outlier files generated
-            outlier_files = [f for f in os.listdir('var-explorer') if f.endswith('-outlier.txt') and self.date_str in f]
-            self.data_summary['var_outliers'] = len(outlier_files)
+            print(f"  Processing {len(csv_files)} CSV files for {self.date_str}...")
 
-            print(f"✅ VaR data processed, {len(outlier_files)} outlier files generated")
+            # Process each CSV file individually using outlier.py
+            outliers_generated = 0
+            for csv_file in csv_files:
+                output_file = csv_file.replace('.csv', '-outlier.txt')
+                output_path = f"var-explorer/{output_file}"
+
+                # Skip if exists and not force regenerating
+                if os.path.exists(output_path) and not self.force_regenerate:
+                    print(f"  ⏭️  Skipping {csv_file} (output exists)")
+                    outliers_generated += 1
+                    continue
+
+                # Run outlier.py for this specific file
+                result = subprocess.run(
+                    ['python3', 'outlier.py', csv_file],
+                    cwd='var-explorer',
+                    capture_output=True,
+                    text=True
+                )
+
+                if result.returncode == 0:
+                    # Save output to file
+                    with open(output_path, 'w') as f:
+                        f.write(result.stdout)
+                    print(f"  ✅ Generated {output_file}")
+                    outliers_generated += 1
+                else:
+                    print(f"  ❌ Failed to process {csv_file}: {result.stderr[:100]}")
+
+            self.data_summary['var_outliers'] = outliers_generated
+            print(f"✅ VaR data processed, {outliers_generated} outlier files generated")
             return True
 
         except Exception as e:
             print(f"❌ Error processing VaR data: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
     def process_ev_data(self):
@@ -190,7 +220,7 @@ class FinancialToolsUpdater:
             return False
 
     def process_atr_data(self):
-        """Process ATR data"""
+        """Process ATR data - ONLY for current date"""
         print("⚡ Processing ATR data...")
 
         try:
@@ -211,11 +241,38 @@ class FinancialToolsUpdater:
                     print("   Use --force to regenerate existing files")
                     self.data_summary['atr_files'] = files_copied
                 else:
-                    # Run ATR outlier analysis with overwrite flag if force regenerating
-                    cmd = ['bash', 'run_outlier_analysis.sh']
-                    if self.force_regenerate:
-                        cmd.append('--overwrite')
-                    result = subprocess.run(cmd, cwd='atr-explorer', capture_output=True, text=True)
+                    # IMPORTANT: Only process CSV files for current date to prevent mass regeneration
+                    # Find CSV files for the current date only
+                    csv_files = [f for f in os.listdir('atr-explorer')
+                                if f.endswith('.csv') and self.date_str in f]
+
+                    print(f"  Processing {len(csv_files)} CSV files for {self.date_str}...")
+
+                    # Process each CSV file individually using outlier.py
+                    for csv_file in csv_files:
+                        output_file = csv_file.replace('.csv', '-outlier.txt')
+                        output_path = f"atr-explorer/{output_file}"
+
+                        # Skip if exists and not force regenerating
+                        if os.path.exists(output_path) and not self.force_regenerate:
+                            print(f"  ⏭️  Skipping {csv_file} (output exists)")
+                            continue
+
+                        # Run outlier.py for this specific file
+                        result = subprocess.run(
+                            ['python3', 'outlier.py', csv_file],
+                            cwd='atr-explorer',
+                            capture_output=True,
+                            text=True
+                        )
+
+                        if result.returncode == 0:
+                            # Save output to file
+                            with open(output_path, 'w') as f:
+                                f.write(result.stdout)
+                            print(f"  ✅ Generated {output_file}")
+                        else:
+                            print(f"  ❌ Failed to process {csv_file}: {result.stderr[:100]}")
 
                 self.data_summary['atr_files'] = files_copied
 
@@ -224,10 +281,12 @@ class FinancialToolsUpdater:
 
         except Exception as e:
             print(f"❌ Error processing ATR data: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
     def process_crypto_data(self):
-        """Process Crypto data with crypto-specific analysis"""
+        """Process Crypto data with crypto-specific analysis and CoinGecko market data"""
         print("₿ Processing Crypto data...")
 
         try:
@@ -237,37 +296,87 @@ class FinancialToolsUpdater:
                 print("⚠️ Warning: No crypto CSV available for processing")
                 return False
 
-            # Check if analysis file already exists
-            analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-analysis.txt"
+            # Check if enhanced analysis file already exists
+            enhanced_analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-enhanced-analysis.txt"
+            basic_analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-analysis.txt"
+            market_data_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-market-data.json"
 
-            if os.path.exists(analysis_file) and not self.force_regenerate:
-                print(f"⏭️ Skipping Crypto analysis - file already exists for {self.date_str}")
+            if os.path.exists(enhanced_analysis_file) and not self.force_regenerate:
+                print(f"⏭️ Skipping Crypto analysis - enhanced analysis already exists for {self.date_str}")
                 print("   Use --force to regenerate existing files")
                 self.data_summary['crypto_processed'] = True
+                self.data_summary['crypto_market_data'] = os.path.exists(market_data_file)
                 return True
 
-            # Run crypto analysis script
+            # Step 1: Fetch market data from CoinGecko
+            print("  📡 Fetching cryptocurrency market data from CoinGecko...")
+            market_data_output = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-market-data.json"
+            fetch_result = subprocess.run(
+                ['python3', 'fetch_crypto_data.py', '--output', market_data_output, '--delay', '1.5'],
+                cwd='crypto-explorer',
+                capture_output=True,
+                text=True,
+                timeout=180  # 3 minutes timeout for API calls
+            )
+
+            market_data_fetched = False
+            if fetch_result.returncode == 0:
+                print(f"  ✅ Market data fetched successfully")
+                market_data_fetched = True
+                self.data_summary['crypto_market_data'] = True
+            else:
+                print(f"  ⚠️ Warning: Market data fetch failed, will run basic analysis only")
+                print(f"     Error: {fetch_result.stderr[:200]}")
+                self.data_summary['crypto_market_data'] = False
+
+            # Step 2: Run enhanced analysis (if market data available) or basic analysis
             csv_filename = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
-            result = subprocess.run(
+
+            if market_data_fetched and os.path.exists(market_data_file):
+                print("  📊 Running enhanced analysis with market data...")
+                analysis_result = subprocess.run(
+                    ['python3', 'analyze_enhanced.py', csv_filename, '--market-data', market_data_output],
+                    cwd='crypto-explorer',
+                    capture_output=True,
+                    text=True
+                )
+
+                if analysis_result.returncode == 0:
+                    with open(enhanced_analysis_file, 'w') as f:
+                        f.write(analysis_result.stdout)
+                    print(f"  ✅ Enhanced crypto analysis saved to {enhanced_analysis_file}")
+                    self.data_summary['crypto_processed'] = True
+                    return True
+                else:
+                    print(f"  ⚠️ Enhanced analysis failed, falling back to basic analysis")
+                    print(f"     Error: {analysis_result.stderr[:200]}")
+
+            # Fallback: Run basic analysis
+            print("  📊 Running basic crypto analysis...")
+            basic_result = subprocess.run(
                 ['python3', 'analyze.py', csv_filename],
                 cwd='crypto-explorer',
                 capture_output=True,
                 text=True
             )
 
-            if result.returncode == 0:
-                # Save output to analysis file
-                with open(analysis_file, 'w') as f:
-                    f.write(result.stdout)
-                print(f"✅ Crypto analysis completed and saved to {analysis_file}")
+            if basic_result.returncode == 0:
+                with open(basic_analysis_file, 'w') as f:
+                    f.write(basic_result.stdout)
+                print(f"  ✅ Basic crypto analysis saved to {basic_analysis_file}")
                 self.data_summary['crypto_processed'] = True
                 return True
             else:
-                print(f"❌ Crypto analysis failed: {result.stderr}")
+                print(f"  ❌ Basic crypto analysis failed: {basic_result.stderr}")
                 return False
 
+        except subprocess.TimeoutExpired:
+            print(f"  ❌ Error: Market data fetch timed out (>3 minutes)")
+            return False
         except Exception as e:
-            print(f"❌ Error processing Crypto data: {e}")
+            print(f"  ❌ Error processing Crypto data: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
     def fetch_financial_data(self):
@@ -308,14 +417,17 @@ class FinancialToolsUpdater:
             for file in os.listdir(directory):
                 if pattern in file:
                     # Extract date and asset type from filename
-                    # Format: SymbolsExport-Darwinex-Live-{AssetType}-{Date}-outlier.txt
-                    parts = file.replace('-outlier.txt', '').split('-')
+                    # Format: SymbolsExport-Darwinex-Live-{AssetType}-{Date}-{pattern}
+                    # Remove the pattern suffix to parse the rest
+                    base_name = file.replace(pattern, '')
+                    parts = base_name.split('-')
+
                     if len(parts) >= 5:
-                        asset_type = parts[3]  # CFD, Stocks, Futures
+                        asset_type = parts[3]  # CFD, Stocks, Futures, Crypto
                         date_str = parts[4]    # 2025.09.17
 
                         # Look for corresponding CSV file
-                        csv_file = file.replace('-outlier.txt', '.csv')
+                        csv_file = base_name + '.csv'
                         csv_path = f"{directory}/{csv_file}"
 
                         files.append({
@@ -765,8 +877,21 @@ class FinancialToolsUpdater:
         """Generate Crypto Explorer page with crypto-specific analysis"""
         print("🔧 Generating Crypto Explorer...")
 
-        # Scan historical crypto analysis files
-        crypto_files = self._scan_historical_files('crypto-explorer', '-analysis.txt')
+        # Scan historical crypto analysis files (prefer enhanced, fallback to basic)
+        enhanced_files = self._scan_historical_files('crypto-explorer', '-enhanced-analysis.txt')
+        basic_files = self._scan_historical_files('crypto-explorer', '-analysis.txt')
+
+        # Merge files, preferring enhanced analysis when available
+        crypto_files_dict = {}
+        for file in basic_files:
+            crypto_files_dict[file['date']] = file
+        for file in enhanced_files:
+            # Enhanced files take precedence
+            crypto_files_dict[file['date']] = file
+
+        # Convert back to list and sort by date
+        crypto_files = sorted(crypto_files_dict.values(), key=lambda x: x['date'], reverse=True)[:60]
+
         file_grid_html = self._generate_file_grid_entries(crypto_files)
 
         # Reuse shared JS since crypto explorer uses similar modal structure
