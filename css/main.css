@@ -116,6 +116,35 @@ a {
   padding: 20px;
   border-right: 2px solid #00ff00;
   text-align: center;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #00ff00 #000;
+}
+
+/* Webkit scrollbar styling for menu */
+.menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: #000;
+  border-left: 1px solid #00ff00;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 4px;
+}
+
+.menu::-webkit-scrollbar-thumb:hover {
+  background: #00ff88;
 }
 .menu-header {
   font-weight: bold;
@@ -161,10 +190,34 @@ a {
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    flex-shrink: 1;
+    min-height: 50px;
 }
 .image-item img {
     max-width: 100%;
     height: auto;
+    max-height: 30vh;
+    object-fit: contain;
+    transition: max-height 0.3s ease;
+}
+
+/* Scale image down when viewport is short */
+@media screen and (min-width: 769px) and (max-height: 900px) {
+    .image-item img {
+        max-height: 20vh;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-height: 700px) {
+    .image-item img {
+        max-height: 15vh;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-height: 600px) {
+    .image-item img {
+        max-height: 10vh;
+    }
 }
 
 /* Mobile Header Styles */
