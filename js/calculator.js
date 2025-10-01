@@ -304,49 +304,84 @@ window.calculatePortfolioVaR = function() {
     console.log('📊 calculatePortfolioVaR called');
 
     try {
+        const mode = document.getElementById('pf-mode')?.value || 'manual';
         const confidence = parseFloat(document.getElementById('pf-confidence')?.value) || 95;
         const timeHorizon = parseInt(document.getElementById('pf-time-horizon')?.value) || 1;
         const rows = document.querySelectorAll('#portfolio-positions tr');
+
+        // Account risk mode parameters
+        const accountCapital = parseFloat(document.getElementById('account-capital')?.value) || 0;
+        const targetVarPercent = parseFloat(document.getElementById('target-var-percent')?.value) || 2;
 
         let positions = [];
         let totalValue = 0;
         let totalVaR = 0;
 
         // Process each position
-        rows.forEach(row => {
+        rows.forEach((row, index) => {
             const inputs = row.querySelectorAll('input');
             if (inputs.length >= 3) {
                 const symbol = inputs[0].value.toUpperCase().trim();
-                const shares = parseFloat(inputs[1].value) || 0;
+                let shares = parseFloat(inputs[1].value) || 0;
                 const price = parseFloat(inputs[2].value) || 0;
 
-                if (symbol && shares && price) {
-                    const value = shares * price;
+                if (symbol && price) {
                     let positionVaR = 0;
                     let hasRealData = false;
+                    let suggestedLots = null;
+                    let accountVarPercent = 0;
 
                     // Use real VaR data if available
                     if (window.varData && window.varData[symbol]) {
                         const varPerShare = window.varData[symbol].var;
+
+                        // In account risk mode, calculate suggested lots
+                        if (mode === 'account-risk' && accountCapital > 0) {
+                            suggestedLots = window.calculateSuggestedLots(symbol, varPerShare, accountCapital, targetVarPercent);
+                            shares = suggestedLots.suggestedShares;
+                            accountVarPercent = suggestedLots.actualVarPercent;
+
+                            // Update shares input and suggested lots display
+                            inputs[1].value = shares;
+                            const suggestedLotsDisplay = row.querySelector('.suggested-lots-display');
+                            if (suggestedLotsDisplay) {
+                                suggestedLotsDisplay.textContent = `${suggestedLots.lots} lots`;
+                            }
+                            const accountVarDisplay = row.querySelector('.account-var-display');
+                            if (accountVarDisplay) {
+                                accountVarDisplay.textContent = `${accountVarPercent.toFixed(2)}%`;
+                            }
+                        }
+
                         positionVaR = shares * varPerShare;
                         hasRealData = true;
                     } else {
                         // 2% estimate for unknown symbols
+                        const value = shares * price;
                         positionVaR = value * 0.02;
                     }
 
-                    positions.push({
-                        symbol,
-                        shares,
-                        price,
-                        value,
-                        positionVaR,
-                        hasRealData,
-                        weight: 0 // Will be calculated after totalValue is known
-                    });
+                    if (shares > 0) {
+                        const value = shares * price;
+                        if (mode === 'account-risk' && accountCapital > 0) {
+                            accountVarPercent = (positionVaR / accountCapital) * 100;
+                        }
 
-                    totalValue += value;
-                    totalVaR += positionVaR;
+                        positions.push({
+                            symbol,
+                            shares,
+                            price,
+                            value,
+                            positionVaR,
+                            hasRealData,
+                            suggestedLots,
+                            accountVarPercent,
+                            weight: 0 // Will be calculated after totalValue is known
+                        });
+
+                        totalValue += value;
+                        totalVaR += positionVaR;
+                    }
                 }
             }
         });
@@ -408,13 +443,20 @@ window.calculatePortfolioVaR = function() {
             const dataSource = pos.hasRealData ? '📊 Real VaR data' : '⚠️ Estimated (2%)';
             const positionClass = pos.hasRealData ? 'position-real-data' : 'position-estimated-data';
 
-            output += `
+            let positionDetails = `
                 <div class="calc-position-box ${positionClass}">
                     <strong class="calc-position-name">${pos.symbol}</strong> ${dataSource}<br>
                     ${pos.shares.toLocaleString()} shares × $${pos.price} = $${pos.value.toLocaleString()} (${pos.weight}%)<br>
-                    Position VaR: $${pos.positionVaR.toFixed(2)}
-                </div>
-            `;
+                    Position VaR: $${pos.positionVaR.toFixed(2)}`;
+
+            if (mode === 'account-risk' && pos.suggestedLots) {
+                positionDetails += `<br>
+                    💡 Suggested: ${pos.suggestedLots.lots} lots (${pos.suggestedLots.suggestedShares} shares)<br>
+                    📊 Account VaR: ${pos.accountVarPercent.toFixed(2)}% of capital`;
+            }
+
+            positionDetails += `</div>`;
+            output += positionDetails;
         });
 
         output += `</div>`;
@@ -480,17 +522,28 @@ window.analyzePortfolioRisk = function() {
 // ===== PORTFOLIO POSITION MANAGEMENT =====
 window.addPosition = function() {
     const tbody = document.getElementById('portfolio-positions');
+    const mode = document.getElementById('pf-mode')?.value || 'manual';
     const newRow = document.createElement('tr');
+
+    const sharesInput = mode === 'account-risk' ?
+        '<input type="number" placeholder="100" class="table-input" readonly>' :
+        '<input type="number" placeholder="100" class="table-input">';
+
+    const suggestedLotsClass = mode === 'account-risk' ? '' : 'var-group-hidden';
+    const accountVarClass = mode === 'account-risk' ? '' : 'var-group-hidden';
+
     newRow.innerHTML = `
-        <td><input type="text" placeholder="SYMBOL" class="table-input"></td>
-        <td><input type="number" placeholder="100" class="table-input"></td>
-        <td><input type="number" placeholder="150.00" step="0.01" class="table-input-price"></td>
+        <td><input type="text" placeholder="SYMBOL" class="table-input position-symbol-input"></td>
+        <td class="shares-cell">${sharesInput}</td>
+        <td class="suggested-lots-cell ${suggestedLotsClass}"><span class="suggested-lots-display">-</span></td>
+        <td><input type="number" placeholder="150.00" step="0.01" class="table-input-price position-price-input"></td>
         <td class="value-display">-</td>
         <td class="var-display">-</td>
-        <td class="var-percent-display">-</td>
+        <td class="var-percent-display table-cell-small">-</td>
+        <td class="account-var-display ${accountVarClass} table-cell-small">-</td>
         <td class="weight-display">-</td>
-        <td class="asset-class-display">-</td>
-        <td><button class="remove-btn position-remove-btn" title="Remove Position"></button></td>
+        <td class="asset-class-display table-cell-smaller">-</td>
+        <td><button class="remove-btn position-remove-btn" title="Remove Position">✕</button></td>
     `;
     tbody.appendChild(newRow);
 };
