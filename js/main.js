@@ -16,6 +16,7 @@ function updateMobileBreadcrumb(page) {
         'var-explorer': '📊 VaR Explorer',
         'ev-explorer': '💰 EV Explorer',
         'atr-explorer': '📈 ATR Explorer',
+        'crypto-explorer': '₿ Crypto Explorer',
         'ai-art': '🎨 AI Art',
         'ai-musings': '🤖 AI Musings',
         'nft-gallery': '🖼️ NFT Gallery',
