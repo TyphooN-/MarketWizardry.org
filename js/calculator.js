@@ -1022,15 +1022,20 @@ window.lookupSymbolForPositionCalc = function() {
     // Calculate ATR stop suggestion
     updateATRStopSuggestion();
 
-    // Show success message
+    // Show success message with asset class
     const outputDiv = document.getElementById('ps-output');
     if (outputDiv) {
+        const assetDisplay = window.getAssetClassDisplay(data.asset_class, data.sector, data.description);
         outputDiv.innerHTML = `
             <div class="calc-success-box">
                 <h4>✅ Symbol Data Loaded: ${symbol}</h4>
                 <div class="result-row">
                     <span class="result-label-inline">Description:</span>
                     <span class="result-value">${data.description || symbol}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label-inline">Asset Class:</span>
+                    <span class="result-value">${assetDisplay.emoji} ${assetDisplay.name}</span>
                 </div>
                 <div class="result-row">
                     <span class="result-label-inline">Current Price:</span>
@@ -1043,6 +1048,10 @@ window.lookupSymbolForPositionCalc = function() {
                 <div class="result-row">
                     <span class="result-label-inline">Sector:</span>
                     <span class="result-value">${data.sector || 'Unknown'}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label-inline">Industry:</span>
+                    <span class="result-value">${data.industry || 'Unknown'}</span>
                 </div>
                 ${data.atr_d1 ? `
                 <div class="result-row">
@@ -1062,9 +1071,15 @@ window.lookupSymbolForPositionCalc = function() {
                     <span class="result-value">$${data.atr_mn1.toFixed(3)}</span>
                 </div>
                 ` : ''}
-                <p style="margin-top: 10px; color: #00aa00;">Entry price, VaR, and ATR stop suggestion have been auto-filled. Adjust values if needed and click Calculate.</p>
+                <p style="margin-top: 10px; color: #00aa00;">✨ Entry price, VaR, and ATR stop suggestion have been auto-filled. Adjust values if needed and click Calculate.</p>
             </div>
         `;
+
+        // Make sure parent container is visible
+        const resultsContainer = outputDiv.closest('.result-box');
+        if (resultsContainer) {
+            resultsContainer.classList.add('show');
+        }
     }
 
     console.log('✅ Symbol data auto-filled:', symbol);
