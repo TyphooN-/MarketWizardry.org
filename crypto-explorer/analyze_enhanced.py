@@ -97,6 +97,29 @@ def format_supply(num):
         return f"{num:.2f}"
 
 
+def format_price(price):
+    """Format price with appropriate precision based on magnitude."""
+    if pd.isna(price) or price is None:
+        return "N/A"
+    if price >= 1000:
+        return f"${price:,.2f}"
+    elif price >= 1:
+        return f"${price:.4f}"
+    elif price >= 0.01:
+        return f"${price:.4f}"
+    elif price >= 0.0001:
+        return f"${price:.6f}"
+    else:
+        return f"${price:.8f}"
+
+
+def format_percentage(ratio):
+    """Format ratio as percentage."""
+    if pd.isna(ratio) or ratio is None:
+        return "N/A"
+    return f"{ratio*100:.2f}%"
+
+
 def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
     """
     Enhanced cryptocurrency analysis with market data.
@@ -183,12 +206,13 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
         print(f"DAILY VOLATILITY RANKING (ATR_D1/Price)")
         print(f"{'='*80}")
         df_sorted = df.sort_values('ATR_D1/AskPrice', ascending=False)
-        print(f"{'Rank':<6} {'Symbol':<12} {'ATR/Price':<18} {'Daily ATR':<15} {'Price':<15}")
+        print(f"{'Rank':<6} {'Symbol':<12} {'Volatility':<15} {'Daily ATR':<18} {'Price':<18}")
         print("-" * 80)
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
             print(f"{idx:<6} {row['Symbol']:<12} "
-                  f"{row['ATR_D1/AskPrice']:.4f} ({row['ATR_D1/AskPrice']*100:.2f}%)    "
-                  f"${row['ATR_D1']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
+                  f"{format_percentage(row['ATR_D1/AskPrice']):<15} "
+                  f"{format_price(row['ATR_D1']):<18} "
+                  f"{format_price(row['AskPrice']):<18}")
         print()
 
         # Volatility Rankings - Weekly
@@ -196,12 +220,13 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
         print(f"WEEKLY VOLATILITY RANKING (ATR_W1/Price)")
         print(f"{'='*80}")
         df_sorted = df.sort_values('ATR_W1/AskPrice', ascending=False)
-        print(f"{'Rank':<6} {'Symbol':<12} {'ATR/Price':<18} {'Weekly ATR':<15} {'Price':<15}")
+        print(f"{'Rank':<6} {'Symbol':<12} {'Volatility':<15} {'Weekly ATR':<18} {'Price':<18}")
         print("-" * 80)
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
             print(f"{idx:<6} {row['Symbol']:<12} "
-                  f"{row['ATR_W1/AskPrice']:.4f} ({row['ATR_W1/AskPrice']*100:.2f}%)    "
-                  f"${row['ATR_W1']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
+                  f"{format_percentage(row['ATR_W1/AskPrice']):<15} "
+                  f"{format_price(row['ATR_W1']):<18} "
+                  f"{format_price(row['AskPrice']):<18}")
         print()
 
         # Volatility Rankings - Monthly
@@ -210,12 +235,13 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
             print(f"MONTHLY VOLATILITY RANKING (ATR_MN1/Price)")
             print(f"{'='*80}")
             df_sorted = df.sort_values('ATR_MN1/AskPrice', ascending=False)
-            print(f"{'Rank':<6} {'Symbol':<12} {'ATR/Price':<18} {'Monthly ATR':<15} {'Price':<15}")
+            print(f"{'Rank':<6} {'Symbol':<12} {'Volatility':<15} {'Monthly ATR':<18} {'Price':<18}")
             print("-" * 80)
             for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
                 print(f"{idx:<6} {row['Symbol']:<12} "
-                      f"{row['ATR_MN1/AskPrice']:.4f} ({row['ATR_MN1/AskPrice']*100:.2f}%)    "
-                      f"${row['ATR_MN1']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
+                      f"{format_percentage(row['ATR_MN1/AskPrice']):<15} "
+                      f"{format_price(row['ATR_MN1']):<18} "
+                      f"{format_price(row['AskPrice']):<18}")
             print()
 
         # Price Performance (if available)
@@ -254,12 +280,13 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
         print(f"VALUE AT RISK RANKING (VaR/Price)")
         print(f"{'='*80}")
         df_sorted = df.sort_values('VaR_to_Ask_Ratio', ascending=False)
-        print(f"{'Rank':<6} {'Symbol':<12} {'VaR/Price':<18} {'VaR (1 Lot)':<15} {'Price':<15}")
+        print(f"{'Rank':<6} {'Symbol':<12} {'Risk Ratio':<15} {'VaR (1 Lot)':<18} {'Price':<18}")
         print("-" * 80)
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
             print(f"{idx:<6} {row['Symbol']:<12} "
-                  f"{row['VaR_to_Ask_Ratio']:.4f} ({row['VaR_to_Ask_Ratio']*100:.2f}%)    "
-                  f"${row['VaR_1_Lot']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
+                  f"{format_percentage(row['VaR_to_Ask_Ratio']):<15} "
+                  f"{format_price(row['VaR_1_Lot']):<18} "
+                  f"{format_price(row['AskPrice']):<18}")
         print()
 
         # Summary Statistics
