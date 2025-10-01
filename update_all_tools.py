@@ -341,12 +341,14 @@ class FinancialToolsUpdater:
             enhanced_analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-enhanced-analysis.txt"
             basic_analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-analysis.txt"
             market_data_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-market-data.json"
+            news_data_file_check = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-news-data.json"
 
             if os.path.exists(enhanced_analysis_file) and not self.force_regenerate:
                 print(f"⏭️ Skipping Crypto analysis - enhanced analysis already exists for {self.date_str}")
                 print("   Use --force to regenerate existing files")
                 self.data_summary['crypto_processed'] = True
                 self.data_summary['crypto_market_data'] = os.path.exists(market_data_file)
+                self.data_summary['crypto_news_data'] = os.path.exists(news_data_file_check)
                 return True
 
             # Step 1: Fetch market data from CoinGecko
@@ -370,13 +372,39 @@ class FinancialToolsUpdater:
                 print(f"     Error: {fetch_result.stderr[:200]}")
                 self.data_summary['crypto_market_data'] = False
 
+            # Step 1b: Fetch news data from CryptoCompare
+            print("  📰 Fetching cryptocurrency news from CryptoCompare...")
+            news_data_output = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-news-data.json"
+            news_result = subprocess.run(
+                ['python3', 'fetch_crypto_news.py', '--output', news_data_output, '--articles', '5'],
+                cwd='crypto-explorer',
+                capture_output=True,
+                text=True,
+                timeout=60  # 1 minute timeout for news API
+            )
+
+            news_data_file = f"crypto-explorer/{news_data_output}"
+            news_data_fetched = False
+            if news_result.returncode == 0:
+                print(f"  ✅ News data fetched successfully")
+                news_data_fetched = True
+                self.data_summary['crypto_news_data'] = True
+            else:
+                print(f"  ⚠️ Warning: News data fetch failed, will proceed without news")
+                print(f"     Error: {news_result.stderr[:200]}")
+                self.data_summary['crypto_news_data'] = False
+
             # Step 2: Run enhanced analysis (if market data available) or basic analysis
             csv_filename = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
 
             if market_data_fetched and os.path.exists(market_data_file):
-                print("  📊 Running enhanced analysis with market data...")
+                print("  📊 Running enhanced analysis with market data and news...")
+                cmd_args = ['python3', 'analyze_enhanced.py', csv_filename, '--market-data', market_data_output]
+                if news_data_fetched and os.path.exists(news_data_file):
+                    cmd_args.extend(['--news-data', news_data_output])
+
                 analysis_result = subprocess.run(
-                    ['python3', 'analyze_enhanced.py', csv_filename, '--market-data', market_data_output],
+                    cmd_args,
                     cwd='crypto-explorer',
                     capture_output=True,
                     text=True

@@ -719,7 +719,8 @@ nav.breadcrumb a:hover {
 
     .modal-body {
         font-size: clamp(0.6rem, 2vw, 0.8rem);
-        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
         overflow-x: auto;
         max-width: 90vw;
         max-height: calc(90vh - 160px);
@@ -1220,13 +1221,26 @@ header {
 
 /* Explorer modal body styles */
 .modal-body {
-    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
     max-height: 70vh;
     max-width: 85vw;
     overflow-y: auto;
     overflow-x: auto;
     color: #00ff00;
     font-size: clamp(0.6rem, 1vw, 0.75rem);
+}
+
+.modal-body a {
+    color: #00ffff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.modal-body a:hover {
+    color: #00ff88;
+    background-color: #002200;
+}
     padding: 15px;
 }
 /* Image Modal Styles */

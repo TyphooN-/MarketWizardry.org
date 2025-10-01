@@ -1,5 +1,28 @@
 // Crypto Explorer functionality
 
+// Function to convert URLs in text to clickable links
+function linkifyUrls(text) {
+    // Escape HTML to prevent XSS
+    const escapeHtml = (str) => {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    };
+
+    // Pattern to match URLs (http, https, ftp)
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+
+    // Escape the text first
+    const escapedText = escapeHtml(text);
+
+    // Replace URLs with anchor tags
+    return escapedText.replace(urlPattern, (url) => {
+        // Remove trailing punctuation that shouldn't be part of the URL
+        let cleanUrl = url.replace(/[.,;:!?)]+$/, '');
+        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>`;
+    });
+}
+
 // Event delegation for data-action attributes
 document.addEventListener('click', function(e) {
     const action = e.target.getAttribute('data-action');
@@ -57,7 +80,9 @@ function openModalWithFile(outlierFile, csvFile, title) {
     fetch(outlierFile)
         .then(response => response.text())
         .then(data => {
-            document.getElementById('outlier-content').textContent = data;
+            // Convert URLs to clickable links
+            const linkifiedData = linkifyUrls(data);
+            document.getElementById('outlier-content').innerHTML = linkifiedData;
         })
         .catch(error => {
             document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;

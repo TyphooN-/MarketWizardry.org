@@ -45,6 +45,20 @@ def load_crypto_news_data(json_file: str) -> dict:
         return {}
 
 
+def load_crypto_events_data(json_file: str) -> dict:
+    """Load cryptocurrency events data from JSON file."""
+    try:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return data.get('events', {})
+    except FileNotFoundError:
+        print(f"Warning: {json_file} not found. Run fetch_crypto_events.py first.")
+        return {}
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON in {json_file}")
+        return {}
+
+
 def merge_data(df: pd.DataFrame, market_data: dict) -> pd.DataFrame:
     """Merge Darwinex CSV data with CoinGecko market data."""
     # Add market data columns
@@ -138,9 +152,9 @@ def format_percentage(ratio):
     return f"{ratio*100:.2f}%"
 
 
-def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_data_file: str = None):
+def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_data_file: str = None, events_data_file: str = None):
     """
-    Enhanced cryptocurrency analysis with market data and news.
+    Enhanced cryptocurrency analysis with market data, news, and upcoming events.
     """
     try:
         print(f"{'='*80}")
@@ -169,6 +183,13 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
             news_data = load_crypto_news_data(news_data_file)
             if news_data:
                 print(f"✓ Loaded news for {len(news_data)} cryptocurrencies")
+
+        # Load events data if available
+        events_data = {}
+        if events_data_file:
+            events_data = load_crypto_events_data(events_data_file)
+            if events_data:
+                print(f"✓ Loaded events for {len(events_data)} cryptocurrencies")
 
         print()
 
@@ -415,6 +436,69 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
             print("ℹ️  Run 'python fetch_crypto_news.py' to fetch latest cryptocurrency news.")
             print()
 
+        # Upcoming Events Section
+        if events_data:
+            print(f"{'='*80}")
+            print(f"📅 UPCOMING CRYPTOCURRENCY EVENTS")
+            print(f"{'='*80}")
+            for symbol in df['Symbol'].tolist():
+                if symbol in events_data and events_data[symbol]:
+                    print(f"\n{'-'*80}")
+                    print(f"🔔 {symbol} - Upcoming Events ({len(events_data[symbol])} events)")
+                    print(f"{'-'*80}")
+                    for i, event in enumerate(events_data[symbol], 1):
+                        event_date = event.get('date_event', 'N/A')
+                        title = event.get('title', {})
+                        if isinstance(title, dict):
+                            title_text = title.get('en', 'N/A')
+                        else:
+                            title_text = str(title)
+
+                        # Parse event date for better formatting
+                        try:
+                            event_dt = datetime.strptime(event_date, '%Y-%m-%d %H:%M:%S')
+                            formatted_date = event_dt.strftime('%Y-%m-%d %H:%M')
+                        except:
+                            formatted_date = event_date
+
+                        # Get event categories/types
+                        categories = event.get('categories', [])
+                        if categories:
+                            cat_names = [cat.get('name', '') for cat in categories if isinstance(cat, dict)]
+                            category_str = ', '.join(cat_names[:2])  # Show first 2 categories
+                        else:
+                            category_str = 'General'
+
+                        # Get proof/source
+                        source_url = event.get('source', {}).get('url', '') if isinstance(event.get('source'), dict) else ''
+                        proof = event.get('proof', '')
+                        link = source_url or proof or 'N/A'
+
+                        print(f"\n  [{i}] {title_text}")
+                        print(f"      📅 {formatted_date} | 🏷️  {category_str}")
+                        if link and link != 'N/A':
+                            print(f"      🔗 {link}")
+
+                        # Show description if available
+                        description = event.get('description', {})
+                        if isinstance(description, dict):
+                            desc_text = description.get('en', '')
+                        else:
+                            desc_text = str(description) if description else ''
+
+                        if desc_text:
+                            # Truncate description for readability
+                            summary = desc_text[:200] + '...' if len(desc_text) > 200 else desc_text
+                            print(f"      {summary}")
+            print()
+        else:
+            print(f"{'='*80}")
+            print(f"📅 EVENTS DATA NOT AVAILABLE")
+            print(f"{'='*80}")
+            print("ℹ️  Run 'python fetch_crypto_events.py --api-key YOUR_KEY' to fetch upcoming events.")
+            print("   Sign up at https://coinmarketcal.com/en/developer/register for a free API key.")
+            print()
+
     except FileNotFoundError:
         print(f"Error: The file '{csv_file}' was not found.")
     except Exception as e:
@@ -424,7 +508,7 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Enhanced cryptocurrency market analysis with news.')
+    parser = argparse.ArgumentParser(description='Enhanced cryptocurrency market analysis with news and events.')
     parser.add_argument('csv_file', type=str, help='Path to the Darwinex CSV file')
     parser.add_argument(
         '--market-data',
@@ -437,6 +521,12 @@ if __name__ == "__main__":
         type=str,
         default='crypto_news_data.json',
         help='Path to crypto news data JSON file (default: crypto_news_data.json)'
+    )
+    parser.add_argument(
+        '--events-data',
+        type=str,
+        default='crypto_events_data.json',
+        help='Path to crypto events data JSON file (default: crypto_events_data.json)'
     )
 
     args = parser.parse_args()
@@ -455,4 +545,11 @@ if __name__ == "__main__":
         print("Run 'python fetch_crypto_news.py' to fetch latest cryptocurrency news.")
         print("Proceeding without news data...\n")
 
-    analyze_crypto_enhanced(args.csv_file, market_data_file, news_data_file)
+    # Check if events data file exists
+    events_data_file = args.events_data if Path(args.events_data).exists() else None
+    if not events_data_file:
+        print(f"Info: Events data file '{args.events_data}' not found.")
+        print("Run 'python fetch_crypto_events.py --api-key YOUR_KEY' to fetch upcoming events.")
+        print("Proceeding without events data...\n")
+
+    analyze_crypto_enhanced(args.csv_file, market_data_file, news_data_file, events_data_file)
