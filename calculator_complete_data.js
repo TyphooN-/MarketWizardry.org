@@ -1,5 +1,5 @@
-// Complete dataset generated on 2025-09-30 16:59:02.412688
-// Total symbols: 843
+// Complete dataset generated on 2025-10-01 00:38:18.272207
+// Total symbols: 850
 const varData = {
             "AAL": {
                         "var": 0.318598,
@@ -15,7 +15,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7416475648.0,
                                     "enterprise_value": 36136853504.0,
-                                    "mcap_ev_ratio": 20.523302193919758
+                                    "mcap_ev_ratio": 20.523302193919758,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0283198222222222
                         }
             },
             "ACHC": {
@@ -32,7 +35,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2286501632.0,
                                     "enterprise_value": 4689470464.0,
-                                    "mcap_ev_ratio": 48.75820520787909
+                                    "mcap_ev_ratio": 48.75820520787909,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0727575070821529
                         }
             },
             "ADBE": {
@@ -49,7 +55,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 148051443712.0,
                                     "enterprise_value": 151163207680.0,
-                                    "mcap_ev_ratio": 97.94145413043408
+                                    "mcap_ev_ratio": 97.94145413043408,
+                                    "next_earnings_date": "2025-12-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0256385005237973
                         }
             },
             "ADI": {
@@ -66,7 +75,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 122241228800.0,
                                     "enterprise_value": 125662494720.0,
-                                    "mcap_ev_ratio": 97.27741683974742
+                                    "mcap_ev_ratio": 97.27741683974742,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0134689008261099
                         }
             },
             "ADP": {
@@ -83,7 +95,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 118893772800.0,
                                     "enterprise_value": 119943135232.0,
-                                    "mcap_ev_ratio": 99.12511672304524
+                                    "mcap_ev_ratio": 99.12511672304524,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0178183619955729
                         }
             },
             "ADSK": {
@@ -100,7 +115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 67842310144.0,
                                     "enterprise_value": 69090385920.0,
-                                    "mcap_ev_ratio": 98.19356085599934
+                                    "mcap_ev_ratio": 98.19356085599934,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0147855326114328
                         }
             },
             "AKAM": {
@@ -117,7 +135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10862888960.0,
                                     "enterprise_value": 15234769920.0,
-                                    "mcap_ev_ratio": 71.30326888454907
+                                    "mcap_ev_ratio": 71.30326888454907,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0251240137221269
                         }
             },
             "ALGN": {
@@ -134,7 +155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9076743168.0,
                                     "enterprise_value": 8381965312.0,
-                                    "mcap_ev_ratio": 108.28896124164729
+                                    "mcap_ev_ratio": 108.28896124164729,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0335947608018528
                         }
             },
             "ALNY": {
@@ -151,7 +175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 59772030976.0,
                                     "enterprise_value": 58538696704.0,
-                                    "mcap_ev_ratio": 102.10687005595004
+                                    "mcap_ev_ratio": 102.10687005595004,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0281889880691288
                         }
             },
             "AMAT": {
@@ -168,7 +195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 163104571392.0,
                                     "enterprise_value": 163019866112.0,
-                                    "mcap_ev_ratio": 100.05196009665582
+                                    "mcap_ev_ratio": 100.05196009665582,
+                                    "next_earnings_date": "2025-11-13",
+                                    "next_dividend_date": "2025-11-19",
+                                    "var_to_ask_ratio": 0.0362721801942505
                         }
             },
             "AMD": {
@@ -185,7 +215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 262559858688.0,
                                     "enterprise_value": 259881058304.0,
-                                    "mcap_ev_ratio": 101.0307793886488
+                                    "mcap_ev_ratio": 101.0307793886488,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0334950948291839
                         }
             },
             "AMGN": {
@@ -202,7 +235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 151925719040.0,
                                     "enterprise_value": 195670999040.0,
-                                    "mcap_ev_ratio": 77.64345242032654
+                                    "mcap_ev_ratio": 77.64345242032654,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0244935656361769
                         }
             },
             "AMKR": {
@@ -219,7 +255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7143144960.0,
                                     "enterprise_value": 6852511744.0,
-                                    "mcap_ev_ratio": 104.24126549297016
+                                    "mcap_ev_ratio": 104.24126549297016,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0468168014059754
                         }
             },
             "AMZN": {
@@ -236,7 +275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2341694865408.0,
                                     "enterprise_value": 2435813474304.0,
-                                    "mcap_ev_ratio": 96.13605023993502
+                                    "mcap_ev_ratio": 96.13605023993502,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0289338475540386
                         }
             },
             "APA": {
@@ -253,7 +295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8811972608.0,
                                     "enterprise_value": 14263522304.0,
-                                    "mcap_ev_ratio": 61.77977935736679
+                                    "mcap_ev_ratio": 61.77977935736679,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "2025-10-21",
+                                    "var_to_ask_ratio": 0.0506265515824085
                         }
             },
             "APLS": {
@@ -270,7 +315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2857940480.0,
                                     "enterprise_value": 2955451392.0,
-                                    "mcap_ev_ratio": 96.7006423362621
+                                    "mcap_ev_ratio": 96.7006423362621,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.03306142668428
                         }
             },
             "ARCC": {
@@ -287,7 +335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14410635264.0,
                                     "enterprise_value": 28014710784.0,
-                                    "mcap_ev_ratio": 51.439528950019806
+                                    "mcap_ev_ratio": 51.439528950019806,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0214892594409024
                         }
             },
             "ARWR": {
@@ -304,7 +355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4768503296.0,
                                     "enterprise_value": 4482947072.0,
-                                    "mcap_ev_ratio": 106.36983259926384
+                                    "mcap_ev_ratio": 106.36983259926384,
+                                    "next_earnings_date": "2025-11-26",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0831988429273936
                         }
             },
             "AVGO": {
@@ -321,7 +375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1589456666624.0,
                                     "enterprise_value": 164145905664.0,
-                                    "mcap_ev_ratio": 968.319410828043
+                                    "mcap_ev_ratio": 968.319410828043,
+                                    "next_earnings_date": "2025-12-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0583657571623465
                         }
             },
             "AXON": {
@@ -338,7 +395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 56337928192.0,
                                     "enterprise_value": 56031408128.0,
-                                    "mcap_ev_ratio": 100.54705043874638
+                                    "mcap_ev_ratio": 100.54705043874638,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0422139984435365
                         }
             },
             "AZTA": {
@@ -355,7 +415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1334743424.0,
                                     "enterprise_value": 1025076160.0,
-                                    "mcap_ev_ratio": 130.20919577331696
+                                    "mcap_ev_ratio": 130.20919577331696,
+                                    "next_earnings_date": "2025-11-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0384174619640387
                         }
             },
             "BIIB": {
@@ -372,7 +435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20537772032.0,
                                     "enterprise_value": 24144855040.0,
-                                    "mcap_ev_ratio": 85.06065577107726
+                                    "mcap_ev_ratio": 85.06065577107726,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0328266195776255
                         }
             },
             "BKNG": {
@@ -389,7 +455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 177979244544.0,
                                     "enterprise_value": 178433769472.0,
-                                    "mcap_ev_ratio": 99.74526967101296
+                                    "mcap_ev_ratio": 99.74526967101296,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0202828432352396
                         }
             },
             "BL": {
@@ -406,7 +475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3286243328.0,
                                     "enterprise_value": 3372243968.0,
-                                    "mcap_ev_ratio": 97.44975034973508
+                                    "mcap_ev_ratio": 97.44975034973508,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0313323856147618
                         }
             },
             "BLDR": {
@@ -423,7 +495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13403814912.0,
                                     "enterprise_value": 18450010112.0,
-                                    "mcap_ev_ratio": 72.64936349970928
+                                    "mcap_ev_ratio": 72.64936349970928,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0474191368212576
                         }
             },
             "BLK": {
@@ -440,7 +515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 180538867712.0,
                                     "enterprise_value": 187552382976.0,
-                                    "mcap_ev_ratio": 96.26050325103176
+                                    "mcap_ev_ratio": 96.26050325103176,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0182118623006453
                         }
             },
             "BMRN": {
@@ -457,7 +535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10399511552.0,
                                     "enterprise_value": 9544370176.0,
-                                    "mcap_ev_ratio": 108.95964175981264
+                                    "mcap_ev_ratio": 108.95964175981264,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0301277726517807
                         }
             },
             "BRKR": {
@@ -474,7 +555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4954903040.0,
                                     "enterprise_value": 7126693888.0,
-                                    "mcap_ev_ratio": 69.52596979565962
+                                    "mcap_ev_ratio": 69.52596979565962,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0649766481823783
                         }
             },
             "CACC": {
@@ -491,7 +575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5349414912.0,
                                     "enterprise_value": 11454776320.0,
-                                    "mcap_ev_ratio": 46.70030005439687
+                                    "mcap_ev_ratio": 46.70030005439687,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0519549017520703
                         }
             },
             "CAR": {
@@ -508,7 +595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5651196928.0,
                                     "enterprise_value": 34397806592.0,
-                                    "mcap_ev_ratio": 16.428945586647714
+                                    "mcap_ev_ratio": 16.428945586647714,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0221512438736894
                         }
             },
             "CASY": {
@@ -525,7 +615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21019312128.0,
                                     "enterprise_value": 23289202688.0,
-                                    "mcap_ev_ratio": 90.25346384584654
+                                    "mcap_ev_ratio": 90.25346384584654,
+                                    "next_earnings_date": "2025-12-08",
+                                    "next_dividend_date": "2025-10-30",
+                                    "var_to_ask_ratio": 0.0246840882941249
                         }
             },
             "CDNS": {
@@ -542,7 +635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 96151511040.0,
                                     "enterprise_value": 94445404160.0,
-                                    "mcap_ev_ratio": 101.8064477516658
+                                    "mcap_ev_ratio": 101.8064477516658,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.045217436174447
                         }
             },
             "CDW": {
@@ -559,7 +655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21148116992.0,
                                     "enterprise_value": 26973005824.0,
-                                    "mcap_ev_ratio": 78.4047470644998
+                                    "mcap_ev_ratio": 78.4047470644998,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0323693500784929
                         }
             },
             "CG": {
@@ -576,7 +675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22678896640.0,
                                     "enterprise_value": 33294331904.0,
-                                    "mcap_ev_ratio": 68.11638901597946
+                                    "mcap_ev_ratio": 68.11638901597946,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0316864328784512
                         }
             },
             "CGNX": {
@@ -593,7 +695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7645899776.0,
                                     "enterprise_value": 7502781952.0,
-                                    "mcap_ev_ratio": 101.90753009904346
+                                    "mcap_ev_ratio": 101.90753009904346,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0239847792664177
                         }
             },
             "CHDN": {
@@ -610,7 +715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6802759680.0,
                                     "enterprise_value": 11826117632.0,
-                                    "mcap_ev_ratio": 57.52318632103388
+                                    "mcap_ev_ratio": 57.52318632103388,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.022129057457087
                         }
             },
             "CHRW": {
@@ -627,7 +735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15635268608.0,
                                     "enterprise_value": 17108413440.0,
-                                    "mcap_ev_ratio": 91.38935449995763
+                                    "mcap_ev_ratio": 91.38935449995763,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0174289793759915
                         }
             },
             "CHTR": {
@@ -644,7 +755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 37576867840.0,
                                     "enterprise_value": 137551495168.0,
-                                    "mcap_ev_ratio": 27.318400133786326
+                                    "mcap_ev_ratio": 27.318400133786326,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0195076194279076
                         }
             },
             "CINF": {
@@ -661,7 +775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24723111936.0,
                                     "enterprise_value": 24241582080.0,
-                                    "mcap_ev_ratio": 101.98637966124032
+                                    "mcap_ev_ratio": 101.98637966124032,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0175643557467265
                         }
             },
             "CMCSA": {
@@ -678,7 +795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 116856455168.0,
                                     "enterprise_value": 208715579392.0,
-                                    "mcap_ev_ratio": 55.98837207476763
+                                    "mcap_ev_ratio": 55.98837207476763,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0122235593759949
                         }
             },
             "CME": {
@@ -695,7 +815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 97370275840.0,
                                     "enterprise_value": 99784400896.0,
-                                    "mcap_ev_ratio": 97.5806588661928
+                                    "mcap_ev_ratio": 97.5806588661928,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0156276651623881
                         }
             },
             "COLM": {
@@ -712,7 +835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2919379200.0,
                                     "enterprise_value": 2731035904.0,
-                                    "mcap_ev_ratio": 106.89640497673956
+                                    "mcap_ev_ratio": 106.89640497673956,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0319441767068273
                         }
             },
             "COST": {
@@ -729,7 +855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 410273447936.0,
                                     "enterprise_value": 399279718400.0,
-                                    "mcap_ev_ratio": 102.75339042515212
+                                    "mcap_ev_ratio": 102.75339042515212,
+                                    "next_earnings_date": "2025-12-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0187503398787459
                         }
             },
             "CPRT": {
@@ -746,7 +875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 43746361344.0,
                                     "enterprise_value": 81656782848.0,
-                                    "mcap_ev_ratio": 53.57345687428276
+                                    "mcap_ev_ratio": 53.57345687428276,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0252418816725978
                         }
             },
             "CROX": {
@@ -763,7 +895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4563280384.0,
                                     "enterprise_value": 6147718144.0,
-                                    "mcap_ev_ratio": 74.22722182625814
+                                    "mcap_ev_ratio": 74.22722182625814,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0477902546932918
                         }
             },
             "CRWD": {
@@ -780,7 +915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 123063377920.0,
                                     "enterprise_value": 118455140352.0,
-                                    "mcap_ev_ratio": 103.89028078841172
+                                    "mcap_ev_ratio": 103.89028078841172,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0529250652103032
                         }
             },
             "CSGP": {
@@ -797,7 +935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 35743383552.0,
                                     "enterprise_value": 32860971008.0,
-                                    "mcap_ev_ratio": 108.7715379539402
+                                    "mcap_ev_ratio": 108.7715379539402,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0220507112375533
                         }
             },
             "CSX": {
@@ -814,7 +955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 66200473600.0,
                                     "enterprise_value": 86226042880.0,
-                                    "mcap_ev_ratio": 76.77549773695472
+                                    "mcap_ev_ratio": 76.77549773695472,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0271648367117117
                         }
             },
             "CTAS": {
@@ -831,7 +975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 82843475968.0,
                                     "enterprise_value": 84702658560.0,
-                                    "mcap_ev_ratio": 97.80504812528046
+                                    "mcap_ev_ratio": 97.80504812528046,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0161735255442458
                         }
             },
             "CTSH": {
@@ -848,7 +995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32756715520.0,
                                     "enterprise_value": 32130598912.0,
-                                    "mcap_ev_ratio": 101.94866149154214
+                                    "mcap_ev_ratio": 101.94866149154214,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0263980169971671
                         }
             },
             "DBX": {
@@ -865,7 +1015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8358642688.0,
                                     "enterprise_value": 10359742464.0,
-                                    "mcap_ev_ratio": 80.68388492326135
+                                    "mcap_ev_ratio": 80.68388492326135,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0279422809917355
                         }
             },
             "DDOG": {
@@ -882,7 +1035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 47545073664.0,
                                     "enterprise_value": 48012173312.0,
-                                    "mcap_ev_ratio": 99.02712246545346
+                                    "mcap_ev_ratio": 99.02712246545346,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0319406212748054
                         }
             },
             "DLTR": {
@@ -899,7 +1055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19422113792.0,
                                     "enterprise_value": 25892210688.0,
-                                    "mcap_ev_ratio": 75.01141569576896
+                                    "mcap_ev_ratio": 75.01141569576896,
+                                    "next_earnings_date": "2025-12-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0403848828580515
                         }
             },
             "DNLI": {
@@ -916,7 +1075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2123002240.0,
                                     "enterprise_value": 1272023296.0,
-                                    "mcap_ev_ratio": 166.89963514630475
+                                    "mcap_ev_ratio": 166.89963514630475,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.051109128065395
                         }
             },
             "DOCU": {
@@ -933,7 +1095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14497594368.0,
                                     "enterprise_value": 15801179136.0,
-                                    "mcap_ev_ratio": 91.75007917586336
+                                    "mcap_ev_ratio": 91.75007917586336,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0338281457871396
                         }
             },
             "DOX": {
@@ -950,7 +1115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9043678208.0,
                                     "enterprise_value": 9498074112.0,
-                                    "mcap_ev_ratio": 95.21591536724368
+                                    "mcap_ev_ratio": 95.21591536724368,
+                                    "next_earnings_date": "2025-11-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0172302300109529
                         }
             },
             "DXCM": {
@@ -967,7 +1135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26642241536.0,
                                     "enterprise_value": 25712637952.0,
-                                    "mcap_ev_ratio": 103.61535671966202
+                                    "mcap_ev_ratio": 103.61535671966202,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0549113339275104
                         }
             },
             "EA": {
@@ -984,7 +1155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 50292662272.0,
                                     "enterprise_value": 51133386752.0,
-                                    "mcap_ev_ratio": 98.355820857168
+                                    "mcap_ev_ratio": 98.355820857168,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0601631156476067
                         }
             },
             "EBAY": {
@@ -1001,7 +1175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 41564147712.0,
                                     "enterprise_value": 45076688896.0,
-                                    "mcap_ev_ratio": 92.2076326588582
+                                    "mcap_ev_ratio": 92.2076326588582,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0229962645572401
                         }
             },
             "EEFT": {
@@ -1018,7 +1195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3501193472.0,
                                     "enterprise_value": 3984919296.0,
-                                    "mcap_ev_ratio": 87.86108856745088
+                                    "mcap_ev_ratio": 87.86108856745088,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0197586971350613
                         }
             },
             "ENPH": {
@@ -1035,7 +1215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4681135104.0,
                                     "enterprise_value": 4422041600.0,
-                                    "mcap_ev_ratio": 105.85913764357169
+                                    "mcap_ev_ratio": 105.85913764357169,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0536523997741389
                         }
             },
             "ENTG": {
@@ -1052,7 +1235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13998443520.0,
                                     "enterprise_value": 17852157952.0,
-                                    "mcap_ev_ratio": 78.41317311687654
+                                    "mcap_ev_ratio": 78.41317311687654,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0423446721311475
                         }
             },
             "ETSY": {
@@ -1069,7 +1255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6579817984.0,
                                     "enterprise_value": 9030963200.0,
-                                    "mcap_ev_ratio": 72.85842980735433
+                                    "mcap_ev_ratio": 72.85842980735433,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0760382135863834
                         }
             },
             "EWBC": {
@@ -1086,7 +1275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14671125504.0,
                                     "enterprise_value": 13512799232.0,
-                                    "mcap_ev_ratio": 108.57206750513204
+                                    "mcap_ev_ratio": 108.57206750513204,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0225026098385279
                         }
             },
             "EXEL": {
@@ -1103,7 +1295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11118064640.0,
                                     "enterprise_value": 10310290432.0,
-                                    "mcap_ev_ratio": 107.83464067600768
+                                    "mcap_ev_ratio": 107.83464067600768,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0278679592825981
                         }
             },
             "A": {
@@ -1120,7 +1315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 36387278848.0,
                                     "enterprise_value": 37142179840.0,
-                                    "mcap_ev_ratio": 97.967537190192
+                                    "mcap_ev_ratio": 97.967537190192,
+                                    "next_earnings_date": "2025-11-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0239014027431421
                         }
             },
             "AA": {
@@ -1137,7 +1335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8515704832.0,
                                     "enterprise_value": 10007263232.0,
-                                    "mcap_ev_ratio": 85.09524167176419
+                                    "mcap_ev_ratio": 85.09524167176419,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0368709814646004
                         }
             },
             "AAP": {
@@ -1154,7 +1355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3683075840.0,
                                     "enterprise_value": 6171052544.0,
-                                    "mcap_ev_ratio": 59.6831061433918
+                                    "mcap_ev_ratio": 59.6831061433918,
+                                    "next_earnings_date": "2025-11-13",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0421898373983739
                         }
             },
             "ABBV": {
@@ -1171,7 +1375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 409028886528.0,
                                     "enterprise_value": 458388144128.0,
-                                    "mcap_ev_ratio": 89.23199514815178
+                                    "mcap_ev_ratio": 89.23199514815178,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "2025-10-14",
+                                    "var_to_ask_ratio": 0.0193000992920048
                         }
             },
             "ABT": {
@@ -1188,7 +1395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 233887662080.0,
                                     "enterprise_value": 238124498944.0,
-                                    "mcap_ev_ratio": 98.22074717940032
+                                    "mcap_ev_ratio": 98.22074717940032,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "2025-10-14",
+                                    "var_to_ask_ratio": 0.0183910081337213
                         }
             },
             "ACM": {
@@ -1205,7 +1415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17280243712.0,
                                     "enterprise_value": 18789885952.0,
-                                    "mcap_ev_ratio": 91.96566576371735
+                                    "mcap_ev_ratio": 91.96566576371735,
+                                    "next_earnings_date": "2025-11-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0249495647525962
                         }
             },
             "ACN": {
@@ -1222,7 +1435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 153385205760.0,
                                     "enterprise_value": 151377707008.0,
-                                    "mcap_ev_ratio": 101.32615217371072
+                                    "mcap_ev_ratio": 101.32615217371072,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0300251812548098
                         }
             },
             "ADM": {
@@ -1239,7 +1455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 28840966144.0,
                                     "enterprise_value": 38784811008.0,
-                                    "mcap_ev_ratio": 74.36149718004576
+                                    "mcap_ev_ratio": 74.36149718004576,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.02340338245144
                         }
             },
             "AEP": {
@@ -1256,7 +1475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 60164411392.0,
                                     "enterprise_value": 105992372224.0,
-                                    "mcap_ev_ratio": 56.76296334310828
+                                    "mcap_ev_ratio": 56.76296334310828,
+                                    "next_earnings_date": "2025-11-13",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0140270748178425
                         }
             },
             "AES": {
@@ -1273,7 +1495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9427535872.0,
                                     "enterprise_value": 45405573120.0,
-                                    "mcap_ev_ratio": 20.762948739980576
+                                    "mcap_ev_ratio": 20.762948739980576,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0281119969627942
                         }
             },
             "AFG": {
@@ -1290,7 +1515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12211095552.0,
                                     "enterprise_value": 12411838464.0,
-                                    "mcap_ev_ratio": 98.38264965675918
+                                    "mcap_ev_ratio": 98.38264965675918,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0141885296329209
                         }
             },
             "AFL": {
@@ -1307,7 +1535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 59746041856.0,
                                     "enterprise_value": 65174487040.0,
-                                    "mcap_ev_ratio": 91.67090462765228
+                                    "mcap_ev_ratio": 91.67090462765228,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0164535752688172
                         }
             },
             "AGCO": {
@@ -1324,7 +1555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8128794624.0,
                                     "enterprise_value": 10725422080.0,
-                                    "mcap_ev_ratio": 75.78997416948276
+                                    "mcap_ev_ratio": 75.78997416948276,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223679917879805
                         }
             },
             "AIG": {
@@ -1341,7 +1575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 43556147200.0,
                                     "enterprise_value": 40517898240.0,
-                                    "mcap_ev_ratio": 107.4985354422964
+                                    "mcap_ev_ratio": 107.4985354422964,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0196253913707522
                         }
             },
             "AIZ": {
@@ -1358,7 +1595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10989094912.0,
                                     "enterprise_value": 11102377984.0,
-                                    "mcap_ev_ratio": 98.97965037613334
+                                    "mcap_ev_ratio": 98.97965037613334,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0197269576439139
                         }
             },
             "AJG": {
@@ -1375,7 +1615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 79405875200.0,
                                     "enterprise_value": 77490143232.0,
-                                    "mcap_ev_ratio": 102.47222664470296
+                                    "mcap_ev_ratio": 102.47222664470296,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0195853695518921
                         }
             },
             "AL": {
@@ -1392,7 +1635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7113844224.0,
                                     "enterprise_value": 26978340864.0,
-                                    "mcap_ev_ratio": 26.36872393251114
+                                    "mcap_ev_ratio": 26.36872393251114,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0258116279069767
                         }
             },
             "ALB": {
@@ -1409,7 +1655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9675720704.0,
                                     "enterprise_value": 14657230848.0,
-                                    "mcap_ev_ratio": 66.01329271770503
+                                    "mcap_ev_ratio": 66.01329271770503,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0621057001850709
                         }
             },
             "ALK": {
@@ -1426,7 +1675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5790226432.0,
                                     "enterprise_value": 10065259520.0,
-                                    "mcap_ev_ratio": 57.52684687855917
+                                    "mcap_ev_ratio": 57.52684687855917,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0330363964686998
                         }
             },
             "ALL": {
@@ -1443,7 +1695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 56957628416.0,
                                     "enterprise_value": 55116406784.0,
-                                    "mcap_ev_ratio": 103.34060534681753
+                                    "mcap_ev_ratio": 103.34060534681753,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0248546276447012
                         }
             },
             "ALLY": {
@@ -1460,7 +1715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12156889088.0,
                                     "enterprise_value": 23830228992.0,
-                                    "mcap_ev_ratio": 51.01457099753915
+                                    "mcap_ev_ratio": 51.01457099753915,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0233640397857689
                         }
             },
             "AME": {
@@ -1477,7 +1735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 43419344896.0,
                                     "enterprise_value": 44737351680.0,
-                                    "mcap_ev_ratio": 97.0539007462321
+                                    "mcap_ev_ratio": 97.0539007462321,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0167260360695855
                         }
             },
             "AMG": {
@@ -1494,7 +1755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6783084544.0,
                                     "enterprise_value": 10447911936.0,
-                                    "mcap_ev_ratio": 64.9228724892652
+                                    "mcap_ev_ratio": 64.9228724892652,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0179737726152174
                         }
             },
             "AMP": {
@@ -1511,7 +1775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 46310907904.0,
                                     "enterprise_value": 42426130432.0,
-                                    "mcap_ev_ratio": 109.15656797460343
+                                    "mcap_ev_ratio": 109.15656797460343,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0226215277495012
                         }
             },
             "AMT": {
@@ -1528,7 +1795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 90054082560.0,
                                     "enterprise_value": 141001572352.0,
-                                    "mcap_ev_ratio": 63.86743144621582
+                                    "mcap_ev_ratio": 63.86743144621582,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0207960852793995
                         }
             },
             "AN": {
@@ -1545,7 +1815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8257671680.0,
                                     "enterprise_value": 17440118784.0,
-                                    "mcap_ev_ratio": 47.348712369870974
+                                    "mcap_ev_ratio": 47.348712369870974,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0197644250045562
                         }
             },
             "ANET": {
@@ -1562,7 +1835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 183137861632.0,
                                     "enterprise_value": 171352391680.0,
-                                    "mcap_ev_ratio": 106.8779138922142
+                                    "mcap_ev_ratio": 106.8779138922142,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0512283518594757
                         }
             },
             "AON": {
@@ -1579,7 +1855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 77204684800.0,
                                     "enterprise_value": 93660504064.0,
-                                    "mcap_ev_ratio": 82.430353724388
+                                    "mcap_ev_ratio": 82.430353724388,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0202089391265372
                         }
             },
             "AOS": {
@@ -1596,7 +1875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10244493312.0,
                                     "enterprise_value": 20543854592.0,
-                                    "mcap_ev_ratio": 49.866461360125264
+                                    "mcap_ev_ratio": 49.866461360125264,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0218297808629372
                         }
             },
             "APD": {
@@ -1613,7 +1895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 60694827008.0,
                                     "enterprise_value": 78466105344.0,
-                                    "mcap_ev_ratio": 77.3516497880331
+                                    "mcap_ev_ratio": 77.3516497880331,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0238019197655248
                         }
             },
             "APH": {
@@ -1630,7 +1915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 153074204672.0,
                                     "enterprise_value": 152660066304.0,
-                                    "mcap_ev_ratio": 100.27128140189284
+                                    "mcap_ev_ratio": 100.27128140189284,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0296956984908401
                         }
             },
             "ARES": {
@@ -1647,7 +1935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 52118904832.0,
                                     "enterprise_value": 53735063552.0,
-                                    "mcap_ev_ratio": 96.99235729304382
+                                    "mcap_ev_ratio": 96.99235729304382,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.035820870542684
                         }
             },
             "ARMK": {
@@ -1664,7 +1955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10093475840.0,
                                     "enterprise_value": 16188068864.0,
-                                    "mcap_ev_ratio": 62.35132754127627
+                                    "mcap_ev_ratio": 62.35132754127627,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0167983849960927
                         }
             },
             "ARW": {
@@ -1681,7 +1975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6249277952.0,
                                     "enterprise_value": 8884713472.0,
-                                    "mcap_ev_ratio": 70.33741686430831
+                                    "mcap_ev_ratio": 70.33741686430831,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.031054948045522
                         }
             },
             "ASH": {
@@ -1698,7 +1995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2243574016.0,
                                     "enterprise_value": 3454517760.0,
-                                    "mcap_ev_ratio": 64.94608428355568
+                                    "mcap_ev_ratio": 64.94608428355568,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0303009181969949
                         }
             },
             "AVTR": {
@@ -1715,7 +2015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8508098560.0,
                                     "enterprise_value": 11864785920.0,
-                                    "mcap_ev_ratio": 71.70882489888196
+                                    "mcap_ev_ratio": 71.70882489888196,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0391630904723779
                         }
             },
             "AVY": {
@@ -1732,7 +2035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12672289792.0,
                                     "enterprise_value": 15804307456.0,
-                                    "mcap_ev_ratio": 80.18250611284489
+                                    "mcap_ev_ratio": 80.18250611284489,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0189391536994895
                         }
             },
             "AWI": {
@@ -1749,7 +2055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8490007552.0,
                                     "enterprise_value": 8865036288.0,
-                                    "mcap_ev_ratio": 95.76957472235448
+                                    "mcap_ev_ratio": 95.76957472235448,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0162731656397983
                         }
             },
             "AWK": {
@@ -1766,7 +2075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 27155769344.0,
                                     "enterprise_value": 41633308672.0,
-                                    "mcap_ev_ratio": 65.22606588378909
+                                    "mcap_ev_ratio": 65.22606588378909,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0156620607889631
                         }
             },
             "AXTA": {
@@ -1783,7 +2095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6213837312.0,
                                     "enterprise_value": 8904408064.0,
-                                    "mcap_ev_ratio": 69.78383366236527
+                                    "mcap_ev_ratio": 69.78383366236527,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0270271458478716
                         }
             },
             "AYI": {
@@ -1800,7 +2115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10553774080.0,
                                     "enterprise_value": 11004036096.0,
-                                    "mcap_ev_ratio": 95.9082102960052
+                                    "mcap_ev_ratio": 95.9082102960052,
+                                    "next_earnings_date": "2025-10-01",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0267230969609261
                         }
             },
             "AZO": {
@@ -1817,7 +2135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 71496851456.0,
                                     "enterprise_value": 83245391872.0,
-                                    "mcap_ev_ratio": 85.88685793675545
+                                    "mcap_ev_ratio": 85.88685793675545,
+                                    "next_earnings_date": "2025-12-09",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0208200929354635
                         }
             },
             "BAC": {
@@ -1834,7 +2155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 382124425216.0,
                                     "enterprise_value": 392896184320.0,
-                                    "mcap_ev_ratio": 97.25837014104806
+                                    "mcap_ev_ratio": 97.25837014104806,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0147174999999999
                         }
             },
             "BAH": {
@@ -1851,7 +2175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12342374400.0,
                                     "enterprise_value": 15662062592.0,
-                                    "mcap_ev_ratio": 78.80427196290444
+                                    "mcap_ev_ratio": 78.80427196290444,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0263570231444533
                         }
             },
             "BALL": {
@@ -1868,7 +2195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13721746432.0,
                                     "enterprise_value": 20643586048.0,
-                                    "mcap_ev_ratio": 66.46978097746441
+                                    "mcap_ev_ratio": 66.46978097746441,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0210901347068145
                         }
             },
             "BAX": {
@@ -1885,7 +2215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11695152128.0,
                                     "enterprise_value": 19506839552.0,
-                                    "mcap_ev_ratio": 59.95411043815613
+                                    "mcap_ev_ratio": 59.95411043815613,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0328390350877193
                         }
             },
             "BBY": {
@@ -1902,7 +2235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15990753280.0,
                                     "enterprise_value": 18353262592.0,
-                                    "mcap_ev_ratio": 87.12757854273934
+                                    "mcap_ev_ratio": 87.12757854273934,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0270855783212161
                         }
             },
             "BC": {
@@ -1919,7 +2255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4131520000.0,
                                     "enterprise_value": 6292077568.0,
-                                    "mcap_ev_ratio": 65.66225472190492
+                                    "mcap_ev_ratio": 65.66225472190492,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0300614046187915
                         }
             },
             "BDX": {
@@ -1936,7 +2275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 53823000576.0,
                                     "enterprise_value": 71323451392.0,
-                                    "mcap_ev_ratio": 75.46325861347346
+                                    "mcap_ev_ratio": 75.46325861347346,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0191899246352023
                         }
             },
             "BEN": {
@@ -1953,7 +2295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12008990720.0,
                                     "enterprise_value": 14946098176.0,
-                                    "mcap_ev_ratio": 80.34866744876385
+                                    "mcap_ev_ratio": 80.34866744876385,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.018338737570255
                         }
             },
             "BFAM": {
@@ -1970,7 +2315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6174577152.0,
                                     "enterprise_value": 7743205888.0,
-                                    "mcap_ev_ratio": 79.74186972826107
+                                    "mcap_ev_ratio": 79.74186972826107,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0261448510481794
                         }
             },
             "BILL": {
@@ -1987,7 +2335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5383267328.0,
                                     "enterprise_value": 5109094400.0,
-                                    "mcap_ev_ratio": 105.36637036888573
+                                    "mcap_ev_ratio": 105.36637036888573,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0462287591514923
                         }
             },
             "BIO": {
@@ -2004,7 +2355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7694299136.0,
                                     "enterprise_value": 7342549504.0,
-                                    "mcap_ev_ratio": 104.79056534529836
+                                    "mcap_ev_ratio": 104.79056534529836,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0260384296054499
                         }
             },
             "BJ": {
@@ -2021,7 +2375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12286002176.0,
                                     "enterprise_value": 14950680576.0,
-                                    "mcap_ev_ratio": 82.17687558466369
+                                    "mcap_ev_ratio": 82.17687558466369,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0201951436535162
                         }
             },
             "BK": {
@@ -2038,7 +2395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 76843040768.0,
                                     "enterprise_value": -50301820928.0,
-                                    "mcap_ev_ratio": -152.76393448656663
+                                    "mcap_ev_ratio": -152.76393448656663,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.014645965523565
                         }
             },
             "BKR": {
@@ -2055,7 +2415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 48032030720.0,
                                     "enterprise_value": 52954189824.0,
-                                    "mcap_ev_ratio": 90.70487317366307
+                                    "mcap_ev_ratio": 90.70487317366307,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.023799055247484
                         }
             },
             "BLD": {
@@ -2072,7 +2435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11019911168.0,
                                     "enterprise_value": 12225562624.0,
-                                    "mcap_ev_ratio": 90.1382742612337
+                                    "mcap_ev_ratio": 90.1382742612337,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0263875105033992
                         }
             },
             "BMY": {
@@ -2089,7 +2455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 91798151168.0,
                                     "enterprise_value": 127304491008.0,
-                                    "mcap_ev_ratio": 72.1091223421421
+                                    "mcap_ev_ratio": 72.1091223421421,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0180674589071523
                         }
             },
             "BR": {
@@ -2106,7 +2475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 27896690688.0,
                                     "enterprise_value": 30730240000.0,
-                                    "mcap_ev_ratio": 90.77928023992004
+                                    "mcap_ev_ratio": 90.77928023992004,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0156032371835243
                         }
             },
             "BRKb": {
@@ -2123,7 +2495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0111766801877038
                         }
             },
             "BRO": {
@@ -2140,7 +2515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31188713472.0,
                                     "enterprise_value": 29588977664.0,
-                                    "mcap_ev_ratio": 105.40652612660676
+                                    "mcap_ev_ratio": 105.40652612660676,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.020277078891258
                         }
             },
             "BSX": {
@@ -2157,7 +2535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 146362875904.0,
                                     "enterprise_value": 155517173760.0,
-                                    "mcap_ev_ratio": 94.11364183474214
+                                    "mcap_ev_ratio": 94.11364183474214,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0177529417794177
                         }
             },
             "BURL": {
@@ -2174,7 +2555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16408949760.0,
                                     "enterprise_value": 21148676096.0,
-                                    "mcap_ev_ratio": 77.58854353584593
+                                    "mcap_ev_ratio": 77.58854353584593,
+                                    "next_earnings_date": "2025-11-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0300169552754545
                         }
             },
             "BWA": {
@@ -2191,7 +2575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9560388608.0,
                                     "enterprise_value": 11664335872.0,
-                                    "mcap_ev_ratio": 81.962562746067
+                                    "mcap_ev_ratio": 81.962562746067,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0204242997039398
                         }
             },
             "BX": {
@@ -2208,7 +2595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 208857350144.0,
                                     "enterprise_value": 162356002816.0,
-                                    "mcap_ev_ratio": 128.64159410274502
+                                    "mcap_ev_ratio": 128.64159410274502,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.028450765634132
                         }
             },
             "BYD": {
@@ -2225,7 +2615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6931923968.0,
                                     "enterprise_value": 10946366464.0,
-                                    "mcap_ev_ratio": 63.32625525371777
+                                    "mcap_ev_ratio": 63.32625525371777,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0176797386376778
                         }
             },
             "C": {
@@ -2242,7 +2635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 187322073088.0,
                                     "enterprise_value": -5035972608.0,
-                                    "mcap_ev_ratio": -3719.680142628767
+                                    "mcap_ev_ratio": -3719.680142628767,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0175014771048744
                         }
             },
             "CABO": {
@@ -2259,7 +2655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 996612672.0,
                                     "enterprise_value": 4283951872.0,
-                                    "mcap_ev_ratio": 23.26386247506377
+                                    "mcap_ev_ratio": 23.26386247506377,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0540864986498649
                         }
             },
             "CACI": {
@@ -2276,7 +2675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10970065920.0,
                                     "enterprise_value": 13964252160.0,
-                                    "mcap_ev_ratio": 78.55820558313378
+                                    "mcap_ev_ratio": 78.55820558313378,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0297144889083945
                         }
             },
             "CAG": {
@@ -2293,7 +2695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8832902144.0,
                                     "enterprise_value": 16855671808.0,
-                                    "mcap_ev_ratio": 52.403145033992345
+                                    "mcap_ev_ratio": 52.403145033992345,
+                                    "next_earnings_date": "2025-10-01",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0234298197706171
                         }
             },
             "CAH": {
@@ -2310,7 +2715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 37290979328.0,
                                     "enterprise_value": 42571333632.0,
-                                    "mcap_ev_ratio": 87.59645551712087
+                                    "mcap_ev_ratio": 87.59645551712087,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0277851514185527
                         }
             },
             "CARR": {
@@ -2327,7 +2735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 50806063104.0,
                                     "enterprise_value": 60718981120.0,
-                                    "mcap_ev_ratio": 83.67410349589213
+                                    "mcap_ev_ratio": 83.67410349589213,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0234801673640167
                         }
             },
             "CB": {
@@ -2344,7 +2755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 112985186304.0,
                                     "enterprise_value": 131385860096.0,
-                                    "mcap_ev_ratio": 85.99493600106196
+                                    "mcap_ev_ratio": 85.99493600106196,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.014840470621589
                         }
             },
             "CBRE": {
@@ -2361,7 +2775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 46882660352.0,
                                     "enterprise_value": 55664701440.0,
-                                    "mcap_ev_ratio": 84.22332131347905
+                                    "mcap_ev_ratio": 84.22332131347905,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0235231677886447
                         }
             },
             "CC": {
@@ -2378,7 +2795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2380341248.0,
                                     "enterprise_value": 6246293504.0,
-                                    "mcap_ev_ratio": 38.108059547244736
+                                    "mcap_ev_ratio": 38.108059547244736,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0437454716981132
                         }
             },
             "CCI": {
@@ -2395,7 +2815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 42018504704.0,
                                     "enterprise_value": 71359864832.0,
-                                    "mcap_ev_ratio": 58.882545255547605
+                                    "mcap_ev_ratio": 58.882545255547605,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0194408624442831
                         }
             },
             "CCK": {
@@ -2412,7 +2835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11301258240.0,
                                     "enterprise_value": 17355624448.0,
-                                    "mcap_ev_ratio": 65.115826133829
+                                    "mcap_ev_ratio": 65.115826133829,
+                                    "next_earnings_date": "2025-10-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0321873966087675
                         }
             },
             "CCL": {
@@ -2429,7 +2855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 40825159680.0,
                                     "enterprise_value": 64703569920.0,
-                                    "mcap_ev_ratio": 63.09568348466173
+                                    "mcap_ev_ratio": 63.09568348466173,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0278959529574541
                         }
             },
             "CE": {
@@ -2446,7 +2875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4607917056.0,
                                     "enterprise_value": 17041132544.0,
-                                    "mcap_ev_ratio": 27.039969580087558
+                                    "mcap_ev_ratio": 27.039969580087558,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0518072817836812
                         }
             },
             "CF": {
@@ -2463,7 +2895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14789020672.0,
                                     "enterprise_value": 19158171648.0,
-                                    "mcap_ev_ratio": 77.1943217950231
+                                    "mcap_ev_ratio": 77.1943217950231,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0302163228899542
                         }
             },
             "CFG": {
@@ -2480,7 +2915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22930511872.0,
                                     "enterprise_value": 28735873024.0,
-                                    "mcap_ev_ratio": 79.79751251283925
+                                    "mcap_ev_ratio": 79.79751251283925,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0193480451127819
                         }
             },
             "CFR": {
@@ -2497,7 +2935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8257672704.0,
                                     "enterprise_value": 6141252096.0,
-                                    "mcap_ev_ratio": 134.46236329198234
+                                    "mcap_ev_ratio": 134.46236329198234,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0198909863142991
                         }
             },
             "CHD": {
@@ -2514,7 +2955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21478729728.0,
                                     "enterprise_value": 22478262272.0,
-                                    "mcap_ev_ratio": 95.55333712230475
+                                    "mcap_ev_ratio": 95.55333712230475,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0237414319917911
                         }
             },
             "CHE": {
@@ -2531,7 +2975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6670075904.0,
                                     "enterprise_value": 6458996224.0,
-                                    "mcap_ev_ratio": 103.26799509830462
+                                    "mcap_ev_ratio": 103.26799509830462,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0273970752027087
                         }
             },
             "CHGG": {
@@ -2548,7 +2995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 163573760.0,
                                     "enterprise_value": 163855024.0,
-                                    "mcap_ev_ratio": 99.82834581867932
+                                    "mcap_ev_ratio": 99.82834581867932,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.1426774834437086
                         }
             },
             "CHWY": {
@@ -2565,7 +3015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16661835776.0,
                                     "enterprise_value": 16504309760.0,
-                                    "mcap_ev_ratio": 100.95445382624716
+                                    "mcap_ev_ratio": 100.95445382624716,
+                                    "next_earnings_date": "2025-12-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0780335643564356
                         }
             },
             "CI": {
@@ -2582,7 +3035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 76942016512.0,
                                     "enterprise_value": 102354264064.0,
-                                    "mcap_ev_ratio": 75.17226293951931
+                                    "mcap_ev_ratio": 75.17226293951931,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0182149148317407
                         }
             },
             "CIEN": {
@@ -2599,7 +3055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20589365248.0,
                                     "enterprise_value": 20589860864.0,
-                                    "mcap_ev_ratio": 99.99759291234032
+                                    "mcap_ev_ratio": 99.99759291234032,
+                                    "next_earnings_date": "2025-12-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0872007183908046
                         }
             },
             "CL": {
@@ -2616,7 +3075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 64609173504.0,
                                     "enterprise_value": 72676950016.0,
-                                    "mcap_ev_ratio": 88.8991261875686
+                                    "mcap_ev_ratio": 88.8991261875686,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "2025-10-16",
+                                    "var_to_ask_ratio": 0.018379025
                         }
             },
             "CLF": {
@@ -2633,7 +3095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6035281920.0,
                                     "enterprise_value": 14262887424.0,
-                                    "mcap_ev_ratio": 42.31458708595357
+                                    "mcap_ev_ratio": 42.31458708595357,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0503350490196078
                         }
             },
             "CLX": {
@@ -2650,7 +3115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15252415488.0,
                                     "enterprise_value": 17952835584.0,
-                                    "mcap_ev_ratio": 84.95825306612467
+                                    "mcap_ev_ratio": 84.95825306612467,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "2025-10-21",
+                                    "var_to_ask_ratio": 0.022839138531293
                         }
             },
             "CMA": {
@@ -2667,7 +3135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8860170240.0,
                                     "enterprise_value": 12373257216.0,
-                                    "mcap_ev_ratio": 71.6074198194378
+                                    "mcap_ev_ratio": 71.6074198194378,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.020288242159008
                         }
             },
             "CMG": {
@@ -2684,7 +3155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 52786348032.0,
                                     "enterprise_value": 56735404032.0,
-                                    "mcap_ev_ratio": 93.03952079415411
+                                    "mcap_ev_ratio": 93.03952079415411,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223596075433231
                         }
             },
             "CMI": {
@@ -2701,7 +3175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 58196684800.0,
                                     "enterprise_value": 64563597312.0,
-                                    "mcap_ev_ratio": 90.13854125687536
+                                    "mcap_ev_ratio": 90.13854125687536,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0237799367043763
                         }
             },
             "CMS": {
@@ -2718,7 +3195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21929316352.0,
                                     "enterprise_value": 39784640512.0,
-                                    "mcap_ev_ratio": 55.120056558976806
+                                    "mcap_ev_ratio": 55.120056558976806,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.014274594078319
                         }
             },
             "CNC": {
@@ -2735,7 +3215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17523625984.0,
                                     "enterprise_value": 17685792768.0,
-                                    "mcap_ev_ratio": 99.08306748740482
+                                    "mcap_ev_ratio": 99.08306748740482,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0566414681983749
                         }
             },
             "CNP": {
@@ -2752,7 +3235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25331156992.0,
                                     "enterprise_value": 46368604160.0,
-                                    "mcap_ev_ratio": 54.62997528368988
+                                    "mcap_ev_ratio": 54.62997528368988,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "2025-11-19",
+                                    "var_to_ask_ratio": 0.0157814499484004
                         }
             },
             "COF": {
@@ -2769,7 +3255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 136222187520.0,
                                     "enterprise_value": 143259074560.0,
-                                    "mcap_ev_ratio": 95.08799909421948
+                                    "mcap_ev_ratio": 95.08799909421948,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0198917375569864
                         }
             },
             "COHR": {
@@ -2786,7 +3275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16783366144.0,
                                     "enterprise_value": 22659678208.0,
-                                    "mcap_ev_ratio": 74.06709834950186
+                                    "mcap_ev_ratio": 74.06709834950186,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0504813155209203
                         }
             },
             "COO": {
@@ -2803,7 +3295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13630340096.0,
                                     "enterprise_value": 15806999552.0,
-                                    "mcap_ev_ratio": 86.22977467140754
+                                    "mcap_ev_ratio": 86.22977467140754,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0298918828329932
                         }
             },
             "COP": {
@@ -2820,7 +3315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 121378988032.0,
                                     "enterprise_value": 137900113920.0,
-                                    "mcap_ev_ratio": 88.01949801318916
+                                    "mcap_ev_ratio": 88.01949801318916,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0317081783601014
                         }
             },
             "COR": {
@@ -2837,7 +3335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 60592656384.0,
                                     "enterprise_value": 67873079296.0,
-                                    "mcap_ev_ratio": 89.27347486291364
+                                    "mcap_ev_ratio": 89.27347486291364,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0298481993661768
                         }
             },
             "COTY": {
@@ -2854,7 +3355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3530384128.0,
                                     "enterprise_value": 7898903040.0,
-                                    "mcap_ev_ratio": 44.69461278511909
+                                    "mcap_ev_ratio": 44.69461278511909,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0316061881188118
                         }
             },
             "CPAY": {
@@ -2871,7 +3375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20400998400.0,
                                     "enterprise_value": 27029110784.0,
-                                    "mcap_ev_ratio": 75.47787481072615
+                                    "mcap_ev_ratio": 75.47787481072615,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0230411934184948
                         }
             },
             "CRL": {
@@ -2888,7 +3395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7782295040.0,
                                     "enterprise_value": 9886402560.0,
-                                    "mcap_ev_ratio": 78.7171571536735
+                                    "mcap_ev_ratio": 78.7171571536735,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0323949904397705
                         }
             },
             "CRM": {
@@ -2905,7 +3415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 225623998464.0,
                                     "enterprise_value": 229772197888.0,
-                                    "mcap_ev_ratio": 98.19464693199218
+                                    "mcap_ev_ratio": 98.19464693199218,
+                                    "next_earnings_date": "2025-12-02",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0313132438592048
                         }
             },
             "CSL": {
@@ -2922,7 +3435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14063282176.0,
                                     "enterprise_value": 16074877952.0,
-                                    "mcap_ev_ratio": 87.48608989749921
+                                    "mcap_ev_ratio": 87.48608989749921,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0416760249013058
                         }
             },
             "CTLT": {
@@ -2939,7 +3455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0111740629921259
                         }
             },
             "CTVA": {
@@ -2956,7 +3475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 46144393216.0,
                                     "enterprise_value": 47752605696.0,
-                                    "mcap_ev_ratio": 96.63219952804646
+                                    "mcap_ev_ratio": 96.63219952804646,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0309481738873281
                         }
             },
             "CVNA": {
@@ -2973,7 +3495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 44117086208.0,
                                     "enterprise_value": 58463866880.0,
-                                    "mcap_ev_ratio": 75.46043148078542
+                                    "mcap_ev_ratio": 75.46043148078542,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0389555546759552
                         }
             },
             "CVS": {
@@ -2990,7 +3515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 95872188416.0,
                                     "enterprise_value": 164570431488.0,
-                                    "mcap_ev_ratio": 58.25602299826912
+                                    "mcap_ev_ratio": 58.25602299826912,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "2025-10-22",
+                                    "var_to_ask_ratio": 0.02793300597213
                         }
             },
             "D": {
@@ -3007,7 +3535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 52204531712.0,
                                     "enterprise_value": 103029178368.0,
-                                    "mcap_ev_ratio": 50.66965741057903
+                                    "mcap_ev_ratio": 50.66965741057903,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0181370013080444
                         }
             },
             "DAL": {
@@ -3024,7 +3555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 37054824448.0,
                                     "enterprise_value": 56448630784.0,
-                                    "mcap_ev_ratio": 65.64344242429871
+                                    "mcap_ev_ratio": 65.64344242429871,
+                                    "next_earnings_date": "2025-10-09",
+                                    "next_dividend_date": "2025-10-15",
+                                    "var_to_ask_ratio": 0.0207392844554106
                         }
             },
             "DAR": {
@@ -3041,7 +3575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5115808256.0,
                                     "enterprise_value": 9045252096.0,
-                                    "mcap_ev_ratio": 56.557940029801024
+                                    "mcap_ev_ratio": 56.557940029801024,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0427103626943005
                         }
             },
             "DAY": {
@@ -3058,7 +3595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10885066752.0,
                                     "enterprise_value": 11595836416.0,
-                                    "mcap_ev_ratio": 93.87047524213712
+                                    "mcap_ev_ratio": 93.87047524213712,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0044463591528865
                         }
             },
             "DD": {
@@ -3075,7 +3615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32618029056.0,
                                     "enterprise_value": 38554935296.0,
-                                    "mcap_ev_ratio": 84.60143638053013
+                                    "mcap_ev_ratio": 84.60143638053013,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0220568783749035
                         }
             },
             "DE": {
@@ -3092,7 +3635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 123610824704.0,
                                     "enterprise_value": 186094632960.0,
-                                    "mcap_ev_ratio": 66.42363766104391
+                                    "mcap_ev_ratio": 66.42363766104391,
+                                    "next_earnings_date": "2025-11-26",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0150528665207877
                         }
             },
             "DECK": {
@@ -3109,7 +3655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15400111104.0,
                                     "enterprise_value": 13912557568.0,
-                                    "mcap_ev_ratio": 110.6921644617054
+                                    "mcap_ev_ratio": 110.6921644617054,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0309697474847109
                         }
             },
             "DELL": {
@@ -3126,7 +3675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 92786163712.0,
                                     "enterprise_value": 111403761664.0,
-                                    "mcap_ev_ratio": 83.28817835779036
+                                    "mcap_ev_ratio": 83.28817835779036,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "2025-10-20",
+                                    "var_to_ask_ratio": 0.024550007066139
                         }
             },
             "DG": {
@@ -3143,7 +3695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22747957248.0,
                                     "enterprise_value": 38441082880.0,
-                                    "mcap_ev_ratio": 59.17616139745957
+                                    "mcap_ev_ratio": 59.17616139745957,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "2025-10-06",
+                                    "var_to_ask_ratio": 0.0279126820741891
                         }
             },
             "DGX": {
@@ -3160,7 +3715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21328238592.0,
                                     "enterprise_value": 27299737600.0,
-                                    "mcap_ev_ratio": 78.12616701488002
+                                    "mcap_ev_ratio": 78.12616701488002,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0176514385854781
                         }
             },
             "DHI": {
@@ -3177,7 +3735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 50522992640.0,
                                     "enterprise_value": 56186818560.0,
-                                    "mcap_ev_ratio": 89.91965363913282
+                                    "mcap_ev_ratio": 89.91965363913282,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0314783060044827
                         }
             },
             "DHR": {
@@ -3194,7 +3755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 141964378112.0,
                                     "enterprise_value": 148834566144.0,
-                                    "mcap_ev_ratio": 95.38401044193392
+                                    "mcap_ev_ratio": 95.38401044193392,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0230698980621719
                         }
             },
             "DKS": {
@@ -3211,7 +3775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20688265216.0,
                                     "enterprise_value": 20989409280.0,
-                                    "mcap_ev_ratio": 98.56525707806864
+                                    "mcap_ev_ratio": 98.56525707806864,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0393572736246971
                         }
             },
             "DLB": {
@@ -3228,7 +3795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6932413440.0,
                                     "enterprise_value": 6291293184.0,
-                                    "mcap_ev_ratio": 110.19059575272212
+                                    "mcap_ev_ratio": 110.19059575272212,
+                                    "next_earnings_date": "2025-11-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0162744442910396
                         }
             },
             "DOV": {
@@ -3245,7 +3815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23063484416.0,
                                     "enterprise_value": 24656334848.0,
-                                    "mcap_ev_ratio": 93.53979234213227
+                                    "mcap_ev_ratio": 93.53979234213227,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0202362818590704
                         }
             },
             "DPZ": {
@@ -3262,7 +3835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14701296640.0,
                                     "enterprise_value": 20811096064.0,
-                                    "mcap_ev_ratio": 70.64162596140713
+                                    "mcap_ev_ratio": 70.64162596140713,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.021162825080981
                         }
             },
             "DRI": {
@@ -3279,7 +3855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22141487104.0,
                                     "enterprise_value": 30285830144.0,
-                                    "mcap_ev_ratio": 73.10840415707246
+                                    "mcap_ev_ratio": 73.10840415707246,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0348221265875931
                         }
             },
             "DT": {
@@ -3296,7 +3875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14664254464.0,
                                     "enterprise_value": 13611641856.0,
-                                    "mcap_ev_ratio": 107.73317884158118
+                                    "mcap_ev_ratio": 107.73317884158118,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0294864469618949
                         }
             },
             "DTE": {
@@ -3313,7 +3895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 29359142912.0,
                                     "enterprise_value": 53207891968.0,
-                                    "mcap_ev_ratio": 55.178173436483846
+                                    "mcap_ev_ratio": 55.178173436483846,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0131946981478863
                         }
             },
             "DUK": {
@@ -3330,7 +3915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 96403431424.0,
                                     "enterprise_value": 185713278976.0,
-                                    "mcap_ev_ratio": 51.90982139540941
+                                    "mcap_ev_ratio": 51.90982139540941,
+                                    "next_earnings_date": "2025-11-07",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.011532355318461
                         }
             },
             "DVA": {
@@ -3347,7 +3935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9515481088.0,
                                     "enterprise_value": 23335784448.0,
-                                    "mcap_ev_ratio": 40.77634976961542
+                                    "mcap_ev_ratio": 40.77634976961542,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0242967114648246
                         }
             },
             "DVN": {
@@ -3364,7 +3955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23177160704.0,
                                     "enterprise_value": 30130096128.0,
-                                    "mcap_ev_ratio": 76.92362017544771
+                                    "mcap_ev_ratio": 76.92362017544771,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0387231557960695
                         }
             },
             "DXC": {
@@ -3381,7 +3975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2507771392.0,
                                     "enterprise_value": 5708751872.0,
-                                    "mcap_ev_ratio": 43.92854074285469
+                                    "mcap_ev_ratio": 43.92854074285469,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0446069066862601
                         }
             },
             "ECL": {
@@ -3398,7 +3995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 77673512960.0,
                                     "enterprise_value": 83677061120.0,
-                                    "mcap_ev_ratio": 92.82533578540672
+                                    "mcap_ev_ratio": 92.82533578540672,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0173504101797498
                         }
             },
             "EFX": {
@@ -3415,7 +4015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31603822592.0,
                                     "enterprise_value": 36482670592.0,
-                                    "mcap_ev_ratio": 86.62694391383222
+                                    "mcap_ev_ratio": 86.62694391383222,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0388940663448061
                         }
             },
             "EHC": {
@@ -3432,7 +4035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12878305280.0,
                                     "enterprise_value": 16072808448.0,
-                                    "mcap_ev_ratio": 80.12479786382632
+                                    "mcap_ev_ratio": 80.12479786382632,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0157470329324844
                         }
             },
             "EIX": {
@@ -3449,7 +4055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21273624576.0,
                                     "enterprise_value": 64460382208.0,
-                                    "mcap_ev_ratio": 33.00263487013545
+                                    "mcap_ev_ratio": 33.00263487013545,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "2025-10-06",
+                                    "var_to_ask_ratio": 0.0236763376717281
                         }
             },
             "EL": {
@@ -3466,7 +4075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 30874671104.0,
                                     "enterprise_value": 38622945280.0,
-                                    "mcap_ev_ratio": 79.93867603874253
+                                    "mcap_ev_ratio": 79.93867603874253,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0363306499094202
                         }
             },
             "ELAN": {
@@ -3483,7 +4095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10005827584.0,
                                     "enterprise_value": 13412516864.0,
-                                    "mcap_ev_ratio": 74.60067104076671
+                                    "mcap_ev_ratio": 74.60067104076671,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0392149727317798
                         }
             },
             "ELV": {
@@ -3500,7 +4115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 72759615488.0,
                                     "enterprise_value": 67510251520.0,
-                                    "mcap_ev_ratio": 107.77565458550376
+                                    "mcap_ev_ratio": 107.77565458550376,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0316637087035947
                         }
             },
             "EME": {
@@ -3517,7 +4135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 29076168704.0,
                                     "enterprise_value": 28869826560.0,
-                                    "mcap_ev_ratio": 100.71473288407591
+                                    "mcap_ev_ratio": 100.71473288407591,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0275387490793027
                         }
             },
             "EMN": {
@@ -3534,7 +4155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7245960704.0,
                                     "enterprise_value": 12191215616.0,
-                                    "mcap_ev_ratio": 59.43591625506364
+                                    "mcap_ev_ratio": 59.43591625506364,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0349861102312321
                         }
             },
             "EMR": {
@@ -3551,7 +4175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 73828098048.0,
                                     "enterprise_value": 85407899648.0,
-                                    "mcap_ev_ratio": 86.44176750894826
+                                    "mcap_ev_ratio": 86.44176750894826,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0284839713283513
                         }
             },
             "ENOV": {
@@ -3568,7 +4195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1734228480.0,
                                     "enterprise_value": 3148553728.0,
-                                    "mcap_ev_ratio": 55.08016155409878
+                                    "mcap_ev_ratio": 55.08016155409878,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0394686222808174
                         }
             },
             "EOG": {
@@ -3585,7 +4215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 63355457536.0,
                                     "enterprise_value": 61268353024.0,
-                                    "mcap_ev_ratio": 103.40649684378238
+                                    "mcap_ev_ratio": 103.40649684378238,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "2025-10-16",
+                                    "var_to_ask_ratio": 0.0291755823293172
                         }
             },
             "EPAM": {
@@ -3602,7 +4235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8398536192.0,
                                     "enterprise_value": 7727101440.0,
-                                    "mcap_ev_ratio": 108.68934822732184
+                                    "mcap_ev_ratio": 108.68934822732184,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0389732166534075
                         }
             },
             "EQH": {
@@ -3619,7 +4255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15233723392.0,
                                     "enterprise_value": 9261752320.0,
-                                    "mcap_ev_ratio": 164.47992632132923
+                                    "mcap_ev_ratio": 164.47992632132923,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0212494384236453
                         }
             },
             "EQT": {
@@ -3636,7 +4275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 33967423488.0,
                                     "enterprise_value": 45420277760.0,
-                                    "mcap_ev_ratio": 74.78471106558024
+                                    "mcap_ev_ratio": 74.78471106558024,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0249234202792064
                         }
             },
             "ES": {
@@ -3653,7 +4295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26401132544.0,
                                     "enterprise_value": 55766147072.0,
-                                    "mcap_ev_ratio": 47.34257955801275
+                                    "mcap_ev_ratio": 47.34257955801275,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0266880483689538
                         }
             },
             "ESI": {
@@ -3670,7 +4315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6081491456.0,
                                     "enterprise_value": 7156084224.0,
-                                    "mcap_ev_ratio": 84.98350865692662
+                                    "mcap_ev_ratio": 84.98350865692662,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0259514898688915
                         }
             },
             "ESNT": {
@@ -3687,7 +4335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6355035648.0,
                                     "enterprise_value": 6108890624.0,
-                                    "mcap_ev_ratio": 104.02929171841726
+                                    "mcap_ev_ratio": 104.02929171841726,
+                                    "next_earnings_date": "2025-11-07",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0197975905511811
                         }
             },
             "ESTC": {
@@ -3704,7 +4355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8978831360.0,
                                     "enterprise_value": 8347530240.0,
-                                    "mcap_ev_ratio": 107.56272935646172
+                                    "mcap_ev_ratio": 107.56272935646172,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0333901158666351
                         }
             },
             "ETN": {
@@ -3721,7 +4375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 145695522816.0,
                                     "enterprise_value": 154022494208.0,
-                                    "mcap_ev_ratio": 94.59366540269448
+                                    "mcap_ev_ratio": 94.59366540269448,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0288803388021875
                         }
             },
             "ETR": {
@@ -3738,7 +4395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 41600860160.0,
                                     "enterprise_value": 71306731520.0,
-                                    "mcap_ev_ratio": 58.340719414872986
+                                    "mcap_ev_ratio": 58.340719414872986,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0194723867782786
                         }
             },
             "EVR": {
@@ -3755,7 +4415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13086746624.0,
                                     "enterprise_value": 13723741184.0,
-                                    "mcap_ev_ratio": 95.3584481705131
+                                    "mcap_ev_ratio": 95.3584481705131,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0282886061717802
                         }
             },
             "EVRG": {
@@ -3772,7 +4435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17496406016.0,
                                     "enterprise_value": 32099758080.0,
-                                    "mcap_ev_ratio": 54.50634852884224
+                                    "mcap_ev_ratio": 54.50634852884224,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0122667148678848
                         }
             },
             "EW": {
@@ -3789,7 +4455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 45658767360.0,
                                     "enterprise_value": 42019848192.0,
-                                    "mcap_ev_ratio": 108.66000074862907
+                                    "mcap_ev_ratio": 108.66000074862907,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0152250867052023
                         }
             },
             "EXC": {
@@ -3806,7 +4475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 45459525632.0,
                                     "enterprise_value": 92839141376.0,
-                                    "mcap_ev_ratio": 48.965904852446016
+                                    "mcap_ev_ratio": 48.965904852446016,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.012671019320453
                         }
             },
             "EXP": {
@@ -3823,7 +4495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7561983488.0,
                                     "enterprise_value": 8850965504.0,
-                                    "mcap_ev_ratio": 85.43682024952562
+                                    "mcap_ev_ratio": 85.43682024952562,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0376545152778959
                         }
             },
             "EXPD": {
@@ -3840,7 +4515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16637733888.0,
                                     "enterprise_value": 16093122560.0,
-                                    "mcap_ev_ratio": 103.38412465305926
+                                    "mcap_ev_ratio": 103.38412465305926,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0166706031382804
                         }
             },
             "EXPE": {
@@ -3857,7 +4535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26727225344.0,
                                     "enterprise_value": 28356524032.0,
-                                    "mcap_ev_ratio": 94.25423692212291
+                                    "mcap_ev_ratio": 94.25423692212291,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0268001215407629
                         }
             },
             "FANG": {
@@ -3874,7 +4555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 42772848640.0,
                                     "enterprise_value": 60462415872.0,
-                                    "mcap_ev_ratio": 70.74287062983205
+                                    "mcap_ev_ratio": 70.74287062983205,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0335501956126868
                         }
             },
             "FAST": {
@@ -3891,7 +4575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 56280100864.0,
                                     "enterprise_value": 56392400896.0,
-                                    "mcap_ev_ratio": 99.80085963673172
+                                    "mcap_ev_ratio": 99.80085963673172,
+                                    "next_earnings_date": "2025-10-13",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0232549011616058
                         }
             },
             "FFIV": {
@@ -3908,7 +4595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18693517312.0,
                                     "enterprise_value": 17368764416.0,
-                                    "mcap_ev_ratio": 107.62721437328982
+                                    "mcap_ev_ratio": 107.62721437328982,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0254961608605607
                         }
             },
             "F": {
@@ -3925,7 +4615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 47284166656.0,
                                     "enterprise_value": 180098514944.0,
-                                    "mcap_ev_ratio": 26.254612188613876
+                                    "mcap_ev_ratio": 26.254612188613876,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0202057644110275
                         }
             },
             "FAF": {
@@ -3942,7 +4635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6652242944.0,
                                     "enterprise_value": 7065483776.0,
-                                    "mcap_ev_ratio": 94.15127335790233
+                                    "mcap_ev_ratio": 94.15127335790233,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0256142034847542
                         }
             },
             "FBIN": {
@@ -3959,7 +4655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6424553984.0,
                                     "enterprise_value": 9139766272.0,
-                                    "mcap_ev_ratio": 70.2923225037149
+                                    "mcap_ev_ratio": 70.2923225037149,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0326037182361733
                         }
             },
             "FCX": {
@@ -3976,7 +4675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 56311062528.0,
                                     "enterprise_value": 69844934656.0,
-                                    "mcap_ev_ratio": 80.62297259685764
+                                    "mcap_ev_ratio": 80.62297259685764,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "2025-10-14",
+                                    "var_to_ask_ratio": 0.0749353795211411
                         }
             },
             "FDS": {
@@ -3993,7 +4695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10831262720.0,
                                     "enterprise_value": 12178240512.0,
-                                    "mcap_ev_ratio": 88.93947125881824
+                                    "mcap_ev_ratio": 88.93947125881824,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0482176513595376
                         }
             },
             "FDX": {
@@ -4010,7 +4715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 55932289024.0,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.019494771214113
                         }
             },
             "FE": {
@@ -4027,7 +4735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26468300800.0,
                                     "enterprise_value": 52788912128.0,
-                                    "mcap_ev_ratio": 50.13988683044073
+                                    "mcap_ev_ratio": 50.13988683044073,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "2025-11-06",
+                                    "var_to_ask_ratio": 0.0130198822759973
                         }
             },
             "FHN": {
@@ -4044,7 +4755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11576433664.0,
                                     "enterprise_value": 13245560832.0,
-                                    "mcap_ev_ratio": 87.39859195718199
+                                    "mcap_ev_ratio": 87.39859195718199,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0206979655019902
                         }
             },
             "FI": {
@@ -4061,7 +4775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 70085459968.0,
                                     "enterprise_value": 100166729728.0,
-                                    "mcap_ev_ratio": 69.9688011761142
+                                    "mcap_ev_ratio": 69.9688011761142,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0196282655910642
                         }
             },
             "FICO": {
@@ -4078,7 +4795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 35922190336.0,
                                     "enterprise_value": 39227764736.0,
-                                    "mcap_ev_ratio": 91.5733806852206
+                                    "mcap_ev_ratio": 91.5733806852206,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0303142450389416
                         }
             },
             "FITB": {
@@ -4095,7 +4815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 29506560000.0,
                                     "enterprise_value": 46201679872.0,
-                                    "mcap_ev_ratio": 63.864690811560976
+                                    "mcap_ev_ratio": 63.864690811560976,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0156617680053847
                         }
             },
             "FIVE": {
@@ -4112,7 +4835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8531002880.0,
                                     "enterprise_value": 9913655296.0,
-                                    "mcap_ev_ratio": 86.05305132449101
+                                    "mcap_ev_ratio": 86.05305132449101,
+                                    "next_earnings_date": "2025-12-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0426575416828228
                         }
             },
             "FIVN": {
@@ -4129,7 +4855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1869757056.0,
                                     "enterprise_value": 2131508736.0,
-                                    "mcap_ev_ratio": 87.71988706500896
+                                    "mcap_ev_ratio": 87.71988706500896,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0336926155115511
                         }
             },
             "FLEX": {
@@ -4146,7 +4875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21678260224.0,
                                     "enterprise_value": 23624945664.0,
-                                    "mcap_ev_ratio": 91.76004267825095
+                                    "mcap_ev_ratio": 91.76004267825095,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0260285492496118
                         }
             },
             "FIS": {
@@ -4163,7 +4895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 34445643776.0,
                                     "enterprise_value": 46757064704.0,
-                                    "mcap_ev_ratio": 73.66938877378507
+                                    "mcap_ev_ratio": 73.66938877378507,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0233417273831208
                         }
             },
             "FLS": {
@@ -4180,7 +4915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7031729152.0,
                                     "enterprise_value": 8080960512.0,
-                                    "mcap_ev_ratio": 87.01600684173718
+                                    "mcap_ev_ratio": 87.01600684173718,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223862936537739
                         }
             },
             "FMC": {
@@ -4197,7 +4935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4217073408.0,
                                     "enterprise_value": 8065387008.0,
-                                    "mcap_ev_ratio": 52.28606393985948
+                                    "mcap_ev_ratio": 52.28606393985948,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0304773051754907
                         }
             },
             "FND": {
@@ -4214,7 +4955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8076141568.0,
                                     "enterprise_value": 9875516416.0,
-                                    "mcap_ev_ratio": 81.77943540162913
+                                    "mcap_ev_ratio": 81.77943540162913,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0501007036535859
                         }
             },
             "FNF": {
@@ -4231,7 +4975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16598608896.0,
                                     "enterprise_value": 17609443328.0,
-                                    "mcap_ev_ratio": 94.25970251772402
+                                    "mcap_ev_ratio": 94.25970251772402,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0205336030383091
                         }
             },
             "FOX": {
@@ -4248,7 +4995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26030305280.0,
                                     "enterprise_value": 27902550016.0,
-                                    "mcap_ev_ratio": 93.29005866873668
+                                    "mcap_ev_ratio": 93.29005866873668,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0382498693152117
                         }
             },
             "FOXA": {
@@ -4265,7 +5015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25972676608.0,
                                     "enterprise_value": 30522300416.0,
-                                    "mcap_ev_ratio": 85.09409924549772
+                                    "mcap_ev_ratio": 85.09409924549772,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0392212984956452
                         }
             },
             "FOXF": {
@@ -4282,7 +5035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1015335552.0,
                                     "enterprise_value": 1755106816.0,
-                                    "mcap_ev_ratio": 57.85035661328091
+                                    "mcap_ev_ratio": 57.85035661328091,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0350722405271828
                         }
             },
             "FRPT": {
@@ -4299,7 +5055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2688258816.0,
                                     "enterprise_value": 2808020224.0,
-                                    "mcap_ev_ratio": 95.73502331014552
+                                    "mcap_ev_ratio": 95.73502331014552,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0482129241877256
                         }
             },
             "FSLR": {
@@ -4316,7 +5075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23651323904.0,
                                     "enterprise_value": 23886299136.0,
-                                    "mcap_ev_ratio": 99.01627610597131
+                                    "mcap_ev_ratio": 99.01627610597131,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0231414499320344
                         }
             },
             "FTNT": {
@@ -4333,7 +5095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 64427651072.0,
                                     "enterprise_value": 61390221312.0,
-                                    "mcap_ev_ratio": 104.94774199389678
+                                    "mcap_ev_ratio": 104.94774199389678,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0267008203542979
                         }
             },
             "FTV": {
@@ -4350,7 +5115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16575098880.0,
                                     "enterprise_value": 19699730432.0,
-                                    "mcap_ev_ratio": 84.13870909154987
+                                    "mcap_ev_ratio": 84.13870909154987,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0214897100857492
                         }
             },
             "G": {
@@ -4367,7 +5135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7307097600.0,
                                     "enterprise_value": 8212678144.0,
-                                    "mcap_ev_ratio": 88.97338324817225
+                                    "mcap_ev_ratio": 88.97338324817225,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0231552217453505
                         }
             },
             "GAP": {
@@ -4384,7 +5155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8178445312.0,
                                     "enterprise_value": 11078148096.0,
-                                    "mcap_ev_ratio": 73.82502238756857
+                                    "mcap_ev_ratio": 73.82502238756857,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "2025-10-07",
+                                    "var_to_ask_ratio": 0.0473391771856007
                         }
             },
             "GD": {
@@ -4401,7 +5175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 91726733312.0,
                                     "enterprise_value": 98313183232.0,
-                                    "mcap_ev_ratio": 93.30054250765409
+                                    "mcap_ev_ratio": 93.30054250765409,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0125769289466733
                         }
             },
             "GDDY": {
@@ -4418,7 +5195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18943979520.0,
                                     "enterprise_value": 22340872192.0,
-                                    "mcap_ev_ratio": 84.79516536862698
+                                    "mcap_ev_ratio": 84.79516536862698,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0268543386320548
                         }
             },
             "GGG": {
@@ -4435,7 +5215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14114033664.0,
                                     "enterprise_value": 13515949056.0,
-                                    "mcap_ev_ratio": 104.4250285756626
+                                    "mcap_ev_ratio": 104.4250285756626,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "2025-10-19",
+                                    "var_to_ask_ratio": 0.0148708406819517
                         }
             },
             "GEN": {
@@ -4452,7 +5235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17490595840.0,
                                     "enterprise_value": 25835872256.0,
-                                    "mcap_ev_ratio": 67.6988787786643
+                                    "mcap_ev_ratio": 67.6988787786643,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0186959169306582
                         }
             },
             "GH": {
@@ -4469,7 +5255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7791621632.0,
                                     "enterprise_value": 8541860864.0,
-                                    "mcap_ev_ratio": 91.2169111163832
+                                    "mcap_ev_ratio": 91.2169111163832,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0467407112103332
                         }
             },
             "GIS": {
@@ -4486,7 +5275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 27127734272.0,
                                     "enterprise_value": 39955861504.0,
-                                    "mcap_ev_ratio": 67.8942544369472
+                                    "mcap_ev_ratio": 67.8942544369472,
+                                    "next_earnings_date": "2025-12-17",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0221338092405314
                         }
             },
             "GL": {
@@ -4503,7 +5295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11664996352.0,
                                     "enterprise_value": 14456963072.0,
-                                    "mcap_ev_ratio": 80.68773707109045
+                                    "mcap_ev_ratio": 80.68773707109045,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0163144245560061
                         }
             },
             "GLW": {
@@ -4520,7 +5315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 70268428288.0,
                                     "enterprise_value": 76189220864.0,
-                                    "mcap_ev_ratio": 92.22883170498778
+                                    "mcap_ev_ratio": 92.22883170498778,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0250345427980031
                         }
             },
             "GM": {
@@ -4537,7 +5335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 58162155520.0,
                                     "enterprise_value": 176396992512.0,
-                                    "mcap_ev_ratio": 32.97230564520159
+                                    "mcap_ev_ratio": 32.97230564520159,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0161573843124384
                         }
             },
             "GMED": {
@@ -4554,7 +5355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7636022272.0,
                                     "enterprise_value": 7511892992.0,
-                                    "mcap_ev_ratio": 101.65243674440244
+                                    "mcap_ev_ratio": 101.65243674440244,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0269709027777777
                         }
             },
             "GNRC": {
@@ -4571,7 +5375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9967479808.0,
                                     "enterprise_value": 10997653504.0,
-                                    "mcap_ev_ratio": 90.63278638824808
+                                    "mcap_ev_ratio": 90.63278638824808,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0479360820451843
                         }
             },
             "GILD": {
@@ -4588,7 +5395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 137729572864.0,
                                     "enterprise_value": 158543675392.0,
-                                    "mcap_ev_ratio": 86.87169167957218
+                                    "mcap_ev_ratio": 86.87169167957218,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0237112550607287
                         }
             },
             "GNTX": {
@@ -4605,7 +5415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6332055040.0,
                                     "enterprise_value": 6097484288.0,
-                                    "mcap_ev_ratio": 103.84700871573612
+                                    "mcap_ev_ratio": 103.84700871573612,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "2025-10-07",
+                                    "var_to_ask_ratio": 0.0195459010600706
                         }
             },
             "GPC": {
@@ -4622,7 +5435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19278192640.0,
                                     "enterprise_value": 25344200704.0,
-                                    "mcap_ev_ratio": 76.0654986328189
+                                    "mcap_ev_ratio": 76.0654986328189,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0232581205827203
                         }
             },
             "GPK": {
@@ -4639,7 +5455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5827626496.0,
                                     "enterprise_value": 11469599744.0,
-                                    "mcap_ev_ratio": 50.80932749243111
+                                    "mcap_ev_ratio": 50.80932749243111,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0307679631525076
                         }
             },
             "GPN": {
@@ -4656,7 +5475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20155799552.0,
                                     "enterprise_value": 35831570432.0,
-                                    "mcap_ev_ratio": 56.25151035523556
+                                    "mcap_ev_ratio": 56.25151035523556,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.021758751353302
                         }
             },
             "GOOG": {
@@ -4673,7 +5495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2975234785280.0,
                                     "enterprise_value": 2901809823744.0,
-                                    "mcap_ev_ratio": 102.53031611290312
+                                    "mcap_ev_ratio": 102.53031611290312,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0388138628899835
                         }
             },
             "GOOGL": {
@@ -4690,7 +5515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2973510139904.0,
                                     "enterprise_value": 2898060640256.0,
-                                    "mcap_ev_ratio": 102.60344792651873
+                                    "mcap_ev_ratio": 102.60344792651873,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0391706700119277
                         }
             },
             "GT": {
@@ -4707,7 +5535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2242329856.0,
                                     "enterprise_value": 10516348928.0,
-                                    "mcap_ev_ratio": 21.3223227124934
+                                    "mcap_ev_ratio": 21.3223227124934,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0231398395721925
                         }
             },
             "GTLS": {
@@ -4724,7 +5555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9016276992.0,
                                     "enterprise_value": 12576991232.0,
-                                    "mcap_ev_ratio": 71.68866405074394
+                                    "mcap_ev_ratio": 71.68866405074394,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.003148501348786
                         }
             },
             "GWRE": {
@@ -4741,7 +5575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19430197248.0,
                                     "enterprise_value": 19133036544.0,
-                                    "mcap_ev_ratio": 101.55312881631006
+                                    "mcap_ev_ratio": 101.55312881631006,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0771693369805913
                         }
             },
             "GWW": {
@@ -4758,7 +5595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 46147194880.0,
                                     "enterprise_value": 47885008896.0,
-                                    "mcap_ev_ratio": 96.37085999132984
+                                    "mcap_ev_ratio": 96.37085999132984,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0210744983330188
                         }
             },
             "H": {
@@ -4775,7 +5615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13338186752.0,
                                     "enterprise_value": 19526078464.0,
-                                    "mcap_ev_ratio": 68.3096033675756
+                                    "mcap_ev_ratio": 68.3096033675756,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0226709480337078
                         }
             },
             "HALO": {
@@ -4792,7 +5635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8632126464.0,
                                     "enterprise_value": 9562331136.0,
-                                    "mcap_ev_ratio": 90.27219766006648
+                                    "mcap_ev_ratio": 90.27219766006648,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0219029860921734
                         }
             },
             "HAS": {
@@ -4809,7 +5655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10636638208.0,
                                     "enterprise_value": 13621694464.0,
-                                    "mcap_ev_ratio": 78.0860137195924
+                                    "mcap_ev_ratio": 78.0860137195924,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0256224037954665
                         }
             },
             "HBAN": {
@@ -4826,7 +5675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25297092608.0,
                                     "enterprise_value": 34138181632.0,
-                                    "mcap_ev_ratio": 74.10205054474062
+                                    "mcap_ev_ratio": 74.10205054474062,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0157270833333333
                         }
             },
             "HAL": {
@@ -4843,7 +5695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21066297344.0,
                                     "enterprise_value": 27880052736.0,
-                                    "mcap_ev_ratio": 75.56046447788182
+                                    "mcap_ev_ratio": 75.56046447788182,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0422320341047503
                         }
             },
             "HCA": {
@@ -4860,7 +5715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 99728031744.0,
                                     "enterprise_value": 146972540928.0,
-                                    "mcap_ev_ratio": 67.85487351195452
+                                    "mcap_ev_ratio": 67.85487351195452,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0256399112356925
                         }
             },
             "HEI": {
@@ -4877,7 +5735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 39448850432.0,
                                     "enterprise_value": 46938402816.0,
-                                    "mcap_ev_ratio": 84.04387040317653
+                                    "mcap_ev_ratio": 84.04387040317653,
+                                    "next_earnings_date": "2025-12-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0163883779264214
                         }
             },
             "HELE": {
@@ -4894,7 +5755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 578474752.0,
                                     "enterprise_value": 1475851008.0,
-                                    "mcap_ev_ratio": 39.19601293520274
+                                    "mcap_ev_ratio": 39.19601293520274,
+                                    "next_earnings_date": "2025-10-09",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0481923349056603
                         }
             },
             "HIG": {
@@ -4911,7 +5775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 37749379072.0,
                                     "enterprise_value": 38073950208.0,
-                                    "mcap_ev_ratio": 99.14752439863253
+                                    "mcap_ev_ratio": 99.14752439863253,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0156061389700921
                         }
             },
             "HII": {
@@ -4928,7 +5795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11297770496.0,
                                     "enterprise_value": 13534934016.0,
-                                    "mcap_ev_ratio": 83.47119005267857
+                                    "mcap_ev_ratio": 83.47119005267857,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0194686875
                         }
             },
             "HLT": {
@@ -4945,7 +5815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 61018669056.0,
                                     "enterprise_value": 73049620480.0,
-                                    "mcap_ev_ratio": 83.53043952186732
+                                    "mcap_ev_ratio": 83.53043952186732,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0202897184728114
                         }
             },
             "HOG": {
@@ -4962,7 +5835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3405503744.0,
                                     "enterprise_value": 9323264000.0,
-                                    "mcap_ev_ratio": 36.52694747247316
+                                    "mcap_ev_ratio": 36.52694747247316,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0329511095204008
                         }
             },
             "HOLX": {
@@ -4979,7 +5855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15024489472.0,
                                     "enterprise_value": 15574654976.0,
-                                    "mcap_ev_ratio": 96.46755896135237
+                                    "mcap_ev_ratio": 96.46755896135237,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0330415407407407
                         }
             },
             "HQY": {
@@ -4996,7 +5875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8266948096.0,
                                     "enterprise_value": 8964708352.0,
-                                    "mcap_ev_ratio": 92.216587215084
+                                    "mcap_ev_ratio": 92.216587215084,
+                                    "next_earnings_date": "2025-12-09",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0453362054418899
                         }
             },
             "HSIC": {
@@ -5013,7 +5895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8049802752.0,
                                     "enterprise_value": 12676777984.0,
-                                    "mcap_ev_ratio": 63.50038442071055
+                                    "mcap_ev_ratio": 63.50038442071055,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0275029747596153
                         }
             },
             "HON": {
@@ -5030,7 +5915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 133645729792.0,
                                     "enterprise_value": 160401145856.0,
-                                    "mcap_ev_ratio": 83.3196852047306
+                                    "mcap_ev_ratio": 83.3196852047306,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "2025-11-13",
+                                    "var_to_ask_ratio": 0.0146416864382651
                         }
             },
             "HPE": {
@@ -5047,7 +5935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32405694464.0,
                                     "enterprise_value": 51736522752.0,
-                                    "mcap_ev_ratio": 62.63601173843343
+                                    "mcap_ev_ratio": 62.63601173843343,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0205481873727087
                         }
             },
             "HPQ": {
@@ -5064,7 +5955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25451929600.0,
                                     "enterprise_value": 33038133248.0,
-                                    "mcap_ev_ratio": 77.03803786051006
+                                    "mcap_ev_ratio": 77.03803786051006,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223523319867792
                         }
             },
             "HUBB": {
@@ -5081,7 +5975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22866675712.0,
                                     "enterprise_value": 24273225728.0,
-                                    "mcap_ev_ratio": 94.20534364998925
+                                    "mcap_ev_ratio": 94.20534364998925,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223993218764514
                         }
             },
             "HUBS": {
@@ -5098,7 +5995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24649836544.0,
                                     "enterprise_value": 26005094400.0,
-                                    "mcap_ev_ratio": 94.78849091968688
+                                    "mcap_ev_ratio": 94.78849091968688,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0317896785037979
                         }
             },
             "HUM": {
@@ -5115,7 +6015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31291119616.0,
                                     "enterprise_value": 21970976768.0,
-                                    "mcap_ev_ratio": 142.42024806823554
+                                    "mcap_ev_ratio": 142.42024806823554,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0534187771415395
                         }
             },
             "HUN": {
@@ -5132,7 +6035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1579643648.0,
                                     "enterprise_value": 3811181312.0,
-                                    "mcap_ev_ratio": 41.44761213606623
+                                    "mcap_ev_ratio": 41.44761213606623,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0473146042363433
                         }
             },
             "HWM": {
@@ -5149,7 +6055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 79612452864.0,
                                     "enterprise_value": 80306003968.0,
-                                    "mcap_ev_ratio": 99.13636456836234
+                                    "mcap_ev_ratio": 99.13636456836234,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0235965248804314
                         }
             },
             "HXL": {
@@ -5166,7 +6075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5130298368.0,
                                     "enterprise_value": 5653193216.0,
-                                    "mcap_ev_ratio": 90.75045150553017
+                                    "mcap_ev_ratio": 90.75045150553017,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0250984068822686
                         }
             },
             "IBKR": {
@@ -5183,7 +6095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 112408477696.0,
                                     "enterprise_value": -44227981312.0,
-                                    "mcap_ev_ratio": -254.156925913101
+                                    "mcap_ev_ratio": -254.156925913101,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0379825708061002
                         }
             },
             "IDXX": {
@@ -5200,7 +6115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 51248762880.0,
                                     "enterprise_value": 51520438272.0,
-                                    "mcap_ev_ratio": 99.47268423733956
+                                    "mcap_ev_ratio": 99.47268423733956,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0254833041903453
                         }
             },
             "ICE": {
@@ -5217,7 +6135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 96441843712.0,
                                     "enterprise_value": 114907357184.0,
-                                    "mcap_ev_ratio": 83.9300860062151
+                                    "mcap_ev_ratio": 83.9300860062151,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "2025-12-15",
+                                    "var_to_ask_ratio": 0.0134058516010218
                         }
             },
             "IEX": {
@@ -5234,7 +6155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12253757440.0,
                                     "enterprise_value": 13517044736.0,
-                                    "mcap_ev_ratio": 90.65411618683572
+                                    "mcap_ev_ratio": 90.65411618683572,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0227576599791398
                         }
             },
             "IFF": {
@@ -5251,7 +6175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15771908096.0,
                                     "enterprise_value": 21689260032.0,
-                                    "mcap_ev_ratio": 72.71759420436828
+                                    "mcap_ev_ratio": 72.71759420436828,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0242164319248826
                         }
             },
             "ILMN": {
@@ -5268,7 +6195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14596889600.0,
                                     "enterprise_value": 15563418624.0,
-                                    "mcap_ev_ratio": 93.78973831295949
+                                    "mcap_ev_ratio": 93.78973831295949,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0436898813897344
                         }
             },
             "INCY": {
@@ -5285,7 +6215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16561369088.0,
                                     "enterprise_value": 14002385920.0,
-                                    "mcap_ev_ratio": 118.27533666491033
+                                    "mcap_ev_ratio": 118.27533666491033,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0244537374926427
                         }
             },
             "INGR": {
@@ -5302,7 +6235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7837128192.0,
                                     "enterprise_value": 8721230848.0,
-                                    "mcap_ev_ratio": 89.86263898515257
+                                    "mcap_ev_ratio": 89.86263898515257,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0140306654676259
                         }
             },
             "INSP": {
@@ -5319,7 +6255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2241721344.0,
                                     "enterprise_value": 1968278016.0,
-                                    "mcap_ev_ratio": 113.892515476838
+                                    "mcap_ev_ratio": 113.892515476838,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0518886794992596
                         }
             },
             "INTU": {
@@ -5336,7 +6275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 191377162240.0,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "2025-10-08",
+                                    "var_to_ask_ratio": 0.0211997030514028
                         }
             },
             "IONS": {
@@ -5353,7 +6295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10427374592.0,
                                     "enterprise_value": 9915980800.0,
-                                    "mcap_ev_ratio": 105.1572688805529
+                                    "mcap_ev_ratio": 105.1572688805529,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.1326753240811347
                         }
             },
             "IP": {
@@ -5370,7 +6315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24498368512.0,
                                     "enterprise_value": 33835415552.0,
-                                    "mcap_ev_ratio": 72.40451495076114
+                                    "mcap_ev_ratio": 72.40451495076114,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0204166343460461
                         }
             },
             "IPG": {
@@ -5387,7 +6335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10222494720.0,
                                     "enterprise_value": 12615056384.0,
-                                    "mcap_ev_ratio": 81.03407871379356
+                                    "mcap_ev_ratio": 81.03407871379356,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0262555078683834
                         }
             },
             "IPGP": {
@@ -5404,7 +6355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3343395584.0,
                                     "enterprise_value": 2447149056.0,
-                                    "mcap_ev_ratio": 136.62410860517684
+                                    "mcap_ev_ratio": 136.62410860517684,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0300262680931403
                         }
             },
             "IQV": {
@@ -5421,7 +6375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32289800192.0,
                                     "enterprise_value": 44287401984.0,
-                                    "mcap_ev_ratio": 72.909673508655
+                                    "mcap_ev_ratio": 72.909673508655,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0312595056534315
                         }
             },
             "IRDM": {
@@ -5438,7 +6395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1892419968.0,
                                     "enterprise_value": 3563508480.0,
-                                    "mcap_ev_ratio": 53.1055272807994
+                                    "mcap_ev_ratio": 53.1055272807994,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0726151775486827
                         }
             },
             "ISRG": {
@@ -5455,7 +6415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 161014988800.0,
                                     "enterprise_value": 152230952960.0,
-                                    "mcap_ev_ratio": 105.77020354218509
+                                    "mcap_ev_ratio": 105.77020354218509,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0362011737665409
                         }
             },
             "JBHT": {
@@ -5472,7 +6435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12987558912.0,
                                     "enterprise_value": 15035402240.0,
-                                    "mcap_ev_ratio": 86.37985671875181
+                                    "mcap_ev_ratio": 86.37985671875181,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0263586206896551
                         }
             },
             "JKHY": {
@@ -5489,7 +6455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10852734976.0,
                                     "enterprise_value": 10965200896.0,
-                                    "mcap_ev_ratio": 98.97433780678814
+                                    "mcap_ev_ratio": 98.97433780678814,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0208555436529191
                         }
             },
             "KHC": {
@@ -5506,7 +6475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31240665088.0,
                                     "enterprise_value": 49199501312.0,
-                                    "mcap_ev_ratio": 63.49793037511999
+                                    "mcap_ev_ratio": 63.49793037511999,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0352754992319508
                         }
             },
             "KLAC": {
@@ -5523,7 +6495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 142056292352.0,
                                     "enterprise_value": 142017708032.0,
-                                    "mcap_ev_ratio": 100.0271686682842
+                                    "mcap_ev_ratio": 100.0271686682842,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0320483167307603
                         }
             },
             "LAZR": {
@@ -5540,7 +6515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 131993544.0,
                                     "enterprise_value": 506452576.0,
-                                    "mcap_ev_ratio": 26.06236995426004
+                                    "mcap_ev_ratio": 26.06236995426004,
+                                    "next_earnings_date": "2025-11-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0928832460732984
                         }
             },
             "LITE": {
@@ -5557,7 +6535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11373429760.0,
                                     "enterprise_value": 13095442432.0,
-                                    "mcap_ev_ratio": 86.85029023691409
+                                    "mcap_ev_ratio": 86.85029023691409,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0598414153203513
                         }
             },
             "LKQ": {
@@ -5574,7 +6555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7857734144.0,
                                     "enterprise_value": 13483858944.0,
-                                    "mcap_ev_ratio": 58.27511379816463
+                                    "mcap_ev_ratio": 58.27511379816463,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0203294867603792
                         }
             },
             "LNT": {
@@ -5591,7 +6575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17327982592.0,
                                     "enterprise_value": 28138405888.0,
-                                    "mcap_ev_ratio": 61.58125183413375
+                                    "mcap_ev_ratio": 61.58125183413375,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0135333086163428
                         }
             },
             "LNW": {
@@ -5608,7 +6595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7046477312.0,
                                     "enterprise_value": 11952310272.0,
-                                    "mcap_ev_ratio": 58.9549396864921
+                                    "mcap_ev_ratio": 58.9549396864921,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0291774362017804
                         }
             },
             "LPLA": {
@@ -5625,7 +6615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26616565760.0,
                                     "enterprise_value": 28810205184.0,
-                                    "mcap_ev_ratio": 92.38589447735605
+                                    "mcap_ev_ratio": 92.38589447735605,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0358308755898884
                         }
             },
             "LRCX": {
@@ -5642,7 +6635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 168852226048.0,
                                     "enterprise_value": 164276158464.0,
-                                    "mcap_ev_ratio": 102.78559446896418
+                                    "mcap_ev_ratio": 102.78559446896418,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0383319620725698
                         }
             },
             "LSCC": {
@@ -5659,7 +6655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10037183488.0,
                                     "enterprise_value": 9726047232.0,
-                                    "mcap_ev_ratio": 103.19900005190516
+                                    "mcap_ev_ratio": 103.19900005190516,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0358385874011453
                         }
             },
             "LSTR": {
@@ -5676,7 +6675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4268110848.0,
                                     "enterprise_value": 3928648704.0,
-                                    "mcap_ev_ratio": 108.64068461133654
+                                    "mcap_ev_ratio": 108.64068461133654,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.030773841275004
                         }
             },
             "IR": {
@@ -5693,7 +6695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32837527552.0,
                                     "enterprise_value": 36552003584.0,
-                                    "mcap_ev_ratio": 89.83783194411278
+                                    "mcap_ev_ratio": 89.83783194411278,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0266885364967921
                         }
             },
             "IT": {
@@ -5710,7 +6715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20129714176.0,
                                     "enterprise_value": 20445503488.0,
-                                    "mcap_ev_ratio": 98.45545837408532
+                                    "mcap_ev_ratio": 98.45545837408532,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0379280019741088
                         }
             },
             "ITT": {
@@ -5727,7 +6735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13943279616.0,
                                     "enterprise_value": 14496879616.0,
-                                    "mcap_ev_ratio": 96.1812471741229
+                                    "mcap_ev_ratio": 96.1812471741229,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0211498885545525
                         }
             },
             "ITW": {
@@ -5744,7 +6755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 76011544576.0,
                                     "enterprise_value": 84342267904.0,
-                                    "mcap_ev_ratio": 90.12271837712238
+                                    "mcap_ev_ratio": 90.12271837712238,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0144118228109805
                         }
             },
             "IVZ": {
@@ -5761,7 +6775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10230409216.0,
                                     "enterprise_value": 15314666496.0,
-                                    "mcap_ev_ratio": 66.80138427220767
+                                    "mcap_ev_ratio": 66.80138427220767,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0163926829268292
                         }
             },
             "J": {
@@ -5778,7 +6795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17913735168.0,
                                     "enterprise_value": 20374935552.0,
-                                    "mcap_ev_ratio": 87.92045070415739
+                                    "mcap_ev_ratio": 87.92045070415739,
+                                    "next_earnings_date": "2025-11-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0193336377574828
                         }
             },
             "JBL": {
@@ -5795,7 +6815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23450935296.0,
                                     "enterprise_value": 24496824320.0,
-                                    "mcap_ev_ratio": 95.73051179884528
+                                    "mcap_ev_ratio": 95.73051179884528,
+                                    "next_earnings_date": "2025-12-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0423558375867935
                         }
             },
             "JCI": {
@@ -5812,7 +6835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 71949672448.0,
                                     "enterprise_value": 82907332608.0,
-                                    "mcap_ev_ratio": 86.78324363442051
+                                    "mcap_ev_ratio": 86.78324363442051,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0161282387190684
                         }
             },
             "JEF": {
@@ -5829,7 +6855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13504973824.0,
                                     "enterprise_value": -4348499456.0,
-                                    "mcap_ev_ratio": -310.5662990337051
+                                    "mcap_ev_ratio": -310.5662990337051,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0302288321167883
                         }
             },
             "JLL": {
@@ -5846,7 +6875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14185569280.0,
                                     "enterprise_value": 18063273984.0,
-                                    "mcap_ev_ratio": 78.53265854553956
+                                    "mcap_ev_ratio": 78.53265854553956,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0229728466175485
                         }
             },
             "K": {
@@ -5863,7 +6895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 28515825664.0,
                                     "enterprise_value": 34754969600.0,
-                                    "mcap_ev_ratio": 82.04819624989688
+                                    "mcap_ev_ratio": 82.04819624989688,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0212657602731374
                         }
             },
             "KBR": {
@@ -5880,7 +6915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6146140160.0,
                                     "enterprise_value": 8461826560.0,
-                                    "mcap_ev_ratio": 72.63372885770895
+                                    "mcap_ev_ratio": 72.63372885770895,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0276456852791878
                         }
             },
             "KDP": {
@@ -5897,7 +6935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 34653683712.0,
                                     "enterprise_value": 53037035520.0,
-                                    "mcap_ev_ratio": 65.33865132588768
+                                    "mcap_ev_ratio": 65.33865132588768,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.02537159670459
                         }
             },
             "KEY": {
@@ -5914,7 +6955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20504735744.0,
                                     "enterprise_value": 35312218112.0,
-                                    "mcap_ev_ratio": 58.06697183101042
+                                    "mcap_ev_ratio": 58.06697183101042,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0179659893048128
                         }
             },
             "KEYS": {
@@ -5931,7 +6975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 30071504896.0,
                                     "enterprise_value": 29907251200.0,
-                                    "mcap_ev_ratio": 100.549210273126
+                                    "mcap_ev_ratio": 100.549210273126,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0160602559707461
                         }
             },
             "KKR": {
@@ -5948,7 +6995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 119850631168.0,
                                     "enterprise_value": 179474857984.0,
-                                    "mcap_ev_ratio": 66.77850731531687
+                                    "mcap_ev_ratio": 66.77850731531687,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0375507241910631
                         }
             },
             "KMB": {
@@ -5965,7 +7015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 41253515264.0,
                                     "enterprise_value": 47472128000.0,
-                                    "mcap_ev_ratio": 86.9004972012209
+                                    "mcap_ev_ratio": 86.9004972012209,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0165382272581163
                         }
             },
             "KMI": {
@@ -5982,7 +7035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 62907019264.0,
                                     "enterprise_value": 97075339264.0,
-                                    "mcap_ev_ratio": 64.80226568451336
+                                    "mcap_ev_ratio": 64.80226568451336,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0151357571478997
                         }
             },
             "KMX": {
@@ -5999,7 +7055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6588936704.0,
                                     "enterprise_value": 25440051200.0,
-                                    "mcap_ev_ratio": 25.899856302175998
+                                    "mcap_ev_ratio": 25.899856302175998,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0776612953483196
                         }
             },
             "KNX": {
@@ -6016,7 +7075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6412551680.0,
                                     "enterprise_value": 9443681280.0,
-                                    "mcap_ev_ratio": 67.90309297689471
+                                    "mcap_ev_ratio": 67.90309297689471,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0295968710572798
                         }
             },
             "KR": {
@@ -6033,7 +7095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 44671139840.0,
                                     "enterprise_value": 69979643904.0,
-                                    "mcap_ev_ratio": 63.83447721066015
+                                    "mcap_ev_ratio": 63.83447721066015,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "2025-11-13",
+                                    "var_to_ask_ratio": 0.0160098487095817
                         }
             },
             "KSS": {
@@ -6050,7 +7115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1817789312.0,
                                     "enterprise_value": 8405708800.0,
-                                    "mcap_ev_ratio": 21.62565174753615
+                                    "mcap_ev_ratio": 21.62565174753615,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0581129701686121
                         }
             },
             "L": {
@@ -6067,7 +7135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20955158528.0,
                                     "enterprise_value": 24973189120.0,
-                                    "mcap_ev_ratio": 83.91062281756348
+                                    "mcap_ev_ratio": 83.91062281756348,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0154016790859413
                         }
             },
             "LAD": {
@@ -6084,7 +7155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8101118976.0,
                                     "enterprise_value": 22361262080.0,
-                                    "mcap_ev_ratio": 36.22836200844706
+                                    "mcap_ev_ratio": 36.22836200844706,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0314491129873826
                         }
             },
             "LDOS": {
@@ -6101,7 +7175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24243064832.0,
                                     "enterprise_value": 28629268480.0,
-                                    "mcap_ev_ratio": 84.67930240318876
+                                    "mcap_ev_ratio": 84.67930240318876,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0196228274625606
                         }
             },
             "LEA": {
@@ -6118,7 +7195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5424724480.0,
                                     "enterprise_value": 8110629888.0,
-                                    "mcap_ev_ratio": 66.88413298239753
+                                    "mcap_ev_ratio": 66.88413298239753,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0234371527777777
                         }
             },
             "LEG": {
@@ -6135,7 +7215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1203288576.0,
                                     "enterprise_value": 2773274368.0,
-                                    "mcap_ev_ratio": 43.38873174195796
+                                    "mcap_ev_ratio": 43.38873174195796,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0406793918918918
                         }
             },
             "LEN": {
@@ -6152,7 +7235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32030595072.0,
                                     "enterprise_value": 30991478784.0,
-                                    "mcap_ev_ratio": 103.3529096666935
+                                    "mcap_ev_ratio": 103.3529096666935,
+                                    "next_earnings_date": "2025-12-17",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0369543536875495
                         }
             },
             "LEVI": {
@@ -6169,7 +7255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9111875584.0,
                                     "enterprise_value": 10723191808.0,
-                                    "mcap_ev_ratio": 84.97353910243513
+                                    "mcap_ev_ratio": 84.97353910243513,
+                                    "next_earnings_date": "2025-10-09",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0212270467209601
                         }
             },
             "LH": {
@@ -6186,7 +7275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23854686208.0,
                                     "enterprise_value": 29469224960.0,
-                                    "mcap_ev_ratio": 80.94778956819908
+                                    "mcap_ev_ratio": 80.94778956819908,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0169198714384989
                         }
             },
             "LHX": {
@@ -6203,7 +7295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 57140625408.0,
                                     "enterprise_value": 67177799680.0,
-                                    "mcap_ev_ratio": 85.05879275622027
+                                    "mcap_ev_ratio": 85.05879275622027,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0158044852291687
                         }
             },
             "LII": {
@@ -6220,7 +7315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18639458304.0,
                                     "enterprise_value": 19778156544.0,
-                                    "mcap_ev_ratio": 94.2426472484088
+                                    "mcap_ev_ratio": 94.2426472484088,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0311309195034191
                         }
             },
             "LLY": {
@@ -6237,7 +7335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 683996545024.0,
                                     "enterprise_value": 688725098496.0,
-                                    "mcap_ev_ratio": 99.31343383850452
+                                    "mcap_ev_ratio": 99.31343383850452,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223485176791165
                         }
             },
             "LMT": {
@@ -6254,7 +7355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 116548091904.0,
                                     "enterprise_value": 135205134336.0,
-                                    "mcap_ev_ratio": 86.20093643364523
+                                    "mcap_ev_ratio": 86.20093643364523,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0138868648648648
                         }
             },
             "LNC": {
@@ -6271,7 +7375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7685462528.0,
                                     "enterprise_value": -23757576192.0,
-                                    "mcap_ev_ratio": -32.34952280438424
+                                    "mcap_ev_ratio": -32.34952280438424,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0262912202380952
                         }
             },
             "LOW": {
@@ -6288,7 +7395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 143055126528.0,
                                     "enterprise_value": 175902162944.0,
-                                    "mcap_ev_ratio": 81.32653068827975
+                                    "mcap_ev_ratio": 81.32653068827975,
+                                    "next_earnings_date": "2025-11-19",
+                                    "next_dividend_date": "2025-10-21",
+                                    "var_to_ask_ratio": 0.0193292150469222
                         }
             },
             "LPX": {
@@ -6305,7 +7415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6186902528.0,
                                     "enterprise_value": 5978409984.0,
-                                    "mcap_ev_ratio": 103.48742465903122
+                                    "mcap_ev_ratio": 103.48742465903122,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0356535770352096
                         }
             },
             "LUV": {
@@ -6322,7 +7435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16758739968.0,
                                     "enterprise_value": 18707148800.0,
-                                    "mcap_ev_ratio": 89.58468309184562
+                                    "mcap_ev_ratio": 89.58468309184562,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0301754929577464
                         }
             },
             "LVS": {
@@ -6339,7 +7455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 36924342272.0,
                                     "enterprise_value": 50586390528.0,
-                                    "mcap_ev_ratio": 72.99264068180959
+                                    "mcap_ev_ratio": 72.99264068180959,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0250063267584666
                         }
             },
             "LW": {
@@ -6356,7 +7475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8093722624.0,
                                     "enterprise_value": 11938376704.0,
-                                    "mcap_ev_ratio": 67.7958387867604
+                                    "mcap_ev_ratio": 67.7958387867604,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "2025-10-30",
+                                    "var_to_ask_ratio": 0.0363067877956804
                         }
             },
             "LYFT": {
@@ -6373,7 +7495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8945777664.0,
                                     "enterprise_value": 8336764928.0,
-                                    "mcap_ev_ratio": 107.30514463655511
+                                    "mcap_ev_ratio": 107.30514463655511,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0716534968210717
                         }
             },
             "LYB": {
@@ -6390,7 +7515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15892552704.0,
                                     "enterprise_value": 27554504704.0,
-                                    "mcap_ev_ratio": 57.67678597283198
+                                    "mcap_ev_ratio": 57.67678597283198,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0309262171521694
                         }
             },
             "LYV": {
@@ -6407,7 +7535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 37900648448.0,
                                     "enterprise_value": 41431498752.0,
-                                    "mcap_ev_ratio": 91.47786005730832
+                                    "mcap_ev_ratio": 91.47786005730832,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0230552495592437
                         }
             },
             "M": {
@@ -6424,7 +7555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4814308352.0,
                                     "enterprise_value": 9530749952.0,
-                                    "mcap_ev_ratio": 50.51342629117798
+                                    "mcap_ev_ratio": 50.51342629117798,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0832148663697104
                         }
             },
             "MA": {
@@ -6441,7 +7575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 511486689280.0,
                                     "enterprise_value": 523229298688.0,
-                                    "mcap_ev_ratio": 97.75574314407764
+                                    "mcap_ev_ratio": 97.75574314407764,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "2025-10-08",
+                                    "var_to_ask_ratio": 0.0180429411661428
                         }
             },
             "MAN": {
@@ -6458,7 +7595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1777928960.0,
                                     "enterprise_value": 3196364544.0,
-                                    "mcap_ev_ratio": 55.62347271488193
+                                    "mcap_ev_ratio": 55.62347271488193,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0444307367309215
                         }
             },
             "MANH": {
@@ -6475,7 +7615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12627027968.0,
                                     "enterprise_value": 12316963840.0,
-                                    "mcap_ev_ratio": 102.5173746714515
+                                    "mcap_ev_ratio": 102.5173746714515,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0268823026059898
                         }
             },
             "MAS": {
@@ -6492,7 +7635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14821269504.0,
                                     "enterprise_value": 17731829760.0,
-                                    "mcap_ev_ratio": 83.58567448822608
+                                    "mcap_ev_ratio": 83.58567448822608,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0246666808510638
                         }
             },
             "MAR": {
@@ -6509,7 +7655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 70698475520.0,
                                     "enterprise_value": 88295383040.0,
-                                    "mcap_ev_ratio": 80.0704103497369
+                                    "mcap_ev_ratio": 80.0704103497369,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0211782300410103
                         }
             },
             "MASI": {
@@ -6526,7 +7675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8015626240.0,
                                     "enterprise_value": 8257788416.0,
-                                    "mcap_ev_ratio": 97.06746935377038
+                                    "mcap_ev_ratio": 97.06746935377038,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0290929538378232
                         }
             },
             "MAT": {
@@ -6543,7 +7695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5422625792.0,
                                     "enterprise_value": 7275714048.0,
-                                    "mcap_ev_ratio": 74.53049633651572
+                                    "mcap_ev_ratio": 74.53049633651572,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0214919191919191
                         }
             },
             "MCK": {
@@ -6560,7 +7715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 96091914240.0,
                                     "enterprise_value": 103389519872.0,
-                                    "mcap_ev_ratio": 92.94163891946232
+                                    "mcap_ev_ratio": 92.94163891946232,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0319741743682543
                         }
             },
             "MCO": {
@@ -6577,7 +7735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 85460803584.0,
                                     "enterprise_value": 91497226240.0,
-                                    "mcap_ev_ratio": 93.40261677423284
+                                    "mcap_ev_ratio": 93.40261677423284,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0280719385298243
                         }
             },
             "MCHP": {
@@ -6594,7 +7755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 34847559680.0,
                                     "enterprise_value": 39505276928.0,
-                                    "mcap_ev_ratio": 88.20988584262076
+                                    "mcap_ev_ratio": 88.20988584262076,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0241871711038455
                         }
             },
             "MDB": {
@@ -6611,7 +7775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25363871744.0,
                                     "enterprise_value": 23513919488.0,
-                                    "mcap_ev_ratio": 107.86747720618884
+                                    "mcap_ev_ratio": 107.86747720618884,
+                                    "next_earnings_date": "2025-12-08",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0279922656199729
                         }
             },
             "MDLZ": {
@@ -6628,7 +7795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 81774936064.0,
                                     "enterprise_value": 101094801408.0,
-                                    "mcap_ev_ratio": 80.88935823116307
+                                    "mcap_ev_ratio": 80.88935823116307,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0180078265044814
                         }
             },
             "MEDP": {
@@ -6645,7 +7815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14444309504.0,
                                     "enterprise_value": 14171365376.0,
-                                    "mcap_ev_ratio": 101.92602562108976
+                                    "mcap_ev_ratio": 101.92602562108976,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0257297897150853
                         }
             },
             "MDT": {
@@ -6662,7 +7835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 122488012800.0,
                                     "enterprise_value": 141261996032.0,
-                                    "mcap_ev_ratio": 86.70981314199528
+                                    "mcap_ev_ratio": 86.70981314199528,
+                                    "next_earnings_date": "2025-11-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0150100851824587
                         }
             },
             "MET": {
@@ -6679,7 +7855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 54778195968.0,
                                     "enterprise_value": 72443691008.0,
-                                    "mcap_ev_ratio": 75.61486059835192
+                                    "mcap_ev_ratio": 75.61486059835192,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0199946500060657
                         }
             },
             "MGM": {
@@ -6696,7 +7875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9434141696.0,
                                     "enterprise_value": 40139276288.0,
-                                    "mcap_ev_ratio": 23.503517174325392
+                                    "mcap_ev_ratio": 23.503517174325392,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0318085640138408
                         }
             },
             "MHK": {
@@ -6713,7 +7895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8040057344.0,
                                     "enterprise_value": 10047619072.0,
-                                    "mcap_ev_ratio": 80.01952787407583
+                                    "mcap_ev_ratio": 80.01952787407583,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0342252590873936
                         }
             },
             "META": {
@@ -6730,7 +7915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1845735063552.0,
                                     "enterprise_value": 1870014971904.0,
-                                    "mcap_ev_ratio": 98.70161957434604
+                                    "mcap_ev_ratio": 98.70161957434604,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0183186754119776
                         }
             },
             "MIDD": {
@@ -6747,7 +7935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6737208832.0,
                                     "enterprise_value": 8655708160.0,
-                                    "mcap_ev_ratio": 77.8354434722531
+                                    "mcap_ev_ratio": 77.8354434722531,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0287561733503874
                         }
             },
             "MKL": {
@@ -6764,7 +7955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24354555904.0,
                                     "enterprise_value": 23345231872.0,
-                                    "mcap_ev_ratio": 104.3234697240706
+                                    "mcap_ev_ratio": 104.3234697240706,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0180341037054044
                         }
             },
             "MKSI": {
@@ -6781,7 +7975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8312269312.0,
                                     "enterprise_value": 12225800192.0,
-                                    "mcap_ev_ratio": 67.98957271884065
+                                    "mcap_ev_ratio": 67.98957271884065,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0453887443438914
                         }
             },
             "MKTX": {
@@ -6798,7 +7995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6602636288.0,
                                     "enterprise_value": 6157737984.0,
-                                    "mcap_ev_ratio": 107.22502817034444
+                                    "mcap_ev_ratio": 107.22502817034444,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.025296996790463
                         }
             },
             "MLM": {
@@ -6815,7 +8015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 38009671680.0,
                                     "enterprise_value": 43052105728.0,
-                                    "mcap_ev_ratio": 88.28760181939131
+                                    "mcap_ev_ratio": 88.28760181939131,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0209553164496741
                         }
             },
             "MNST": {
@@ -6832,7 +8035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 65723375616.0,
                                     "enterprise_value": 63374934016.0,
-                                    "mcap_ev_ratio": 103.70563162938696
+                                    "mcap_ev_ratio": 103.70563162938696,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0219856570155902
                         }
             },
             "MMC": {
@@ -6849,7 +8055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 99076988928.0,
                                     "enterprise_value": 118579879936.0,
-                                    "mcap_ev_ratio": 83.5529509571724
+                                    "mcap_ev_ratio": 83.5529509571724,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "2025-10-01",
+                                    "var_to_ask_ratio": 0.0168984131706833
                         }
             },
             "MO": {
@@ -6866,7 +8075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 111041183744.0,
                                     "enterprise_value": 133801435136.0,
-                                    "mcap_ev_ratio": 82.9895311893585
+                                    "mcap_ev_ratio": 82.9895311893585,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0184428528210558
                         }
             },
             "MODG": {
@@ -6883,7 +8095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1746723328.0,
                                     "enterprise_value": 5514846208.0,
-                                    "mcap_ev_ratio": 31.67311040271896
+                                    "mcap_ev_ratio": 31.67311040271896,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0385988408851422
                         }
             },
             "MOH": {
@@ -6900,7 +8115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10371712000.0,
                                     "enterprise_value": 5211890176.0,
-                                    "mcap_ev_ratio": 199.00096989303867
+                                    "mcap_ev_ratio": 199.00096989303867,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0452199500598241
                         }
             },
             "MOS": {
@@ -6917,7 +8135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11203341312.0,
                                     "enterprise_value": 15502927872.0,
-                                    "mcap_ev_ratio": 72.2659706895397
+                                    "mcap_ev_ratio": 72.2659706895397,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0339634265935967
                         }
             },
             "MPWR": {
@@ -6934,7 +8155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 44139032576.0,
                                     "enterprise_value": 41334403072.0,
-                                    "mcap_ev_ratio": 106.78521835458623
+                                    "mcap_ev_ratio": 106.78521835458623,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0268198637163745
                         }
             },
             "MRNA": {
@@ -6951,7 +8175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10049930240.0,
                                     "enterprise_value": 5465390080.0,
-                                    "mcap_ev_ratio": 183.883128063935
+                                    "mcap_ev_ratio": 183.883128063935,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0500364410058027
                         }
             },
             "MPC": {
@@ -6968,7 +8195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 59258986496.0,
                                     "enterprise_value": 94732869632.0,
-                                    "mcap_ev_ratio": 62.553775396225085
+                                    "mcap_ev_ratio": 62.553775396225085,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0156273917317742
                         }
             },
             "MRVL": {
@@ -6985,7 +8215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 73162891264.0,
                                     "enterprise_value": 74580320256.0,
-                                    "mcap_ev_ratio": 98.09945976749012
+                                    "mcap_ev_ratio": 98.09945976749012,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0428464867435501
                         }
             },
             "MS": {
@@ -7002,7 +8235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 253753540608.0,
                                     "enterprise_value": 184293474304.0,
-                                    "mcap_ev_ratio": 137.6899217762983
+                                    "mcap_ev_ratio": 137.6899217762983,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0169250674869734
                         }
             },
             "MSCI": {
@@ -7019,7 +8255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 43897802752.0,
                                     "enterprise_value": 48324907008.0,
-                                    "mcap_ev_ratio": 90.8388768233592
+                                    "mcap_ev_ratio": 90.8388768233592,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0287338397011137
                         }
             },
             "MSI": {
@@ -7036,7 +8275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 76578816000.0,
                                     "enterprise_value": 80810156032.0,
-                                    "mcap_ev_ratio": 94.7638511793933
+                                    "mcap_ev_ratio": 94.7638511793933,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0188985446849362
                         }
             },
             "MSM": {
@@ -7053,7 +8295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5135048704.0,
                                     "enterprise_value": 5570337792.0,
-                                    "mcap_ev_ratio": 92.18558902073852
+                                    "mcap_ev_ratio": 92.18558902073852,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223468662200129
                         }
             },
             "MSTR": {
@@ -7070,7 +8315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 86573981696.0,
                                     "enterprise_value": 103615029248.0,
-                                    "mcap_ev_ratio": 83.55349829491175
+                                    "mcap_ev_ratio": 83.55349829491175,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0506861507948805
                         }
             },
             "MTB": {
@@ -7087,7 +8335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31168487424.0,
                                     "enterprise_value": 26624200704.0,
-                                    "mcap_ev_ratio": 117.06825594699365
+                                    "mcap_ev_ratio": 117.06825594699365,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0163181565516195
                         }
             },
             "MTD": {
@@ -7104,7 +8355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25565007872.0,
                                     "enterprise_value": 26662969344.0,
-                                    "mcap_ev_ratio": 95.88207353114228
+                                    "mcap_ev_ratio": 95.88207353114228,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0243671699737652
                         }
             },
             "MTN": {
@@ -7121,7 +8375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5556885504.0,
                                     "enterprise_value": 8611602432.0,
-                                    "mcap_ev_ratio": 64.52789185147557
+                                    "mcap_ev_ratio": 64.52789185147557,
+                                    "next_earnings_date": "2025-12-08",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0315652610441767
                         }
             },
             "MTZ": {
@@ -7138,7 +8395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16792400896.0,
                                     "enterprise_value": 18808651776.0,
-                                    "mcap_ev_ratio": 89.28019454019159
+                                    "mcap_ev_ratio": 89.28019454019159,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0392296725464439
                         }
             },
             "MU": {
@@ -7155,7 +8415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 187252015104.0,
                                     "enterprise_value": 188538994688.0,
-                                    "mcap_ev_ratio": 99.3173934197911
+                                    "mcap_ev_ratio": 99.3173934197911,
+                                    "next_earnings_date": "2025-12-17",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0512261837941123
                         }
             },
             "NBIX": {
@@ -7172,7 +8435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14094819328.0,
                                     "enterprise_value": 13426390016.0,
-                                    "mcap_ev_ratio": 104.97847382061332
+                                    "mcap_ev_ratio": 104.97847382061332,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0312871760182284
                         }
             },
             "NCLH": {
@@ -7189,7 +8455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11344212992.0,
                                     "enterprise_value": 25590581248.0,
-                                    "mcap_ev_ratio": 44.329641761797
+                                    "mcap_ev_ratio": 44.329641761797,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0346269183922046
                         }
             },
             "NDAQ": {
@@ -7206,7 +8475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 50752188416.0,
                                     "enterprise_value": 59853377536.0,
-                                    "mcap_ev_ratio": 84.79419291830956
+                                    "mcap_ev_ratio": 84.79419291830956,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0240868001357312
                         }
             },
             "NDSN": {
@@ -7223,7 +8495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12751481856.0,
                                     "enterprise_value": 14847063040.0,
-                                    "mcap_ev_ratio": 85.88555070888955
+                                    "mcap_ev_ratio": 85.88555070888955,
+                                    "next_earnings_date": "2025-12-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223876779750395
                         }
             },
             "NEE": {
@@ -7240,7 +8515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 155455995904.0,
                                     "enterprise_value": 258534686720.0,
-                                    "mcap_ev_ratio": 60.12964754410808
+                                    "mcap_ev_ratio": 60.12964754410808,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0187813004900013
                         }
             },
             "NEM": {
@@ -7257,7 +8535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 93388062720.0,
                                     "enterprise_value": 93991936000.0,
-                                    "mcap_ev_ratio": 99.35752650099684
+                                    "mcap_ev_ratio": 99.35752650099684,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0254574715370019
                         }
             },
             "NET": {
@@ -7274,7 +8555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 74014318592.0,
                                     "enterprise_value": 75673501696.0,
-                                    "mcap_ev_ratio": 97.80744505432646
+                                    "mcap_ev_ratio": 97.80744505432646,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0318452477508973
                         }
             },
             "NI": {
@@ -7291,7 +8575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20388022272.0,
                                     "enterprise_value": 37920845824.0,
-                                    "mcap_ev_ratio": 53.76468227166093
+                                    "mcap_ev_ratio": 53.76468227166093,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "2025-10-30",
+                                    "var_to_ask_ratio": 0.0284907159353348
                         }
             },
             "NFLX": {
@@ -7308,7 +8595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 511226347520.0,
                                     "enterprise_value": 521178841088.0,
-                                    "mcap_ev_ratio": 98.0903880235768
+                                    "mcap_ev_ratio": 98.0903880235768,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0246103290805909
                         }
             },
             "NOC": {
@@ -7325,7 +8615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 87322099712.0,
                                     "enterprise_value": 101236260864.0,
-                                    "mcap_ev_ratio": 86.25575358745007
+                                    "mcap_ev_ratio": 86.25575358745007,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0148680121321419
                         }
             },
             "NOV": {
@@ -7342,7 +8635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5005996544.0,
                                     "enterprise_value": 6265582592.0,
-                                    "mcap_ev_ratio": 79.89674496337722
+                                    "mcap_ev_ratio": 79.89674496337722,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0355361718161266
                         }
             },
             "NOW": {
@@ -7359,7 +8655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 190975606784.0,
                                     "enterprise_value": 191521243136.0,
-                                    "mcap_ev_ratio": 99.71510400461815
+                                    "mcap_ev_ratio": 99.71510400461815,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.027477107949609
                         }
             },
             "NRG": {
@@ -7376,7 +8675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31938088960.0,
                                     "enterprise_value": 43574849536.0,
-                                    "mcap_ev_ratio": 73.29477737751884
+                                    "mcap_ev_ratio": 73.29477737751884,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0401867336869372
                         }
             },
             "NTAP": {
@@ -7393,7 +8695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23908050944.0,
                                     "enterprise_value": 23083751424.0,
-                                    "mcap_ev_ratio": 103.57090797270924
+                                    "mcap_ev_ratio": 103.57090797270924,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0221803646800607
                         }
             },
             "NTNX": {
@@ -7410,7 +8715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20058431488.0,
                                     "enterprise_value": 20169512960.0,
-                                    "mcap_ev_ratio": 99.44926051402284
+                                    "mcap_ev_ratio": 99.44926051402284,
+                                    "next_earnings_date": "2025-11-26",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0392630461083478
                         }
             },
             "NTRS": {
@@ -7427,7 +8735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 25662916608.0,
                                     "enterprise_value": 34151239680.0,
-                                    "mcap_ev_ratio": 75.144904982846
+                                    "mcap_ev_ratio": 75.144904982846,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0188946324128229
                         }
             },
             "NSC": {
@@ -7444,7 +8755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 67398279168.0,
                                     "enterprise_value": 83897114624.0,
-                                    "mcap_ev_ratio": 80.33444233458744
+                                    "mcap_ev_ratio": 80.33444233458744,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0132919986697705
                         }
             },
             "NUE": {
@@ -7461,7 +8775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31554285568.0,
                                     "enterprise_value": 36736184320.0,
-                                    "mcap_ev_ratio": 85.8942923770696
+                                    "mcap_ev_ratio": 85.8942923770696,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0298812905126694
                         }
             },
             "NVST": {
@@ -7478,7 +8795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3405201664.0,
                                     "enterprise_value": 3847456256.0,
-                                    "mcap_ev_ratio": 88.50527302785271
+                                    "mcap_ev_ratio": 88.50527302785271,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0287059745347698
                         }
             },
             "NVDA": {
@@ -7495,7 +8815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4542663491584.0,
                                     "enterprise_value": 4372761935872.0,
-                                    "mcap_ev_ratio": 103.8854517626082
+                                    "mcap_ev_ratio": 103.8854517626082,
+                                    "next_earnings_date": "2025-11-19",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0333035984340644
                         }
             },
             "NWL": {
@@ -7512,7 +8835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2230599936.0,
                                     "enterprise_value": 7835218944.0,
-                                    "mcap_ev_ratio": 28.46889093900986
+                                    "mcap_ev_ratio": 28.46889093900986,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0443098859315589
                         }
             },
             "NWSA": {
@@ -7529,7 +8855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17542270976.0,
                                     "enterprise_value": 18676070400.0,
-                                    "mcap_ev_ratio": 93.92913284370572
+                                    "mcap_ev_ratio": 93.92913284370572,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0228436890045543
                         }
             },
             "NXST": {
@@ -7546,7 +8875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5994640384.0,
                                     "enterprise_value": 12444554240.0,
-                                    "mcap_ev_ratio": 48.17079236740906
+                                    "mcap_ev_ratio": 48.17079236740906,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0294532792256893
                         }
             },
             "NYT": {
@@ -7563,7 +8895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9481034752.0,
                                     "enterprise_value": 8799042560.0,
-                                    "mcap_ev_ratio": 107.75075455482283
+                                    "mcap_ev_ratio": 107.75075455482283,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "2025-10-07",
+                                    "var_to_ask_ratio": 0.0150397563098346
                         }
             },
             "OC": {
@@ -7580,7 +8915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12002716672.0,
                                     "enterprise_value": 17584502784.0,
-                                    "mcap_ev_ratio": 68.25735603352503
+                                    "mcap_ev_ratio": 68.25735603352503,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "2025-10-19",
+                                    "var_to_ask_ratio": 0.0335074414007342
                         }
             },
             "ODFL": {
@@ -7597,7 +8935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 29587470336.0,
                                     "enterprise_value": 29788049408.0,
-                                    "mcap_ev_ratio": 99.32664583285494
+                                    "mcap_ev_ratio": 99.32664583285494,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0265176441422297
                         }
             },
             "OGE": {
@@ -7614,7 +8955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9318552576.0,
                                     "enterprise_value": 15145237504.0,
-                                    "mcap_ev_ratio": 61.52793954891023
+                                    "mcap_ev_ratio": 61.52793954891023,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "2025-10-05",
+                                    "var_to_ask_ratio": 0.0145679118980781
                         }
             },
             "OKTA": {
@@ -7631,7 +8975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15700397056.0,
                                     "enterprise_value": 14628193280.0,
-                                    "mcap_ev_ratio": 107.32970747293815
+                                    "mcap_ev_ratio": 107.32970747293815,
+                                    "next_earnings_date": "2025-12-02",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0336223517872711
                         }
             },
             "OLED": {
@@ -7648,7 +8995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7055272960.0,
                                     "enterprise_value": 6373400576.0,
-                                    "mcap_ev_ratio": 110.6987215987599
+                                    "mcap_ev_ratio": 110.6987215987599,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0342296770601336
                         }
             },
             "OLLI": {
@@ -7665,7 +9015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7922486784.0,
                                     "enterprise_value": 8414483456.0,
-                                    "mcap_ev_ratio": 94.15297831919584
+                                    "mcap_ev_ratio": 94.15297831919584,
+                                    "next_earnings_date": "2025-12-09",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0318599611801242
                         }
             },
             "OKE": {
@@ -7682,7 +9035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 46449913856.0,
                                     "enterprise_value": 78479163392.0,
-                                    "mcap_ev_ratio": 59.18757520895668
+                                    "mcap_ev_ratio": 59.18757520895668,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.021714070626882
                         }
             },
             "OLN": {
@@ -7699,7 +9055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2864891904.0,
                                     "enterprise_value": 5892739072.0,
-                                    "mcap_ev_ratio": 48.617321571437806
+                                    "mcap_ev_ratio": 48.617321571437806,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0474749105367793
                         }
             },
             "OMCL": {
@@ -7716,7 +9075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1416216320.0,
                                     "enterprise_value": 1379051136.0,
-                                    "mcap_ev_ratio": 102.6949822983214
+                                    "mcap_ev_ratio": 102.6949822983214,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0377347272133289
                         }
             },
             "OMC": {
@@ -7733,7 +9095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15794227200.0,
                                     "enterprise_value": 20147992576.0,
-                                    "mcap_ev_ratio": 78.39107117209214
+                                    "mcap_ev_ratio": 78.39107117209214,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0247783948361953
                         }
             },
             "OMF": {
@@ -7750,7 +9115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6819762688.0,
                                     "enterprise_value": 28132120576.0,
-                                    "mcap_ev_ratio": 24.241907642817576
+                                    "mcap_ev_ratio": 24.241907642817576,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0207469535954658
                         }
             },
             "ON": {
@@ -7767,7 +9135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20328617984.0,
                                     "enterprise_value": 21179445248.0,
-                                    "mcap_ev_ratio": 95.9827688872996
+                                    "mcap_ev_ratio": 95.9827688872996,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0288740214966538
                         }
             },
             "ORCL": {
@@ -7784,7 +9155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 801756938240.0,
                                     "enterprise_value": 904652062720.0,
-                                    "mcap_ev_ratio": 88.62600012532694
+                                    "mcap_ev_ratio": 88.62600012532694,
+                                    "next_earnings_date": "2025-12-08",
+                                    "next_dividend_date": "2025-10-08",
+                                    "var_to_ask_ratio": 0.1454499857651245
                         }
             },
             "ORI": {
@@ -7801,7 +9175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10597974016.0,
                                     "enterprise_value": 10441509888.0,
-                                    "mcap_ev_ratio": 101.49848182569669
+                                    "mcap_ev_ratio": 101.49848182569669,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0204198356807511
                         }
             },
             "OSK": {
@@ -7818,7 +9195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8374943744.0,
                                     "enterprise_value": 9551120384.0,
-                                    "mcap_ev_ratio": 87.68545895442459
+                                    "mcap_ev_ratio": 87.68545895442459,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0234232148353339
                         }
             },
             "OTIS": {
@@ -7835,7 +9215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 35884011520.0,
                                     "enterprise_value": 43428065280.0,
-                                    "mcap_ev_ratio": 82.62862112009793
+                                    "mcap_ev_ratio": 82.62862112009793,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0133035425322545
                         }
             },
             "ORLY": {
@@ -7852,7 +9235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 91476426752.0,
                                     "enterprise_value": 99370156032.0,
-                                    "mcap_ev_ratio": 92.05623741049776
+                                    "mcap_ev_ratio": 92.05623741049776,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0186825893271461
                         }
             },
             "OZK": {
@@ -7869,7 +9255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5832164864.0,
                                     "enterprise_value": 4827226112.0,
-                                    "mcap_ev_ratio": 120.81814128204648
+                                    "mcap_ev_ratio": 120.81814128204648,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0166467593499118
                         }
             },
             "OXY": {
@@ -7886,7 +9275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 46514778112.0,
                                     "enterprise_value": 77940547584.0,
-                                    "mcap_ev_ratio": 59.67981949558278
+                                    "mcap_ev_ratio": 59.67981949558278,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0298560769393362
                         }
             },
             "PANW": {
@@ -7903,7 +9295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 137824452608.0,
                                     "enterprise_value": 133943042048.0,
-                                    "mcap_ev_ratio": 102.89780678462496
+                                    "mcap_ev_ratio": 102.89780678462496,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0171336961851524
                         }
             },
             "PAYC": {
@@ -7920,7 +9315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11709247488.0,
                                     "enterprise_value": 11822500864.0,
-                                    "mcap_ev_ratio": 99.04205229246494
+                                    "mcap_ev_ratio": 99.04205229246494,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0234880923858354
                         }
             },
             "PAYX": {
@@ -7937,7 +9335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 45584023552.0,
                                     "enterprise_value": 49683845120.0,
-                                    "mcap_ev_ratio": 91.74817979949457
+                                    "mcap_ev_ratio": 91.74817979949457,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0189124153143217
                         }
             },
             "PCAR": {
@@ -7954,7 +9355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 51964252160.0,
                                     "enterprise_value": 60226772992.0,
-                                    "mcap_ev_ratio": 86.2809836530715
+                                    "mcap_ev_ratio": 86.2809836530715,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "2025-11-11",
+                                    "var_to_ask_ratio": 0.0326629283172343
                         }
             },
             "PCTY": {
@@ -7971,7 +9375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8785592320.0,
                                     "enterprise_value": 8832496640.0,
-                                    "mcap_ev_ratio": 99.46895739775792
+                                    "mcap_ev_ratio": 99.46895739775792,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.017940594991527
                         }
             },
             "PEG": {
@@ -7988,7 +9395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 41653194752.0,
                                     "enterprise_value": 64690581504.0,
-                                    "mcap_ev_ratio": 64.38834492378844
+                                    "mcap_ev_ratio": 64.38834492378844,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0183795492687604
                         }
             },
             "PEGA": {
@@ -8005,7 +9415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9848890368.0,
                                     "enterprise_value": 9691065344.0,
-                                    "mcap_ev_ratio": 101.62856216935648
+                                    "mcap_ev_ratio": 101.62856216935648,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0276419746659725
                         }
             },
             "PEN": {
@@ -8022,7 +9435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9946783744.0,
                                     "enterprise_value": 9610096640.0,
-                                    "mcap_ev_ratio": 103.50347261440234
+                                    "mcap_ev_ratio": 103.50347261440234,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.033200915151276
                         }
             },
             "PENN": {
@@ -8039,7 +9455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2824891392.0,
                                     "enterprise_value": 13187042304.0,
-                                    "mcap_ev_ratio": 21.421720859598143
+                                    "mcap_ev_ratio": 21.421720859598143,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0295933125972006
                         }
             },
             "PEP": {
@@ -8056,7 +9475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 192643563520.0,
                                     "enterprise_value": 235455545344.0,
-                                    "mcap_ev_ratio": 81.81738223177042
+                                    "mcap_ev_ratio": 81.81738223177042,
+                                    "next_earnings_date": "2025-10-09",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0184982984479567
                         }
             },
             "PFG": {
@@ -8073,7 +9495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18503325696.0,
                                     "enterprise_value": 18065012736.0,
-                                    "mcap_ev_ratio": 102.42630861325954
+                                    "mcap_ev_ratio": 102.42630861325954,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0212649361599614
                         }
             },
             "PFGC": {
@@ -8090,7 +9515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16296747008.0,
                                     "enterprise_value": 24229220352.0,
-                                    "mcap_ev_ratio": 67.26071566167742
+                                    "mcap_ev_ratio": 67.26071566167742,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0278867004978935
                         }
             },
             "PGNY": {
@@ -8107,7 +9535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1853796864.0,
                                     "enterprise_value": 1565280256.0,
-                                    "mcap_ev_ratio": 118.4322652058035
+                                    "mcap_ev_ratio": 118.4322652058035,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0384132468735525
                         }
             },
             "PGR": {
@@ -8124,7 +9555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 144811474944.0,
                                     "enterprise_value": 147936346112.0,
-                                    "mcap_ev_ratio": 97.88769207153852
+                                    "mcap_ev_ratio": 97.88769207153852,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "2025-10-01",
+                                    "var_to_ask_ratio": 0.0152245511887433
                         }
             },
             "PH": {
@@ -8141,7 +9575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 95939387392.0,
                                     "enterprise_value": 104491868160.0,
-                                    "mcap_ev_ratio": 91.81517096152947
+                                    "mcap_ev_ratio": 91.81517096152947,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0178429200978715
                         }
             },
             "PHM": {
@@ -8158,7 +9595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26068928512.0,
                                     "enterprise_value": 27296509952.0,
-                                    "mcap_ev_ratio": 95.5027897626522
+                                    "mcap_ev_ratio": 95.5027897626522,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0287863488950901
                         }
             },
             "PII": {
@@ -8175,7 +9615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3268338432.0,
                                     "enterprise_value": 4977666048.0,
-                                    "mcap_ev_ratio": 65.66005835833847
+                                    "mcap_ev_ratio": 65.66005835833847,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0347980058449372
                         }
             },
             "PINS": {
@@ -8192,7 +9635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22057146368.0,
                                     "enterprise_value": 20133294080.0,
-                                    "mcap_ev_ratio": 109.5555763520641
+                                    "mcap_ev_ratio": 109.5555763520641,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0351631448104412
                         }
             },
             "PKG": {
@@ -8209,7 +9655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19609075712.0,
                                     "enterprise_value": 21258012672.0,
-                                    "mcap_ev_ratio": 92.24322148338966
+                                    "mcap_ev_ratio": 92.24322148338966,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0188947175851817
                         }
             },
             "PLD": {
@@ -8226,7 +9675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 106281771008.0,
                                     "enterprise_value": 144894836736.0,
-                                    "mcap_ev_ratio": 73.35097192017032
+                                    "mcap_ev_ratio": 73.35097192017032,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.02161815008726
                         }
             },
             "PLNT": {
@@ -8243,7 +9695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8710629376.0,
                                     "enterprise_value": 11017635840.0,
-                                    "mcap_ev_ratio": 79.06078493151576
+                                    "mcap_ev_ratio": 79.06078493151576,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0283124939840215
                         }
             },
             "PNFP": {
@@ -8260,7 +9715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7391758848.0,
                                     "enterprise_value": 6862381568.0,
-                                    "mcap_ev_ratio": 107.7141918553253
+                                    "mcap_ev_ratio": 107.7141918553253,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0202619001919385
                         }
             },
             "PM": {
@@ -8277,7 +9735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 255421972480.0,
                                     "enterprise_value": 303014510592.0,
-                                    "mcap_ev_ratio": 84.29364388556232
+                                    "mcap_ev_ratio": 84.29364388556232,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.022098261405672
                         }
             },
             "PNC": {
@@ -8294,7 +9755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 79703973888.0,
                                     "enterprise_value": 136692023296.0,
-                                    "mcap_ev_ratio": 58.30916242669471
+                                    "mcap_ev_ratio": 58.30916242669471,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0135110741255961
                         }
             },
             "PNW": {
@@ -8311,7 +9775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10707847168.0,
                                     "enterprise_value": 24554633216.0,
-                                    "mcap_ev_ratio": 43.60825541072501
+                                    "mcap_ev_ratio": 43.60825541072501,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0136174131016042
                         }
             },
             "PODD": {
@@ -8328,7 +9795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22248624128.0,
                                     "enterprise_value": 22143428608.0,
-                                    "mcap_ev_ratio": 100.47506428142748
+                                    "mcap_ev_ratio": 100.47506428142748,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0318451306566749
                         }
             },
             "POOL": {
@@ -8345,7 +9815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11571194880.0,
                                     "enterprise_value": 13071874048.0,
-                                    "mcap_ev_ratio": 88.51978559088393
+                                    "mcap_ev_ratio": 88.51978559088393,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.034776000128841
                         }
             },
             "POST": {
@@ -8362,7 +9835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5838327296.0,
                                     "enterprise_value": 12037935104.0,
-                                    "mcap_ev_ratio": 48.49940829187577
+                                    "mcap_ev_ratio": 48.49940829187577,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0208089775793097
                         }
             },
             "PPG": {
@@ -8379,7 +9855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23723327488.0,
                                     "enterprise_value": 30231314432.0,
-                                    "mcap_ev_ratio": 78.47269605614217
+                                    "mcap_ev_ratio": 78.47269605614217,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0213307326355851
                         }
             },
             "PPL": {
@@ -8396,7 +9875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 27480387584.0,
                                     "enterprise_value": 44979224576.0,
-                                    "mcap_ev_ratio": 61.09573440415195
+                                    "mcap_ev_ratio": 61.09573440415195,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.013762355471901
                         }
             },
             "PRU": {
@@ -8413,7 +9895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 36714512384.0,
                                     "enterprise_value": 51632160768.0,
-                                    "mcap_ev_ratio": 71.1078363521724
+                                    "mcap_ev_ratio": 71.1078363521724,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0211363732665639
                         }
             },
             "PSA": {
@@ -8430,7 +9915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 50679558144.0,
                                     "enterprise_value": 64412975104.0,
-                                    "mcap_ev_ratio": 78.67911404833222
+                                    "mcap_ev_ratio": 78.67911404833222,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0209694452140185
                         }
             },
             "PSTG": {
@@ -8447,7 +9935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 27543029760.0,
                                     "enterprise_value": 25935341568.0,
-                                    "mcap_ev_ratio": 106.19883176701104
+                                    "mcap_ev_ratio": 106.19883176701104,
+                                    "next_earnings_date": "2025-12-02",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0304305764411027
                         }
             },
             "PTC": {
@@ -8464,7 +9955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24320315392.0,
                                     "enterprise_value": 25630943232.0,
-                                    "mcap_ev_ratio": 94.88654074047616
+                                    "mcap_ev_ratio": 94.88654074047616,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.018975906046878
                         }
             },
             "PVH": {
@@ -8481,7 +9975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4121225728.0,
                                     "enterprise_value": 8125606912.0,
-                                    "mcap_ev_ratio": 50.71898964142262
+                                    "mcap_ev_ratio": 50.71898964142262,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0409448292276567
                         }
             },
             "PWR": {
@@ -8498,7 +9995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 61751042048.0,
                                     "enterprise_value": 65568923648.0,
-                                    "mcap_ev_ratio": 94.17730017882266
+                                    "mcap_ev_ratio": 94.17730017882266,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0318924152225783
                         }
             },
             "PYPL": {
@@ -8515,7 +10015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 64067674112.0,
                                     "enterprise_value": 68734771200.0,
-                                    "mcap_ev_ratio": 93.2099910910884
+                                    "mcap_ev_ratio": 93.2099910910884,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0255258232752197
                         }
             },
             "QCOM": {
@@ -8532,7 +10035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 183737532416.0,
                                     "enterprise_value": 183135698944.0,
-                                    "mcap_ev_ratio": 100.3286270647778
+                                    "mcap_ev_ratio": 100.3286270647778,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0225149182888728
                         }
             },
             "QRVO": {
@@ -8549,7 +10055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8677771264.0,
                                     "enterprise_value": 8765227008.0,
-                                    "mcap_ev_ratio": 99.00224211055595
+                                    "mcap_ev_ratio": 99.00224211055595,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0326280582630599
                         }
             },
             "QTWO": {
@@ -8566,7 +10075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4573974528.0,
                                     "enterprise_value": 4626741760.0,
-                                    "mcap_ev_ratio": 98.8595163781088
+                                    "mcap_ev_ratio": 98.8595163781088,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0417131307575965
                         }
             },
             "RARE": {
@@ -8583,7 +10095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2898859008.0,
                                     "enterprise_value": 3322912768.0,
-                                    "mcap_ev_ratio": 87.23849256340154
+                                    "mcap_ev_ratio": 87.23849256340154,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0517402126952475
                         }
             },
             "RCL": {
@@ -8600,7 +10115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 87939006464.0,
                                     "enterprise_value": 107939192832.0,
-                                    "mcap_ev_ratio": 81.47087647845494
+                                    "mcap_ev_ratio": 81.47087647845494,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0258472419544134
                         }
             },
             "RF": {
@@ -8617,7 +10135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23645601792.0,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0182090943539219
                         }
             },
             "RGA": {
@@ -8634,7 +10155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12774144000.0,
                                     "enterprise_value": 12459186176.0,
-                                    "mcap_ev_ratio": 102.52791650715275
+                                    "mcap_ev_ratio": 102.52791650715275,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0190093252108716
                         }
             },
             "REGN": {
@@ -8651,7 +10175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 59928326144.0,
                                     "enterprise_value": 53378232320.0,
-                                    "mcap_ev_ratio": 112.27109542469016
+                                    "mcap_ev_ratio": 112.27109542469016,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0338211552410437
                         }
             },
             "RGEN": {
@@ -8668,7 +10195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7612068864.0,
                                     "enterprise_value": 6958216704.0,
-                                    "mcap_ev_ratio": 109.39683524981518
+                                    "mcap_ev_ratio": 109.39683524981518,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0466710600444773
                         }
             },
             "RGLD": {
@@ -8685,7 +10215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13204348928.0,
                                     "enterprise_value": 12890130432.0,
-                                    "mcap_ev_ratio": 102.43766731188342
+                                    "mcap_ev_ratio": 102.43766731188342,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0238976026714513
                         }
             },
             "RH": {
@@ -8702,7 +10235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3897949696.0,
                                     "enterprise_value": 7585820672.0,
-                                    "mcap_ev_ratio": 51.38468024148936
+                                    "mcap_ev_ratio": 51.38468024148936,
+                                    "next_earnings_date": "2025-12-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0518247084297032
                         }
             },
             "RHI": {
@@ -8719,7 +10255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3457079552.0,
                                     "enterprise_value": 3290473216.0,
-                                    "mcap_ev_ratio": 105.06329409368456
+                                    "mcap_ev_ratio": 105.06329409368456,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.032130099941211
                         }
             },
             "RJF": {
@@ -8736,7 +10275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 34413674496.0,
                                     "enterprise_value": 24481314816.0,
-                                    "mcap_ev_ratio": 140.571185635457
+                                    "mcap_ev_ratio": 140.571185635457,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0241691387974354
                         }
             },
             "RL": {
@@ -8753,7 +10295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19198599168.0,
                                     "enterprise_value": 19657947136.0,
-                                    "mcap_ev_ratio": 97.66329635123095
+                                    "mcap_ev_ratio": 97.66329635123095,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.033596872116333
                         }
             },
             "RMD": {
@@ -8770,7 +10315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 40078135296.0,
                                     "enterprise_value": 39328104448.0,
-                                    "mcap_ev_ratio": 101.90711161528696
+                                    "mcap_ev_ratio": 101.90711161528696,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.022058064163723
                         }
             },
             "RNG": {
@@ -8787,7 +10335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2561808384.0,
                                     "enterprise_value": 4121657600.0,
-                                    "mcap_ev_ratio": 62.15480839553484
+                                    "mcap_ev_ratio": 62.15480839553484,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.038019287729196
                         }
             },
             "ROKU": {
@@ -8804,7 +10355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 14681462784.0,
                                     "enterprise_value": 13058732032.0,
-                                    "mcap_ev_ratio": 112.42640363569411
+                                    "mcap_ev_ratio": 112.42640363569411,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0355006988817891
                         }
             },
             "ROK": {
@@ -8821,7 +10375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 39299194880.0,
                                     "enterprise_value": 42282020864.0,
-                                    "mcap_ev_ratio": 92.94540345270096
+                                    "mcap_ev_ratio": 92.94540345270096,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0207133527930402
                         }
             },
             "ROL": {
@@ -8838,7 +10395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 28467755008.0,
                                     "enterprise_value": 29205280768.0,
-                                    "mcap_ev_ratio": 97.47468354829824
+                                    "mcap_ev_ratio": 97.47468354829824,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0258340129119945
                         }
             },
             "ROP": {
@@ -8855,7 +10415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 53665939456.0,
                                     "enterprise_value": 62526820352.0,
-                                    "mcap_ev_ratio": 85.82867184655014
+                                    "mcap_ev_ratio": 85.82867184655014,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0174787415919282
                         }
             },
             "RPM": {
@@ -8872,7 +10435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15123103744.0,
                                     "enterprise_value": 17752856576.0,
-                                    "mcap_ev_ratio": 85.18687502069301
+                                    "mcap_ev_ratio": 85.18687502069301,
+                                    "next_earnings_date": "2025-10-01",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0241377902050499
                         }
             },
             "ROST": {
@@ -8889,7 +10455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 49561231360.0,
                                     "enterprise_value": 50609827840.0,
-                                    "mcap_ev_ratio": 97.92807736213788
+                                    "mcap_ev_ratio": 97.92807736213788,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0213868726628616
                         }
             },
             "RRR": {
@@ -8906,7 +10475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6156268544.0,
                                     "enterprise_value": 7046464000.0,
-                                    "mcap_ev_ratio": 87.3667777767686
+                                    "mcap_ev_ratio": 87.3667777767686,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0225458721595553
                         }
             },
             "RRX": {
@@ -8923,7 +10495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9520714752.0,
                                     "enterprise_value": 14274442240.0,
-                                    "mcap_ev_ratio": 66.697630575862
+                                    "mcap_ev_ratio": 66.697630575862,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0313561882909192
                         }
             },
             "RS": {
@@ -8940,7 +10515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15121874944.0,
                                     "enterprise_value": 16088566784.0,
-                                    "mcap_ev_ratio": 93.99143594964984
+                                    "mcap_ev_ratio": 93.99143594964984,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.019421213304462
                         }
             },
             "RSG": {
@@ -8957,7 +10535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 71647281152.0,
                                     "enterprise_value": 84612153344.0,
-                                    "mcap_ev_ratio": 84.67729317880625
+                                    "mcap_ev_ratio": 84.67729317880625,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "2025-10-01",
+                                    "var_to_ask_ratio": 0.013575444082519
                         }
             },
             "RTX": {
@@ -8974,7 +10555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 223978209280.0,
                                     "enterprise_value": 259687596032.0,
-                                    "mcap_ev_ratio": 86.24909803254533
+                                    "mcap_ev_ratio": 86.24909803254533,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0188429492537313
                         }
             },
             "SAIA": {
@@ -8991,7 +10575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7973766144.0,
                                     "enterprise_value": 8252135424.0,
-                                    "mcap_ev_ratio": 96.62670005159625
+                                    "mcap_ev_ratio": 96.62670005159625,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.04310496
                         }
             },
             "RVTY": {
@@ -9008,7 +10595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10173761536.0,
                                     "enterprise_value": 12156320768.0,
-                                    "mcap_ev_ratio": 83.69112439662797
+                                    "mcap_ev_ratio": 83.69112439662797,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "2025-10-16",
+                                    "var_to_ask_ratio": 0.0386501880770546
                         }
             },
             "SAIC": {
@@ -9025,7 +10615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4573206016.0,
                                     "enterprise_value": 6894269952.0,
-                                    "mcap_ev_ratio": 66.33343411035611
+                                    "mcap_ev_ratio": 66.33343411035611,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0385334742351046
                         }
             },
             "SAM": {
@@ -9042,7 +10635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2298224896.0,
                                     "enterprise_value": 2128257664.0,
-                                    "mcap_ev_ratio": 107.98621496236277
+                                    "mcap_ev_ratio": 107.98621496236277,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0292353453962868
                         }
             },
             "SCHW": {
@@ -9059,7 +10655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 173298991104.0,
                                     "enterprise_value": 155847589888.0,
-                                    "mcap_ev_ratio": 111.1977357035431
+                                    "mcap_ev_ratio": 111.1977357035431,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0302584625052367
                         }
             },
             "SCI": {
@@ -9076,7 +10675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11670774784.0,
                                     "enterprise_value": 16458181632.0,
-                                    "mcap_ev_ratio": 70.91169027633198
+                                    "mcap_ev_ratio": 70.91169027633198,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0226590440824149
                         }
             },
             "SEE": {
@@ -9093,7 +10695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5199804416.0,
                                     "enterprise_value": 9250831360.0,
-                                    "mcap_ev_ratio": 56.20904990748853
+                                    "mcap_ev_ratio": 56.20904990748853,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0245471186440677
                         }
             },
             "SF": {
@@ -9110,7 +10715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11593616384.0,
                                     "enterprise_value": 10450877440.0,
-                                    "mcap_ev_ratio": 110.9343827880542
+                                    "mcap_ev_ratio": 110.9343827880542,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.021256445931666
                         }
             },
             "SBUX": {
@@ -9127,7 +10735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 96164823040.0,
                                     "enterprise_value": 120755085312.0,
-                                    "mcap_ev_ratio": 79.63625117032123
+                                    "mcap_ev_ratio": 79.63625117032123,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0236914204679744
                         }
             },
             "SHW": {
@@ -9144,7 +10755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 86334152704.0,
                                     "enterprise_value": 98487328768.0,
-                                    "mcap_ev_ratio": 87.66016276811769
+                                    "mcap_ev_ratio": 87.66016276811769,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0238080571181306
                         }
             },
             "SITE": {
@@ -9161,7 +10775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5802289664.0,
                                     "enterprise_value": 6688026112.0,
-                                    "mcap_ev_ratio": 86.75638472148357
+                                    "mcap_ev_ratio": 86.75638472148357,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0383260943806271
                         }
             },
             "SJM": {
@@ -9178,7 +10795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11774688256.0,
                                     "enterprise_value": 19552987136.0,
-                                    "mcap_ev_ratio": 60.21938322825888
+                                    "mcap_ev_ratio": 60.21938322825888,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0309065840220385
                         }
             },
             "SLAB": {
@@ -9195,7 +10815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4303071744.0,
                                     "enterprise_value": 3813697280.0,
-                                    "mcap_ev_ratio": 112.832021738233
+                                    "mcap_ev_ratio": 112.832021738233,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0285387238224843
                         }
             },
             "SLM": {
@@ -9212,7 +10835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5770764800.0,
                                     "enterprise_value": 8363770880.0,
-                                    "mcap_ev_ratio": 68.99716506820425
+                                    "mcap_ev_ratio": 68.99716506820425,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0278159624413145
                         }
             },
             "SLB": {
@@ -9229,7 +10855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 51944198144.0,
                                     "enterprise_value": 58646347776.0,
-                                    "mcap_ev_ratio": 88.5719232549674
+                                    "mcap_ev_ratio": 88.5719232549674,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0251796334012219
                         }
             },
             "SMG": {
@@ -9246,7 +10875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3301760512.0,
                                     "enterprise_value": 5645667328.0,
-                                    "mcap_ev_ratio": 58.48308658968863
+                                    "mcap_ev_ratio": 58.48308658968863,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0247855311676909
                         }
             },
             "SNA": {
@@ -9263,7 +10895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18076172288.0,
                                     "enterprise_value": 17838567424.0,
-                                    "mcap_ev_ratio": 101.33197278880324
+                                    "mcap_ev_ratio": 101.33197278880324,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0199478033502858
                         }
             },
             "SNAP": {
@@ -9280,7 +10915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12826976256.0,
                                     "enterprise_value": 15493543936.0,
-                                    "mcap_ev_ratio": 82.78916888857107
+                                    "mcap_ev_ratio": 82.78916888857107,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0438913212435233
                         }
             },
             "SNPS": {
@@ -9297,7 +10935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 92816834560.0,
                                     "enterprise_value": 102004678656.0,
-                                    "mcap_ev_ratio": 90.99272286618827
+                                    "mcap_ev_ratio": 90.99272286618827,
+                                    "next_earnings_date": "2025-12-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.1567766548904814
                         }
             },
             "SNV": {
@@ -9314,7 +10955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6910684160.0,
                                     "enterprise_value": 8635618304.0,
-                                    "mcap_ev_ratio": 80.02535448792342
+                                    "mcap_ev_ratio": 80.02535448792342,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0187544324434481
                         }
             },
             "SNX": {
@@ -9331,7 +10975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13241807872.0,
                                     "enterprise_value": 17252956160.0,
-                                    "mcap_ev_ratio": 76.75095067302368
+                                    "mcap_ev_ratio": 76.75095067302368,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "2025-10-16",
+                                    "var_to_ask_ratio": 0.0277128266033254
                         }
             },
             "SO": {
@@ -9348,7 +10995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 104939757568.0,
                                     "enterprise_value": 176193454080.0,
-                                    "mcap_ev_ratio": 59.55939629877083
+                                    "mcap_ev_ratio": 59.55939629877083,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0103300316455696
                         }
             },
             "SPG": {
@@ -9365,7 +11015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 70615220224.0,
                                     "enterprise_value": 86047432704.0,
-                                    "mcap_ev_ratio": 82.06545855576395
+                                    "mcap_ev_ratio": 82.06545855576395,
+                                    "next_earnings_date": "2025-11-07",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0174937287414966
                         }
             },
             "SPGI": {
@@ -9382,7 +11035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 148592558080.0,
                                     "enterprise_value": 164745101312.0,
-                                    "mcap_ev_ratio": 90.1954333674482
+                                    "mcap_ev_ratio": 90.1954333674482,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "2025-11-24",
+                                    "var_to_ask_ratio": 0.0276582193606594
                         }
             },
             "SPR": {
@@ -9399,7 +11055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4628095488.0,
                                     "enterprise_value": 9628788736.0,
-                                    "mcap_ev_ratio": 48.06518882999824
+                                    "mcap_ev_ratio": 48.06518882999824,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0225528759350012
                         }
             },
             "SRPT": {
@@ -9416,7 +11075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2017028224.0,
                                     "enterprise_value": 2403120896.0,
-                                    "mcap_ev_ratio": 83.93369752463757
+                                    "mcap_ev_ratio": 83.93369752463757,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0673239772138788
                         }
             },
             "SSNC": {
@@ -9433,7 +11095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 21677025280.0,
                                     "enterprise_value": 28132440064.0,
-                                    "mcap_ev_ratio": 77.05348427184336
+                                    "mcap_ev_ratio": 77.05348427184336,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0149057130004498
                         }
             },
             "SRE": {
@@ -9450,7 +11115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 58709471232.0,
                                     "enterprise_value": 104790777856.0,
-                                    "mcap_ev_ratio": 56.02541791671458
+                                    "mcap_ev_ratio": 56.02541791671458,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0256134066422303
                         }
             },
             "ST": {
@@ -9467,7 +11135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4449271808.0,
                                     "enterprise_value": 6966230016.0,
-                                    "mcap_ev_ratio": 63.86914870426237
+                                    "mcap_ev_ratio": 63.86914870426237,
+                                    "next_earnings_date": "2025-11-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0259819666775563
                         }
             },
             "STE": {
@@ -9484,7 +11155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24738998272.0,
                                     "enterprise_value": 25968640000.0,
-                                    "mcap_ev_ratio": 95.26489747634068
+                                    "mcap_ev_ratio": 95.26489747634068,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0197015442925688
                         }
             },
             "STLD": {
@@ -9501,7 +11175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 20635576320.0,
                                     "enterprise_value": 23707164672.0,
-                                    "mcap_ev_ratio": 87.04362839463555
+                                    "mcap_ev_ratio": 87.04362839463555,
+                                    "next_earnings_date": "2025-10-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0347322948001718
                         }
             },
             "STT": {
@@ -9518,7 +11195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 32911495168.0,
                                     "enterprise_value": -50994720768.0,
-                                    "mcap_ev_ratio": -64.53902418199432
+                                    "mcap_ev_ratio": -64.53902418199432,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0175497502153316
                         }
             },
             "STZ": {
@@ -9535,7 +11215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23737774080.0,
                                     "enterprise_value": 35814752256.0,
-                                    "mcap_ev_ratio": 66.27931951148214
+                                    "mcap_ev_ratio": 66.27931951148214,
+                                    "next_earnings_date": "2025-10-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0330129372447084
                         }
             },
             "SWKS": {
@@ -9552,7 +11235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11809145856.0,
                                     "enterprise_value": 11308432384.0,
-                                    "mcap_ev_ratio": 104.42778852980936
+                                    "mcap_ev_ratio": 104.42778852980936,
+                                    "next_earnings_date": "2025-11-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0354797478226959
                         }
             },
             "SYNA": {
@@ -9569,7 +11255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2668691456.0,
                                     "enterprise_value": 3076433408.0,
-                                    "mcap_ev_ratio": 86.74627733076548
+                                    "mcap_ev_ratio": 86.74627733076548,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0315754577157803
                         }
             },
             "SWK": {
@@ -9586,7 +11275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11505707008.0,
                                     "enterprise_value": 18270646272.0,
-                                    "mcap_ev_ratio": 62.97372756667422
+                                    "mcap_ev_ratio": 62.97372756667422,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0355834163413649
                         }
             },
             "SYF": {
@@ -9603,7 +11295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26874546176.0,
                                     "enterprise_value": 25053259776.0,
-                                    "mcap_ev_ratio": 107.26965838491292
+                                    "mcap_ev_ratio": 107.26965838491292,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0219429274465691
                         }
             },
             "SYK": {
@@ -9620,7 +11315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 141327548416.0,
                                     "enterprise_value": 156071821312.0,
-                                    "mcap_ev_ratio": 90.55289239783714
+                                    "mcap_ev_ratio": 90.55289239783714,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0154812855055997
                         }
             },
             "SYY": {
@@ -9637,7 +11335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 39424114688.0,
                                     "enterprise_value": 52587900928.0,
-                                    "mcap_ev_ratio": 74.96803255558153
+                                    "mcap_ev_ratio": 74.96803255558153,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.017047157920252
                         }
             },
             "T": {
@@ -9654,7 +11355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 203653365760.0,
                                     "enterprise_value": 360306311168.0,
-                                    "mcap_ev_ratio": 56.52228657883335
+                                    "mcap_ev_ratio": 56.52228657883335,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0165183008849557
                         }
             },
             "TAP": {
@@ -9671,7 +11375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8778258432.0,
                                     "enterprise_value": 15329227776.0,
-                                    "mcap_ev_ratio": 57.26484438924943
+                                    "mcap_ev_ratio": 57.26484438924943,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0251625856353591
                         }
             },
             "TDG": {
@@ -9688,7 +11395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 74641211392.0,
                                     "enterprise_value": 94923857920.0,
-                                    "mcap_ev_ratio": 78.63271997952947
+                                    "mcap_ev_ratio": 78.63271997952947,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0305322829099831
                         }
             },
             "TDOC": {
@@ -9705,7 +11415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1365818752.0,
                                     "enterprise_value": 1804334464.0,
-                                    "mcap_ev_ratio": 75.696539596774
+                                    "mcap_ev_ratio": 75.696539596774,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0440483829236739
                         }
             },
             "TDY": {
@@ -9722,7 +11435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 27478534144.0,
                                     "enterprise_value": 29477750784.0,
-                                    "mcap_ev_ratio": 93.21787929259128
+                                    "mcap_ev_ratio": 93.21787929259128,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0198601860211573
                         }
             },
             "TECH": {
@@ -9739,7 +11455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8661226496.0,
                                     "enterprise_value": 8406226944.0,
-                                    "mcap_ev_ratio": 103.03346023963827
+                                    "mcap_ev_ratio": 103.03346023963827,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0388056667858419
                         }
             },
             "TER": {
@@ -9756,7 +11475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22054615040.0,
                                     "enterprise_value": 21074919424.0,
-                                    "mcap_ev_ratio": 104.64863279564584
+                                    "mcap_ev_ratio": 104.64863279564584,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0548909764065335
                         }
             },
             "TFC": {
@@ -9773,7 +11495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 59081359360.0,
                                     "enterprise_value": 77573865472.0,
-                                    "mcap_ev_ratio": 76.16142240755708
+                                    "mcap_ev_ratio": 76.16142240755708,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0161019251804856
                         }
             },
             "TMUS": {
@@ -9790,7 +11515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 269402800128.0,
                                     "enterprise_value": 376226709504.0,
-                                    "mcap_ev_ratio": 71.60650568460922
+                                    "mcap_ev_ratio": 71.60650568460922,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "2025-11-25",
+                                    "var_to_ask_ratio": 0.0172966248955722
                         }
             },
             "TNDM": {
@@ -9807,7 +11535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 834904256.0,
                                     "enterprise_value": 935191040.0,
-                                    "mcap_ev_ratio": 89.27633181772143
+                                    "mcap_ev_ratio": 89.27633181772143,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.057225
                         }
             },
             "TRIP": {
@@ -9824,7 +11555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1898300032.0,
                                     "enterprise_value": 2030077696.0,
-                                    "mcap_ev_ratio": 93.50873790399004
+                                    "mcap_ev_ratio": 93.50873790399004,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.054015592387968
                         }
             },
             "TRMB": {
@@ -9841,7 +11575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19430176768.0,
                                     "enterprise_value": 20748066816.0,
-                                    "mcap_ev_ratio": 93.6481308852172
+                                    "mcap_ev_ratio": 93.6481308852172,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0267060895084372
                         }
             },
             "TROW": {
@@ -9858,7 +11595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22551572480.0,
                                     "enterprise_value": 21460021248.0,
-                                    "mcap_ev_ratio": 105.08644059288493
+                                    "mcap_ev_ratio": 105.08644059288493,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0284845038910505
                         }
             },
             "TSCO": {
@@ -9875,7 +11615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 30138351616.0,
                                     "enterprise_value": 35374505984.0,
-                                    "mcap_ev_ratio": 85.19794348402115
+                                    "mcap_ev_ratio": 85.19794348402115,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0223824512045014
                         }
             },
             "TSLA": {
@@ -9892,7 +11635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1478761119744.0,
                                     "enterprise_value": 1406661165056.0,
-                                    "mcap_ev_ratio": 105.12560924258752
+                                    "mcap_ev_ratio": 105.12560924258752,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0466209622302158
                         }
             },
             "TTD": {
@@ -9909,7 +11655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22756245504.0,
                                     "enterprise_value": 22927411200.0,
-                                    "mcap_ev_ratio": 99.2534451687245
+                                    "mcap_ev_ratio": 99.2534451687245,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0564508460754332
                         }
             },
             "TTEK": {
@@ -9926,7 +11675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8771376128.0,
                                     "enterprise_value": 9666029568.0,
-                                    "mcap_ev_ratio": 90.74435440419292
+                                    "mcap_ev_ratio": 90.74435440419292,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0220767595088349
                         }
             },
             "TTWO": {
@@ -9943,7 +11695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 47659720704.0,
                                     "enterprise_value": 49426677760.0,
-                                    "mcap_ev_ratio": 96.42509443062352
+                                    "mcap_ev_ratio": 96.42509443062352,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0282864220892064
                         }
             },
             "TXG": {
@@ -9960,7 +11715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1504058496.0,
                                     "enterprise_value": 1051203456.0,
-                                    "mcap_ev_ratio": 143.0796757197876
+                                    "mcap_ev_ratio": 143.0796757197876,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0518091452991453
                         }
             },
             "TXN": {
@@ -9977,7 +11735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 168239104000.0,
                                     "enterprise_value": 175265202176.0,
-                                    "mcap_ev_ratio": 95.99116191419192
+                                    "mcap_ev_ratio": 95.99116191419192,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "2025-10-30",
+                                    "var_to_ask_ratio": 0.0244731949801705
                         }
             },
             "TXRH": {
@@ -9994,7 +11755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11040769024.0,
                                     "enterprise_value": 11842837504.0,
-                                    "mcap_ev_ratio": 93.22739605496491
+                                    "mcap_ev_ratio": 93.22739605496491,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0180481445841101
                         }
             },
             "ULTA": {
@@ -10011,7 +11775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24515375104.0,
                                     "enterprise_value": 26872532992.0,
-                                    "mcap_ev_ratio": 91.22837475461756
+                                    "mcap_ev_ratio": 91.22837475461756,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0363339937187306
                         }
             },
             "UTHR": {
@@ -10028,7 +11795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19332401152.0,
                                     "enterprise_value": 16141255680.0,
-                                    "mcap_ev_ratio": 119.77011909893744
+                                    "mcap_ev_ratio": 119.77011909893744,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.125968881593034
                         }
             },
             "VIR": {
@@ -10045,7 +11815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 793212864.0,
                                     "enterprise_value": 278310464.0,
-                                    "mcap_ev_ratio": 285.01007565421617
+                                    "mcap_ev_ratio": 285.01007565421617,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0656914930555555
                         }
             },
             "VIRT": {
@@ -10062,7 +11835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7420835840.0,
                                     "enterprise_value": -4761055744.0,
-                                    "mcap_ev_ratio": -155.8653424579605
+                                    "mcap_ev_ratio": -155.8653424579605,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0269058277027027
                         }
             },
             "VRNS": {
@@ -10079,7 +11855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6465409024.0,
                                     "enterprise_value": 6590602752.0,
-                                    "mcap_ev_ratio": 98.1004206639217
+                                    "mcap_ev_ratio": 98.1004206639217,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0317026998961578
                         }
             },
             "VRSK": {
@@ -10096,7 +11875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 35139710976.0,
                                     "enterprise_value": 37557092352.0,
-                                    "mcap_ev_ratio": 93.563449072832
+                                    "mcap_ev_ratio": 93.563449072832,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0203143990794746
                         }
             },
             "VRSN": {
@@ -10113,7 +11895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 26124345344.0,
                                     "enterprise_value": 27752353792.0,
-                                    "mcap_ev_ratio": 94.13380046895593
+                                    "mcap_ev_ratio": 94.13380046895593,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0158095061375963
                         }
             },
             "VRTX": {
@@ -10130,7 +11915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 100412841984.0,
                                     "enterprise_value": 96498384896.0,
-                                    "mcap_ev_ratio": 104.05650010849276
+                                    "mcap_ev_ratio": 104.05650010849276,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0211981751452747
                         }
             },
             "VTRS": {
@@ -10147,7 +11935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11542133760.0,
                                     "enterprise_value": 25218088960.0,
-                                    "mcap_ev_ratio": 45.76926419090561
+                                    "mcap_ev_ratio": 45.76926419090561,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0253165489404641
                         }
             },
             "AAPL": {
@@ -10164,7 +11955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3794106056704.0,
                                     "enterprise_value": 3822166474752.0,
-                                    "mcap_ev_ratio": 99.26585044808074
+                                    "mcap_ev_ratio": 99.26585044808074,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0301802589250686
                         }
             },
             "AXP": {
@@ -10181,7 +11975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 231144243200.0,
                                     "enterprise_value": 241168449536.0,
-                                    "mcap_ev_ratio": 95.84348352560784
+                                    "mcap_ev_ratio": 95.84348352560784,
+                                    "next_earnings_date": "2025-10-17",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0202254099593801
                         }
             },
             "BA": {
@@ -10198,7 +11995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 166344065024.0,
                                     "enterprise_value": 197540708352.0,
-                                    "mcap_ev_ratio": 84.20748635141555
+                                    "mcap_ev_ratio": 84.20748635141555,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0244605002315887
                         }
             },
             "CAT": {
@@ -10215,7 +12015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 223534710784.0,
                                     "enterprise_value": 257261338624.0,
-                                    "mcap_ev_ratio": 86.89012969442209
+                                    "mcap_ev_ratio": 86.89012969442209,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0209141728488201
                         }
             },
             "CSCO": {
@@ -10232,7 +12035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 270477737984.0,
                                     "enterprise_value": 280680497152.0,
-                                    "mcap_ev_ratio": 96.36499177123989
+                                    "mcap_ev_ratio": 96.36499177123989,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "2025-10-02",
+                                    "var_to_ask_ratio": 0.0166837035954399
                         }
             },
             "CVX": {
@@ -10249,7 +12055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 321019478016.0,
                                     "enterprise_value": 295981285376.0,
-                                    "mcap_ev_ratio": 108.45938371008585
+                                    "mcap_ev_ratio": 108.45938371008585,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0213981790103596
                         }
             },
             "DIS": {
@@ -10266,7 +12075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 205863419904.0,
                                     "enterprise_value": 247873847296.0,
-                                    "mcap_ev_ratio": 83.05169026491407
+                                    "mcap_ev_ratio": 83.05169026491407,
+                                    "next_earnings_date": "2025-11-12",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0145434186391824
                         }
             },
             "DOW": {
@@ -10283,7 +12095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16303501312.0,
                                     "enterprise_value": 32954441728.0,
-                                    "mcap_ev_ratio": 49.47284935538023
+                                    "mcap_ev_ratio": 49.47284935538023,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0371897514173571
                         }
             },
             "GE": {
@@ -10300,7 +12115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 320468025344.0,
                                     "enterprise_value": 320124813312.0,
-                                    "mcap_ev_ratio": 100.10721194288226
+                                    "mcap_ev_ratio": 100.10721194288226,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0226021700179175
                         }
             },
             "GS": {
@@ -10317,7 +12135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 241071931392.0,
                                     "enterprise_value": 19023157248.0,
-                                    "mcap_ev_ratio": 1267.2551051815813
+                                    "mcap_ev_ratio": 1267.2551051815813,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0214370177464293
                         }
             },
             "HD": {
@@ -10334,7 +12155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 406582591488.0,
                                     "enterprise_value": 868962598912.0,
-                                    "mcap_ev_ratio": 46.78942361812452
+                                    "mcap_ev_ratio": 46.78942361812452,
+                                    "next_earnings_date": "2025-11-18",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.015310301340112
                         }
             },
             "IBM": {
@@ -10351,7 +12175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 267074060288.0,
                                     "enterprise_value": 312990072832.0,
-                                    "mcap_ev_ratio": 85.32988214976204
+                                    "mcap_ev_ratio": 85.32988214976204,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0273816539755622
                         }
             },
             "INTC": {
@@ -10368,7 +12195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 161322450944.0,
                                     "enterprise_value": 188337963008.0,
-                                    "mcap_ev_ratio": 85.65583293324008
+                                    "mcap_ev_ratio": 85.65583293324008,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0965457066189624
                         }
             },
             "JNJ": {
@@ -10385,7 +12215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 446554210304.0,
                                     "enterprise_value": 469283504128.0,
-                                    "mcap_ev_ratio": 95.15659646587524
+                                    "mcap_ev_ratio": 95.15659646587524,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0131501321538378
                         }
             },
             "JPM": {
@@ -10402,7 +12235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 868371398656.0,
                                     "enterprise_value": 516066803712.0,
-                                    "mcap_ev_ratio": 168.2672461026208
+                                    "mcap_ev_ratio": 168.2672461026208,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "2025-10-05",
+                                    "var_to_ask_ratio": 0.0175612608902265
                         }
             },
             "KO": {
@@ -10419,7 +12255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 285419208704.0,
                                     "enterprise_value": 321727201280.0,
-                                    "mcap_ev_ratio": 88.71466496101426
+                                    "mcap_ev_ratio": 88.71466496101426,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.010496004824363
                         }
             },
             "MCD": {
@@ -10436,7 +12275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 218467647488.0,
                                     "enterprise_value": 270228013056.0,
-                                    "mcap_ev_ratio": 80.84566992790879
+                                    "mcap_ev_ratio": 80.84566992790879,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0129008976129414
                         }
             },
             "MMM": {
@@ -10453,7 +12295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 82653470720.0,
                                     "enterprise_value": 91696586752.0,
-                                    "mcap_ev_ratio": 90.1380014760443
+                                    "mcap_ev_ratio": 90.1380014760443,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0232568174485384
                         }
             },
             "MRK": {
@@ -10470,7 +12315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 209638948864.0,
                                     "enterprise_value": 223122800640.0,
-                                    "mcap_ev_ratio": 93.95675756250672
+                                    "mcap_ev_ratio": 93.95675756250672,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0194768048606147
                         }
             },
             "MSFT": {
@@ -10487,7 +12335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3850008526848.0,
                                     "enterprise_value": 3842726428672.0,
-                                    "mcap_ev_ratio": 100.189503424487
+                                    "mcap_ev_ratio": 100.189503424487,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "2025-11-19",
+                                    "var_to_ask_ratio": 0.0164346102604699
                         }
             },
             "NKE": {
@@ -10504,7 +12355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 102629113856.0,
                                     "enterprise_value": 104588640256.0,
-                                    "mcap_ev_ratio": 98.12644432970568
+                                    "mcap_ev_ratio": 98.12644432970568,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0207418984800688
                         }
             },
             "PFE": {
@@ -10521,7 +12375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 144867819520.0,
                                     "enterprise_value": 184712380416.0,
-                                    "mcap_ev_ratio": 78.42886285896805
+                                    "mcap_ev_ratio": 78.42886285896805,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0192053438113948
                         }
             },
             "PG": {
@@ -10538,7 +12395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 359615561728.0,
                                     "enterprise_value": 387643310080.0,
-                                    "mcap_ev_ratio": 92.76970668055236
+                                    "mcap_ev_ratio": 92.76970668055236,
+                                    "next_earnings_date": "2025-10-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0146747999739803
                         }
             },
             "TRV": {
@@ -10555,7 +12415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 63148326912.0,
                                     "enterprise_value": 65014505472.0,
-                                    "mcap_ev_ratio": 97.12959662393538
+                                    "mcap_ev_ratio": 97.12959662393538,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0177694587444587
                         }
             },
             "UNH": {
@@ -10572,7 +12435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 312729075712.0,
                                     "enterprise_value": 369853431808.0,
-                                    "mcap_ev_ratio": 84.5548665543667
+                                    "mcap_ev_ratio": 84.5548665543667,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.038764696851192
                         }
             },
             "V": {
@@ -10589,7 +12455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 657164075008.0,
                                     "enterprise_value": 662242394112.0,
-                                    "mcap_ev_ratio": 99.23316309116552
+                                    "mcap_ev_ratio": 99.23316309116552,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0186020457139512
                         }
             },
             "VZ": {
@@ -10606,7 +12475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 186849918976.0,
                                     "enterprise_value": 354928033792.0,
-                                    "mcap_ev_ratio": 52.64445216674557
+                                    "mcap_ev_ratio": 52.64445216674557,
+                                    "next_earnings_date": "2025-10-21",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0139590309372156
                         }
             },
             "WMT": {
@@ -10623,7 +12495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 822319710208.0,
                                     "enterprise_value": 885716484096.0,
-                                    "mcap_ev_ratio": 92.84231748800458
+                                    "mcap_ev_ratio": 92.84231748800458,
+                                    "next_earnings_date": "2025-11-20",
+                                    "next_dividend_date": "2025-12-11",
+                                    "var_to_ask_ratio": 0.016238413037152
                         }
             },
             "XOM": {
@@ -10640,7 +12515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 493306249216.0,
                                     "enterprise_value": 518954090496.0,
-                                    "mcap_ev_ratio": 95.057782229737
+                                    "mcap_ev_ratio": 95.057782229737,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0228041227059136
                         }
             },
             "TFX": {
@@ -10657,7 +12535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5407433216.0,
                                     "enterprise_value": 7169995264.0,
-                                    "mcap_ev_ratio": 75.41752842083885
+                                    "mcap_ev_ratio": 75.41752842083885,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0304284841075794
                         }
             },
             "TGT": {
@@ -10674,7 +12555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 40759599104.0,
                                     "enterprise_value": 56425275392.0,
-                                    "mcap_ev_ratio": 72.23642032906925
+                                    "mcap_ev_ratio": 72.23642032906925,
+                                    "next_earnings_date": "2025-11-19",
+                                    "next_dividend_date": "2025-11-11",
+                                    "var_to_ask_ratio": 0.0216459552687214
                         }
             },
             "THC": {
@@ -10691,7 +12575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18010114048.0,
                                     "enterprise_value": 32879220736.0,
-                                    "mcap_ev_ratio": 54.77658425243768
+                                    "mcap_ev_ratio": 54.77658425243768,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0314113765082492
                         }
             },
             "THO": {
@@ -10708,7 +12595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5532989952.0,
                                     "enterprise_value": 5901663232.0,
-                                    "mcap_ev_ratio": 93.75306137427532
+                                    "mcap_ev_ratio": 93.75306137427532,
+                                    "next_earnings_date": "2025-12-03",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0375194682593199
                         }
             },
             "TJX": {
@@ -10725,7 +12615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 160864157696.0,
                                     "enterprise_value": 168210972672.0,
-                                    "mcap_ev_ratio": 95.63238065906332
+                                    "mcap_ev_ratio": 95.63238065906332,
+                                    "next_earnings_date": "2025-11-19",
+                                    "next_dividend_date": "2025-11-12",
+                                    "var_to_ask_ratio": 0.0123387901832008
                         }
             },
             "TKR": {
@@ -10742,7 +12635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5258032128.0,
                                     "enterprise_value": 7314443264.0,
-                                    "mcap_ev_ratio": 71.88560958396955
+                                    "mcap_ev_ratio": 71.88560958396955,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0288333598831806
                         }
             },
             "TMO": {
@@ -10759,7 +12655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 184021483520.0,
                                     "enterprise_value": 203401904128.0,
-                                    "mcap_ev_ratio": 90.47185881022826
+                                    "mcap_ev_ratio": 90.47185881022826,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0227344520307762
                         }
             },
             "TNL": {
@@ -10776,7 +12675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3867291648.0,
                                     "enterprise_value": 9396100096.0,
-                                    "mcap_ev_ratio": 41.15847647947407
+                                    "mcap_ev_ratio": 41.15847647947407,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0204027871054398
                         }
             },
             "TOL": {
@@ -10793,7 +12695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13314348032.0,
                                     "enterprise_value": 15563001856.0,
-                                    "mcap_ev_ratio": 85.5512847405266
+                                    "mcap_ev_ratio": 85.5512847405266,
+                                    "next_earnings_date": "2025-12-08",
+                                    "next_dividend_date": "2025-10-09",
+                                    "var_to_ask_ratio": 0.0264358218682114
                         }
             },
             "TPL": {
@@ -10810,7 +12715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22246100992.0,
                                     "enterprise_value": 20619122688.0,
-                                    "mcap_ev_ratio": 107.89062817375287
+                                    "mcap_ev_ratio": 107.89062817375287,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0441631959531416
                         }
             },
             "TPR": {
@@ -10827,7 +12735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 23437162496.0,
                                     "enterprise_value": 25977059328.0,
-                                    "mcap_ev_ratio": 90.2225390490512
+                                    "mcap_ev_ratio": 90.2225390490512,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0313223617868199
                         }
             },
             "TREX": {
@@ -10844,7 +12755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5540796928.0,
                                     "enterprise_value": 5799716864.0,
-                                    "mcap_ev_ratio": 95.53564523800864
+                                    "mcap_ev_ratio": 95.53564523800864,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0460881897386253
                         }
             },
             "TRGP": {
@@ -10861,7 +12775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 37140660224.0,
                                     "enterprise_value": 53247492096.0,
-                                    "mcap_ev_ratio": 69.75100377880527
+                                    "mcap_ev_ratio": 69.75100377880527,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0306791621911922
                         }
             },
             "TRU": {
@@ -10878,7 +12795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16320344064.0,
                                     "enterprise_value": 21216004096.0,
-                                    "mcap_ev_ratio": 76.92468379131293
+                                    "mcap_ev_ratio": 76.92468379131293,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0391221652557529
                         }
             },
             "TSN": {
@@ -10895,7 +12815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19400620032.0,
                                     "enterprise_value": 26844315648.0,
-                                    "mcap_ev_ratio": 72.27086838939557
+                                    "mcap_ev_ratio": 72.27086838939557,
+                                    "next_earnings_date": "2025-11-11",
+                                    "next_dividend_date": "2025-11-30",
+                                    "var_to_ask_ratio": 0.0149147459499263
                         }
             },
             "TTC": {
@@ -10912,7 +12835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7483545600.0,
                                     "enterprise_value": 8389866496.0,
-                                    "mcap_ev_ratio": 89.19743363697023
+                                    "mcap_ev_ratio": 89.19743363697023,
+                                    "next_earnings_date": "2025-12-18",
+                                    "next_dividend_date": "2025-10-06",
+                                    "var_to_ask_ratio": 0.0194517083387877
                         }
             },
             "TWLO": {
@@ -10929,7 +12855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15357168640.0,
                                     "enterprise_value": 14561581056.0,
-                                    "mcap_ev_ratio": 105.4636071518634
+                                    "mcap_ev_ratio": 105.4636071518634,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0315573505976095
                         }
             },
             "TXT": {
@@ -10946,7 +12875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15056565248.0,
                                     "enterprise_value": 17709590528.0,
-                                    "mcap_ev_ratio": 85.01927373303523
+                                    "mcap_ev_ratio": 85.01927373303523,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0206107227208313
                         }
             },
             "TYL": {
@@ -10963,7 +12895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 22653802496.0,
                                     "enterprise_value": 22644819968.0,
-                                    "mcap_ev_ratio": 100.03966703207485
+                                    "mcap_ev_ratio": 100.03966703207485,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0186005906111873
                         }
             },
             "UAL": {
@@ -10980,7 +12915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 31240146944.0,
                                     "enterprise_value": 49102934016.0,
-                                    "mcap_ev_ratio": 63.621752080681205
+                                    "mcap_ev_ratio": 63.621752080681205,
+                                    "next_earnings_date": "2025-10-15",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0242645194697597
                         }
             },
             "UBER": {
@@ -10997,7 +12935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 204308463616.0,
                                     "enterprise_value": 213649129472.0,
-                                    "mcap_ev_ratio": 95.62803467578644
+                                    "mcap_ev_ratio": 95.62803467578644,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0337226214781543
                         }
             },
             "UGI": {
@@ -11014,7 +12955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7159150592.0,
                                     "enterprise_value": 13745184768.0,
-                                    "mcap_ev_ratio": 52.08478978519905
+                                    "mcap_ev_ratio": 52.08478978519905,
+                                    "next_earnings_date": "2025-11-19",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.017626824872334
                         }
             },
             "UHS": {
@@ -11031,7 +12975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 12996059136.0,
                                     "enterprise_value": 17781266432.0,
-                                    "mcap_ev_ratio": 73.0884899886078
+                                    "mcap_ev_ratio": 73.0884899886078,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0258192000389749
                         }
             },
             "UNM": {
@@ -11048,7 +12995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13390691328.0,
                                     "enterprise_value": 13731750912.0,
-                                    "mcap_ev_ratio": 97.51627023978456
+                                    "mcap_ev_ratio": 97.51627023978456,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0199964276535595
                         }
             },
             "UNP": {
@@ -11065,7 +13015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 140176834560.0,
                                     "enterprise_value": 172941049856.0,
-                                    "mcap_ev_ratio": 81.05469157075127
+                                    "mcap_ev_ratio": 81.05469157075127,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0155922488806285
                         }
             },
             "UPS": {
@@ -11082,7 +13035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 70143975424.0,
                                     "enterprise_value": 94269636608.0,
-                                    "mcap_ev_ratio": 74.40781353139042
+                                    "mcap_ev_ratio": 74.40781353139042,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0166338802395209
                         }
             },
             "URI": {
@@ -11099,7 +13055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 61643943936.0,
                                     "enterprise_value": 74638032896.0,
-                                    "mcap_ev_ratio": 82.59052596133415
+                                    "mcap_ev_ratio": 82.59052596133415,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0263772202022734
                         }
             },
             "USB": {
@@ -11116,7 +13075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 75901493248.0,
                                     "enterprise_value": 104272723968.0,
-                                    "mcap_ev_ratio": 72.79132102782049
+                                    "mcap_ev_ratio": 72.79132102782049,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0167950578990901
                         }
             },
             "USFD": {
@@ -11133,7 +13095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17252648960.0,
                                     "enterprise_value": 22232922112.0,
-                                    "mcap_ev_ratio": 77.59955651843018
+                                    "mcap_ev_ratio": 77.59955651843018,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0161873778819851
                         }
             },
             "VAC": {
@@ -11150,7 +13115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2321756160.0,
                                     "enterprise_value": 7667607040.0,
-                                    "mcap_ev_ratio": 30.280061926595547
+                                    "mcap_ev_ratio": 30.280061926595547,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0329007961544239
                         }
             },
             "VEEV": {
@@ -11167,7 +13135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 48829837312.0,
                                     "enterprise_value": 41706782720.0,
-                                    "mcap_ev_ratio": 117.07888771910528
+                                    "mcap_ev_ratio": 117.07888771910528,
+                                    "next_earnings_date": "2025-12-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0266193200107296
                         }
             },
             "VFC": {
@@ -11184,7 +13155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5745817600.0,
                                     "enterprise_value": 10677026816.0,
-                                    "mcap_ev_ratio": 53.81477164962849
+                                    "mcap_ev_ratio": 53.81477164962849,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0394085239085239
                         }
             },
             "VLO": {
@@ -11201,7 +13175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 53963898880.0,
                                     "enterprise_value": 62454591488.0,
-                                    "mcap_ev_ratio": 86.4050145782614
+                                    "mcap_ev_ratio": 86.4050145782614,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0235972708064326
                         }
             },
             "VMC": {
@@ -11218,7 +13195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 40644034560.0,
                                     "enterprise_value": 45223362560.0,
-                                    "mcap_ev_ratio": 89.87397720829719
+                                    "mcap_ev_ratio": 89.87397720829719,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0226767416934619
                         }
             },
             "VOYA": {
@@ -11235,7 +13215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7262846976.0,
                                     "enterprise_value": 12470438912.0,
-                                    "mcap_ev_ratio": 58.24050803064469
+                                    "mcap_ev_ratio": 58.24050803064469,
+                                    "next_earnings_date": "2025-11-10",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0187204144385026
                         }
             },
             "VST": {
@@ -11252,7 +13235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 69493841920.0,
                                     "enterprise_value": 87151091712.0,
-                                    "mcap_ev_ratio": 79.73949672328806
+                                    "mcap_ev_ratio": 79.73949672328806,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0480759295199182
                         }
             },
             "VVV": {
@@ -11269,7 +13255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4661300736.0,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "2025-11-19",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0260957405345211
                         }
             },
             "VYX": {
@@ -11286,7 +13275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1734840960.0,
                                     "enterprise_value": 3116075776.0,
-                                    "mcap_ev_ratio": 55.67390155790615
+                                    "mcap_ev_ratio": 55.67390155790615,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0376180588703261
                         }
             },
             "W": {
@@ -11303,7 +13295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11274832896.0,
                                     "enterprise_value": 14096458752.0,
-                                    "mcap_ev_ratio": 79.98344190096914
+                                    "mcap_ev_ratio": 79.98344190096914,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0496209289311695
                         }
             },
             "WAB": {
@@ -11320,7 +13315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 34270984192.0,
                                     "enterprise_value": 37441929216.0,
-                                    "mcap_ev_ratio": 91.53103194627865
+                                    "mcap_ev_ratio": 91.53103194627865,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0274282880637926
                         }
             },
             "WAL": {
@@ -11337,7 +13335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 9698638848.0,
                                     "enterprise_value": 13789273088.0,
-                                    "mcap_ev_ratio": 70.33466366287401
+                                    "mcap_ev_ratio": 70.33466366287401,
+                                    "next_earnings_date": "2025-10-16",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0215167935409457
                         }
             },
             "WAT": {
@@ -11354,7 +13355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17986510848.0,
                                     "enterprise_value": 18456084480.0,
-                                    "mcap_ev_ratio": 97.45572451996058
+                                    "mcap_ev_ratio": 97.45572451996058,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0339361204570438
                         }
             },
             "WCC": {
@@ -11371,7 +13375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10410006528.0,
                                     "enterprise_value": 15998651392.0,
-                                    "mcap_ev_ratio": 65.06802525371258
+                                    "mcap_ev_ratio": 65.06802525371258,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0230977392366986
                         }
             },
             "WEC": {
@@ -11388,7 +13395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 36882669568.0,
                                     "enterprise_value": 57749880832.0,
-                                    "mcap_ev_ratio": 63.86622627896889
+                                    "mcap_ev_ratio": 63.86622627896889,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0139737218635491
                         }
             },
             "WEX": {
@@ -11405,7 +13415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 5401694208.0,
                                     "enterprise_value": 6024165888.0,
-                                    "mcap_ev_ratio": 89.66708932700627
+                                    "mcap_ev_ratio": 89.66708932700627,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0360238128403191
                         }
             },
             "WFC": {
@@ -11422,7 +13435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 269654360064.0,
                                     "enterprise_value": 288506281984.0,
-                                    "mcap_ev_ratio": 93.4656806117499
+                                    "mcap_ev_ratio": 93.4656806117499,
+                                    "next_earnings_date": "2025-10-14",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0205933015494636
                         }
             },
             "WH": {
@@ -11439,7 +13455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 6141576704.0,
                                     "enterprise_value": 8705747968.0,
-                                    "mcap_ev_ratio": 70.54622677539935
+                                    "mcap_ev_ratio": 70.54622677539935,
+                                    "next_earnings_date": "2025-10-29",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.029398059103431
                         }
             },
             "WHR": {
@@ -11456,7 +13475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4393300480.0,
                                     "enterprise_value": 11898444800.0,
-                                    "mcap_ev_ratio": 36.92331690272665
+                                    "mcap_ev_ratio": 36.92331690272665,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0335069241519501
                         }
             },
             "WK": {
@@ -11473,7 +13495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 4854642176.0,
                                     "enterprise_value": 4753085440.0,
-                                    "mcap_ev_ratio": 102.13664865237516
+                                    "mcap_ev_ratio": 102.13664865237516,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0503995726989259
                         }
             },
             "WM": {
@@ -11490,7 +13515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 88957018112.0,
                                     "enterprise_value": 111974055936.0,
-                                    "mcap_ev_ratio": 79.44431178133296
+                                    "mcap_ev_ratio": 79.44431178133296,
+                                    "next_earnings_date": "2025-10-27",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0146022325665476
                         }
             },
             "WMB": {
@@ -11507,7 +13535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 77409959936.0,
                                     "enterprise_value": 108189720576.0,
-                                    "mcap_ev_ratio": 71.55019859915606
+                                    "mcap_ev_ratio": 71.55019859915606,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0185057431366361
                         }
             },
             "WMS": {
@@ -11524,7 +13555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 10784286720.0,
                                     "enterprise_value": 11541040128.0,
-                                    "mcap_ev_ratio": 93.44293582201468
+                                    "mcap_ev_ratio": 93.44293582201468,
+                                    "next_earnings_date": "2025-11-07",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0455094895240838
                         }
             },
             "WRB": {
@@ -11541,7 +13575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 29061412864.0,
                                     "enterprise_value": 28916017152.0,
-                                    "mcap_ev_ratio": 100.50282067283234
+                                    "mcap_ev_ratio": 100.50282067283234,
+                                    "next_earnings_date": "2025-10-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.017622665103556
                         }
             },
             "WSM": {
@@ -11558,7 +13595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24965722112.0,
                                     "enterprise_value": 23789731840.0,
-                                    "mcap_ev_ratio": 104.9432682970503
+                                    "mcap_ev_ratio": 104.9432682970503,
+                                    "next_earnings_date": "2025-11-26",
+                                    "next_dividend_date": "2025-10-16",
+                                    "var_to_ask_ratio": 0.0344271789634924
                         }
             },
             "WSO": {
@@ -11575,7 +13615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 16539194368.0,
                                     "enterprise_value": 15774273536.0,
-                                    "mcap_ev_ratio": 104.84916677940382
+                                    "mcap_ev_ratio": 104.84916677940382,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0294177791501976
                         }
             },
             "WST": {
@@ -11592,7 +13635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18950404096.0,
                                     "enterprise_value": 18517413888.0,
-                                    "mcap_ev_ratio": 102.33828660210808
+                                    "mcap_ev_ratio": 102.33828660210808,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "2025-11-11",
+                                    "var_to_ask_ratio": 0.0290960954364703
                         }
             },
             "WTRG": {
@@ -11609,7 +13655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 11190700032.0,
                                     "enterprise_value": 18749970432.0,
-                                    "mcap_ev_ratio": 59.68382762300881
+                                    "mcap_ev_ratio": 59.68382762300881,
+                                    "next_earnings_date": "2025-10-31",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0186930197648236
                         }
             },
             "WU": {
@@ -11626,7 +13675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2580508672.0,
                                     "enterprise_value": 4313338368.0,
-                                    "mcap_ev_ratio": 59.826251776220495
+                                    "mcap_ev_ratio": 59.826251776220495,
+                                    "next_earnings_date": "2025-10-22",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0217880952380952
                         }
             },
             "X": {
@@ -11643,7 +13695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "Not Available",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0837298213634706
                         }
             },
             "XPO": {
@@ -11660,7 +13715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15223104512.0,
                                     "enterprise_value": 19022002176.0,
-                                    "mcap_ev_ratio": 80.02892845426621
+                                    "mcap_ev_ratio": 80.02892845426621,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0352496097070871
                         }
             },
             "XYL": {
@@ -11677,7 +13735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 35902930944.0,
                                     "enterprise_value": 36227825664.0,
-                                    "mcap_ev_ratio": 99.1031901196244
+                                    "mcap_ev_ratio": 99.1031901196244,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0171529910472056
                         }
             },
             "YETI": {
@@ -11694,7 +13755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2717925888.0,
                                     "enterprise_value": 2678680576.0,
-                                    "mcap_ev_ratio": 101.46509861428136
+                                    "mcap_ev_ratio": 101.46509861428136,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0317778112752487
                         }
             },
             "YUM": {
@@ -11711,7 +13775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 42185424896.0,
                                     "enterprise_value": 54361845760.0,
-                                    "mcap_ev_ratio": 77.60116365850195
+                                    "mcap_ev_ratio": 77.60116365850195,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0196034099137647
                         }
             },
             "ZBH": {
@@ -11728,7 +13795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 19512455168.0,
                                     "enterprise_value": 26642774016.0,
-                                    "mcap_ev_ratio": 73.23732564890588
+                                    "mcap_ev_ratio": 73.23732564890588,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0200211433204946
                         }
             },
             "ZTS": {
@@ -11745,7 +13815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 65046052864.0,
                                     "enterprise_value": 68766826496.0,
-                                    "mcap_ev_ratio": 94.58928989224708
+                                    "mcap_ev_ratio": 94.58928989224708,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0165572657743785
                         }
             },
             "WDAY": {
@@ -11762,7 +13835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 64010219520.0,
                                     "enterprise_value": 61723230208.0,
-                                    "mcap_ev_ratio": 103.70523270459616
+                                    "mcap_ev_ratio": 103.70523270459616,
+                                    "next_earnings_date": "2025-11-25",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0333272746148415
                         }
             },
             "WDC": {
@@ -11779,7 +13855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 41651466240.0,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": "2025-10-23",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0485717626498002
                         }
             },
             "AAXJ": {
@@ -11796,7 +13875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0104786238632628
                         }
             },
             "ARKG": {
@@ -11813,7 +13895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0361758087706685
                         }
             },
             "ARKK": {
@@ -11830,7 +13915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0254503701133472
                         }
             },
             "ARKW": {
@@ -11847,7 +13935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0265891162684348
                         }
             },
             "DGRO": {
@@ -11864,7 +13955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0073499853157121
                         }
             },
             "DIA": {
@@ -11881,7 +13975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0086869450852719
                         }
             },
             "DVY": {
@@ -11898,7 +13995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0101102223160264
                         }
             },
             "EEM": {
@@ -11915,7 +14015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0092649129376521
                         }
             },
             "EFA": {
@@ -11932,7 +14035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0096766513221282
                         }
             },
             "EFAV": {
@@ -11949,7 +14055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0080374425456688
                         }
             },
             "EFG": {
@@ -11966,7 +14075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0115508819657744
                         }
             },
             "EFV": {
@@ -11983,7 +14095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0088779301194161
                         }
             },
             "EMB": {
@@ -12000,7 +14115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0057878256302521
                         }
             },
             "ESGU": {
@@ -12017,7 +14135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.008122692017297
                         }
             },
             "EWJ": {
@@ -12034,7 +14155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0129525529265255
                         }
             },
             "EWT": {
@@ -12051,7 +14175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0143825533919597
                         }
             },
             "EWY": {
@@ -12068,7 +14195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0193878228321896
                         }
             },
             "EWZ": {
@@ -12085,7 +14215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0150085161290322
                         }
             },
             "EZU": {
@@ -12102,7 +14235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0112926612903225
                         }
             },
             "FDN": {
@@ -12119,7 +14255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.013264513018322
                         }
             },
             "FTEC": {
@@ -12136,7 +14275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.013199226235998
                         }
             },
             "FVD": {
@@ -12153,7 +14295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0091541441246483
                         }
             },
             "GDX": {
@@ -12170,7 +14315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0303211780104712
                         }
             },
             "GDXJ": {
@@ -12187,7 +14335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0353577490402101
                         }
             },
             "GLD": {
@@ -12204,7 +14355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0143987314713245
                         }
             },
             "GSLC": {
@@ -12221,7 +14375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0082455347552554
                         }
             },
             "HDV": {
@@ -12238,7 +14395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0085191362560209
                         }
             },
             "IBB": {
@@ -12255,7 +14415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0200894019105634
                         }
             },
             "ICLN": {
@@ -12272,7 +14435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0174898513251454
                         }
             },
             "IGV": {
@@ -12289,7 +14455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0166046857341563
                         }
             },
             "IHI": {
@@ -12306,7 +14475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0154453441968739
                         }
             },
             "IJH": {
@@ -12323,7 +14495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0131602909647779
                         }
             },
             "IJR": {
@@ -12340,7 +14515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0169019771159347
                         }
             },
             "IJS": {
@@ -12357,7 +14535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.017225526339568
                         }
             },
             "INDA": {
@@ -12374,7 +14555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0092095430107526
                         }
             },
             "ITOT": {
@@ -12391,7 +14575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0081302408563782
                         }
             },
             "IUSG": {
@@ -12408,7 +14595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0104110166403498
                         }
             },
             "IUSV": {
@@ -12425,7 +14615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0082331733653269
                         }
             },
             "IVE": {
@@ -12442,7 +14635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0079013942005131
                         }
             },
             "IVW": {
@@ -12459,7 +14655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0105854587611791
                         }
             },
             "IWB": {
@@ -12476,7 +14675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0078821979223619
                         }
             },
             "IWD": {
@@ -12493,7 +14695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0084188727415553
                         }
             },
             "IWF": {
@@ -12510,7 +14715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0106482367247669
                         }
             },
             "IWM": {
@@ -12527,7 +14735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0158571723767409
                         }
             },
             "IWN": {
@@ -12544,7 +14755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0151569497086609
                         }
             },
             "IWO": {
@@ -12561,7 +14775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0170179873860372
                         }
             },
             "IWS": {
@@ -12578,7 +14795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0111048927038626
                         }
             },
             "IYR": {
@@ -12595,7 +14815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0131711665292662
                         }
             },
             "IYW": {
@@ -12612,7 +14835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0127331972025116
                         }
             },
             "KRE": {
@@ -12629,7 +14855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.017476686147528
                         }
             },
             "MCHI": {
@@ -12646,7 +14875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0202177211348809
                         }
             },
             "MDY": {
@@ -12663,7 +14895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0134056069907081
                         }
             },
             "MTUM": {
@@ -12680,7 +14915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0121208768511301
                         }
             },
             "OEF": {
@@ -12697,7 +14935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0082459149345188
                         }
             },
             "PFF": {
@@ -12714,7 +14955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0051165244865718
                         }
             },
             "QQQ": {
@@ -12731,7 +14975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0088206690979334
                         }
             },
             "QUAL": {
@@ -12748,7 +14995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0084808121305576
                         }
             },
             "RSP": {
@@ -12765,7 +15015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0099838250790305
                         }
             },
             "SCHB": {
@@ -12782,7 +15035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.008245899727944
                         }
             },
             "SCHD": {
@@ -12799,7 +15055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0089830036630036
                         }
             },
             "SCHF": {
@@ -12816,7 +15075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0094412017167381
                         }
             },
             "SCHG": {
@@ -12833,7 +15095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0101199812088944
                         }
             },
             "SCHV": {
@@ -12850,7 +15115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0087217913520933
                         }
             },
             "SCZ": {
@@ -12867,7 +15135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0109985678948053
                         }
             },
             "SKYY": {
@@ -12884,7 +15155,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0172589407914311
                         }
             },
             "SLV": {
@@ -12901,7 +15175,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0230486078338839
                         }
             },
             "SMH": {
@@ -12918,7 +15195,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0181761127278296
                         }
             },
             "SOXX": {
@@ -12935,7 +15215,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0166771931118404
                         }
             },
             "SPDW": {
@@ -12952,7 +15235,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.00947738317757
                         }
             },
             "SPLV": {
@@ -12969,7 +15255,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0095879167233637
                         }
             },
             "SPY": {
@@ -12986,7 +15275,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0076011915302309
                         }
             },
             "SPYG": {
@@ -13003,7 +15295,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.010477450511619
                         }
             },
             "SPYV": {
@@ -13020,7 +15315,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.00778960968558
                         }
             },
             "TIP": {
@@ -13037,7 +15335,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0038975723790685
                         }
             },
             "TLT": {
@@ -13054,7 +15355,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0121639852315954
                         }
             },
             "USMV": {
@@ -13071,7 +15375,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0081926319108681
                         }
             },
             "VDE": {
@@ -13088,7 +15395,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0190285578144853
                         }
             },
             "VEA": {
@@ -13105,7 +15415,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0100198498748957
                         }
             },
             "VGT": {
@@ -13122,7 +15435,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0133720078719074
                         }
             },
             "VHT": {
@@ -13139,7 +15455,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0132132363132363
                         }
             },
             "VLUE": {
@@ -13156,7 +15475,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0121008630334025
                         }
             },
             "VNQ": {
@@ -13173,7 +15495,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0144151415764731
                         }
             },
             "VOE": {
@@ -13190,7 +15515,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0101380139731989
                         }
             },
             "VPL": {
@@ -13207,7 +15535,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0117840518712319
                         }
             },
             "VT": {
@@ -13224,7 +15555,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0075278503046127
                         }
             },
             "VTI": {
@@ -13241,7 +15575,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0079547581333008
                         }
             },
             "VWO": {
@@ -13258,7 +15595,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0091887331735201
                         }
             },
             "VXF": {
@@ -13275,7 +15615,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0133297040572792
                         }
             },
             "VXUS": {
@@ -13292,7 +15635,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0089311827956989
                         }
             },
             "XBI": {
@@ -13309,7 +15655,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0252133113969488
                         }
             },
             "XLB": {
@@ -13326,7 +15675,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0144346972906678
                         }
             },
             "XLC": {
@@ -13343,7 +15695,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0123259625126646
                         }
             },
             "XLE": {
@@ -13360,7 +15715,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0199224969235932
                         }
             },
             "XLF": {
@@ -13377,7 +15735,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0120653924661347
                         }
             },
             "XLI": {
@@ -13394,7 +15755,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0112448678071539
                         }
             },
             "XLK": {
@@ -13411,7 +15775,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0129873595007623
                         }
             },
             "XLP": {
@@ -13428,7 +15795,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0109657314118097
                         }
             },
             "XLU": {
@@ -13445,7 +15815,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0137733035304906
                         }
             },
             "XLV": {
@@ -13462,7 +15835,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0125752513645504
                         }
             },
             "XLY": {
@@ -13479,7 +15855,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": NaN,
                                     "enterprise_value": NaN,
-                                    "mcap_ev_ratio": NaN
+                                    "mcap_ev_ratio": NaN,
+                                    "next_earnings_date": NaN,
+                                    "next_dividend_date": NaN,
+                                    "var_to_ask_ratio": 0.0152220757550475
                         }
             },
             "WWD": {
@@ -13496,7 +15875,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15347533824.0,
                                     "enterprise_value": 15265503232.0,
-                                    "mcap_ev_ratio": 100.53735923901968
+                                    "mcap_ev_ratio": 100.53735923901968,
+                                    "next_earnings_date": "2025-11-24",
+                                    "next_dividend_date": "2025-11-19",
+                                    "var_to_ask_ratio": 0.0183204104139588
                         }
             },
             "WYNN": {
@@ -13513,7 +15895,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 13337069568.0,
                                     "enterprise_value": 23053035520.0,
-                                    "mcap_ev_ratio": 57.853854241577984
+                                    "mcap_ev_ratio": 57.853854241577984,
+                                    "next_earnings_date": "2025-11-04",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.032692217807899
                         }
             },
             "XEL": {
@@ -13530,7 +15915,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 47698522112.0,
                                     "enterprise_value": 79265669120.0,
-                                    "mcap_ev_ratio": 60.17551184711427
+                                    "mcap_ev_ratio": 60.17551184711427,
+                                    "next_earnings_date": "2025-10-30",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0284753811825957
                         }
             },
             "XRAY": {
@@ -13547,7 +15935,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 2531450112.0,
                                     "enterprise_value": 4666491392.0,
-                                    "mcap_ev_ratio": 54.24739701309193
+                                    "mcap_ev_ratio": 54.24739701309193,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0315584119496855
                         }
             },
             "ZBRA": {
@@ -13564,7 +15955,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 15254171648.0,
                                     "enterprise_value": 16584942592.0,
-                                    "mcap_ev_ratio": 91.97602924087349
+                                    "mcap_ev_ratio": 91.97602924087349,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0273850871291125
                         }
             },
             "ZD": {
@@ -13581,7 +15975,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 1562210560.0,
                                     "enterprise_value": 2037923840.0,
-                                    "mcap_ev_ratio": 76.65696476665192
+                                    "mcap_ev_ratio": 76.65696476665192,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0428004950495049
                         }
             },
             "ZG": {
@@ -13598,7 +15995,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 18264862720.0,
                                     "enterprise_value": 18046115840.0,
-                                    "mcap_ev_ratio": 101.21215491432864
+                                    "mcap_ev_ratio": 101.21215491432864,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0450320445697409
                         }
             },
             "ZION": {
@@ -13615,7 +16015,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 8431684096.0,
                                     "enterprise_value": 11778556928.0,
-                                    "mcap_ev_ratio": 71.58503497110236
+                                    "mcap_ev_ratio": 71.58503497110236,
+                                    "next_earnings_date": "2025-10-20",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0238238574201517
                         }
             },
             "ZM": {
@@ -13632,7 +16035,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 24960141312.0,
                                     "enterprise_value": 17296199680.0,
-                                    "mcap_ev_ratio": 144.30997429372877
+                                    "mcap_ev_ratio": 144.30997429372877,
+                                    "next_earnings_date": "2025-11-24",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0221167050551582
                         }
             },
             "ZS": {
@@ -13649,7 +16055,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 47436423168.0,
                                     "enterprise_value": 45223682048.0,
-                                    "mcap_ev_ratio": 104.89288138380996
+                                    "mcap_ev_ratio": 104.89288138380996,
+                                    "next_earnings_date": "2025-12-02",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0289545218173939
                         }
             },
             "ZWS": {
@@ -13666,7 +16075,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 7879994368.0,
                                     "enterprise_value": 8210937344.0,
-                                    "mcap_ev_ratio": 95.96948603874282
+                                    "mcap_ev_ratio": 95.96948603874282,
+                                    "next_earnings_date": "2025-10-28",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0247773341782847
                         }
             },
             "COIN": {
@@ -13683,7 +16095,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 81157955584.0,
                                     "enterprise_value": 82971836416.0,
-                                    "mcap_ev_ratio": 97.8138596054381
+                                    "mcap_ev_ratio": 97.8138596054381,
+                                    "next_earnings_date": "2025-11-05",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0526262205773501
                         }
             },
             "XYZ": {
@@ -13700,7 +16115,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 43049541632.0,
                                     "enterprise_value": 45263192064.0,
-                                    "mcap_ev_ratio": 95.10938064449806
+                                    "mcap_ev_ratio": 95.10938064449806,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0294798785536847
                         }
             },
             "SGI": {
@@ -13717,7 +16135,10 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 17727752192.0,
                                     "enterprise_value": 24072667136.0,
-                                    "mcap_ev_ratio": 73.64265908653155
+                                    "mcap_ev_ratio": 73.64265908653155,
+                                    "next_earnings_date": "2025-11-06",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0220640502727057
                         }
             },
             "BRSL": {
@@ -13734,45 +16155,48 @@ const varData = {
                         "ev_data": {
                                     "market_cap": 3267614976.0,
                                     "enterprise_value": 9364989952.0,
-                                    "mcap_ev_ratio": 34.89181507666395
+                                    "mcap_ev_ratio": 34.89181507666395,
+                                    "next_earnings_date": "2025-11-11",
+                                    "next_dividend_date": "Not Available",
+                                    "var_to_ask_ratio": 0.0219385904101675
                         }
             },
             "EURGBP": {
-                        "var": 452.652128,
-                        "price": 0.87302,
-                        "sector": "Currency",
+                        "var": 400.055085,
+                        "price": 0.87298,
+                        "sector": "Crypto Currency",
                         "industry": "Undefined",
                         "description": "Euro vs Great Britain Pound ",
-                        "asset_class": "futures",
+                        "asset_class": "crypto",
                         "atr_d1": 0.003036,
                         "atr_w1": 0.008118,
-                        "atr_mn1": 0.018601,
+                        "atr_mn1": 0.018646,
                         "outliers": [],
                         "ev_data": {}
             },
             "EURUSD": {
-                        "var": 860.451793,
-                        "price": 1.17361,
-                        "sector": "Currency",
+                        "var": 813.986008,
+                        "price": 1.17382,
+                        "sector": "Crypto Currency",
                         "industry": "Undefined",
                         "description": "Euro vs US Dollar",
-                        "asset_class": "futures",
-                        "atr_d1": 0.007567,
+                        "asset_class": "crypto",
+                        "atr_d1": 0.007576,
                         "atr_w1": 0.018152,
-                        "atr_mn1": 0.041244,
+                        "atr_mn1": 0.041763,
                         "outliers": [],
                         "ev_data": {}
             },
             "GBPUSD": {
-                        "var": 1013.699451,
-                        "price": 1.34421,
-                        "sector": "Currency",
+                        "var": 853.792623,
+                        "price": 1.3445,
+                        "sector": "Crypto Currency",
                         "industry": "Undefined",
                         "description": "Great Britan Pound vs US Dollar",
-                        "asset_class": "futures",
-                        "atr_d1": 0.008681,
+                        "asset_class": "crypto",
+                        "atr_d1": 0.008694,
                         "atr_w1": 0.021054,
-                        "atr_mn1": 0.049542,
+                        "atr_mn1": 0.049387,
                         "outliers": [],
                         "ev_data": {}
             },
@@ -14189,6 +16613,97 @@ const varData = {
                         "atr_d1": 0.432143,
                         "atr_w1": 1.126429,
                         "atr_mn1": 3.345714,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "ADAUSD": {
+                        "var": 0.048634,
+                        "price": 0.8035,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "Cardano vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 0.044757,
+                        "atr_w1": 0.131914,
+                        "atr_mn1": 0.327621,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "BNBUSD": {
+                        "var": 46.806844,
+                        "price": 1005.92,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "BNB vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 44.484286,
+                        "atr_w1": 70.887143,
+                        "atr_mn1": 149.317857,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "DOGEUSD": {
+                        "var": 0.01883,
+                        "price": 0.23194,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "Dogecoin vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 0.018349,
+                        "atr_w1": 0.039974,
+                        "atr_mn1": 0.113478,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "BTCUSD": {
+                        "var": 3473.168483,
+                        "price": 113875.5,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "Bitcoin vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 2798.678571,
+                        "atr_w1": 6986.227857,
+                        "atr_mn1": 18322.64,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "ETHUSD": {
+                        "var": 230.023279,
+                        "price": 4137.36,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "Ethereum vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 202.384286,
+                        "atr_w1": 503.868571,
+                        "atr_mn1": 969.693571,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "SOLUSD": {
+                        "var": 14.006423,
+                        "price": 208.27,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "Solana vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 13.675357,
+                        "atr_w1": 28.049571,
+                        "atr_mn1": 69.539071,
+                        "outliers": [],
+                        "ev_data": {}
+            },
+            "XRPUSD": {
+                        "var": 0.15369,
+                        "price": 2.8377,
+                        "sector": "Crypto Currency",
+                        "industry": "Undefined",
+                        "description": "Ripple vs USD",
+                        "asset_class": "crypto",
+                        "atr_d1": 0.147671,
+                        "atr_w1": 0.411221,
+                        "atr_mn1": 0.777564,
                         "outliers": [],
                         "ev_data": {}
             }

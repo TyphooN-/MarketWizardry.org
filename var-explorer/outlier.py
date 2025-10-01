@@ -144,7 +144,7 @@ def find_var_outliers(filename, overwrite=False):
         elif re.search(r'Futures', filename, re.IGNORECASE):
             file_type = "Futures"
             TOP_N_DISPLAY = FUTURES_TOP
-        
+
         print(f"Analysis results for {filename}")
         print(f"Report generated on: {datetime.now()}")
         print(f"Detected file type: {file_type}. Displaying top/bottom {TOP_N_DISPLAY} assets at end.")

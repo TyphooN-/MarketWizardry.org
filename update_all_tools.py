@@ -44,18 +44,25 @@ class FinancialToolsUpdater:
         mt_paths = {
             'stocks': f"/home/typhoon/.mt5_9/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Stocks-{self.date_str}.csv",
             'cfd': f"/home/typhoon/.mt5_10/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-CFD-{self.date_str}.csv",
-            'futures': f"/home/typhoon/.mt5_11/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Futures-{self.date_str}.csv"
+            'futures': f"/home/typhoon/.mt5_11/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Futures-{self.date_str}.csv",
+            'crypto': f"/home/typhoon/.mt5_8/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
         }
 
         for asset_type, source_path in mt_paths.items():
-            dest_path = f'var-explorer/SymbolsExport-Darwinex-Live-{asset_type.title()}-{self.date_str}.csv'
+            # Crypto goes to its own explorer
+            if asset_type == 'crypto':
+                dest_dir = 'crypto-explorer'
+            else:
+                dest_dir = 'var-explorer'
+
+            dest_path = f'{dest_dir}/SymbolsExport-Darwinex-Live-{asset_type.title()}-{self.date_str}.csv'
 
             # Check if destination already exists
             if os.path.exists(dest_path):
                 print(f"⏭️  {asset_type.title()} CSV already exists for {self.date_str}, skipping copy")
                 files_copied += 1
             elif os.path.exists(source_path):
-                shutil.copy(source_path, 'var-explorer/')
+                shutil.copy(source_path, dest_dir + '/')
                 print(f"✅ Copied {asset_type.title()} CSV for {self.date_str}")
                 files_copied += 1
             else:
@@ -187,7 +194,7 @@ class FinancialToolsUpdater:
         print("⚡ Processing ATR data...")
 
         try:
-            # Copy available CSV files to ATR explorer
+            # Copy available CSV files to ATR explorer (exclude Crypto - it has its own explorer)
             files_copied = 0
             for asset_type in ['CFD', 'Stocks', 'Futures']:
                 csv_file = f"var-explorer/SymbolsExport-Darwinex-Live-{asset_type}-{self.date_str}.csv"
@@ -219,6 +226,50 @@ class FinancialToolsUpdater:
             print(f"❌ Error processing ATR data: {e}")
             return False
 
+    def process_crypto_data(self):
+        """Process Crypto data with crypto-specific analysis"""
+        print("₿ Processing Crypto data...")
+
+        try:
+            # Check if crypto CSV exists
+            crypto_csv = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
+            if not os.path.exists(crypto_csv):
+                print("⚠️ Warning: No crypto CSV available for processing")
+                return False
+
+            # Check if analysis file already exists
+            analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-analysis.txt"
+
+            if os.path.exists(analysis_file) and not self.force_regenerate:
+                print(f"⏭️ Skipping Crypto analysis - file already exists for {self.date_str}")
+                print("   Use --force to regenerate existing files")
+                self.data_summary['crypto_processed'] = True
+                return True
+
+            # Run crypto analysis script
+            csv_filename = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
+            result = subprocess.run(
+                ['python3', 'analyze.py', csv_filename],
+                cwd='crypto-explorer',
+                capture_output=True,
+                text=True
+            )
+
+            if result.returncode == 0:
+                # Save output to analysis file
+                with open(analysis_file, 'w') as f:
+                    f.write(result.stdout)
+                print(f"✅ Crypto analysis completed and saved to {analysis_file}")
+                self.data_summary['crypto_processed'] = True
+                return True
+            else:
+                print(f"❌ Crypto analysis failed: {result.stderr}")
+                return False
+
+        except Exception as e:
+            print(f"❌ Error processing Crypto data: {e}")
+            return False
+
     def fetch_financial_data(self):
         """Fetch and process financial data from all sources"""
         print("📊 Fetching and processing financial data...")
@@ -234,12 +285,14 @@ class FinancialToolsUpdater:
         self.process_var_data()
         self.process_ev_data()
         self.process_atr_data()
+        self.process_crypto_data()
 
         # Compile data summary
         data = {
             'var_data': self.data_summary.get('var_outliers', 0),
             'atr_data': self.data_summary.get('atr_files', 0),
             'ev_data': self.data_summary.get('ev_processed', False),
+            'crypto_data': self.data_summary.get('crypto_processed', False),
             'calculator_data': {},
             'last_updated': datetime.now().isoformat(),
             'date_processed': self.date_str
@@ -708,6 +761,85 @@ class FinancialToolsUpdater:
 
         print(f"✅ ATR Explorer generated with {len(atr_files)} historical files")
 
+    def generate_crypto_explorer(self, data):
+        """Generate Crypto Explorer page with crypto-specific analysis"""
+        print("🔧 Generating Crypto Explorer...")
+
+        # Scan historical crypto analysis files
+        crypto_files = self._scan_historical_files('crypto-explorer', '-analysis.txt')
+        file_grid_html = self._generate_file_grid_entries(crypto_files)
+
+        # Reuse shared JS since crypto explorer uses similar modal structure
+        modal_js = self._generate_modal_javascript('var')
+
+        crypto_breadcrumbs = [
+            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '₿ Crypto Explorer', 'url': None}
+        ]
+        breadcrumbs_html = self.seo_manager.generate_breadcrumbs(crypto_breadcrumbs)
+        breadcrumb_css = self.seo_manager.generate_breadcrumb_css()
+
+        # Create page config for Crypto Explorer
+        page_config = {
+            'title': 'Crypto Explorer - MarketWizardry.org',
+            'canonical_url': 'https://marketwizardry.org/crypto-explorer.html',
+            'description': 'Cryptocurrency market analysis with volatility rankings, correlation matrices, and risk metrics. For those who prefer their financial ruin to be decentralized.',
+            'keywords': 'crypto explorer, cryptocurrency analysis, bitcoin volatility, crypto correlation, crypto risk metrics, digital assets',
+            'og_title': 'Crypto Explorer - MarketWizardry.org',
+            'og_description': 'Advanced cryptocurrency market analysis with volatility rankings and correlation analysis.',
+            'twitter_title': 'Crypto Explorer - MarketWizardry.org',
+            'twitter_description': 'Professional cryptocurrency market analysis and risk management.',
+            'twitter_label1': 'Asset Class',
+            'twitter_data1': 'Cryptocurrency',
+            'twitter_label2': 'Updates',
+            'twitter_data2': 'Daily'
+        }
+        meta_tags = self.seo_manager.generate_enhanced_meta_tags(page_config)
+
+        html_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+{meta_tags}
+
+    <link rel="stylesheet" href="/css/shared-styles.css">
+</head>
+<body>
+{breadcrumbs_html}
+    <div class="container">
+        <h1>Crypto Explorer</h1>
+        <div class="crt-divider"></div>
+        <div class="flavor-text">Cryptocurrency market analysis with volatility rankings, correlation matrices, and risk metrics. For those who prefer their financial ruin to be decentralized.</div>
+        <div class="crt-divider"></div>
+
+        <div class="grid">
+            {file_grid_html}
+        </div>
+    </div>
+
+    <!-- Text Modal (for analysis.txt files) -->
+    <div id="text-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="text-modal-title">Analysis</h2>
+                <div class="crt-divider"></div>
+                <div class="modal-button-bar">
+                    <button class="modal-close">Close [ESC]</button>
+                    <button id="text-modal-download-csv" class="download-csv">Download CSV</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <pre id="text-modal-text" class="modal-text"></pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>'''
+
+        with open('crypto-explorer.html', 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        print(f"✅ Crypto Explorer generated with {len(crypto_files)} historical files")
+
     def generate_ev_explorer(self, data):
         """Generate EV Explorer page with full modal system and historical files"""
         print("🔧 Generating EV Explorer...")
@@ -869,6 +1001,27 @@ class FinancialToolsUpdater:
                         }
                         symbols_processed += 1
 
+            # Process crypto-explorer file
+            crypto_file_path = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{date_str}.csv"
+            if os.path.exists(crypto_file_path):
+                df = pd.read_csv(crypto_file_path, sep=';')
+                for _, row in df.iterrows():
+                    symbol = row['Symbol']
+                    var_data[symbol] = {
+                        'var': row['VaR_1_Lot'],
+                        'price': row['BidPrice'],
+                        'sector': 'Crypto Currency',
+                        'industry': row.get('IndustryName', 'Cryptocurrency'),
+                        'description': row['Description'],
+                        'asset_class': 'crypto',
+                        'atr_d1': row['ATR_D1'],
+                        'atr_w1': row['ATR_W1'],
+                        'atr_mn1': row['ATR_MN1'],
+                        'outliers': [],
+                        'ev_data': {}
+                    }
+                    symbols_processed += 1
+
             # Process ev-explorer file
             ev_file_path = f"{ev_dir}/SymbolsExport-Darwinex-Live-Stocks-{date_str}-EV.csv"
             ev_symbols_processed = 0
@@ -942,6 +1095,7 @@ window.varData = varData;"""
         # Update all tools
         self.generate_var_explorer(data)
         self.generate_atr_explorer(data)
+        self.generate_crypto_explorer(data)
         self.generate_ev_explorer(data)
 
         if not self.html_only:
