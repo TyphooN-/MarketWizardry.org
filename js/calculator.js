@@ -517,6 +517,22 @@ function updateCompoundTimeline(principal, rate, time, compound, monthly) {
     document.getElementById('ci-chart-container')?.classList.add('show');
 }
 
+// Helper function to get asset class emoji and display name
+window.getAssetClassDisplay = function(assetClass, sector) {
+    const assetClassMap = {
+        'stocks': { emoji: '📈', name: 'Stock' },
+        'crypto': { emoji: '₿', name: 'Crypto' },
+        'futures': { emoji: '📊', name: 'CFD' }
+    };
+
+    // Futures/CFD covers both traditional futures and forex pairs
+    if (assetClass === 'futures' || (sector === 'Currency' && assetClass !== 'crypto')) {
+        return assetClassMap['futures'];
+    }
+
+    return assetClassMap[assetClass] || { emoji: '❓', name: assetClass || 'Unknown' };
+};
+
 console.log('✅ Core calculators loaded');/**
  * MarketWizardry.org Calculator - Portfolio & Symbol Functions
  * Part 2: Portfolio VaR Calculator and Symbol Lookup functionality
@@ -810,7 +826,10 @@ window.addSymbolToPortfolio = function(symbol) {
         <td class="var-display">$${data.var}</td>
         <td class="var-percent-display">-</td>
         <td class="weight-display">-</td>
-        <td class="asset-class-display">${data.asset_class || 'Unknown'}</td>
+        <td class="asset-class-display">${(() => {
+            const display = window.getAssetClassDisplay(data.asset_class, data.sector);
+            return `${display.emoji} ${display.name}`;
+        })()}</td>
         <td><button class="remove-btn position-remove-btn" title="Remove Position"></button></td>
     `;
 
@@ -1042,7 +1061,10 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                 </div>
                 <div class="metric-item">
                     <span class="metric-label">Asset Class:</span>
-                    <span class="metric-value">${data.asset_class || 'Unknown'}</span>
+                    <span class="metric-value">${(() => {
+                        const display = window.getAssetClassDisplay(data.asset_class, data.sector);
+                        return `${display.emoji} ${display.name}`;
+                    })()}</span>
                 </div>
             </div>
 
@@ -1171,10 +1193,69 @@ window.showAllSymbols = function() {
     }
 
     const symbols = Object.entries(window.varData);
-    const filteredSymbols = symbols.filter(([symbol, data]) => data.asset_class === 'stocks');
 
-    displaySymbolGrid(filteredSymbols, `Filtered Symbols (${filteredSymbols.length} stocks)`);
+    // Get filter values
+    const assetClassFilter = document.getElementById('dataset-selector')?.value || 'all';
+    const sectorFilter = document.getElementById('sector-selector')?.value || 'all';
+    const industryFilter = document.getElementById('industry-selector')?.value || 'all';
+
+    // Apply filters
+    let filteredSymbols = symbols;
+
+    // Asset class filter
+    if (assetClassFilter !== 'all') {
+        if (assetClassFilter === 'futures') {
+            // CFD includes both futures and forex (Currency sector that's not crypto)
+            filteredSymbols = filteredSymbols.filter(([symbol, data]) =>
+                data.asset_class === 'futures' || (data.sector === 'Currency' && data.asset_class !== 'crypto')
+            );
+        } else {
+            filteredSymbols = filteredSymbols.filter(([symbol, data]) =>
+                data.asset_class === assetClassFilter
+            );
+        }
+    }
+
+    // Sector filter
+    if (sectorFilter !== 'all') {
+        filteredSymbols = filteredSymbols.filter(([symbol, data]) =>
+            data.sector === sectorFilter
+        );
+    }
+
+    // Industry filter
+    if (industryFilter !== 'all') {
+        filteredSymbols = filteredSymbols.filter(([symbol, data]) =>
+            data.industry === industryFilter
+        );
+    }
+
+    const filterLabel = getFilterLabel(assetClassFilter, sectorFilter, industryFilter);
+    displaySymbolGrid(filteredSymbols, `Filtered Symbols (${filteredSymbols.length} ${filterLabel})`);
 };
+
+function getFilterLabel(assetClass, sector, industry) {
+    let labels = [];
+
+    if (assetClass !== 'all') {
+        const assetLabels = {
+            'stocks': 'stocks',
+            'crypto': 'crypto',
+            'futures': 'CFD'
+        };
+        labels.push(assetLabels[assetClass] || assetClass);
+    }
+
+    if (sector !== 'all') {
+        labels.push(sector);
+    }
+
+    if (industry !== 'all') {
+        labels.push(industry);
+    }
+
+    return labels.length > 0 ? labels.join(' - ') : 'all assets';
+}
 
 window.showAllSymbolsUnfiltered = function() {
     console.log('🔍 showAllSymbolsUnfiltered called');
@@ -1503,10 +1584,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set up portfolio position removal handlers (delegated)
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-btn') || e.target.classList.contains('position-remove-btn')) {
+        const removeBtn = e.target.closest('.remove-btn, .position-remove-btn');
+        if (removeBtn && (e.target.classList.contains('remove-btn') || e.target.classList.contains('position-remove-btn'))) {
             e.preventDefault();
             console.log('🗑️ Remove position button clicked');
-            window.removePosition(e.target);
+            // Delay removal to allow explosion animation to start
+            setTimeout(() => {
+                window.removePosition(removeBtn);
+            }, 100);
             return;
         }
 
