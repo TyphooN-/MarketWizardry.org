@@ -82,21 +82,26 @@
         </div>
     </div>
 
-    <!-- Text Modal (for analysis.txt files) -->
-    <div id="text-modal" class="modal">
+    <!-- Modal Structure -->
+    <div id="outlier-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="text-modal-title">Analysis</h2>
+                <h2 id="modal-title">File Analysis</h2>
                 <div class="crt-divider"></div>
                 <div class="modal-button-bar">
-                    <button class="modal-close">Close [ESC]</button>
-                    <button id="text-modal-download-csv" class="download-csv">Download CSV</button>
+                    <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                    <button class="nav-button" data-action="previous">← Previous</button>
+                    <span class="nav-counter" id="nav-counter">1 of 1</span>
+                    <button class="nav-button" data-action="next">Next →</button>
+                    <button class="close-button" data-action="close-modal">Close</button>
                 </div>
             </div>
             <div class="modal-body">
-                <pre id="text-modal-text" class="modal-text"></pre>
+                <pre id="outlier-content">Loading...</pre>
             </div>
         </div>
     </div>
+
+    <script src="/js/var-explorer.js"></script>
 </body>
 </html>
