@@ -178,7 +178,7 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
                       f"{status:<20}")
             print()
 
-        # Volatility Rankings
+        # Volatility Rankings - Daily
         print(f"{'='*80}")
         print(f"DAILY VOLATILITY RANKING (ATR_D1/Price)")
         print(f"{'='*80}")
@@ -190,6 +190,33 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
                   f"{row['ATR_D1/AskPrice']:.4f} ({row['ATR_D1/AskPrice']*100:.2f}%)    "
                   f"${row['ATR_D1']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
         print()
+
+        # Volatility Rankings - Weekly
+        print(f"{'='*80}")
+        print(f"WEEKLY VOLATILITY RANKING (ATR_W1/Price)")
+        print(f"{'='*80}")
+        df_sorted = df.sort_values('ATR_W1/AskPrice', ascending=False)
+        print(f"{'Rank':<6} {'Symbol':<12} {'ATR/Price':<18} {'Weekly ATR':<15} {'Price':<15}")
+        print("-" * 80)
+        for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
+            print(f"{idx:<6} {row['Symbol']:<12} "
+                  f"{row['ATR_W1/AskPrice']:.4f} ({row['ATR_W1/AskPrice']*100:.2f}%)    "
+                  f"${row['ATR_W1']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
+        print()
+
+        # Volatility Rankings - Monthly
+        if 'ATR_MN1/AskPrice' in df.columns and df['ATR_MN1/AskPrice'].notna().any():
+            print(f"{'='*80}")
+            print(f"MONTHLY VOLATILITY RANKING (ATR_MN1/Price)")
+            print(f"{'='*80}")
+            df_sorted = df.sort_values('ATR_MN1/AskPrice', ascending=False)
+            print(f"{'Rank':<6} {'Symbol':<12} {'ATR/Price':<18} {'Monthly ATR':<15} {'Price':<15}")
+            print("-" * 80)
+            for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
+                print(f"{idx:<6} {row['Symbol']:<12} "
+                      f"{row['ATR_MN1/AskPrice']:.4f} ({row['ATR_MN1/AskPrice']*100:.2f}%)    "
+                      f"${row['ATR_MN1']:>12,.2f}    ${row['AskPrice']:>12,.2f}")
+            print()
 
         # Price Performance (if available)
         if 'PriceChange24h%' in df.columns and df['PriceChange24h%'].notna().any():
