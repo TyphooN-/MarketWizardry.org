@@ -82,27 +82,21 @@
         </div>
     </div>
 
-    <!-- Modal Structure -->
-    <div id="outlier-modal" class="modal">
+    <!-- Text Modal (for analysis.txt files) -->
+    <div id="text-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modal-title">Crypto Analysis</h2>
+                <h2 id="text-modal-title">Analysis</h2>
                 <div class="crt-divider"></div>
                 <div class="modal-button-bar">
-                    <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                    <a id="report-link" href="#" target="_blank" download>Download Report</a>
-                    <button class="nav-button" data-action="previous">← Previous</button>
-                    <span class="nav-counter" id="nav-counter">1 of 1</span>
-                    <button class="nav-button" data-action="next">Next →</button>
-                    <button class="close-button" data-action="close-modal">Close</button>
+                    <button class="modal-close">Close [ESC]</button>
+                    <button id="text-modal-download-csv" class="download-csv">Download CSV</button>
                 </div>
             </div>
             <div class="modal-body">
-                <pre id="outlier-content">Loading...</pre>
+                <pre id="text-modal-text" class="modal-text"></pre>
             </div>
         </div>
     </div>
-
-    <script src="/js/crypto-explorer.js"></script>
 </body>
 </html>

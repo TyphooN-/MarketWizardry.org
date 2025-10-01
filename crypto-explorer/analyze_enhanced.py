@@ -250,14 +250,15 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
             print(f"PRICE PERFORMANCE")
             print(f"{'='*80}")
             df_perf = df[df['PriceChange24h%'].notna()].copy()
-            print(f"{'Symbol':<12} {'24h Change':<12} {'7d Change':<12} {'ATH':<15} {'From ATH':<12}")
+            print(f"{'Symbol':<12} {'Price':<18} {'24h Change':<12} {'7d Change':<12} {'ATH':<15} {'From ATH':<12}")
             print("-" * 80)
             for i, row in df_perf.iterrows():
+                price = format_price(row['AskPrice'])
                 change_24h = f"{row['PriceChange24h%']:+.2f}%" if pd.notna(row['PriceChange24h%']) else "N/A"
                 change_7d = f"{row['PriceChange7d%']:+.2f}%" if pd.notna(row['PriceChange7d%']) else "N/A"
                 ath = format_large_number(row['ATH']) if pd.notna(row['ATH']) else "N/A"
                 ath_change = f"{row['ATHChange%']:+.2f}%" if pd.notna(row['ATHChange%']) else "N/A"
-                print(f"{row['Symbol']:<12} {change_24h:<12} {change_7d:<12} {ath:<15} {ath_change:<12}")
+                print(f"{row['Symbol']:<12} {price:<18} {change_24h:<12} {change_7d:<12} {ath:<15} {ath_change:<12}")
             print()
 
         # Liquidity & Trading Metrics
