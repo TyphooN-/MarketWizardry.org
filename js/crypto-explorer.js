@@ -12,15 +12,28 @@ function linkifyUrls(text) {
     // Pattern to match URLs (http, https, ftp)
     const urlPattern = /(https?:\/\/[^\s]+)/g;
 
-    // Escape the text first
-    const escapedText = escapeHtml(text);
+    // Split text by URLs, escape non-URL parts, and reconstruct with links
+    let lastIndex = 0;
+    let result = '';
+    let match;
 
-    // Replace URLs with anchor tags
-    return escapedText.replace(urlPattern, (url) => {
+    while ((match = urlPattern.exec(text)) !== null) {
+        // Escape text before the URL
+        result += escapeHtml(text.substring(lastIndex, match.index));
+
         // Remove trailing punctuation that shouldn't be part of the URL
-        let cleanUrl = url.replace(/[.,;:!?)]+$/, '');
-        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>`;
-    });
+        let cleanUrl = match[0].replace(/[.,;:!?)]+$/, '');
+
+        // Add the clickable link
+        result += `<a href="${escapeHtml(cleanUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(cleanUrl)}</a>`;
+
+        lastIndex = match.index + match[0].length;
+    }
+
+    // Escape any remaining text after the last URL
+    result += escapeHtml(text.substring(lastIndex));
+
+    return result;
 }
 
 // Event delegation for data-action attributes
