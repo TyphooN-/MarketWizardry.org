@@ -518,15 +518,27 @@ function updateCompoundTimeline(principal, rate, time, compound, monthly) {
 }
 
 // Helper function to get asset class emoji and display name
-window.getAssetClassDisplay = function(assetClass, sector) {
+window.getAssetClassDisplay = function(assetClass, sector, description) {
     const assetClassMap = {
         'stocks': { emoji: '📈', name: 'Stock' },
         'crypto': { emoji: '₿', name: 'Crypto' },
         'futures': { emoji: '📊', name: 'CFD' }
     };
 
-    // Futures/CFD covers both traditional futures and forex pairs
-    if (assetClass === 'futures' || (sector === 'Currency' && assetClass !== 'crypto')) {
+    // Check if it's a forex pair by description (e.g., "Euro vs US Dollar")
+    const isForexPair = description && (
+        description.includes(' vs ') ||
+        description.includes('Euro') ||
+        description.includes('Dollar') ||
+        description.includes('Pound') ||
+        description.includes('Yen') ||
+        description.includes('Currency')
+    );
+
+    // Futures/CFD covers traditional futures, forex pairs, and Currency sector
+    if (assetClass === 'futures' ||
+        sector === 'Currency' ||
+        (sector === 'Crypto Currency' && isForexPair)) {
         return assetClassMap['futures'];
     }
 
@@ -579,11 +591,17 @@ window.calculatePortfolioVaR = function() {
                         // In account risk mode, calculate suggested lots
                         if (mode === 'account-risk' && accountCapital > 0) {
                             suggestedLots = window.calculateSuggestedLots(symbol, varPerShare, accountCapital, targetVarPercent);
-                            shares = suggestedLots.suggestedShares;
-                            accountVarPercent = suggestedLots.actualVarPercent;
 
-                            // Update shares input and suggested lots display
-                            inputs[1].value = shares;
+                            // Only use suggested shares if no manual entry exists
+                            if (shares === 0 || isNaN(shares)) {
+                                shares = suggestedLots.suggestedShares;
+                                inputs[1].value = shares;
+                            }
+
+                            // Calculate account VaR percentage based on actual shares (manual or suggested)
+                            accountVarPercent = (shares * varPerShare / accountCapital) * 100;
+
+                            // Update suggested lots display
                             const suggestedLotsDisplay = row.querySelector('.suggested-lots-display');
                             if (suggestedLotsDisplay) {
                                 suggestedLotsDisplay.textContent = `${suggestedLots.lots} lots`;
@@ -825,7 +843,7 @@ window.autoFillPortfolioRow = function(row, symbol) {
     // Update asset class
     const assetClassDisplay = row.querySelector('.asset-class-display');
     if (assetClassDisplay) {
-        const display = window.getAssetClassDisplay(data.asset_class, data.sector);
+        const display = window.getAssetClassDisplay(data.asset_class, data.sector, data.description);
         assetClassDisplay.textContent = `${display.emoji} ${display.name}`;
     }
 
@@ -876,7 +894,7 @@ window.addSymbolToPortfolio = function(symbol) {
 
     // Create new row
     const newRow = document.createElement('tr');
-    const assetDisplay = window.getAssetClassDisplay(data.asset_class, data.sector);
+    const assetDisplay = window.getAssetClassDisplay(data.asset_class, data.sector, data.description);
     newRow.innerHTML = `
         <td><input type="text" value="${symbol}" class="table-input"></td>
         <td><input type="number" placeholder="100" class="table-input"></td>
@@ -1137,7 +1155,7 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                 <div class="metric-item">
                     <span class="metric-label">Asset Class:</span>
                     <span class="metric-value">${(() => {
-                        const display = window.getAssetClassDisplay(data.asset_class, data.sector);
+                        const display = window.getAssetClassDisplay(data.asset_class, data.sector, data.description);
                         return `${display.emoji} ${display.name}`;
                     })()}</span>
                 </div>
