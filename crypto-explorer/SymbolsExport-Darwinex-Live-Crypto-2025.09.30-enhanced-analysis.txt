@@ -1,7 +1,14 @@
-Enhanced Crypto Market Analysis
-Report generated on: 2025-10-01 08:21:35.314118
+Warning: Market data file 'crypto_market_data.json' not found.
+Run 'python fetch_crypto_data.py' first to fetch market data.
+Proceeding with basic analysis only...
 
-Loaded market data for 5 cryptocurrencies
+================================================================================
+ENHANCED CRYPTO MARKET ANALYSIS
+================================================================================
+Report Generated: 2025-10-01 08:44:10
+
+✓ Loaded news for 17 cryptocurrencies
+
 ================================================================================
 CRYPTO MARKET OVERVIEW
 ================================================================================
@@ -9,108 +16,205 @@ Total Pairs Analyzed: 7
 Symbols: ADAUSD, BNBUSD, DOGEUSD, BTCUSD, ETHUSD, SOLUSD, XRPUSD
 
 ================================================================================
-MARKET CAP RANKINGS
+📊 DAILY VOLATILITY RANKING (ATR/Price)
 ================================================================================
-Rank   Symbol       Name                 Market Cap      MCap Rank    Volume 24h     
+#    Symbol     Volatility    Daily ATR        Current Price   
 --------------------------------------------------------------------------------
-1      BTCUSD       $2325.72B       1            $61.22B        
-2      ETHUSD       $518.55B        2            $40.31B        
-3      SOLUSD       $118.31B        6            $8.50B         
-4      DOGEUSD      $36.66B         9            $2.53B         
-5      ADAUSD       $30.56B         11           $1.63B         
+1    DOGEUSD    🔥 7.90%      $0.0183          $0.2322         
+2    SOLUSD     🔥 6.56%      $13.6754         $208.4250       
+3    ADAUSD     ⚡ 5.57%      $0.0448          $0.8041         
+4    XRPUSD     ⚡ 5.20%      $0.1477          $2.8411         
+5    ETHUSD     ⚡ 4.89%      $202.3843        $4,137.64       
+6    BNBUSD     ⚡ 4.42%      $44.4843         $1,006.44       
+7    BTCUSD     📈 2.46%      $2,798.68        $113,886.50     
 
 ================================================================================
-SUPPLY METRICS & EMISSION STATUS
+📊 WEEKLY VOLATILITY RANKING (ATR/Price)
 ================================================================================
-Symbol       % Minted     Circulating        Max Supply         Status              
+#    Symbol     Volatility    Weekly ATR       Current Price   
 --------------------------------------------------------------------------------
-DOGEUSD          100.00%  151.17B            N/A                Near Max            
-ETHUSD           100.00%  120.70M            N/A                Near Max            
-BTCUSD            94.90%  19.93M             21.00M             High                
-SOLUSD            89.01%  543.76M            N/A                High                
-ADAUSD            81.20%  36.54B             45.00B             High                
+1    DOGEUSD    🔥 17.21%     $0.0400          $0.2322         
+2    ADAUSD     🔥 16.41%     $0.1319          $0.8041         
+3    XRPUSD     ⚡ 14.47%     $0.4112          $2.8411         
+4    SOLUSD     ⚡ 13.46%     $28.0496         $208.4250       
+5    ETHUSD     ⚡ 12.18%     $503.8686        $4,137.64       
+6    BNBUSD     📈 7.04%      $70.8871         $1,006.44       
+7    BTCUSD     📈 6.13%      $6,986.23        $113,886.50     
 
 ================================================================================
-DAILY VOLATILITY RANKING (ATR_D1/Price)
+📊 MONTHLY VOLATILITY RANKING (ATR/Price)
 ================================================================================
-Rank   Symbol       Volatility      Daily ATR          Price             
+#    Symbol     Volatility    Monthly ATR      Current Price   
 --------------------------------------------------------------------------------
-1      DOGEUSD      7.90%           $0.0183            $0.2322           
-2      SOLUSD       6.56%           $13.6754           $208.4250         
-3      ADAUSD       5.57%           $0.0448            $0.8041           
-4      XRPUSD       5.20%           $0.1477            $2.8411           
-5      ETHUSD       4.89%           $202.3843          $4,137.64         
-6      BNBUSD       4.42%           $44.4843           $1,006.44         
-7      BTCUSD       2.46%           $2,798.68          $113,886.50       
+1    DOGEUSD    🔥 48.87%     $0.1135          $0.2322         
+2    ADAUSD     🔥 40.74%     $0.3276          $0.8041         
+3    SOLUSD     🔥 33.36%     $69.5391         $208.4250       
+4    XRPUSD     ⚡ 27.37%     $0.7776          $2.8411         
+5    ETHUSD     ⚡ 23.44%     $969.6936        $4,137.64       
+6    BTCUSD     📈 16.09%     $18,322.64       $113,886.50     
+7    BNBUSD     📈 14.84%     $149.3179        $1,006.44       
 
 ================================================================================
-WEEKLY VOLATILITY RANKING (ATR_W1/Price)
+⚠️  VALUE AT RISK RANKING (VaR/Price)
 ================================================================================
-Rank   Symbol       Volatility      Weekly ATR         Price             
+#    Symbol     Risk Ratio    VaR (1 Lot)      Current Price   
 --------------------------------------------------------------------------------
-1      DOGEUSD      17.21%          $0.0400            $0.2322           
-2      ADAUSD       16.41%          $0.1319            $0.8041           
-3      XRPUSD       14.47%          $0.4112            $2.8411           
-4      SOLUSD       13.46%          $28.0496           $208.4250         
-5      ETHUSD       12.18%          $503.8686          $4,137.64         
-6      BNBUSD       7.04%           $70.8871           $1,006.44         
-7      BTCUSD       6.13%           $6,986.23          $113,886.50       
+1    DOGEUSD    🔴 8.11%      $0.0188          $0.2322         
+2    SOLUSD     🟡 6.72%      $14.0064         $208.4250       
+3    ADAUSD     🟡 6.05%      $0.0486          $0.8041         
+4    ETHUSD     🟡 5.56%      $230.0233        $4,137.64       
+5    XRPUSD     🟡 5.41%      $0.1537          $2.8411         
+6    BNBUSD     🟢 4.65%      $46.8068         $1,006.44       
+7    BTCUSD     🟢 3.05%      $3,473.17        $113,886.50     
 
 ================================================================================
-MONTHLY VOLATILITY RANKING (ATR_MN1/Price)
+📊 SUMMARY STATISTICS
 ================================================================================
-Rank   Symbol       Volatility      Monthly ATR        Price             
+Average Daily Volatility:     5.29%
+Average Weekly Volatility:   12.42%
+Average Monthly Volatility:  29.24%
+Average VaR/Price Ratio:      5.65%
+
+================================================================================
+💡 KEY INSIGHTS
+================================================================================
+🔥 Most Volatile (Daily):  DOGEUSD    7.90%
+📉 Least Volatile (Daily): BTCUSD     2.46%
+
+================================================================================
+📰 LATEST CRYPTOCURRENCY NEWS
+================================================================================
+
 --------------------------------------------------------------------------------
-1      DOGEUSD      48.87%          $0.1135            $0.2322           
-2      ADAUSD       40.74%          $0.3276            $0.8041           
-3      SOLUSD       33.36%          $69.5391           $208.4250         
-4      XRPUSD       27.37%          $0.7776            $2.8411           
-5      ETHUSD       23.44%          $969.6936          $4,137.64         
-6      BTCUSD       16.09%          $18,322.64         $113,886.50       
-7      BNBUSD       14.84%          $149.3179          $1,006.44         
-
-================================================================================
-PRICE PERFORMANCE
-================================================================================
-Symbol       Price              24h Change   7d Change    ATH             From ATH    
+📌 ADAUSD - Latest News (3 articles)
 --------------------------------------------------------------------------------
-ADAUSD       $0.8041            +5.63%       +1.84%       $3.09           -72.99%     
-DOGEUSD      $0.2322            +5.59%       +0.32%       $0.73           -66.84%     
-BTCUSD       $113,886.50        +3.29%       +3.40%       $124.13K        -5.91%      
-ETHUSD       $4,137.64          +3.21%       +2.97%       $4.95K          -13.09%     
-SOLUSD       $208.4250          +5.28%       +3.22%       $293.31         -25.78%     
 
-================================================================================
-VALUE AT RISK RANKING (VaR/Price)
-================================================================================
-Rank   Symbol       Risk Ratio      VaR (1 Lot)        Price             
+  [1] Bitcoin Price Watch: Bull Flag Flying High on the Hourly Chart
+      📅 2025-10-01 08:25 | 📝 bitcoin.com
+      🔗 https://news.bitcoin.com/bitcoin-price-watch-bull-flag-flying-high-on-the-hourly-chart/
+      Bitcoin strutted into ‘Uptober’ like it owns the block—because it kind of does. With a market cap of $2.32 trillion, a 24-hour volume of $61.04 billion, and a price peacocking around $116,800, this digital heavyweight isn’t just moving, it’s making m...
+
+  [2] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
+
+  [3] Strategy Posts Q3 Profit, Keeping it on Radar for S&P 500 inclusion.
+      📅 2025-10-01 07:59 | 📝 coindesk
+      🔗 https://www.coindesk.com/markets/2025/10/01/strategy-posts-q3-profit-keeping-it-on-radar-for-s-and-p-500-inclusion
+      Strategy (MSTR) will post a profit for the second quarter in a row in the third quarter thanks to a rise in the price of bitcoin (BTC). That would again qualify the company for potential S&P 500 inclusion. According to Jeff Walton , Chief Risk Office...
+
 --------------------------------------------------------------------------------
-1      DOGEUSD      8.11%           $0.0188            $0.2322           
-2      SOLUSD       6.72%           $14.0064           $208.4250         
-3      ADAUSD       6.05%           $0.0486            $0.8041           
-4      ETHUSD       5.56%           $230.0233          $4,137.64         
-5      XRPUSD       5.41%           $0.1537            $2.8411           
-6      BNBUSD       4.65%           $46.8068           $1,006.44         
-7      BTCUSD       3.05%           $3,473.17          $113,886.50       
+📌 BNBUSD - Latest News (3 articles)
+--------------------------------------------------------------------------------
 
-================================================================================
-SUMMARY STATISTICS
-================================================================================
-Average Daily Volatility (ATR/Price): 0.0529 (5.29%)
-Average Weekly Volatility (ATR/Price): 0.1242 (12.42%)
-Average Monthly Volatility (ATR/Price): 0.2924 (29.24%)
-Average VaR/Price Ratio: 0.0565 (5.65%)
-Total Market Cap (tracked): $3029.80B
+  [1] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
 
-================================================================================
-KEY INSIGHTS
-================================================================================
-Most Volatile (Daily): DOGEUSD (7.90%)
-Least Volatile (Daily): BTCUSD (2.46%)
+  [2] Crypto Markets Today: Market Rallies, Altcoins Lead Gains; Zcash Hits 16-Month High
+      📅 2025-10-01 08:08 | 📝 coindesk
+      🔗 https://www.coindesk.com/markets/2025/10/01/crypto-markets-today-market-rallies-altcoins-lead-gains-zcash-hits-16-month-high
+      The crypto market experienced a boost on Wednesday with majors bitcoin BTC and ether ETH rising 2.9% and 3.1% respectively. But the real story was in the altcoin market as several tokens rose by double-digits as investors speculate on another phase o...
 
-Most Minted: DOGEUSD (100.00%) - Limited supply growth
-Least Minted: ADAUSD (81.20%) - Significant inflation ahead
+  [3] 'Uptober' Begins with Bitcoin, Gold Rising: Crypto Daybook Americas
+      📅 2025-10-01 07:13 | 📝 coindesk
+      🔗 https://www.coindesk.com/daybook-us/2025/09/30/uptober-begins-with-bitcoin-gold-rises-crypto-daybook-americas
+      By Francisco Rodrigues (All times ET unless indicated otherwise) Bitcoin (BTC) moved higher amid the U.S. government shutdown and its up roughly 3% in the last 24 hours to $116,400. The broader crypto market, as measured by the CoinDesk 20 index ( CD...
 
-Best 24h Performance: ADAUSD (+5.63%)
-Worst 24h Performance: ETHUSD (+3.21%)
+--------------------------------------------------------------------------------
+📌 DOGEUSD - Latest News (3 articles)
+--------------------------------------------------------------------------------
+
+  [1] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
+
+  [2] Dogecoin (DOGE), Shiba Inu (SHIB), and Pudgy Penguins (PENGU) Hold Key Support: Ready to Rally?
+      📅 2025-10-01 06:35 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/dogecoin-doge-shiba-inu-shib-and-pudgy-penguins-pengu-hold-key-support-ready-to-rally
+      With Bitcoin (BTC) in the midst of a key breakout, the altcoins are also beginning to run. Memecoins are usually at the forefront of crypto breakouts and $DOGE, $SHIB, and $PENGU, having held key support, are starting to apply the afterburners. $DOGE...
+
+  [3] Why Is Crypto Up Today? – October 1, 2025
+      📅 2025-10-01 06:34 | 📝 cryptonews
+      🔗 https://cryptonews.com/news/why-is-crypto-up-today-october-1-2025/
+      The crypto market is up today, with the cryptocurrency market capitalization increasing by just 0.2%, now standing at $4 trillion. Just over half of the top 100 coins have appreciated over the past 24 hours. At the same time, the total crypto trading...
+
+--------------------------------------------------------------------------------
+📌 BTCUSD - Latest News (3 articles)
+--------------------------------------------------------------------------------
+
+  [1] Metaplanet boosts Bitcoin reserves with 5,268 BTC buy
+      📅 2025-10-01 08:31 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/metaplanet-expands-bitcoin-holdings/
+      Metaplanet has purchased an additional 5,268 Bitcoin on October 1 as part of its Bitcoin accumulation strategy. Bitcoin Treasuries data shows that the Japanese firm’s Bitcoin holdings have reached 30,823 BTC. The recent purchase was worth a total of ...
+
+  [2] Robert Kiyosaki Says Bitcoin Is the Only Real Hedge as Buffett Turns to Gold
+      📅 2025-10-01 08:26 | 📝 cryptopotato
+      🔗 https://cryptopotato.com/robert-kiyosaki-says-bitcoin-is-the-only-real-hedge-as-buffett-turns-to-gold/
+      Robert Kiyosaki, the renowned author behind the bestselling personal finance book “Rich Dad, Poor Dad,” has taken to X to express his distaste for Warren Buffett’s recent change of heart. For years, the 95-year-old chairman of Berkshire Hathaway has ...
+
+  [3] Bitcoin Price Watch: Bull Flag Flying High on the Hourly Chart
+      📅 2025-10-01 08:25 | 📝 bitcoin.com
+      🔗 https://news.bitcoin.com/bitcoin-price-watch-bull-flag-flying-high-on-the-hourly-chart/
+      Bitcoin strutted into ‘Uptober’ like it owns the block—because it kind of does. With a market cap of $2.32 trillion, a 24-hour volume of $61.04 billion, and a price peacocking around $116,800, this digital heavyweight isn’t just moving, it’s making m...
+
+--------------------------------------------------------------------------------
+📌 ETHUSD - Latest News (3 articles)
+--------------------------------------------------------------------------------
+
+  [1] Metaplanet boosts Bitcoin reserves with 5,268 BTC buy
+      📅 2025-10-01 08:31 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/metaplanet-expands-bitcoin-holdings/
+      Metaplanet has purchased an additional 5,268 Bitcoin on October 1 as part of its Bitcoin accumulation strategy. Bitcoin Treasuries data shows that the Japanese firm’s Bitcoin holdings have reached 30,823 BTC. The recent purchase was worth a total of ...
+
+  [2] Robert Kiyosaki Says Bitcoin Is the Only Real Hedge as Buffett Turns to Gold
+      📅 2025-10-01 08:26 | 📝 cryptopotato
+      🔗 https://cryptopotato.com/robert-kiyosaki-says-bitcoin-is-the-only-real-hedge-as-buffett-turns-to-gold/
+      Robert Kiyosaki, the renowned author behind the bestselling personal finance book “Rich Dad, Poor Dad,” has taken to X to express his distaste for Warren Buffett’s recent change of heart. For years, the 95-year-old chairman of Berkshire Hathaway has ...
+
+  [3] La ripresa di Ethereum accelera grazie agli afflussi record negli ETF spot statunitensi
+      📅 2025-10-01 08:22 | 📝 bitcoinist
+      🔗 https://bitcoinist.com/la-ripresa-di-ethereum-accelera-grazie-agli-afflussi-record-negli-etf-spot-statunitensi/
+      La ripresa di Ethereum si è rafforzata dopo che gli ETF spot su ETH negli Stati Uniti hanno registrato 547 milioni di dollari di afflussi netti in un solo giorno , ponendo fine a una serie negativa di cinque giorni consecutivi di deflussi. A guidare ...
+
+--------------------------------------------------------------------------------
+📌 SOLUSD - Latest News (3 articles)
+--------------------------------------------------------------------------------
+
+  [1] Metaplanet boosts Bitcoin reserves with 5,268 BTC buy
+      📅 2025-10-01 08:31 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/metaplanet-expands-bitcoin-holdings/
+      Metaplanet has purchased an additional 5,268 Bitcoin on October 1 as part of its Bitcoin accumulation strategy. Bitcoin Treasuries data shows that the Japanese firm’s Bitcoin holdings have reached 30,823 BTC. The recent purchase was worth a total of ...
+
+  [2] La ripresa di Ethereum accelera grazie agli afflussi record negli ETF spot statunitensi
+      📅 2025-10-01 08:22 | 📝 bitcoinist
+      🔗 https://bitcoinist.com/la-ripresa-di-ethereum-accelera-grazie-agli-afflussi-record-negli-etf-spot-statunitensi/
+      La ripresa di Ethereum si è rafforzata dopo che gli ETF spot su ETH negli Stati Uniti hanno registrato 547 milioni di dollari di afflussi netti in un solo giorno , ponendo fine a una serie negativa di cinque giorni consecutivi di deflussi. A guidare ...
+
+  [3] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
+
+--------------------------------------------------------------------------------
+📌 XRPUSD - Latest News (3 articles)
+--------------------------------------------------------------------------------
+
+  [1] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
+
+  [2] XRP Just Had Its Highest Quarterly Close Ever
+      📅 2025-10-01 08:05 | 📝 timestabloid
+      🔗 https://timestabloid.com/xrp-just-had-its-highest-quarterly-close-ever/
+      Some milestones in financial markets carry more weight than others, and for XRP , the close of the latest quarter marks one of those rare moments. Instead of fading into routine end-of-month trading, XRP ended September 2025 with a close that has set...
+
+  [3] Ripple’s Long-Time CTO and XRP Architect David Schwartz To Step Back By End Of Year, Join Board
+      📅 2025-10-01 08:04 | 📝 zycrypto
+      🔗 https://zycrypto.com/ripples-long-time-cto-and-xrp-architect-david-schwartz-to-step-back-by-end-of-year-join-board/
+      Ripple’s Chief Technology Officer, David Schwartz, announced plans to “step back from [his] day-to-day duties” after more than a decade at the company. Schwartz, one of the original architects of the XRP Ledger, announced in a Tuesday X post that he ...
 

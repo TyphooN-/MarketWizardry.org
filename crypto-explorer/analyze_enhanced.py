@@ -31,6 +31,20 @@ def load_crypto_market_data(json_file: str) -> dict:
         return {}
 
 
+def load_crypto_news_data(json_file: str) -> dict:
+    """Load cryptocurrency news data from JSON file."""
+    try:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return data.get('news', {})
+    except FileNotFoundError:
+        print(f"Warning: {json_file} not found. Run fetch_crypto_news.py first.")
+        return {}
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON in {json_file}")
+        return {}
+
+
 def merge_data(df: pd.DataFrame, market_data: dict) -> pd.DataFrame:
     """Merge Darwinex CSV data with CoinGecko market data."""
     # Add market data columns
@@ -124,13 +138,15 @@ def format_percentage(ratio):
     return f"{ratio*100:.2f}%"
 
 
-def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
+def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_data_file: str = None):
     """
-    Enhanced cryptocurrency analysis with market data.
+    Enhanced cryptocurrency analysis with market data and news.
     """
     try:
-        print(f"Enhanced Crypto Market Analysis")
-        print(f"Report generated on: {datetime.now()}")
+        print(f"{'='*80}")
+        print(f"ENHANCED CRYPTO MARKET ANALYSIS")
+        print(f"{'='*80}")
+        print(f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print()
 
         # Load CSV data
@@ -144,8 +160,17 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
         if market_data_file:
             market_data = load_crypto_market_data(market_data_file)
             if market_data:
-                print(f"Loaded market data for {len(market_data)} cryptocurrencies")
+                print(f"✓ Loaded market data for {len(market_data)} cryptocurrencies")
                 df = merge_data(df, market_data)
+
+        # Load news data if available
+        news_data = {}
+        if news_data_file:
+            news_data = load_crypto_news_data(news_data_file)
+            if news_data:
+                print(f"✓ Loaded news for {len(news_data)} cryptocurrencies")
+
+        print()
 
         # Convert numeric columns
         numeric_cols = ['AskPrice', 'BidPrice', 'Spread', 'ATR_D1', 'ATR_W1', 'ATR_MN1',
@@ -174,137 +199,157 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
         # Market Cap Rankings (if available)
         if 'MarketCap' in df.columns and df['MarketCap'].notna().any():
             print(f"{'='*80}")
-            print(f"MARKET CAP RANKINGS")
+            print(f"💰 MARKET CAP RANKINGS")
             print(f"{'='*80}")
             df_mc = df[df['MarketCap'].notna()].sort_values('MarketCap', ascending=False)
-            print(f"{'Rank':<6} {'Symbol':<12} {'Name':<20} {'Market Cap':<15} {'MCap Rank':<12} {'Volume 24h':<15}")
-            print("-" * 80)
+            print(f"{'#':<4} {'Symbol':<10} {'Market Cap':<16} {'Global Rank':<13} {'24h Volume':<16}")
+            print(f"{'-'*80}")
             for idx, (i, row) in enumerate(df_mc.iterrows(), 1):
-                mc_rank = int(row['MarketCapRank']) if pd.notna(row['MarketCapRank']) else 'N/A'
-                print(f"{idx:<6} {row['Symbol']:<12} "
-                      f"{format_large_number(row['MarketCap']):<15} "
-                      f"{mc_rank:<12} "
-                      f"{format_large_number(row['Volume24h']):<15}")
+                mc_rank = f"#{int(row['MarketCapRank'])}" if pd.notna(row['MarketCapRank']) else 'N/A'
+                print(f"{idx:<4} {row['Symbol']:<10} "
+                      f"{format_large_number(row['MarketCap']):<16} "
+                      f"{mc_rank:<13} "
+                      f"{format_large_number(row['Volume24h']):<16}")
             print()
 
         # Supply Metrics (if available)
         if 'PercentMinted' in df.columns and df['PercentMinted'].notna().any():
             print(f"{'='*80}")
-            print(f"SUPPLY METRICS & EMISSION STATUS")
+            print(f"🪙 SUPPLY METRICS & EMISSION STATUS")
             print(f"{'='*80}")
             df_supply = df[df['PercentMinted'].notna()].sort_values('PercentMinted', ascending=False)
-            print(f"{'Symbol':<12} {'% Minted':<12} {'Circulating':<18} {'Max Supply':<18} {'Status':<20}")
-            print("-" * 80)
+            print(f"{'Symbol':<10} {'% Minted':<12} {'Circulating':<16} {'Max Supply':<16} {'Status':<20}")
+            print(f"{'-'*80}")
             for i, row in df_supply.iterrows():
                 pct = row['PercentMinted']
-                status = "Near Max" if pct > 95 else "High" if pct > 80 else "Moderate" if pct > 50 else "Early"
-                print(f"{row['Symbol']:<12} "
+                status_emoji = "🔴" if pct > 95 else "🟡" if pct > 80 else "🟢" if pct > 50 else "🔵"
+                status = "Near Max" if pct > 95 else "High Emission" if pct > 80 else "Moderate" if pct > 50 else "Early Stage"
+                print(f"{row['Symbol']:<10} "
                       f"{pct:>10.2f}%  "
-                      f"{format_supply(row['CirculatingSupply']):<18} "
-                      f"{format_supply(row['MaxSupply']):<18} "
-                      f"{status:<20}")
+                      f"{format_supply(row['CirculatingSupply']):<16} "
+                      f"{format_supply(row['MaxSupply']):<16} "
+                      f"{status_emoji} {status:<18}")
             print()
 
         # Volatility Rankings - Daily
         print(f"{'='*80}")
-        print(f"DAILY VOLATILITY RANKING (ATR_D1/Price)")
+        print(f"📊 DAILY VOLATILITY RANKING (ATR/Price)")
         print(f"{'='*80}")
         df_sorted = df.sort_values('ATR_D1/AskPrice', ascending=False)
-        print(f"{'Rank':<6} {'Symbol':<12} {'Volatility':<15} {'Daily ATR':<18} {'Price':<18}")
-        print("-" * 80)
+        print(f"{'#':<4} {'Symbol':<10} {'Volatility':<13} {'Daily ATR':<16} {'Current Price':<16}")
+        print(f"{'-'*80}")
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
-            print(f"{idx:<6} {row['Symbol']:<12} "
-                  f"{format_percentage(row['ATR_D1/AskPrice']):<15} "
-                  f"{format_price(row['ATR_D1']):<18} "
-                  f"{format_price(row['AskPrice']):<18}")
+            vol_pct = row['ATR_D1/AskPrice'] * 100
+            vol_indicator = "🔥" if vol_pct > 6 else "⚡" if vol_pct > 4 else "📈"
+            print(f"{idx:<4} {row['Symbol']:<10} "
+                  f"{vol_indicator} {format_percentage(row['ATR_D1/AskPrice']):<10} "
+                  f"{format_price(row['ATR_D1']):<16} "
+                  f"{format_price(row['AskPrice']):<16}")
         print()
 
         # Volatility Rankings - Weekly
         print(f"{'='*80}")
-        print(f"WEEKLY VOLATILITY RANKING (ATR_W1/Price)")
+        print(f"📊 WEEKLY VOLATILITY RANKING (ATR/Price)")
         print(f"{'='*80}")
         df_sorted = df.sort_values('ATR_W1/AskPrice', ascending=False)
-        print(f"{'Rank':<6} {'Symbol':<12} {'Volatility':<15} {'Weekly ATR':<18} {'Price':<18}")
-        print("-" * 80)
+        print(f"{'#':<4} {'Symbol':<10} {'Volatility':<13} {'Weekly ATR':<16} {'Current Price':<16}")
+        print(f"{'-'*80}")
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
-            print(f"{idx:<6} {row['Symbol']:<12} "
-                  f"{format_percentage(row['ATR_W1/AskPrice']):<15} "
-                  f"{format_price(row['ATR_W1']):<18} "
-                  f"{format_price(row['AskPrice']):<18}")
+            vol_pct = row['ATR_W1/AskPrice'] * 100
+            vol_indicator = "🔥" if vol_pct > 15 else "⚡" if vol_pct > 10 else "📈"
+            print(f"{idx:<4} {row['Symbol']:<10} "
+                  f"{vol_indicator} {format_percentage(row['ATR_W1/AskPrice']):<10} "
+                  f"{format_price(row['ATR_W1']):<16} "
+                  f"{format_price(row['AskPrice']):<16}")
         print()
 
         # Volatility Rankings - Monthly
         if 'ATR_MN1/AskPrice' in df.columns and df['ATR_MN1/AskPrice'].notna().any():
             print(f"{'='*80}")
-            print(f"MONTHLY VOLATILITY RANKING (ATR_MN1/Price)")
+            print(f"📊 MONTHLY VOLATILITY RANKING (ATR/Price)")
             print(f"{'='*80}")
             df_sorted = df.sort_values('ATR_MN1/AskPrice', ascending=False)
-            print(f"{'Rank':<6} {'Symbol':<12} {'Volatility':<15} {'Monthly ATR':<18} {'Price':<18}")
-            print("-" * 80)
+            print(f"{'#':<4} {'Symbol':<10} {'Volatility':<13} {'Monthly ATR':<16} {'Current Price':<16}")
+            print(f"{'-'*80}")
             for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
-                print(f"{idx:<6} {row['Symbol']:<12} "
-                      f"{format_percentage(row['ATR_MN1/AskPrice']):<15} "
-                      f"{format_price(row['ATR_MN1']):<18} "
-                      f"{format_price(row['AskPrice']):<18}")
+                vol_pct = row['ATR_MN1/AskPrice'] * 100
+                vol_indicator = "🔥" if vol_pct > 30 else "⚡" if vol_pct > 20 else "📈"
+                print(f"{idx:<4} {row['Symbol']:<10} "
+                      f"{vol_indicator} {format_percentage(row['ATR_MN1/AskPrice']):<10} "
+                      f"{format_price(row['ATR_MN1']):<16} "
+                      f"{format_price(row['AskPrice']):<16}")
             print()
 
         # Price Performance (if available)
         if 'PriceChange24h%' in df.columns and df['PriceChange24h%'].notna().any():
             print(f"{'='*80}")
-            print(f"PRICE PERFORMANCE")
+            print(f"📈 PRICE PERFORMANCE")
             print(f"{'='*80}")
             df_perf = df[df['PriceChange24h%'].notna()].copy()
-            print(f"{'Symbol':<12} {'Price':<18} {'24h':<10} {'7d':<10} {'30d':<10} {'1y':<10} {'ATH':<15} {'From ATH':<12}")
-            print("-" * 80)
+            print(f"{'Symbol':<10} {'Price':<16} {'24h %':<11} {'7d %':<11} {'30d %':<11} {'1y %':<11} {'ATH':<14} {'vs ATH':<11}")
+            print(f"{'-'*80}")
             for i, row in df_perf.iterrows():
                 price = format_price(row['AskPrice'])
-                change_24h = f"{row['PriceChange24h%']:+.2f}%" if pd.notna(row['PriceChange24h%']) else "N/A"
-                change_7d = f"{row['PriceChange7d%']:+.2f}%" if pd.notna(row['PriceChange7d%']) else "N/A"
-                change_30d = f"{row['PriceChange30d%']:+.2f}%" if pd.notna(row['PriceChange30d%']) else "N/A"
-                change_1y = f"{row['PriceChange1y%']:+.2f}%" if pd.notna(row['PriceChange1y%']) else "N/A"
-                ath = format_large_number(row['ATH']) if pd.notna(row['ATH']) else "N/A"
-                ath_change = f"{row['ATHChange%']:+.2f}%" if pd.notna(row['ATHChange%']) else "N/A"
-                print(f"{row['Symbol']:<12} {price:<18} {change_24h:<10} {change_7d:<10} {change_30d:<10} {change_1y:<10} {ath:<15} {ath_change:<12}")
+
+                # Format with colored indicators
+                def format_change(val):
+                    if pd.isna(val):
+                        return "N/A       "
+                    emoji = "🟢" if val > 0 else "🔴" if val < 0 else "⚪"
+                    return f"{emoji}{val:+.1f}%"
+
+                change_24h = format_change(row['PriceChange24h%'])
+                change_7d = format_change(row['PriceChange7d%'])
+                change_30d = format_change(row['PriceChange30d%'])
+                change_1y = format_change(row['PriceChange1y%'])
+                ath = format_price(row['ATH']) if pd.notna(row['ATH']) else "N/A"
+                ath_change = format_change(row['ATHChange%'])
+
+                print(f"{row['Symbol']:<10} {price:<16} {change_24h:<11} {change_7d:<11} {change_30d:<11} {change_1y:<11} {ath:<14} {ath_change:<11}")
             print()
 
         # Liquidity & Trading Metrics
         if 'LiquidityScore' in df.columns and df['LiquidityScore'].notna().any():
             print(f"{'='*80}")
-            print(f"LIQUIDITY & TRADING METRICS")
+            print(f"💧 LIQUIDITY & TRADING METRICS")
             print(f"{'='*80}")
             df_liq = df[df['LiquidityScore'].notna()].sort_values('LiquidityScore', ascending=False)
-            print(f"{'Symbol':<12} {'Liquidity':<12} {'Volume/MCap':<15} {'Spread %':<12}")
-            print("-" * 80)
+            print(f"{'Symbol':<10} {'Liquidity':<13} {'Vol/MCap %':<13} {'Spread %':<12}")
+            print(f"{'-'*80}")
             for i, row in df_liq.iterrows():
                 vol_to_mc = (row['Volume24h'] / row['MarketCap'] * 100) if pd.notna(row['Volume24h']) and pd.notna(row['MarketCap']) else None
                 vol_mc_str = f"{vol_to_mc:.2f}%" if vol_to_mc else "N/A"
-                spread = f"{row['RelativeSpread_%']:.3f}%" if pd.notna(row.get('RelativeSpread_%')) else "N/A"
-                print(f"{row['Symbol']:<12} {row['LiquidityScore']:<12.2f} {vol_mc_str:<15} {spread:<12}")
+                spread = f"{row['RelativeSpread_%']:.4f}%" if pd.notna(row.get('RelativeSpread_%')) else "N/A"
+                liq_score = row['LiquidityScore']
+                liq_indicator = "🟢" if liq_score > 7 else "🟡" if liq_score > 5 else "🔴"
+                print(f"{row['Symbol']:<10} {liq_indicator} {liq_score:<10.1f} {vol_mc_str:<13} {spread:<12}")
             print()
 
         # VaR Rankings
         print(f"{'='*80}")
-        print(f"VALUE AT RISK RANKING (VaR/Price)")
+        print(f"⚠️  VALUE AT RISK RANKING (VaR/Price)")
         print(f"{'='*80}")
         df_sorted = df.sort_values('VaR_to_Ask_Ratio', ascending=False)
-        print(f"{'Rank':<6} {'Symbol':<12} {'Risk Ratio':<15} {'VaR (1 Lot)':<18} {'Price':<18}")
-        print("-" * 80)
+        print(f"{'#':<4} {'Symbol':<10} {'Risk Ratio':<13} {'VaR (1 Lot)':<16} {'Current Price':<16}")
+        print(f"{'-'*80}")
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
-            print(f"{idx:<6} {row['Symbol']:<12} "
-                  f"{format_percentage(row['VaR_to_Ask_Ratio']):<15} "
-                  f"{format_price(row['VaR_1_Lot']):<18} "
-                  f"{format_price(row['AskPrice']):<18}")
+            risk_pct = row['VaR_to_Ask_Ratio'] * 100
+            risk_indicator = "🔴" if risk_pct > 7 else "🟡" if risk_pct > 5 else "🟢"
+            print(f"{idx:<4} {row['Symbol']:<10} "
+                  f"{risk_indicator} {format_percentage(row['VaR_to_Ask_Ratio']):<10} "
+                  f"{format_price(row['VaR_1_Lot']):<16} "
+                  f"{format_price(row['AskPrice']):<16}")
         print()
 
         # Summary Statistics
         print(f"{'='*80}")
-        print(f"SUMMARY STATISTICS")
+        print(f"📊 SUMMARY STATISTICS")
         print(f"{'='*80}")
-        print(f"Average Daily Volatility (ATR/Price): {df['ATR_D1/AskPrice'].mean():.4f} ({df['ATR_D1/AskPrice'].mean()*100:.2f}%)")
-        print(f"Average Weekly Volatility (ATR/Price): {df['ATR_W1/AskPrice'].mean():.4f} ({df['ATR_W1/AskPrice'].mean()*100:.2f}%)")
+        print(f"Average Daily Volatility:   {df['ATR_D1/AskPrice'].mean()*100:>6.2f}%")
+        print(f"Average Weekly Volatility:  {df['ATR_W1/AskPrice'].mean()*100:>6.2f}%")
         if 'ATR_MN1/AskPrice' in df.columns:
-            print(f"Average Monthly Volatility (ATR/Price): {df['ATR_MN1/AskPrice'].mean():.4f} ({df['ATR_MN1/AskPrice'].mean()*100:.2f}%)")
-        print(f"Average VaR/Price Ratio: {df['VaR_to_Ask_Ratio'].mean():.4f} ({df['VaR_to_Ask_Ratio'].mean()*100:.2f}%)")
+            print(f"Average Monthly Volatility: {df['ATR_MN1/AskPrice'].mean()*100:>6.2f}%")
+        print(f"Average VaR/Price Ratio:    {df['VaR_to_Ask_Ratio'].mean()*100:>6.2f}%")
 
         if 'MarketCap' in df.columns and df['MarketCap'].notna().any():
             total_mc = df['MarketCap'].sum()
@@ -314,27 +359,61 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
 
         # Key Insights
         print(f"{'='*80}")
-        print(f"KEY INSIGHTS")
+        print(f"💡 KEY INSIGHTS")
         print(f"{'='*80}")
 
         most_volatile = df.loc[df['ATR_D1/AskPrice'].idxmax()]
         least_volatile = df.loc[df['ATR_D1/AskPrice'].idxmin()]
-        print(f"Most Volatile (Daily): {most_volatile['Symbol']} ({most_volatile['ATR_D1/AskPrice']*100:.2f}%)")
-        print(f"Least Volatile (Daily): {least_volatile['Symbol']} ({least_volatile['ATR_D1/AskPrice']*100:.2f}%)")
+        print(f"🔥 Most Volatile (Daily):  {most_volatile['Symbol']:<8} {most_volatile['ATR_D1/AskPrice']*100:>6.2f}%")
+        print(f"📉 Least Volatile (Daily): {least_volatile['Symbol']:<8} {least_volatile['ATR_D1/AskPrice']*100:>6.2f}%")
 
         if 'PercentMinted' in df.columns and df['PercentMinted'].notna().any():
             most_minted = df.loc[df['PercentMinted'].idxmax()]
             least_minted = df.loc[df['PercentMinted'].idxmin()]
-            print(f"\nMost Minted: {most_minted['Symbol']} ({most_minted['PercentMinted']:.2f}%) - Limited supply growth")
-            print(f"Least Minted: {least_minted['Symbol']} ({least_minted['PercentMinted']:.2f}%) - Significant inflation ahead")
+            print(f"\n🔴 Most Minted:  {most_minted['Symbol']:<8} {most_minted['PercentMinted']:>6.2f}% - Limited supply growth")
+            print(f"🔵 Least Minted: {least_minted['Symbol']:<8} {least_minted['PercentMinted']:>6.2f}% - Significant inflation ahead")
 
         if 'PriceChange24h%' in df.columns and df['PriceChange24h%'].notna().any():
             best_24h = df.loc[df['PriceChange24h%'].idxmax()]
             worst_24h = df.loc[df['PriceChange24h%'].idxmin()]
-            print(f"\nBest 24h Performance: {best_24h['Symbol']} ({best_24h['PriceChange24h%']:+.2f}%)")
-            print(f"Worst 24h Performance: {worst_24h['Symbol']} ({worst_24h['PriceChange24h%']:+.2f}%)")
+            print(f"\n🚀 Best 24h Performance:  {best_24h['Symbol']:<8} {best_24h['PriceChange24h%']:>+6.2f}%")
+            print(f"💥 Worst 24h Performance: {worst_24h['Symbol']:<8} {worst_24h['PriceChange24h%']:>+6.2f}%")
 
         print()
+
+        # Latest News Section
+        if news_data:
+            print(f"{'='*80}")
+            print(f"📰 LATEST CRYPTOCURRENCY NEWS")
+            print(f"{'='*80}")
+            for symbol in df['Symbol'].tolist():
+                if symbol in news_data and news_data[symbol]:
+                    print(f"\n{'-'*80}")
+                    print(f"📌 {symbol} - Latest News ({len(news_data[symbol])} articles)")
+                    print(f"{'-'*80}")
+                    for i, article in enumerate(news_data[symbol], 1):
+                        timestamp = datetime.fromtimestamp(article.get('published_on', 0))
+                        title = article.get('title', 'N/A')
+                        source = article.get('source', 'N/A')
+                        url = article.get('url', '')
+
+                        print(f"\n  [{i}] {title}")
+                        print(f"      📅 {timestamp.strftime('%Y-%m-%d %H:%M')} | 📝 {source}")
+                        if url:
+                            print(f"      🔗 {url}")
+
+                        # Truncate body for readability
+                        body = article.get('body', '')
+                        if body:
+                            summary = body[:250] + '...' if len(body) > 250 else body
+                            print(f"      {summary}")
+            print()
+        else:
+            print(f"{'='*80}")
+            print(f"📰 NEWS DATA NOT AVAILABLE")
+            print(f"{'='*80}")
+            print("ℹ️  Run 'python fetch_crypto_news.py' to fetch latest cryptocurrency news.")
+            print()
 
     except FileNotFoundError:
         print(f"Error: The file '{csv_file}' was not found.")
@@ -345,13 +424,19 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Enhanced cryptocurrency market analysis.')
+    parser = argparse.ArgumentParser(description='Enhanced cryptocurrency market analysis with news.')
     parser.add_argument('csv_file', type=str, help='Path to the Darwinex CSV file')
     parser.add_argument(
         '--market-data',
         type=str,
         default='crypto_market_data.json',
         help='Path to CoinGecko market data JSON file (default: crypto_market_data.json)'
+    )
+    parser.add_argument(
+        '--news-data',
+        type=str,
+        default='crypto_news_data.json',
+        help='Path to crypto news data JSON file (default: crypto_news_data.json)'
     )
 
     args = parser.parse_args()
@@ -363,4 +448,11 @@ if __name__ == "__main__":
         print("Run 'python fetch_crypto_data.py' first to fetch market data.")
         print("Proceeding with basic analysis only...\n")
 
-    analyze_crypto_enhanced(args.csv_file, market_data_file)
+    # Check if news data file exists
+    news_data_file = args.news_data if Path(args.news_data).exists() else None
+    if not news_data_file:
+        print(f"Info: News data file '{args.news_data}' not found.")
+        print("Run 'python fetch_crypto_news.py' to fetch latest cryptocurrency news.")
+        print("Proceeding without news data...\n")
+
+    analyze_crypto_enhanced(args.csv_file, market_data_file, news_data_file)
