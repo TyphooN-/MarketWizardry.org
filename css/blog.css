@@ -226,3 +226,37 @@ h1 {
     margin: 30px 0 20px 0;
     font-size: 1.5em;
 }
+
+/* Breadcrumb Navigation Styles */
+.breadcrumb {
+    font-size: 0.8em;
+    color: #00aa00;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+nav.breadcrumb a,
+nav.breadcrumb a:link,
+nav.breadcrumb a:visited,
+nav.breadcrumb a:hover,
+nav.breadcrumb a:active {
+    color: #00ff00 !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+}
+
+nav.breadcrumb a:hover {
+    color: #ffffff !important;
+}
+
+.breadcrumb .separator {
+    margin: 0 8px;
+    color: #004400;
+}
+
+/* Mobile breadcrumb optimization */
+@media screen and (max-width: 768px) {
+    .breadcrumb {
+        display: none;
+    }
+}
