@@ -1383,14 +1383,16 @@ header {
 }
 
 .modal-body a {
-    color: #00ffff;
+    color: #00ff00;
     text-decoration: underline;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .modal-body a:hover {
-    color: #00ff88;
+    color: #00ff00;
     background-color: #002200;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
 }
     padding: 15px;
 }

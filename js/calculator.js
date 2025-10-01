@@ -879,12 +879,29 @@ window.lookupSymbol = function() {
 
     if (window.varData && window.varData[symbol]) {
         displaySymbolInfoInPortfolio(symbol, window.varData[symbol]);
+
+        // Show the symbol-info container
+        const symbolInfo = document.getElementById('symbol-info');
+        if (symbolInfo) {
+            symbolInfo.classList.remove('var-group-hidden');
+            symbolInfo.classList.add('show');
+        }
     } else {
-        document.getElementById('symbol-details').innerHTML = `
-            <div class="calc-error-box">
-                Symbol "${symbol}" not found in database.
-            </div>
-        `;
+        const detailsDiv = document.getElementById('symbol-details');
+        if (detailsDiv) {
+            detailsDiv.innerHTML = `
+                <div class="calc-error-box">
+                    Symbol "${symbol}" not found in database.
+                </div>
+            `;
+        }
+
+        // Show the symbol-info container even for errors
+        const symbolInfo = document.getElementById('symbol-info');
+        if (symbolInfo) {
+            symbolInfo.classList.remove('var-group-hidden');
+            symbolInfo.classList.add('show');
+        }
     }
 };
 
@@ -1409,21 +1426,42 @@ window.useInPortfolio = function(symbol) {
         return;
     }
 
-    // Switch to portfolio calculator
-    if (window.selectCalculator) {
-        window.selectCalculator('portfolio');
+    // Check if we're already in portfolio calculator
+    const isPortfolioActive = window.activeCalculator === 'portfolio';
+
+    if (!isPortfolioActive) {
+        // Switch to portfolio calculator
+        if (window.selectCalculator) {
+            window.selectCalculator('portfolio');
+        }
     }
 
-    // Add symbol to portfolio
+    // Add symbol to portfolio (with delay only if we switched calculators)
+    const delay = isPortfolioActive ? 0 : 200;
     setTimeout(() => {
         if (window.addSymbolToPortfolio) {
             window.addSymbolToPortfolio(symbol);
             console.log('✅ Symbol added to portfolio:', symbol);
+
+            // Hide the symbol lookup info after adding
+            const symbolInfo = document.getElementById('symbol-info');
+            if (symbolInfo && isPortfolioActive) {
+                setTimeout(() => {
+                    symbolInfo.classList.add('var-group-hidden');
+                    symbolInfo.classList.remove('show');
+                }, 500);
+            }
+
+            // Clear the symbol input
+            const symbolInput = document.getElementById('symbol-lookup');
+            if (symbolInput && isPortfolioActive) {
+                symbolInput.value = '';
+            }
         } else {
             console.error('❌ addSymbolToPortfolio function not found');
             alert('Unable to add symbol to portfolio. Please add manually.');
         }
-    }, 200);
+    }, delay);
 };
 
 window.findSimilar = function(symbol) {
