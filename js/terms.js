@@ -42,13 +42,16 @@ function initializeFileGrid() {
 
     // Set fixed width for all elements and update grid layout
     const fileEntries = document.querySelectorAll('.file-entry');
-    const finalWidth = maxFileNameWidth + 20;
+    const finalWidth = Math.max(maxFileNameWidth + 40, 280); // Minimum 280px width
+
     fileEntries.forEach(entry => {
         entry.style.width = `${finalWidth}px`;
     });
 
-    // Update grid to use single column layout
-    fileGrid.style.gridTemplateColumns = `${finalWidth}px`;
+    // Update grid to use responsive multi-column layout
+    // This will create 2-4 columns depending on screen width
+    fileGrid.style.gridTemplateColumns = `repeat(auto-fit, ${finalWidth}px)`;
+    fileGrid.style.justifyContent = 'center';
 
     // Add click event listeners to file entries
     fileEntries.forEach((entry, index) => {
