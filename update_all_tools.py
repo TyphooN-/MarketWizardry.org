@@ -18,8 +18,66 @@ import subprocess
 import shutil
 import pandas as pd
 import numpy as np
+from multiprocessing import Pool, cpu_count
 from datetime import datetime, date
 from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
+
+# Parallel processing helper functions
+def _process_single_var_csv(args):
+    """Process a single VaR CSV file - used for parallel processing"""
+    csv_file, date_str, force_regenerate = args
+    output_file = csv_file.replace('.csv', '-outlier.txt')
+    output_path = f"var-explorer/{output_file}"
+
+    # Skip if exists and not force regenerating
+    if os.path.exists(output_path) and not force_regenerate:
+        return (csv_file, 'skipped')
+
+    try:
+        result = subprocess.run(
+            ['python3', 'outlier.py', csv_file],
+            cwd='var-explorer',
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+
+        if result.returncode == 0:
+            with open(output_path, 'w') as f:
+                f.write(result.stdout)
+            return (csv_file, 'success')
+        else:
+            return (csv_file, f'error: {result.stderr[:100]}')
+    except Exception as e:
+        return (csv_file, f'exception: {str(e)[:100]}')
+
+def _process_single_atr_csv(args):
+    """Process a single ATR CSV file - used for parallel processing"""
+    csv_file, date_str, force_regenerate = args
+    output_file = csv_file.replace('.csv', '-outlier.txt')
+    output_path = f"atr-explorer/{output_file}"
+
+    # Skip if exists and not force regenerating
+    if os.path.exists(output_path) and not force_regenerate:
+        return (csv_file, 'skipped')
+
+    try:
+        result = subprocess.run(
+            ['python3', 'outlier.py', csv_file],
+            cwd='atr-explorer',
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+
+        if result.returncode == 0:
+            with open(output_path, 'w') as f:
+                f.write(result.stdout)
+            return (csv_file, 'success')
+        else:
+            return (csv_file, f'error: {result.stderr[:100]}')
+    except Exception as e:
+        return (csv_file, f'exception: {str(e)[:100]}')
 
 class FinancialToolsUpdater:
     def __init__(self, date_str=None, force_regenerate=False, html_only=False):
@@ -98,39 +156,29 @@ class FinancialToolsUpdater:
                 print(f"⚠️ Warning: No CSV files found for {self.date_str}")
                 return False
 
-            print(f"  Processing {len(csv_files)} CSV files for {self.date_str}...")
+            print(f"  Processing {len(csv_files)} CSV files for {self.date_str} (parallel using {cpu_count()} cores)...")
 
-            # Process each CSV file individually using outlier.py
-            outliers_generated = 0
-            for csv_file in csv_files:
-                output_file = csv_file.replace('.csv', '-outlier.txt')
-                output_path = f"var-explorer/{output_file}"
+            # Prepare arguments for parallel processing
+            process_args = [(csv_file, self.date_str, self.force_regenerate) for csv_file in csv_files]
 
-                # Skip if exists and not force regenerating
-                if os.path.exists(output_path) and not self.force_regenerate:
-                    print(f"  ⏭️  Skipping {csv_file} (output exists)")
-                    outliers_generated += 1
-                    continue
+            # Process files in parallel
+            with Pool(cpu_count()) as pool:
+                results = pool.map(_process_single_var_csv, process_args)
 
-                # Run outlier.py for this specific file
-                result = subprocess.run(
-                    ['python3', 'outlier.py', csv_file],
-                    cwd='var-explorer',
-                    capture_output=True,
-                    text=True
-                )
+            # Count successes
+            outliers_generated = sum(1 for _, status in results if status == 'success')
+            skipped = sum(1 for _, status in results if status == 'skipped')
+            failed = len(results) - outliers_generated - skipped
 
-                if result.returncode == 0:
-                    # Save output to file
-                    with open(output_path, 'w') as f:
-                        f.write(result.stdout)
-                    print(f"  ✅ Generated {output_file}")
-                    outliers_generated += 1
-                else:
-                    print(f"  ❌ Failed to process {csv_file}: {result.stderr[:100]}")
+            if outliers_generated > 0:
+                print(f"  ✅ Generated {outliers_generated} new files")
+            if skipped > 0:
+                print(f"  ⏭️  Skipped {skipped} existing files")
+            if failed > 0:
+                print(f"  ❌ Failed {failed} files")
 
-            self.data_summary['var_outliers'] = outliers_generated
-            print(f"✅ VaR data processed, {outliers_generated} outlier files generated")
+            self.data_summary['var_outliers'] = outliers_generated + skipped
+            print(f"✅ VaR data processed, {outliers_generated + skipped} total outlier files")
             return True
 
         except Exception as e:
@@ -246,33 +294,26 @@ class FinancialToolsUpdater:
                     csv_files = [f for f in os.listdir('atr-explorer')
                                 if f.endswith('.csv') and self.date_str in f]
 
-                    print(f"  Processing {len(csv_files)} CSV files for {self.date_str}...")
+                    print(f"  Processing {len(csv_files)} CSV files for {self.date_str} (parallel using {cpu_count()} cores)...")
 
-                    # Process each CSV file individually using outlier.py
-                    for csv_file in csv_files:
-                        output_file = csv_file.replace('.csv', '-outlier.txt')
-                        output_path = f"atr-explorer/{output_file}"
+                    # Prepare arguments for parallel processing
+                    process_args = [(csv_file, self.date_str, self.force_regenerate) for csv_file in csv_files]
 
-                        # Skip if exists and not force regenerating
-                        if os.path.exists(output_path) and not self.force_regenerate:
-                            print(f"  ⏭️  Skipping {csv_file} (output exists)")
-                            continue
+                    # Process files in parallel
+                    with Pool(cpu_count()) as pool:
+                        results = pool.map(_process_single_atr_csv, process_args)
 
-                        # Run outlier.py for this specific file
-                        result = subprocess.run(
-                            ['python3', 'outlier.py', csv_file],
-                            cwd='atr-explorer',
-                            capture_output=True,
-                            text=True
-                        )
+                    # Count successes
+                    outliers_generated = sum(1 for _, status in results if status == 'success')
+                    skipped = sum(1 for _, status in results if status == 'skipped')
+                    failed = len(results) - outliers_generated - skipped
 
-                        if result.returncode == 0:
-                            # Save output to file
-                            with open(output_path, 'w') as f:
-                                f.write(result.stdout)
-                            print(f"  ✅ Generated {output_file}")
-                        else:
-                            print(f"  ❌ Failed to process {csv_file}: {result.stderr[:100]}")
+                    if outliers_generated > 0:
+                        print(f"  ✅ Generated {outliers_generated} new files")
+                    if skipped > 0:
+                        print(f"  ⏭️  Skipped {skipped} existing files")
+                    if failed > 0:
+                        print(f"  ❌ Failed {failed} files")
 
                 self.data_summary['atr_files'] = files_copied
 
@@ -941,22 +982,28 @@ class FinancialToolsUpdater:
         </div>
     </div>
 
-    <!-- Text Modal (for analysis.txt files) -->
-    <div id="text-modal" class="modal">
+    <!-- Modal Structure -->
+    <div id="outlier-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="text-modal-title">Analysis</h2>
+                <h2 id="modal-title">Crypto Analysis</h2>
                 <div class="crt-divider"></div>
                 <div class="modal-button-bar">
-                    <button class="modal-close">Close [ESC]</button>
-                    <button id="text-modal-download-csv" class="download-csv">Download CSV</button>
+                    <a id="csv-link" href="#" target="_blank">Download CSV</a>
+                    <a id="report-link" href="#" target="_blank" download>Download Report</a>
+                    <button class="nav-button" data-action="previous">← Previous</button>
+                    <span class="nav-counter" id="nav-counter">1 of 1</span>
+                    <button class="nav-button" data-action="next">Next →</button>
+                    <button class="close-button" data-action="close-modal">Close</button>
                 </div>
             </div>
             <div class="modal-body">
-                <pre id="text-modal-text" class="modal-text"></pre>
+                <pre id="outlier-content">Loading...</pre>
             </div>
         </div>
     </div>
+
+    <script src="/js/crypto-explorer.js"></script>
 </body>
 </html>'''
 

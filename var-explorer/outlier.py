@@ -11,6 +11,36 @@ CFD_TOP = 40    # User-defined variable for top/bottom N display for CFDs
 FUTURES_TOP = 5 # User-defined variable for top/bottom N display for Futures
 TOP_N_DISPLAY = 20 # User-defined variable for top/bottom N display (will be set dynamically)
 
+
+def format_price(price):
+    """Format price with appropriate precision and dollar sign based on magnitude."""
+    if pd.isna(price) or price is None:
+        return "N/A"
+    if price >= 1000:
+        return f"${price:,.2f}"
+    elif price >= 1:
+        return f"${price:.2f}"
+    elif price >= 0.01:
+        return f"${price:.4f}"
+    elif price >= 0.0001:
+        return f"${price:.6f}"
+    else:
+        return f"${price:.8f}"
+
+
+def format_percentage(ratio):
+    """Format ratio as percentage with 2 decimal places."""
+    if pd.isna(ratio) or ratio is None:
+        return "N/A"
+    return f"{ratio*100:.2f}%"
+
+
+def format_ratio(ratio):
+    """Format ratio with 4 decimal places."""
+    if pd.isna(ratio) or ratio is None:
+        return "N/A"
+    return f"{ratio:.4f}"
+
 def get_outlier_note(row, bounds_dict, small_industries_list):
     """
     Determines the outlier status note for a given stock row.
@@ -89,14 +119,14 @@ def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=
 def print_dataframe(df, bounds_dict, small_industries_list, table_title):
     """Helper function to print DataFrame contents with aligned columns."""
     print(f"\n{'='*25} {table_title} {'='*25}")
-    
+
     # Define headers and their respective widths
     headers = {
         'Symbol': 10,
         'Industry': 40,
-        'VaR/Ask Ratio': 15,
-        'Spread': 22,  # Increased width to accommodate high spread warning
-        'AskPrice': 12,
+        'Risk Ratio': 12,
+        'Spread': 10,
+        'Price': 18,
         'Note': 0  # Note will take remaining space
     }
 
@@ -110,17 +140,15 @@ def print_dataframe(df, bounds_dict, small_industries_list, table_title):
     df['Note'] = df.apply(get_outlier_note, axis=1, args=(bounds_dict, small_industries_list))
 
     for _, row in df.iterrows():
-        spread_warning = " (High Spread!)" if row.get('RelativeSpread_%', 0) > 1.0 else ""
-        
-        # Prepare strings for each column, ensuring they are formatted and aligned
+        spread_warning = " ⚠" if row.get('RelativeSpread_%', 0) > 1.0 else ""
+
+        # Prepare strings for each column using formatting functions
         symbol_str = f"{row['Symbol']:<{headers['Symbol']}}"
         industry_str = f"{row['IndustryName']:<{headers['Industry']}.{headers['Industry']}}"
-        var_ratio_str = f"{row['VaR_to_Ask_Ratio']:.4f}"
-        var_ratio_str = f"{var_ratio_str:<{headers['VaR/Ask Ratio']}}"
-        spread_str = f"{row.get('RelativeSpread_%', 0):.2f}%{spread_warning}"
+        var_ratio_str = f"{format_percentage(row['VaR_to_Ask_Ratio']):<{headers['Risk Ratio']}}"
+        spread_str = f"{format_percentage(row.get('RelativeSpread_%', 0) / 100)}{spread_warning}"
         spread_str = f"{spread_str:<{headers['Spread']}}"
-        ask_price_str = f"${row['AskPrice']:.2f}"
-        ask_price_str = f"{ask_price_str:<{headers['AskPrice']}}"
+        ask_price_str = f"{format_price(row['AskPrice']):<{headers['Price']}}"
 
         # Join all parts and print
         print(f"{symbol_str} | {industry_str} | {var_ratio_str} | {spread_str} | {ask_price_str} | {row['Note']}")
@@ -217,11 +245,11 @@ def find_var_outliers(filename, overwrite=False):
         global_upper_bound = global_Q3 + 1.5 * global_IQR
 
         print(f"\n{'='*25} Global VaR/Ask Ratio Statistics (Including ETFs) {'='*25}")
-        print(f"Q1 (25th percentile): {global_Q1:.4f}")
-        print(f"Q3 (75th percentile): {global_Q3:.4f}")
-        print(f"IQR (Interquartile Range): {global_IQR:.4f}")
-        print(f"Lower Outlier Bound: {global_lower_bound:.4f}")
-        print(f"Upper Outlier Bound: {global_upper_bound:.4f}")
+        print(f"Q1 (25th percentile): {format_percentage(global_Q1)}")
+        print(f"Q3 (75th percentile): {format_percentage(global_Q3)}")
+        print(f"IQR (Interquartile Range): {format_percentage(global_IQR)}")
+        print(f"Lower Outlier Bound: {format_percentage(global_lower_bound)}")
+        print(f"Upper Outlier Bound: {format_percentage(global_upper_bound)}")
 
         top_n_highest_var = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=False).head(TOP_N_DISPLAY)
         if not top_n_highest_var.empty:
