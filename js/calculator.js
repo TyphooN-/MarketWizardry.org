@@ -809,6 +809,17 @@ window.addSymbolToPortfolio = function(symbol) {
     const data = window.varData[symbol];
     const tbody = document.getElementById('portfolio-positions');
 
+    // Check for duplicate symbols
+    const existingRows = tbody.querySelectorAll('tr');
+    for (const row of existingRows) {
+        const symbolInput = row.querySelector('input.table-input, input.position-symbol-input');
+        if (symbolInput && symbolInput.value.toUpperCase() === symbol.toUpperCase()) {
+            console.log('⚠️ Symbol already exists in portfolio');
+            alert(`${symbol} is already in your portfolio`);
+            return;
+        }
+    }
+
     // Remove placeholder row if it exists
     const placeholderRow = tbody.querySelector('tr input[placeholder="AAPL"]');
     if (placeholderRow) {

@@ -4,6 +4,49 @@
  * Localized to the button's parent container
  */
 
+// Helper function to create pixel explosion frames
+function createExplosionFrame(lines, baseColor) {
+    const frame = document.createElement('div');
+    frame.className = 'explosion-frame';
+
+    lines.forEach((line, rowIndex) => {
+        const row = document.createElement('div');
+        row.className = 'pixel-row';
+
+        // Convert each character pair (██) to a pixel
+        for (let i = 0; i < line.length; i += 2) {
+            const char = line.substr(i, 2);
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+
+            if (char === '██') {
+                // Vary the color slightly for depth
+                const colorVariations = [baseColor, shadeColor(baseColor, -20), shadeColor(baseColor, 20)];
+                pixel.style.backgroundColor = colorVariations[Math.floor(Math.random() * colorVariations.length)];
+                pixel.style.boxShadow = `0 0 2px ${baseColor}`;
+            } else {
+                pixel.style.backgroundColor = 'transparent';
+            }
+
+            row.appendChild(pixel);
+        }
+
+        frame.appendChild(row);
+    });
+
+    return frame;
+}
+
+// Helper to shade colors for variation
+function shadeColor(color, percent) {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.max(0, Math.min(255, (num >> 16) + amt));
+    const G = Math.max(0, Math.min(255, (num >> 8 & 0x00FF) + amt));
+    const B = Math.max(0, Math.min(255, (num & 0x0000FF) + amt));
+    return '#' + (0x1000000 + (R << 16) + (G << 8) + B).toString(16).slice(1);
+}
+
 function triggerNuclearExplosion(button) {
     // Find the parent container (table cell or container div)
     const parent = button.closest('td') || button.closest('.input-group') || button.parentElement;
@@ -18,12 +61,52 @@ function triggerNuclearExplosion(button) {
     const originalOverflow = parent.style.overflow;
     parent.style.overflow = 'visible';
 
-    // Create barrel explosion graphic
+    // Create pixel art barrel explosion (Metal Slug style)
     const barrelExplosion = document.createElement('div');
-    barrelExplosion.className = 'barrel-explosion';
-    barrelExplosion.innerHTML = `
-        <img src="/img/barrel-explosion.svg" alt="explosion" class="barrel-explosion-img">
-    `;
+    barrelExplosion.className = 'pixel-explosion';
+
+    // Frame 1: Initial flash
+    const frame1 = createExplosionFrame([
+        '    ██    ',
+        '  ██████  ',
+        '  ██████  ',
+        '    ██    '
+    ], '#ffff00');
+
+    // Frame 2: Expanding blast
+    const frame2 = createExplosionFrame([
+        '  ██  ██  ',
+        '██  ██  ██',
+        '  ██████  ',
+        '██  ██  ██',
+        '  ██  ██  '
+    ], '#ff8800');
+
+    // Frame 3: Large explosion
+    const frame3 = createExplosionFrame([
+        '██    ██  ██',
+        '  ████  ████',
+        '██  ██████  ',
+        '  ████████  ',
+        '██  ██████  ',
+        '  ████  ████',
+        '██    ██  ██'
+    ], '#ff4400');
+
+    // Frame 4: Dissipating
+    const frame4 = createExplosionFrame([
+        '██      ██  ',
+        '  ██  ██    ',
+        '    ████    ',
+        '  ██  ██    ',
+        '██      ██  '
+    ], '#ff2200');
+
+    barrelExplosion.appendChild(frame1);
+    barrelExplosion.appendChild(frame2);
+    barrelExplosion.appendChild(frame3);
+    barrelExplosion.appendChild(frame4);
+
     parent.appendChild(barrelExplosion);
 
     // Create barrel explosion flash
@@ -85,8 +168,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Use event delegation for dynamically added buttons
     // Listen for click in capture phase to run before calculator.js
     document.addEventListener('click', function(e) {
-        const button = e.target.closest('.remove-btn, .position-remove-btn');
+        // Check if clicked element or any parent is a remove button
+        const button = e.target.closest('.remove-btn') || e.target.closest('.position-remove-btn');
         if (button) {
+            console.log('💥 Barrel explosion triggered for:', button.className);
             // Trigger explosion localized to the button's container
             // Don't prevent default - let calculator.js handle the actual removal
             triggerNuclearExplosion(button);
