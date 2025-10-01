@@ -2,12 +2,16 @@ Warning: Market data file 'crypto_market_data.json' not found.
 Run 'python fetch_crypto_data.py' first to fetch market data.
 Proceeding with basic analysis only...
 
+Info: Events data file 'crypto_events_data.json' not found.
+Run 'python fetch_crypto_events.py --api-key YOUR_KEY' to fetch upcoming events.
+Proceeding without events data...
+
 ================================================================================
 ENHANCED CRYPTO MARKET ANALYSIS
 ================================================================================
-Report Generated: 2025-10-01 08:49:59
+Report Generated: 2025-10-01 14:49:45
 
-✓ Loaded news for 17 cryptocurrencies
+✓ Loaded news for 7 cryptocurrencies
 
 ================================================================================
 CRYPTO MARKET OVERVIEW
@@ -78,8 +82,14 @@ Average VaR/Price Ratio:      5.65%
 ================================================================================
 💡 KEY INSIGHTS
 ================================================================================
-🔥 Most Volatile (Daily):  DOGEUSD    7.90%
-📉 Least Volatile (Daily): BTCUSD     2.46%
+🔥 Most Volatile (Daily):   DOGEUSD    7.90%
+📉 Least Volatile (Daily):  BTCUSD     2.46%
+
+🔥 Most Volatile (Weekly):  DOGEUSD   17.21%
+📉 Least Volatile (Weekly): BTCUSD     6.13%
+
+🔥 Most Volatile (Monthly):  DOGEUSD   48.87%
+📉 Least Volatile (Monthly): BNBUSD    14.84%
 
 ================================================================================
 📰 LATEST CRYPTOCURRENCY NEWS
@@ -282,4 +292,10 @@ Average VaR/Price Ratio:      5.65%
       📅 2025-10-01 07:13 | 📝 coindesk
       🔗 https://www.coindesk.com/daybook-us/2025/09/30/uptober-begins-with-bitcoin-gold-rises-crypto-daybook-americas
       By Francisco Rodrigues (All times ET unless indicated otherwise) Bitcoin (BTC) moved higher amid the U.S. government shutdown and its up roughly 3% in the last 24 hours to $116,400. The broader crypto market, as measured by the CoinDesk 20 index ( CD...
+
+================================================================================
+📅 EVENTS DATA NOT AVAILABLE
+================================================================================
+ℹ️  Run 'python fetch_crypto_events.py --api-key YOUR_KEY' to fetch upcoming events.
+   Sign up at https://coinmarketcal.com/en/developer/register for a free API key.
 

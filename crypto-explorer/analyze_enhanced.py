@@ -180,14 +180,18 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
         # Load news data if available
         news_data = {}
         if news_data_file:
-            news_data = load_crypto_news_data(news_data_file)
+            all_news_data = load_crypto_news_data(news_data_file)
+            # Filter news to only include symbols in our CSV
+            news_data = {symbol: all_news_data[symbol] for symbol in df['Symbol'].tolist() if symbol in all_news_data}
             if news_data:
                 print(f"✓ Loaded news for {len(news_data)} cryptocurrencies")
 
         # Load events data if available
         events_data = {}
         if events_data_file:
-            events_data = load_crypto_events_data(events_data_file)
+            all_events_data = load_crypto_events_data(events_data_file)
+            # Filter events to only include symbols in our CSV
+            events_data = {symbol: all_events_data[symbol] for symbol in df['Symbol'].tolist() if symbol in all_events_data}
             if events_data:
                 print(f"✓ Loaded events for {len(events_data)} cryptocurrencies")
 
@@ -383,10 +387,21 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
         print(f"💡 KEY INSIGHTS")
         print(f"{'='*80}")
 
-        most_volatile = df.loc[df['ATR_D1/AskPrice'].idxmax()]
-        least_volatile = df.loc[df['ATR_D1/AskPrice'].idxmin()]
-        print(f"🔥 Most Volatile (Daily):  {most_volatile['Symbol']:<8} {most_volatile['ATR_D1/AskPrice']*100:>6.2f}%")
-        print(f"📉 Least Volatile (Daily): {least_volatile['Symbol']:<8} {least_volatile['ATR_D1/AskPrice']*100:>6.2f}%")
+        most_volatile_d1 = df.loc[df['ATR_D1/AskPrice'].idxmax()]
+        least_volatile_d1 = df.loc[df['ATR_D1/AskPrice'].idxmin()]
+        print(f"🔥 Most Volatile (Daily):   {most_volatile_d1['Symbol']:<8} {most_volatile_d1['ATR_D1/AskPrice']*100:>6.2f}%")
+        print(f"📉 Least Volatile (Daily):  {least_volatile_d1['Symbol']:<8} {least_volatile_d1['ATR_D1/AskPrice']*100:>6.2f}%")
+
+        most_volatile_w1 = df.loc[df['ATR_W1/AskPrice'].idxmax()]
+        least_volatile_w1 = df.loc[df['ATR_W1/AskPrice'].idxmin()]
+        print(f"\n🔥 Most Volatile (Weekly):  {most_volatile_w1['Symbol']:<8} {most_volatile_w1['ATR_W1/AskPrice']*100:>6.2f}%")
+        print(f"📉 Least Volatile (Weekly): {least_volatile_w1['Symbol']:<8} {least_volatile_w1['ATR_W1/AskPrice']*100:>6.2f}%")
+
+        if 'ATR_MN1/AskPrice' in df.columns and df['ATR_MN1/AskPrice'].notna().any():
+            most_volatile_mn1 = df.loc[df['ATR_MN1/AskPrice'].idxmax()]
+            least_volatile_mn1 = df.loc[df['ATR_MN1/AskPrice'].idxmin()]
+            print(f"\n🔥 Most Volatile (Monthly):  {most_volatile_mn1['Symbol']:<8} {most_volatile_mn1['ATR_MN1/AskPrice']*100:>6.2f}%")
+            print(f"📉 Least Volatile (Monthly): {least_volatile_mn1['Symbol']:<8} {least_volatile_mn1['ATR_MN1/AskPrice']*100:>6.2f}%")
 
         if 'PercentMinted' in df.columns and df['PercentMinted'].notna().any():
             most_minted = df.loc[df['PercentMinted'].idxmax()]
