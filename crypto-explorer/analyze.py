@@ -104,32 +104,13 @@ def analyze_crypto(filename):
                   f"${row['VaR_1_Lot']:>12,.2f}    ${row['AskPrice']:>12,.2f}    {row.get('RelativeSpread_%', 0):.3f}%")
         print()
 
-        # Correlation Analysis
-        if len(df) >= 3:  # Need at least 3 pairs for meaningful correlation
-            print(f"{'='*30} CORRELATION MATRIX (Daily ATR) {'='*30}")
-            corr_matrix = calculate_correlation_matrix(df, ['ATR_D1'])
-            if corr_matrix is not None:
-                # Format correlation matrix
-                symbols = df['Symbol'].tolist()
-                print(f"{'Symbol':<12}", end='')
-                for sym in symbols:
-                    print(f"{sym:<12}", end='')
-                print()
-                print("-" * (12 * (len(symbols) + 1)))
-
-                for sym1 in symbols:
-                    print(f"{sym1:<12}", end='')
-                    for sym2 in symbols:
-                        if sym1 in corr_matrix.index and sym2 in corr_matrix.columns:
-                            corr_val = corr_matrix.loc[sym1, sym2]
-                            if pd.notna(corr_val):
-                                print(f"{corr_val:>11.3f} ", end='')
-                            else:
-                                print(f"{'N/A':>11} ", end='')
-                        else:
-                            print(f"{'N/A':>11} ", end='')
-                    print()
-            print()
+        # Note: Correlation analysis requires multiple time periods
+        # Single-day snapshots cannot generate meaningful correlation data
+        print(f"{'='*30} NOTE: CORRELATION ANALYSIS {'='*30}")
+        print("Correlation analysis requires historical time-series data.")
+        print("Single-day snapshots show current volatility rankings only.")
+        print("For correlation analysis, multiple dates of ATR data are needed.")
+        print()
 
         # Summary Statistics
         print(f"{'='*30} SUMMARY STATISTICS {'='*30}")
@@ -157,9 +138,10 @@ def analyze_crypto(filename):
         print(f"Lowest VaR/Price: {lowest_var['Symbol']} ({lowest_var['VaR_to_Ask_Ratio']*100:.2f}%)")
 
         # Spread warnings
-        high_spread = df[df.get('RelativeSpread_%', 0) > 0.1]
-        if not high_spread.empty:
-            print(f"\nHigh Spread Warning (>0.1%): {', '.join(high_spread['Symbol'].tolist())}")
+        if 'RelativeSpread_%' in df.columns:
+            high_spread = df[df['RelativeSpread_%'] > 0.1]
+            if not high_spread.empty:
+                print(f"\nHigh Spread Warning (>0.1%): {', '.join(high_spread['Symbol'].tolist())}")
 
         print()
 

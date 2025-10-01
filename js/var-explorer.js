@@ -42,6 +42,14 @@ function openModalWithFile(outlierFile, csvFile, title) {
     document.getElementById('modal-title').innerText = title;
     document.getElementById('csv-link').href = csvFile;
     document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
+
+    // Handle report link (points to the outlier/analysis file)
+    const reportLink = document.getElementById('report-link');
+    if (reportLink) {
+        reportLink.href = outlierFile;
+        reportLink.style.display = outlierFile ? 'inline' : 'none';
+    }
+
     document.getElementById('outlier-modal').style.display = 'block';
     updateNavCounter();
 
