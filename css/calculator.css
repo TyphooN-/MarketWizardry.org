@@ -1335,3 +1335,247 @@ h2 {
     text-align: center;
     font-weight: bold;
 }
+
+/* Wealth Checkpoints Styles */
+.wealth-checkpoints {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid #00aa00;
+    border-radius: 8px;
+    background: rgba(0, 170, 0, 0.05);
+}
+
+.checkpoint-title {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.checkpoint-item {
+    background: rgba(0, 255, 0, 0.1);
+    border-left: 4px solid #00ff00;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.checkpoint-item:hover {
+    background: rgba(0, 255, 0, 0.15);
+    transform: translateX(5px);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.checkpoint-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.checkpoint-emoji {
+    font-size: 1.8em;
+    line-height: 1;
+}
+
+.checkpoint-label {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.checkpoint-year {
+    color: #00aa00;
+    font-size: 0.9em;
+    margin-left: auto;
+    padding: 4px 10px;
+    background: rgba(0, 170, 0, 0.2);
+    border-radius: 4px;
+}
+
+.checkpoint-message {
+    color: #00aa00;
+    font-style: italic;
+    margin-bottom: 10px;
+    padding-left: 40px;
+}
+
+.checkpoint-stats {
+    color: #00ff00;
+    font-size: 0.9em;
+    padding-left: 40px;
+    font-family: "Courier New", monospace;
+}
+
+.checkpoint-empty {
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* Yearly Breakdown Table */
+.yearly-breakdown {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid #00aa00;
+    border-radius: 8px;
+    background: rgba(0, 170, 0, 0.05);
+}
+
+.breakdown-title {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.breakdown-table {
+    display: grid;
+    gap: 2px;
+}
+
+.breakdown-header {
+    display: grid;
+    grid-template-columns: 80px repeat(4, 1fr);
+    gap: 10px;
+    padding: 12px;
+    background: rgba(0, 255, 0, 0.2);
+    border-radius: 4px;
+    font-weight: bold;
+    color: #00ff00;
+}
+
+.breakdown-row {
+    display: grid;
+    grid-template-columns: 80px repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(0, 255, 0, 0.05);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.breakdown-row:hover {
+    background: rgba(0, 255, 0, 0.15);
+    transform: translateX(3px);
+}
+
+.breakdown-cell {
+    color: #00ff00;
+    text-align: left;
+}
+
+.breakdown-header .breakdown-cell {
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Timeline Visualization */
+.chart-container {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid #00aa00;
+    border-radius: 8px;
+    background: rgba(0, 170, 0, 0.05);
+    display: none;
+}
+
+.chart-container.show {
+    display: block;
+}
+
+.chart-title {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.chart-timeline {
+    display: grid;
+    gap: 10px;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 150px;
+    gap: 15px;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 255, 0, 0.05);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+    transform: scale(1.02);
+}
+
+.timeline-year {
+    color: #00aa00;
+    font-weight: bold;
+    text-align: right;
+}
+
+.timeline-bar-container {
+    display: flex;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #00aa00;
+}
+
+.timeline-bar {
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    color: #000;
+    font-weight: bold;
+}
+
+.timeline-bar-contributions {
+    background: linear-gradient(90deg, #00aa00, #00ff00);
+}
+
+.timeline-bar-gains {
+    background: linear-gradient(90deg, #00ff00, #00ff88);
+}
+
+.timeline-amount {
+    color: #00ff00;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .checkpoint-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .checkpoint-year {
+        margin-left: 40px;
+    }
+
+    .breakdown-header,
+    .breakdown-row {
+        grid-template-columns: 60px repeat(4, 1fr);
+        font-size: 0.85em;
+    }
+
+    .timeline-item {
+        grid-template-columns: 60px 1fr 120px;
+        font-size: 0.9em;
+    }
+}
