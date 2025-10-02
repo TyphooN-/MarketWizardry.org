@@ -152,19 +152,20 @@ def format_percentage(ratio):
     return f"{ratio*100:.2f}%"
 
 
-def print_separator(title="", char="═"):
+def print_separator(char="═", width=120):
     """
-    Print a separator line that matches the title width or a default width.
+    Print a separator line.
 
     Args:
-        title: Title text (if any)
         char: Character to use for separator (default: ═)
+        width: Width of separator (default: 120 for better readability)
     """
-    width = max(len(title), 80) if title else 80
     print(f"{char * width}")
-    if title:
-        print(title)
-        print(f"{char * width}")
+
+
+def print_table_separator(char="─", width=120):
+    """Print a table separator line."""
+    print(f"{char * width}")
 
 
 def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_data_file: str = None, events_data_file: str = None):
@@ -172,9 +173,9 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
     Enhanced cryptocurrency analysis with market data, news, and upcoming events.
     """
     try:
-        print(f"{'='*80}")
+        print_separator()
         print(f"ENHANCED CRYPTO MARKET ANALYSIS")
-        print(f"{'='*80}")
+        print_separator()
         print(f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print()
 
@@ -229,21 +230,21 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
         if 'VaR_to_Ask_Ratio' not in df.columns and 'VaR_1_Lot' in df.columns:
             df['VaR_to_Ask_Ratio'] = df['VaR_1_Lot'] / df['AskPrice']
 
-        print(f"{'='*80}")
+        print_separator()
         print(f"CRYPTO MARKET OVERVIEW")
-        print(f"{'='*80}")
+        print_separator()
         print(f"Total Pairs Analyzed: {len(df)}")
         print(f"Symbols: {', '.join(df['Symbol'].tolist())}")
         print()
 
         # Market Cap Rankings (if available)
         if 'MarketCap' in df.columns and df['MarketCap'].notna().any():
-            print(f"{'='*80}")
+            print_separator()
             print(f"💰 MARKET CAP RANKINGS")
-            print(f"{'='*80}")
+            print_separator()
             df_mc = df[df['MarketCap'].notna()].sort_values('MarketCap', ascending=False)
             print(f"{'#':<4} {'Symbol':<10} {'Market Cap':<16} {'Global Rank':<13} {'24h Volume':<16}")
-            print(f"{'-'*80}")
+            print_table_separator()
             for idx, (i, row) in enumerate(df_mc.iterrows(), 1):
                 mc_rank = f"#{int(row['MarketCapRank'])}" if pd.notna(row['MarketCapRank']) else 'N/A'
                 print(f"{idx:<4} {row['Symbol']:<10} "
@@ -254,12 +255,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
 
         # Supply Metrics (if available)
         if 'PercentMinted' in df.columns and df['PercentMinted'].notna().any():
-            print(f"{'='*80}")
+            print_separator()
             print(f"🪙 SUPPLY METRICS & EMISSION STATUS")
-            print(f"{'='*80}")
+            print_separator()
             df_supply = df[df['PercentMinted'].notna()].sort_values('PercentMinted', ascending=False)
             print(f"{'Symbol':<10} {'% Minted':<12} {'Circulating':<16} {'Max Supply':<16} {'Status':<20}")
-            print(f"{'-'*80}")
+            print_table_separator()
             for i, row in df_supply.iterrows():
                 pct = row['PercentMinted']
                 status_emoji = "🔴" if pct > 95 else "🟡" if pct > 80 else "🟢" if pct > 50 else "🔵"
@@ -272,12 +273,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
             print()
 
         # Volatility Rankings - Daily
-        print(f"{'='*80}")
+        print_separator()
         print(f"📊 DAILY VOLATILITY RANKING (ATR/Price)")
-        print(f"{'='*80}")
+        print_separator()
         df_sorted = df.sort_values('ATR_D1/AskPrice', ascending=False)
         print(f"{'#':<4} {'Symbol':<10} {'Volatility':<13} {'Daily ATR':<16} {'Current Price':<16}")
-        print(f"{'-'*80}")
+        print_table_separator()
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
             vol_pct = row['ATR_D1/AskPrice'] * 100
             vol_indicator = "🔥" if vol_pct > 6 else "⚡" if vol_pct > 4 else "📈"
@@ -288,12 +289,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
         print()
 
         # Volatility Rankings - Weekly
-        print(f"{'='*80}")
+        print_separator()
         print(f"📊 WEEKLY VOLATILITY RANKING (ATR/Price)")
-        print(f"{'='*80}")
+        print_separator()
         df_sorted = df.sort_values('ATR_W1/AskPrice', ascending=False)
         print(f"{'#':<4} {'Symbol':<10} {'Volatility':<13} {'Weekly ATR':<16} {'Current Price':<16}")
-        print(f"{'-'*80}")
+        print_table_separator()
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
             vol_pct = row['ATR_W1/AskPrice'] * 100
             vol_indicator = "🔥" if vol_pct > 15 else "⚡" if vol_pct > 10 else "📈"
@@ -305,12 +306,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
 
         # Volatility Rankings - Monthly
         if 'ATR_MN1/AskPrice' in df.columns and df['ATR_MN1/AskPrice'].notna().any():
-            print(f"{'='*80}")
+            print_separator()
             print(f"📊 MONTHLY VOLATILITY RANKING (ATR/Price)")
-            print(f"{'='*80}")
+            print_separator()
             df_sorted = df.sort_values('ATR_MN1/AskPrice', ascending=False)
             print(f"{'#':<4} {'Symbol':<10} {'Volatility':<13} {'Monthly ATR':<16} {'Current Price':<16}")
-            print(f"{'-'*80}")
+            print_table_separator()
             for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
                 vol_pct = row['ATR_MN1/AskPrice'] * 100
                 vol_indicator = "🔥" if vol_pct > 30 else "⚡" if vol_pct > 20 else "📈"
@@ -322,12 +323,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
 
         # Price Performance (if available)
         if 'PriceChange24h%' in df.columns and df['PriceChange24h%'].notna().any():
-            print(f"{'='*80}")
+            print_separator()
             print(f"📈 PRICE PERFORMANCE")
-            print(f"{'='*80}")
+            print_separator()
             df_perf = df[df['PriceChange24h%'].notna()].copy()
             print(f"{'Symbol':<10} {'Price':<16} {'24h %':<11} {'7d %':<11} {'30d %':<11} {'1y %':<11} {'ATH':<14} {'vs ATH':<11}")
-            print(f"{'-'*80}")
+            print_table_separator()
             for i, row in df_perf.iterrows():
                 price = format_price(row['AskPrice'])
 
@@ -350,12 +351,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
 
         # Liquidity & Trading Metrics
         if 'LiquidityScore' in df.columns and df['LiquidityScore'].notna().any():
-            print(f"{'='*80}")
+            print_separator()
             print(f"💧 LIQUIDITY & TRADING METRICS")
-            print(f"{'='*80}")
+            print_separator()
             df_liq = df[df['LiquidityScore'].notna()].sort_values('LiquidityScore', ascending=False)
             print(f"{'Symbol':<10} {'Liquidity':<13} {'Vol/MCap %':<13} {'Spread %':<12}")
-            print(f"{'-'*80}")
+            print_table_separator()
             for i, row in df_liq.iterrows():
                 vol_to_mc = (row['Volume24h'] / row['MarketCap'] * 100) if pd.notna(row['Volume24h']) and pd.notna(row['MarketCap']) else None
                 vol_mc_str = f"{vol_to_mc:.2f}%" if vol_to_mc else "N/A"
@@ -366,12 +367,12 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
             print()
 
         # VaR Rankings
-        print(f"{'='*80}")
+        print_separator()
         print(f"⚠️  VALUE AT RISK RANKING (VaR/Price)")
-        print(f"{'='*80}")
+        print_separator()
         df_sorted = df.sort_values('VaR_to_Ask_Ratio', ascending=False)
         print(f"{'#':<4} {'Symbol':<10} {'Risk Ratio':<13} {'VaR (1 Lot)':<16} {'Current Price':<16}")
-        print(f"{'-'*80}")
+        print_table_separator()
         for idx, (i, row) in enumerate(df_sorted.iterrows(), 1):
             risk_pct = row['VaR_to_Ask_Ratio'] * 100
             risk_indicator = "🔴" if risk_pct > 7 else "🟡" if risk_pct > 5 else "🟢"
@@ -382,9 +383,9 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
         print()
 
         # Summary Statistics
-        print(f"{'='*80}")
+        print_separator()
         print(f"📊 SUMMARY STATISTICS")
-        print(f"{'='*80}")
+        print_separator()
         print(f"Average Daily Volatility:   {df['ATR_D1/AskPrice'].mean()*100:>6.2f}%")
         print(f"Average Weekly Volatility:  {df['ATR_W1/AskPrice'].mean()*100:>6.2f}%")
         if 'ATR_MN1/AskPrice' in df.columns:
@@ -398,9 +399,9 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
         print()
 
         # Key Insights
-        print(f"{'='*80}")
+        print_separator()
         print(f"💡 KEY INSIGHTS")
-        print(f"{'='*80}")
+        print_separator()
 
         most_volatile_d1 = df.loc[df['ATR_D1/AskPrice'].idxmax()]
         least_volatile_d1 = df.loc[df['ATR_D1/AskPrice'].idxmin()]
@@ -434,14 +435,14 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
 
         # Latest News Section
         if news_data:
-            print(f"{'='*80}")
+            print_separator()
             print(f"📰 LATEST CRYPTOCURRENCY NEWS")
-            print(f"{'='*80}")
+            print_separator()
             for symbol in df['Symbol'].tolist():
                 if symbol in news_data and news_data[symbol]:
                     print(f"\n{'-'*80}")
                     print(f"📌 {symbol} - Latest News ({len(news_data[symbol])} articles)")
-                    print(f"{'-'*80}")
+                    print_table_separator()
                     for i, article in enumerate(news_data[symbol], 1):
                         timestamp = datetime.fromtimestamp(article.get('published_on', 0))
                         title = article.get('title', 'N/A')
@@ -460,22 +461,22 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
                             print(f"      {summary}")
             print()
         else:
-            print(f"{'='*80}")
+            print_separator()
             print(f"📰 NEWS DATA NOT AVAILABLE")
-            print(f"{'='*80}")
+            print_separator()
             print("ℹ️  Run 'python fetch_crypto_news.py' to fetch latest cryptocurrency news.")
             print()
 
         # Upcoming Events Section
         if events_data:
-            print(f"{'='*80}")
+            print_separator()
             print(f"📅 UPCOMING CRYPTOCURRENCY EVENTS")
-            print(f"{'='*80}")
+            print_separator()
             for symbol in df['Symbol'].tolist():
                 if symbol in events_data and events_data[symbol]:
                     print(f"\n{'-'*80}")
                     print(f"🔔 {symbol} - Upcoming Events ({len(events_data[symbol])} events)")
-                    print(f"{'-'*80}")
+                    print_table_separator()
                     for i, event in enumerate(events_data[symbol], 1):
                         event_date = event.get('date_event', 'N/A')
                         title = event.get('title', {})
@@ -522,9 +523,9 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
                             print(f"      {summary}")
             print()
         else:
-            print(f"{'='*80}")
+            print_separator()
             print(f"📅 EVENTS DATA NOT AVAILABLE")
-            print(f"{'='*80}")
+            print_separator()
             print("ℹ️  Run 'python fetch_crypto_events.py --api-key YOUR_KEY' to fetch upcoming events.")
             print("   Sign up at https://coinmarketcal.com/en/developer/register for a free API key.")
             print()
