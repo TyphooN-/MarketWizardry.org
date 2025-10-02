@@ -253,6 +253,97 @@ class SEOManager:
 
         return config
 
+    def get_web_application_jsonld_config(self, app_title, app_url, app_description, category="Finance"):
+        """Generate JSON-LD configuration for web applications (explorers, calculators)"""
+        return {
+            'type': 'WebApplication',
+            'name': app_title,
+            'url': app_url,
+            'description': app_description,
+            'additional_properties': {
+                'applicationCategory': category,
+                'operatingSystem': 'Any',
+                'browserRequirements': 'Requires JavaScript',
+                'offers': {
+                    '@type': 'Offer',
+                    'price': '0',
+                    'priceCurrency': 'USD'
+                },
+                'featureList': app_description
+            }
+        }
+
+    def get_about_page_jsonld_config(self, person_name, person_url, person_description):
+        """Generate JSON-LD configuration for about/profile pages"""
+        return {
+            'type': 'Person',
+            'name': person_name,
+            'url': person_url,
+            'description': person_description,
+            'additional_properties': {
+                'jobTitle': 'Trader & Developer',
+                'knowsAbout': ['Financial Markets', 'Algorithmic Trading', 'Risk Management', 'Market Analysis'],
+                'sameAs': [
+                    'https://twitter.com/MarketW1zardry'
+                ]
+            }
+        }
+
+    def get_image_gallery_jsonld_config(self, gallery_title, gallery_url, gallery_description):
+        """Generate JSON-LD configuration for image galleries"""
+        return {
+            'type': 'ImageGallery',
+            'name': gallery_title,
+            'url': gallery_url,
+            'description': gallery_description,
+            'additional_properties': {
+                'genre': 'Digital Art',
+                'artform': 'AI Generated Art'
+            }
+        }
+
+    def get_item_list_jsonld_config(self, list_title, list_url, list_description, items=None):
+        """Generate JSON-LD configuration for item lists (affiliates, resources)"""
+        config = {
+            'type': 'ItemList',
+            'name': list_title,
+            'url': list_url,
+            'description': list_description,
+            'additional_properties': {
+                'numberOfItems': len(items) if items else 0
+            }
+        }
+
+        if items:
+            config['additional_properties']['itemListElement'] = [
+                {
+                    '@type': 'ListItem',
+                    'position': idx + 1,
+                    'name': item['name'],
+                    'url': item.get('url', '')
+                } for idx, item in enumerate(items)
+            ]
+
+        return config
+
+    def get_software_application_jsonld_config(self, app_title, app_url, app_description):
+        """Generate JSON-LD configuration for software/code pages"""
+        return {
+            'type': 'SoftwareApplication',
+            'name': app_title,
+            'url': app_url,
+            'description': app_description,
+            'additional_properties': {
+                'applicationCategory': 'DeveloperApplication',
+                'operatingSystem': 'Any',
+                'offers': {
+                    '@type': 'Offer',
+                    'price': '0',
+                    'priceCurrency': 'USD'
+                }
+            }
+        }
+
     def generate_breadcrumb_css(self):
         """Generate CSS for breadcrumb styling - matches var-cult.html standard"""
         return '''
