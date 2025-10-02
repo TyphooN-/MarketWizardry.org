@@ -746,6 +746,48 @@ nav.breadcrumb a:hover {
         margin: 2px;
     }
 
+    /* Modal button bar - force single row on mobile */
+    .modal-button-bar {
+        flex-wrap: nowrap;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #00ff00 #000;
+    }
+
+    .modal-button-bar::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .modal-button-bar::-webkit-scrollbar-track {
+        background: #000;
+    }
+
+    .modal-button-bar::-webkit-scrollbar-thumb {
+        background: #00ff00;
+        border-radius: 3px;
+    }
+
+    .modal-button-bar button,
+    .modal-button-bar a {
+        font-size: 0.65em;
+        padding: 6px 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: fit-content;
+    }
+
+    .image-counter {
+        font-size: 0.7em;
+        padding: 0 4px;
+        flex-shrink: 0;
+    }
+
+    .twitter-link-container {
+        flex-shrink: 0;
+    }
+
     .content-section {
         padding: 15px;
     }
