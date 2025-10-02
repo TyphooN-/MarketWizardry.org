@@ -227,47 +227,47 @@ a {
     /* Very tall screens */
     @media (min-height: 1000px) {
         .image-item img {
-            max-height: clamp(120px, 20vh, 220px);
+            max-height: clamp(100px, 15vh, 160px);
         }
     }
 
     /* Standard desktop */
     @media (max-height: 999px) and (min-height: 850px) {
         .image-item img {
-            max-height: clamp(100px, 18vh, 180px);
-        }
-        .image-item {
-            padding: 8px;
-        }
-    }
-
-    /* Medium height */
-    @media (max-height: 849px) and (min-height: 750px) {
-        .image-item img {
-            max-height: clamp(80px, 15vh, 140px);
+            max-height: clamp(80px, 13vh, 130px);
         }
         .image-item {
             padding: 6px;
         }
     }
 
-    /* Shorter screens */
-    @media (max-height: 749px) and (min-height: 650px) {
+    /* Medium height */
+    @media (max-height: 849px) and (min-height: 750px) {
         .image-item img {
-            max-height: clamp(70px, 12vh, 110px);
+            max-height: clamp(70px, 11vh, 110px);
         }
         .image-item {
             padding: 5px;
         }
     }
 
-    /* Very short screens */
-    @media (max-height: 649px) {
+    /* Shorter screens */
+    @media (max-height: 749px) and (min-height: 650px) {
         .image-item img {
-            max-height: clamp(50px, 10vh, 80px);
+            max-height: clamp(60px, 10vh, 90px);
         }
         .image-item {
             padding: 4px;
+        }
+    }
+
+    /* Very short screens */
+    @media (max-height: 649px) {
+        .image-item img {
+            max-height: clamp(50px, 8vh, 70px);
+        }
+        .image-item {
+            padding: 3px;
         }
     }
 }
