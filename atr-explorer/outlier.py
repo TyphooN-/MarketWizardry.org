@@ -2,7 +2,13 @@ import pandas as pd
 import numpy as np
 import argparse
 import re
+import sys
+import os
 from datetime import datetime
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from explorer_utils import format_price, format_percentage, format_ratio, print_formatted_table, print_section_header, print_statistics
 
 MINIMUM_GROUP_SIZE = 5
 
@@ -56,36 +62,23 @@ def print_outliers(df, column_name, group_name):
     if df.empty:
         return
 
-    print(f"\n{'='*25} Outliers for {column_name} in {group_name} {'='*25}")
-    
-    headers = {
-        'Symbol': 15,
-        'Industry': 30,
-        column_name: 20,
-        'AskPrice': 12,
-        'Spread': 22
-    }
+    # Add warning indicator for high spreads
+    df_display = df.copy()
+    df_display['Spread_Display'] = df_display.apply(
+        lambda row: f"{format_percentage(row.get('RelativeSpread_%', 0) / 100)} {'⚠️' if row.get('RelativeSpread_%', 0) > 1.0 else ''}",
+        axis=1
+    )
 
-    header_line = " | ".join([f"{h:<{w}}" for h, w in headers.items()])
-    print("-" * (sum(headers.values()) + len(headers) * 3))
-    print(header_line)
-    print("-" * (sum(headers.values()) + len(headers) * 3))
+    # Configure columns for display
+    columns_config = [
+        ('Symbol', 'Symbol', None, 12),
+        ('IndustryName', 'Industry', lambda x: x[:35] if len(x) > 35 else x, 35),
+        (column_name, 'ATR/Price', format_ratio, 12),
+        ('AskPrice', 'Current Price', format_price, 14),
+        ('Spread_Display', 'Spread', None, 15)
+    ]
 
-    for _, row in df.iterrows():
-        spread_warning = " (High Spread!)" if row.get('RelativeSpread_%', 0) > 1.0 else ""
-        
-        symbol_str = f"{row['Symbol']:<{headers['Symbol']}}"
-        industry_str = f"{row['IndustryName']:<{headers['Industry']}.{headers['Industry']}}"
-        ratio_value_str = f"{row[column_name]:.4f}"
-        ratio_value_str = f"{ratio_value_str:<{headers[column_name]}}"
-        ask_price_str = f"${row['AskPrice']:.2f}"
-        ask_price_str = f"{ask_price_str:<{headers['AskPrice']}}"
-        spread_str = f"{row.get('RelativeSpread_%', 0):.2f}%{spread_warning}"
-        spread_str = f"{spread_str:<{headers['Spread']}}"
-
-        print(f"{symbol_str} | {industry_str} | {ratio_value_str} | {ask_price_str} | {spread_str}")
-
-    print("-" * (sum(headers.values()) + len(headers) * 3))
+    print_formatted_table(df_display, columns_config, f"Outliers for {column_name} in {group_name}")
 
 def analyze_group(group_name, group_df, column_name):
     """
@@ -97,13 +90,16 @@ def analyze_group(group_name, group_df, column_name):
     outliers, q1, q3, iqr, lower_bound, upper_bound = find_outliers_iqr(group_df, column_name)
 
     if not outliers.empty:
-        print(f"\n{'='*25} IQR Statistics for {column_name} in {group_name} {'='*25}")
-        print(f"Q1 (25th percentile): {q1:.4f}")
-        print(f"Q3 (75th percentile): {q3:.4f}")
-        print(f"IQR (Interquartile Range): {iqr:.4f}")
+        stats = {
+            'Q1 (25th percentile)': format_ratio(q1),
+            'Q3 (75th percentile)': format_ratio(q3),
+            'IQR (Interquartile Range)': format_ratio(iqr)
+        }
         if lower_bound is not None and upper_bound is not None:
-            print(f"Lower Outlier Bound: {lower_bound:.4f}")
-            print(f"Upper Outlier Bound: {upper_bound:.4f}")
+            stats['Lower Outlier Bound'] = format_ratio(lower_bound)
+            stats['Upper Outlier Bound'] = format_ratio(upper_bound)
+
+        print_statistics(stats, f"IQR Statistics for {column_name} in {group_name}")
         print_outliers(outliers, column_name, group_name)
 
 def find_atr_outliers(filename):
@@ -111,8 +107,9 @@ def find_atr_outliers(filename):
     Main function to load data and find outliers in ATR columns.
     """
     try:
-        print(f"Analysis results for {filename}")
-        print(f"Report generated on: {datetime.now()}")
+        print_section_header("ATR OUTLIER ANALYSIS")
+        print(f"File: {filename}")
+        print(f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print()
 
         df = pd.read_csv(filename, delimiter=';', encoding='latin1')
@@ -172,9 +169,9 @@ def find_atr_outliers(filename):
         df.to_csv(filename, sep=';', index=False, encoding='latin1')
 
         if not close_only_symbols.empty:
-            print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
+            print_section_header("⚠️  UNACTIONABLE (CLOSE-ONLY) SYMBOLS")
             for index, row in close_only_symbols.iterrows():
-                print(f"- {row['Symbol']} ({row['IndustryName']})")
+                print(f"  • {row['Symbol']:<12} ({row['IndustryName']})")
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

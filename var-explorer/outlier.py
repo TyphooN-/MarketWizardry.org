@@ -2,7 +2,13 @@ import pandas as pd
 import numpy as np
 import re
 import argparse
+import sys
+import os
 from datetime import datetime
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from explorer_utils import format_price, format_percentage, format_ratio, print_formatted_table, print_section_header, print_statistics
 
 # This constant is used in multiple functions, so it's defined globally.
 MINIMUM_GROUP_SIZE = 5
@@ -10,36 +16,6 @@ STOCKS_TOP = 30 # User-defined variable for top/bottom N display for Stocks
 CFD_TOP = 40    # User-defined variable for top/bottom N display for CFDs
 FUTURES_TOP = 5 # User-defined variable for top/bottom N display for Futures
 TOP_N_DISPLAY = 20 # User-defined variable for top/bottom N display (will be set dynamically)
-
-
-def format_price(price):
-    """Format price with appropriate precision and dollar sign based on magnitude."""
-    if pd.isna(price) or price is None:
-        return "N/A"
-    if price >= 1000:
-        return f"${price:,.2f}"
-    elif price >= 1:
-        return f"${price:.2f}"
-    elif price >= 0.01:
-        return f"${price:.4f}"
-    elif price >= 0.0001:
-        return f"${price:.6f}"
-    else:
-        return f"${price:.8f}"
-
-
-def format_percentage(ratio):
-    """Format ratio as percentage with 2 decimal places."""
-    if pd.isna(ratio) or ratio is None:
-        return "N/A"
-    return f"{ratio*100:.2f}%"
-
-
-def format_ratio(ratio):
-    """Format ratio with 4 decimal places."""
-    if pd.isna(ratio) or ratio is None:
-        return "N/A"
-    return f"{ratio:.4f}"
 
 def get_outlier_note(row, bounds_dict, small_industries_list):
     """
@@ -118,42 +94,28 @@ def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=
 
 def print_dataframe(df, bounds_dict, small_industries_list, table_title):
     """Helper function to print DataFrame contents with aligned columns."""
-    print(f"\n{'='*25} {table_title} {'='*25}")
-
-    # Define headers and their respective widths
-    headers = {
-        'Symbol': 10,
-        'Industry': 40,
-        'Risk Ratio': 12,
-        'Spread': 10,
-        'Price': 18,
-        'Note': 0  # Note will take remaining space
-    }
-
-    # Create header string
-    header_line = " | ".join([f"{h:<{w}}" for h, w in headers.items() if w > 0]) + " | Note"
-    print("-" * (sum(headers.values()) + len(headers) * 3))
-    print(header_line)
-    print("-" * (sum(headers.values()) + len(headers) * 3))
 
     # Apply the get_outlier_note function to get the 'Note' for each row
-    df['Note'] = df.apply(get_outlier_note, axis=1, args=(bounds_dict, small_industries_list))
+    df_display = df.copy()
+    df_display['Note'] = df_display.apply(get_outlier_note, axis=1, args=(bounds_dict, small_industries_list))
 
-    for _, row in df.iterrows():
-        spread_warning = " ⚠" if row.get('RelativeSpread_%', 0) > 1.0 else ""
+    # Add warning indicator for high spreads
+    df_display['Spread_Display'] = df_display.apply(
+        lambda row: f"{format_percentage(row.get('RelativeSpread_%', 0) / 100)} {'⚠️' if row.get('RelativeSpread_%', 0) > 1.0 else ''}",
+        axis=1
+    )
 
-        # Prepare strings for each column using formatting functions
-        symbol_str = f"{row['Symbol']:<{headers['Symbol']}}"
-        industry_str = f"{row['IndustryName']:<{headers['Industry']}.{headers['Industry']}}"
-        var_ratio_str = f"{format_percentage(row['VaR_to_Ask_Ratio']):<{headers['Risk Ratio']}}"
-        spread_str = f"{format_percentage(row.get('RelativeSpread_%', 0) / 100)}{spread_warning}"
-        spread_str = f"{spread_str:<{headers['Spread']}}"
-        ask_price_str = f"{format_price(row['AskPrice']):<{headers['Price']}}"
+    # Configure columns for display
+    columns_config = [
+        ('Symbol', 'Symbol', None, 12),
+        ('IndustryName', 'Industry', lambda x: x[:38] if len(x) > 38 else x, 38),
+        ('VaR_to_Ask_Ratio', 'Risk Ratio', format_percentage, 12),
+        ('Spread_Display', 'Spread', None, 12),
+        ('AskPrice', 'Price', format_price, 14),
+        ('Note', 'Status', None, 35)
+    ]
 
-        # Join all parts and print
-        print(f"{symbol_str} | {industry_str} | {var_ratio_str} | {spread_str} | {ask_price_str} | {row['Note']}")
-
-    print("-" * (sum(headers.values()) + len(headers) * 3))
+    print_formatted_table(df_display, columns_config, table_title)
 
 def find_var_outliers(filename, overwrite=False):
     """
@@ -173,9 +135,12 @@ def find_var_outliers(filename, overwrite=False):
             file_type = "Futures"
             TOP_N_DISPLAY = FUTURES_TOP
 
-        print(f"Analysis results for {filename}")
-        print(f"Report generated on: {datetime.now()}")
-        print(f"Detected file type: {file_type}. Displaying top/bottom {TOP_N_DISPLAY} assets at end.")
+        print_section_header("VALUE AT RISK (VAR) OUTLIER ANALYSIS")
+        print(f"File: {filename}")
+        print(f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"File Type: {file_type}")
+        print(f"Displaying Top/Bottom {TOP_N_DISPLAY} Assets")
+        print()
 
         df = pd.read_csv(filename, delimiter=';', encoding='latin1')
 
@@ -244,12 +209,14 @@ def find_var_outliers(filename, overwrite=False):
         global_lower_bound = global_Q1 - 1.5 * global_IQR
         global_upper_bound = global_Q3 + 1.5 * global_IQR
 
-        print(f"\n{'='*25} Global VaR/Ask Ratio Statistics (Including ETFs) {'='*25}")
-        print(f"Q1 (25th percentile): {format_percentage(global_Q1)}")
-        print(f"Q3 (75th percentile): {format_percentage(global_Q3)}")
-        print(f"IQR (Interquartile Range): {format_percentage(global_IQR)}")
-        print(f"Lower Outlier Bound: {format_percentage(global_lower_bound)}")
-        print(f"Upper Outlier Bound: {format_percentage(global_upper_bound)}")
+        stats = {
+            'Q1 (25th percentile)': format_percentage(global_Q1),
+            'Q3 (75th percentile)': format_percentage(global_Q3),
+            'IQR (Interquartile Range)': format_percentage(global_IQR),
+            'Lower Outlier Bound': format_percentage(global_lower_bound),
+            'Upper Outlier Bound': format_percentage(global_upper_bound)
+        }
+        print_statistics(stats, "📊 Global VaR/Ask Ratio Statistics (Including ETFs)")
 
         top_n_highest_var = global_tradable_stocks_with_etfs.sort_values(by='VaR_to_Ask_Ratio', ascending=False).head(TOP_N_DISPLAY)
         if not top_n_highest_var.empty:
@@ -274,9 +241,9 @@ def find_var_outliers(filename, overwrite=False):
         # Report on symbols with TradeMode == 3 (close only)
         close_only_symbols = df_for_analysis[df_for_analysis['TradeMode'] == 3]
         if not close_only_symbols.empty:
-            print(f"\n{'='*30} Unactionable (Close-Only) Symbols {'='*30}")
+            print_section_header("⚠️  UNACTIONABLE (CLOSE-ONLY) SYMBOLS")
             for index, row in close_only_symbols.iterrows():
-                print(f"- {row['Symbol']} ({row['IndustryName']})")
+                print(f"  • {row['Symbol']:<12} ({row['IndustryName']})")
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

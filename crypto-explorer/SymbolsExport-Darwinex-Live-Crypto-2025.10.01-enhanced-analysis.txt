@@ -1,3 +1,7 @@
+Warning: Market data file 'crypto_market_data.json' not found.
+Run 'python fetch_crypto_data.py' first to fetch market data.
+Proceeding with basic analysis only...
+
 Info: Events data file 'crypto_events_data.json' not found.
 Run 'python fetch_crypto_events.py --api-key YOUR_KEY' to fetch upcoming events.
 Proceeding without events data...
@@ -5,9 +9,8 @@ Proceeding without events data...
 ================================================================================
 ENHANCED CRYPTO MARKET ANALYSIS
 ================================================================================
-Report Generated: 2025-10-01 17:44:44
+Report Generated: 2025-10-01 21:59:26
 
-✓ Loaded market data for 5 cryptocurrencies
 ✓ Loaded news for 7 cryptocurrencies
 
 ================================================================================
@@ -15,28 +18,6 @@ CRYPTO MARKET OVERVIEW
 ================================================================================
 Total Pairs Analyzed: 7
 Symbols: ADAUSD, BNBUSD, DOGEUSD, BTCUSD, ETHUSD, SOLUSD, XRPUSD
-
-================================================================================
-💰 MARKET CAP RANKINGS
-================================================================================
-#    Symbol     Market Cap       Global Rank   24h Volume      
---------------------------------------------------------------------------------
-1    BTCUSD     $2339.43B        #1            $67.37B         
-2    ETHUSD     $520.41B         #2            $41.72B         
-3    SOLUSD     $119.00B         #6            $8.56B          
-4    DOGEUSD    $37.15B          #8            $2.68B          
-5    ADAUSD     $30.67B          #11           $1.68B          
-
-================================================================================
-🪙 SUPPLY METRICS & EMISSION STATUS
-================================================================================
-Symbol     % Minted     Circulating      Max Supply       Status              
---------------------------------------------------------------------------------
-ETHUSD         100.00%  120.70M          N/A              🔴 Near Max          
-DOGEUSD        100.00%  151.17B          N/A              🔴 Near Max          
-BTCUSD          94.90%  19.93M           21.00M           🟡 High Emission     
-SOLUSD          88.96%  543.46M          N/A              🟡 High Emission     
-ADAUSD          81.20%  36.54B           45.00B           🟡 High Emission     
 
 ================================================================================
 📊 DAILY VOLATILITY RANKING (ATR/Price)
@@ -78,17 +59,6 @@ ADAUSD          81.20%  36.54B           45.00B           🟡 High Emission
 7    BNBUSD     📈 14.65%     $149.3179        $1,019.20       
 
 ================================================================================
-📈 PRICE PERFORMANCE
-================================================================================
-Symbol     Price            24h %       7d %        30d %       1y %        ATH            vs ATH     
---------------------------------------------------------------------------------
-ADAUSD     $0.8461          🟢+3.8%      🟢+2.4%      🟢+5.8%      🟢+137.7%    $3.0900        🔴-72.8%    
-DOGEUSD    $0.2468          🟢+5.5%      🟢+0.9%      🟢+17.6%     🟢+132.9%    $0.7316        🔴-66.4%    
-BTCUSD     $117,411.50      🟢+2.6%      🟢+3.4%      🟢+7.9%      🟢+93.2%     $124,128.00    🔴-5.4%     
-ETHUSD     $4,335.74        🟢+3.3%      🟢+3.4%      🟢+0.5%      🟢+75.9%     $4,946.05      🔴-12.9%    
-SOLUSD     $220.1800        🟢+4.3%      🟢+3.2%      🟢+10.8%     🟢+52.1%     $293.3100      🔴-25.3%    
-
-================================================================================
 ⚠️  VALUE AT RISK RANKING (VaR/Price)
 ================================================================================
 #    Symbol     Risk Ratio    VaR (1 Lot)      Current Price   
@@ -108,7 +78,6 @@ Average Daily Volatility:     5.05%
 Average Weekly Volatility:   11.85%
 Average Monthly Volatility:  27.88%
 Average VaR/Price Ratio:      5.65%
-Total Market Cap (tracked): $3046.67B
 
 ================================================================================
 💡 KEY INSIGHTS
@@ -122,12 +91,6 @@ Total Market Cap (tracked): $3046.67B
 🔥 Most Volatile (Monthly):  DOGEUSD   45.98%
 📉 Least Volatile (Monthly): BNBUSD    14.65%
 
-🔴 Most Minted:  ETHUSD   100.00% - Limited supply growth
-🔵 Least Minted: ADAUSD    81.20% - Significant inflation ahead
-
-🚀 Best 24h Performance:  DOGEUSD   +5.46%
-💥 Worst 24h Performance: BTCUSD    +2.58%
-
 ================================================================================
 📰 LATEST CRYPTOCURRENCY NEWS
 ================================================================================
@@ -136,178 +99,199 @@ Total Market Cap (tracked): $3046.67B
 📌 ADAUSD - Latest News (5 articles)
 --------------------------------------------------------------------------------
 
-  [1] Solana Could Gain Edge Over Ethereum in Staking ETF Race Ahead of SEC October Decisions
-      📅 2025-10-01 17:34 | 📝 coinotag
-      🔗 https://en.coinotag.com/solana-could-gain-edge-over-ethereum-in-staking-etf-race-ahead-of-sec-october-decisions/
-      Solana staking ETF: Solana’s much shorter unstaking window can reduce redemption delays, giving Solana-based staking ETFs a practical advantage over Ethereum products when issuers must return assets quickly during high demand. Shorter unstaking on So...
+  [1] Bitcoin Price Watch: Bull Flag Flying High on the Hourly Chart
+      📅 2025-10-01 08:25 | 📝 bitcoin.com
+      🔗 https://news.bitcoin.com/bitcoin-price-watch-bull-flag-flying-high-on-the-hourly-chart/
+      Bitcoin strutted into ‘Uptober’ like it owns the block—because it kind of does. With a market cap of $2.32 trillion, a 24-hour volume of $61.04 billion, and a price peacocking around $116,800, this digital heavyweight isn’t just moving, it’s making m...
 
-  [2] U.S. Labor Market Declined in September, Fueling Rate Cut Odds – Bullish for Bitcoin’s Q4 Run?
-      📅 2025-10-01 16:37 | 📝 cryptonews
-      🔗 https://cryptonews.com/news/us-labor-market-declined-in-september-fueling-rate-cut-odds-bullish-for-bitcoins-q4-run/
-      Bitcoin extended its rally into October, breaking above $117,000 for the first time since mid-September as fresh U.S. labor market data boosted expectations of Federal Reserve rate cuts. The world’s largest cryptocurrency jumped more than 4% on the d...
+  [2] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
 
-  [3] ChatGPT’s XRP Analysis Reveals $2.95 Surge as Bank of Japan Launches XRP Lending Program – Is $4 Possible?
-      📅 2025-10-01 16:27 | 📝 cryptonews
-      🔗 https://cryptonews.com/news/chatgpts-xrp-analysis-reveals-2-95-surge-as-bank-of-japan-launches-xrp-lending-program-is-4-possible/
-      ChatGPT’s XRP analysis reveals XRP surging +3.78% to $2.9543 with strong bullish momentum as the Bank of Japan’s SBI announces an official XRP lending program for institutional payments, while Ripple CTO David Schwartz announces his exit from the com...
+  [3] Strategy Posts Q3 Profit, Keeping it on Radar for S&P 500 inclusion.
+      📅 2025-10-01 07:59 | 📝 coindesk
+      🔗 https://www.coindesk.com/markets/2025/10/01/strategy-posts-q3-profit-keeping-it-on-radar-for-s-and-p-500-inclusion
+      Strategy (MSTR) will post a profit for the second quarter in a row in the third quarter thanks to a rise in the price of bitcoin (BTC). That would again qualify the company for potential S&P 500 inclusion. According to Jeff Walton , Chief Risk Office...
 
-  [4] VisionSys AI Stock Crashes 57% on $2B Solana Treasury Bet – Recovery Ahead?
-      📅 2025-10-01 16:17 | 📝 cryptonews
-      🔗 https://cryptonews.com/news/visionsys-ai-stock-crashes-57-on-2b-solana-treasury-bet-recovery-ahead/
-      VisionSys AI saw its shares plunge more than 57% on Wednesday after the company unveiled an ambitious plan to launch a $2 billion Solana (SOL) treasury program in partnership with staking provider Marinade Finance. The AI-powered healthcare and biote...
+  [4] Templar Launches Mainnet, Offering Permissionless Bitcoin-Backed Lending Without Trusted Third Parties
+      📅 2025-10-01 07:30 | 📝 bitcoin.com
+      🔗 https://news.bitcoin.com/templar-launches-mainnet-offering-permissionless-bitcoin-backed-lending-without-trusted-third-parties/
+      Templar, billed as the first Cypher Lending Protocol, went live on mainnet, enabling bitcoin holders to borrow U.S. dollar–pegged stablecoins against native BTC without relying on banks, exchanges, or centralized intermediaries. The protocol uses MPC...
 
-  [5] Strategy May Avoid Multi-Billion CAMT Liability After IRS and Treasury Clarify Treatment of Bitcoin Unrealized Gains
-      📅 2025-10-01 16:08 | 📝 coinotag
-      🔗 https://en.coinotag.com/strategy-may-avoid-multi-billion-camt-liability-after-irs-and-treasury-clarify-treatment-of-bitcoin-unrealized-gains/
-      Strategy no longer expects to owe a multi‑billion dollar corporate alternative minimum tax (CAMT) on unrealized Bitcoin gains after the IRS and Treasury clarified that unrealized gains and losses on digital assets are excluded from CAMT calculations,...
+  [5] Bitcoin May See Further Q4 Gains as ETF Demand, Dovish Fed and Historical Seasonality Drive Wednesday Rally
+      📅 2025-10-01 07:27 | 📝 coinotag
+      🔗 https://en.coinotag.com/bitcoin-may-see-further-q4-gains-as-etf-demand-dovish-fed-and-historical-seasonality-drive-wednesday-rally/
+      Bitcoin Q4 outlook: The market rebound is being driven by ETF inflows, a dovish U.S. Federal Reserve stance, and historical Q4 seasonality. These forces lifted Bitcoin above $116,000 and reduced downside protection demand, signaling growing instituti...
 
 --------------------------------------------------------------------------------
-📌 BNBUSD - Latest News (1 articles)
+📌 BNBUSD - Latest News (5 articles)
 --------------------------------------------------------------------------------
 
-  [1] Bitcoin, Ethereum, Solana Rally Towards All-Time Highs: Top Analysts Share Predictions
-      📅 2025-10-01 15:00 | 📝 newsbtc
-      🔗 https://www.newsbtc.com/breaking-news-ticker/bitcoin-ethereum-solana-rally-towards-all-time-highs-top-analysts-share-predictions/
-      Bitcoin (BTC), the leading cryptocurrency, has ignited a notable recovery in the broader cryptocurrency market, recording a 5% gain during Wednesday’s trading session to recover the $117,000 mark. This momentum has positively impacted major altcoins,...
+  [1] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
+
+  [2] Crypto Markets Today: Market Rallies, Altcoins Lead Gains; Zcash Hits 16-Month High
+      📅 2025-10-01 08:08 | 📝 coindesk
+      🔗 https://www.coindesk.com/markets/2025/10/01/crypto-markets-today-market-rallies-altcoins-lead-gains-zcash-hits-16-month-high
+      The crypto market experienced a boost on Wednesday with majors bitcoin BTC and ether ETH rising 2.9% and 3.1% respectively. But the real story was in the altcoin market as several tokens rose by double-digits as investors speculate on another phase o...
+
+  [3] 'Uptober' Begins with Bitcoin, Gold Rising: Crypto Daybook Americas
+      📅 2025-10-01 07:13 | 📝 coindesk
+      🔗 https://www.coindesk.com/daybook-us/2025/09/30/uptober-begins-with-bitcoin-gold-rises-crypto-daybook-americas
+      By Francisco Rodrigues (All times ET unless indicated otherwise) Bitcoin (BTC) moved higher amid the U.S. government shutdown and its up roughly 3% in the last 24 hours to $116,400. The broader crypto market, as measured by the CoinDesk 20 index ( CD...
+
+  [4] Why Is Crypto Up Today? – October 1, 2025
+      📅 2025-10-01 06:34 | 📝 cryptonews
+      🔗 https://cryptonews.com/news/why-is-crypto-up-today-october-1-2025/
+      The crypto market is up today, with the cryptocurrency market capitalization increasing by just 0.2%, now standing at $4 trillion. Just over half of the top 100 coins have appreciated over the past 24 hours. At the same time, the total crypto trading...
+
+  [5] Binance Founder CZ Issues Hack Warning! "We've Been Hacked, Don't Click on the Links!" – Damage Is Minor!
+      📅 2025-10-01 06:23 | 📝 bitcoinsistemi
+      🔗 https://en.bitcoinsistemi.com/binance-founder-cz-issues-hack-warning-weve-been-hacked-dont-click-on-the-links-damage-is-minor/
+      Changpeng Zhao (CZ), founder of the world's largest cryptocurrency exchange Binance, issued a warning today and announced that BNB Chain's official X account was hacked. CZ said in his post that BNB Chain's official X account was hacked. Numerous pos...
 
 --------------------------------------------------------------------------------
 📌 DOGEUSD - Latest News (4 articles)
 --------------------------------------------------------------------------------
 
-  [1] Elon Musk becomes the first person in history to reach a $500 billion net worth
-      📅 2025-10-01 17:20 | 📝 cryptopolitan
-      🔗 https://www.cryptopolitan.com/elon-musk-worlds-first-500-billion-man/
-      Elon Musk officially became the first person in history to hit a $500 billion net worth on Wednesday, beating out every other billionaire alive. The number was confirmed at 3:30 p.m. Eastern by Forbes’ Real-Time Billionaires tracker, making Elon $150...
+  [1] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
 
-  [2] 5 Top Hot Projects to Buy Now Before October Ends and New Upcoming Crypto in 2025 That Can Break Bars
-      📅 2025-10-01 17:15 | 📝 timestabloid
-      🔗 https://timestabloid.com/5-top-hot-projects-to-buy-now-before-october-ends-and-new/
-      Crypto charts in Q4 2025 are flashing like neon signs, and community members are chasing signals harder than ever. Bitcoin is holding key levels, Ethereum’s upgrade cycle is building anticipation, and meme tokens are leading a fresh round of viral ra...
+  [2] Dogecoin (DOGE), Shiba Inu (SHIB), and Pudgy Penguins (PENGU) Hold Key Support: Ready to Rally?
+      📅 2025-10-01 06:35 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/dogecoin-doge-shiba-inu-shib-and-pudgy-penguins-pengu-hold-key-support-ready-to-rally
+      With Bitcoin (BTC) in the midst of a key breakout, the altcoins are also beginning to run. Memecoins are usually at the forefront of crypto breakouts and $DOGE, $SHIB, and $PENGU, having held key support, are starting to apply the afterburners. $DOGE...
 
-  [3] Dogecoin Price Is About To Complete Another Golden Cross, Why $0.33 Is The Key
-      📅 2025-10-01 17:00 | 📝 newsbtc
-      🔗 https://www.newsbtc.com/news/dogecoin/dogecoin-forms-golden-cross/
-      The Dogecoin price is about to complete a Golden Cross pattern, a technical event that often signals the start of a super bullish run. A crypto analyst argues that the real test lies at $0.33, a resistance level that could determine whether DOGE begi...
+  [3] Why Is Crypto Up Today? – October 1, 2025
+      📅 2025-10-01 06:34 | 📝 cryptonews
+      🔗 https://cryptonews.com/news/why-is-crypto-up-today-october-1-2025/
+      The crypto market is up today, with the cryptocurrency market capitalization increasing by just 0.2%, now standing at $4 trillion. Just over half of the top 100 coins have appreciated over the past 24 hours. At the same time, the total crypto trading...
 
-  [4] How Will the US Government Shutdown Affect XRP, Dogecoin, Solana, and Cardano ETF Approvals? An Insider Responds
-      📅 2025-10-01 16:19 | 📝 bitcoinsistemi
-      🔗 https://en.bitcoinsistemi.com/how-will-the-us-government-shutdown-affect-xrp-dogecoin-solana-and-cardano-etf-approvals-an-insider-responds/
-      The official US government shutdown has disrupted the launch of dozens of altcoin ETFs. The US Securities and Exchange Commission (SEC)'s final approval process for cryptocurrency ETFs has been thrown into uncertainty with the government shutdown. Th...
+  [4] Crypto Analyst Predicts What Dogecoin Investors Should Expect Price-Wise This Month
+      📅 2025-10-01 06:30 | 📝 newsbtc
+      🔗 https://www.newsbtc.com/news/dogecoin/what-dogecoin-investors-expect/
+      Dogecoin has continued on an interesting path, struggling between $0.2 and $0.24 during this time. Bulls have continued to maintain their hold on the major support levels, but this hold is weakened by the sustained market sell-off that began back in ...
 
 --------------------------------------------------------------------------------
 📌 BTCUSD - Latest News (5 articles)
 --------------------------------------------------------------------------------
 
-  [1] When Could Bitcoin Break Out to New Highs? Watch Out for Gold
-      📅 2025-10-01 17:34 | 📝 coindesk
-      🔗 https://www.coindesk.com/markets/2025/10/01/when-could-bitcoin-break-out-to-new-highs-watch-out-for-gold
-      Stocks printed fresh records and gold is on a tear crossing $3,900, but the last leg higher in traditional markets left bitcoin (BTC) behind. The largest crypto, often touted as digital gold, has been stuck in a $100,000–$120,000 range for nearly thr...
+  [1] Market Analysis Report (01 Oct 2025)
+      📅 2025-10-01 08:45 | 📝 cryptocompare
+      🔗 https://www.cryptocompare.com/email-updates/daily/2025/oct/01/
+      Tether Adds $1B in Bitcoin as USDT Stablecoin Supply Nears $175B | Chinese Woman Convicted in UK for $6.9B Bitcoin Fraud Scheme | Stripe’s Bridge Seeks U.S. Banking Charter as Stablecoin Rules Take Shape
 
-  [2] FUD Victim Altcoin Founder Forced to Make Statement – Today It Had Fallen Significantly
-      📅 2025-10-01 17:27 | 📝 bitcoinsistemi
-      🔗 https://en.bitcoinsistemi.com/fud-victim-altcoin-founder-forced-to-make-statement-today-it-had-fallen-significantly/
-      The new cryptocurrency project Plasma (XPL) has responded to the allegations circulating on social media in recent days. Rumors surrounding the XPL token suggested that the team was “made up of former Blast employees,” that “Tether CEO Paolo Ardoino ...
+  [2] Metaplanet boosts Bitcoin reserves with 5,268 BTC buy
+      📅 2025-10-01 08:31 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/metaplanet-expands-bitcoin-holdings/
+      Metaplanet has purchased an additional 5,268 Bitcoin on October 1 as part of its Bitcoin accumulation strategy. Bitcoin Treasuries data shows that the Japanese firm’s Bitcoin holdings have reached 30,823 BTC. The recent purchase was worth a total of ...
 
-  [3] Bitcoin price today: jumps to $117k on ’Uptober’ boost, altcoins follow
-      📅 2025-10-01 17:19 | 📝 investing_comcryptonews
-      🔗 https://www.investing.com/news/cryptocurrency-news/bitcoin-price-today-stalls-rally-above-114k-as-us-govt-shutdown-risks-weigh-4265181
+  [3] Robert Kiyosaki Says Bitcoin Is the Only Real Hedge as Buffett Turns to Gold
+      📅 2025-10-01 08:26 | 📝 cryptopotato
+      🔗 https://cryptopotato.com/robert-kiyosaki-says-bitcoin-is-the-only-real-hedge-as-buffett-turns-to-gold/
+      Robert Kiyosaki, the renowned author behind the bestselling personal finance book “Rich Dad, Poor Dad,” has taken to X to express his distaste for Warren Buffett’s recent change of heart. For years, the 95-year-old chairman of Berkshire Hathaway has ...
 
-  [4] Good News from the US Treasury Department for Michael Saylor and Other Major Bitcoin Bulls
-      📅 2025-10-01 17:18 | 📝 bitcoinsistemi
-      🔗 https://en.bitcoinsistemi.com/good-news-from-the-us-treasury-department-for-michael-saylor-and-other-major-bitcoin-bulls/
-      The US Treasury Department is preparing to ease controversial regulations regarding taxes companies must pay on cryptocurrency profits. According to reports, a proposal to require companies to pay billions of dollars in taxes on unrealized Bitcoin ga...
+  [4] Bitcoin Price Watch: Bull Flag Flying High on the Hourly Chart
+      📅 2025-10-01 08:25 | 📝 bitcoin.com
+      🔗 https://news.bitcoin.com/bitcoin-price-watch-bull-flag-flying-high-on-the-hourly-chart/
+      Bitcoin strutted into ‘Uptober’ like it owns the block—because it kind of does. With a market cap of $2.32 trillion, a 24-hour volume of $61.04 billion, and a price peacocking around $116,800, this digital heavyweight isn’t just moving, it’s making m...
 
-  [5] World Liberty Fi eyes RWA tokenization with USD1
-      📅 2025-10-01 17:05 | 📝 cryptopolitan
-      🔗 https://www.cryptopolitan.com/world-liberty-fi-link-rwas-usd1-stablecoin/
-      World Liberty Fi is exploring different ways to adopt real-world assets (RWAs) and link them to its native and dollar-backed stablecoin, USD1. During the Token2049 event, which is taking place in Singapore, Zach Witkoff said that WLFi is actively wor...
+  [5] BlackRock files for a new Bitcoin ETF via Nasdaq
+      📅 2025-10-01 08:19 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/blackrock-files-bitcoin-premium-income-etf/
+      Nasdaq has formally submitted a filing to the U.S. Securities and Exchange Commission (SEC) for the listing and trading of the BlackRock iShares Bitcoin Premium Income ETF. The proposed fund comes under the commodity-based trust rule, according to th...
 
 --------------------------------------------------------------------------------
 📌 ETHUSD - Latest News (5 articles)
 --------------------------------------------------------------------------------
 
-  [1] Solana Could Gain Edge Over Ethereum in Staking ETF Race Ahead of SEC October Decisions
-      📅 2025-10-01 17:34 | 📝 coinotag
-      🔗 https://en.coinotag.com/solana-could-gain-edge-over-ethereum-in-staking-etf-race-ahead-of-sec-october-decisions/
-      Solana staking ETF: Solana’s much shorter unstaking window can reduce redemption delays, giving Solana-based staking ETFs a practical advantage over Ethereum products when issuers must return assets quickly during high demand. Shorter unstaking on So...
+  [1] Market Analysis Report (01 Oct 2025)
+      📅 2025-10-01 08:45 | 📝 cryptocompare
+      🔗 https://www.cryptocompare.com/email-updates/daily/2025/oct/01/
+      Tether Adds $1B in Bitcoin as USDT Stablecoin Supply Nears $175B | Chinese Woman Convicted in UK for $6.9B Bitcoin Fraud Scheme | Stripe’s Bridge Seeks U.S. Banking Charter as Stablecoin Rules Take Shape
 
-  [2] Ethereum or Solana: Which Hits a New All-Time High First?
-      📅 2025-10-01 17:34 | 📝 decrypt
-      🔗 https://decrypt.co/342517/ethereum-solana-which-hits-all-time-high-price-first
-      Prediction market users on Myriad are split on the path forward for Ethereum and Solana. The charts tell an interesting story.
+  [2] Metaplanet boosts Bitcoin reserves with 5,268 BTC buy
+      📅 2025-10-01 08:31 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/metaplanet-expands-bitcoin-holdings/
+      Metaplanet has purchased an additional 5,268 Bitcoin on October 1 as part of its Bitcoin accumulation strategy. Bitcoin Treasuries data shows that the Japanese firm’s Bitcoin holdings have reached 30,823 BTC. The recent purchase was worth a total of ...
 
-  [3] Solana may have an edge over Ethereum in staking ETFs, says Bitwise CEO
-      📅 2025-10-01 17:29 | 📝 cointelegraph
-      🔗 https://cointelegraph.com/news/solana-ethereum-queue-staking-etfs-bitwise-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound
-      Hunter Horsley says Solana’s shorter unstaking period gives it an advantage over Ethereum in the race for staking ETFs, as US regulators prepare key decisions in October.
+  [3] Robert Kiyosaki Says Bitcoin Is the Only Real Hedge as Buffett Turns to Gold
+      📅 2025-10-01 08:26 | 📝 cryptopotato
+      🔗 https://cryptopotato.com/robert-kiyosaki-says-bitcoin-is-the-only-real-hedge-as-buffett-turns-to-gold/
+      Robert Kiyosaki, the renowned author behind the bestselling personal finance book “Rich Dad, Poor Dad,” has taken to X to express his distaste for Warren Buffett’s recent change of heart. For years, the 95-year-old chairman of Berkshire Hathaway has ...
 
-  [4] FUD Victim Altcoin Founder Forced to Make Statement – Today It Had Fallen Significantly
-      📅 2025-10-01 17:27 | 📝 bitcoinsistemi
-      🔗 https://en.bitcoinsistemi.com/fud-victim-altcoin-founder-forced-to-make-statement-today-it-had-fallen-significantly/
-      The new cryptocurrency project Plasma (XPL) has responded to the allegations circulating on social media in recent days. Rumors surrounding the XPL token suggested that the team was “made up of former Blast employees,” that “Tether CEO Paolo Ardoino ...
+  [4] La ripresa di Ethereum accelera grazie agli afflussi record negli ETF spot statunitensi
+      📅 2025-10-01 08:22 | 📝 bitcoinist
+      🔗 https://bitcoinist.com/la-ripresa-di-ethereum-accelera-grazie-agli-afflussi-record-negli-etf-spot-statunitensi/
+      La ripresa di Ethereum si è rafforzata dopo che gli ETF spot su ETH negli Stati Uniti hanno registrato 547 milioni di dollari di afflussi netti in un solo giorno , ponendo fine a una serie negativa di cinque giorni consecutivi di deflussi. A guidare ...
 
-  [5] 5 Top Hot Projects to Buy Now Before October Ends and New Upcoming Crypto in 2025 That Can Break Bars
-      📅 2025-10-01 17:15 | 📝 timestabloid
-      🔗 https://timestabloid.com/5-top-hot-projects-to-buy-now-before-october-ends-and-new/
-      Crypto charts in Q4 2025 are flashing like neon signs, and community members are chasing signals harder than ever. Bitcoin is holding key levels, Ethereum’s upgrade cycle is building anticipation, and meme tokens are leading a fresh round of viral ra...
+  [5] BlackRock files for a new Bitcoin ETF via Nasdaq
+      📅 2025-10-01 08:19 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/blackrock-files-bitcoin-premium-income-etf/
+      Nasdaq has formally submitted a filing to the U.S. Securities and Exchange Commission (SEC) for the listing and trading of the BlackRock iShares Bitcoin Premium Income ETF. The proposed fund comes under the commodity-based trust rule, according to th...
 
 --------------------------------------------------------------------------------
 📌 SOLUSD - Latest News (5 articles)
 --------------------------------------------------------------------------------
 
-  [1] When Could Bitcoin Break Out to New Highs? Watch Out for Gold
-      📅 2025-10-01 17:34 | 📝 coindesk
-      🔗 https://www.coindesk.com/markets/2025/10/01/when-could-bitcoin-break-out-to-new-highs-watch-out-for-gold
-      Stocks printed fresh records and gold is on a tear crossing $3,900, but the last leg higher in traditional markets left bitcoin (BTC) behind. The largest crypto, often touted as digital gold, has been stuck in a $100,000–$120,000 range for nearly thr...
+  [1] Metaplanet boosts Bitcoin reserves with 5,268 BTC buy
+      📅 2025-10-01 08:31 | 📝 cryptopolitan
+      🔗 https://www.cryptopolitan.com/metaplanet-expands-bitcoin-holdings/
+      Metaplanet has purchased an additional 5,268 Bitcoin on October 1 as part of its Bitcoin accumulation strategy. Bitcoin Treasuries data shows that the Japanese firm’s Bitcoin holdings have reached 30,823 BTC. The recent purchase was worth a total of ...
 
-  [2] Solana Could Gain Edge Over Ethereum in Staking ETF Race Ahead of SEC October Decisions
-      📅 2025-10-01 17:34 | 📝 coinotag
-      🔗 https://en.coinotag.com/solana-could-gain-edge-over-ethereum-in-staking-etf-race-ahead-of-sec-october-decisions/
-      Solana staking ETF: Solana’s much shorter unstaking window can reduce redemption delays, giving Solana-based staking ETFs a practical advantage over Ethereum products when issuers must return assets quickly during high demand. Shorter unstaking on So...
+  [2] La ripresa di Ethereum accelera grazie agli afflussi record negli ETF spot statunitensi
+      📅 2025-10-01 08:22 | 📝 bitcoinist
+      🔗 https://bitcoinist.com/la-ripresa-di-ethereum-accelera-grazie-agli-afflussi-record-negli-etf-spot-statunitensi/
+      La ripresa di Ethereum si è rafforzata dopo che gli ETF spot su ETH negli Stati Uniti hanno registrato 547 milioni di dollari di afflussi netti in un solo giorno , ponendo fine a una serie negativa di cinque giorni consecutivi di deflussi. A guidare ...
 
-  [3] Ethereum or Solana: Which Hits a New All-Time High First?
-      📅 2025-10-01 17:34 | 📝 decrypt
-      🔗 https://decrypt.co/342517/ethereum-solana-which-hits-all-time-high-price-first
-      Prediction market users on Myriad are split on the path forward for Ethereum and Solana. The charts tell an interesting story.
+  [3] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
 
-  [4] Solana may have an edge over Ethereum in staking ETFs, says Bitwise CEO
-      📅 2025-10-01 17:29 | 📝 cointelegraph
-      🔗 https://cointelegraph.com/news/solana-ethereum-queue-staking-etfs-bitwise-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound
-      Hunter Horsley says Solana’s shorter unstaking period gives it an advantage over Ethereum in the race for staking ETFs, as US regulators prepare key decisions in October.
+  [4] Privacy coin Zcash up 40% in a day; Is $100 next?
+      📅 2025-10-01 08:14 | 📝 finbold
+      🔗 https://finbold.com/privacy-coin-zcash-up-40-in-a-day-is-100-next/
+      The privacy-focused cryptocurrency, Zcash ( ZEC ), has climbed as much as 40% in a day and soared more than 70% over the past seven days. A major catalyst for the rally came from decentralized exchange ( DEX ) THORSwap, which announced full support f...
 
-  [5] Can Solana Achieve New Heights This October?
-      📅 2025-10-01 17:29 | 📝 cointurken
-      🔗 https://en.coin-turk.com/can-solana-achieve-new-heights-this-october/
-      Cryptocurrency markets are open 24/7, leading to potential gains or losses anytime. The SEC may approve Solana ETF, spurring market interest in October. Continue Reading: Can Solana Achieve New Heights This October? The post Can Solana Achieve New He...
+  [5] Crypto Markets Today: Market Rallies, Altcoins Lead Gains; Zcash Hits 16-Month High
+      📅 2025-10-01 08:08 | 📝 coindesk
+      🔗 https://www.coindesk.com/markets/2025/10/01/crypto-markets-today-market-rallies-altcoins-lead-gains-zcash-hits-16-month-high
+      The crypto market experienced a boost on Wednesday with majors bitcoin BTC and ether ETH rising 2.9% and 3.1% respectively. But the real story was in the altcoin market as several tokens rose by double-digits as investors speculate on another phase o...
 
 --------------------------------------------------------------------------------
 📌 XRPUSD - Latest News (5 articles)
 --------------------------------------------------------------------------------
 
-  [1] Analyst Says XRP Price Remains Bullish As This Level Holds
-      📅 2025-10-01 17:00 | 📝 bitcoinist
-      🔗 https://bitcoinist.com/xrp-price-remains-bullish/
-      XRP’s price action in the final days of September was turbulent, with the cryptocurrency slipping below the $2.80 zone in a market-wide pullback. Despite the sharp drop, XRP managed to defend a key support level near $2.72, bouncing from that mark on...
+  [1] Crypto Price Analysis 10-1: BITCOIN: BTC, ETHEREUM: ETH, SOLANA: SOL, CELESTIA: TIA, CARDANO: ADA
+      📅 2025-10-01 08:19 | 📝 cryptodaily
+      🔗 https://cryptodaily.co.uk/2025/10/crypto-price-analysis-10-1-bitcoin-btc-ethereum-eth-solana-sol-celestia-tia-cardano-ada
+      The cryptocurrency market registered a marginal decline over the past 24 hours as prominent altcoins, including Ethereum (ETH) , Ripple (XRP) , and Solana (SOL), fell into bearish territory. However, Bitcoin (BTC) defied bearish trends and is up near...
 
-  [2] ChatGPT’s XRP Analysis Reveals $2.95 Surge as Bank of Japan Launches XRP Lending Program – Is $4 Possible?
-      📅 2025-10-01 16:27 | 📝 cryptonews
-      🔗 https://cryptonews.com/news/chatgpts-xrp-analysis-reveals-2-95-surge-as-bank-of-japan-launches-xrp-lending-program-is-4-possible/
-      ChatGPT’s XRP analysis reveals XRP surging +3.78% to $2.9543 with strong bullish momentum as the Bank of Japan’s SBI announces an official XRP lending program for institutional payments, while Ripple CTO David Schwartz announces his exit from the com...
+  [2] XRP Just Had Its Highest Quarterly Close Ever
+      📅 2025-10-01 08:05 | 📝 timestabloid
+      🔗 https://timestabloid.com/xrp-just-had-its-highest-quarterly-close-ever/
+      Some milestones in financial markets carry more weight than others, and for XRP , the close of the latest quarter marks one of those rare moments. Instead of fading into routine end-of-month trading, XRP ended September 2025 with a close that has set...
 
-  [3] How Will the US Government Shutdown Affect XRP, Dogecoin, Solana, and Cardano ETF Approvals? An Insider Responds
-      📅 2025-10-01 16:19 | 📝 bitcoinsistemi
-      🔗 https://en.bitcoinsistemi.com/how-will-the-us-government-shutdown-affect-xrp-dogecoin-solana-and-cardano-etf-approvals-an-insider-responds/
-      The official US government shutdown has disrupted the launch of dozens of altcoin ETFs. The US Securities and Exchange Commission (SEC)'s final approval process for cryptocurrency ETFs has been thrown into uncertainty with the government shutdown. Th...
+  [3] Ripple’s Long-Time CTO and XRP Architect David Schwartz To Step Back By End Of Year, Join Board
+      📅 2025-10-01 08:04 | 📝 zycrypto
+      🔗 https://zycrypto.com/ripples-long-time-cto-and-xrp-architect-david-schwartz-to-step-back-by-end-of-year-join-board/
+      Ripple’s Chief Technology Officer, David Schwartz, announced plans to “step back from [his] day-to-day duties” after more than a decade at the company. Schwartz, one of the original architects of the XRP Ledger, announced in a Tuesday X post that he ...
 
-  [4] Here’s Ripple’s Grand Plan for SWIFT, According to Chris Larsen
-      📅 2025-10-01 16:05 | 📝 timestabloid
-      🔗 https://timestabloid.com/heres-ripples-grand-plan-for-swift-according-to-chris-larsen/
-      For decades, SWIFT has been the undisputed backbone of cross-border banking, facilitating trillions in global payments daily. But Ripple’s leadership believes the system’s inefficiencies have left room for disruption — and they’ve never hidden their ...
+  [4] XRP Q4 price prediction after 30% Q3 rally
+      📅 2025-10-01 07:14 | 📝 finbold
+      🔗 https://finbold.com/xrp-q4-price-prediction-after-30-q3-rally/
+      XRP ended Q3 2025 on a strong note, rising from $2.20 in early July to $2.90 by the end of September, a gain of 31%, marking one of its best quarterly performances in years. With this momentum, cryptocurrency analyst Mikybull outlined the possible ou...
 
-  [5] Ripple Kicks Off 'Uptober' with New RLUSD Mint
-      📅 2025-10-01 16:05 | 📝 utoday
-      🔗 https://u.today/ripple-kicks-off-uptober-with-new-rlusd-mint
-      Ripple has minted an additional 1.8 million RLUSD tokens
+  [5] 'Uptober' Begins with Bitcoin, Gold Rising: Crypto Daybook Americas
+      📅 2025-10-01 07:13 | 📝 coindesk
+      🔗 https://www.coindesk.com/daybook-us/2025/09/30/uptober-begins-with-bitcoin-gold-rises-crypto-daybook-americas
+      By Francisco Rodrigues (All times ET unless indicated otherwise) Bitcoin (BTC) moved higher amid the U.S. government shutdown and its up roughly 3% in the last 24 hours to $116,400. The broader crypto market, as measured by the CoinDesk 20 index ( CD...
 
 ================================================================================
 📅 EVENTS DATA NOT AVAILABLE

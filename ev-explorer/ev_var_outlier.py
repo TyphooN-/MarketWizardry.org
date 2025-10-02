@@ -5,6 +5,10 @@ import argparse
 import sys # Import sys to redirect stdout
 import os # Import os for path manipulation
 
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from explorer_utils import format_price, format_percentage, format_ratio, print_section_header
+
 class Tee(object):
     def __init__(self, *files):
         self.files = files

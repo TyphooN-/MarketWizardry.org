@@ -5,6 +5,10 @@ import argparse
 import sys # Import sys to redirect stdout
 import os # Import os for path manipulation
 
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from explorer_utils import format_price, format_percentage, format_ratio, print_section_header
+
 class Tee(object):
     def __init__(self, *files):
         self.files = files
@@ -156,18 +160,18 @@ def analyze_group(group_name, group_df, bounds_dict=None, small_industries_list=
 
         # --- Only print a report if outliers were actually found ---
         if not all_outliers.empty:
-            print(f"\n{'='*30} Analysis for: {group_name.upper()} {'='*30}")
-            
-            print(f"Contains {len(group_df)} total instruments.")
+            print_section_header(f"Analysis for: {group_name.upper()}")
 
-            print(f"\n--- MCap/EV (%) Ratio Statistics ---")
-            print(f"Q1 (25th percentile): {Q1:.4f}")
-            print(f"Q3 (75th percentile): {Q3:.4f}")
-            print(f"IQR (Interquartile Range): {IQR:.4f}")
-            print(f"Lower Outlier Bound: {lower_bound:.4f}")
-            print(f"Upper Outlier Bound: {upper_bound:.4f}")
-
-            print(f"--- Found {len(all_outliers)} Total Statistical MCap/EV (%) Outliers ---")
+            print(f"Total Instruments: {len(group_df)}")
+            print(f"Statistical Outliers Found: {len(all_outliers)}")
+            print()
+            print("MCap/EV (%) Ratio Statistics:")
+            print(f"  Q1 (25th percentile)      : {Q1:.4f}")
+            print(f"  Q3 (75th percentile)      : {Q3:.4f}")
+            print(f"  IQR (Interquartile Range) : {IQR:.4f}")
+            print(f"  Lower Outlier Bound       : {lower_bound:.4f}")
+            print(f"  Upper Outlier Bound       : {upper_bound:.4f}")
+            print()
             
             # Print details of each outlier
             if not all_outliers.empty:
@@ -220,7 +224,11 @@ def find_mcap_ev_outliers(filename, overwrite=False):
             file_type = "Futures"
             TOP_N_DISPLAY = FUTURES_TOP
         
-        print(f"Detected file type: {file_type}. Displaying top/bottom {TOP_N_DISPLAY} assets at end.")
+        print_section_header("MARKET CAP / ENTERPRISE VALUE OUTLIER ANALYSIS")
+        print(f"File: {filename}")
+        print(f"File Type: {file_type}")
+        print(f"Displaying Top/Bottom {TOP_N_DISPLAY} Assets")
+        print()
 
         df = pd.read_csv(filename, delimiter=';')
         df.columns = df.columns.str.strip()
