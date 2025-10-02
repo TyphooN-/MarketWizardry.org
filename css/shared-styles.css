@@ -191,8 +191,13 @@ nav.breadcrumb a:hover {
 
 /* Wide screen optimization: allow images to expand vertically while keeping text visible */
 @media screen and (min-width: 1200px) {
+    .grid-container {
+        align-items: end;
+    }
+
     .grid-container img {
         max-height: calc(100vh - 400px);
+        height: calc(100vh - 400px);
         width: auto;
         object-fit: contain;
     }
