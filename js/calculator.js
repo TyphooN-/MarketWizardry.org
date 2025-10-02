@@ -874,11 +874,12 @@ window.addSymbolToPortfolio = function(symbol) {
     const data = window.varData[symbol];
     const tbody = document.getElementById('portfolio-positions');
 
-    // Check for duplicate symbols
+    // Check for duplicate symbols (skip empty rows)
     const existingRows = tbody.querySelectorAll('tr');
     for (const row of existingRows) {
         const symbolInput = row.querySelector('input.table-input, input.position-symbol-input');
-        if (symbolInput && symbolInput.value.toUpperCase() === symbol.toUpperCase()) {
+        const symbolValue = symbolInput?.value?.trim().toUpperCase();
+        if (symbolValue && symbolValue === symbol.toUpperCase()) {
             console.log('⚠️ Symbol already exists in portfolio');
             alert(`${symbol} is already in your portfolio`);
             return;
