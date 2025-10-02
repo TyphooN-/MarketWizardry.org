@@ -44,7 +44,6 @@
     <meta name="twitter:data1" content="VaR Cult">    <meta name="twitter:label2" content="Focus">
     <meta name="twitter:data2" content="Risk Management">
         <script src="/js/redirect.js"></script>
-    <script src="/js/image-modal.js"></script>
     <link rel="stylesheet" href="/css/shared-styles.css">
         <meta property="og:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <meta property="og:image:alt" content="MarketWizardry.org - Financial Trading Tools">
@@ -99,5 +98,26 @@
             <img src="https://marketwizardry.org/var-cult/HAKR_4.webp" alt="HAKR_4" loading="lazy">
         </div><br>
     </div>
+
+    <!-- Modal -->
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="filename-display" id="modalFilename"></div>
+                <div class="modal-button-bar">
+                    <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
+                    <span id="imageCounter" class="image-counter"></span>
+                    <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
+                    <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
+                    <button class="close-button" data-action="close-modal">✕</button>
+                </div>
+                <div class="crt-divider"></div>
+            </div>
+            <img src="" alt="Fullscreen image" class="full-image">
+        </div>
+    </div>
+
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-var-cult.js"></script>
 </body>
 </html>

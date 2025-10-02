@@ -28,7 +28,6 @@
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
     <script src="/js/mobile-viewport.js"></script>
     <script src="/js/redirect.js"></script>
-    <script src="/js/image-modal.js"></script>
     <link rel="stylesheet" href="/css/shared-styles.css">
 </head>
 <body class="market-wizardry-body">
@@ -68,5 +67,26 @@ The tale of VaR cult continues to unfold: a testament that dedication, innovatio
         </div>
 
     </div>
+
+    <!-- Modal -->
+    <div class="modal" id="fullscreenModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="filename-display" id="modalFilename"></div>
+                <div class="modal-button-bar">
+                    <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
+                    <span id="imageCounter" class="image-counter"></span>
+                    <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
+                    <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
+                    <button class="close-button" data-action="close-modal">✕</button>
+                </div>
+                <div class="crt-divider"></div>
+            </div>
+            <img src="" alt="Fullscreen image" class="full-image">
+        </div>
+    </div>
+
+    <script src="/js/gallery.js"></script>
+    <script src="/js/gallery-data-market-wizardry.js"></script>
 </body>
 </html>
