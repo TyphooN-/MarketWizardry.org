@@ -1,9 +1,8 @@
-// Image paths for Micah_Alhadeff gallery
-const galleryImagePaths = [
-    "./Micah_Alhadeff/webp/Micah_Alhadeff-1935888338352787718-GN_video3-lossy.webp"
-];
-
-// Initialize gallery when page loads
+// Gallery data for Micah_Alhadeff
+// CSP-compliant gallery initialization
 document.addEventListener('DOMContentLoaded', function() {
-    initializeGallery(galleryImagePaths);
+    const imagePaths = ['./Micah_Alhadeff/webp/Micah_Alhadeff-1935888338352787718-GN_video3-lossy.webp'];
+    if (window.initializeGallery) {
+        window.initializeGallery(imagePaths);
+    }
 });

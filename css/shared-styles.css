@@ -464,11 +464,18 @@ nav.breadcrumb a:hover {
 }
 
 /* Hide all modal children when modal is not displayed */
+.modal:not([style*="display: flex"]):not([style*="display: block"]) .modal-header,
+.modal:not([style*="display: flex"]):not([style*="display: block"]) .modal-button-bar,
 .modal:not([style*="display: flex"]):not([style*="display: block"]) .nav-buttons,
 .modal:not([style*="display: flex"]):not([style*="display: block"]) .download-container,
 .modal:not([style*="display: flex"]):not([style*="display: block"]) .close-button {
     display: none !important;
     visibility: hidden !important;
+}
+
+/* Hide download-container (legacy) */
+.download-container {
+    display: none;
 }
 
 .modal-content {
@@ -556,6 +563,38 @@ nav.breadcrumb a:hover {
     border: 2px solid rgba(0, 255, 0, 0.3);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
     object-fit: contain;
+}
+
+/* Image Counter */
+.image-counter {
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+/* Twitter Link Container */
+.twitter-link-container {
+    display: none;
+}
+
+.twitter-link {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #00ff00;
+    background: #000;
+    padding: 8px 15px;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.twitter-link:hover {
+    background-color: #001100;
+    transform: scale(1.02);
 }
 
 /* Navigation Buttons */

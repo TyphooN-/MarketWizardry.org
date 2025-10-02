@@ -1,3 +1,4 @@
+
 <!-- user_gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="petersonsart's digital art collection - Not to be confused with Jordan Peterson, this Peterson also has strong opinions about chaos and order. Unfortunately, chaos won and took over the entire artistic process.">
+    <meta name="description" content="Traditional artist embracing NFT technology to reach new audiences and collectors.">
     <meta name="keywords" content="AI art, NFT gallery, digital art, generative art, creative technology, petersonsart, artist portfolio">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -22,7 +23,7 @@
 
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="NFT Gallery - petersonsart - MarketWizardry.org">
-    <meta property="og:description" content="petersonsart's digital art collection - Not to be confused with Jordan Peterson, this Peterson also has strong opinions about chaos and order. Unfortunately, chaos won and took over the entire artistic process.">
+    <meta property="og:description" content="Traditional artist embracing NFT technology to reach new audiences and collectors.">
     <meta property="og:url" content="https://marketwizardry.org/nft-gallery/petersonsart_gallery.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Market Wizardry">
@@ -31,12 +32,12 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
-    
+
 
     <!-- Enhanced Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="NFT Gallery - petersonsart - MarketWizardry.org">
-    <meta name="twitter:description" content="petersonsart's digital art collection - Not to be confused with Jordan Peterson, this Peterson also has strong opinions about chaos and order. Unfortunately, chaos won and took over the entire artistic process.">
+    <meta name="twitter:description" content="Traditional artist embracing NFT technology to reach new audiences and collectors.">
     <meta name="twitter:site" content="@MarketW1zardry">
     <meta name="twitter:creator" content="@MarketW1zardry">
     <meta name="twitter:image" content="https://marketwizardry.org/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp">
@@ -45,13 +46,215 @@
         <meta name="twitter:label1" content="Category">
     <meta name="twitter:data1" content="Digital Art">    <meta name="twitter:label2" content="Collection">
     <meta name="twitter:data2" content="Growing">
-
-    <!-- CSP Compliant JavaScript Includes -->
-    <script src="/js/redirect.js"></script>
+        <script src="/js/redirect.js"></script>
     <script src="/js/shared.js"></script>
-    <!-- Enhanced JSON-LD Schema Markup - loaded via external script -->
-    <script src="/js/jsonld-nft-gallery-petersonsart_gallery.js"></script>
-    <link rel="stylesheet" href="/css/shared-styles.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        /* Image grid styles */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Maximum size of the container */
+            cursor: pointer;
+        }
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            /* display: flex; Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+	.modal-content {
+	    position: relative;
+	    background-color: #000;
+	    padding: 20px;
+	    border: 2px solid #00ff00;
+	    border-radius: 5px;
+	    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+	    text-align: center;
+	    max-width: 95vw; /* Increased modal width for mobile */
+	    max-height: 95vh; /* Increased modal height for mobile */
+	    overflow: auto; /* Enable scrolling if content exceeds modal size */
+	}
+	.full-image {
+	    max-width: 100%;
+	    max-height: 65vh; /* Reduced to leave space for navigation buttons */
+	    display: block;
+	    margin: 0 auto;
+	    object-fit: contain;
+	}
+        .crt-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #00ff00;
+            animation: scan 1s infinite;
+            margin: 30px auto;
+        }
+        @keyframes scan {
+            0% { opacity: 1; width: 0%; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; width: 100%; }
+        }
+        .filename-display {
+            color: #00ff00;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+        .flavor-text {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .nav-button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .nav-button:hover {
+            background-color: #001100;
+            color: #00ff00;
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-button:disabled:hover {
+            background-color: #000;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .close-button:hover {
+            background-color: #001100;
+        }
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                padding: 5px;
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+            .full-image {
+                max-height: 55vh;
+            }
+            .filename-display {
+                font-size: 0.7em;
+                margin-bottom: 5px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 14px;
+                min-width: 60px;
+            }
+            .close-button {
+                font-size: 18px;
+                padding: 3px 8px;
+                top: 5px;
+                right: 10px;
+            }
+            .twitter-link-container {
+                margin: 5px 0;
+            }
+            .twitter-link-container a {
+                font-size: 0.8em;
+                padding: 3px 6px;
+            }
+        }
+
+    /* Breadcrumb Navigation Styles */
+    .breadcrumb {
+        font-size: 0.8em;
+        color: #00aa00;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb a {
+        color: #00ff00 !important;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: #ffffff !important;
+    }
+
+    .breadcrumb .separator {
+        margin: 0 8px;
+        color: #004400;
+    }
+
+    /* Mobile breadcrumb optimization */
+    @media screen and (max-width: 768px) {
+        .breadcrumb {
+            display: none;
+        }
+    }
+    </style>
 </head>
 <body>
     <!-- Enhanced Breadcrumb Navigation with Schema Markup -->
@@ -78,37 +281,36 @@
     <div class="container">
         <h2>NFT Gallery - petersonsart</h2>
         <div class="crt-divider"></div>
-        <div class="flavor-text">petersonsart's digital art collection - Not to be confused with Jordan Peterson, this Peterson also has strong opinions about chaos and order. Unfortunately, chaos won and took over the entire artistic process.</div>
+        <div class="flavor-text">Traditional artist embracing NFT technology to reach new audiences and collectors.</div>
         <div class="crt-divider"></div>
-        <!-- Image Grid -->
+    <!-- Image Grid -->
     <div class="image-grid" id="imageGrid">
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
     <div class="modal" id="fullscreenModal">
         <div class="modal-content">
-            <button class="close-button" data-action="close-modal">&times;</button>
-            <div class="filename-display" id="modalFilename"></div>
-            <div class="twitter-link-container" id="twitterLinkContainer">
-                <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
-                    🐦 View Original Tweet
-                </a>
+            <div class="modal-header">
+                <div class="filename-display" id="modalFilename"></div>
+                <div class="modal-button-bar">
+                    <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
+                    <span id="imageCounter" class="image-counter"></span>
+                    <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
+                    <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
+                    <div class="twitter-link-container" id="twitterLinkContainer">
+                        <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
+                            🐦 View Original Tweet
+                        </a>
+                    </div>
+                    <button class="close-button" data-action="close-modal">✕</button>
+                </div>
+                <div class="crt-divider"></div>
             </div>
-            <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image">
-            <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" class="image-counter"></span>
-                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
-            </div>
-            <div class="download-container">
-                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
-            </div>
         </div>
     </div>
 </div>
-    <script src="/js/gallery.js"></script>
+    <script src="/js/nft-gallery.js"></script>
     <script src="/js/gallery-data-petersonsart.js"></script>
-    </div>
 </body>
 </html>
