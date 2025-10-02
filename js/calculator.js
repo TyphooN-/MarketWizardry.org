@@ -901,13 +901,13 @@ window.addSymbolToPortfolio = function(symbol) {
         <td><input type="number" placeholder="100" class="table-input"></td>
         <td><input type="number" value="${data.price}" step="0.01" class="table-input-price"></td>
         <td class="value-display">-</td>
-        <td class="var-display">$${data.var}</td>
+        <td class="var-display">$${data.var.toFixed(3)}</td>
         <td class="var-percent-display">-</td>
         <td class="weight-display">-</td>
         <td class="asset-class-display">${assetDisplay.emoji} ${assetDisplay.name}</td>
         <td class="sector-display">${data.sector || '-'}</td>
         <td class="industry-display">${data.industry || '-'}</td>
-        <td><button class="remove-btn position-remove-btn" title="Remove Position"></button></td>
+        <td><button class="remove-btn position-remove-btn" title="Remove Position">✕</button></td>
     `;
 
     // Insert at the beginning
