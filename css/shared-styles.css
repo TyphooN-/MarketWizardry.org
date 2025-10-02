@@ -463,6 +463,14 @@ nav.breadcrumb a:hover {
     padding-top: 60px;
 }
 
+/* Hide all modal children when modal is not displayed */
+.modal:not([style*="display: flex"]):not([style*="display: block"]) .nav-buttons,
+.modal:not([style*="display: flex"]):not([style*="display: block"]) .download-container,
+.modal:not([style*="display: flex"]):not([style*="display: block"]) .close-button {
+    display: none !important;
+    visibility: hidden !important;
+}
+
 .modal-content {
     background-color: #000;
     margin: 5% auto;
