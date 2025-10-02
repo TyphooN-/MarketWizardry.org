@@ -97,32 +97,33 @@ def print_formatted_table(df, columns_config, title=None):
     """
     if df.empty:
         if title:
-            print(f"\n{'='*80}")
+            separator = "═" * 80
+            print(f"\n{separator}")
             print(f"{title}")
-            print(f"{'='*80}")
+            print(f"{separator}")
         print("No data to display.")
         return
 
     # Calculate column widths
     widths = calculate_column_widths(df, columns_config)
 
-    # Calculate total width
-    total_width = sum(widths.values()) + (len(columns_config) - 1) * 3  # 3 chars for " | "
-
-    # Print title if provided
-    if title:
-        print(f"\n{'='*80}")
-        print(f"{title}")
-        print(f"{'='*80}")
-
-    # Print header
+    # Build header line to calculate actual table width
     header_parts = []
     for col_name, header, _, _ in columns_config:
         header_parts.append(f"{header:<{widths[col_name]}}")
     header_line = " | ".join(header_parts)
+    table_width = len(header_line)
 
+    # Print title if provided
+    if title:
+        separator = "═" * table_width
+        print(f"\n{separator}")
+        print(f"{title}")
+        print(f"{separator}")
+
+    # Print header
     print(header_line)
-    print("─" * len(header_line))
+    print("─" * table_width)
 
     # Print data rows
     for _, row in df.iterrows():
@@ -143,11 +144,20 @@ def print_formatted_table(df, columns_config, title=None):
 
         print(" | ".join(row_parts))
 
-    print("─" * len(header_line))
+    print("─" * table_width)
 
 
-def print_section_header(title, char="=", width=80):
-    """Print a formatted section header."""
+def print_section_header(title, char="═", width=None):
+    """
+    Print a formatted section header.
+
+    Args:
+        title: Header title text
+        char: Character to use for separator line (default: ═)
+        width: Width of separator. If None, uses length of title
+    """
+    if width is None:
+        width = len(title)
     print(f"\n{char * width}")
     print(f"{title}")
     print(f"{char * width}")

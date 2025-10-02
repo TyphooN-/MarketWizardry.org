@@ -1462,21 +1462,30 @@ header {
 
 /* Explorer modal body styles */
 .modal-body {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    white-space: pre;
     max-height: 70vh;
     max-width: 85vw;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     color: #00ff00;
     font-size: clamp(0.6rem, 1vw, 0.75rem);
 }
 
+/* Crypto explorer wraps text */
+.modal-body.crypto-explorer {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: hidden;
+}
+
 .modal-body pre {
+    margin: 0;
+}
+
+.modal-body.crypto-explorer pre {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    margin: 0;
 }
 
 .modal-body a {

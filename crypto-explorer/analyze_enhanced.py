@@ -152,6 +152,21 @@ def format_percentage(ratio):
     return f"{ratio*100:.2f}%"
 
 
+def print_separator(title="", char="═"):
+    """
+    Print a separator line that matches the title width or a default width.
+
+    Args:
+        title: Title text (if any)
+        char: Character to use for separator (default: ═)
+    """
+    width = max(len(title), 80) if title else 80
+    print(f"{char * width}")
+    if title:
+        print(title)
+        print(f"{char * width}")
+
+
 def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_data_file: str = None, events_data_file: str = None):
     """
     Enhanced cryptocurrency analysis with market data, news, and upcoming events.
