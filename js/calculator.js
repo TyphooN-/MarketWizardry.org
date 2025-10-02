@@ -877,7 +877,8 @@ window.addSymbolToPortfolio = function(symbol) {
     // Check for duplicate symbols (skip empty rows)
     const existingRows = tbody.querySelectorAll('tr');
     for (const row of existingRows) {
-        const symbolInput = row.querySelector('input.table-input, input.position-symbol-input');
+        // Only check the first cell (symbol column) to avoid matching number inputs
+        const symbolInput = row.querySelector('td:first-child input');
         const symbolValue = symbolInput?.value?.trim().toUpperCase();
         if (symbolValue && symbolValue === symbol.toUpperCase()) {
             console.log('⚠️ Symbol already exists in portfolio');
