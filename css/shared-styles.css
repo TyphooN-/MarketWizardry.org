@@ -207,7 +207,7 @@ nav.breadcrumb a:hover {
 .thumbnail {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 2px solid rgba(0, 255, 0, 0.5);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease-in-out;
@@ -273,7 +273,7 @@ nav.breadcrumb a:hover {
     white-space: pre-wrap;
     border: 2px solid #00ff00;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #00ff00;
 }
 
@@ -337,7 +337,7 @@ nav.breadcrumb a:hover {
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .blog-entry:hover {
@@ -391,7 +391,7 @@ nav.breadcrumb a:hover {
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .musing-card:hover {
@@ -509,6 +509,13 @@ nav.breadcrumb a:hover {
     align-items: center;
     width: fit-content;
     overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-content:hover {
+    border-color: #00ff88;
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.4);
+    transform: scale(1.01);
 }
 
 .modal-header {
@@ -929,7 +936,7 @@ header {
     margin: 20px 0;
     padding: 15px;
     border: 1px solid #00ff00;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .symbol-input-uppercase {
@@ -957,7 +964,7 @@ header {
     text-align: center;
     border: 2px solid rgba(0, 255, 0, 0.5);
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all 0.3s ease;
     cursor: pointer;
     display: flex;
@@ -1010,7 +1017,7 @@ header {
     color: #00ff00;
     border: 2px solid #00ff00;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-family: "Courier New", monospace;
     font-weight: bold;
     z-index: 10000;
