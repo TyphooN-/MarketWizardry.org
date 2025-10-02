@@ -30,14 +30,20 @@ let allImagePaths = []; // Will be set by each gallery file
 const imagesPerLoad = 50; // Increased number of images to load per scroll
 const scrollThreshold = 1000; // Load more images when 1000px from bottom
 
-function initializeGallery(imagePaths) {
+function initializeGallery(imagePaths, skipDynamicLoading = false) {
     allImagePaths = imagePaths;
     console.log("All Image Paths:", allImagePaths);
 
     // Reset current index
     currentImageIndex = 0;
 
-    // Initial load
+    // If skipDynamicLoading is true, just set up click handlers on existing images
+    if (skipDynamicLoading) {
+        setupStaticImageClickHandlers();
+        return;
+    }
+
+    // Initial load for dynamic galleries
     loadMoreImages();
     // Load more images immediately if the initial load doesn't fill the viewport
     if (document.body.offsetHeight < window.innerHeight) {
@@ -50,6 +56,18 @@ function initializeGallery(imagePaths) {
             loadMoreImages();
         }
     });
+}
+
+function setupStaticImageClickHandlers() {
+    // Find all existing images in the DOM and attach click handlers
+    const images = document.querySelectorAll('.image-container img, .grid-container img');
+    images.forEach((img, index) => {
+        img.addEventListener('click', function() {
+            openImage(index);
+        });
+        img.style.cursor = 'pointer'; // Make it clear images are clickable
+    });
+    console.log(`Set up click handlers for ${images.length} static images`);
 }
 
 function loadImage(path, index) {
