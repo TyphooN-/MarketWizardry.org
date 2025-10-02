@@ -1561,18 +1561,28 @@ header {
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 10000;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal[style*="display: flex"] {
+    display: flex !important;
 }
 
 .image-modal[style*="display: block"] {
-    display: block !important;
+    display: flex !important;
 }
 
 .image-modal-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    background-color: #000;
+    border: 2px solid #00ff00;
     padding: 10px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 .image-modal-header {
@@ -1597,12 +1607,13 @@ header {
 }
 
 /* Only show buttons when modal is actually displayed */
+.image-modal[style*="display: flex"] .image-modal-buttons,
 .image-modal[style*="display: block"] .image-modal-buttons {
     display: flex !important;
 }
 
 /* Extra defensive - hide all image-modal children when not displayed */
-.image-modal:not([style*="display: block"]) * {
+.image-modal:not([style*="display: flex"]):not([style*="display: block"]) * {
     display: none !important;
     visibility: hidden !important;
 }
@@ -1652,11 +1663,11 @@ header {
 }
 
 .image-modal-body img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: calc(90vw - 24px);
+    max-height: calc(90vh - 150px);
     object-fit: contain;
-    border: 3px solid #00ff00;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
 }
 
 /* Mobile responsive */

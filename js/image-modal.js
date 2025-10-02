@@ -44,7 +44,7 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
-            if (modal.style.display === 'block') {
+            if (modal.style.display === 'flex') {
                 switch(e.key) {
                     case 'ArrowLeft':
                         previousImage();
@@ -95,7 +95,7 @@
         downloadLink.download = filename;
 
         updateCounter();
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
 
