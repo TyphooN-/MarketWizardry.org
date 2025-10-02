@@ -1156,8 +1156,8 @@ function displaySymbolInfoInPortfolio(symbol, data) {
                     <span class="metric-value">${((data.var / data.price) * 100).toFixed(2)}% (risk per dollar invested)</span>
                 </div>
                 <div class="metric-item">
-                    <span class="metric-label">VaR (1 lot = 100 shares):</span>
-                    <span class="metric-value">$${(data.var * 100).toFixed(2)} USD</span>
+                    <span class="metric-label">VaR (1 lot/share):</span>
+                    <span class="metric-value">$${data.var.toFixed(3)} USD</span>
                 </div>
                 <div class="metric-item">
                     <span class="metric-label">Sector:</span>
