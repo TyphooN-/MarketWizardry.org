@@ -10,13 +10,14 @@
             <div id="image-modal" class="image-modal" style="display: none;">
                 <div class="image-modal-content">
                     <div class="image-modal-header">
-                        <span class="image-modal-counter" id="image-counter">1 of 1</span>
                         <div class="image-modal-buttons">
                             <button class="image-modal-nav" id="prev-image" title="Previous (←)">← Previous</button>
-                            <a class="image-modal-download" id="download-image" href="#" download title="Download Image">Download</a>
+                            <span class="image-modal-counter" id="image-counter">1 of 1</span>
                             <button class="image-modal-nav" id="next-image" title="Next (→)">Next →</button>
+                            <a class="image-modal-download" id="download-image" href="#" download title="Download Image">⬇ Download</a>
                             <button class="image-modal-close" id="close-modal" title="Close (Esc)">✕</button>
                         </div>
+                        <div class="crt-divider"></div>
                     </div>
                     <div class="image-modal-body">
                         <img id="modal-image" src="" alt="">
