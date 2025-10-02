@@ -114,6 +114,8 @@ function openImage(index) {
     const modal = document.getElementById('fullscreenModal');
     const fullImage = modal.querySelector('.full-image');
     const filenameDisplay = document.getElementById('modalFilename');
+    const twitterLinkContainer = document.getElementById('twitterLinkContainer');
+    const twitterLink = document.getElementById('twitterLink');
 
     if (!modal || !fullImage) return;
 
@@ -125,6 +127,14 @@ function openImage(index) {
 
     if (filenameDisplay) {
         filenameDisplay.textContent = imageData?.title || filename;
+    }
+
+    // Handle Twitter link
+    if (twitterLinkContainer && twitterLink && imageData && imageData.twitterUrl) {
+        twitterLink.href = imageData.twitterUrl;
+        twitterLinkContainer.style.display = 'inline-block';
+    } else if (twitterLinkContainer) {
+        twitterLinkContainer.style.display = 'none';
     }
 
     modal.style.display = 'flex';

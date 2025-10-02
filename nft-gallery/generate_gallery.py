@@ -300,6 +300,7 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", flavor_text)
 
     image_paths = []
+    image_data = []
     user_webp_dir = os.path.join(username, "webp")
     if os.path.isdir(user_webp_dir):
         for root, _, files in os.walk(user_webp_dir):
@@ -308,17 +309,27 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
                     relative_path = os.path.relpath(os.path.join(root, file), '.')
                     image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
+                    # Extract tweet info from filename
+                    tweet_username, tweet_id, is_shortened = extract_tweet_info(file)
+                    twitter_url = generate_twitter_url(tweet_username, tweet_id, is_shortened)
+
+                    if twitter_url:
+                        image_data.append(f"{{'twitterUrl': '{twitter_url}'}}")
+                    else:
+                        image_data.append('null')
+
     # Create external JavaScript data file for CSP compliance
     gallery_id = username.replace(" ", "_").replace("-", "_")
     js_data_file = f"../js/gallery-data-{gallery_id}.js"
 
-    # Generate external JavaScript file
+    # Generate external JavaScript file with image data
     js_content = f"""// Gallery data for {username}
 // CSP-compliant gallery initialization
 document.addEventListener('DOMContentLoaded', function() {{
     const imagePaths = [{','.join(image_paths)}];
+    const imageData = [{','.join(image_data)}];
     if (window.initializeGallery) {{
-        window.initializeGallery(imagePaths);
+        window.initializeGallery(imagePaths, imageData);
     }}
 }});"""
 
@@ -387,6 +398,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
 """
 
     all_image_paths = []
+    all_image_data = []
     current_directory = os.getcwd()
     all_entries = os.listdir(current_directory)
 
@@ -399,17 +411,27 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
                         relative_path = os.path.relpath(os.path.join(root, file), current_directory)
                         all_image_paths.append(f"'./{relative_path.replace(os.sep, '/')}'")
 
+                        # Extract tweet info from filename
+                        tweet_username, tweet_id, is_shortened = extract_tweet_info(file)
+                        twitter_url = generate_twitter_url(tweet_username, tweet_id, is_shortened)
+
+                        if twitter_url:
+                            all_image_data.append(f"{{'twitterUrl': '{twitter_url}'}}")
+                        else:
+                            all_image_data.append('null')
+
     # Create external JavaScript data file for CSP compliance
     gallery_id = "all"
     js_data_file = f"../js/gallery-data-{gallery_id}.js"
 
-    # Generate external JavaScript file
+    # Generate external JavaScript file with image data
     js_content = f"""// Gallery data for all images
 // CSP-compliant gallery initialization
 document.addEventListener('DOMContentLoaded', function() {{
     const imagePaths = [{','.join(all_image_paths)}];
+    const imageData = [{','.join(all_image_data)}];
     if (window.initializeGallery) {{
-        window.initializeGallery(imagePaths);
+        window.initializeGallery(imagePaths, imageData);
     }}
 }});"""
 
