@@ -1504,7 +1504,7 @@ header {
 }
 /* Image Modal Styles */
 .image-modal {
-    display: none;
+    display: none !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -1513,6 +1513,10 @@ header {
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 10000;
     overflow: hidden;
+}
+
+.image-modal[style*="display: block"] {
+    display: block !important;
 }
 
 .image-modal-content {
