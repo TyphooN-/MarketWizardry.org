@@ -189,6 +189,15 @@ nav.breadcrumb a:hover {
     transform: scale(1.02);
 }
 
+/* Wide screen optimization: allow images to expand vertically */
+@media screen and (min-width: 1200px) {
+    .grid-container img {
+        max-height: calc(100vh - 300px);
+        width: auto;
+        object-fit: contain;
+    }
+}
+
 .thumbnail {
     width: 100%;
     height: auto;
