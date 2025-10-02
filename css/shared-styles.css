@@ -493,6 +493,7 @@ nav.breadcrumb a:hover {
     flex-direction: column;
     align-items: center;
     width: fit-content;
+    overflow: hidden;
 }
 
 .modal-header {
@@ -554,7 +555,7 @@ nav.breadcrumb a:hover {
 }
 
 .full-image {
-    max-width: 100%;
+    max-width: calc(90vw - 24px);
     max-height: calc(90vh - 150px);
     width: auto;
     height: auto;
