@@ -137,6 +137,15 @@ function openImage(index) {
         twitterLinkContainer.style.display = 'none';
     }
 
+    // Update image counter and navigation buttons
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const imageCounter = document.getElementById('imageCounter');
+
+    if (prevButton) prevButton.disabled = index === 0;
+    if (nextButton) nextButton.disabled = index === allImagePaths.length - 1;
+    if (imageCounter) imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+
     modal.style.display = 'flex';
     document.body.classList.add('modal-open');
 
