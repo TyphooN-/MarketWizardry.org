@@ -74,8 +74,12 @@ def analyze_group(group_name, group_df, mcap_bounds, var_bounds):
             bounds_dict[group_name] = {'lower': lower_bound, 'upper': upper_bound}
 
 def _print_table(title, dataframe, columns_info):
-    print(f"\n\n{'='*25} {title} {'='*25}")
+    # Build header line first to calculate table width
     if dataframe.empty:
+        separator = "═" * 80
+        print(f"\n{separator}")
+        print(f"{title}")
+        print(f"{separator}")
         print("No outliers found in this category.")
         return
 
@@ -102,17 +106,25 @@ def _print_table(title, dataframe, columns_info):
     column_widths['MCap/EV (%)'] = max(column_widths.get('MCap/EV (%)', 0), 15)
     column_widths['AskPrice'] = max(column_widths.get('AskPrice', 0), 10)
     column_widths['Spread %'] = max(column_widths.get('Spread %', 0), 10)
-    column_widths['VaR_to_Ask_Ratio'] = max(column_widths.get('VaR_to_Ask_Ratio', 0), 15)
-    column_widths['Note'] = max(column_widths.get('Note', 0), 4) # Minimum for 'Note'
+    column_widths['VaR_to_Ask_Ratio'] = max(column_widths.get('VaR_to_Ask_Ratio', 0), 18)
+    column_widths['Note'] = max(column_widths.get('Note', 0), 40) # Increased for longer notes
 
-    # Print header
+    # Build header line to calculate table width
     header_parts = []
     for col_df_name, col_header, _ in columns_info:
         header_parts.append(f"{col_header:<{column_widths[col_df_name]}}")
     header_line = " | ".join(header_parts)
-    print("-" * len(header_line))
+    table_width = len(header_line)
+
+    # Print title with proper separators
+    separator = "═" * table_width
+    print(f"\n{separator}")
+    print(f"{title}")
+    print(f"{separator}")
+
+    # Print header
     print(header_line)
-    print("-" * len(header_line))
+    print("─" * table_width)
 
     # Print data rows
     for _, row in dataframe.iterrows():
@@ -130,10 +142,10 @@ def _print_table(title, dataframe, columns_info):
                     formatted_value_str = f"{value:{col_format}}"
             else:
                 formatted_value_str = str(value)
-            
+
             row_parts.append(formatted_value_str.ljust(column_widths[col_df_name]))
         print(" | ".join(row_parts))
-    print("-" * len(header_line))
+    print("─" * table_width)
 
 
 def print_outlier_table(title, dataframe):

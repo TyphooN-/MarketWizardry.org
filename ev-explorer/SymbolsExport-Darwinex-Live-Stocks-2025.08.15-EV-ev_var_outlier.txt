@@ -1,13 +1,13 @@
 Analysis results for SymbolsExport-Darwinex-Live-Stocks-2025.08.15-EV.csv
-Report generated on: 2025-10-02 05:22:17.237535
+Report generated on: 2025-10-02 06:04:44.497429
 
 Detected file type: Stocks. Displaying top/bottom 50 assets at end.
 
-
-========================= Actionable Outliers =========================
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Actionable Outliers
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Symbol     | Industry                                 | MCap/EV (%)     | Ask Price  | Spread %   | VaR/Ask Ratio      | Note                                            
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 MOH        | Healthcare Plans                         | 236.90%         | 167.72     | 0.24%      | 0.0848313140949201 | Dual Outlier: MCap/EV (HIGH), VaR (HIGH)        
 JPM        | Banks - Diversified                      | 178.79%         | 290.38     | 0.06%      | 0.0182160100557889 | MCap/EV Outlier: MCap/EV (HIGH) in Bottom 50 VaR
 SAM        | Beverages - Brewers                      | 110.00%         | 220.90     | 0.88%      | 0.0405165912177455 | Dual Outlier: MCap/EV (HIGH), VaR (HIGH)        
@@ -22,7 +22,7 @@ CC         | Specialty Chemicals                      | 35.88%          | 14.64 
 EIX        | Utilities - Regulated Electric           | 33.08%          | 55.62      | 0.23%      | 0.0266561308881697 | Dual Outlier: MCap/EV (LOW), VaR (HIGH)         
 WBA        | Pharmaceutical Retailers                 | 26.10%          | 11.98      | 0.08%      | 0.0067193656093489 | Dual Outlier: MCap/EV (LOW), VaR (LOW)          
 CABO       | Telecom Services                         | 20.64%          | 156.28     | 1.77%      | 0.0920295559252623 | MCap/EV Outlier: MCap/EV (LOW) in Top 50 VaR    
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 ========================= Global MCap/EV (%) Ratio Statistics =========================
 Q1 (25th percentile): 71.8424
@@ -31,11 +31,11 @@ IQR (Interquartile Range): 26.5444
 Lower Outlier Bound: 32.0258
 Upper Outlier Bound: 138.2034
 
-
-========================= Top 50 Highest MCap/EV (%) Assets =========================
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Top 50 Highest MCap/EV (%) Assets
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Symbol     | Industry                                 | MCap/EV (%)     | Ask Price  | Spread %   | VaR/Ask Ratio      | Note                                    
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 AVGO       | Semiconductors                           | 927.88%         | 306.18     | 0.05%      | 0.031603086419753  | MCap/EV Outlier: MCap/EV (HIGH)         
 MOH        | Healthcare Plans                         | 236.90%         | 167.72     | 0.24%      | 0.0848313140949201 | Dual Outlier: MCap/EV (HIGH), VaR (HIGH)
 JPM        | Banks - Diversified                      | 178.79%         | 290.38     | 0.06%      | 0.0182160100557889 | MCap/EV Outlier: MCap/EV (HIGH)         
@@ -86,64 +86,64 @@ OLED       | Semiconductor Equipment & Materials      | 108.09%         | 142.14
 WDAY       | Software - Application                   | 108.04%         | 226.30     | 0.11%      | 0.0364149668581528 |                                         
 CSGP       | Real Estate Services                     | 108.03%         | 89.68      | 0.07%      | 0.036258998661909  | MCap/EV Outlier: MCap/EV (HIGH)         
 EW         | Medical Devices                          | 107.73%         | 78.30      | 0.08%      | 0.0290530779054917 |                                         
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-
-========================= Bottom 50 Lowest MCap/EV (%) Assets =========================
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Symbol     | Industry                                 | MCap/EV (%)     | Ask Price  | Spread %   | VaR/Ask Ratio      | Note                                   
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CAR        | Rental & Leasing Services                | 16.02%          | 156.20     | 0.72%      | 0.066010537772087  | MCap/EV Outlier: MCap/EV (LOW)         
-PENN       | Resorts & Casinos                        | 20.52%          | 18.23      | 0.05%      | 0.0359041689522764 |                                        
-CABO       | Telecom Services                         | 20.64%          | 156.28     | 1.77%      | 0.0920295559252623 | MCap/EV Outlier: MCap/EV (LOW)         
-AES        | Utilities - Diversified                  | 20.82%          | 13.31      | 0.08%      | 0.030195041322314  | MCap/EV Outlier: MCap/EV (LOW)         
-OMF        | Credit Services                          | 24.23%          | 57.32      | 0.17%      | 0.0204187892533147 |                                        
-AL         | Rental & Leasing Services                | 24.37%          | 57.21      | 0.02%      | 0.0271365145953504 | MCap/EV Outlier: MCap/EV (LOW)         
-MGM        | Resorts & Casinos                        | 24.46%          | 35.92      | 0.06%      | 0.0339332683741648 |                                        
-F          | Auto Manufacturers                       | 25.65%          | 11.44      | 0.09%      | 0.0237172202797202 |                                        
-WBA        | Pharmaceutical Retailers                 | 26.10%          | 11.98      | 0.08%      | 0.0067193656093489 | Dual Outlier: MCap/EV (LOW), VaR (LOW) 
-CHTR       | Entertainment                            | 26.81%          | 267.78     | 0.14%      | 0.0762101426544178 |                                        
-CE         | Chemicals                                | 27.14%          | 42.56      | 0.38%      | 0.0626504934210526 |                                        
-KMX        | Auto Dealership                          | 31.08%          | 57.78      | 0.02%      | 0.0342607303565247 |                                        
-GM         | Auto Manufacturers                       | 31.20%          | 56.32      | 0.04%      | 0.0485153409090909 |                                        
-VAC        | Resorts & Casinos                        | 33.00%          | 75.12      | 0.20%      | 0.0470527023429179 |                                        
-EIX        | Utilities - Regulated Electric           | 33.08%          | 55.62      | 0.23%      | 0.0266561308881697 | Dual Outlier: MCap/EV (LOW), VaR (HIGH)
-BRSL       | Gambling                                 | 34.96%          | 15.47      | 0.45%      | 0.0423622495151906 |                                        
-LAD        | Auto Dealership                          | 35.33%          | 301.40     | 0.37%      | 0.0409912939615129 |                                        
-CC         | Specialty Chemicals                      | 35.88%          | 14.64      | 0.41%      | 0.0936579234972677 | MCap/EV Outlier: MCap/EV (LOW)         
-HOG        | Recreational Vehicles                    | 36.34%          | 27.45      | 0.18%      | 0.0724002550091074 |                                        
-HELE       | Household & Personal Products            | 37.43%          | 23.10      | 0.69%      | 0.0563053246753246 | MCap/EV Outlier: MCap/EV (LOW)         
-WHR        | Furnishing, Fixtures & Appliances        | 39.59%          | 88.31      | 0.23%      | 0.0657776922205865 |                                        
-DVA        | Medical Care Facilities                  | 40.88%          | 135.61     | 0.19%      | 0.049040579603274  |                                        
-TNL        | Travel Services                          | 41.74%          | 60.22      | 0.12%      | 0.0399897708402524 |                                        
-M          | Department Stores                        | 42.37%          | 12.81      | 0.08%      | 0.0491959406713505 |                                        
-DXC        | Information Technology Services          | 42.88%          | 13.73      | 0.07%      | 0.0385926438455935 | MCap/EV Outlier: MCap/EV (LOW)         
-NCLH       | Travel Services                          | 43.26%          | 24.29      | 0.04%      | 0.0470802799505969 |                                        
-HUN        | Chemicals                                | 43.38%          | 10.00      | 0.10%      | 0.0659987          |                                        
-PNW        | Utilities - Regulated Electric           | 43.64%          | 91.44      | 0.17%      | 0.0174611001749781 |                                        
-OLN        | Specialty Chemicals                      | 44.13%          | 21.32      | 0.14%      | 0.075002157598499  |                                        
-ACHC       | Medical Care Facilities                  | 44.43%          | 21.03      | 0.38%      | 0.0831327151688064 |                                        
-ES         | Utilities - Regulated Electric           | 45.11%          | 65.50      | 0.09%      | 0.0174037709923664 |                                        
-CACC       | Credit Services                          | 45.46%          | 475.55     | 0.65%      | 0.0461594112080748 |                                        
-AN         | Auto Dealership                          | 45.69%          | 206.88     | 0.66%      | 0.0301318107115235 |                                        
-EXC        | Utilities - Regulated Electric           | 48.34%          | 44.57      | 0.02%      | 0.020037985191833  |                                        
-POST       | Packaged Foods                           | 48.44%          | 108.80     | 0.28%      | 0.0237247242647058 |                                        
-FE         | Utilities - Regulated Electric           | 48.58%          | 43.47      | 0.05%      | 0.0141294916034046 |                                        
-SPR        | Aerospace & Defence                      | 48.76%          | 41.15      | 0.29%      | 0.0222972296476306 | MCap/EV Outlier: MCap/EV (LOW)         
-NXST       | Broadcasting                             | 49.28%          | 207.43     | 0.79%      | 0.032297960757846  |                                        
-AOS        | Specialty Industrial Machinery           | 49.62%          | 72.30      | 0.29%      | 0.0261055601659751 | MCap/EV Outlier: MCap/EV (LOW)         
-DOW        | Chemicals                                | 49.74%          | 23.37      | 0.04%      | 0.0837286264441591 |                                        
-THC        | Medical Care Facilities                  | 50.16%          | 172.14     | 0.20%      | 0.0539151620773788 |                                        
-VFC        | Apparel Manufacturing                    | 50.38%          | 13.06      | 0.08%      | 0.064563552833078  |                                        
-D          | Utilities - Regulated Electric           | 50.55%          | 61.13      | 0.02%      | 0.0177653688859807 |                                        
-ALLY       | Credit Services                          | 50.84%          | 38.88      | 0.05%      | 0.0231871399176954 |                                        
-PVH        | Apparel Manufacturing                    | 51.06%          | 76.80      | 0.07%      | 0.0384442708333333 |                                        
-DUK        | Utilities - Regulated Electric           | 51.35%          | 122.41     | 0.01%      | 0.0152291561146965 |                                        
-VZ         | Telecom Services                         | 51.94%          | 44.23      | 0.02%      | 0.018767691612028  |                                        
-CAG        | Packaged Foods                           | 52.75%          | 19.17      | 0.05%      | 0.026969535732916  |                                        
-EVRG       | Utilities - Regulated Electric           | 52.76%          | 71.95      | 0.06%      | 0.016727491313412  |                                        
-NI         | Utilities - Regulated Gas                | 52.92%          | 41.90      | 0.05%      | 0.0211514558472553 |                                        
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Bottom 50 Lowest MCap/EV (%) Assets
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Symbol     | Industry                                 | MCap/EV (%)     | Ask Price  | Spread %   | VaR/Ask Ratio      | Note                                    
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+CAR        | Rental & Leasing Services                | 16.02%          | 156.20     | 0.72%      | 0.066010537772087  | MCap/EV Outlier: MCap/EV (LOW)          
+PENN       | Resorts & Casinos                        | 20.52%          | 18.23      | 0.05%      | 0.0359041689522764 |                                         
+CABO       | Telecom Services                         | 20.64%          | 156.28     | 1.77%      | 0.0920295559252623 | MCap/EV Outlier: MCap/EV (LOW)          
+AES        | Utilities - Diversified                  | 20.82%          | 13.31      | 0.08%      | 0.030195041322314  | MCap/EV Outlier: MCap/EV (LOW)          
+OMF        | Credit Services                          | 24.23%          | 57.32      | 0.17%      | 0.0204187892533147 |                                         
+AL         | Rental & Leasing Services                | 24.37%          | 57.21      | 0.02%      | 0.0271365145953504 | MCap/EV Outlier: MCap/EV (LOW)          
+MGM        | Resorts & Casinos                        | 24.46%          | 35.92      | 0.06%      | 0.0339332683741648 |                                         
+F          | Auto Manufacturers                       | 25.65%          | 11.44      | 0.09%      | 0.0237172202797202 |                                         
+WBA        | Pharmaceutical Retailers                 | 26.10%          | 11.98      | 0.08%      | 0.0067193656093489 | Dual Outlier: MCap/EV (LOW), VaR (LOW)  
+CHTR       | Entertainment                            | 26.81%          | 267.78     | 0.14%      | 0.0762101426544178 |                                         
+CE         | Chemicals                                | 27.14%          | 42.56      | 0.38%      | 0.0626504934210526 |                                         
+KMX        | Auto Dealership                          | 31.08%          | 57.78      | 0.02%      | 0.0342607303565247 |                                         
+GM         | Auto Manufacturers                       | 31.20%          | 56.32      | 0.04%      | 0.0485153409090909 |                                         
+VAC        | Resorts & Casinos                        | 33.00%          | 75.12      | 0.20%      | 0.0470527023429179 |                                         
+EIX        | Utilities - Regulated Electric           | 33.08%          | 55.62      | 0.23%      | 0.0266561308881697 | Dual Outlier: MCap/EV (LOW), VaR (HIGH) 
+BRSL       | Gambling                                 | 34.96%          | 15.47      | 0.45%      | 0.0423622495151906 |                                         
+LAD        | Auto Dealership                          | 35.33%          | 301.40     | 0.37%      | 0.0409912939615129 |                                         
+CC         | Specialty Chemicals                      | 35.88%          | 14.64      | 0.41%      | 0.0936579234972677 | MCap/EV Outlier: MCap/EV (LOW)          
+HOG        | Recreational Vehicles                    | 36.34%          | 27.45      | 0.18%      | 0.0724002550091074 |                                         
+HELE       | Household & Personal Products            | 37.43%          | 23.10      | 0.69%      | 0.0563053246753246 | MCap/EV Outlier: MCap/EV (LOW)          
+WHR        | Furnishing, Fixtures & Appliances        | 39.59%          | 88.31      | 0.23%      | 0.0657776922205865 |                                         
+DVA        | Medical Care Facilities                  | 40.88%          | 135.61     | 0.19%      | 0.049040579603274  |                                         
+TNL        | Travel Services                          | 41.74%          | 60.22      | 0.12%      | 0.0399897708402524 |                                         
+M          | Department Stores                        | 42.37%          | 12.81      | 0.08%      | 0.0491959406713505 |                                         
+DXC        | Information Technology Services          | 42.88%          | 13.73      | 0.07%      | 0.0385926438455935 | MCap/EV Outlier: MCap/EV (LOW)          
+NCLH       | Travel Services                          | 43.26%          | 24.29      | 0.04%      | 0.0470802799505969 |                                         
+HUN        | Chemicals                                | 43.38%          | 10.00      | 0.10%      | 0.0659987          |                                         
+PNW        | Utilities - Regulated Electric           | 43.64%          | 91.44      | 0.17%      | 0.0174611001749781 |                                         
+OLN        | Specialty Chemicals                      | 44.13%          | 21.32      | 0.14%      | 0.075002157598499  |                                         
+ACHC       | Medical Care Facilities                  | 44.43%          | 21.03      | 0.38%      | 0.0831327151688064 |                                         
+ES         | Utilities - Regulated Electric           | 45.11%          | 65.50      | 0.09%      | 0.0174037709923664 |                                         
+CACC       | Credit Services                          | 45.46%          | 475.55     | 0.65%      | 0.0461594112080748 |                                         
+AN         | Auto Dealership                          | 45.69%          | 206.88     | 0.66%      | 0.0301318107115235 |                                         
+EXC        | Utilities - Regulated Electric           | 48.34%          | 44.57      | 0.02%      | 0.020037985191833  |                                         
+POST       | Packaged Foods                           | 48.44%          | 108.80     | 0.28%      | 0.0237247242647058 |                                         
+FE         | Utilities - Regulated Electric           | 48.58%          | 43.47      | 0.05%      | 0.0141294916034046 |                                         
+SPR        | Aerospace & Defence                      | 48.76%          | 41.15      | 0.29%      | 0.0222972296476306 | MCap/EV Outlier: MCap/EV (LOW)          
+NXST       | Broadcasting                             | 49.28%          | 207.43     | 0.79%      | 0.032297960757846  |                                         
+AOS        | Specialty Industrial Machinery           | 49.62%          | 72.30      | 0.29%      | 0.0261055601659751 | MCap/EV Outlier: MCap/EV (LOW)          
+DOW        | Chemicals                                | 49.74%          | 23.37      | 0.04%      | 0.0837286264441591 |                                         
+THC        | Medical Care Facilities                  | 50.16%          | 172.14     | 0.20%      | 0.0539151620773788 |                                         
+VFC        | Apparel Manufacturing                    | 50.38%          | 13.06      | 0.08%      | 0.064563552833078  |                                         
+D          | Utilities - Regulated Electric           | 50.55%          | 61.13      | 0.02%      | 0.0177653688859807 |                                         
+ALLY       | Credit Services                          | 50.84%          | 38.88      | 0.05%      | 0.0231871399176954 |                                         
+PVH        | Apparel Manufacturing                    | 51.06%          | 76.80      | 0.07%      | 0.0384442708333333 |                                         
+DUK        | Utilities - Regulated Electric           | 51.35%          | 122.41     | 0.01%      | 0.0152291561146965 |                                         
+VZ         | Telecom Services                         | 51.94%          | 44.23      | 0.02%      | 0.018767691612028  |                                         
+CAG        | Packaged Foods                           | 52.75%          | 19.17      | 0.05%      | 0.026969535732916  |                                         
+EVRG       | Utilities - Regulated Electric           | 52.76%          | 71.95      | 0.06%      | 0.016727491313412  |                                         
+NI         | Utilities - Regulated Gas                | 52.92%          | 41.90      | 0.05%      | 0.0211514558472553 |                                         
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 ========================= Unactionable (Close-Only) Symbols =========================
