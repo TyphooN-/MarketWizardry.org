@@ -837,7 +837,7 @@ window.autoFillPortfolioRow = function(row, symbol) {
     // Update VaR display
     const varDisplay = row.querySelector('.var-display');
     if (varDisplay) {
-        varDisplay.textContent = `$${data.var}`;
+        varDisplay.textContent = `$${data.var.toFixed(3)}`;
     }
 
     // Update asset class
