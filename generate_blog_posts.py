@@ -1877,9 +1877,11 @@ def main():
             'summary': flavor_text
         })
 
-    # Also include manually created HTML files (like gpu-buyers-guide)
+    # Also include manually created HTML files (like how-to-use-var-calculator)
+    # Exclude special files that shouldn't be regenerated (gpu-buyers-guide-2025)
     txt_stems = {txt_file.stem for txt_file in txt_files}
-    manual_html_files = [f for f in html_files if f.stem not in txt_stems]
+    excluded_manual_files = {'gpu-buyers-guide-2025'}
+    manual_html_files = [f for f in html_files if f.stem not in txt_stems and f.stem not in excluded_manual_files]
     print(f"Found {len(manual_html_files)} manually created HTML files to include")
 
     for html_file in manual_html_files:

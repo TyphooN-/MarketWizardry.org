@@ -155,7 +155,7 @@ def print_outlier_table(title, dataframe):
         ('MCap/EV (%)', 'MCap/EV (%)', '.2f%'),
         ('AskPrice', 'Ask Price', '.2f'),
         ('Spread %', 'Spread %', '.2f%'),
-        ('VaR_to_Ask_Ratio', 'VaR/Ask Ratio', None),
+        ('VaR_to_Ask_Ratio', 'Risk Ratio', '.2f%'),
         ('Note', 'Note', None)
     ]
     _print_table(title, dataframe, columns_info)
@@ -293,7 +293,7 @@ def find_dual_outliers(filename):
         print(f"An unexpected error occurred: {e}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Find dual outliers for MCap/EV and VaR/Ask Ratio.')
+    parser = argparse.ArgumentParser(description='Find dual outliers for MCap/EV and Risk Ratio.')
     parser.add_argument('filename', type=str, help='The path to the CSV file to analyze.')
     args = parser.parse_args()
     
