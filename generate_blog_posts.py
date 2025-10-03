@@ -334,12 +334,14 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
         <div class="modal-header">
             <h2>{title}</h2>
             <div class="crt-divider"></div>
+            <div class="modal-button-bar">
+                <a id="downloadButton" href="{txt_filename}" download="{txt_filename}" data-action="force-download">Download Report</a>
+                <button class="close-button" data-action="close-modal">Close</button>
+            </div>
         </div>
-        <div class="modal-button-bar">
-            <a id="downloadButton" href="{txt_filename}" download="{txt_filename}" data-action="force-download">Download Report</a>
-            <span class="close-button" data-action="close-modal">&times;</span>
+        <div class="modal-body">
+            <pre id="analysisContent"></pre>
         </div>
-        <div class="modal-text" tabindex="0" id="analysisContent"></div>
     </div>
 </div>
 
