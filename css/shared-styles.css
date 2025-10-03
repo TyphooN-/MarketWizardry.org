@@ -508,6 +508,7 @@ nav.breadcrumb a:hover {
     flex-direction: column;
     align-items: center;
     width: fit-content;
+    margin: auto;
     overflow: hidden;
     transition: all 0.3s ease;
 }
@@ -1745,6 +1746,33 @@ header {
 
 .lookup-details-spacer {
     margin-top: 20px;
+}
+
+/* Image metadata overlay with dark glass effect */
+.image-metadata {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    padding: 12px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.image-title {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.image-description {
+    color: #00cc00;
+    font-size: 0.85em;
+    line-height: 1.4;
 }
 
 /* Mobile responsive */

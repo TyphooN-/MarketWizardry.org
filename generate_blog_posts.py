@@ -333,6 +333,9 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
     <div class="modal-content">
         <div class="modal-header">
             <h2>{title}</h2>
+            <div class="crt-divider"></div>
+        </div>
+        <div class="modal-button-bar">
             <a id="downloadButton" href="{txt_filename}" download="{txt_filename}" data-action="force-download">Download Report</a>
             <span class="close-button" data-action="close-modal">&times;</span>
         </div>
