@@ -25,6 +25,12 @@ const musings = [
         words: 664
     },
     {
+        title: "GPU Adventure",
+        filename: "gpu_adventure.txt",
+        flavor: "GPU Quest 2025: A choose-your-own-adventure nightmare through the circles of silicon hell",
+        words: 842
+    },
+    {
         title: "GPU Inferno",
         filename: "gpu_inferno.txt",
         flavor: "A tale of greed, corruption, and the GPU Inferno Cartel - where profit eclipses safety and morality burns",

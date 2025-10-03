@@ -692,7 +692,12 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     """Generate HTML file from text file"""
     txt_file = Path(txt_path)
     html_file = txt_file.with_suffix('.html')
-    
+
+    # IMPORTANT: Never regenerate gpu-buyers-guide-2025.html - this is user-created content
+    if txt_file.stem == 'gpu-buyers-guide-2025':
+        print(f"Skipping {txt_file.name} - Protected user content (will not regenerate)")
+        return str(html_file) if html_file.exists() else None
+
     # Skip if HTML already exists and is newer (unless force regeneration)
     if not force_regenerate and html_file.exists() and html_file.stat().st_mtime > txt_file.stat().st_mtime:
         print(f"Skipping {txt_file.name} - HTML is up to date")
