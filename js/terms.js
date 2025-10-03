@@ -93,7 +93,7 @@ function displayText(content, fileName) {
     downloadLink.href = URL.createObjectURL(blob);
     downloadLink.download = fileName + '.txt';
 
-    document.getElementById('textModal').style.display = 'block';
+    document.getElementById('textModal').style.display = 'flex';
     updateNavCounter();
 }
 

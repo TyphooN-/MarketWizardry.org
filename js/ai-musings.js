@@ -128,12 +128,12 @@ function openMusing(index) {
         })
         .then(text => {
             document.getElementById('textContent').textContent = text;
-            document.getElementById('textModal').style.display = 'block';
+            document.getElementById('textModal').style.display = 'flex';
         })
         .catch(error => {
             console.error('Error loading musing:', error);
             document.getElementById('textContent').textContent = 'Error loading musing content. Please try again.';
-            document.getElementById('textModal').style.display = 'block';
+            document.getElementById('textModal').style.display = 'flex';
         });
 }
 

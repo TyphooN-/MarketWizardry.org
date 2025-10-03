@@ -86,7 +86,7 @@ function openModalWithFile(outlierFile, csvFile, title) {
         reportLink.style.display = outlierFile ? 'inline' : 'none';
     }
 
-    document.getElementById('outlier-modal').style.display = 'block';
+    document.getElementById('outlier-modal').style.display = 'flex';
     updateNavCounter();
 
     // Load outlier file content

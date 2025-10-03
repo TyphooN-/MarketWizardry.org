@@ -42,7 +42,7 @@ function openModalWithFile(outlierFile, csvFile, title) {
     document.getElementById('modal-title').innerText = title;
     document.getElementById('csv-link').href = csvFile;
     document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
-    document.getElementById('outlier-modal').style.display = 'block';
+    document.getElementById('outlier-modal').style.display = 'flex';
     updateNavCounter();
 
     // Load outlier file content

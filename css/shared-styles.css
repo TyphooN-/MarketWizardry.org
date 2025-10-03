@@ -1587,11 +1587,24 @@ header {
     overflow-x: hidden;
 }
 
+/* Terms modal wraps text */
+.modal-body.wrap-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: hidden;
+}
+
 .modal-body pre {
     margin: 0;
 }
 
 .modal-body.crypto-explorer pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.modal-body.wrap-text pre {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;

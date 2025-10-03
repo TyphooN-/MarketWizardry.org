@@ -287,7 +287,7 @@ function openModal() {
             loadAnalysisContent(analysisContent);
         }
 
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         modal.focus();
 
         // Add escape key handler
