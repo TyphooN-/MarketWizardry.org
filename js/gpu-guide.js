@@ -12,6 +12,9 @@ function initializeGPUAdventureModal() {
     const modalIntroText = modal?.querySelector('.modal-intro-text');
     const modalText = modal?.querySelector('.modal-text');
     const closeBtn = modal?.querySelector('.close');
+    const prevBtn = document.getElementById('prevAdventure');
+    const nextBtn = document.getElementById('nextAdventure');
+    const counterDisplay = document.getElementById('adventureCounter');
 
     if (!modal || !modalImage || !modalIntroText || !modalText || !closeBtn) {
         console.error('GPU Adventure modal elements not found');
@@ -20,6 +23,24 @@ function initializeGPUAdventureModal() {
 
     modal.style.display = "none";
     let currentItemIndex = -1;
+
+    function updateCounter() {
+        if (counterDisplay && currentItemIndex >= 0) {
+            counterDisplay.textContent = `${currentItemIndex + 1} / ${adventureItems.length}`;
+        }
+    }
+
+    function navigatePrevious() {
+        if (currentItemIndex > 0) {
+            openAdventureModal(currentItemIndex - 1);
+        }
+    }
+
+    function navigateNext() {
+        if (currentItemIndex < adventureItems.length - 1) {
+            openAdventureModal(currentItemIndex + 1);
+        }
+    }
 
     function loadTextFile(url, callback) {
         fetch(url)
@@ -91,6 +112,7 @@ function initializeGPUAdventureModal() {
 
             modal.style.display = "block";
             document.body.style.overflow = "hidden";
+            updateCounter();
             modal.focus();
         });
     }
@@ -130,10 +152,22 @@ function initializeGPUAdventureModal() {
         }
     });
 
+    // Navigation button event listeners
+    if (prevBtn) {
+        prevBtn.addEventListener('click', navigatePrevious);
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', navigateNext);
+    }
+
     // Keyboard navigation
     modal.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeAdventureModal();
+        } else if (e.key === 'ArrowLeft') {
+            navigatePrevious();
+        } else if (e.key === 'ArrowRight') {
+            navigateNext();
         }
     });
 

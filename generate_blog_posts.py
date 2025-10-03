@@ -311,6 +311,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 {seo_meta_tags}
 
 {json_ld_schema}
+    <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/blog.css">
 </head>
 <body>

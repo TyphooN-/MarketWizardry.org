@@ -162,8 +162,15 @@
 </div>
 
 <div id="adventureModal" class="modal" tabindex="0">
-    <span class="close">×</span>
     <div class="modal-content">
+        <div class="modal-header-bar">
+            <span class="close">×</span>
+            <div class="modal-nav-controls">
+                <button class="nav-button" id="prevAdventure" data-action="previous">← Previous</button>
+                <span class="adventure-counter" id="adventureCounter">1 / 6</span>
+                <button class="nav-button" id="nextAdventure" data-action="next">Next →</button>
+            </div>
+        </div>
         <div class="modal-top">
             <img class="modal-image" src="" alt="Modal Image">
             <div class="modal-intro-text"></div>
