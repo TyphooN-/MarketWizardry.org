@@ -86,7 +86,7 @@ function updateNavCounter() {
 // Keyboard navigation
 document.addEventListener('keydown', function(event) {
     const modal = document.getElementById('outlier-modal');
-    if (modal && modal.style.display === 'block') {
+    if (modal && modal.style.display === 'flex') {
         switch(event.key) {
             case 'ArrowLeft':
                 previousFile();

@@ -180,7 +180,7 @@ function setupModalHandlers() {
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
         const modal = document.getElementById('textModal');
-        if (modal.style.display === 'block') {
+        if (modal.style.display === 'flex') {
             if (e.key === 'Escape') {
                 closeModal();
             } else if (e.key === 'ArrowLeft') {
