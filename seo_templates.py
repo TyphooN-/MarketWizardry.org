@@ -6,18 +6,37 @@ Centralized SEO management for consistent implementation across all generators
 
 from datetime import datetime
 import json
+import os
 
 class SEOManager:
     """Centralized SEO management for MarketWizardry.org"""
 
-    def __init__(self):
+    def __init__(self, article_name=None):
         self.base_url = "https://marketwizardry.org"
         self.site_name = "Market Wizardry"
         self.twitter_handle = "@MarketW1zardry"
-        self.author = "TyphooN"
+        self.author = self._load_author(article_name)
         self.default_image = f"{self.base_url}/img/xicojam-1924524951521853846-prompt-video1-mod-mod.webp"
         self.favicon = "/img/favicon.ico"
         self.apple_icon = "/img/apple-touch-icon.png"
+
+    def _load_author(self, article_name):
+        """Load author from JSON mapping or use default"""
+        try:
+            authors_file = 'blog_authors.json'
+            if os.path.exists(authors_file):
+                with open(authors_file, 'r') as f:
+                    author_data = json.load(f)
+                    default_author = author_data.get('default_author', 'TyphooN')
+
+                    if article_name:
+                        # Check if this article has a specific author
+                        return author_data.get('article_authors', {}).get(article_name, default_author)
+                    return default_author
+            return "TyphooN"
+        except Exception as e:
+            print(f"Warning: Could not load author mapping: {e}")
+            return "TyphooN"
 
     def generate_enhanced_meta_tags(self, page_config):
         """Generate enhanced meta tags for any page with CSP compliant scripts"""

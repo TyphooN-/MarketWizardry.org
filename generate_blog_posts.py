@@ -719,8 +719,8 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         elif title.lower().startswith("understanding "):
             breadcrumb_title = title[14:]  # Remove "Understanding " prefix
 
-    # Initialize SEO Manager
-    seo_manager = SEOManager()
+    # Initialize SEO Manager with article name for author lookup
+    seo_manager = SEOManager(article_name=txt_file.stem)
 
     # Get breadcrumb paths
     breadcrumb_paths = get_breadcrumb_paths()
