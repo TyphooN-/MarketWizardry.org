@@ -11,7 +11,7 @@ function initializeGPUAdventureModal() {
     const modalImage = modal?.querySelector('.modal-image');
     const modalIntroText = modal?.querySelector('.modal-intro-text');
     const modalText = modal?.querySelector('.modal-text');
-    const closeBtn = modal?.querySelector('.close');
+    const closeBtn = modal?.querySelector('.close-button');
     const prevBtn = document.getElementById('prevAdventure');
     const nextBtn = document.getElementById('nextAdventure');
     const counterDisplay = document.getElementById('adventureCounter');
