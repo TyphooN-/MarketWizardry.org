@@ -1,0 +1,149 @@
+Crypto Market Analysis for SymbolsExport-Darwinex-Live-Crypto-2025.10.01.csv
+Report generated on: 2025-10-04 16:14:41.644405
+
+Filtered to 7 crypto pairs (excluded 27 forex pairs)
+
+============================== CRYPTO MARKET OVERVIEW ==============================
+Total Pairs Analyzed: 7
+Symbols: ADAUSD, BNBUSD, DOGEUSD, BTCUSD, ETHUSD, SOLUSD, XRPUSD
+
+============================== DAILY VOLATILITY RANKING (ATR_D1/Price) ==============================
+Rank   Symbol       ATR/Price       Daily ATR       Price           Spread %    
+------------------------------------------------------------------------------------------
+1      DOGEUSD      0.0743 (7.43%)    $        0.02    $        0.25    0.000%
+2      SOLUSD       0.0621 (6.21%)    $       13.68    $      220.18    0.000%
+3      ADAUSD       0.0529 (5.29%)    $        0.04    $        0.85    0.000%
+4      XRPUSD       0.0499 (4.99%)    $        0.15    $        2.96    0.000%
+5      ETHUSD       0.0467 (4.67%)    $      202.38    $    4,335.74    0.000%
+6      BNBUSD       0.0436 (4.36%)    $       44.48    $    1,019.20    0.000%
+7      BTCUSD       0.0238 (2.38%)    $    2,798.68    $  117,411.50    0.000%
+
+============================== WEEKLY VOLATILITY RANKING (ATR_W1/Price) ==============================
+Rank   Symbol       ATR/Price       Weekly ATR      Price           Spread %    
+------------------------------------------------------------------------------------------
+1      DOGEUSD      0.1620 (16.20%)    $        0.04    $        0.25    0.000%
+2      ADAUSD       0.1559 (15.59%)    $        0.13    $        0.85    0.000%
+3      XRPUSD       0.1390 (13.90%)    $        0.41    $        2.96    0.000%
+4      SOLUSD       0.1274 (12.74%)    $       28.05    $      220.18    0.000%
+5      ETHUSD       0.1162 (11.62%)    $      503.87    $    4,335.74    0.000%
+6      BNBUSD       0.0696 (6.96%)    $       70.89    $    1,019.20    0.000%
+7      BTCUSD       0.0595 (5.95%)    $    6,986.23    $  117,411.50    0.000%
+
+============================== MONTHLY VOLATILITY RANKING (ATR_MN1/Price) ==============================
+Rank   Symbol       ATR/Price       Monthly ATR     Price           Spread %    
+------------------------------------------------------------------------------------------
+1      DOGEUSD      0.4598 (45.98%)    $        0.11    $        0.25    0.000%
+2      ADAUSD       0.3872 (38.72%)    $        0.33    $        0.85    0.000%
+3      SOLUSD       0.3158 (31.58%)    $       69.54    $      220.18    0.000%
+4      XRPUSD       0.2629 (26.29%)    $        0.78    $        2.96    0.000%
+5      ETHUSD       0.2237 (22.37%)    $      969.69    $    4,335.74    0.000%
+6      BTCUSD       0.1561 (15.61%)    $   18,322.64    $  117,411.50    0.000%
+7      BNBUSD       0.1465 (14.65%)    $      149.32    $    1,019.20    0.000%
+
+============================== VALUE AT RISK RANKING (VaR/Price) ==============================
+Rank   Symbol       VaR/Price       VaR (1 Lot)     Price           Spread %    
+------------------------------------------------------------------------------------------
+1      DOGEUSD      0.0811 (8.11%)    $        0.02    $        0.25    0.000%
+2      SOLUSD       0.0672 (6.72%)    $       14.80    $      220.18    0.000%
+3      ADAUSD       0.0605 (6.05%)    $        0.05    $        0.85    0.000%
+4      ETHUSD       0.0556 (5.56%)    $      241.00    $    4,335.74    0.000%
+5      XRPUSD       0.0541 (5.41%)    $        0.16    $        2.96    0.000%
+6      BNBUSD       0.0465 (4.65%)    $       47.40    $    1,019.20    0.000%
+7      BTCUSD       0.0305 (3.05%)    $    3,580.68    $  117,411.50    0.000%
+
+============================== PERCENTILE-BASED RISK ANALYSIS ==============================
+
+VaR/Price Quartiles:
+  25th Percentile: 0.0503 (5.03%)
+  50th Percentile (Median): 0.0556 (5.56%)
+  75th Percentile: 0.0638 (6.38%)
+
+ATR_D1/Price Quartiles:
+  25th Percentile: 0.0452 (4.52%)
+  50th Percentile (Median): 0.0499 (4.99%)
+  75th Percentile: 0.0575 (5.75%)
+
+Symbol       VaR Tier        ATR Tier        Combined Assessment      
+---------------------------------------------------------------------------
+ADAUSD       High Risk       High Risk       Moderate Volatility      
+BNBUSD       Low Risk        Low Risk        ✓ Stable Asset           
+DOGEUSD      Extreme Risk    Extreme Risk    ⚠️  High Volatility Asset
+BTCUSD       Low Risk        Low Risk        ✓ Stable Asset           
+ETHUSD       Medium Risk     Medium Risk     Moderate Volatility      
+SOLUSD       Extreme Risk    Extreme Risk    ⚠️  High Volatility Asset
+XRPUSD       Medium Risk     Medium Risk     Moderate Volatility      
+
+============================== Z-SCORE OUTLIER DETECTION ==============================
+
+Z-Score Analysis (values >2.0 or <-2.0 are statistically notable):
+
+Symbol       VaR Z-Score     ATR_D1 Z-Score     ATR_W1 Z-Score     Notable   
+--------------------------------------------------------------------------------
+ADAUSD                0.25              0.15              0.93            
+BNBUSD               -0.63             -0.44             -1.22            
+DOGEUSD               1.55              1.52              1.08            
+BTCUSD               -1.63             -1.70             -1.47            
+ETHUSD               -0.06             -0.24             -0.06            
+SOLUSD                0.67              0.74              0.22            
+XRPUSD               -0.15             -0.04              0.51            
+
+Interpretation:
+  Z-Score > 2.0:  Significantly above average (high volatility/risk)
+  Z-Score < -2.0: Significantly below average (low volatility/risk)
+  -2.0 to 2.0:    Within normal range
+
+============================== ADVANCED RATIO ANALYSIS ==============================
+
+1. VaR/ATR Ratio (Regulatory Risk vs Market Volatility):
+Symbol       VaR/ATR      Interpretation                          
+----------------------------------------------------------------------
+BTCUSD             1.28  Balanced risk profile                   
+ETHUSD             1.19  Balanced risk profile                   
+ADAUSD             1.14  Balanced risk profile                   
+DOGEUSD            1.09  Balanced risk profile                   
+XRPUSD             1.08  Balanced risk profile                   
+SOLUSD             1.08  Balanced risk profile                   
+BNBUSD             1.07  Balanced risk profile                   
+
+
+2. Spread/VaR Ratio (Trading Cost Efficiency):
+Symbol       Spread/VaR %    Interpretation                          
+------------------------------------------------------------------------
+BTCUSD             30.7204%  ⚠️  High trading cost relative to VaR   
+ETHUSD             37.3440%  ⚠️  High trading cost relative to VaR   
+BNBUSD            118.1466%  ⚠️  High trading cost relative to VaR   
+SOLUSD            912.2665%  ⚠️  High trading cost relative to VaR   
+ADAUSD          11724.2457%  ⚠️  High trading cost relative to VaR   
+XRPUSD          30012.1925%  ⚠️  High trading cost relative to VaR   
+DOGEUSD        149895.0734%  ⚠️  High trading cost relative to VaR   
+
+
+3. ATR Timeframe Ratios (Volatility Acceleration Detection):
+Symbol       D1/W1 Ratio     W1/MN1 Ratio    Trend                         
+--------------------------------------------------------------------------------
+ADAUSD                1.70           1.74  ⚠️  Accelerating volatility   
+BNBUSD                3.14           2.06  ⚠️  Accelerating volatility   
+DOGEUSD               2.30           1.53  ⚠️  Accelerating volatility   
+BTCUSD                2.00           1.65  ⚠️  Accelerating volatility   
+ETHUSD                2.01           2.25  ⚠️  Accelerating volatility   
+SOLUSD                2.44           1.75  ⚠️  Accelerating volatility   
+XRPUSD                1.80           2.29  ⚠️  Accelerating volatility   
+
+============================== NOTE: CORRELATION ANALYSIS ==============================
+Correlation analysis requires historical time-series data.
+Single-day snapshots show current volatility rankings only.
+For correlation analysis, multiple dates of ATR data are needed.
+
+============================== SUMMARY STATISTICS ==============================
+Average Daily Volatility (ATR/Price): 0.0505 (5.05%)
+Average Weekly Volatility (ATR/Price): 0.1185 (11.85%)
+Average Monthly Volatility (ATR/Price): 0.2788 (27.88%)
+Average VaR/Price Ratio: 0.0565 (5.65%)
+Average Spread: 0.0000%
+
+============================== KEY INSIGHTS ==============================
+Most Volatile (Daily): DOGEUSD (7.43%)
+Least Volatile (Daily): BTCUSD (2.38%)
+Highest VaR/Price: DOGEUSD (8.11%)
+Lowest VaR/Price: BTCUSD (3.05%)
+

@@ -251,13 +251,16 @@ def main():
     # Fetch events
     events_data = fetch_events_for_symbols(symbols, api_key, args.events)
 
-    # Save to file
+    # Save to file even if empty (this is a valid state - no upcoming events)
     if events_data:
         save_events_data(events_data, args.output)
         print_summary(events_data)
+        print(f"✅ Successfully fetched events for {len(events_data)} cryptocurrencies")
     else:
-        print("No events data fetched!")
-        return 1
+        # Save empty events file - this is valid (no upcoming events right now)
+        save_events_data({}, args.output)
+        print("ℹ️  No upcoming events found for specified cryptocurrencies")
+        print("   This is normal - events data will be available when events are scheduled")
 
     return 0
 
