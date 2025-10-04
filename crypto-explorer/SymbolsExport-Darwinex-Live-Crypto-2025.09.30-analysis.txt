@@ -1,5 +1,5 @@
-Crypto Market Analysis for SymbolsExport-Darwinex-Live-Crypto-2025.09.30.csv
-Report generated on: 2025-10-01 06:19:16.992291
+Crypto Market Analysis for ./SymbolsExport-Darwinex-Live-Crypto-2025.09.30.csv
+Report generated on: 2025-10-04 15:34:28.938350
 
 Filtered to 7 crypto pairs (excluded 27 forex pairs)
 
@@ -50,6 +50,84 @@ Rank   Symbol       VaR/Price       VaR (1 Lot)     Price           Spread %
 5      XRPUSD       0.0541 (5.41%)    $        0.15    $        2.84    0.000%
 6      BNBUSD       0.0465 (4.65%)    $       46.81    $    1,006.44    0.000%
 7      BTCUSD       0.0305 (3.05%)    $    3,473.17    $  113,886.50    0.000%
+
+============================== PERCENTILE-BASED RISK ANALYSIS ==============================
+
+VaR/Price Quartiles:
+  25th Percentile: 0.0503 (5.03%)
+  50th Percentile (Median): 0.0556 (5.56%)
+  75th Percentile: 0.0638 (6.38%)
+
+ATR_D1/Price Quartiles:
+  25th Percentile: 0.0466 (4.66%)
+  50th Percentile (Median): 0.0520 (5.20%)
+  75th Percentile: 0.0606 (6.06%)
+
+Symbol       VaR Tier        ATR Tier        Combined Assessment      
+---------------------------------------------------------------------------
+ADAUSD       High Risk       High Risk       Moderate Volatility      
+BNBUSD       Low Risk        Low Risk        ✓ Stable Asset           
+DOGEUSD      Extreme Risk    Extreme Risk    ⚠️  High Volatility Asset
+BTCUSD       Low Risk        Low Risk        ✓ Stable Asset           
+ETHUSD       Medium Risk     Medium Risk     Moderate Volatility      
+SOLUSD       Extreme Risk    Extreme Risk    ⚠️  High Volatility Asset
+XRPUSD       Medium Risk     Medium Risk     Moderate Volatility      
+
+============================== Z-SCORE OUTLIER DETECTION ==============================
+
+Z-Score Analysis (values >2.0 or <-2.0 are statistically notable):
+
+Symbol       VaR Z-Score     ATR_D1 Z-Score     ATR_W1 Z-Score     Notable   
+--------------------------------------------------------------------------------
+ADAUSD                0.25              0.16              0.92            
+BNBUSD               -0.63             -0.51             -1.24            
+DOGEUSD               1.55              1.53              1.11            
+BTCUSD               -1.63             -1.66             -1.45            
+ETHUSD               -0.06             -0.23             -0.05            
+SOLUSD                0.67              0.75              0.24            
+XRPUSD               -0.15             -0.05              0.48            
+
+Interpretation:
+  Z-Score > 2.0:  Significantly above average (high volatility/risk)
+  Z-Score < -2.0: Significantly below average (low volatility/risk)
+  -2.0 to 2.0:    Within normal range
+
+============================== ADVANCED RATIO ANALYSIS ==============================
+
+1. VaR/ATR Ratio (Regulatory Risk vs Market Volatility):
+Symbol       VaR/ATR      Interpretation                          
+----------------------------------------------------------------------
+BTCUSD             1.24  Balanced risk profile                   
+ETHUSD             1.14  Balanced risk profile                   
+ADAUSD             1.09  Balanced risk profile                   
+BNBUSD             1.05  Balanced risk profile                   
+XRPUSD             1.04  Balanced risk profile                   
+DOGEUSD            1.03  Balanced risk profile                   
+SOLUSD             1.02  Balanced risk profile                   
+
+
+2. Spread/VaR Ratio (Trading Cost Efficiency):
+Symbol       Spread/VaR %    Interpretation                          
+------------------------------------------------------------------------
+ETHUSD             12.1727%  ⚠️  High trading cost relative to VaR   
+BTCUSD             31.6714%  ⚠️  High trading cost relative to VaR   
+BNBUSD            111.0949%  ⚠️  High trading cost relative to VaR   
+SOLUSD           1106.6351%  ⚠️  High trading cost relative to VaR   
+ADAUSD          12337.0482%  ⚠️  High trading cost relative to VaR   
+XRPUSD          22122.4543%  ⚠️  High trading cost relative to VaR   
+DOGEUSD        148698.8848%  ⚠️  High trading cost relative to VaR   
+
+
+3. ATR Timeframe Ratios (Volatility Acceleration Detection):
+Symbol       D1/W1 Ratio     W1/MN1 Ratio    Trend                         
+--------------------------------------------------------------------------------
+ADAUSD                1.70           1.74  ⚠️  Accelerating volatility   
+BNBUSD                3.14           2.06  ⚠️  Accelerating volatility   
+DOGEUSD               2.30           1.53  ⚠️  Accelerating volatility   
+BTCUSD                2.00           1.65  ⚠️  Accelerating volatility   
+ETHUSD                2.01           2.25  ⚠️  Accelerating volatility   
+SOLUSD                2.44           1.75  ⚠️  Accelerating volatility   
+XRPUSD                1.80           2.29  ⚠️  Accelerating volatility   
 
 ============================== NOTE: CORRELATION ANALYSIS ==============================
 Correlation analysis requires historical time-series data.

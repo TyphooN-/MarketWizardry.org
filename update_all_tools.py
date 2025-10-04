@@ -80,7 +80,7 @@ def _process_single_atr_csv(args):
         return (csv_file, f'exception: {str(e)[:100]}')
 
 class FinancialToolsUpdater:
-    def __init__(self, date_str=None, force_regenerate=False, html_only=False):
+    def __init__(self, date_str=None, force_regenerate=False, html_only=False, force_explorers=None):
         self.seo_manager = SEOManager()
         self.breadcrumb_paths = get_breadcrumb_paths()
         self.session = requests.Session()
@@ -92,6 +92,8 @@ class FinancialToolsUpdater:
         self.force_regenerate = force_regenerate
         # HTML-only mode skips data fetching and only regenerates HTML content
         self.html_only = html_only
+        # Specific explorers to force regenerate (list of: 'var', 'atr', 'ev', 'crypto')
+        self.force_explorers = force_explorers or []
         self.data_summary = {}
 
     def copy_csv_files(self):
@@ -141,9 +143,10 @@ class FinancialToolsUpdater:
             # Check if outlier files already exist for this date
             existing_outlier_files = [f for f in os.listdir('var-explorer') if f.endswith('-outlier.txt') and self.date_str in f]
 
-            if existing_outlier_files and not self.force_regenerate:
+            force_var = 'var' in self.force_explorers or self.force_regenerate
+            if existing_outlier_files and not force_var:
                 print(f"⏭️ Skipping VaR processing - {len(existing_outlier_files)} outlier files already exist for {self.date_str}")
-                print("   Use --force to regenerate existing files")
+                print("   Use --force-var to regenerate VaR files")
                 self.data_summary['var_outliers'] = len(existing_outlier_files)
                 return True
 
@@ -159,7 +162,7 @@ class FinancialToolsUpdater:
             print(f"  Processing {len(csv_files)} CSV files for {self.date_str} (parallel using {cpu_count()} cores)...")
 
             # Prepare arguments for parallel processing
-            process_args = [(csv_file, self.date_str, self.force_regenerate) for csv_file in csv_files]
+            process_args = [(csv_file, self.date_str, force_var) for csv_file in csv_files]
 
             # Process files in parallel
             with Pool(cpu_count()) as pool:
@@ -211,9 +214,10 @@ class FinancialToolsUpdater:
             if os.path.exists(f"ev-explorer/{ev_var_outlier_file}"):
                 existing_ev_files.append(ev_var_outlier_file)
 
-            if existing_ev_files and not self.force_regenerate:
+            force_ev = 'ev' in self.force_explorers or self.force_regenerate
+            if existing_ev_files and not force_ev:
                 print(f"⏭️  {len(existing_ev_files)} EV outlier files already exist for {self.date_str}")
-                print("   Use --force to regenerate existing files")
+                print("   Use --force-ev to regenerate EV files")
             else:
                 print("📊 Running EV outlier analysis...")
                 subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
@@ -284,9 +288,10 @@ class FinancialToolsUpdater:
                 # Check if ATR outlier files already exist for this date
                 existing_atr_files = [f for f in os.listdir('atr-explorer') if f.endswith('-outlier.txt') and self.date_str in f]
 
-                if existing_atr_files and not self.force_regenerate:
+                force_atr = 'atr' in self.force_explorers or self.force_regenerate
+                if existing_atr_files and not force_atr:
                     print(f"⏭️ Skipping ATR processing - {len(existing_atr_files)} outlier files already exist for {self.date_str}")
-                    print("   Use --force to regenerate existing files")
+                    print("   Use --force-atr to regenerate ATR files")
                     self.data_summary['atr_files'] = files_copied
                 else:
                     # IMPORTANT: Only process CSV files for current date to prevent mass regeneration
@@ -297,7 +302,7 @@ class FinancialToolsUpdater:
                     print(f"  Processing {len(csv_files)} CSV files for {self.date_str} (parallel using {cpu_count()} cores)...")
 
                     # Prepare arguments for parallel processing
-                    process_args = [(csv_file, self.date_str, self.force_regenerate) for csv_file in csv_files]
+                    process_args = [(csv_file, self.date_str, force_atr) for csv_file in csv_files]
 
                     # Process files in parallel
                     with Pool(cpu_count()) as pool:
@@ -343,9 +348,10 @@ class FinancialToolsUpdater:
             market_data_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-market-data.json"
             news_data_file_check = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-news-data.json"
 
-            if os.path.exists(enhanced_analysis_file) and not self.force_regenerate:
+            force_crypto = 'crypto' in self.force_explorers or self.force_regenerate
+            if os.path.exists(enhanced_analysis_file) and not force_crypto:
                 print(f"⏭️ Skipping Crypto analysis - enhanced analysis already exists for {self.date_str}")
-                print("   Use --force to regenerate existing files")
+                print("   Use --force-crypto to regenerate crypto files")
                 self.data_summary['crypto_processed'] = True
                 self.data_summary['crypto_market_data'] = os.path.exists(market_data_file)
                 self.data_summary['crypto_news_data'] = os.path.exists(news_data_file_check)
@@ -420,8 +426,8 @@ class FinancialToolsUpdater:
                     print(f"  ⚠️ Enhanced analysis failed, falling back to basic analysis")
                     print(f"     Error: {analysis_result.stderr[:200]}")
 
-            # Fallback: Run basic analysis
-            print("  📊 Running basic crypto analysis...")
+            # Fallback: Run basic analysis (now with enhanced features)
+            print("  📊 Running crypto analysis (with percentile/z-score/ratio analysis)...")
             basic_result = subprocess.run(
                 ['python3', 'analyze.py', csv_filename],
                 cwd='crypto-explorer',
@@ -432,11 +438,12 @@ class FinancialToolsUpdater:
             if basic_result.returncode == 0:
                 with open(basic_analysis_file, 'w') as f:
                     f.write(basic_result.stdout)
-                print(f"  ✅ Basic crypto analysis saved to {basic_analysis_file}")
+                print(f"  ✅ Crypto analysis saved to {basic_analysis_file}")
+                print(f"     (Includes: Percentile Risk Tiers, Z-Score Detection, Ratio Analysis)")
                 self.data_summary['crypto_processed'] = True
                 return True
             else:
-                print(f"  ❌ Basic crypto analysis failed: {basic_result.stderr}")
+                print(f"  ❌ Crypto analysis failed: {basic_result.stderr}")
                 return False
 
         except subprocess.TimeoutExpired:
@@ -1320,21 +1327,27 @@ def main():
         print("""
 🚀 MarketWizardry.org Financial Tools Updater
 
-Usage: python3 update_all_tools.py [DATE] [--force] [--html-only]
+Usage: python3 update_all_tools.py [DATE] [OPTIONS]
 
 Arguments:
-    DATE        Optional date in YYYY.MM.DD format (defaults to today)
-    --force     Force regenerate all files, even if they already exist
-                (WARNING: This will overwrite existing reports and their original timestamps)
-    --html-only Only regenerate HTML content using existing data files
-                (Skips data fetching and processing)
+    DATE            Optional date in YYYY.MM.DD format (defaults to today)
+
+Options:
+    --force         Force regenerate ALL explorers (use with caution!)
+    --force-var     Force regenerate VaR explorer only
+    --force-atr     Force regenerate ATR explorer only
+    --force-ev      Force regenerate EV explorer only
+    --force-crypto  Force regenerate Crypto explorer only
+    --html-only     Only regenerate HTML content using existing data files
+                    (Skips data fetching and processing)
 
 Examples:
-    python3 update_all_tools.py                    # HTML-only mode when no date specified
-    python3 update_all_tools.py 2025.09.24        # Update for specific date, skip existing files
-    python3 update_all_tools.py 2025.09.24 --force # Update for specific date, overwrite existing files
-    python3 update_all_tools.py --force            # Update for today, overwrite existing files
-    python3 update_all_tools.py --html-only        # HTML-only mode for today
+    python3 update_all_tools.py                           # HTML-only mode when no date specified
+    python3 update_all_tools.py 2025.09.24                # Update for specific date, skip existing files
+    python3 update_all_tools.py 2025.09.24 --force-crypto # Update crypto only for specific date
+    python3 update_all_tools.py --force-crypto            # Regenerate all crypto reports
+    python3 update_all_tools.py --force                   # Force regenerate ALL explorers (not recommended)
+    python3 update_all_tools.py --html-only               # HTML-only mode for today
 
 Default behavior when no date specified: HTML-only mode (regenerate HTML using existing data)
 Default behavior with date specified: Only generate missing files to preserve original creation timestamps.
@@ -1346,9 +1359,17 @@ Default behavior with date specified: Only generate missing files to preserve or
     date_specified = len(date_args) > 0
     date_str = date_args[0] if date_specified else datetime.now().strftime('%Y.%m.%d')
 
-    # Force regenerate should only happen when explicitly requested via --force flag
-    # Never automatically force regenerate when no date is specified
+    # Parse force flags
     force_regenerate = '--force' in sys.argv
+    force_explorers = []
+    if '--force-var' in sys.argv:
+        force_explorers.append('var')
+    if '--force-atr' in sys.argv:
+        force_explorers.append('atr')
+    if '--force-ev' in sys.argv:
+        force_explorers.append('ev')
+    if '--force-crypto' in sys.argv:
+        force_explorers.append('crypto')
 
     # HTML-only mode: explicit flag OR when no date is specified (default behavior)
     html_only = '--html-only' in sys.argv or not date_specified
@@ -1358,7 +1379,10 @@ Default behavior with date specified: Only generate missing files to preserve or
     elif html_only:
         print("📄 HTML-only mode: Regenerating HTML content using existing data")
 
-    updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate, html_only=html_only)
+    if force_explorers:
+        print(f"🔄 Force regenerating: {', '.join(force_explorers)} explorer(s)")
+
+    updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate, html_only=html_only, force_explorers=force_explorers)
     success = updater.run_full_update()
 
     if success:
