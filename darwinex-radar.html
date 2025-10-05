@@ -46,26 +46,26 @@
         <h2>📊 Symbol Tracking Reports</h2>
 
         <div class="report-section">
-            <h3>📈 Stocks (VAR Data)</h3>
-            <p>Track stock symbol additions and delistings from VAR Explorer historical data.</p>
+            <h3>📈 Stock Symbols</h3>
+            <p>Track stock symbol additions and delistings across the Darwinex platform.</p>
             <ul>
                 <li><a href="/darwinex-radar/var-radar.txt">📄 Stock Symbol Changes Report</a></li>
             </ul>
         </div>
 
         <div class="report-section">
-            <h3>⚡ All Instruments (ATR Data)</h3>
-            <p>Monitor all tradeable instrument changes including Stocks, Futures, and CFDs.</p>
+            <h3>⚡ All Tradeable Instruments</h3>
+            <p>Monitor all instrument changes including Stocks, Futures, and CFDs.</p>
             <ul>
                 <li><a href="/darwinex-radar/atr-radar.txt">📄 All Instruments Report</a></li>
             </ul>
         </div>
 
         <div class="report-section">
-            <h3>💼 EV-Eligible Stocks</h3>
-            <p>Track Enterprise Value eligible symbol changes and market coverage.</p>
+            <h3>💼 Fundamental Analysis Symbols</h3>
+            <p>Track symbols with fundamental data availability for value investing analysis.</p>
             <ul>
-                <li><a href="/darwinex-radar/ev-radar.txt">📄 EV Symbols Report</a></li>
+                <li><a href="/darwinex-radar/ev-radar.txt">📄 Fundamental Data Symbols Report</a></li>
             </ul>
         </div>
 
@@ -96,16 +96,13 @@
         <h2>💻 Automated Generation</h2>
 
         <div class="code-example">
-            <p>Darwinex RADAR reports are automatically generated with each explorer update:</p>
+            <p>Darwinex RADAR reports are automatically generated daily:</p>
             <pre>
-# Update all explorers and generate RADAR reports
+# Update all market data and generate RADAR reports
 python3 update_all_tools.py
 
-# Generate RADAR reports only (no data fetch)
+# Generate RADAR reports only
 python3 darwinex-radar/symbol_tracker.py --all
-
-# Track specific explorer manually
-python3 darwinex-radar/symbol_tracker.py var-explorer darwinex-radar/var-radar.txt
             </pre>
         </div>
 
