@@ -311,21 +311,21 @@ def find_dual_outliers(filename):
             create_price_trend_chart(df_with_changes, chart_path,
                                    title=f"Price Trends - {base_filename}",
                                    lookback_days=[1, 7, 30])
-            print(f"\n📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+            print(f"   📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate MCap/EV distribution chart
         chart_filename = f"{base_filename}-mcap-ev-distribution.html"
         chart_path = os.path.join(chart_dir, chart_filename)
         create_risk_distribution_chart(df, 'MCap/EV (%)', chart_path,
                                       title=f"MCap/EV (%) Distribution - {base_filename}")
-        print(f"📊 MCap/EV Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        print(f"   📊 MCap/EV Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate VaR distribution chart
         chart_filename = f"{base_filename}-var-distribution.html"
         chart_path = os.path.join(chart_dir, chart_filename)
         create_risk_distribution_chart(df, 'VaR_to_Ask_Ratio', chart_path,
                                       title=f"VaR/Price Ratio Distribution - {base_filename}")
-        print(f"📊 VaR Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        print(f"   📊 VaR Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate scatter plot: MCap/EV vs VaR
         chart_filename = f"{base_filename}-mcap-ev-vs-var.html"
@@ -333,7 +333,7 @@ def find_dual_outliers(filename):
         create_scatter_plot(df, 'MCap/EV (%)', 'VaR_to_Ask_Ratio', chart_path,
                           title=f"MCap/EV (%) vs VaR/Price Ratio - {base_filename}",
                           hover_col='Symbol')
-        print(f"📊 MCap/EV vs VaR Scatter Plot: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        print(f"   📊 MCap/EV vs VaR Scatter Plot: https://marketwizardry.org/{explorer_name}/{chart_filename}")
         print("=" * 120)
 
     except FileNotFoundError:

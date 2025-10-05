@@ -364,14 +364,14 @@ def find_mcap_ev_outliers(filename, overwrite=False):
             create_price_trend_chart(df_with_changes, chart_path,
                                    title=f"Price Trends - {base_filename}",
                                    lookback_days=[1, 7, 30])
-            print(f"\n📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+            print(f"   📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate MCap/EV distribution chart
         chart_filename = f"{base_filename}-mcap-ev-distribution.html"
         chart_path = os.path.join(chart_dir, chart_filename)
         create_risk_distribution_chart(df, 'MCap/EV (%)', chart_path,
                                       title=f"MCap/EV (%) Distribution - {base_filename}")
-        print(f"📊 MCap/EV Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        print(f"   📊 MCap/EV Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
         print("=" * 120)
 
     except FileNotFoundError:

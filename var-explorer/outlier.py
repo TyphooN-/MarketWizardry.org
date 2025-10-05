@@ -269,14 +269,14 @@ def find_var_outliers(filename, overwrite=False):
             create_price_trend_chart(df_with_changes, chart_path,
                                    title=f"Price Trends - {base_filename}",
                                    lookback_days=[1, 7, 30])
-            print(f"📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+            print(f"   📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate risk distribution chart
         chart_filename = f"{base_filename}-risk-distribution.html"
         chart_path = os.path.join(chart_dir, chart_filename)
         create_risk_distribution_chart(df_for_analysis, 'VaR_to_Ask_Ratio', chart_path,
                                       title=f"VaR/Price Ratio Distribution - {base_filename}")
-        print(f"📊 Risk Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        print(f"   📊 Risk Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate top/bottom risk charts
         chart_filename = f"{base_filename}-top-bottom-risk.html"
@@ -284,7 +284,7 @@ def find_var_outliers(filename, overwrite=False):
         create_top_assets_chart(df_for_analysis, 'VaR_to_Ask_Ratio', chart_path,
                                title=f"Top {TOP_N_DISPLAY} Highest/Lowest VaR Ratios - {base_filename}",
                                n=TOP_N_DISPLAY, ascending=False)
-        print(f"📊 Top/Bottom Risk Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        print(f"   📊 Top/Bottom Volatility Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
         print("=" * 120)
 
     except FileNotFoundError:
