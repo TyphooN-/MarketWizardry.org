@@ -199,20 +199,24 @@ def find_atr_outliers(filename):
                                    lookback_days=[1, 7, 30])
             print(f"   📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
-        # Generate ATR distribution chart
-        chart_filename = f"{base_filename}-atr-distribution.html"
-        chart_path = os.path.join(chart_dir, chart_filename)
-        create_risk_distribution_chart(df, 'ATR_to_Ask_Ratio', chart_path,
-                                      title=f"ATR/Price Ratio Distribution - {base_filename}")
-        print(f"   📊 ATR Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        # Generate ATR distribution chart (use ATR_D1/AskPrice instead of missing ATR_to_Ask_Ratio)
+        atr_ratio_column = 'ATR_D1/AskPrice'
+        if atr_ratio_column in df.columns:
+            chart_filename = f"{base_filename}-atr-distribution.html"
+            chart_path = os.path.join(chart_dir, chart_filename)
+            create_risk_distribution_chart(df, atr_ratio_column, chart_path,
+                                          title=f"ATR/Price Ratio Distribution - {base_filename}")
+            print(f"   📊 ATR Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
-        # Generate top/bottom volatility charts
-        chart_filename = f"{base_filename}-top-bottom-atr.html"
-        chart_path = os.path.join(chart_dir, chart_filename)
-        create_top_assets_chart(df, 'ATR_to_Ask_Ratio', chart_path,
-                               title=f"Top 20 Highest/Lowest ATR Ratios - {base_filename}",
-                               n=20, ascending=False)
-        print(f"   📊 Top/Bottom Volatility Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+            # Generate top/bottom volatility charts
+            chart_filename = f"{base_filename}-top-bottom-atr.html"
+            chart_path = os.path.join(chart_dir, chart_filename)
+            create_top_assets_chart(df, atr_ratio_column, chart_path,
+                                   title=f"Top 20 Highest/Lowest ATR Ratios - {base_filename}",
+                                   n=20, ascending=False)
+            print(f"   📊 Top/Bottom Volatility Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+        else:
+            print(f"   ⚠️  Skipping ATR distribution charts (column {atr_ratio_column} not found)")
         print("=" * 120)
 
     except FileNotFoundError:

@@ -98,7 +98,7 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     dirname = os.path.basename(os.path.dirname(output_path))
     relative_path = f"{dirname}/{filename}"
 
-    # Custom HTML template with CRT styling (FULLY CSP COMPLIANT)
+    # Custom HTML template with CRT styling (CSP COMPLIANT - Plotly CDN allowed)
     html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,6 +108,7 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     <title>MarketWizardry.org Chart - {chart_title}</title>
     <link rel="canonical" href="{canonical_url}">
     <link rel="stylesheet" href="/css/shared-styles.css">
+    <script src="https://cdn.plotly.com/plotly-2.35.2.min.js" charset="utf-8"></script>
 </head>
 <body class="chart-page-body">
     <div class="chart-header">
@@ -131,9 +132,9 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
 </html>
 """
 
-    # Convert figure to HTML div
+    # Convert figure to HTML div (Plotly already included in template via CDN)
     plot_div = fig.to_html(
-        include_plotlyjs='cdn',
+        include_plotlyjs=False,
         div_id='chart',
         config={
             'displayModeBar': True,
