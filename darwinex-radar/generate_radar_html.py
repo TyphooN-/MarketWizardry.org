@@ -77,6 +77,7 @@ def generate_radar_html():
             <button class="tab-button" data-tab="cfd">💹 CFD</button>
             <button class="tab-button" data-tab="crypto">₿ Crypto</button>
         </div>
+        <div class="crt-divider"></div>
 
         <div id="stocks" class="tab-content active">
             <pre class="terminal-output">{reports.get('stocks', 'No data available')}</pre>
