@@ -70,9 +70,12 @@ def regenerate_chart(chart_file):
         if not os.path.exists(outlier_script):
             return (chart_file, 'skipped', 'No outlier.py script')
 
-        # Run outlier.py to regenerate the chart
+        # Run outlier.py to regenerate the chart using venv Python
+        venv_python = os.path.expanduser('~/venv/bin/python3')
+        python_cmd = venv_python if os.path.exists(venv_python) else 'python3'
+
         result = subprocess.run(
-            ['python3', 'outlier.py', csv_filename],
+            [python_cmd, 'outlier.py', csv_filename],
             cwd=dirname,
             capture_output=True,
             text=True,

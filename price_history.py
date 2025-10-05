@@ -172,13 +172,13 @@ def add_price_trend_section(df, current_file, top_n=20):
         gainers_1d = df_with_changes.nlargest(top_n, 'PriceChange1d%')
         if not gainers_1d.empty:
             output.append(f"\n🚀 Top {top_n} Gainers (1 Day)")
-            output.append("-" * 135)
-            output.append(f"{'Symbol':<10} | {'Industry':<40} | {'Current Price':<16} | {'1d Change':<12} | {'Weekly':<12} | {'Monthly':<12} | {'Quarterly':<12}")
-            output.append("-" * 135)
+            output.append("-" * 145)
+            output.append(f"{'Symbol':<11} | {'Industry':<42} | {'Current Price':<18} | {'1d Change':<14} | {'Weekly':<14} | {'Monthly':<14} | {'Quarterly':<13}")
+            output.append("-" * 145)
 
             for _, row in gainers_1d.iterrows():
-                symbol = row['Symbol'][:10]
-                industry = row['IndustryName'][:40] if 'IndustryName' in row else 'N/A'
+                symbol = row['Symbol'][:11]
+                industry = row['IndustryName'][:42] if 'IndustryName' in row else 'N/A'
                 price = f"${row['AskPrice']:.2f}" if row['AskPrice'] < 1000 else f"${row['AskPrice']:,.2f}"
                 change_1d = format_price_change(row.get('PriceChange1d%'))
                 change_7d = format_price_change(row.get('PriceChange7d%'))
@@ -186,20 +186,20 @@ def add_price_trend_section(df, current_file, top_n=20):
                 # Monthly is same as 30d for now - can be enhanced later with actual monthly lookback
                 change_monthly = change_30d
 
-                output.append(f"{symbol:<10} | {industry:<40} | {price:<16} | {change_1d:<12} | {change_7d:<12} | {change_monthly:<12} | {change_30d:<12}")
+                output.append(f"{symbol:<11} | {industry:<42} | {price:<18} | {change_1d:<14} | {change_7d:<14} | {change_monthly:<14} | {change_30d:<13}")
 
     # Top decliners (1 day)
     if has_1d:
         decliners_1d = df_with_changes.nsmallest(top_n, 'PriceChange1d%')
         if not decliners_1d.empty:
             output.append(f"\n☢️  Top {top_n} Decliners (1 Day)")
-            output.append("-" * 135)
-            output.append(f"{'Symbol':<10} | {'Industry':<40} | {'Current Price':<16} | {'1d Change':<12} | {'Weekly':<12} | {'Monthly':<12} | {'Quarterly':<12}")
-            output.append("-" * 135)
+            output.append("-" * 145)
+            output.append(f"{'Symbol':<11} | {'Industry':<42} | {'Current Price':<18} | {'1d Change':<14} | {'Weekly':<14} | {'Monthly':<14} | {'Quarterly':<13}")
+            output.append("-" * 145)
 
             for _, row in decliners_1d.iterrows():
-                symbol = row['Symbol'][:10]
-                industry = row['IndustryName'][:40] if 'IndustryName' in row else 'N/A'
+                symbol = row['Symbol'][:11]
+                industry = row['IndustryName'][:42] if 'IndustryName' in row else 'N/A'
                 price = f"${row['AskPrice']:.2f}" if row['AskPrice'] < 1000 else f"${row['AskPrice']:,.2f}"
                 change_1d = format_price_change(row.get('PriceChange1d%'))
                 change_7d = format_price_change(row.get('PriceChange7d%'))
@@ -207,7 +207,7 @@ def add_price_trend_section(df, current_file, top_n=20):
                 # Monthly is same as 30d for now - can be enhanced later with actual monthly lookback
                 change_monthly = change_30d
 
-                output.append(f"{symbol:<10} | {industry:<40} | {price:<16} | {change_1d:<12} | {change_7d:<12} | {change_monthly:<12} | {change_30d:<12}")
+                output.append(f"{symbol:<11} | {industry:<42} | {price:<18} | {change_1d:<14} | {change_7d:<14} | {change_monthly:<14} | {change_30d:<13}")
 
     output.append("\n")
     return "\n".join(output)
