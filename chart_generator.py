@@ -132,27 +132,31 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
 </html>
 """
 
-    # Convert figure to HTML div (Plotly already included in template via CDN)
-    plot_div = fig.to_html(
-        include_plotlyjs=False,
-        div_id='chart',
-        config={
-            'displayModeBar': True,
-            'displaylogo': False,
-            'modeBarButtonsToRemove': ['lasso2d', 'select2d']
-        }
-    )
+    # Convert figure to JSON data (CSP compliant - no inline scripts!)
+    import json
+    import html
 
-    # Extract just the div (remove full HTML wrapper from plotly)
-    import re
-    match = re.search(r'(<div id="chart".*?</script>)', plot_div, re.DOTALL)
-    if match:
-        plot_div = match.group(1)
+    # Extract data, layout, and config as JSON
+    chart_data = json.dumps(fig.data, cls=plotly.utils.PlotlyJSONEncoder)
+    chart_layout = json.dumps(fig.layout, cls=plotly.utils.PlotlyJSONEncoder)
+    chart_config = json.dumps({
+        'displayModeBar': True,
+        'displaylogo': False,
+        'modeBarButtonsToRemove': ['lasso2d', 'select2d'],
+        'responsive': True
+    })
 
-    # Remove inline style attribute to comply with CSP (NO inline styles allowed!)
-    # Replace: <div id="chart" class="plotly-graph-div" style="height:1400px; width:1600px;">
-    # With:    <div id="chart" class="plotly-graph-div">
-    plot_div = re.sub(r'(<div id="chart"[^>]*)\s+style="[^"]*"', r'\1', plot_div)
+    # Escape for HTML attributes (escape quotes and special chars)
+    chart_data_escaped = html.escape(chart_data, quote=True)
+    chart_layout_escaped = html.escape(chart_layout, quote=True)
+    chart_config_escaped = html.escape(chart_config, quote=True)
+
+    # Create div with data attributes (CSP compliant - no inline script)
+    # Using double quotes for attribute values with proper escaping
+    plot_div = f'''<div id="chart" class="plotly-graph-div"
+        data-plotly-data="{chart_data_escaped}"
+        data-plotly-layout="{chart_layout_escaped}"
+        data-plotly-config="{chart_config_escaped}"></div>'''
 
     # Get chart title from figure
     chart_title = fig.layout.title.text if fig.layout.title and fig.layout.title.text else "Chart"
