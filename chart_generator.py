@@ -7,8 +7,11 @@ Outputs standalone HTML files that can be linked from text reports.
 
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.utils
 from plotly.subplots import make_subplots
 import os
+import json
+import html
 
 
 # MarketWizardry.org Color Scheme (CRT Terminal Aesthetic)

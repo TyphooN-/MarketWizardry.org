@@ -222,11 +222,18 @@ class FinancialToolsUpdater:
                 print("   Use --force-ev to regenerate EV files")
             else:
                 print("📊 Running EV outlier analysis...")
-                subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=False, text=True)
+                ev_result = subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=True, text=True)
+                if ev_result.returncode == 0:
+                    with open(f"ev-explorer/{ev_outlier_file}", 'w') as f:
+                        f.write(ev_result.stdout)
+
                 print("📈 Running EV VaR outlier analysis...")
-                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=False, text=True)
+                ev_var_result = subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=True, text=True)
+                if ev_var_result.returncode == 0:
+                    with open(f"ev-explorer/{ev_var_outlier_file}", 'w') as f:
+                        f.write(ev_var_result.stdout)
 
             self.data_summary['ev_processed'] = True
             return True
@@ -255,12 +262,22 @@ class FinancialToolsUpdater:
 
             # Run EV outlier analysis in ev-explorer directory
             if os.path.exists(ev_processed_path):
+                ev_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_outlier.txt"
+                ev_var_outlier_file = f"SymbolsExport-Darwinex-Live-Stocks-{self.date_str}-EV-ev_var_outlier.txt"
+
                 print("📊 Running EV outlier analysis...")
-                subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=False, text=True)
+                ev_result = subprocess.run(['python3', 'ev_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=True, text=True)
+                if ev_result.returncode == 0:
+                    with open(f"ev-explorer/{ev_outlier_file}", 'w') as f:
+                        f.write(ev_result.stdout)
+
                 print("📈 Running EV VaR outlier analysis...")
-                subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
-                             cwd='ev-explorer', capture_output=False, text=True)
+                ev_var_result = subprocess.run(['python3', 'ev_var_outlier.py', ev_processed_name],
+                             cwd='ev-explorer', capture_output=True, text=True)
+                if ev_var_result.returncode == 0:
+                    with open(f"ev-explorer/{ev_var_outlier_file}", 'w') as f:
+                        f.write(ev_var_result.stdout)
 
             self.data_summary['ev_processed'] = True
             print("✅ EV data processed successfully within ev-explorer/")
