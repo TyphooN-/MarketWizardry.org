@@ -80,7 +80,7 @@ def _process_single_atr_csv(args):
         return (csv_file, f'exception: {str(e)[:100]}')
 
 class FinancialToolsUpdater:
-    def __init__(self, date_str=None, force_regenerate=False, html_only=False, force_explorers=None):
+    def __init__(self, date_str=None, force_regenerate=False, html_only=False, force_explorers=None, regenerate_charts_days=None):
         self.seo_manager = SEOManager()
         self.breadcrumb_paths = get_breadcrumb_paths()
         self.session = requests.Session()
@@ -94,6 +94,8 @@ class FinancialToolsUpdater:
         self.html_only = html_only
         # Specific explorers to force regenerate (list of: 'var', 'atr', 'ev', 'crypto')
         self.force_explorers = force_explorers or []
+        # Chart regeneration: None=skip, 0=all, N=last N days
+        self.regenerate_charts_days = regenerate_charts_days
         self.data_summary = {}
 
     def copy_csv_files(self):
@@ -1354,6 +1356,40 @@ window.varData = varData;"""
             print(f"❌ Error updating calculator: {e}")
             self.data_summary['calculator_updated'] = False
 
+    def regenerate_charts(self, recent_days=30):
+        """Regenerate chart HTML files with CSP-compliant template"""
+        print(f"📊 Regenerating charts (last {recent_days} days)...")
+
+        try:
+            # Run the regenerate_charts.py script
+            result = subprocess.run(
+                ['python3', 'regenerate_charts.py', '--recent', str(recent_days)],
+                capture_output=True,
+                text=True,
+                timeout=300  # 5 minutes timeout
+            )
+
+            if result.returncode == 0:
+                # Parse output to show summary
+                if result.stdout:
+                    for line in result.stdout.split('\n'):
+                        if '✅' in line or '📊' in line or 'Success:' in line:
+                            print(f"  {line}")
+                print("✅ Charts regenerated successfully")
+                return True
+            else:
+                print(f"⚠️  Chart regeneration completed with warnings")
+                if result.stderr:
+                    print(f"     {result.stderr[:200]}")
+                return False
+
+        except subprocess.TimeoutExpired:
+            print("❌ Chart regeneration timed out (>5 minutes)")
+            return False
+        except Exception as e:
+            print(f"❌ Error regenerating charts: {e}")
+            return False
+
     def generate_darwinex_radar(self):
         """Generate Darwinex RADAR symbol tracking reports"""
         print("🔧 Generating Darwinex RADAR...")
@@ -1410,6 +1446,14 @@ window.varData = varData;"""
         else:
             print("⏭️  Skipping calculator data update in HTML-only mode")
 
+        # Regenerate charts if requested
+        if self.regenerate_charts_days is not None:
+            if self.regenerate_charts_days == 0:
+                print("📊 Regenerating ALL charts...")
+                subprocess.run(['python3', 'regenerate_charts.py', '--all'], timeout=600)
+            else:
+                self.regenerate_charts(self.regenerate_charts_days)
+
         elapsed_time = time.time() - start_time
         mode_text = "HTML content" if self.html_only else "financial tools"
         print(f"\n✅ All {mode_text} updated successfully!")
@@ -1440,6 +1484,8 @@ Options:
     --force-crypto  Force regenerate Crypto explorer only
     --html-only     Only regenerate HTML content using existing data files
                     (Skips data fetching and processing)
+    --regenerate-charts [DAYS]  Regenerate chart HTML files with CSP-compliant template
+                                DAYS=0 for all charts, or number of recent days (default: 30)
 
 Examples:
     python3 update_all_tools.py                           # HTML-only mode when no date specified
@@ -1448,6 +1494,8 @@ Examples:
     python3 update_all_tools.py --force-crypto            # Regenerate all crypto reports
     python3 update_all_tools.py --force                   # Force regenerate ALL explorers (not recommended)
     python3 update_all_tools.py --html-only               # HTML-only mode for today
+    python3 update_all_tools.py --regenerate-charts 30    # Regenerate charts from last 30 days
+    python3 update_all_tools.py --regenerate-charts 0     # Regenerate ALL charts (863 files!)
 
 Default behavior when no date specified: HTML-only mode (regenerate HTML using existing data)
 Default behavior with date specified: Only generate missing files to preserve original creation timestamps.
@@ -1471,6 +1519,16 @@ Default behavior with date specified: Only generate missing files to preserve or
     if '--force-crypto' in sys.argv:
         force_explorers.append('crypto')
 
+    # Parse chart regeneration flag
+    regenerate_charts_days = None
+    if '--regenerate-charts' in sys.argv:
+        idx = sys.argv.index('--regenerate-charts')
+        # Check if next arg is a number
+        if idx + 1 < len(sys.argv) and sys.argv[idx + 1].isdigit():
+            regenerate_charts_days = int(sys.argv[idx + 1])
+        else:
+            regenerate_charts_days = 30  # Default to 30 days
+
     # HTML-only mode: explicit flag OR when no date is specified (default behavior)
     html_only = '--html-only' in sys.argv or not date_specified
 
@@ -1482,7 +1540,19 @@ Default behavior with date specified: Only generate missing files to preserve or
     if force_explorers:
         print(f"🔄 Force regenerating: {', '.join(force_explorers)} explorer(s)")
 
-    updater = FinancialToolsUpdater(date_str, force_regenerate=force_regenerate, html_only=html_only, force_explorers=force_explorers)
+    if regenerate_charts_days is not None:
+        if regenerate_charts_days == 0:
+            print("📊 Will regenerate ALL charts (863 files!)")
+        else:
+            print(f"📊 Will regenerate charts from last {regenerate_charts_days} days")
+
+    updater = FinancialToolsUpdater(
+        date_str,
+        force_regenerate=force_regenerate,
+        html_only=html_only,
+        force_explorers=force_explorers,
+        regenerate_charts_days=regenerate_charts_days
+    )
     success = updater.run_full_update()
 
     if success:

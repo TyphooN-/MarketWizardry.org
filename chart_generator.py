@@ -151,8 +151,10 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     # Get chart title from figure
     chart_title = fig.layout.title.text if fig.layout.title and fig.layout.title.text else "Chart"
 
-    # Build canonical URL
+    # Build canonical URL (avoid double slashes, but preserve https://)
     canonical_url = f"{base_url}/{relative_path}"
+    # Replace any double slashes except in https://
+    canonical_url = canonical_url.replace('https://', 'HTTPS_PLACEHOLDER').replace('//', '/').replace('HTTPS_PLACEHOLDER', 'https://')
 
     # Write final HTML
     with open(output_path, 'w', encoding='utf-8') as f:
