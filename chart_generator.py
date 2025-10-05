@@ -149,6 +149,11 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     if match:
         plot_div = match.group(1)
 
+    # Remove inline style attribute to comply with CSP (NO inline styles allowed!)
+    # Replace: <div id="chart" class="plotly-graph-div" style="height:1400px; width:1600px;">
+    # With:    <div id="chart" class="plotly-graph-div">
+    plot_div = re.sub(r'(<div id="chart"[^>]*)\s+style="[^"]*"', r'\1', plot_div)
+
     # Get chart title from figure
     chart_title = fig.layout.title.text if fig.layout.title and fig.layout.title.text else "Chart"
 
@@ -164,8 +169,6 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
             chart_title=chart_title,
             canonical_url=canonical_url
         ))
-
-    print(f"✅ Chart saved to: {output_path}")
 
 
 def create_price_trend_chart(df, output_path, title="Price Trend Analysis", lookback_days=[1, 7, 30]):

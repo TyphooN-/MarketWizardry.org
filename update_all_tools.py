@@ -597,7 +597,7 @@ class FinancialToolsUpdater:
 
             # Sort by date descending (newest first)
             files.sort(key=lambda x: x['date'], reverse=True)
-            return files[:60]  # Limit to 60 most recent files
+            return files  # Return all files
 
         except Exception as e:
             print(f"Error scanning historical files: {e}")
@@ -658,7 +658,7 @@ class FinancialToolsUpdater:
 
             # Sort by date descending (newest first), then by type
             files.sort(key=lambda x: (x['date'], x['display_name']), reverse=True)
-            return files[:60]  # Limit to 60 most recent files
+            return files  # Return all files
 
         except Exception as e:
             print(f"Error scanning EV historical files: {e}")
@@ -1046,7 +1046,7 @@ class FinancialToolsUpdater:
             crypto_files_dict[file['date']] = file
 
         # Convert back to list and sort by date
-        crypto_files = sorted(crypto_files_dict.values(), key=lambda x: x['date'], reverse=True)[:60]
+        crypto_files = sorted(crypto_files_dict.values(), key=lambda x: x['date'], reverse=True)
 
         file_grid_html = self._generate_file_grid_entries(crypto_files)
 
