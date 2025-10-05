@@ -48,19 +48,25 @@ def extract_date_from_filename(filename):
     return None
 
 
-def analyze_symbol_changes(csv_dir, output_file=None):
+def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
     """
     Analyze symbol changes across all CSV files in a directory.
 
     Args:
         csv_dir (str): Directory containing CSV files
         output_file (str): Optional output file path
+        instrument_filter (str): Optional filter for instrument type (e.g., 'Stocks', 'Futures', 'CFD')
 
     Returns:
         dict: Analysis results
     """
-    # Get all CSV files sorted by date
-    csv_files = sorted([f for f in os.listdir(csv_dir) if f.endswith('.csv')])
+    # Get all CSV files, optionally filtered by instrument type
+    all_csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
+
+    if instrument_filter:
+        csv_files = sorted([f for f in all_csv_files if instrument_filter in f])
+    else:
+        csv_files = sorted(all_csv_files)
 
     if len(csv_files) < 2:
         print("⚠️  Need at least 2 CSV files to track changes")
@@ -224,31 +230,33 @@ def generate_comprehensive_report(base_dir='.'):
     Returns:
         bool: Success status
     """
-    explorers = {
-        'var-explorer': 'Stocks (VAR)',
-        'atr-explorer': 'All Instruments (ATR)',
-        'ev-explorer': 'EV-Eligible Stocks'
-    }
+    # Define reports to generate: (directory, output_name, display_name, filter)
+    reports = [
+        ('var-explorer', 'stocks', 'Stocks', 'Stocks'),
+        ('atr-explorer', 'futures', 'Futures', 'Futures'),
+        ('atr-explorer', 'cfd', 'CFD', 'CFD'),
+        ('crypto-explorer', 'crypto', 'Crypto', None)
+    ]
 
     radar_dir = os.path.join(base_dir, 'darwinex-radar')
     os.makedirs(radar_dir, exist_ok=True)
 
     all_results = {}
 
-    for explorer_dir, explorer_name in explorers.items():
+    for explorer_dir, output_name, display_name, instrument_filter in reports:
         explorer_path = os.path.join(base_dir, explorer_dir)
 
         if not os.path.isdir(explorer_path):
-            print(f"⚠️  Skipping {explorer_dir} (not found)")
+            print(f"⚠️  Skipping {display_name} (directory {explorer_dir} not found)")
             continue
 
-        output_file = os.path.join(radar_dir, f"{explorer_dir.replace('-explorer', '')}-radar.txt")
+        output_file = os.path.join(radar_dir, f"{output_name}-radar.txt")
 
-        print(f"🔍 Analyzing {explorer_name}...")
-        result = analyze_symbol_changes(explorer_path, output_file)
+        print(f"🔍 Analyzing {display_name}...")
+        result = analyze_symbol_changes(explorer_path, output_file, instrument_filter=instrument_filter)
 
         if result:
-            all_results[explorer_name] = result
+            all_results[display_name] = result
 
     if all_results:
         print(f"\n✅ Darwinex RADAR reports generated: {len(all_results)}")
