@@ -247,14 +247,20 @@ def create_price_trend_chart(df, output_path, title="Price Trend Analysis", look
     top_gainers = df.nlargest(20, primary_col)
     top_decliners = df.nsmallest(20, primary_col)
 
-    # Create subplots
+    # Create subplots - 2 rows x 2 cols for 1d and 30d charts
     fig = make_subplots(
-        rows=1, cols=2,
-        subplot_titles=(f"🚀 Top 20 Gainers ({lookback_days[0]}d)", f"☢️ Top 20 Decliners ({lookback_days[0]}d)"),
-        horizontal_spacing=0.12
+        rows=2, cols=2,
+        subplot_titles=(
+            f"🚀 Top 20 Gainers ({lookback_days[0]}d)",
+            f"☢️ Top 20 Decliners ({lookback_days[0]}d)",
+            f"🚀 Top 20 Gainers (30d - Quarterly)",
+            f"☢️ Top 20 Decliners (30d - Quarterly)"
+        ),
+        horizontal_spacing=0.12,
+        vertical_spacing=0.08
     )
 
-    # Add gainers bar chart
+    # Add 1-day gainers bar chart (row 1, col 1)
     fig.add_trace(
         go.Bar(
             x=top_gainers[primary_col],
@@ -262,12 +268,12 @@ def create_price_trend_chart(df, output_path, title="Price Trend Analysis", look
             orientation='h',
             marker=dict(color=COLORS['positive'], line=dict(color=COLORS['text'], width=1)),
             hovertemplate='<b>%{y}</b><br>Change: %{x:.2f}%<extra></extra>',
-            name='Gainers'
+            name='Gainers (1d)'
         ),
         row=1, col=1
     )
 
-    # Add decliners bar chart
+    # Add 1-day decliners bar chart (row 1, col 2)
     fig.add_trace(
         go.Bar(
             x=top_decliners[primary_col],
@@ -275,18 +281,51 @@ def create_price_trend_chart(df, output_path, title="Price Trend Analysis", look
             orientation='h',
             marker=dict(color=COLORS['negative'], line=dict(color=COLORS['text'], width=1)),
             hovertemplate='<b>%{y}</b><br>Change: %{x:.2f}%<extra></extra>',
-            name='Decliners'
+            name='Decliners (1d)'
         ),
         row=1, col=2
     )
 
+    # Add 30-day (quarterly) charts if available
+    quarterly_col = 'PriceChange30d%'
+    if quarterly_col in df.columns and df[quarterly_col].notna().sum() > 0:
+        top_gainers_30d = df.nlargest(20, quarterly_col)
+        top_decliners_30d = df.nsmallest(20, quarterly_col)
+
+        # Add 30-day gainers bar chart (row 2, col 1)
+        fig.add_trace(
+            go.Bar(
+                x=top_gainers_30d[quarterly_col],
+                y=top_gainers_30d['Symbol'],
+                orientation='h',
+                marker=dict(color=COLORS['positive'], line=dict(color=COLORS['text'], width=1)),
+                hovertemplate='<b>%{y}</b><br>Change: %{x:.2f}%<extra></extra>',
+                name='Gainers (30d)'
+            ),
+            row=2, col=1
+        )
+
+        # Add 30-day decliners bar chart (row 2, col 2)
+        fig.add_trace(
+            go.Bar(
+                x=top_decliners_30d[quarterly_col],
+                y=top_decliners_30d['Symbol'],
+                orientation='h',
+                marker=dict(color=COLORS['negative'], line=dict(color=COLORS['text'], width=1)),
+                hovertemplate='<b>%{y}</b><br>Change: %{x:.2f}%<extra></extra>',
+                name='Decliners (30d)'
+            ),
+            row=2, col=2
+        )
+
     # Update layout
-    layout = get_base_layout(title, width=1600, height=900)
+    layout = get_base_layout(title, width=1600, height=1400)
     layout['showlegend'] = False
-    layout['xaxis'] = {'title': 'Price Change (%)', 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
-    layout['xaxis2'] = {'title': 'Price Change (%)', 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
-    layout['yaxis'] = {'title': 'Symbol', 'gridcolor': COLORS['grid'], 'color': COLORS['text'], 'autorange': 'reversed'}
-    layout['yaxis2'] = {'title': 'Symbol', 'gridcolor': COLORS['grid'], 'color': COLORS['text'], 'autorange': 'reversed'}
+
+    # Update all axes
+    for i in range(1, 5):  # 4 subplots
+        layout[f'xaxis{i if i > 1 else ""}'] = {'title': 'Price Change (%)', 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+        layout[f'yaxis{i if i > 1 else ""}'] = {'title': 'Symbol', 'gridcolor': COLORS['grid'], 'color': COLORS['text'], 'autorange': 'reversed'}
 
     fig.update_layout(layout)
 

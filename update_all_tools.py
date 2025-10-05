@@ -1354,6 +1354,27 @@ window.varData = varData;"""
             print(f"❌ Error updating calculator: {e}")
             self.data_summary['calculator_updated'] = False
 
+    def generate_darwinex_radar(self):
+        """Generate Darwinex RADAR symbol tracking reports"""
+        print("🔧 Generating Darwinex RADAR...")
+
+        try:
+            # Import the symbol tracker module
+            import sys
+            sys.path.insert(0, 'darwinex-radar')
+            from symbol_tracker import generate_comprehensive_report
+
+            # Generate all RADAR reports
+            success = generate_comprehensive_report('.')
+
+            if success:
+                print("✅ Darwinex RADAR generated")
+            else:
+                print("⚠️  Darwinex RADAR generation had issues")
+
+        except Exception as e:
+            print(f"❌ Error generating Darwinex RADAR: {e}")
+
     def run_full_update(self):
         """Run complete update of all financial tools"""
         print("🚀 Starting unified financial tools update...")
@@ -1382,6 +1403,7 @@ window.varData = varData;"""
         self.generate_atr_explorer(data)
         self.generate_crypto_explorer(data)
         self.generate_ev_explorer(data)
+        self.generate_darwinex_radar()
 
         if not self.html_only:
             self.update_calculator_data(data)

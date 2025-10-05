@@ -213,8 +213,7 @@ def find_atr_outliers(filename):
                                title=f"Top 20 Highest/Lowest ATR Ratios - {base_filename}",
                                n=20, ascending=False)
         print(f"📊 Top/Bottom Volatility Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
-
-        print("\n" + "=" * 120)
+        print("=" * 120)
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

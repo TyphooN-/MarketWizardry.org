@@ -372,8 +372,7 @@ def find_mcap_ev_outliers(filename, overwrite=False):
         create_risk_distribution_chart(df, 'MCap/EV (%)', chart_path,
                                       title=f"MCap/EV (%) Distribution - {base_filename}")
         print(f"📊 MCap/EV Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
-
-        print("\n" + "=" * 120)
+        print("=" * 120)
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

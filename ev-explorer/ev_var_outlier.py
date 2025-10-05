@@ -334,8 +334,7 @@ def find_dual_outliers(filename):
                           title=f"MCap/EV (%) vs VaR/Price Ratio - {base_filename}",
                           hover_col='Symbol')
         print(f"📊 MCap/EV vs VaR Scatter Plot: https://marketwizardry.org/{explorer_name}/{chart_filename}")
-
-        print("\n" + "=" * 120)
+        print("=" * 120)
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

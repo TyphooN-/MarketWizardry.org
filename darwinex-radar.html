@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="TyphooN">
+    <title>Darwinex RADAR - Symbol Tracker | MarketWizardry.org</title>
+    <link rel="canonical" href="https://marketwizardry.org/darwinex-radar.html">
+    <link rel="stylesheet" href="/css/shared-styles.css">
+    <meta name="description" content="Track Darwinex symbol additions, delistings, and market changes over time. Comprehensive historical analysis of new instruments, removed symbols, and market evolution.">
+    <meta name="keywords" content="Darwinex, symbol tracker, market changes, symbol additions, delistings, market evolution, trading instruments, financial radar">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Darwinex RADAR - Symbol Tracker">
+    <meta property="og:description" content="Monitor Darwinex symbol additions, delistings, and market changes with comprehensive historical analysis.">
+    <meta property="og:url" content="https://marketwizardry.org/darwinex-radar.html">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Darwinex RADAR - Symbol Tracker">
+    <meta name="twitter:description" content="Track Darwinex market changes, new listings, and delistings over time.">
+</head>
+<body>
+    <nav class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="market-wizardry.html" itemprop="item">
+                <span itemprop="name">🏠 Market Wizardry</span>
+            </a>
+            <meta itemprop="position" content="1" />
+        </span>
+        <span class="separator">→</span>
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name">🎯 Darwinex RADAR</span>
+            <meta itemprop="position" content="2" />
+        </span>
+    </nav>
+
+    <div class="container">
+        <h1>🎯 Darwinex RADAR - Symbol Tracker</h1>
+
+        <div class="intro-text">
+            <p>Monitor Darwinex market evolution with comprehensive symbol tracking across all asset classes. Track new listings, delistings, and market changes over time.</p>
+        </div>
+
+        <h2>📊 Symbol Tracking Reports</h2>
+
+        <div class="report-section">
+            <h3>📈 Stocks (VAR Data)</h3>
+            <p>Track stock symbol additions and delistings from VAR Explorer historical data.</p>
+            <ul>
+                <li><a href="/darwinex-radar/var-radar.txt">📄 Stock Symbol Changes Report</a></li>
+            </ul>
+        </div>
+
+        <div class="report-section">
+            <h3>⚡ All Instruments (ATR Data)</h3>
+            <p>Monitor all tradeable instrument changes including Stocks, Futures, and CFDs.</p>
+            <ul>
+                <li><a href="/darwinex-radar/atr-radar.txt">📄 All Instruments Report</a></li>
+            </ul>
+        </div>
+
+        <div class="report-section">
+            <h3>💼 EV-Eligible Stocks</h3>
+            <p>Track Enterprise Value eligible symbol changes and market coverage.</p>
+            <ul>
+                <li><a href="/darwinex-radar/ev-radar.txt">📄 EV Symbols Report</a></li>
+            </ul>
+        </div>
+
+        <h2>📋 What Darwinex RADAR Tracks</h2>
+
+        <div class="feature-list">
+            <ul>
+                <li>🆕 <strong>New Symbol Listings:</strong> Chronological tracking of newly added instruments</li>
+                <li>❌ <strong>Delisted Symbols:</strong> Historical record of removed instruments</li>
+                <li>📊 <strong>Symbol Count Changes:</strong> Net change statistics over time</li>
+                <li>📅 <strong>Date Range Analysis:</strong> Trading day coverage and historical depth</li>
+                <li>🔍 <strong>Market Evolution:</strong> Long-term market composition trends</li>
+            </ul>
+        </div>
+
+        <h2>🎯 Why Use Darwinex RADAR?</h2>
+
+        <div class="use-cases">
+            <ul>
+                <li><strong>Market Coverage Awareness:</strong> Stay informed about Darwinex's expanding instrument selection</li>
+                <li><strong>Trading Opportunities:</strong> Identify newly available instruments for trading strategies</li>
+                <li><strong>Risk Management:</strong> Track which instruments may be discontinued</li>
+                <li><strong>Historical Context:</strong> Understand market evolution and broker coverage changes</li>
+                <li><strong>Data Validation:</strong> Verify symbol availability for backtesting and analysis</li>
+            </ul>
+        </div>
+
+        <h2>💻 Automated Generation</h2>
+
+        <div class="code-example">
+            <p>Darwinex RADAR reports are automatically generated with each explorer update:</p>
+            <pre>
+# Update all explorers and generate RADAR reports
+python3 update_all_tools.py
+
+# Generate RADAR reports only (no data fetch)
+python3 darwinex-radar/symbol_tracker.py --all
+
+# Track specific explorer manually
+python3 darwinex-radar/symbol_tracker.py var-explorer darwinex-radar/var-radar.txt
+            </pre>
+        </div>
+
+        <h2>📈 Sample Report Output</h2>
+
+        <div class="sample-output">
+            <pre>
+========================================================================================================================
+🎯 DARWINEX RADAR - SYMBOL TRACKER
+========================================================================================================================
+📁 Data Source: var-explorer
+📊 Date Range: 2024.12.30 to 2025.10.03
+📈 Total Tracking Period: 159 trading days
+
+========================================================================================================================
+📋 SUMMARY STATISTICS
+========================================================================================================================
+Symbols on 2024.12.30: 832
+Symbols on 2025.10.03: 808
+Net Change: -24 symbols (-2.9%)
+Total New Symbols Added: 871
+Total Symbols Delisted: 895
+            </pre>
+        </div>
+
+        <div class="navigation-links">
+            <p><a href="market-wizardry.html">← Back to Market Wizardry</a></p>
+            <p><a href="index.html">🏠 Home</a></p>
+        </div>
+
+        <div class="disclaimer">
+            <p><strong>Disclaimer:</strong> This tool tracks historical symbol availability changes at Darwinex. Data is provided for informational purposes only. Symbol availability may change without notice. Always verify current instrument availability directly with Darwinex before trading.</p>
+        </div>
+    </div>
+
+    <script src="/js/shared.js"></script>
+</body>
+</html>

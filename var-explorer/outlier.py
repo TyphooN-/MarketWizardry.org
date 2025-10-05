@@ -269,7 +269,7 @@ def find_var_outliers(filename, overwrite=False):
             create_price_trend_chart(df_with_changes, chart_path,
                                    title=f"Price Trends - {base_filename}",
                                    lookback_days=[1, 7, 30])
-            print(f"\n📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+            print(f"📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
 
         # Generate risk distribution chart
         chart_filename = f"{base_filename}-risk-distribution.html"
@@ -285,8 +285,7 @@ def find_var_outliers(filename, overwrite=False):
                                title=f"Top {TOP_N_DISPLAY} Highest/Lowest VaR Ratios - {base_filename}",
                                n=TOP_N_DISPLAY, ascending=False)
         print(f"📊 Top/Bottom Risk Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
-
-        print("\n" + "=" * 120)
+        print("=" * 120)
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
