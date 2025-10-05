@@ -98,9 +98,8 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     dirname = os.path.basename(os.path.dirname(output_path))
     relative_path = f"{dirname}/{filename}"
 
-    # Custom HTML template with CRT styling (CSP COMPLIANT - no inline styles or onclick)
-    html_template = """
-<!DOCTYPE html>
+    # Custom HTML template with CRT styling (FULLY CSP COMPLIANT)
+    html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -109,69 +108,6 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     <title>MarketWizardry.org Chart - {chart_title}</title>
     <link rel="canonical" href="{canonical_url}">
     <link rel="stylesheet" href="/css/shared-styles.css">
-    <style>
-        /* Chart-specific styles */
-        .chart-page-body {{
-            background-color: #000000;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
-            overflow-x: auto;
-        }}
-
-        .chart-header {{
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 20px;
-            border-bottom: 2px solid #00ff00;
-        }}
-
-        .chart-header h1 {{
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-            margin: 0;
-            animation: flicker 2s infinite;
-        }}
-
-        @keyframes flicker {{
-            0% {{ opacity: 1; }}
-            50% {{ opacity: 0.95; }}
-            100% {{ opacity: 1; }}
-        }}
-
-        .chart-back-link {{
-            display: inline-block;
-            margin: 20px 0;
-            padding: 10px 20px;
-            background-color: #003300;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            text-decoration: none;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s;
-        }}
-
-        .chart-back-link:hover {{
-            background-color: #00ff00;
-            color: #000000;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
-        }}
-
-        .chart-container {{
-            margin: 0 auto;
-            text-align: center;
-        }}
-
-        .chart-link-container {{
-            text-align: center;
-        }}
-
-        .chart-link-container-bottom {{
-            text-align: center;
-            margin-top: 20px;
-        }}
-    </style>
 </head>
 <body class="chart-page-body">
     <div class="chart-header">
@@ -179,7 +115,7 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     </div>
 
     <div class="chart-link-container">
-        <a href="javascript:history.back()" class="chart-back-link">← Back to Report</a>
+        <button class="chart-back-link" data-action="chart-back">← Back to Report</button>
     </div>
 
     <div class="chart-container">
@@ -187,8 +123,10 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     </div>
 
     <div class="chart-link-container-bottom">
-        <a href="javascript:history.back()" class="chart-back-link">← Back to Report</a>
+        <button class="chart-back-link" data-action="chart-back">← Back to Report</button>
     </div>
+
+    <script src="/js/chart-navigation.js"></script>
 </body>
 </html>
 """

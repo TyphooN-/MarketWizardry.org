@@ -1905,3 +1905,73 @@ header {
         padding: 10px;
     }
 }
+
+/* Chart Page Styles - For standalone HTML chart files */
+.chart-page-body {
+    background-color: #000000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.chart-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-bottom: 2px solid #00ff00;
+}
+
+.chart-header h1 {
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    margin: 0;
+    animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.95; }
+    100% { opacity: 1; }
+}
+
+.chart-back-link {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #003300;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.chart-back-link:hover {
+    background-color: #00ff00;
+    color: #000000;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+}
+
+.chart-container {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.chart-link-container {
+    text-align: center;
+}
+
+.chart-link-container-bottom {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.plotly-chart-wrapper {
+    height: 1400px;
+    width: 1600px;
+    max-width: 100%;
+    margin: 0 auto;
+}

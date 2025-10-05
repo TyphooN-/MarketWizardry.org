@@ -1,5 +1,41 @@
 // EV Explorer functionality
 
+// Function to convert URLs in text to clickable links
+function linkifyUrls(text) {
+    // Escape HTML to prevent XSS
+    const escapeHtml = (str) => {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    };
+
+    // Pattern to match URLs (http, https, ftp)
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+
+    // Split text by URLs, escape non-URL parts, and reconstruct with links
+    let lastIndex = 0;
+    let result = '';
+    let match;
+
+    while ((match = urlPattern.exec(text)) !== null) {
+        // Escape text before the URL
+        result += escapeHtml(text.substring(lastIndex, match.index));
+
+        // Remove trailing punctuation that shouldn't be part of the URL
+        let cleanUrl = match[0].replace(/[.,;:!?)]+$/, '');
+
+        // Add the clickable link
+        result += `<a href="${escapeHtml(cleanUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(cleanUrl)}</a>`;
+
+        lastIndex = match.index + match[0].length;
+    }
+
+    // Escape any remaining text after the last URL
+    result += escapeHtml(text.substring(lastIndex));
+
+    return result;
+}
+
 // Event delegation for data-action attributes
 document.addEventListener('click', function(e) {
     const action = e.target.getAttribute('data-action');
@@ -49,7 +85,9 @@ function openModalWithFile(outlierFile, csvFile, title) {
     fetch(outlierFile)
         .then(response => response.text())
         .then(data => {
-            document.getElementById('outlier-content').textContent = data;
+            // Convert URLs to clickable links
+            const linkifiedData = linkifyUrls(data);
+            document.getElementById('outlier-content').innerHTML = linkifiedData;
         })
         .catch(error => {
             document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;
