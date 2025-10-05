@@ -40,7 +40,7 @@
     # NO unsafe-inline or unsafe-eval - strict security policy
     # upgrade-insecure-requests - forces HTTPS for all resources
     # block-all-mixed-content - prevents HTTP resources on HTTPS pages
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self' https://*.youtube.com; worker-src 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'; upgrade-insecure-requests; block-all-mixed-content;"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.plotly.com; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self' https://*.youtube.com; worker-src 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'; upgrade-insecure-requests; block-all-mixed-content;"
 </IfModule>
 
 # Pretty URLs for SEO
