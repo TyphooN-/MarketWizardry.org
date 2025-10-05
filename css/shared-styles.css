@@ -1832,8 +1832,7 @@ header {
 .report-tabs {
     display: flex;
     gap: 10px;
-    margin: 20px 0;
-    border-bottom: 2px solid #00ff00;
+    margin: 20px 0 10px 0;
     flex-wrap: wrap;
 }
 
@@ -1846,7 +1845,6 @@ header {
     font-family: 'Courier New', monospace;
     font-size: 14px;
     transition: all 0.3s;
-    margin-bottom: -2px;
 }
 
 .tab-button:hover {
@@ -1857,7 +1855,6 @@ header {
 .tab-button.active {
     background-color: #00ff00;
     color: #000000;
-    border-bottom-color: #00ff00;
 }
 
 .tab-content {
