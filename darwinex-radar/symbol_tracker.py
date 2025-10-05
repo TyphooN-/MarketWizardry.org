@@ -149,7 +149,7 @@ def generate_report(results, csv_dir):
     """
     output = []
     output.append("=" * 120)
-    output.append("🎯 DARWINEX RADAR - SYMBOL TRACKER")
+    output.append("DARWINEX RADAR - SYMBOL TRACKER")
     output.append("=" * 120)
     output.append(f"📁 Data Source: {csv_dir}")
     output.append(f"📊 Date Range: {results['sorted_dates'][0]} to {results['sorted_dates'][-1]}")

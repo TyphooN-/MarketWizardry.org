@@ -1839,24 +1839,31 @@ header {
 }
 
 .tab-button {
+    display: block;
     background-color: #000000;
     color: #00ff00;
-    border: 2px solid #00ff00;
-    padding: 10px 20px;
+    border: 1px solid #00ff00;
+    padding: 12px 10px;
+    margin: 3px 0;
+    text-align: center;
     cursor: pointer;
     font-family: 'Courier New', monospace;
     font-size: 14px;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    position: relative;
+    flex-shrink: 0;
 }
 
 .tab-button:hover {
-    background-color: #003300;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00ff00;
 }
 
 .tab-button.active {
-    background-color: #00ff00;
-    color: #000000;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
 }
 
 .tab-content {

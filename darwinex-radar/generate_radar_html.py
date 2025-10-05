@@ -49,7 +49,7 @@ def generate_radar_html():
 
     breadcrumb_list = [
         {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
-        {'name': '🎯 Darwinex RADAR', 'url': None}
+        {'name': 'Darwinex RADAR', 'url': None}
     ]
     breadcrumbs = seo_manager.generate_breadcrumbs(breadcrumb_list)
 
@@ -64,7 +64,7 @@ def generate_radar_html():
 {breadcrumbs}
 
     <div class="container">
-        <h1>🎯 DARWINEX RADAR - SYMBOL TRACKER</h1>
+        <h1>DARWINEX RADAR - SYMBOL TRACKER</h1>
 
         <div class="intro-section">
             <p>Real-time tracking of Darwinex symbol additions, delistings, and market evolution.</p>
