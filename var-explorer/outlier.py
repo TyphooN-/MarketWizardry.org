@@ -9,6 +9,8 @@ from datetime import datetime
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from explorer_utils import format_price, format_percentage, format_ratio, print_formatted_table, print_section_header, print_statistics
+from price_history import add_price_trend_section, calculate_price_changes
+from chart_generator import create_price_trend_chart, create_risk_distribution_chart, create_top_assets_chart
 
 # This constant is used in multiple functions, so it's defined globally.
 MINIMUM_GROUP_SIZE = 5
@@ -244,6 +246,47 @@ def find_var_outliers(filename, overwrite=False):
             print_section_header("⚠️  UNACTIONABLE (CLOSE-ONLY) SYMBOLS")
             for index, row in close_only_symbols.iterrows():
                 print(f"  • {row['Symbol']:<12} ({row['IndustryName']})")
+
+        # Add price trend analysis section
+        print(add_price_trend_section(df_for_analysis, filename, top_n=TOP_N_DISPLAY))
+
+        # Generate HTML charts
+        base_filename = os.path.splitext(os.path.basename(filename))[0]
+        chart_dir = os.path.dirname(filename)
+        explorer_name = os.path.basename(chart_dir)  # e.g., "var-explorer"
+
+        print("\n" + "=" * 120)
+        print("📊 INTERACTIVE HTML CHARTS")
+        print("=" * 120)
+
+        # Calculate price changes for chart generation
+        df_with_changes = calculate_price_changes(df_for_analysis, filename, lookback_days=[1, 7, 30])
+
+        # Generate price trend chart
+        if 'PriceChange1d%' in df_with_changes.columns and df_with_changes['PriceChange1d%'].notna().sum() > 0:
+            chart_filename = f"{base_filename}-price-trends.html"
+            chart_path = os.path.join(chart_dir, chart_filename)
+            create_price_trend_chart(df_with_changes, chart_path,
+                                   title=f"Price Trends - {base_filename}",
+                                   lookback_days=[1, 7, 30])
+            print(f"\n📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        # Generate risk distribution chart
+        chart_filename = f"{base_filename}-risk-distribution.html"
+        chart_path = os.path.join(chart_dir, chart_filename)
+        create_risk_distribution_chart(df_for_analysis, 'VaR_to_Ask_Ratio', chart_path,
+                                      title=f"VaR/Price Ratio Distribution - {base_filename}")
+        print(f"📊 Risk Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        # Generate top/bottom risk charts
+        chart_filename = f"{base_filename}-top-bottom-risk.html"
+        chart_path = os.path.join(chart_dir, chart_filename)
+        create_top_assets_chart(df_for_analysis, 'VaR_to_Ask_Ratio', chart_path,
+                               title=f"Top {TOP_N_DISPLAY} Highest/Lowest VaR Ratios - {base_filename}",
+                               n=TOP_N_DISPLAY, ascending=False)
+        print(f"📊 Top/Bottom Risk Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        print("\n" + "=" * 120)
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

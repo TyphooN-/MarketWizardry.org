@@ -8,6 +8,8 @@ import os # Import os for path manipulation
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from explorer_utils import format_price, format_percentage, format_ratio, print_section_header
+from price_history import add_price_trend_section, calculate_price_changes
+from chart_generator import create_price_trend_chart, create_risk_distribution_chart, create_scatter_plot
 
 class Tee(object):
     def __init__(self, *files):
@@ -286,6 +288,54 @@ def find_dual_outliers(filename):
             print(f"\n\n{'='*25} Unactionable (Close-Only) Symbols {'='*25}")
             for _, row in close_only_symbols.iterrows():
                 print(f"- {row['Symbol']} ({row['IndustryName']})")
+
+        # Add price trend analysis section
+        print(add_price_trend_section(df, filename, top_n=50))
+
+        # Generate HTML charts
+        base_filename = os.path.splitext(os.path.basename(filename))[0]
+        chart_dir = os.path.dirname(filename)
+        explorer_name = os.path.basename(chart_dir)  # e.g., "ev-explorer"
+
+        print("\n" + "=" * 120)
+        print("📊 INTERACTIVE HTML CHARTS")
+        print("=" * 120)
+
+        # Calculate price changes for chart generation
+        df_with_changes = calculate_price_changes(df, filename, lookback_days=[1, 7, 30])
+
+        # Generate price trend chart
+        if 'PriceChange1d%' in df_with_changes.columns and df_with_changes['PriceChange1d%'].notna().sum() > 0:
+            chart_filename = f"{base_filename}-price-trends.html"
+            chart_path = os.path.join(chart_dir, chart_filename)
+            create_price_trend_chart(df_with_changes, chart_path,
+                                   title=f"Price Trends - {base_filename}",
+                                   lookback_days=[1, 7, 30])
+            print(f"\n📈 Price Trends Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        # Generate MCap/EV distribution chart
+        chart_filename = f"{base_filename}-mcap-ev-distribution.html"
+        chart_path = os.path.join(chart_dir, chart_filename)
+        create_risk_distribution_chart(df, 'MCap/EV (%)', chart_path,
+                                      title=f"MCap/EV (%) Distribution - {base_filename}")
+        print(f"📊 MCap/EV Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        # Generate VaR distribution chart
+        chart_filename = f"{base_filename}-var-distribution.html"
+        chart_path = os.path.join(chart_dir, chart_filename)
+        create_risk_distribution_chart(df, 'VaR_to_Ask_Ratio', chart_path,
+                                      title=f"VaR/Price Ratio Distribution - {base_filename}")
+        print(f"📊 VaR Distribution Chart: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        # Generate scatter plot: MCap/EV vs VaR
+        chart_filename = f"{base_filename}-mcap-ev-vs-var.html"
+        chart_path = os.path.join(chart_dir, chart_filename)
+        create_scatter_plot(df, 'MCap/EV (%)', 'VaR_to_Ask_Ratio', chart_path,
+                          title=f"MCap/EV (%) vs VaR/Price Ratio - {base_filename}",
+                          hover_col='Symbol')
+        print(f"📊 MCap/EV vs VaR Scatter Plot: https://marketwizardry.org/{explorer_name}/{chart_filename}")
+
+        print("\n" + "=" * 120)
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")

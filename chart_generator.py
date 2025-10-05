@@ -1,0 +1,475 @@
+"""
+HTML Chart Generator for MarketWizardry.org Explorers
+
+Creates interactive Plotly charts with terminal CRT aesthetic matching the website.
+Outputs standalone HTML files that can be linked from text reports.
+"""
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import os
+
+
+# MarketWizardry.org Color Scheme (CRT Terminal Aesthetic)
+COLORS = {
+    'background': '#000000',        # Black background
+    'text': '#00ff00',              # Bright green text
+    'grid': '#003300',              # Dark green grid
+    'accent': '#00ff88',            # Light green accent
+    'positive': '#00ff00',          # Green for gains (rocket 🚀)
+    'negative': '#ff0000',          # Red for losses (radioactive ☢️)
+    'neutral': '#888888',           # Gray for neutral
+    'highlight': 'rgba(0, 255, 0, 0.3)',  # Semi-transparent green
+}
+
+# Font settings
+FONT_FAMILY = 'Courier New, monospace'
+
+
+def get_base_layout(title, width=1400, height=800):
+    """
+    Get base layout configuration matching MarketWizardry.org aesthetic.
+
+    Args:
+        title (str): Chart title
+        width (int): Chart width in pixels
+        height (int): Chart height in pixels
+
+    Returns:
+        dict: Plotly layout configuration
+    """
+    return {
+        'title': {
+            'text': title,
+            'font': {
+                'family': FONT_FAMILY,
+                'size': 24,
+                'color': COLORS['text']
+            },
+            'x': 0.5,
+            'xanchor': 'center'
+        },
+        'plot_bgcolor': COLORS['background'],
+        'paper_bgcolor': COLORS['background'],
+        'font': {
+            'family': FONT_FAMILY,
+            'color': COLORS['text'],
+            'size': 12
+        },
+        'xaxis': {
+            'gridcolor': COLORS['grid'],
+            'color': COLORS['text'],
+            'linecolor': COLORS['text']
+        },
+        'yaxis': {
+            'gridcolor': COLORS['grid'],
+            'color': COLORS['text'],
+            'linecolor': COLORS['text']
+        },
+        'width': width,
+        'height': height,
+        'hovermode': 'closest',
+        'hoverlabel': {
+            'bgcolor': COLORS['background'],
+            'font': {
+                'family': FONT_FAMILY,
+                'color': COLORS['text']
+            },
+            'bordercolor': COLORS['text']
+        }
+    }
+
+
+def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
+    """
+    Save Plotly figure as standalone HTML with custom styling (CSP compliant).
+
+    Args:
+        fig: Plotly figure object
+        output_path (str): Output file path
+        base_url (str): Base URL for the site (default: https://marketwizardry.org)
+    """
+    # Determine the chart path relative to base
+    # Convert /home/typhoon/git/MarketWizardry.org/var-explorer/chart.html
+    # to var-explorer/chart.html
+    import os
+    filename = os.path.basename(output_path)
+    dirname = os.path.basename(os.path.dirname(output_path))
+    relative_path = f"{dirname}/{filename}"
+
+    # Custom HTML template with CRT styling (CSP COMPLIANT - no inline styles or onclick)
+    html_template = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="TyphooN">
+    <title>MarketWizardry.org Chart - {chart_title}</title>
+    <link rel="canonical" href="{canonical_url}">
+    <link rel="stylesheet" href="/css/shared-styles.css">
+    <style>
+        /* Chart-specific styles */
+        .chart-page-body {{
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }}
+
+        .chart-header {{
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-bottom: 2px solid #00ff00;
+        }}
+
+        .chart-header h1 {{
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            margin: 0;
+            animation: flicker 2s infinite;
+        }}
+
+        @keyframes flicker {{
+            0% {{ opacity: 1; }}
+            50% {{ opacity: 0.95; }}
+            100% {{ opacity: 1; }}
+        }}
+
+        .chart-back-link {{
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #003300;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }}
+
+        .chart-back-link:hover {{
+            background-color: #00ff00;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+        }}
+
+        .chart-container {{
+            margin: 0 auto;
+            text-align: center;
+        }}
+
+        .chart-link-container {{
+            text-align: center;
+        }}
+
+        .chart-link-container-bottom {{
+            text-align: center;
+            margin-top: 20px;
+        }}
+    </style>
+</head>
+<body class="chart-page-body">
+    <div class="chart-header">
+        <h1>📊 MarketWizardry.org Chart Viewer</h1>
+    </div>
+
+    <div class="chart-link-container">
+        <a href="javascript:history.back()" class="chart-back-link">← Back to Report</a>
+    </div>
+
+    <div class="chart-container">
+        {plot_div}
+    </div>
+
+    <div class="chart-link-container-bottom">
+        <a href="javascript:history.back()" class="chart-back-link">← Back to Report</a>
+    </div>
+</body>
+</html>
+"""
+
+    # Convert figure to HTML div
+    plot_div = fig.to_html(
+        include_plotlyjs='cdn',
+        div_id='chart',
+        config={
+            'displayModeBar': True,
+            'displaylogo': False,
+            'modeBarButtonsToRemove': ['lasso2d', 'select2d']
+        }
+    )
+
+    # Extract just the div (remove full HTML wrapper from plotly)
+    import re
+    match = re.search(r'(<div id="chart".*?</script>)', plot_div, re.DOTALL)
+    if match:
+        plot_div = match.group(1)
+
+    # Get chart title from figure
+    chart_title = fig.layout.title.text if fig.layout.title and fig.layout.title.text else "Chart"
+
+    # Build canonical URL
+    canonical_url = f"{base_url}/{relative_path}"
+
+    # Write final HTML
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html_template.format(
+            plot_div=plot_div,
+            chart_title=chart_title,
+            canonical_url=canonical_url
+        ))
+
+    print(f"✅ Chart saved to: {output_path}")
+
+
+def create_price_trend_chart(df, output_path, title="Price Trend Analysis", lookback_days=[1, 7, 30]):
+    """
+    Create price trend chart showing gainers and decliners.
+
+    Args:
+        df (pd.DataFrame): DataFrame with price change columns
+        output_path (str): Output HTML file path
+        title (str): Chart title
+        lookback_days (list): List of lookback periods
+    """
+    # Get top gainers and decliners for primary lookback period
+    primary_col = f'PriceChange{lookback_days[0]}d%'
+
+    if primary_col not in df.columns or df[primary_col].notna().sum() == 0:
+        print(f"⚠️  No price change data available for {primary_col}")
+        return
+
+    top_gainers = df.nlargest(20, primary_col)
+    top_decliners = df.nsmallest(20, primary_col)
+
+    # Create subplots
+    fig = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=(f"🚀 Top 20 Gainers ({lookback_days[0]}d)", f"☢️ Top 20 Decliners ({lookback_days[0]}d)"),
+        horizontal_spacing=0.12
+    )
+
+    # Add gainers bar chart
+    fig.add_trace(
+        go.Bar(
+            x=top_gainers[primary_col],
+            y=top_gainers['Symbol'],
+            orientation='h',
+            marker=dict(color=COLORS['positive'], line=dict(color=COLORS['text'], width=1)),
+            hovertemplate='<b>%{y}</b><br>Change: %{x:.2f}%<extra></extra>',
+            name='Gainers'
+        ),
+        row=1, col=1
+    )
+
+    # Add decliners bar chart
+    fig.add_trace(
+        go.Bar(
+            x=top_decliners[primary_col],
+            y=top_decliners['Symbol'],
+            orientation='h',
+            marker=dict(color=COLORS['negative'], line=dict(color=COLORS['text'], width=1)),
+            hovertemplate='<b>%{y}</b><br>Change: %{x:.2f}%<extra></extra>',
+            name='Decliners'
+        ),
+        row=1, col=2
+    )
+
+    # Update layout
+    layout = get_base_layout(title, width=1600, height=900)
+    layout['showlegend'] = False
+    layout['xaxis'] = {'title': 'Price Change (%)', 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['xaxis2'] = {'title': 'Price Change (%)', 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['yaxis'] = {'title': 'Symbol', 'gridcolor': COLORS['grid'], 'color': COLORS['text'], 'autorange': 'reversed'}
+    layout['yaxis2'] = {'title': 'Symbol', 'gridcolor': COLORS['grid'], 'color': COLORS['text'], 'autorange': 'reversed'}
+
+    fig.update_layout(layout)
+
+    save_html_chart(fig, output_path)
+
+
+def create_risk_distribution_chart(df, risk_col, output_path, title="Risk Distribution"):
+    """
+    Create histogram showing risk ratio distribution.
+
+    Args:
+        df (pd.DataFrame): DataFrame with risk column
+        risk_col (str): Name of risk ratio column
+        output_path (str): Output HTML file path
+        title (str): Chart title
+    """
+    if risk_col not in df.columns:
+        print(f"⚠️  Column {risk_col} not found in DataFrame")
+        return
+
+    fig = go.Figure()
+
+    # Add histogram
+    fig.add_trace(go.Histogram(
+        x=df[risk_col],
+        nbinsx=50,
+        marker=dict(
+            color=COLORS['text'],
+            line=dict(color=COLORS['background'], width=1)
+        ),
+        hovertemplate='Range: %{x}<br>Count: %{y}<extra></extra>',
+        name='Distribution'
+    ))
+
+    # Add mean line
+    mean_val = df[risk_col].mean()
+    fig.add_vline(
+        x=mean_val,
+        line_dash="dash",
+        line_color=COLORS['accent'],
+        annotation_text=f"Mean: {mean_val:.2f}%",
+        annotation_position="top"
+    )
+
+    # Update layout
+    layout = get_base_layout(title)
+    layout['xaxis'] = {'title': risk_col, 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['yaxis'] = {'title': 'Count', 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['showlegend'] = False
+
+    fig.update_layout(layout)
+
+    save_html_chart(fig, output_path)
+
+
+def create_scatter_plot(df, x_col, y_col, output_path, title="Scatter Plot", color_col=None, hover_col='Symbol'):
+    """
+    Create scatter plot for two variables.
+
+    Args:
+        df (pd.DataFrame): DataFrame with data
+        x_col (str): X-axis column name
+        y_col (str): Y-axis column name
+        output_path (str): Output HTML file path
+        title (str): Chart title
+        color_col (str): Optional column for color coding
+        hover_col (str): Column to show in hover
+    """
+    if x_col not in df.columns or y_col not in df.columns:
+        print(f"⚠️  Required columns not found in DataFrame")
+        return
+
+    fig = go.Figure()
+
+    # Prepare hover text
+    hover_text = df[hover_col] if hover_col in df.columns else df.index
+
+    if color_col and color_col in df.columns:
+        # Color-coded scatter
+        fig.add_trace(go.Scatter(
+            x=df[x_col],
+            y=df[y_col],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color=df[color_col],
+                colorscale=[[0, COLORS['negative']], [0.5, COLORS['neutral']], [1, COLORS['positive']]],
+                showscale=True,
+                colorbar=dict(
+                    title=color_col,
+                    titlefont=dict(color=COLORS['text']),
+                    tickfont=dict(color=COLORS['text']),
+                    bgcolor=COLORS['background']
+                ),
+                line=dict(color=COLORS['text'], width=1)
+            ),
+            text=hover_text,
+            hovertemplate='<b>%{text}</b><br>' + f'{x_col}: %{{x:.2f}}<br>{y_col}: %{{y:.2f}}<extra></extra>',
+            name='Assets'
+        ))
+    else:
+        # Simple scatter
+        fig.add_trace(go.Scatter(
+            x=df[x_col],
+            y=df[y_col],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color=COLORS['text'],
+                line=dict(color=COLORS['accent'], width=1)
+            ),
+            text=hover_text,
+            hovertemplate='<b>%{text}</b><br>' + f'{x_col}: %{{x:.2f}}<br>{y_col}: %{{y:.2f}}<extra></extra>',
+            name='Assets'
+        ))
+
+    # Update layout
+    layout = get_base_layout(title)
+    layout['xaxis'] = {'title': x_col, 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['yaxis'] = {'title': y_col, 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['showlegend'] = False
+
+    fig.update_layout(layout)
+
+    save_html_chart(fig, output_path)
+
+
+def create_top_assets_chart(df, value_col, output_path, title="Top Assets", n=20, ascending=False):
+    """
+    Create horizontal bar chart showing top N assets by value.
+
+    Args:
+        df (pd.DataFrame): DataFrame with data
+        value_col (str): Column to sort by
+        output_path (str): Output HTML file path
+        title (str): Chart title
+        n (int): Number of top assets to show
+        ascending (bool): Sort ascending if True, descending if False
+    """
+    if value_col not in df.columns:
+        print(f"⚠️  Column {value_col} not found in DataFrame")
+        return
+
+    # Get top N
+    top_df = df.nlargest(n, value_col) if not ascending else df.nsmallest(n, value_col)
+
+    # Determine color based on values
+    colors = [COLORS['positive'] if v > 0 else COLORS['negative'] for v in top_df[value_col]]
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Bar(
+        x=top_df[value_col],
+        y=top_df['Symbol'] if 'Symbol' in top_df.columns else top_df.index,
+        orientation='h',
+        marker=dict(color=colors, line=dict(color=COLORS['text'], width=1)),
+        hovertemplate='<b>%{y}</b><br>' + f'{value_col}: %{{x:.2f}}<extra></extra>',
+        name='Assets'
+    ))
+
+    # Update layout
+    layout = get_base_layout(title)
+    layout['xaxis'] = {'title': value_col, 'gridcolor': COLORS['grid'], 'color': COLORS['text']}
+    layout['yaxis'] = {'title': 'Symbol', 'gridcolor': COLORS['grid'], 'color': COLORS['text'], 'autorange': 'reversed'}
+    layout['showlegend'] = False
+
+    fig.update_layout(layout)
+
+    save_html_chart(fig, output_path)
+
+
+if __name__ == "__main__":
+    print("Chart Generator Module for MarketWizardry.org")
+    print("=" * 80)
+    print("\nThis module provides functions to generate HTML charts with CRT aesthetic.")
+    print("\nAvailable functions:")
+    print("  - create_price_trend_chart()")
+    print("  - create_risk_distribution_chart()")
+    print("  - create_scatter_plot()")
+    print("  - create_top_assets_chart()")
+    print("\nAll charts use the MarketWizardry.org color scheme:")
+    print(f"  Background: {COLORS['background']}")
+    print(f"  Text:       {COLORS['text']}")
+    print(f"  Positive:   {COLORS['positive']}")
+    print(f"  Negative:   {COLORS['negative']}")
+    print("=" * 80)

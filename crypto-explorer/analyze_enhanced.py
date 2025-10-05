@@ -332,11 +332,11 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
             for i, row in df_perf.iterrows():
                 price = format_price(row['AskPrice'])
 
-                # Format with colored indicators
+                # Format with rocket/nuke indicators
                 def format_change(val):
                     if pd.isna(val):
                         return "N/A       "
-                    emoji = "🟢" if val > 0 else "🔴" if val < 0 else "⚪"
+                    emoji = "🚀" if val > 0 else "☢️" if val < 0 else "⚪"
                     return f"{emoji}{val:+.1f}%"
 
                 change_24h = format_change(row['PriceChange24h%'])

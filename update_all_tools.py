@@ -347,6 +347,7 @@ class FinancialToolsUpdater:
             basic_analysis_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-analysis.txt"
             market_data_file = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-market-data.json"
             news_data_file_check = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-news-data.json"
+            events_data_file_check = f"crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-events-data.json"
 
             force_crypto = 'crypto' in self.force_explorers or self.force_regenerate
             if os.path.exists(enhanced_analysis_file) and not force_crypto:
@@ -355,6 +356,7 @@ class FinancialToolsUpdater:
                 self.data_summary['crypto_processed'] = True
                 self.data_summary['crypto_market_data'] = os.path.exists(market_data_file)
                 self.data_summary['crypto_news_data'] = os.path.exists(news_data_file_check)
+                self.data_summary['crypto_events_data'] = os.path.exists(events_data_file_check)
                 return True
 
             # Step 1: Fetch market data from CoinGecko
@@ -400,14 +402,90 @@ class FinancialToolsUpdater:
                 print(f"     Error: {news_result.stderr[:200]}")
                 self.data_summary['crypto_news_data'] = False
 
+            # Step 1c: Fetch events data from CoinMarketCal (if API key available)
+            events_data_output = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}-events-data.json"
+            events_data_file = f"crypto-explorer/{events_data_output}"
+            events_data_fetched = False
+
+            # Load API key from .env file if available
+            api_key = os.environ.get('COINMARKETCAL_API_KEY')
+            if not api_key or api_key == 'your_coinmarketcal_api_key_here':
+                # Try to load from .env file
+                env_file = '.env'
+                if os.path.exists(env_file):
+                    with open(env_file, 'r') as f:
+                        for line in f:
+                            line = line.strip()
+                            if line and not line.startswith('#') and '=' in line:
+                                key, value = line.split('=', 1)
+                                if key.strip() == 'COINMARKETCAL_API_KEY':
+                                    api_key = value.strip()
+                                    break
+
+            # Check if COINMARKETCAL_API_KEY is set and valid
+            if api_key and api_key != 'your_coinmarketcal_api_key_here':
+                # Read the CSV to get only the crypto symbols that are actually present
+                csv_filename = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
+                csv_filepath = f"crypto-explorer/{csv_filename}"
+
+                crypto_symbols = []
+                if os.path.exists(csv_filepath):
+                    import csv
+                    with open(csv_filepath, 'r', encoding='utf-8') as f:
+                        reader = csv.DictReader(f, delimiter=';')
+                        for row in reader:
+                            symbol = row.get('Symbol', '')
+                            # Only include crypto symbols (not forex like EURGBP, EURUSD)
+                            if symbol.endswith('USD') and symbol not in ['EURUSD']:
+                                crypto_symbols.append(symbol)
+
+                if crypto_symbols:
+                    print(f"  📅 Fetching cryptocurrency events from CoinMarketCal for {len(crypto_symbols)} symbols...")
+                    events_cmd = ['python3', 'fetch_crypto_events.py', '--output', events_data_output, '--events', '5', '--symbols'] + crypto_symbols
+                    events_result = subprocess.run(
+                        events_cmd,
+                        cwd='crypto-explorer',
+                        capture_output=True,
+                        text=True,
+                        timeout=60,  # 1 minute timeout for events API
+                        env={**os.environ, 'COINMARKETCAL_API_KEY': api_key}
+                    )
+                else:
+                    print(f"  ⚠️ No crypto symbols found in CSV, skipping events fetch")
+                    events_result = None
+
+                if events_result and events_result.returncode == 0:
+                    print(f"  ✅ Events data fetched successfully")
+                    events_data_fetched = True
+                    self.data_summary['crypto_events_data'] = True
+                elif events_result:
+                    print(f"  ⚠️ Warning: Events data fetch failed, will proceed without events")
+                    if events_result.stderr:
+                        print(f"     Error: {events_result.stderr[:500]}")
+                    if "No events data fetched" in events_result.stdout or "No events retrieved" in events_result.stdout:
+                        print(f"     Note: CoinMarketCal API returned no events. This may be due to:")
+                        print(f"           - Invalid or expired API key")
+                        print(f"           - API rate limiting")
+                        print(f"           - Coin names not recognized by CoinMarketCal")
+                        print(f"     Check your API key at: https://coinmarketcal.com/en/developer")
+                    self.data_summary['crypto_events_data'] = False
+                else:
+                    self.data_summary['crypto_events_data'] = False
+            else:
+                print(f"  ℹ️  Skipping events fetch (no API key set)")
+                print(f"     Set COINMARKETCAL_API_KEY in .env to enable events")
+                self.data_summary['crypto_events_data'] = False
+
             # Step 2: Run enhanced analysis (if market data available) or basic analysis
             csv_filename = f"SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
 
             if market_data_fetched and os.path.exists(market_data_file):
-                print("  📊 Running enhanced analysis with market data and news...")
+                print("  📊 Running enhanced analysis with market data, news, and events...")
                 cmd_args = ['python3', 'analyze_enhanced.py', csv_filename, '--market-data', market_data_output]
                 if news_data_fetched and os.path.exists(news_data_file):
                     cmd_args.extend(['--news-data', news_data_output])
+                if events_data_fetched and os.path.exists(events_data_file):
+                    cmd_args.extend(['--events-data', events_data_output])
 
                 analysis_result = subprocess.run(
                     cmd_args,
