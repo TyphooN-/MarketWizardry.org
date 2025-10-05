@@ -1827,3 +1827,84 @@ header {
         font-size: 1em;
     }
 }
+
+/* Darwinex RADAR Styles */
+.report-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    border-bottom: 2px solid #00ff00;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    background-color: #000000;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    transition: all 0.3s;
+    margin-bottom: -2px;
+}
+
+.tab-button:hover {
+    background-color: #003300;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.tab-button.active {
+    background-color: #00ff00;
+    color: #000000;
+    border-bottom-color: #00ff00;
+}
+
+.tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.terminal-output {
+    background-color: #000000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 20px;
+    border: 2px solid #00ff00;
+    overflow-x: auto;
+    white-space: pre;
+    max-width: 100%;
+}
+
+.intro-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 2px solid #00ff00;
+    background-color: rgba(0, 255, 0, 0.05);
+}
+
+.intro-section p {
+    margin: 5px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .report-tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .terminal-output {
+        font-size: 11px;
+        padding: 10px;
+    }
+}

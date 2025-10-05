@@ -12,6 +12,15 @@ import os
 from datetime import datetime
 from typing import Dict, List, Optional
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    # Load from parent directory's .env file
+    dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+    load_dotenv(dotenv_path)
+except ImportError:
+    pass  # python-dotenv not installed, will rely on environment variables
+
 # CoinMarketCal API endpoint
 COINMARKETCAL_API_BASE = "https://developers.coinmarketcal.com/v1"
 
