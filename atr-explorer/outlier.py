@@ -180,8 +180,8 @@ def find_atr_outliers(filename):
 
         # Generate HTML charts
         base_filename = os.path.splitext(os.path.basename(filename))[0]
-        chart_dir = os.path.dirname(filename)
-        explorer_name = os.path.basename(chart_dir)  # e.g., "atr-explorer"
+        chart_dir = os.path.dirname(filename) if os.path.dirname(filename) else '.'
+        explorer_name = "atr-explorer"  # Hardcoded since script runs from atr-explorer/ directory
 
         print("\n" + "=" * 120)
         print("📊 INTERACTIVE HTML CHARTS")

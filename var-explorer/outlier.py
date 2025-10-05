@@ -252,8 +252,8 @@ def find_var_outliers(filename, overwrite=False):
 
         # Generate HTML charts
         base_filename = os.path.splitext(os.path.basename(filename))[0]
-        chart_dir = os.path.dirname(filename)
-        explorer_name = os.path.basename(chart_dir)  # e.g., "var-explorer"
+        chart_dir = os.path.dirname(filename) if os.path.dirname(filename) else '.'
+        explorer_name = "var-explorer"  # Hardcoded since script runs from var-explorer/ directory
 
         print("\n" + "=" * 120)
         print("📊 INTERACTIVE HTML CHARTS")

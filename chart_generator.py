@@ -98,7 +98,22 @@ def save_html_chart(fig, output_path, base_url="https://marketwizardry.org"):
     # to var-explorer/chart.html
     import os
     filename = os.path.basename(output_path)
-    dirname = os.path.basename(os.path.dirname(output_path))
+    # Get the directory containing the chart file
+    # If output_path contains a directory, extract it (e.g., 'ev-explorer/file.html' -> 'ev-explorer')
+    # If not, infer from the current working directory or filename pattern
+    full_dirname = os.path.dirname(output_path)
+    if full_dirname and full_dirname != '.':
+        dirname = os.path.basename(full_dirname)
+    else:
+        # Infer explorer name from filename pattern
+        if 'EV-' in filename or '-EV-' in filename:
+            dirname = 'ev-explorer'
+        elif 'VAR-' in filename or 'VaR' in filename or 'var-explorer' in os.getcwd():
+            dirname = 'var-explorer'
+        elif 'ATR-' in filename or 'atr-explorer' in os.getcwd():
+            dirname = 'atr-explorer'
+        else:
+            dirname = 'charts'  # Fallback
     relative_path = f"{dirname}/{filename}"
 
     # Custom HTML template with CRT styling (CSP COMPLIANT - Plotly CDN allowed)
