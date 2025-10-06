@@ -33,19 +33,17 @@ Net Change: -24 symbols (-2.9%)
 Total New Symbols Added: 12
 Total Symbols Delisted (Fully Removed): 36
 Total Close-Only Changes: 26
-Total Spec Changes: 87485
+Total Spec Changes: 3291
 
-⚙️  SPECIFICATION CHANGES (Swap/Commission/Trade Mode)
+⚙️  SPECIFICATION CHANGES (Trade Mode / Swap Rates)
 ========================================================================================================================
 Note: Close-only does NOT count as delisted. Symbol is still available for closing positions.
 
-📅 2025.07.23 - 5 symbol(s) with spec changes:
+📅 2025.07.23 - 3 symbol(s) with spec changes:
 ------------------------------------------------------------------------------------------------------------------------
-   BPMC       → CLOSE-ONLY, Spread: 1.0→4.0
-   AAPL       Spread: 9.0→3.0
-   IGT        → CLOSE-ONLY, Spread: 3.0→14.0
+   BPMC       → CLOSE-ONLY
+   IGT        → CLOSE-ONLY
    MSFT       SwapLong: -6.2→-5.8
-   TSLA       SwapShort: 2.8→3.2, Spread: 10.0→8.0
 
 ❌ DELISTED / FULLY REMOVED SYMBOLS
 ========================================================================================================================
