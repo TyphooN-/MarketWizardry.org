@@ -172,20 +172,24 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                     else:
                         changes.append(f'TradeMode: {prev_mode}→{curr_mode}')
 
-                # Check swap changes
-                if prev_spec['SwapLong'] != curr_spec['SwapLong']:
-                    changes.append(f"SwapLong: {prev_spec['SwapLong']}→{curr_spec['SwapLong']}")
-                if prev_spec['SwapShort'] != curr_spec['SwapShort']:
-                    changes.append(f"SwapShort: {prev_spec['SwapShort']}→{curr_spec['SwapShort']}")
-
-                # Check spread changes (significant = >10% change)
+                # Check swap changes (only meaningful changes, filter out garbage values)
                 try:
-                    prev_spread = float(prev_spec['Spread'])
-                    curr_spread = float(curr_spec['Spread'])
-                    if prev_spread > 0:
-                        spread_change = abs(curr_spread - prev_spread) / prev_spread
-                        if spread_change > 0.1:  # >10% change
-                            changes.append(f"Spread: {prev_spread}→{curr_spread}")
+                    prev_long = float(prev_spec['SwapLong'])
+                    curr_long = float(curr_spec['SwapLong'])
+                    # Filter out invalid/garbage values (extremely large numbers indicate data corruption)
+                    if abs(prev_long) < 1000000 and abs(curr_long) < 1000000:
+                        if prev_long != curr_long:
+                            changes.append(f"SwapLong: {prev_long}→{curr_long}")
+                except:
+                    pass
+
+                try:
+                    prev_short = float(prev_spec['SwapShort'])
+                    curr_short = float(curr_spec['SwapShort'])
+                    # Filter out invalid/garbage values
+                    if abs(prev_short) < 1000000 and abs(curr_short) < 1000000:
+                        if prev_short != curr_short:
+                            changes.append(f"SwapShort: {prev_short}→{curr_short}")
                 except:
                     pass
 
@@ -292,7 +296,7 @@ def generate_report(results, csv_dir):
     # Spec changes section (NEW!)
     if results.get('spec_changes'):
         output.append("=" * 120)
-        output.append("⚙️  SPECIFICATION CHANGES (Swap/Commission/Trade Mode)")
+        output.append("⚙️  SPECIFICATION CHANGES (Trade Mode / Swap Rates)")
         output.append("=" * 120)
         output.append("Note: Close-only does NOT count as delisted. Symbol is still available for closing positions.")
         output.append("")
@@ -307,7 +311,7 @@ def generate_report(results, csv_dir):
                 output.append(f"   {symbol:<10} {change_str}")
     else:
         output.append("=" * 120)
-        output.append("⚙️  SPECIFICATION CHANGES (Swap/Commission/Trade Mode)")
+        output.append("⚙️  SPECIFICATION CHANGES (Trade Mode / Swap Rates)")
         output.append("=" * 120)
         output.append("\n✅ No spec changes during this period")
 

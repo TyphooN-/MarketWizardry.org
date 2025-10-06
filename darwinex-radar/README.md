@@ -13,7 +13,10 @@ Comprehensive tracking system for Darwinex symbol changes, spec modifications, a
   - `→ CLOSE-ONLY`: Symbol changed to close-only mode (TradeMode 3)
   - `→ TRADING ENABLED`: Symbol reopened for trading (TradeMode 4)
 - **Swap Changes**: Tracks SwapLong and SwapShort modifications
-- **Spread Changes**: Tracks significant spread changes (>10% change)
+  - Filters out invalid/garbage values (abs value > 1,000,000)
+  - Only shows meaningful swap rate adjustments
+
+**Note**: Spread and price changes are **not tracked** as they fluctuate too frequently and add noise.
 
 ### 3. **Close-Only vs Delisted** 🔍 **IMPORTANT!**
 - **Close-Only**: Symbol still appears in CSV with TradeMode=3. You can close positions but not open new ones.
