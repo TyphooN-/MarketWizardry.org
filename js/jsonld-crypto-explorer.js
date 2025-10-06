@@ -1,49 +1,30 @@
-// JSON-LD structured data - CSP compliant
+// JSON-LD structured data for crypto-explorer.html - CSP compliant
 (function() {
     'use strict';
 
     const jsonLdData = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Crypto Explorer - Cryptocurrency Market Data",
+    "@type": "SoftwareApplication",
+    "name": "Crypto Explorer - Cryptocurrency Analysis",
+    "description": "Cryptocurrency market analysis and tracking platform. Real-time crypto data, volatility metrics, and trading insights for digital assets.",
     "url": "https://marketwizardry.org/crypto-explorer.html",
-    "description": "Real-time cryptocurrency market explorer with volatility metrics, risk analysis, and trading data across major digital assets.",
-    "author": {
-        "@type": "Person",
-        "name": "TyphooN"
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "Market Wizardry",
-        "url": "https://marketwizardry.org",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://marketwizardry.org/img/apple-touch-icon.png"
-        }
-    },
-    "inLanguage": "en-US",
     "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "browserRequirements": "Requires JavaScript",
+    "operatingSystem": "Web Browser",
     "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
     },
-    "featureList": "Real-time cryptocurrency market explorer with volatility metrics, risk analysis, and trading data across major digital assets."
+    "author": {
+        "@type": "Person",
+        "name": "TyphooN",
+        "url": "https://twitter.com/MarketW1zardry"
+    }
 };
 
-    function injectJsonLd() {
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.textContent = JSON.stringify(jsonLdData);
-        document.head.appendChild(script);
-        console.log('JSON-LD structured data injected');
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', injectJsonLd);
-    } else {
-        injectJsonLd();
-    }
+    // Inject JSON-LD into page
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(jsonLdData, null, 2);
+    document.head.appendChild(script);
 })();
