@@ -210,31 +210,42 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
     # Track close-only → delisted timeline
     close_only_to_delisted = {}
 
-    # Build a map of when symbols went close-only
-    close_only_dates = {}
+    # Build a map of when symbols went close-only (store all dates, not just first)
+    close_only_dates = defaultdict(list)
     for date, changes_dict in spec_changes.items():
         for symbol, changes in changes_dict.items():
             for change in changes:
                 if 'CLOSE-ONLY' in change:
-                    if symbol not in close_only_dates:
-                        close_only_dates[symbol] = date
+                    close_only_dates[symbol].append(date)
 
     # Check which close-only symbols were later delisted
     for date, delisted_list in delisted_symbols.items():
         for symbol in delisted_list:
             if symbol in close_only_dates:
-                close_only_date = close_only_dates[symbol]
-                # Calculate days between close-only and delisting
+                # Find the most recent close-only date BEFORE the delisting
                 try:
                     from datetime import datetime
-                    close_date = datetime.strptime(close_only_date, '%Y.%m.%d')
                     delist_date = datetime.strptime(date, '%Y.%m.%d')
-                    days_diff = (delist_date - close_date).days
-                    close_only_to_delisted[symbol] = {
-                        'close_only_date': close_only_date,
-                        'delisted_date': date,
-                        'days_between': days_diff
-                    }
+
+                    valid_close_dates = []
+                    for close_date_str in close_only_dates[symbol]:
+                        close_date = datetime.strptime(close_date_str, '%Y.%m.%d')
+                        # Only count if close-only happened BEFORE delisting
+                        if close_date < delist_date:
+                            valid_close_dates.append((close_date_str, close_date))
+
+                    # Use the most recent valid close-only date
+                    if valid_close_dates:
+                        valid_close_dates.sort(key=lambda x: x[1], reverse=True)
+                        close_only_date_str = valid_close_dates[0][0]
+                        close_date = valid_close_dates[0][1]
+                        days_diff = (delist_date - close_date).days
+
+                        close_only_to_delisted[symbol] = {
+                            'close_only_date': close_only_date_str,
+                            'delisted_date': date,
+                            'days_between': days_diff
+                        }
                 except:
                     pass
 
