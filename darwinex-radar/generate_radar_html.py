@@ -37,12 +37,12 @@ def generate_radar_html():
     page_config.update({
         'title': 'Darwinex RADAR - Symbol Tracker | MarketWizardry.org',
         'canonical_url': 'https://marketwizardry.org/darwinex-radar.html',
-        'description': 'Track Darwinex symbol additions, delistings, and market changes over time. Comprehensive historical analysis of new instruments and removed symbols.',
+        'description': 'Real-time tracking of Darwinex symbol additions, delistings, close-only restrictions, and swap rate changes. Know when your broker is about to screw you before it happens.',
         'og_title': 'Darwinex RADAR - Symbol Tracker',
-        'og_description': 'Track Darwinex symbol additions, delistings, and market changes over time. Comprehensive historical analysis of new instruments and removed symbols.',
+        'og_description': 'Track when Darwinex removes symbols, sets close-only restrictions, and adjusts swap rates. Because your broker won\'t warn you.',
         'twitter_title': 'Darwinex RADAR - Symbol Tracker',
-        'twitter_description': 'Track Darwinex symbol additions, delistings, and market changes over time. Comprehensive historical analysis of new instruments and removed symbols.',
-        'keywords': 'Darwinex, symbol tracker, market changes, symbol additions, delistings, market evolution, trading instruments'
+        'twitter_description': 'Real-time tracking of Darwinex symbol changes, delistings, and swap adjustments. Stay ahead of broker restrictions.',
+        'keywords': 'Darwinex, symbol tracker, close-only, delistings, swap rates, broker restrictions, trading instruments, market changes'
     })
 
     meta_tags = seo_manager.generate_enhanced_meta_tags(page_config)
@@ -53,7 +53,7 @@ def generate_radar_html():
     ]
     breadcrumbs = seo_manager.generate_breadcrumbs(breadcrumb_list)
 
-    # Generate HTML
+    # Generate HTML with flavor text
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,6 +65,12 @@ def generate_radar_html():
 
     <div class="container">
         <h1>DARWINEX RADAR - SYMBOL TRACKER</h1>
+
+        <div class="crt-divider"></div>
+
+        <div class="flavor-text">Watch in real-time as Darwinex quietly removes your favorite symbols while you sleep. Because nothing says "customer service" like turning your positions into close-only hostages at 3am.</div>
+
+        <div class="crt-divider"></div>
 
         <div class="intro-section">
             <p>Real-time tracking of Darwinex symbol additions, delistings, and market evolution.</p>
