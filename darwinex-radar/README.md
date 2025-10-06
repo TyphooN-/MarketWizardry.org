@@ -26,6 +26,23 @@ Comprehensive tracking system for Darwinex symbol changes, spec modifications, a
 - **Close-Only**: Symbol still appears in CSV with TradeMode=3. You can close positions but not open new ones.
 - **Delisted**: Symbol completely removed from CSV. Platform no longer offers this instrument.
 
+### 4. **Close-Only → Delisted Timeline** ⏱️ **NEW!**
+Tracks the lifecycle of symbols that went close-only before being delisted:
+- Shows the date a symbol went close-only
+- Shows the date it was fully delisted
+- Calculates the number of days between these events
+- Sorted by shortest to longest timeline
+
+**Example:**
+```
+IGT        Close-Only: 2025.06.30 → Delisted: 2025.07.01 (1 days)
+CHX        Close-Only: 2025.07.16 → Delisted: 2025.07.17 (1 days)
+BPMC       Close-Only: 2025.07.10 → Delisted: 2025.07.23 (13 days)
+ANSS       Close-Only: 2025.07.16 → Delisted: 2025.08.18 (33 days)
+```
+
+This helps identify patterns in how long symbols remain close-only before full delisting.
+
 ## Example Output
 
 ```
