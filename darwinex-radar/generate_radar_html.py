@@ -68,7 +68,7 @@ def generate_radar_html():
 
         <div class="crt-divider"></div>
 
-        <div class="flavor-text">Real-time intelligence on symbol availability changes. Track when instruments go close-only, get delisted, or have their swap rates adjusted. Because market conditions change faster than your broker's notification emails.</div>
+        <div class="flavor-text">Real-time intelligence on symbol availability changes. Track when instruments go close-only, get delisted, or have their swap rates adjusted. Because waiting for Gmail to decide that market alerts aren't spam is not a trading strategy.</div>
 
         <div class="crt-divider"></div>
 
