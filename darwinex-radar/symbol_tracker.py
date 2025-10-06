@@ -207,6 +207,37 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                         close_only_changes[curr_date] = []
                     close_only_changes[curr_date].append(symbol)
 
+    # Track close-only → delisted timeline
+    close_only_to_delisted = {}
+
+    # Build a map of when symbols went close-only
+    close_only_dates = {}
+    for date, changes_dict in spec_changes.items():
+        for symbol, changes in changes_dict.items():
+            for change in changes:
+                if 'CLOSE-ONLY' in change:
+                    if symbol not in close_only_dates:
+                        close_only_dates[symbol] = date
+
+    # Check which close-only symbols were later delisted
+    for date, delisted_list in delisted_symbols.items():
+        for symbol in delisted_list:
+            if symbol in close_only_dates:
+                close_only_date = close_only_dates[symbol]
+                # Calculate days between close-only and delisting
+                try:
+                    from datetime import datetime
+                    close_date = datetime.strptime(close_only_date, '%Y.%m.%d')
+                    delist_date = datetime.strptime(date, '%Y.%m.%d')
+                    days_diff = (delist_date - close_date).days
+                    close_only_to_delisted[symbol] = {
+                        'close_only_date': close_only_date,
+                        'delisted_date': date,
+                        'days_between': days_diff
+                    }
+                except:
+                    pass
+
     # Prepare report
     results = {
         'symbol_history': symbol_history,
@@ -215,6 +246,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
         'delisted_symbols': delisted_symbols,
         'close_only_changes': close_only_changes,
         'spec_changes': spec_changes,
+        'close_only_to_delisted': close_only_to_delisted,
         'latest_symbols': symbol_history[sorted_dates[-1]],
         'earliest_symbols': symbol_history[sorted_dates[0]],
     }
@@ -357,6 +389,29 @@ def generate_report(results, csv_dir):
         output.append("❌ DELISTED / FULLY REMOVED SYMBOLS")
         output.append("=" * 120)
         output.append("\n✅ No symbols delisted during this period")
+
+    output.append("")
+
+    # Close-only → Delisted timeline section
+    if results.get('close_only_to_delisted'):
+        output.append("=" * 120)
+        output.append("⏱️  CLOSE-ONLY → DELISTED TIMELINE")
+        output.append("=" * 120)
+        output.append("Symbols that went close-only before being fully delisted (shows lifecycle timeline).")
+        output.append("")
+
+        # Sort by days between (shortest to longest)
+        timeline_sorted = sorted(results['close_only_to_delisted'].items(),
+                                key=lambda x: x[1]['days_between'])
+
+        for symbol, timeline in timeline_sorted:
+            days = timeline['days_between']
+            output.append(f"   {symbol:<10} Close-Only: {timeline['close_only_date']} → Delisted: {timeline['delisted_date']} ({days} days)")
+    else:
+        output.append("=" * 120)
+        output.append("⏱️  CLOSE-ONLY → DELISTED TIMELINE")
+        output.append("=" * 120)
+        output.append("\n✅ No close-only symbols were delisted during this period")
 
     output.append("")
     output.append("=" * 120)

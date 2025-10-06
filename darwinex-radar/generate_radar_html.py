@@ -68,7 +68,7 @@ def generate_radar_html():
 
         <div class="crt-divider"></div>
 
-        <div class="flavor-text">Watch in real-time as Darwinex quietly removes your favorite symbols while you sleep. Because nothing says "customer service" like turning your positions into close-only hostages at 3am.</div>
+        <div class="flavor-text">Real-time intelligence on symbol availability changes. Track when instruments go close-only, get delisted, or have their swap rates adjusted. Because market conditions change faster than your broker's notification emails.</div>
 
         <div class="crt-divider"></div>
 
