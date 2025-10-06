@@ -446,7 +446,7 @@ def generate_comprehensive_report(base_dir='.'):
     reports = [
         ('var-explorer', 'stocks', 'Stocks', 'Stocks'),
         ('atr-explorer', 'futures', 'Futures', 'Futures'),
-        ('atr-explorer', 'cfd', 'CFD', 'CFD'),
+        ('var-explorer', 'cfd', 'CFD', 'CFD'),
         ('crypto-explorer', 'crypto', 'Crypto', None)
     ]
 
