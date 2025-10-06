@@ -1,0 +1,121 @@
+# Darwinex RADAR - Symbol Tracker
+
+Comprehensive tracking system for Darwinex symbol changes, spec modifications, and market evolution.
+
+## Features
+
+### 1. **Symbol Tracking**
+- **New Symbols Listed**: Tracks when new instruments are added to the platform
+- **Delisted Symbols**: Tracks when symbols are **fully removed** from the platform (not just close-only)
+
+### 2. **Specification Changes** ⚙️ **NEW!**
+- **Trade Mode Changes**:
+  - `→ CLOSE-ONLY`: Symbol changed to close-only mode (TradeMode 3)
+  - `→ TRADING ENABLED`: Symbol reopened for trading (TradeMode 4)
+- **Swap Changes**: Tracks SwapLong and SwapShort modifications
+- **Spread Changes**: Tracks significant spread changes (>10% change)
+
+### 3. **Close-Only vs Delisted** 🔍 **IMPORTANT!**
+- **Close-Only**: Symbol still appears in CSV with TradeMode=3. You can close positions but not open new ones.
+- **Delisted**: Symbol completely removed from CSV. Platform no longer offers this instrument.
+
+## Example Output
+
+```
+📋 SUMMARY STATISTICS
+========================================================================================================================
+Symbols on 2024.12.30: 832
+Symbols on 2025.10.03: 808
+Net Change: -24 symbols (-2.9%)
+Total New Symbols Added: 12
+Total Symbols Delisted (Fully Removed): 36
+Total Close-Only Changes: 26
+Total Spec Changes: 87485
+
+⚙️  SPECIFICATION CHANGES (Swap/Commission/Trade Mode)
+========================================================================================================================
+Note: Close-only does NOT count as delisted. Symbol is still available for closing positions.
+
+📅 2025.07.23 - 5 symbol(s) with spec changes:
+------------------------------------------------------------------------------------------------------------------------
+   BPMC       → CLOSE-ONLY, Spread: 1.0→4.0
+   AAPL       Spread: 9.0→3.0
+   IGT        → CLOSE-ONLY, Spread: 3.0→14.0
+   MSFT       SwapLong: -6.2→-5.8
+   TSLA       SwapShort: 2.8→3.2, Spread: 10.0→8.0
+
+❌ DELISTED / FULLY REMOVED SYMBOLS
+========================================================================================================================
+Note: These symbols were completely removed from the platform (not just close-only).
+
+📅 2025.07.23 - 1 delisted symbol(s):
+------------------------------------------------------------------------------------------------------------------------
+   BPMC
+```
+
+## Usage
+
+### Generate All Reports
+
+```bash
+cd /home/typhoon/git/MarketWizardry.org/darwinex-radar
+python3 symbol_tracker.py --all
+```
+
+This will:
+1. Analyze all CSV files in var-explorer, atr-explorer, crypto-explorer
+2. Generate radar reports: `stocks-radar.txt`, `futures-radar.txt`, `cfd-radar.txt`, `crypto-radar.txt`
+3. Track new symbols, delisted symbols, and all spec changes
+
+### Generate HTML Page
+
+```bash
+python3 generate_radar_html.py
+```
+
+This creates the CSP-compliant `darwinex-radar.html` page with tab navigation.
+
+### Analyze Specific Directory
+
+```bash
+python3 symbol_tracker.py ../var-explorer output.txt
+```
+
+## Data Sources
+
+- **Stocks/ETF**: `var-explorer/SymbolsExport-Darwinex-Live-Stocks-*.csv`
+- **Futures**: `atr-explorer/SymbolsExport-Darwinex-Live-Futures-*.csv`
+- **CFD**: `atr-explorer/SymbolsExport-Darwinex-Live-CFD-*.csv`
+- **Crypto**: `crypto-explorer/SymbolsExport-Darwinex-Live-Crypto-*.csv`
+
+## CSV Format
+
+Required columns:
+- `Symbol`: Instrument symbol
+- `TradeMode`: Trading mode (3=close-only, 4=full trading)
+- `SwapLong`: Long swap rate
+- `SwapShort`: Short swap rate
+- `Spread`: Spread in points
+
+## TradeMode Values
+
+- **0**: Unknown/Not set
+- **1**: Disabled
+- **2**: Long only
+- **3**: Close only (can only close existing positions)
+- **4**: Full trading (can open and close positions)
+
+## Technical Details
+
+- **CSP Compliant**: All generated HTML follows strict Content Security Policy
+- **Terminal Aesthetic**: CRT-style green monospace output
+- **Performance**: Processes 150+ days of data across 800+ symbols in seconds
+- **Change Detection**: Compares consecutive CSV files to detect all changes
+
+## License
+
+Part of MarketWizardry.org - Professional Financial Trading Tools
+
+## Author
+
+TyphooN (@MarketW1zardry)

@@ -31,6 +31,37 @@ def load_symbol_list(csv_file):
         return set()
 
 
+def load_symbol_details(csv_file):
+    """
+    Load symbol details including specs (TradeMode, swap, commission).
+
+    Args:
+        csv_file (str): Path to CSV file
+
+    Returns:
+        dict: Dict mapping symbol -> {TradeMode, SwapLong, SwapShort, Spread}
+    """
+    try:
+        df = pd.read_csv(csv_file, delimiter=';', encoding='latin1')
+        if 'Symbol' not in df.columns:
+            return {}
+
+        symbol_data = {}
+        for _, row in df.iterrows():
+            symbol = row.get('Symbol')
+            if pd.notna(symbol):
+                symbol_data[symbol] = {
+                    'TradeMode': row.get('TradeMode', ''),
+                    'SwapLong': row.get('SwapLong', 0),
+                    'SwapShort': row.get('SwapShort', 0),
+                    'Spread': row.get('Spread', 0)
+                }
+        return symbol_data
+    except Exception as e:
+        print(f"Error loading details from {csv_file}: {e}")
+        return {}
+
+
 def extract_date_from_filename(filename):
     """
     Extract date from filename like 'SymbolsExport-Darwinex-Live-Stocks-2025.10.03.csv'
@@ -51,6 +82,7 @@ def extract_date_from_filename(filename):
 def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
     """
     Analyze symbol changes across all CSV files in a directory.
+    Tracks: new symbols, delisted symbols, close-only symbols, and spec changes.
 
     Args:
         csv_dir (str): Directory containing CSV files
@@ -72,15 +104,18 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
         print("⚠️  Need at least 2 CSV files to track changes")
         return None
 
-    # Track symbol sets by date
+    # Track symbol sets and details by date
     symbol_history = {}
+    symbol_details_history = {}
 
     for csv_file in csv_files:
         date = extract_date_from_filename(csv_file)
         if date:
             csv_path = os.path.join(csv_dir, csv_file)
             symbols = load_symbol_list(csv_path)
+            details = load_symbol_details(csv_path)
             symbol_history[date] = symbols
+            symbol_details_history[date] = details
             print(f"📅 {date}: {len(symbols)} symbols")
 
     if len(symbol_history) < 2:
@@ -90,9 +125,11 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
     # Sort dates
     sorted_dates = sorted(symbol_history.keys())
 
-    # Find new and delisted symbols
+    # Find new symbols, delisted symbols, close-only changes, and spec changes
     new_symbols = {}
     delisted_symbols = {}
+    close_only_changes = {}
+    spec_changes = {}
 
     for i in range(1, len(sorted_dates)):
         prev_date = sorted_dates[i-1]
@@ -100,16 +137,71 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
 
         prev_symbols = symbol_history[prev_date]
         curr_symbols = symbol_history[curr_date]
+        prev_details = symbol_details_history[prev_date]
+        curr_details = symbol_details_history[curr_date]
 
         # New symbols: in current but not in previous
         new = curr_symbols - prev_symbols
         if new:
             new_symbols[curr_date] = sorted(new)
 
-        # Delisted symbols: in previous but not in current
+        # Delisted symbols: in previous but not in current (fully removed)
         delisted = prev_symbols - curr_symbols
         if delisted:
             delisted_symbols[curr_date] = sorted(delisted)
+
+        # Check for spec changes in symbols present in both dates
+        common_symbols = prev_symbols & curr_symbols
+        date_spec_changes = {}
+
+        for symbol in common_symbols:
+            if symbol in prev_details and symbol in curr_details:
+                prev_spec = prev_details[symbol]
+                curr_spec = curr_details[symbol]
+                changes = []
+
+                # Check TradeMode change (3=close-only, 4=full trading)
+                if prev_spec['TradeMode'] != curr_spec['TradeMode']:
+                    prev_mode = int(prev_spec['TradeMode']) if prev_spec['TradeMode'] else 0
+                    curr_mode = int(curr_spec['TradeMode']) if curr_spec['TradeMode'] else 0
+
+                    if prev_mode == 4 and curr_mode == 3:
+                        changes.append('→ CLOSE-ONLY')
+                    elif prev_mode == 3 and curr_mode == 4:
+                        changes.append('→ TRADING ENABLED')
+                    else:
+                        changes.append(f'TradeMode: {prev_mode}→{curr_mode}')
+
+                # Check swap changes
+                if prev_spec['SwapLong'] != curr_spec['SwapLong']:
+                    changes.append(f"SwapLong: {prev_spec['SwapLong']}→{curr_spec['SwapLong']}")
+                if prev_spec['SwapShort'] != curr_spec['SwapShort']:
+                    changes.append(f"SwapShort: {prev_spec['SwapShort']}→{curr_spec['SwapShort']}")
+
+                # Check spread changes (significant = >10% change)
+                try:
+                    prev_spread = float(prev_spec['Spread'])
+                    curr_spread = float(curr_spec['Spread'])
+                    if prev_spread > 0:
+                        spread_change = abs(curr_spread - prev_spread) / prev_spread
+                        if spread_change > 0.1:  # >10% change
+                            changes.append(f"Spread: {prev_spread}→{curr_spread}")
+                except:
+                    pass
+
+                if changes:
+                    date_spec_changes[symbol] = changes
+
+        if date_spec_changes:
+            spec_changes[curr_date] = date_spec_changes
+
+        # Track close-only changes separately for summary
+        for symbol, changes in date_spec_changes.items():
+            for change in changes:
+                if 'CLOSE-ONLY' in change:
+                    if curr_date not in close_only_changes:
+                        close_only_changes[curr_date] = []
+                    close_only_changes[curr_date].append(symbol)
 
     # Prepare report
     results = {
@@ -117,6 +209,8 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
         'sorted_dates': sorted_dates,
         'new_symbols': new_symbols,
         'delisted_symbols': delisted_symbols,
+        'close_only_changes': close_only_changes,
+        'spec_changes': spec_changes,
         'latest_symbols': symbol_history[sorted_dates[-1]],
         'earliest_symbols': symbol_history[sorted_dates[0]],
     }
@@ -169,7 +263,9 @@ def generate_report(results, csv_dir):
     output.append(f"Symbols on {results['sorted_dates'][-1]}: {latest_count}")
     output.append(f"Net Change: {net_change:+d} symbols ({net_change/earliest_count*100:+.1f}%)")
     output.append(f"Total New Symbols Added: {sum(len(v) for v in results['new_symbols'].values())}")
-    output.append(f"Total Symbols Delisted: {sum(len(v) for v in results['delisted_symbols'].values())}")
+    output.append(f"Total Symbols Delisted (Fully Removed): {sum(len(v) for v in results['delisted_symbols'].values())}")
+    output.append(f"Total Close-Only Changes: {sum(len(v) for v in results.get('close_only_changes', {}).values())}")
+    output.append(f"Total Spec Changes: {sum(len(v) for v in results.get('spec_changes', {}).values())}")
     output.append("")
 
     # New symbols section
@@ -193,11 +289,37 @@ def generate_report(results, csv_dir):
 
     output.append("")
 
+    # Spec changes section (NEW!)
+    if results.get('spec_changes'):
+        output.append("=" * 120)
+        output.append("⚙️  SPECIFICATION CHANGES (Swap/Commission/Trade Mode)")
+        output.append("=" * 120)
+        output.append("Note: Close-only does NOT count as delisted. Symbol is still available for closing positions.")
+        output.append("")
+
+        for date in sorted(results['spec_changes'].keys(), reverse=True):
+            changes_dict = results['spec_changes'][date]
+            output.append(f"\n📅 {date} - {len(changes_dict)} symbol(s) with spec changes:")
+            output.append("-" * 120)
+
+            for symbol, changes in sorted(changes_dict.items()):
+                change_str = ", ".join(changes)
+                output.append(f"   {symbol:<10} {change_str}")
+    else:
+        output.append("=" * 120)
+        output.append("⚙️  SPECIFICATION CHANGES (Swap/Commission/Trade Mode)")
+        output.append("=" * 120)
+        output.append("\n✅ No spec changes during this period")
+
+    output.append("")
+
     # Delisted symbols section
     if results['delisted_symbols']:
         output.append("=" * 120)
-        output.append("❌ DELISTED / REMOVED SYMBOLS")
+        output.append("❌ DELISTED / FULLY REMOVED SYMBOLS")
         output.append("=" * 120)
+        output.append("Note: These symbols were completely removed from the platform (not just close-only).")
+        output.append("")
 
         for date in sorted(results['delisted_symbols'].keys(), reverse=True):
             symbols = results['delisted_symbols'][date]
@@ -210,6 +332,9 @@ def generate_report(results, csv_dir):
                 row_symbols = symbols[i:i+symbols_per_row]
                 output.append("   " + "  ".join(f"{s:<10}" for s in row_symbols))
     else:
+        output.append("=" * 120)
+        output.append("❌ DELISTED / FULLY REMOVED SYMBOLS")
+        output.append("=" * 120)
         output.append("\n✅ No symbols delisted during this period")
 
     output.append("")
