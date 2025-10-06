@@ -170,7 +170,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                     elif prev_mode == 3 and curr_mode == 4:
                         changes.append('→ TRADING ENABLED')
                     else:
-                        changes.append(f'TradeMode: {prev_mode}→{curr_mode}')
+                        changes.append(f'TradeMode: {prev_mode} → {curr_mode}')
 
                 # Check swap changes (only meaningful changes, filter out garbage values)
                 try:
@@ -179,7 +179,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                     # Filter out invalid/garbage values (extremely large numbers indicate data corruption)
                     if abs(prev_long) < 1000000 and abs(curr_long) < 1000000:
                         if prev_long != curr_long:
-                            changes.append(f"SwapLong: {prev_long}→{curr_long}")
+                            changes.append(f"SwapLong: {prev_long} → {curr_long}")
                 except:
                     pass
 
@@ -189,7 +189,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                     # Filter out invalid/garbage values
                     if abs(prev_short) < 1000000 and abs(curr_short) < 1000000:
                         if prev_short != curr_short:
-                            changes.append(f"SwapShort: {prev_short}→{curr_short}")
+                            changes.append(f"SwapShort: {prev_short} → {curr_short}")
                 except:
                     pass
 
@@ -306,9 +306,26 @@ def generate_report(results, csv_dir):
             output.append(f"\n📅 {date} - {len(changes_dict)} symbol(s) with spec changes:")
             output.append("-" * 120)
 
-            for symbol, changes in sorted(changes_dict.items()):
+            # Group symbols by identical change strings
+            change_to_symbols = defaultdict(list)
+            for symbol, changes in changes_dict.items():
                 change_str = ", ".join(changes)
-                output.append(f"   {symbol:<10} {change_str}")
+                change_to_symbols[change_str].append(symbol)
+
+            # Display grouped changes
+            for change_str, symbols in sorted(change_to_symbols.items()):
+                symbols_sorted = sorted(symbols)
+                if len(symbols_sorted) == 1:
+                    # Single symbol - display normally
+                    output.append(f"   {symbols_sorted[0]:<10} {change_str}")
+                else:
+                    # Multiple symbols with same change - group them
+                    # Display symbols in rows of 8, similar to new/delisted symbols
+                    output.append(f"   [{len(symbols_sorted)} symbols] {change_str}")
+                    symbols_per_row = 8
+                    for i in range(0, len(symbols_sorted), symbols_per_row):
+                        row_symbols = symbols_sorted[i:i+symbols_per_row]
+                        output.append("      → " + "  ".join(f"{s:<10}" for s in row_symbols))
     else:
         output.append("=" * 120)
         output.append("⚙️  SPECIFICATION CHANGES (Trade Mode / Swap Rates)")

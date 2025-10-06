@@ -18,6 +18,10 @@ Comprehensive tracking system for Darwinex symbol changes, spec modifications, a
 
 **Note**: Spread and price changes are **not tracked** as they fluctuate too frequently and add noise.
 
+**Smart Grouping**: When multiple symbols have identical spec changes, they're automatically grouped together to reduce report length. For example:
+- `[815 symbols] SwapLong: -6.6 → -6.2` followed by the symbol list
+- Individual symbols with unique changes are listed separately
+
 ### 3. **Close-Only vs Delisted** 🔍 **IMPORTANT!**
 - **Close-Only**: Symbol still appears in CSV with TradeMode=3. You can close positions but not open new ones.
 - **Delisted**: Symbol completely removed from CSV. Platform no longer offers this instrument.
@@ -43,7 +47,14 @@ Note: Close-only does NOT count as delisted. Symbol is still available for closi
 ------------------------------------------------------------------------------------------------------------------------
    BPMC       → CLOSE-ONLY
    IGT        → CLOSE-ONLY
-   MSFT       SwapLong: -6.2→-5.8
+   MSFT       SwapLong: -6.2 → -5.8
+
+📅 2025.07.07 - 815 symbol(s) with spec changes:
+------------------------------------------------------------------------------------------------------------------------
+   [815 symbols] SwapLong: -6.6 → -6.2
+      → A           AA          AAL         AAP         AAPL        AAXJ        ABBV        ABT
+      → ACHC        ACM         ACN         ADBE        ADI         ADM         ADP         ADSK
+      ... (grouped for identical changes)
 
 ❌ DELISTED / FULLY REMOVED SYMBOLS
 ========================================================================================================================
