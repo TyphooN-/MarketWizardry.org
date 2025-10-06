@@ -395,6 +395,13 @@ def generate_report(results, csv_dir):
     output.append(f"Total Symbols Delisted (Fully Removed): {sum(len(v) for v in results['delisted_symbols'].values())}")
     output.append(f"Total Close-Only Changes: {sum(len(v) for v in results.get('close_only_changes', {}).values())}")
     output.append(f"Total Spec Changes: {sum(len(v) for v in results.get('spec_changes', {}).values())}")
+
+    # Calculate average time from close-only to delisted
+    if results.get('close_only_to_delisted'):
+        days_list = [info['days_between'] for info in results['close_only_to_delisted'].values()]
+        avg_days = sum(days_list) / len(days_list)
+        output.append(f"Average Close-Only → Delisted: {avg_days:.1f} days ({len(days_list)} symbols)")
+
     output.append("")
 
     # Current close-only symbols section
