@@ -210,13 +210,21 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
     # Track close-only → delisted timeline
     close_only_to_delisted = {}
 
+    # Track close-only → trading enabled timeline
+    close_only_to_enabled = {}
+
     # Build a map of when symbols went close-only (store all dates, not just first)
     close_only_dates = defaultdict(list)
+    # Build a map of when symbols were enabled for trading
+    trading_enabled_dates = defaultdict(list)
+
     for date, changes_dict in spec_changes.items():
         for symbol, changes in changes_dict.items():
             for change in changes:
                 if 'CLOSE-ONLY' in change:
                     close_only_dates[symbol].append(date)
+                elif 'TRADING ENABLED' in change:
+                    trading_enabled_dates[symbol].append(date)
 
     # Check which close-only symbols were later delisted
     for date, delisted_list in delisted_symbols.items():
@@ -249,6 +257,40 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                 except:
                     pass
 
+    # Check which close-only symbols were later re-enabled for trading
+    for symbol in trading_enabled_dates:
+        if symbol in close_only_dates:
+            # Find the most recent close-only date BEFORE the trading enabled date
+            try:
+                from datetime import datetime
+
+                for enabled_date_str in trading_enabled_dates[symbol]:
+                    enabled_date = datetime.strptime(enabled_date_str, '%Y.%m.%d')
+
+                    valid_close_dates = []
+                    for close_date_str in close_only_dates[symbol]:
+                        close_date = datetime.strptime(close_date_str, '%Y.%m.%d')
+                        # Only count if close-only happened BEFORE trading enabled
+                        if close_date < enabled_date:
+                            valid_close_dates.append((close_date_str, close_date))
+
+                    # Use the most recent valid close-only date
+                    if valid_close_dates:
+                        valid_close_dates.sort(key=lambda x: x[1], reverse=True)
+                        close_only_date_str = valid_close_dates[0][0]
+                        close_date = valid_close_dates[0][1]
+                        days_diff = (enabled_date - close_date).days
+
+                        # Only store the first (or update if shorter timeline)
+                        if symbol not in close_only_to_enabled or days_diff < close_only_to_enabled[symbol]['days_between']:
+                            close_only_to_enabled[symbol] = {
+                                'close_only_date': close_only_date_str,
+                                'enabled_date': enabled_date_str,
+                                'days_between': days_diff
+                            }
+            except:
+                pass
+
     # Prepare report
     results = {
         'symbol_history': symbol_history,
@@ -258,6 +300,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
         'close_only_changes': close_only_changes,
         'spec_changes': spec_changes,
         'close_only_to_delisted': close_only_to_delisted,
+        'close_only_to_enabled': close_only_to_enabled,
         'latest_symbols': symbol_history[sorted_dates[-1]],
         'earliest_symbols': symbol_history[sorted_dates[0]],
     }
@@ -423,6 +466,29 @@ def generate_report(results, csv_dir):
         output.append("⏱️  CLOSE-ONLY → DELISTED TIMELINE")
         output.append("=" * 120)
         output.append("\n✅ No close-only symbols were delisted during this period")
+
+    output.append("")
+
+    # Close-only → Trading Enabled timeline section
+    if results.get('close_only_to_enabled'):
+        output.append("=" * 120)
+        output.append("⏱️  CLOSE-ONLY → TRADING ENABLED TIMELINE")
+        output.append("=" * 120)
+        output.append("Symbols that went close-only and were later re-enabled for full trading (shows recovery timeline).")
+        output.append("")
+
+        # Sort by days between (shortest to longest)
+        timeline_sorted = sorted(results['close_only_to_enabled'].items(),
+                                key=lambda x: x[1]['days_between'])
+
+        for symbol, timeline in timeline_sorted:
+            days = timeline['days_between']
+            output.append(f"   {symbol:<10} Close-Only: {timeline['close_only_date']} → Enabled: {timeline['enabled_date']} ({days} days)")
+    else:
+        output.append("=" * 120)
+        output.append("⏱️  CLOSE-ONLY → TRADING ENABLED TIMELINE")
+        output.append("=" * 120)
+        output.append("\n✅ No close-only symbols were re-enabled during this period")
 
     output.append("")
     output.append("=" * 120)
