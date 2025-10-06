@@ -291,6 +291,44 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
             except:
                 pass
 
+    # Track current close-only symbols and how long they've been in that status
+    current_close_only = {}
+
+    # Get the latest date's symbol data
+    latest_date = sorted_dates[-1]
+    latest_csv = os.path.join(csv_dir, csv_files[-1])
+    latest_details = load_symbol_details(latest_csv)
+
+    # Find symbols currently in close-only mode (TradeMode 3)
+    for symbol, spec in latest_details.items():
+        try:
+            trade_mode = int(spec['TradeMode']) if spec['TradeMode'] else 0
+            if trade_mode == 3:
+                # Find the most recent date this symbol went close-only
+                if symbol in close_only_dates:
+                    # Get the most recent close-only date
+                    from datetime import datetime
+
+                    close_dates_parsed = []
+                    for close_date_str in close_only_dates[symbol]:
+                        close_date = datetime.strptime(close_date_str, '%Y.%m.%d')
+                        close_dates_parsed.append((close_date_str, close_date))
+
+                    close_dates_parsed.sort(key=lambda x: x[1], reverse=True)
+                    most_recent_close_only = close_dates_parsed[0][0]
+
+                    # Calculate days since close-only
+                    close_date = datetime.strptime(most_recent_close_only, '%Y.%m.%d')
+                    current_date = datetime.strptime(latest_date, '%Y.%m.%d')
+                    days_in_close_only = (current_date - close_date).days
+
+                    current_close_only[symbol] = {
+                        'since_date': most_recent_close_only,
+                        'days': days_in_close_only
+                    }
+        except:
+            pass
+
     # Prepare report
     results = {
         'symbol_history': symbol_history,
@@ -301,6 +339,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
         'spec_changes': spec_changes,
         'close_only_to_delisted': close_only_to_delisted,
         'close_only_to_enabled': close_only_to_enabled,
+        'current_close_only': current_close_only,
         'latest_symbols': symbol_history[sorted_dates[-1]],
         'earliest_symbols': symbol_history[sorted_dates[0]],
     }
@@ -356,6 +395,29 @@ def generate_report(results, csv_dir):
     output.append(f"Total Symbols Delisted (Fully Removed): {sum(len(v) for v in results['delisted_symbols'].values())}")
     output.append(f"Total Close-Only Changes: {sum(len(v) for v in results.get('close_only_changes', {}).values())}")
     output.append(f"Total Spec Changes: {sum(len(v) for v in results.get('spec_changes', {}).values())}")
+    output.append("")
+
+    # Current close-only symbols section
+    if results.get('current_close_only'):
+        output.append("=" * 120)
+        output.append("⚠️  CURRENT CLOSE-ONLY SYMBOLS")
+        output.append("=" * 120)
+        output.append(f"Symbols currently in close-only mode as of {results['sorted_dates'][-1]} ({len(results['current_close_only'])} total):")
+        output.append("")
+
+        # Sort by days in close-only (longest to shortest)
+        close_only_sorted = sorted(results['current_close_only'].items(),
+                                   key=lambda x: x[1]['days'], reverse=True)
+
+        for symbol, info in close_only_sorted:
+            days = info['days']
+            output.append(f"   {symbol:<10} Close-Only since: {info['since_date']} ({days} days)")
+    else:
+        output.append("=" * 120)
+        output.append("⚠️  CURRENT CLOSE-ONLY SYMBOLS")
+        output.append("=" * 120)
+        output.append(f"\n✅ No symbols currently in close-only mode as of {results['sorted_dates'][-1]}")
+
     output.append("")
 
     # New symbols section
