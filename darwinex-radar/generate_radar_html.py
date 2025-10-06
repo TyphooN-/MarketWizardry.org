@@ -37,11 +37,11 @@ def generate_radar_html():
     page_config.update({
         'title': 'Darwinex RADAR - Symbol Tracker | MarketWizardry.org',
         'canonical_url': 'https://marketwizardry.org/darwinex-radar.html',
-        'description': 'Real-time tracking of Darwinex symbol additions, delistings, close-only restrictions, and swap rate changes. Know when your broker is about to screw you before it happens.',
+        'description': 'Real-time tracking of Darwinex symbol additions, delistings, close-only restrictions, and swap rate changes. Know before the notification email hits your spam folder.',
         'og_title': 'Darwinex RADAR - Symbol Tracker',
-        'og_description': 'Track when Darwinex removes symbols, sets close-only restrictions, and adjusts swap rates. Because your broker won\'t warn you.',
+        'og_description': 'Track when symbols get removed, go close-only, or have swap rates adjusted. Because Gmail thinks broker alerts are promotions.',
         'twitter_title': 'Darwinex RADAR - Symbol Tracker',
-        'twitter_description': 'Real-time tracking of Darwinex symbol changes, delistings, and swap adjustments. Stay ahead of broker restrictions.',
+        'twitter_description': 'Real-time tracking of Darwinex symbol changes, delistings, and swap adjustments. Faster than your inbox.',
         'keywords': 'Darwinex, symbol tracker, close-only, delistings, swap rates, broker restrictions, trading instruments, market changes'
     })
 
