@@ -10,7 +10,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from explorer_utils import format_price, format_percentage, format_ratio, print_formatted_table, print_section_header, print_statistics
 from price_history import add_price_trend_section, calculate_price_changes
-from chart_generator import create_price_trend_chart, create_risk_distribution_chart, create_top_assets_chart
+from chart_generator_static import create_price_trend_chart, create_risk_distribution_chart, create_top_assets_chart
 
 # This constant is used in multiple functions, so it's defined globally.
 MINIMUM_GROUP_SIZE = 5

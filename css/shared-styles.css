@@ -2025,3 +2025,28 @@ header {
     max-width: 100%;
     margin: 0 auto;
 }
+
+/* Static Chart Container (matplotlib SVG charts) - CSP Safe */
+.chart-container-static {
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #000000;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.chart-container-static svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive adjustments for static charts */
+@media screen and (max-width: 768px) {
+    .chart-container-static {
+        padding: 10px;
+        margin: 10px;
+    }
+}
