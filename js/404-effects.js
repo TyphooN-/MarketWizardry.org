@@ -180,5 +180,4 @@
         clearInterval(explosionInterval);
     });
 
-    console.log('🌀 404 Effects loaded - Fibonacci spiral explosions activated!' + (isMobile ? ' (Mobile optimized)' : ''));
 })();

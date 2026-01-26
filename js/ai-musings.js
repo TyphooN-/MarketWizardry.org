@@ -168,20 +168,26 @@ function updateCounter() {
 // Setup modal event handlers
 function setupModalHandlers() {
     // Close button
-    document.querySelector('[data-action="close"]').addEventListener('click', closeModal);
+    const closeBtn = document.querySelector('[data-action="close"]');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
     // Previous button
-    document.getElementById('prevButton').addEventListener('click', previousMusing);
+    const prevBtn = document.getElementById('prevButton');
+    if (prevBtn) prevBtn.addEventListener('click', previousMusing);
 
     // Next button
-    document.getElementById('nextButton').addEventListener('click', nextMusing);
+    const nextBtn = document.getElementById('nextButton');
+    if (nextBtn) nextBtn.addEventListener('click', nextMusing);
 
     // Click outside modal to close
-    document.getElementById('textModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
+    const modal = document.getElementById('textModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    }
 
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {

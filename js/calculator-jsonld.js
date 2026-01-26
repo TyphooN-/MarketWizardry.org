@@ -101,7 +101,6 @@
         script.type = 'application/ld+json';
         script.textContent = JSON.stringify(jsonLdData);
         document.head.appendChild(script);
-        console.log('JSON-LD structured data injected');
     }
 
     // Execute when DOM is ready

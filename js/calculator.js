@@ -25,7 +25,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
             targetElement.classList.add('active');
-        } else {
         }
 
         // Add active class to selected card
@@ -38,6 +37,7 @@ window.selectCalculator = function(calculatorType, clickedElement) {
         window.activeCalculator = calculatorType;
 
     } catch (error) {
+        // Calculator selection failed silently - UI remains unchanged
     }
 };
 
@@ -1623,7 +1623,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('An error occurred. Please try again.');
                 }
             });
-        } else {
         }
     });
 
@@ -1817,9 +1816,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const missingFunctions = requiredFunctions.filter(fn => typeof window[fn] !== 'function');
-    if (missingFunctions.length > 0) {
-    } else {
-    }
+    // All required functions should be loaded at this point
 });
 
 // Initialize dropdown options

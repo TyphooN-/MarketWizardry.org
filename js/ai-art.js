@@ -106,7 +106,6 @@ const allImagePaths = [
     "/ai-art/00084.webp",
     "/ai-art/00085.webp"
 ];
-console.log("Image paths loaded:", allImagePaths.length);
 
 let currentImageIndex = 0;
 

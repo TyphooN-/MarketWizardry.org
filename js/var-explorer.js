@@ -75,9 +75,16 @@ function openModalWithFile(outlierFile, csvFile, title) {
         }
     }
 
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('csv-link').href = csvFile;
-    document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
+    const modalTitle = document.getElementById('modal-title');
+    const csvLink = document.getElementById('csv-link');
+    const modal = document.getElementById('outlier-modal');
+    const outlierContent = document.getElementById('outlier-content');
+
+    if (modalTitle) modalTitle.innerText = title;
+    if (csvLink) {
+        csvLink.href = csvFile || '#';
+        csvLink.style.display = csvFile ? 'inline' : 'none';
+    }
 
     // Handle report link (points to the outlier/analysis file)
     const reportLink = document.getElementById('report-link');
@@ -86,7 +93,7 @@ function openModalWithFile(outlierFile, csvFile, title) {
         reportLink.style.display = outlierFile ? 'inline' : 'none';
     }
 
-    document.getElementById('outlier-modal').style.display = 'flex';
+    if (modal) modal.style.display = 'flex';
     updateNavCounter();
 
     // Load outlier file content
@@ -95,15 +102,16 @@ function openModalWithFile(outlierFile, csvFile, title) {
         .then(data => {
             // Convert URLs to clickable links
             const linkifiedData = linkifyUrls(data);
-            document.getElementById('outlier-content').innerHTML = linkifiedData;
+            if (outlierContent) outlierContent.innerHTML = linkifiedData;
         })
         .catch(error => {
-            document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;
+            if (outlierContent) outlierContent.textContent = 'Error loading file: ' + error;
         });
 }
 
 function closeModal() {
-    document.getElementById('outlier-modal').style.display = 'none';
+    const modal = document.getElementById('outlier-modal');
+    if (modal) modal.style.display = 'none';
 }
 
 function previousFile() {
@@ -123,8 +131,10 @@ function nextFile() {
 }
 
 function updateNavCounter() {
-    document.getElementById('nav-counter').textContent =
-        `${currentFileIndex + 1} of ${filesList.length}`;
+    const counter = document.getElementById('nav-counter');
+    if (counter) {
+        counter.textContent = `${currentFileIndex + 1} of ${filesList.length}`;
+    }
 }
 
 // Initialize files list from grid entries
@@ -161,7 +171,7 @@ document.addEventListener('keydown', function(event) {
 // Close modal when clicking outside
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('outlier-modal');
-    if (event.target == modal) {
+    if (event.target === modal) {
         closeModal();
     }
 });

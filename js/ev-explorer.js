@@ -75,10 +75,17 @@ function openModalWithFile(outlierFile, csvFile, title) {
         }
     }
 
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('csv-link').href = csvFile;
-    document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
-    document.getElementById('outlier-modal').style.display = 'flex';
+    const modalTitle = document.getElementById('modal-title');
+    const csvLink = document.getElementById('csv-link');
+    const modal = document.getElementById('outlier-modal');
+    const outlierContent = document.getElementById('outlier-content');
+
+    if (modalTitle) modalTitle.innerText = title;
+    if (csvLink) {
+        csvLink.href = csvFile || '#';
+        csvLink.style.display = csvFile ? 'inline' : 'none';
+    }
+    if (modal) modal.style.display = 'flex';
     updateNavCounter();
 
     // Load outlier file content
@@ -87,15 +94,16 @@ function openModalWithFile(outlierFile, csvFile, title) {
         .then(data => {
             // Convert URLs to clickable links
             const linkifiedData = linkifyUrls(data);
-            document.getElementById('outlier-content').innerHTML = linkifiedData;
+            if (outlierContent) outlierContent.innerHTML = linkifiedData;
         })
         .catch(error => {
-            document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;
+            if (outlierContent) outlierContent.textContent = 'Error loading file: ' + error;
         });
 }
 
 function closeModal() {
-    document.getElementById('outlier-modal').style.display = 'none';
+    const modal = document.getElementById('outlier-modal');
+    if (modal) modal.style.display = 'none';
 }
 
 function previousFile() {

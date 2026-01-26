@@ -156,7 +156,6 @@ function extractTweetInfoFromFilename(filename) {
             }
         }
     } catch (e) {
-        console.log('Could not extract tweet info from filename:', filename);
     }
     return { username: null, tweetId: null };
 }
