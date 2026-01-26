@@ -156,6 +156,7 @@ function extractTweetInfoFromFilename(filename) {
             }
         }
     } catch (e) {
+        // Parsing failed - return null values to indicate no tweet info available
     }
     return { username: null, tweetId: null };
 }

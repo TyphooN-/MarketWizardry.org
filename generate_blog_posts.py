@@ -639,7 +639,7 @@ def extract_title_and_summary(content, filename):
         try:
             date_obj = datetime.strptime(date_raw, '%m%d%Y')
             date_str = date_obj.strftime('%B %d, %Y')
-        except:
+        except (ValueError, TypeError):
             date_str = date_raw
 
     # Generate title from filename
@@ -1029,7 +1029,7 @@ def extract_title_from_html(html_file):
                             elif 'sarepta' in txt_content.lower() or 'SRPT' in txt_content:
                                 return "SRPT - Sarepta Therapeutics Analysis"  
                             # Add more company detection as needed
-                    except:
+                    except (IOError, OSError, UnicodeDecodeError):
                         pass
             return title
         

@@ -180,7 +180,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                     if abs(prev_long) < 1000000 and abs(curr_long) < 1000000:
                         if prev_long != curr_long:
                             changes.append(f"SwapLong: {prev_long} → {curr_long}")
-                except:
+                except (ValueError, TypeError, KeyError):
                     pass
 
                 try:
@@ -190,7 +190,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                     if abs(prev_short) < 1000000 and abs(curr_short) < 1000000:
                         if prev_short != curr_short:
                             changes.append(f"SwapShort: {prev_short} → {curr_short}")
-                except:
+                except (ValueError, TypeError, KeyError):
                     pass
 
                 if changes:
@@ -254,7 +254,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                             'delisted_date': date,
                             'days_between': days_diff
                         }
-                except:
+                except (ValueError, TypeError, KeyError):
                     pass
 
     # Check which close-only symbols were later re-enabled for trading
@@ -288,7 +288,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                                 'enabled_date': enabled_date_str,
                                 'days_between': days_diff
                             }
-            except:
+            except (ValueError, TypeError, KeyError):
                 pass
 
     # Track current close-only symbols and how long they've been in that status
@@ -326,7 +326,7 @@ def analyze_symbol_changes(csv_dir, output_file=None, instrument_filter=None):
                         'since_date': most_recent_close_only,
                         'days': days_in_close_only
                     }
-        except:
+        except (ValueError, TypeError, KeyError):
             pass
 
     # Prepare report

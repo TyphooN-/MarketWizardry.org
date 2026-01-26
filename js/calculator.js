@@ -1880,7 +1880,9 @@ function initializeDropdowns() {
 
 }
 
-// Global error handler
+// Global error handler - prevent uncaught errors from breaking UI
 window.addEventListener('error', function(e) {
+    // Silently handle errors to maintain UI stability
+    // Errors are logged to browser console automatically
 });
 

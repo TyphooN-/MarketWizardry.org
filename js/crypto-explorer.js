@@ -94,15 +94,16 @@ function openModalWithFile(outlierFile, csvFile, title) {
     updateNavCounter();
 
     // Load outlier file content
+    const outlierContent = document.getElementById('outlier-content');
     fetch(outlierFile)
         .then(response => response.text())
         .then(data => {
             // Convert URLs to clickable links
             const linkifiedData = linkifyUrls(data);
-            document.getElementById('outlier-content').innerHTML = linkifiedData;
+            if (outlierContent) outlierContent.innerHTML = linkifiedData;
         })
         .catch(error => {
-            document.getElementById('outlier-content').textContent = 'Error loading file: ' + error;
+            if (outlierContent) outlierContent.textContent = 'Error loading file: ' + error;
         });
 }
 
@@ -166,7 +167,7 @@ document.addEventListener('keydown', function(event) {
 // Close modal when clicking outside
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('outlier-modal');
-    if (event.target == modal) {
+    if (event.target === modal) {
         closeModal();
     }
 });

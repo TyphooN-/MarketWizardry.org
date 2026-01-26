@@ -648,7 +648,7 @@ def analyze_crypto_enhanced(csv_file: str, market_data_file: str = None, news_da
                         try:
                             event_dt = datetime.strptime(event_date, '%Y-%m-%d %H:%M:%S')
                             formatted_date = event_dt.strftime('%Y-%m-%d %H:%M')
-                        except:
+                        except (ValueError, TypeError):
                             formatted_date = event_date
 
                         # Get event categories/types
