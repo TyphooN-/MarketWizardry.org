@@ -1,4 +1,4 @@
-# MarketWizardry.org - Project Documentation for Claude Code
+# MarketWizardry.org - Project Documentation
 
 **Project:** MarketWizardry.org - Financial Trading Tools & NFT Gallery
 **Tech Stack:** Static HTML/CSS/JS, Apache, Python generators
@@ -542,7 +542,6 @@ Files using innerHTML (acceptable pattern):
 **Site URL:** https://marketwizardry.org
 **Twitter:** @MarketW1zardry
 
-**Documentation Maintained By:** Claude Code
 **Last Full Audit:** 2025-10-02 (see SEO_CSP_AUDIT.md)
 **Next Audit:** 2025-11-01
 

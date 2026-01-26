@@ -258,15 +258,19 @@ function handleOpenModalWithFile(e) {
 
 function handlePreviousFile(e) {
     e.preventDefault();
-    if (window.previousFile) {
+    if (typeof window.previousFile === 'function') {
         window.previousFile();
+    } else {
+        console.warn('previousFile function not available - page may use custom navigation');
     }
 }
 
 function handleNextFile(e) {
     e.preventDefault();
-    if (window.nextFile) {
+    if (typeof window.nextFile === 'function') {
         window.nextFile();
+    } else {
+        console.warn('nextFile function not available - page may use custom navigation');
     }
 }
 

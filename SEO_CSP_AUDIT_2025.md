@@ -1,6 +1,6 @@
 # MarketWizardry.org - Comprehensive SEO & CSP Audit Report
 **Date:** October 6, 2025
-**Auditor:** Claude Code (Sonnet 4.5)
+**Auditor:** TyphooN
 **Repository:** /home/typhoon/git/MarketWizardry.org
 **Total Files Audited:** 1,660 HTML files
 

@@ -203,3 +203,7 @@ window.openMusing = openMusing;
 window.closeModal = closeModal;
 window.previousMusing = previousMusing;
 window.nextMusing = nextMusing;
+
+// Aliases for shared.js data-action delegation compatibility
+window.previousFile = previousMusing;
+window.nextFile = nextMusing;

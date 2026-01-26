@@ -200,5 +200,10 @@ function initializeGPUAdventureModal() {
         });
     });
 
+    // Expose navigation functions globally for shared.js data-action delegation
+    window.previousFile = navigatePrevious;
+    window.nextFile = navigateNext;
+    window.closeModal = closeAdventureModal;
+
     return true;
 }

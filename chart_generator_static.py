@@ -39,6 +39,45 @@ matplotlib.rcParams['figure.facecolor'] = COLORS['background']
 matplotlib.rcParams['axes.facecolor'] = COLORS['background']
 
 
+def convert_svg_inline_styles_to_attributes(svg_content):
+    """
+    Convert inline style attributes in SVG to presentation attributes for CSP compliance.
+
+    SVG presentation attributes (fill, stroke, opacity, etc.) are NOT blocked by CSP,
+    only the style="" attribute is blocked. This function converts:
+        style="fill: #00ff00; stroke: #ff0000; opacity: 0.7"
+    to:
+        fill="#00ff00" stroke="#ff0000" opacity="0.7"
+    """
+    import re
+
+    def style_to_attrs(match):
+        """Convert a style attribute to individual SVG presentation attributes."""
+        full_match = match.group(0)
+        style_content = match.group(1)
+
+        # Parse style properties
+        attrs = []
+        for prop in style_content.split(';'):
+            prop = prop.strip()
+            if ':' in prop:
+                name, value = prop.split(':', 1)
+                name = name.strip()
+                value = value.strip()
+                # SVG presentation attributes use the same names as CSS properties
+                # (fill, stroke, stroke-width, opacity, stroke-linejoin, stroke-linecap, etc.)
+                if name and value:
+                    attrs.append(f'{name}="{value}"')
+
+        return ' '.join(attrs) if attrs else ''
+
+    # Replace style="..." with individual attributes
+    # Match style="..." but be careful not to match inside <style> tags
+    svg_content = re.sub(r'\sstyle="([^"]*)"', lambda m: ' ' + style_to_attrs(m) if style_to_attrs(m) else '', svg_content)
+
+    return svg_content
+
+
 def save_chart_html(fig, output_path, title, base_url="https://marketwizardry.org"):
     """
     Save matplotlib figure as SVG embedded in HTML (CSP compliant).
@@ -55,6 +94,9 @@ def save_chart_html(fig, output_path, title, base_url="https://marketwizardry.or
     fig.savefig(svg_buffer, format='svg', bbox_inches='tight', facecolor=COLORS['background'])
     svg_content = svg_buffer.getvalue()
     svg_buffer.close()
+
+    # Convert inline styles to SVG presentation attributes for CSP compliance
+    svg_content = convert_svg_inline_styles_to_attributes(svg_content)
 
     # Extract relative path for canonical URL
     filename = os.path.basename(output_path)
