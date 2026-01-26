@@ -193,21 +193,21 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal">
+    <div class="modal" id="fullscreenModal" role="dialog" aria-modal="true" aria-labelledby="modalFilename">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="filename-display" id="modalFilename"></div>
                 <div class="modal-button-bar">
-                    <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                    <span id="imageCounter" class="image-counter"></span>
-                    <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
-                    <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
+                    <button class="nav-button" id="prevButton" data-action="previous-image" aria-label="Previous image">← Previous</button>
+                    <span id="imageCounter" class="image-counter" aria-live="polite"></span>
+                    <button class="nav-button" id="nextButton" data-action="next-image" aria-label="Next image">Next →</button>
+                    <button class="nav-button" id="downloadButton" data-action="download-image" aria-label="Download image">⬇ Download</button>
                     <div class="twitter-link-container" id="twitterLinkContainer">
-                        <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
+                        <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="View original tweet">
                             🐦 View Original Tweet
                         </a>
                     </div>
-                    <button class="close-button" data-action="close-modal">✕</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">✕</button>
                 </div>
                 <div class="crt-divider"></div>
             </div>
@@ -319,21 +319,21 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
         <!-- Images will be inserted here by JavaScript -->
     </div>
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal">
+    <div class="modal" id="fullscreenModal" role="dialog" aria-modal="true" aria-labelledby="modalFilename">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="filename-display" id="modalFilename"></div>
                 <div class="modal-button-bar">
-                    <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                    <span id="imageCounter" class="image-counter"></span>
-                    <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
-                    <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
+                    <button class="nav-button" id="prevButton" data-action="previous-image" aria-label="Previous image">← Previous</button>
+                    <span id="imageCounter" class="image-counter" aria-live="polite"></span>
+                    <button class="nav-button" id="nextButton" data-action="next-image" aria-label="Next image">Next →</button>
+                    <button class="nav-button" id="downloadButton" data-action="download-image" aria-label="Download image">⬇ Download</button>
                     <div class="twitter-link-container" id="twitterLinkContainer">
-                        <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link">
+                        <a id="twitterLink" href="#" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="View original tweet">
                             🐦 View Original Tweet
                         </a>
                     </div>
-                    <button class="close-button" data-action="close-modal">✕</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">✕</button>
                 </div>
                 <div class="crt-divider"></div>
             </div>
@@ -526,19 +526,19 @@ document.addEventListener('DOMContentLoaded', function() {{
     </div>
 
     <!-- Modal -->
-    <div class="modal" id="fullscreenModal">
+    <div class="modal" id="fullscreenModal" role="dialog" aria-modal="true" aria-labelledby="modalFilename">
         <div class="modal-content">
-            <button class="close-button" data-action="close-modal">&times;</button>
+            <button class="close-button" data-action="close-modal" aria-label="Close modal">&times;</button>
             <div class="filename-display" id="modalFilename"></div>
             <div class="crt-divider"></div>
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
             <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" data-action="previous-image">← Previous</button>
-                <span id="imageCounter" class="image-counter"></span>
-                <button class="nav-button" id="nextButton" data-action="next-image">Next →</button>
+                <button class="nav-button" id="prevButton" data-action="previous-image" aria-label="Previous image">← Previous</button>
+                <span id="imageCounter" class="image-counter" aria-live="polite"></span>
+                <button class="nav-button" id="nextButton" data-action="next-image" aria-label="Next image">Next →</button>
             </div>
             <div class="download-container">
-                <button class="nav-button" id="downloadButton" data-action="download-image">⬇ Download</button>
+                <button class="nav-button" id="downloadButton" data-action="download-image" aria-label="Download image">⬇ Download</button>
             </div>
         </div>
     </div>

@@ -59,7 +59,9 @@ def main():
     print("All generated content is CSP-compliant (external scripts only)")
     print()
 
-    os.chdir('/home/typhoon/git/MarketWizardry.org')
+    # Change to script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
 
     generators = [
         ('generate_gallery.py', 'NFT Gallery Pages (106+ pages with ImageGallery schema)'),

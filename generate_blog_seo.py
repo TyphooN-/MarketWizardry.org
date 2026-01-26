@@ -136,7 +136,9 @@ def main():
     print("Generating Article JSON-LD schemas for blog posts...")
     print("=" * 60)
 
-    os.chdir('/home/typhoon/git/MarketWizardry.org')
+    # Change to script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
 
     blog_dir = 'blog'
     if not os.path.exists(blog_dir):

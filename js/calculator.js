@@ -3,7 +3,6 @@
  * Clean, maintainable calculator functionality preserving all features
  */
 
-console.log('🚀 MarketWizardry Calculator - Optimized Version Loading...');
 
 // Global state
 window.activeCalculator = null;
@@ -11,7 +10,6 @@ window.varData = window.varData || null;
 
 // ===== CORE CALCULATOR SELECTION =====
 window.selectCalculator = function(calculatorType, clickedElement) {
-    console.log('🔄 selectCalculator called with:', calculatorType);
 
     try {
         // Hide all calculators
@@ -27,9 +25,7 @@ window.selectCalculator = function(calculatorType, clickedElement) {
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
             targetElement.classList.add('active');
-            console.log('✅ Calculator activated:', targetId);
         } else {
-            console.error('❌ Calculator not found:', targetId);
         }
 
         // Add active class to selected card
@@ -42,7 +38,6 @@ window.selectCalculator = function(calculatorType, clickedElement) {
         window.activeCalculator = calculatorType;
 
     } catch (error) {
-        console.error('❌ Error in selectCalculator:', error);
     }
 };
 
@@ -68,7 +63,6 @@ window.updateBreadcrumb = function(calculatorType) {
 
 // ===== STOP LOSS CALCULATOR =====
 window.calculateStopLoss = function() {
-    console.log('🛑 calculateStopLoss called');
 
     try {
         const symbol = document.getElementById('sl-symbol')?.value.toUpperCase().trim() || '';
@@ -156,7 +150,6 @@ window.calculateStopLoss = function() {
         document.getElementById('sl-results').classList.add('show');
 
     } catch (error) {
-        console.error('❌ Error in calculateStopLoss:', error);
         alert('Error calculating stop loss');
     }
 };
@@ -174,7 +167,6 @@ window.autoFillStopLossData = function() {
 
 // ===== POSITION SIZE CALCULATOR =====
 window.calculatePositionSize = function() {
-    console.log('⚖️ calculatePositionSize called');
 
     try {
         const accountSize = parseFloat(document.getElementById('ps-account-size')?.value) || 0;
@@ -236,14 +228,12 @@ window.calculatePositionSize = function() {
         document.getElementById('ps-results').classList.add('show');
 
     } catch (error) {
-        console.error('❌ Error in calculatePositionSize:', error);
         alert('Error calculating position size');
     }
 };
 
 // ===== COMPOUND INTEREST CALCULATOR =====
 window.calculateCompoundInterest = function() {
-    console.log('💰 calculateCompoundInterest called');
 
     try {
         const principal = parseFloat(document.getElementById('ci-principal')?.value) || 0;
@@ -324,7 +314,6 @@ window.calculateCompoundInterest = function() {
         updateCompoundTimeline(principal, rate, time, compound, monthly);
 
     } catch (error) {
-        console.error('❌ Error in calculateCompoundInterest:', error);
         alert('Error calculating compound interest');
     }
 };
@@ -545,16 +534,13 @@ window.getAssetClassDisplay = function(assetClass, sector, description) {
     return assetClassMap[assetClass] || { emoji: '❓', name: assetClass || 'Unknown' };
 };
 
-console.log('✅ Core calculators loaded');/**
  * MarketWizardry.org Calculator - Portfolio & Symbol Functions
  * Part 2: Portfolio VaR Calculator and Symbol Lookup functionality
  */
 
-console.log('📊 Loading Portfolio & Symbol functions...');
 
 // ===== PORTFOLIO VaR CALCULATOR =====
 window.calculatePortfolioVaR = function() {
-    console.log('📊 calculatePortfolioVaR called');
 
     try {
         const mode = document.getElementById('pf-mode')?.value || 'manual';
@@ -724,7 +710,6 @@ window.calculatePortfolioVaR = function() {
         document.getElementById('pf-results').classList.add('show');
 
     } catch (error) {
-        console.error('❌ Error in calculatePortfolioVaR:', error);
         alert('Error calculating portfolio VaR');
     }
 };
@@ -814,15 +799,12 @@ window.removePosition = function(button) {
     const tbody = document.getElementById('portfolio-positions');
     // Always allow removal - user can re-add positions
     row.remove();
-    console.log('🗑️ Position removed, remaining positions:', tbody.children.length);
 };
 
 // Auto-fill portfolio row with symbol data
 window.autoFillPortfolioRow = function(row, symbol) {
-    console.log('🔍 Auto-filling row for symbol:', symbol);
 
     if (!window.varData || !window.varData[symbol]) {
-        console.error('❌ Symbol data not found:', symbol);
         return;
     }
 
@@ -859,14 +841,11 @@ window.autoFillPortfolioRow = function(row, symbol) {
         industryDisplay.textContent = data.industry || '-';
     }
 
-    console.log('✅ Row auto-filled with data for:', symbol);
 };
 
 window.addSymbolToPortfolio = function(symbol) {
-    console.log('💼 addSymbolToPortfolio called with symbol:', symbol);
 
     if (!window.varData || !window.varData[symbol]) {
-        console.error('❌ Symbol data not found:', symbol);
         alert(`Symbol ${symbol} not found in database`);
         return;
     }
@@ -881,7 +860,6 @@ window.addSymbolToPortfolio = function(symbol) {
         const symbolInput = row.querySelector('td:first-child input');
         const symbolValue = symbolInput?.value?.trim().toUpperCase();
         if (symbolValue && symbolValue === symbol.toUpperCase()) {
-            console.log('⚠️ Symbol already exists in portfolio');
             alert(`${symbol} is already in your portfolio`);
             return;
         }
@@ -891,7 +869,6 @@ window.addSymbolToPortfolio = function(symbol) {
     const placeholderRow = tbody.querySelector('tr input[placeholder="AAPL"]');
     if (placeholderRow) {
         placeholderRow.closest('tr')?.remove();
-        console.log('✅ Removed placeholder row');
     }
 
     // Create new row
@@ -914,10 +891,8 @@ window.addSymbolToPortfolio = function(symbol) {
     // Insert at the beginning
     if (tbody.children.length > 0) {
         tbody.insertBefore(newRow, tbody.firstChild);
-        console.log('✅ Added symbol as first position');
     } else {
         tbody.appendChild(newRow);
-        console.log('✅ Added symbol to empty portfolio');
     }
 
     // Hide symbol info and clear lookup
@@ -931,20 +906,16 @@ window.addSymbolToPortfolio = function(symbol) {
     }
 };
 
-console.log('✅ Portfolio VaR functions loaded');/**
  * MarketWizardry.org Calculator - Symbol Lookup Functions
  * Part 3: Symbol lookup, search, and interaction functionality
  */
 
-console.log('🔍 Loading Symbol lookup functions...');
 
 // ===== SYMBOL LOOKUP FUNCTIONS =====
 window.lookupSymbol = function() {
-    console.log('🔍 lookupSymbol called');
 
     const symbolInput = document.getElementById('symbol-lookup');
     if (!symbolInput) {
-        console.error('❌ symbol-lookup input not found');
         alert('Error: Symbol input field not found');
         return;
     }
@@ -984,11 +955,9 @@ window.lookupSymbol = function() {
 };
 
 window.lookupSymbolForPositionCalc = function() {
-    console.log('🔍 lookupSymbolForPositionCalc called');
 
     const symbolInput = document.getElementById('ps-symbol');
     if (!symbolInput) {
-        console.error('❌ ps-symbol input not found');
         alert('Error: Symbol input field not found');
         return;
     }
@@ -1084,7 +1053,6 @@ window.lookupSymbolForPositionCalc = function() {
         }
     }
 
-    console.log('✅ Symbol data auto-filled:', symbol);
 };
 
 // Update ATR Stop Suggestion
@@ -1126,7 +1094,6 @@ function displaySymbolInfoInPortfolio(symbol, data) {
     const detailsDiv = document.getElementById(isLookupTool ? 'lookup-symbol-details' : 'symbol-details');
 
     if (!detailsDiv) {
-        console.error('❌ Symbol display div not found');
         return;
     }
 
@@ -1290,7 +1257,6 @@ function generateRiskAssessment(data) {
 
 // ===== SYMBOL SEARCH FUNCTIONS =====
 window.showAllSymbols = function() {
-    console.log('🔍 showAllSymbols called');
 
     if (!window.varData) {
         document.getElementById('lookup-output').innerHTML = `
@@ -1368,7 +1334,6 @@ function getFilterLabel(assetClass, sector, industry) {
 }
 
 window.showAllSymbolsUnfiltered = function() {
-    console.log('🔍 showAllSymbolsUnfiltered called');
 
     if (!window.varData) {
         document.getElementById('lookup-output').innerHTML = `
@@ -1385,11 +1350,9 @@ window.showAllSymbolsUnfiltered = function() {
 };
 
 window.performAdvancedSearch = function() {
-    console.log('🔍 performAdvancedSearch called');
 
     const searchInput = document.getElementById('lookup-symbol');
     if (!searchInput) {
-        console.error('❌ lookup-symbol input not found');
         return;
     }
 
@@ -1479,10 +1442,8 @@ function displaySymbolGrid(symbols, title) {
 
 // ===== SYMBOL INTERACTION FUNCTIONS =====
 window.showSymbolDetail = function(symbol) {
-    console.log('🎯 showSymbolDetail called for symbol:', symbol);
 
     if (!window.varData || !window.varData[symbol]) {
-        console.error('❌ Symbol data not found:', symbol);
         return;
     }
 
@@ -1490,10 +1451,8 @@ window.showSymbolDetail = function(symbol) {
 };
 
 window.useInStopLoss = function(symbol) {
-    console.log('📊 useInStopLoss called for symbol:', symbol);
 
     if (!symbol) {
-        console.error('❌ No symbol provided');
         alert('Error: No symbol provided');
         return;
     }
@@ -1511,10 +1470,8 @@ window.useInStopLoss = function(symbol) {
 };
 
 window.useInPortfolio = function(symbol) {
-    console.log('💼 useInPortfolio called for symbol:', symbol);
 
     if (!symbol) {
-        console.error('❌ No symbol provided');
         alert('Error: No symbol provided');
         return;
     }
@@ -1534,7 +1491,6 @@ window.useInPortfolio = function(symbol) {
     setTimeout(() => {
         if (window.addSymbolToPortfolio) {
             window.addSymbolToPortfolio(symbol);
-            console.log('✅ Symbol added to portfolio:', symbol);
 
             // Hide the symbol lookup info after adding
             const symbolInfo = document.getElementById('symbol-info');
@@ -1551,17 +1507,14 @@ window.useInPortfolio = function(symbol) {
                 symbolInput.value = '';
             }
         } else {
-            console.error('❌ addSymbolToPortfolio function not found');
             alert('Unable to add symbol to portfolio. Please add manually.');
         }
     }, delay);
 };
 
 window.findSimilar = function(symbol) {
-    console.log('🔍 findSimilar called for symbol:', symbol);
 
     if (!symbol || !window.varData || !window.varData[symbol]) {
-        console.error('❌ Symbol data not found:', symbol);
         return;
     }
 
@@ -1581,16 +1534,13 @@ window.findSimilar = function(symbol) {
 };
 
 window.backToSymbolList = function() {
-    console.log('🔙 backToSymbolList called');
     window.showAllSymbols();
 };
 
-console.log('✅ Symbol lookup functions loaded');/**
  * MarketWizardry.org Calculator - Initialization
  * Part 4: Event handlers and DOM initialization
  */
 
-console.log('🔧 Loading Calculator initialization...');
 
 // ===== PORTFOLIO MODE TOGGLE =====
 window.togglePortfolioMode = function() {
@@ -1646,7 +1596,6 @@ window.calculateSuggestedLots = function(symbol, varPerShare, accountCapital, ta
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Calculator DOM ready - initializing...');
 
     // Button event handlers mapping
     const buttonHandlers = {
@@ -1668,17 +1617,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                console.log(`🔘 Button clicked: ${buttonId}`);
                 try {
                     handler();
                 } catch (error) {
-                    console.error(`❌ Error in ${buttonId}:`, error);
                     alert('An error occurred. Please try again.');
                 }
             });
-            console.log(`✅ Event handler attached: ${buttonId}`);
         } else {
-            console.warn(`⚠️ Button not found: ${buttonId}`);
         }
     });
 
@@ -1718,7 +1663,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const removeBtn = e.target.closest('.remove-btn, .position-remove-btn');
         if (removeBtn && (e.target.classList.contains('remove-btn') || e.target.classList.contains('position-remove-btn'))) {
             e.preventDefault();
-            console.log('🗑️ Remove position button clicked');
             // Delay removal to allow explosion animation to start
             setTimeout(() => {
                 window.removePosition(removeBtn);
@@ -1732,21 +1676,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const action = actionElement.getAttribute('data-action');
             const symbol = actionElement.getAttribute('data-symbol');
 
-            console.log('🔘 Action element clicked:', action, 'symbol:', symbol);
 
             switch(action) {
                 case 'select-calculator':
                     e.preventDefault();
                     const calculatorType = actionElement.getAttribute('data-calculator');
                     if (calculatorType) {
-                        console.log('🎯 Selecting calculator:', calculatorType);
                         window.selectCalculator(calculatorType, actionElement);
                     }
                     break;
                 case 'show-symbol-detail':
                     if (symbol) {
                         e.preventDefault();
-                        console.log('🎯 Showing symbol detail for:', symbol);
                         window.showSymbolDetail(symbol);
                     }
                     break;
@@ -1777,7 +1718,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (breadcrumbReset) {
         breadcrumbReset.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('🔄 Breadcrumb reset clicked');
 
             // Hide all calculators
             document.querySelectorAll('.calculator-content')
@@ -1863,7 +1803,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    console.log('✅ Calculator initialization complete');
 
     // Test that all functions are available
     const requiredFunctions = [
@@ -1879,9 +1818,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const missingFunctions = requiredFunctions.filter(fn => typeof window[fn] !== 'function');
     if (missingFunctions.length > 0) {
-        console.error('❌ Missing functions:', missingFunctions);
     } else {
-        console.log('✅ All required functions available');
     }
 });
 
@@ -1944,13 +1881,9 @@ function initializeDropdowns() {
         });
     }
 
-    console.log('✅ Dropdown options initialized');
 }
 
 // Global error handler
 window.addEventListener('error', function(e) {
-    console.error('💥 Global error caught:', e.error);
-    console.error('File:', e.filename, 'Line:', e.lineno, 'Column:', e.colno);
 });
 
-console.log('✅ Calculator initialization script loaded');

@@ -248,7 +248,9 @@ def main():
     print("Generating JSON-LD schemas for root pages...")
     print("=" * 60)
 
-    os.chdir('/home/typhoon/git/MarketWizardry.org')
+    # Change to script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
 
     added_count = 0
     skipped_count = 0

@@ -98,16 +98,25 @@ class FinancialToolsUpdater:
         self.regenerate_charts_days = regenerate_charts_days
         self.data_summary = {}
 
+    def _get_mt_base_paths(self):
+        """Get MetaTrader base paths from environment variables or defaults"""
+        # Allow override via environment variables
+        return {
+            'stocks': os.environ.get('MT5_STOCKS_PATH', os.path.expanduser('~/.mt5_9/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files')),
+            'cfd': os.environ.get('MT5_CFD_PATH', os.path.expanduser('~/.mt5_10/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files')),
+            'futures': os.environ.get('MT5_FUTURES_PATH', os.path.expanduser('~/.mt5_11/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files')),
+            'crypto': os.environ.get('MT5_CRYPTO_PATH', os.path.expanduser('~/.mt5_8/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files'))
+        }
+
     def copy_csv_files(self):
         """Copy CSV files from MetaTrader directories"""
         print(f"📂 Copying CSV files for {self.date_str} from MetaTrader directories...")
 
         files_copied = 0
+        mt_base_paths = self._get_mt_base_paths()
         mt_paths = {
-            'stocks': f"/home/typhoon/.mt5_9/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Stocks-{self.date_str}.csv",
-            'cfd': f"/home/typhoon/.mt5_10/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-CFD-{self.date_str}.csv",
-            'futures': f"/home/typhoon/.mt5_11/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Futures-{self.date_str}.csv",
-            'crypto': f"/home/typhoon/.mt5_8/drive_c/Program Files/Darwinex MetaTrader 5/MQL5/Files/SymbolsExport-Darwinex-Live-Crypto-{self.date_str}.csv"
+            asset_type: f"{base_path}/SymbolsExport-Darwinex-Live-{asset_type.title()}-{self.date_str}.csv"
+            for asset_type, base_path in mt_base_paths.items()
         }
 
         for asset_type, source_path in mt_paths.items():
@@ -938,20 +947,20 @@ class FinancialToolsUpdater:
     </div>
 
     <!-- Modal Structure -->
-    <div id="outlier-modal" class="modal">
+    <div id="outlier-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <div class="crt-divider"></div>
                 <div class="modal-button-bar">
                     <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                    <button class="nav-button" data-action="previous">← Previous</button>
-                    <span class="nav-counter" id="nav-counter">1 of 1</span>
-                    <button class="nav-button" data-action="next">Next →</button>
-                    <button class="close-button" data-action="close-modal">Close</button>
+                    <button class="nav-button" data-action="previous" aria-label="Previous file">← Previous</button>
+                    <span class="nav-counter" id="nav-counter" aria-live="polite">1 of 1</span>
+                    <button class="nav-button" data-action="next" aria-label="Next file">Next →</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">Close</button>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body-content">
                 <pre id="outlier-content">Loading...</pre>
             </div>
         </div>
@@ -1018,20 +1027,20 @@ class FinancialToolsUpdater:
     </div>
 
     <!-- Modal Structure -->
-    <div id="outlier-modal" class="modal">
+    <div id="outlier-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <div class="crt-divider"></div>
                 <div class="modal-button-bar">
                     <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                    <button class="nav-button" data-action="previous">← Previous</button>
-                    <span class="nav-counter" id="nav-counter">1 of 1</span>
-                    <button class="nav-button" data-action="next">Next →</button>
-                    <button class="close-button" data-action="close-modal">Close</button>
+                    <button class="nav-button" data-action="previous" aria-label="Previous file">← Previous</button>
+                    <span class="nav-counter" id="nav-counter" aria-live="polite">1 of 1</span>
+                    <button class="nav-button" data-action="next" aria-label="Next file">Next →</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">Close</button>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body-content">
                 <pre id="outlier-content">Loading...</pre>
             </div>
         </div>
@@ -1115,7 +1124,7 @@ class FinancialToolsUpdater:
     </div>
 
     <!-- Modal Structure -->
-    <div id="outlier-modal" class="modal">
+    <div id="outlier-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">Crypto Analysis</h2>
@@ -1123,13 +1132,13 @@ class FinancialToolsUpdater:
                 <div class="modal-button-bar">
                     <a id="csv-link" href="#" target="_blank">Download CSV</a>
                     <a id="report-link" href="#" target="_blank" download>Download Report</a>
-                    <button class="nav-button" data-action="previous">← Previous</button>
-                    <span class="nav-counter" id="nav-counter">1 of 1</span>
-                    <button class="nav-button" data-action="next">Next →</button>
-                    <button class="close-button" data-action="close-modal">Close</button>
+                    <button class="nav-button" data-action="previous" aria-label="Previous file">← Previous</button>
+                    <span class="nav-counter" id="nav-counter" aria-live="polite">1 of 1</span>
+                    <button class="nav-button" data-action="next" aria-label="Next file">Next →</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">Close</button>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body-content">
                 <pre id="outlier-content">Loading...</pre>
             </div>
         </div>
@@ -1196,20 +1205,20 @@ class FinancialToolsUpdater:
     </div>
 
     <!-- Modal Structure -->
-    <div id="outlier-modal" class="modal">
+    <div id="outlier-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">File Analysis</h2>
                 <div class="crt-divider"></div>
                 <div class="modal-button-bar">
                     <a id="csv-link" href="#" target="_blank">Download CSV</a>
-                    <button class="nav-button" data-action="previous">← Previous</button>
-                    <span class="nav-counter" id="nav-counter">1 of 1</span>
-                    <button class="nav-button" data-action="next">Next →</button>
-                    <button class="close-button" data-action="close-modal">Close</button>
+                    <button class="nav-button" data-action="previous" aria-label="Previous file">← Previous</button>
+                    <span class="nav-counter" id="nav-counter" aria-live="polite">1 of 1</span>
+                    <button class="nav-button" data-action="next" aria-label="Next file">Next →</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">Close</button>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body-content">
                 <pre id="outlier-content">Loading...</pre>
             </div>
         </div>
