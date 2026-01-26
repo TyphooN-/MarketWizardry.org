@@ -8,13 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let targetElement = e.target.closest('[data-action]');
         const action = targetElement ? targetElement.getAttribute('data-action') : null;
 
-        // Debug logging for calculator card clicks
-        if (e.target.closest('.calculator-card')) {
-            console.log('📊 Calculator card clicked! Target:', e.target);
-            console.log('📊 Found targetElement with data-action:', targetElement);
-            console.log('📊 Action detected:', action);
-        }
-
         // Handle modal background clicks
         if (e.target.id === 'analysisModal') {
             closeModal();
@@ -394,108 +387,68 @@ function handleOpenImage(e) {
 // Calculator selection functionality
 function handleSelectCalculator(e, targetElement) {
     e.preventDefault();
-    console.log('📊 handleSelectCalculator called with:', {
-        targetElement: targetElement,
-        calculatorType: targetElement ? targetElement.getAttribute('data-calculator') : null,
-        selectCalculatorExists: !!window.selectCalculator
-    });
+    if (!targetElement) return;
 
     const calculatorType = targetElement.getAttribute('data-calculator');
-
     if (calculatorType && window.selectCalculator) {
-        console.log('✅ Calling window.selectCalculator with type:', calculatorType);
         window.selectCalculator(calculatorType, targetElement);
-    } else {
-        console.error('❌ Calculator type not found or selectCalculator function not available:', {
-            calculatorType: calculatorType,
-            selectCalculatorExists: !!window.selectCalculator
-        });
     }
 }
 
 function handleShowSymbolDetail(e, targetElement) {
     e.preventDefault();
-    const symbol = targetElement.getAttribute('data-symbol');
-    console.log('🎯 handleShowSymbolDetail called for symbol:', symbol);
+    if (!targetElement) return;
 
+    const symbol = targetElement.getAttribute('data-symbol');
     if (symbol && window.showSymbolDetail) {
         window.showSymbolDetail(symbol);
-        console.log('✅ showSymbolDetail called successfully from shared.js');
-    } else {
-        console.error('❌ Symbol or showSymbolDetail function not available:', {
-            symbol: symbol,
-            showSymbolDetailExists: !!window.showSymbolDetail
-        });
-        alert('Error: Unable to show symbol details');
     }
 }
 
 function handleUseInStopLoss(e, targetElement) {
     e.preventDefault();
-    const symbol = targetElement.getAttribute('data-symbol');
-    console.log('📊 handleUseInStopLoss called for symbol:', symbol);
+    if (!targetElement) return;
 
+    const symbol = targetElement.getAttribute('data-symbol');
     if (symbol && window.useInStopLoss) {
         window.useInStopLoss(symbol);
-        console.log('✅ useInStopLoss called successfully from shared.js');
-    } else {
-        console.error('❌ Symbol or useInStopLoss function not available');
-        alert('Error: Stop Loss function not available');
     }
 }
 
 function handleUseInPortfolio(e, targetElement) {
     e.preventDefault();
-    const symbol = targetElement.getAttribute('data-symbol');
-    console.log('💼 handleUseInPortfolio called for symbol:', symbol);
+    if (!targetElement) return;
 
+    const symbol = targetElement.getAttribute('data-symbol');
     if (symbol && window.useInPortfolio) {
         window.useInPortfolio(symbol);
-        console.log('✅ useInPortfolio called successfully from shared.js');
-    } else {
-        console.error('❌ Symbol or useInPortfolio function not available');
-        alert('Error: Portfolio function not available');
     }
 }
 
 function handleFindSimilar(e, targetElement) {
     e.preventDefault();
-    const symbol = targetElement.getAttribute('data-symbol');
-    console.log('🔍 handleFindSimilar called for symbol:', symbol);
+    if (!targetElement) return;
 
+    const symbol = targetElement.getAttribute('data-symbol');
     if (symbol && window.findSimilar) {
         window.findSimilar(symbol);
-        console.log('✅ findSimilar called successfully from shared.js');
-    } else {
-        console.error('❌ Symbol or findSimilar function not available');
-        alert('Error: Find Similar function not available');
     }
 }
 
 function handleAddToPortfolio(e, targetElement) {
     e.preventDefault();
-    const symbol = targetElement.getAttribute('data-symbol');
-    console.log('📈 handleAddToPortfolio called for symbol:', symbol);
+    if (!targetElement) return;
 
+    const symbol = targetElement.getAttribute('data-symbol');
     if (symbol && window.addSymbolToPortfolio) {
         window.addSymbolToPortfolio(symbol);
-        console.log('✅ addSymbolToPortfolio called successfully from shared.js');
-    } else {
-        console.error('❌ Symbol or addSymbolToPortfolio function not available');
-        alert('Error: Add to Portfolio function not available');
     }
 }
 
 function handleBackToList(e, targetElement) {
     e.preventDefault();
-    console.log('🔙 handleBackToList called');
-
     if (window.backToSymbolList) {
         window.backToSymbolList();
-        console.log('✅ backToSymbolList called successfully from shared.js');
-    } else {
-        console.error('❌ backToSymbolList function not available');
-        alert('Error: Back to List function not available');
     }
 }
 

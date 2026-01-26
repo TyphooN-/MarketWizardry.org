@@ -75,18 +75,22 @@ function openModalWithFile(outlierFile, csvFile, title) {
         }
     }
 
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('csv-link').href = csvFile;
-    document.getElementById('csv-link').style.display = csvFile ? 'inline' : 'none';
-
-    // Handle report link (points to the outlier/analysis file)
+    const modalTitle = document.getElementById('modal-title');
+    const csvLink = document.getElementById('csv-link');
     const reportLink = document.getElementById('report-link');
-    if (reportLink) {
-        reportLink.href = outlierFile;
-        reportLink.style.display = outlierFile ? 'inline' : 'none';
-    }
+    const modal = document.getElementById('outlier-modal');
 
-    document.getElementById('outlier-modal').style.display = 'flex';
+    if (modalTitle) modalTitle.innerText = title;
+    if (csvLink) {
+        csvLink.href = csvFile || '#';
+        csvLink.classList.toggle('hidden', !csvFile);
+    }
+    if (reportLink) {
+        reportLink.href = outlierFile || '#';
+        reportLink.classList.toggle('hidden', !outlierFile);
+    }
+    if (modal) modal.style.display = 'flex';
+
     updateNavCounter();
 
     // Load outlier file content
@@ -103,14 +107,15 @@ function openModalWithFile(outlierFile, csvFile, title) {
 }
 
 function closeModal() {
-    document.getElementById('outlier-modal').style.display = 'none';
+    const modal = document.getElementById('outlier-modal');
+    if (modal) modal.style.display = 'none';
 }
 
 function previousFile() {
     if (currentFileIndex > 0) {
         currentFileIndex--;
         const file = filesList[currentFileIndex];
-        openModalWithFile(file.outlier, file.csv, file.title);
+        if (file) openModalWithFile(file.outlier, file.csv, file.title);
     }
 }
 
@@ -118,13 +123,13 @@ function nextFile() {
     if (currentFileIndex < filesList.length - 1) {
         currentFileIndex++;
         const file = filesList[currentFileIndex];
-        openModalWithFile(file.outlier, file.csv, file.title);
+        if (file) openModalWithFile(file.outlier, file.csv, file.title);
     }
 }
 
 function updateNavCounter() {
-    document.getElementById('nav-counter').textContent =
-        `${currentFileIndex + 1} of ${filesList.length}`;
+    const counter = document.getElementById('nav-counter');
+    if (counter) counter.textContent = `${currentFileIndex + 1} of ${filesList.length}`;
 }
 
 // Initialize files list from grid entries

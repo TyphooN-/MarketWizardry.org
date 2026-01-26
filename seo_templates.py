@@ -515,10 +515,6 @@ def get_breadcrumb_paths():
             {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
             {'name': '🔮 VaR Cult', 'url': 'var-cult.html'}
         ],
-        'blog': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
-            {'name': '📊 Blog', 'url': 'blog.html'}
-        ],
         'terms': [
             {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
             {'name': '📜 Terms', 'url': 'terms.html'}

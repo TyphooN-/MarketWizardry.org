@@ -32,7 +32,6 @@ const scrollThreshold = 1000; // Load more images when 1000px from bottom
 
 function initializeGallery(imagePaths, skipDynamicLoading = false) {
     allImagePaths = imagePaths;
-    console.log("All Image Paths:", allImagePaths);
 
     // Reset current index
     currentImageIndex = 0;
@@ -46,7 +45,7 @@ function initializeGallery(imagePaths, skipDynamicLoading = false) {
     // Initial load for dynamic galleries
     loadMoreImages();
     // Load more images immediately if the initial load doesn't fill the viewport
-    if (document.body.offsetHeight < window.innerHeight) {
+    if (document.body && document.body.offsetHeight < window.innerHeight) {
         loadMoreImages();
     }
 
@@ -65,29 +64,26 @@ function setupStaticImageClickHandlers() {
         img.addEventListener('click', function() {
             openImage(index);
         });
-        img.style.cursor = 'pointer'; // Make it clear images are clickable
+        img.classList.add('clickable-image'); // CSP-compliant cursor styling
     });
-    console.log(`Set up click handlers for ${images.length} static images`);
 }
 
 function loadImage(path, index) {
     const imageGrid = document.getElementById('imageGrid');
+    if (!imageGrid) return;
+
     const imgContainer = document.createElement('div');
     imgContainer.className = 'image-container';
     const img = document.createElement('img');
-    img.className = 'thumbnail';
+    img.className = 'thumbnail clickable-image';
     img.src = path;
-    img.onerror = function() { console.error("Error loading image:", path); };
-    img.addEventListener('load', function() { console.log("Image loaded:", path); });
     img.addEventListener('click', function() { openImage(index); });
     imgContainer.appendChild(img);
     imageGrid.appendChild(imgContainer);
 }
 
 function loadMoreImages() {
-    console.log("loadMoreImages called. currentImageIndex:", currentImageIndex, "allImagePaths.length:", allImagePaths.length);
     if (currentImageIndex >= allImagePaths.length) {
-        console.log("No more images to load.");
         return; // No more images to load
     }
 
@@ -98,7 +94,6 @@ function loadMoreImages() {
         loadImage(allImagePaths[i], i);
     }
     currentImageIndex = endIndex;
-    console.log("Loaded images up to index:", currentImageIndex);
 }
 
 function openImage(index) {
@@ -109,11 +104,15 @@ function openImage(index) {
     const twitterLinkContainer = document.getElementById('twitterLinkContainer');
     const twitterLink = document.getElementById('twitterLink');
 
+    if (!modal || !modalImg) return;
+
     const imagePath = allImagePaths[index];
+    if (!imagePath) return;
+
     const filename = imagePath.split('/').pop().replace(/'/g, ''); // Extract filename and clean quotes
 
     modalImg.src = imagePath;
-    modalFilename.textContent = filename;
+    if (modalFilename) modalFilename.textContent = filename;
 
     // Extract Twitter info from filename (only if Twitter elements exist)
     if (twitterLinkContainer && twitterLink) {
@@ -132,9 +131,9 @@ function openImage(index) {
     const nextButton = document.getElementById('nextButton');
     const imageCounter = document.getElementById('imageCounter');
 
-    prevButton.disabled = index === 0;
-    nextButton.disabled = index === allImagePaths.length - 1;
-    imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
+    if (prevButton) prevButton.disabled = index === 0;
+    if (nextButton) nextButton.disabled = index === allImagePaths.length - 1;
+    if (imageCounter) imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
 
     modal.style.display = 'flex'; // Use flex to center modal content
 }
