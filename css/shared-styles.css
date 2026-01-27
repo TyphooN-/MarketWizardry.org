@@ -47,12 +47,13 @@ h1 {
     background-color: #00ff00;
     animation: scan 1s infinite;
     margin: 30px auto;
+    transform-origin: left center;
 }
 
 @keyframes scan {
-    0% { opacity: 1; width: 0%; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; width: 100%; }
+    0% { opacity: 1; transform: scaleX(0); }
+    50% { opacity: 0.5; transform: scaleX(0.5); }
+    100% { opacity: 1; transform: scaleX(1); }
 }
 
 .flavor-text {
@@ -579,6 +580,8 @@ nav.breadcrumb a:hover {
 .modal-header .crt-divider {
     margin: 10px 0 15px 0;
     width: 100%;
+    animation: none;
+    transform: scaleX(1);
 }
 
 .modal-button-bar {
