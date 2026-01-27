@@ -327,7 +327,12 @@ function loadAnalysisContent(contentElement) {
                 return response.text();
             })
             .then(text => {
-                contentElement.textContent = text;
+                // Parse markdown if parser is available, otherwise show plain text
+                if (typeof window.parseMarkdown === 'function') {
+                    contentElement.innerHTML = window.parseMarkdown(text);
+                } else {
+                    contentElement.textContent = text;
+                }
             })
             .catch(error => {
                 console.error('Error loading analysis content:', error);

@@ -84,7 +84,8 @@ class SEOManager:
 
     <!-- CSP Compliant JavaScript Includes -->
     <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>'''
+    <script src="/js/shared.js"></script>
+    <script src="/js/markdown.js"></script>'''
 
     def _generate_og_article_tags(self, page_config):
         """Generate Open Graph article-specific tags"""

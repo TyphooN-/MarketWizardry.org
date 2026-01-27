@@ -260,3 +260,120 @@ nav.breadcrumb a:hover {
         display: none;
     }
 }
+
+/* Markdown Rendered Content Styles */
+.md-h2 {
+    color: #00ff00;
+    font-size: 1.4em;
+    margin: 1.2em 0 0.6em 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    padding-bottom: 0.3em;
+}
+
+.md-h3 {
+    color: #00ff00;
+    font-size: 1.2em;
+    margin: 1em 0 0.5em 0;
+}
+
+.md-p {
+    margin: 0.8em 0;
+    line-height: 1.6;
+}
+
+.md-ul, .md-ol {
+    margin: 0.8em 0;
+    padding-left: 2em;
+}
+
+.md-li {
+    margin: 0.4em 0;
+    line-height: 1.5;
+}
+
+.md-ul {
+    list-style-type: disc;
+}
+
+.md-ol {
+    list-style-type: decimal;
+}
+
+.md-bold {
+    font-weight: bold;
+    color: #00ff00;
+}
+
+.md-italic {
+    font-style: italic;
+    color: #00cc00;
+}
+
+.md-code {
+    background-color: #001100;
+    padding: 0.2em 0.4em;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    font-family: "Courier New", monospace;
+}
+
+.md-link {
+    color: #00ff00;
+    text-decoration: underline;
+}
+
+.md-link:hover {
+    color: #ffffff;
+    background-color: #002200;
+}
+
+.md-hr {
+    border: none;
+    border-top: 1px solid rgba(0, 255, 0, 0.5);
+    margin: 1.5em 0;
+}
+
+.md-blockquote {
+    border-left: 3px solid #00ff00;
+    padding-left: 1em;
+    margin: 1em 0;
+    color: #00cc00;
+    font-style: italic;
+}
+
+/* Modal body with rendered markdown - remove pre formatting */
+.modal-body #analysisContent {
+    white-space: normal;
+    font-family: "Courier New", monospace;
+    color: #00ff00;
+    padding: 15px;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+}
+
+/* First header in modal content - no top margin */
+.modal-body #analysisContent > .md-h2:first-child,
+.modal-body #analysisContent > .md-h3:first-child,
+.modal-body #analysisContent > .md-p:first-child {
+    margin-top: 0;
+}
+
+/* Mobile responsive markdown styles */
+@media screen and (max-width: 768px) {
+    .md-h2 {
+        font-size: 1.2em;
+    }
+    .md-h3 {
+        font-size: 1.1em;
+    }
+    .md-p {
+        font-size: 0.9em;
+    }
+    .md-ul, .md-ol {
+        padding-left: 1.5em;
+        font-size: 0.9em;
+    }
+    .modal-body #analysisContent {
+        padding: 10px;
+        max-height: calc(100vh - 120px);
+    }
+}
