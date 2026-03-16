@@ -171,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if clicked element or any parent is a remove button
         const button = e.target.closest('.remove-btn') || e.target.closest('.position-remove-btn');
         if (button) {
-            console.log('💥 Barrel explosion triggered for:', button.className);
             // Trigger explosion localized to the button's container
             // Don't prevent default - let calculator.js handle the actual removal
             triggerNuclearExplosion(button);

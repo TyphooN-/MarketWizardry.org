@@ -2,7 +2,7 @@
 
 **Project:** MarketWizardry.org - Financial Trading Tools & NFT Gallery
 **Tech Stack:** Static HTML/CSS/JS, Apache, Python generators
-**Last Updated:** 2025-10-02
+**Last Updated:** 2026-03-16
 
 ---
 
@@ -337,14 +337,11 @@ python3 generate_gallery.py
 
 ## Known Issues & Workarounds
 
-### Current CSP Violations (as of 2025-10-02)
+### Current CSP Violations
 
-**3 files with inline styles - MUST FIX:**
-1. `about.html:164` - `style="max-width: 300px;"`
-2. `affiliates.html:86` - `style="text-align: left;"`
-3. `calculator.html` - `style="margin-top: 20px;"`
+**Status (2026-03-16):** All HTML files pass CSP. Zero inline styles/scripts/handlers in HTML.
 
-**Fix:** Create CSS classes in `shared-styles.css` and replace inline styles.
+**JS CSSOM note:** JavaScript `element.style.property = value` is NOT a CSP violation (CSSOM manipulation is always allowed). Only HTML `style="..."` attributes and `<style>` tags are blocked by `style-src 'self'`.
 
 ### innerHTML Usage
 
@@ -359,20 +356,23 @@ Files using innerHTML (acceptable pattern):
 - Data comes from trusted sources (CSV files, JSON)
 - Using template literals, not concatenation
 - No user input directly inserted
+- `js/markdown.js` escapes HTML before parsing
+
+### Python Generator HTML Escaping
+
+**Fixed:** 2026-03-16
+
+All Python generators (`seo_templates.py`, `generate_gallery.py`, `generate_blog_posts.py`) now use `html.escape()` for user-provided strings inserted into generated HTML (titles, descriptions, breadcrumbs). URLs are left unescaped. File write operations wrapped in try-except.
 
 ### Mobile Modal Button Bar
 
 **Fixed:** 2025-10-02
 
-**Issue:** Modal buttons wrapped to multiple rows on mobile, breaking layout.
-
-**Solution:** Added mobile-specific CSS at `shared-styles.css:749-789`:
+**Solution:** Mobile-specific CSS on `.modal-button-bar`:
 - `flex-wrap: nowrap` on mobile
 - Horizontal scroll with styled scrollbar
-- Reduced font size (0.65em) and padding
 - `white-space: nowrap` prevents text wrapping
-
-**Applies to:** All explorers, galleries, and modal pages
+- Styles present in both `shared-styles.css` and `blog.css`
 
 ---
 
@@ -542,8 +542,8 @@ Files using innerHTML (acceptable pattern):
 **Site URL:** https://marketwizardry.org
 **Twitter:** @MarketW1zardry
 
-**Last Full Audit:** 2025-10-02 (see SEO_CSP_AUDIT.md)
-**Next Audit:** 2025-11-01
+**Last Full Audit:** 2026-03-16 (see docs/adr/ for architecture decisions)
+**Next Audit:** 2026-04-16
 
 ---
 
@@ -575,7 +575,35 @@ grep -L 'name="description"' *.html
 
 ---
 
+## Architecture Decision Records
+
+ADRs are maintained in `docs/adr/`:
+
+| ADR | Decision |
+|-----|----------|
+| ADR-001 | Content Security Policy - No inline styles/scripts |
+| ADR-002 | Static site architecture with Python generators |
+| ADR-003 | Terminal CRT aesthetic as design language |
+| ADR-004 | SEO-first approach with Schema.org markup |
+| ADR-005 | Event delegation pattern for interactivity |
+| ADR-006 | Dual CSS strategy (shared + page-specific) |
+| ADR-007 | Gallery image generation pipeline |
+| ADR-008 | Blog post architecture with modal content loading |
+
+---
+
 ## Version History
+
+**2026-03-16:**
+- Full codebase audit (HTML, JS, CSS, Python)
+- Fixed blog UI bugs: broken navigation, missing modal-button-bar styles, modal z-index
+- Fixed image-modal.js CSP violation (inline style in HTML string)
+- Added HTML escaping to all Python generators (XSS prevention)
+- Removed duplicate CSS rules (`.image-counter`, `.download-container`, `.entry-description`)
+- Removed production console.log debug statements
+- Fixed duplicate og:image meta tags in var-cult.html and terms.html
+- Created 8 Architecture Decision Records
+- Updated documentation
 
 **2025-10-02:**
 - Added mobile modal button bar fix

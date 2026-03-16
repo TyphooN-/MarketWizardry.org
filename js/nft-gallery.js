@@ -16,8 +16,6 @@ function initializeGallery(imagePaths, imageData = []) {
     currentImageData = imageData;
     currentImageIndex = 0;
 
-    console.log(`Gallery initialized with ${allImagePaths.length} images`);
-
     // Load initial images
     loadMoreImages();
 
@@ -54,10 +52,6 @@ function loadImage(path, index, data = null) {
         imgContainer.style.display = 'none';
     };
 
-    img.onload = function() {
-        console.log("Image loaded:", path);
-    };
-
     // CSP-compliant event listener
     img.addEventListener('click', function() {
         openImage(index);
@@ -92,7 +86,6 @@ function loadImage(path, index, data = null) {
 
 function loadMoreImages() {
     if (currentImageIndex >= allImagePaths.length) {
-        console.log("No more images to load");
         return;
     }
 
@@ -105,7 +98,6 @@ function loadMoreImages() {
     }
 
     currentImageIndex = endIndex;
-    console.log(`Loaded images up to index: ${currentImageIndex}`);
 }
 
 function openImage(index) {
@@ -152,7 +144,6 @@ function openImage(index) {
     // Store current index for navigation
     modal.dataset.currentIndex = index;
 
-    console.log("Opening image:", imagePath);
 }
 
 function closeModal() {
@@ -161,7 +152,6 @@ function closeModal() {
         modal.style.display = 'none';
         document.body.classList.remove('modal-open');
         delete modal.dataset.currentIndex;
-        console.log("Modal closed");
     }
 }
 

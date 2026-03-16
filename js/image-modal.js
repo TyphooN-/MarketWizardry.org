@@ -7,7 +7,7 @@
     function createModal() {
         // Create modal HTML structure
         const modalHTML = `
-            <div id="image-modal" class="image-modal" style="display: none;">
+            <div id="image-modal" class="image-modal hidden">
                 <div class="image-modal-content">
                     <div class="image-modal-header">
                         <div class="image-modal-buttons">
@@ -44,7 +44,7 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
-            if (modal.style.display === 'flex') {
+            if (!modal.classList.contains('hidden')) {
                 switch(e.key) {
                     case 'ArrowLeft':
                         previousImage();
@@ -95,12 +95,12 @@
         downloadLink.download = filename;
 
         updateCounter();
-        modal.style.display = 'flex';
+        modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
 
     function closeModal() {
-        modal.style.display = 'none';
+        modal.classList.add('hidden');
         document.body.style.overflow = ''; // Restore scrolling
     }
 

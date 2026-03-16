@@ -8,6 +8,7 @@ import re
 import random
 import pandas as pd
 import glob
+import html
 import json
 import argparse
 from datetime import datetime
@@ -774,19 +775,23 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         breadcrumb_navigation=breadcrumb_navigation,
         breadcrumb_css=breadcrumb_css,
         json_ld_schema=json_ld_schema,
-        title=title,
-        breadcrumb_title=breadcrumb_title,
-        description=flavor_text,
-        filename=html_file.name,
-        section_title=section_title,
-        summary=summary,
-        txt_filename=txt_file.name
+        title=html.escape(title),
+        breadcrumb_title=html.escape(breadcrumb_title),
+        description=html.escape(flavor_text),
+        filename=html.escape(html_file.name),
+        section_title=html.escape(section_title),
+        summary=html.escape(summary),
+        txt_filename=html.escape(txt_file.name)
     )
     
     # Write HTML file
-    with open(html_file, 'w', encoding='utf-8') as f:
-        f.write(html_content)
-    
+    try:
+        with open(html_file, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+    except OSError as e:
+        print(f"Error writing {html_file}: {e}")
+        return None
+
     print(f"Generated {html_file.name}")
     return str(html_file)
 
@@ -901,12 +906,12 @@ def update_blog_index(all_new_entries):
             # Add flavor text description for ALL entries
             description_html = ""
             if 'summary' in entry and entry['summary']:
-                description_html = f'<div class="entry-description">{entry["summary"]}</div>'
+                description_html = f'<div class="entry-description">{html.escape(entry["summary"])}</div>'
 
             entry_html = (
-                f'            <div class="blog-entry" data-action="loadContent" data-url="blog/{entry["filename"]}">\n'
-                f'                <a href="#" data-action="loadContent" data-url="blog/{entry["filename"]}">{entry["title"]}</a>\n'
-                f'                <span class="date">Posted: {entry["date"]}</span>{description_html}\n'
+                f'            <div class="blog-entry" data-action="loadContent" data-url="blog/{html.escape(entry["filename"])}">\n'
+                f'                <a href="#" data-action="loadContent" data-url="blog/{html.escape(entry["filename"])}">{html.escape(entry["title"])}</a>\n'
+                f'                <span class="date">Posted: {html.escape(entry["date"])}</span>{description_html}\n'
                 f'            </div>'
             )
             entries_html.append(entry_html)
@@ -998,10 +1003,12 @@ def update_blog_index(all_new_entries):
     new_content = update_blog_seo_metadata(new_content)
 
     # Write updated blog.html
-    with open(BLOG_INDEX, 'w', encoding='utf-8') as f:
-        f.write(new_content)
-    
-    print(f"Updated {BLOG_INDEX} with {len(all_entries)} total entries (all with flavor text)")
+    try:
+        with open(BLOG_INDEX, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        print(f"Updated {BLOG_INDEX} with {len(all_entries)} total entries (all with flavor text)")
+    except OSError as e:
+        print(f"Error writing {BLOG_INDEX}: {e}")
 
 
 

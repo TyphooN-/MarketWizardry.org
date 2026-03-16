@@ -519,9 +519,11 @@ nav.breadcrumb a:hover {
     visibility: hidden !important;
 }
 
-/* Hide download-container (legacy) */
+/* Download Container */
 .download-container {
-    display: none;
+    text-align: center;
+    margin-top: 15px;
+    width: 100%;
 }
 
 .modal-content {
@@ -625,8 +627,14 @@ nav.breadcrumb a:hover {
 .image-counter {
     color: #00ff00;
     font-family: 'Courier New', monospace;
+    font-size: 14px;
     font-weight: bold;
-    padding: 0 10px;
+    padding: 5px 15px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    background-color: rgba(0, 17, 0, 0.5);
+    border-radius: 3px;
+    min-width: 80px;
+    text-align: center;
 }
 
 /* Twitter Link Container */
@@ -714,16 +722,6 @@ nav.breadcrumb a:hover {
     font-size: 0.9em;
 }
 
-.image-counter {
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-}
-
-.download-container {
-    text-align: center;
-    margin-top: 10px;
-}
-
 .modal.modal-open {
     display: flex;
 }
@@ -741,25 +739,6 @@ nav.breadcrumb a:hover {
     border: 1px solid #00ff00;
     padding: 5px 10px;
     display: inline-block;
-}
-
-.image-counter {
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 5px 15px;
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    background-color: rgba(0, 17, 0, 0.5);
-    border-radius: 3px;
-    min-width: 80px;
-    text-align: center;
-}
-
-.download-container {
-    text-align: center;
-    margin-top: 15px;
-    width: 100%;
 }
 
 /* Mobile Responsive */

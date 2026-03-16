@@ -4,6 +4,7 @@ import random
 import re
 import json
 import glob
+import html
 from seo_templates import SEOManager, get_breadcrumb_paths, PAGE_CONFIGS, REDIRECT_SCRIPT_TEMPLATE
 
 def extract_tweet_info(filename):
@@ -53,7 +54,7 @@ def get_existing_flavor_text(username):
                 return data['replacement_text']
             elif data.get('current_text'):
                 return data['current_text']
-    except (FileNotFoundError, json.JSONDecodeError, Exception) as e:
+    except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"Error reading flavor data for {username}: {e}")
 
     # Fallback if no existing flavor text found
@@ -122,14 +123,19 @@ def generate_nft_gallery_html(output_file='nft-gallery.html', valid_user_names=[
         user_gallery_file = f'{user}_gallery.html'
         if os.path.exists(user_gallery_file):
             description = get_existing_flavor_text(user)
-            user_links.append(f'<div class="file-entry" data-action="navigate" data-url="nft-gallery/{user_gallery_file}"><a href="nft-gallery/{user_gallery_file}">{user}</a><div class="entry-description">{description}</div></div>')
+            esc_user = html.escape(user)
+            esc_description = html.escape(description)
+            user_links.append(f'<div class="file-entry" data-action="navigate" data-url="nft-gallery/{user_gallery_file}"><a href="nft-gallery/{user_gallery_file}">{esc_user}</a><div class="entry-description">{esc_description}</div></div>')
 
     user_links_str = '\n'.join(user_links)
     final_html = html_content.replace("USER_LINKS_PLACEHOLDER", user_links_str)
 
-    with open(output_file, 'w') as f:
-        f.write(final_html)
-    print(f"Generated {output_file} with {len(user_links)} user links.")
+    try:
+        with open(output_file, 'w') as f:
+            f.write(final_html)
+        print(f"Generated {output_file} with {len(user_links)} user links.")
+    except OSError as e:
+        print(f"Error writing {output_file}: {e}")
 
 def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.webp'):
     # Initialize SEO Manager and get breadcrumbs for individual galleries
@@ -222,8 +228,8 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
 </html>
 """
 
-    html_template = html_template.replace("USERNAME_PLACEHOLDER", username)
-    html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", flavor_text)
+    html_template = html_template.replace("USERNAME_PLACEHOLDER", html.escape(username))
+    html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", html.escape(flavor_text))
 
     image_paths = []
     user_webp_dir = os.path.join(username, "webp")
@@ -246,8 +252,12 @@ document.addEventListener('DOMContentLoaded', function() {{
 }});'''
 
     js_filename = f'../js/gallery-data-{username}.js'
-    with open(js_filename, 'w') as f:
-        f.write(js_content)
+    try:
+        with open(js_filename, 'w') as f:
+            f.write(js_content)
+    except OSError as e:
+        print(f"Error writing {js_filename}: {e}")
+        return False
 
     if not image_paths:
         print(f"No .webp images found for user {username}. Deleting {output_file} if it exists.")
@@ -258,10 +268,14 @@ document.addEventListener('DOMContentLoaded', function() {{
             os.remove(js_filename)
         return False
     else:
-        with open(output_file, 'w') as f:
-            f.write(html_template)
-        print(f"Generated {output_file} and {js_filename} with {len(image_paths)} images for user {username}.")
-        return True
+        try:
+            with open(output_file, 'w') as f:
+                f.write(html_template)
+            print(f"Generated {output_file} and {js_filename} with {len(image_paths)} images for user {username}.")
+            return True
+        except OSError as e:
+            print(f"Error writing {output_file}: {e}")
+            return False
 
 def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
     # Initialize SEO Manager and get breadcrumbs for all gallery
@@ -373,12 +387,19 @@ document.addEventListener('DOMContentLoaded', function() {{
 }});'''
 
     js_filename = '../js/gallery-data-all.js'
-    with open(js_filename, 'w') as f:
-        f.write(js_content)
+    try:
+        with open(js_filename, 'w') as f:
+            f.write(js_content)
+    except OSError as e:
+        print(f"Error writing {js_filename}: {e}")
+        return
 
-    with open(output_file, 'w') as f:
-        f.write(html_template)
-    print(f"Generated {output_file} and {js_filename} with {len(all_image_paths)} images.")
+    try:
+        with open(output_file, 'w') as f:
+            f.write(html_template)
+        print(f"Generated {output_file} and {js_filename} with {len(all_image_paths)} images.")
+    except OSError as e:
+        print(f"Error writing {output_file}: {e}")
 
 
 def generate_ai_art_html():
