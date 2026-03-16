@@ -222,12 +222,12 @@ def generate_user_gallery_html(username, output_file, search_pattern='*lossy*.we
     </div>
 </div>
     <script src="/js/gallery.js"></script>
-    <script src="/js/gallery-data-USERNAME_PLACEHOLDER.js"></script>
-    </div>
+    <script src="/js/gallery-data-SCRIPT_USERNAME_PLACEHOLDER.js"></script>
 </body>
 </html>
 """
 
+    html_template = html_template.replace("SCRIPT_USERNAME_PLACEHOLDER", username)
     html_template = html_template.replace("USERNAME_PLACEHOLDER", html.escape(username))
     html_template = html_template.replace("FLAVOR_TEXT_PLACEHOLDER", html.escape(flavor_text))
 
@@ -354,8 +354,6 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
-    <script src="/js/redirect.js"></script>
-    <script src="/js/shared.js"></script>
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-all.js"></script>
 </body>

@@ -46,7 +46,7 @@ class SEOManager:
     <meta name="author" content="{esc(self.author)}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{esc(page_config['title'])}</title>
-    <link rel="canonical" href="{page_config['canonical_url']}">
+    <link rel="canonical" href="{esc(page_config['canonical_url'])}">
     <link rel="icon" type="image/x-icon" href="{self.favicon}">
     <link rel="apple-touch-icon" sizes="180x180" href="{self.apple_icon}">
 
@@ -63,10 +63,10 @@ class SEOManager:
     <!-- Enhanced Open Graph Meta Tags -->
     <meta property="og:title" content="{esc(page_config['og_title'])}">
     <meta property="og:description" content="{esc(page_config['og_description'])}">
-    <meta property="og:url" content="{page_config['canonical_url']}">
+    <meta property="og:url" content="{esc(page_config['canonical_url'])}">
     <meta property="og:type" content="{esc(page_config.get('og_type', 'website'))}">
     <meta property="og:site_name" content="{esc(self.site_name)}">
-    <meta property="og:image" content="{page_config.get('og_image', self.default_image)}">
+    <meta property="og:image" content="{esc(page_config.get('og_image', self.default_image))}">
     <meta property="og:image:alt" content="{esc(page_config.get('og_image_alt', 'MarketWizardry.org - Professional Financial Trading Tools'))}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -79,7 +79,7 @@ class SEOManager:
     <meta name="twitter:description" content="{esc(page_config['twitter_description'])}">
     <meta name="twitter:site" content="{esc(self.twitter_handle)}">
     <meta name="twitter:creator" content="{esc(self.twitter_handle)}">
-    <meta name="twitter:image" content="{page_config.get('twitter_image', self.default_image)}">
+    <meta name="twitter:image" content="{esc(page_config.get('twitter_image', self.default_image))}">
     <meta name="twitter:image:alt" content="{esc(page_config.get('twitter_image_alt', 'MarketWizardry.org Financial Tools'))}">
     <meta name="twitter:domain" content="marketwizardry.org">
     {self._generate_twitter_labels(page_config)}

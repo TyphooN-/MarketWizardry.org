@@ -74,7 +74,7 @@
 
         // Add click handlers to all images
         images.forEach((img, index) => {
-            img.style.cursor = 'pointer';
+            img.classList.add('clickable-image');
             img.addEventListener('click', function() {
                 openModal(index);
             });
