@@ -95,8 +95,8 @@ function handleLoadContent(e, targetElement) {
     e.preventDefault();
     const element = targetElement || e.target.closest('[data-action="loadContent"]');
     const url = element ? element.getAttribute('data-url') : null;
-    if (url && parent.loadContent) {
-        parent.loadContent(url);
+    if (url) {
+        window.location.href = url;
     }
 }
 
