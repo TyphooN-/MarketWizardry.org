@@ -354,6 +354,7 @@ def generate_all_html(output_file='all.html', search_pattern='*lossy*.webp'):
             <img src="" alt="Fullscreen image" class="full-image">
         </div>
     </div>
+    </div>
     <script src="/js/gallery.js"></script>
     <script src="/js/gallery-data-all.js"></script>
 </body>

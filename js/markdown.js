@@ -162,8 +162,8 @@
         // Inline code `code`
         text = text.replace(/`([^`]+)`/g, '<code class="md-code">$1</code>');
 
-        // Links [text](url)
-        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="md-link" target="_blank" rel="noopener">$1</a>');
+        // Links [text](url) - only allow http/https protocols
+        text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" class="md-link" target="_blank" rel="noopener noreferrer">$1</a>');
 
         return text;
     }

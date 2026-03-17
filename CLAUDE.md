@@ -31,7 +31,7 @@ MarketWizardry.org is a **terminal-aesthetic financial data exploration platform
 - ❌ `unsafe-inline` directive (not allowed)
 - ❌ `unsafe-eval` directive (not allowed)
 
-**Location:** `.htaccess:43`
+**Location:** `.htaccess:44`
 
 **What IS allowed:**
 - ✅ External stylesheets from same origin (`/css/*.css`)
@@ -91,7 +91,7 @@ document.addEventListener('click', function(e) {
 │   ├── ai-musings.js            # Blog functionality
 │   └── gallery-data-*.js        # Per-gallery image paths
 ├── img/                         # Static images (WebP preferred)
-├── nft-gallery/                 # 106 generated gallery pages
+├── nft-gallery/                 # 105 generated gallery pages
 │   ├── all.html
 │   ├── *_gallery.html
 │   └── */webp/                  # User image directories
@@ -101,7 +101,7 @@ document.addEventListener('click', function(e) {
 ├── crypto-explorer/             # Crypto data CSVs
 ├── seo_templates.py             # SEO meta tag generator (Python)
 ├── generate_gallery.py          # Gallery HTML generator (CSP compliant)
-└── *.html                       # Root pages (19 files)
+└── *.html                       # Root pages (20 files)
 ```
 
 ### Key Files
@@ -110,27 +110,28 @@ document.addEventListener('click', function(e) {
 **Location:** `/home/typhoon/git/MarketWizardry.org/.htaccess`
 
 **Contains:**
-- **Enhanced CSP headers (line 43)** - Maximum security (updated 2025-10-02)
-- Security headers (lines 32-36)
-- Compression (lines 4-14)
-- Caching (lines 17-29)
-- URL rewrites (lines 47-50)
-- Custom 404 page (line 53)
+- **Enhanced CSP headers (line 44)** - Maximum security (updated 2026-03-17)
+- Security headers (lines 32-37) including HSTS
+- Compression (lines 4-16) including JSON, SVG
+- Caching (lines 18-33) including favicon, SVG, JSON
+- URL rewrites (lines 49-53)
+- Custom 404 page (line 56)
 
-**Current CSP (100/100 Security Score):**
+**Current CSP:**
 ```apache
 default-src 'self'; script-src 'self'; style-src 'self';
 img-src 'self' data:; connect-src 'self'; font-src 'self';
 object-src 'none'; media-src 'self';
 frame-src 'self' https://*.youtube.com; worker-src 'none';
 form-action 'self'; base-uri 'self'; manifest-src 'self';
-upgrade-insecure-requests; block-all-mixed-content;
+frame-ancestors 'self'; upgrade-insecure-requests;
 ```
 
 **Key Features:**
 - ✅ No `unsafe-inline` or `unsafe-eval`
+- ✅ HSTS enabled (Strict-Transport-Security)
 - ✅ Forces HTTPS (`upgrade-insecure-requests`)
-- ✅ Blocks mixed content explicitly
+- ✅ `frame-ancestors 'self'` prevents clickjacking
 - ✅ YouTube embeds allowed (wildcard domain)
 
 **If you change CSP, you MUST:**
@@ -142,7 +143,7 @@ upgrade-insecure-requests; block-all-mixed-content;
 #### `css/shared-styles.css` - ALL STYLES
 **Location:** `/home/typhoon/git/MarketWizardry.org/css/shared-styles.css`
 
-**1714 lines containing:**
+**2029 lines containing:**
 - Base styles (terminal aesthetic)
 - CRT effects (scan lines, flicker animations)
 - Modal styles (lines 452-709)
@@ -593,6 +594,21 @@ ADRs are maintained in `docs/adr/`:
 ---
 
 ## Version History
+
+**2026-03-17:**
+- Security hardening: HSTS header, frame-ancestors CSP directive, open redirect fix
+- Fixed main.js ?page= parameter validation (prevented iframe injection)
+- Fixed markdown.js to block javascript: URIs in links, added noreferrer
+- Added rel="noopener noreferrer" to all target="_blank" explorer links
+- Fixed ErrorDocument to use relative path (proper 404 status codes)
+- Removed deprecated block-all-mixed-content CSP directive
+- Performance: scroll throttling in gallery.js, lazy loading on dynamic images
+- Performance: animatetop keyframes use transform instead of expensive top property
+- Performance: added gzip for JSON/SVG, caching for favicon/SVG/JSON
+- Fixed all.html missing container closing div (and generator template)
+- Fixed broken breadcrumb relative paths in 45 blog posts
+- Fixed unclosed divs in 104 NFT gallery pages
+- Updated CLAUDE.md: corrected line counts, page counts, CSP config, line references
 
 **2026-03-16:**
 - Full codebase audit (HTML, JS, CSS, Python)

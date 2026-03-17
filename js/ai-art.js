@@ -1,23 +1,4 @@
-// Event delegation for data-action attributes
-document.addEventListener('click', function(e) {
-    const action = e.target.getAttribute('data-action');
-    if (action) {
-        switch(action) {
-            case 'close-modal':
-                closeModal();
-                break;
-            case 'previous-image':
-                previousImage();
-                break;
-            case 'next-image':
-                nextImage();
-                break;
-            case 'download-image':
-                downloadImage();
-                break;
-        }
-    }
-});
+// Event delegation handled by shared.js - functions exported to window scope below
 
 const allImagePaths = [
     "/ai-art/00001.webp",
@@ -122,6 +103,7 @@ function openImage(index) {
     updateNavigationButtons();
 
     modal.style.display = 'flex';
+    document.body.classList.add('modal-open');
 }
 
 function updateNavigationButtons() {
@@ -163,6 +145,7 @@ function downloadImage() {
 function closeModal() {
     const modal = document.getElementById('fullscreenModal');
     modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
 }
 
 // Keyboard navigation

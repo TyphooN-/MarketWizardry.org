@@ -61,7 +61,9 @@ function loadContent(page, clickedElement) {
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const pageParam = urlParams.get('page');
-    const targetPage = pageParam || 'market-wizardry';
+    // Validate page parameter to prevent open redirect / iframe injection
+    const targetPage = pageParam && /^[a-zA-Z0-9\-_\/\.]+$/.test(pageParam) && !pageParam.includes('..')
+        ? pageParam : 'market-wizardry';
     loadContent(targetPage);
 
     // Set up hamburger menu event listener

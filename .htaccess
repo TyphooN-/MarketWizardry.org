@@ -11,6 +11,8 @@
     AddOutputFilterByType DEFLATE application/rss+xml
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
 
 # Browser caching
@@ -24,8 +26,12 @@
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType application/json "access plus 1 year"
     ExpiresByType text/html "access plus 1 hour"
     ExpiresByType text/xml "access plus 1 hour"
+    ExpiresDefault "access plus 1 hour"
 </IfModule>
 
 # Security headers for SEO trust signals
@@ -34,14 +40,15 @@
     Header always set X-Frame-Options SAMEORIGIN
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), accelerometer=(), gyroscope=(), autoplay=(), encrypted-media=(), picture-in-picture=(), clipboard-write=()"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
     # Content Security Policy - maximum security configuration
     # All inline styles moved to external CSS files for CSP compliance
     # NO unsafe-inline or unsafe-eval - strict security policy
     # Plotly.js is self-hosted locally (no CDN dependency)
     # upgrade-insecure-requests - forces HTTPS for all resources
-    # block-all-mixed-content - prevents HTTP resources on HTTPS pages
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self' https://*.youtube.com; worker-src 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'; upgrade-insecure-requests; block-all-mixed-content;"
+    # frame-ancestors 'self' - prevents clickjacking (replaces X-Frame-Options)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'self' https://*.youtube.com; worker-src 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'; frame-ancestors 'self'; upgrade-insecure-requests;"
 </IfModule>
 
 # Pretty URLs for SEO
@@ -51,4 +58,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^/]+)/?$ /?page=$1 [L,QSA]
 
 # Custom 404 page - ensure full path for proper loading
-ErrorDocument 404 https://marketwizardry.org/404.html
+ErrorDocument 404 /404.html

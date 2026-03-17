@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 handleSelectCalculator(e, targetElement);
                 break;
             case 'open-modal-with-file':
-                handleOpenModalWithFile(e);
+                handleOpenModalWithFile(e, targetElement);
                 break;
             case 'close':
                 handleCloseModal(e);
@@ -239,11 +239,12 @@ function handleNavigate(e) {
 }
 
 // Explorer modal functionality
-function handleOpenModalWithFile(e) {
+function handleOpenModalWithFile(e, targetElement) {
     e.preventDefault();
-    const outlierFile = e.target.getAttribute('data-outlier-file');
-    const csvFile = e.target.getAttribute('data-csv-file');
-    const displayName = e.target.getAttribute('data-display-name');
+    const element = targetElement || e.target.closest('[data-action="open-modal-with-file"]');
+    const outlierFile = element ? element.getAttribute('data-outlier-file') : null;
+    const csvFile = element ? element.getAttribute('data-csv-file') : null;
+    const displayName = element ? element.getAttribute('data-display-name') : null;
     if (outlierFile && displayName && window.openModalWithFile) {
         window.openModalWithFile(outlierFile, csvFile, displayName);
     }
@@ -285,6 +286,7 @@ function openModal() {
         }
 
         modal.style.display = 'flex';
+        document.body.classList.add('modal-open');
         modal.focus();
 
         // Add escape key handler
@@ -302,6 +304,7 @@ function closeModal() {
     const modal = document.getElementById('analysisModal');
     if (modal) {
         modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
     }
 }
 

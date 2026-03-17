@@ -1,28 +1,5 @@
 // Gallery functionality for NFT galleries
-// Event delegation for data-action attributes
-document.addEventListener('click', function(e) {
-    const action = e.target.getAttribute('data-action');
-    if (action) {
-        switch(action) {
-            case 'navigate':
-                const url = e.target.getAttribute('data-url');
-                if (url) window.location.href = url;
-                break;
-            case 'close-modal':
-                closeModal();
-                break;
-            case 'previous-image':
-                previousImage();
-                break;
-            case 'next-image':
-                nextImage();
-                break;
-            case 'download-image':
-                downloadImage();
-                break;
-        }
-    }
-});
+// Event delegation handled by shared.js - functions exported to window scope below
 
 let currentImageIndex = 0;
 let allImagePaths = []; // Will be set by each gallery file
@@ -49,10 +26,17 @@ function initializeGallery(imagePaths, skipDynamicLoading = false) {
         loadMoreImages();
     }
 
-    // Scroll event for lazy loading
+    // Scroll event for lazy loading (throttled with rAF)
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
-            loadMoreImages();
+        if (!scrollTicking) {
+            requestAnimationFrame(() => {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - scrollThreshold) {
+                    loadMoreImages();
+                }
+                scrollTicking = false;
+            });
+            scrollTicking = true;
         }
     });
 }
@@ -76,6 +60,7 @@ function loadImage(path, index) {
     imgContainer.className = 'image-container';
     const img = document.createElement('img');
     img.className = 'thumbnail clickable-image';
+    img.loading = 'lazy';
     img.src = path;
     img.addEventListener('click', function() { openImage(index); });
     imgContainer.appendChild(img);
@@ -136,6 +121,7 @@ function openImage(index) {
     if (imageCounter) imageCounter.textContent = `${index + 1} / ${allImagePaths.length}`;
 
     modal.style.display = 'flex'; // Use flex to center modal content
+    document.body.classList.add('modal-open');
 }
 
 function extractTweetInfoFromFilename(filename) {
@@ -191,6 +177,7 @@ function closeModal() {
     const modal = document.getElementById('fullscreenModal');
     if (modal.style.display === 'flex') {
         modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
     }
 }
 

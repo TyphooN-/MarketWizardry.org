@@ -503,10 +503,12 @@ nav.breadcrumb a:hover {
     top: 0;
     width: 100%;
     height: 100%;
+    height: 100dvh;
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
     justify-content: center;
     align-items: center;
+    overscroll-behavior: contain;
 }
 
 /* Hide all modal children when modal is not displayed */
@@ -532,7 +534,10 @@ nav.breadcrumb a:hover {
     border: 2px solid #00ff00;
     max-width: 90vw;
     max-height: 90vh;
+    max-height: 90dvh;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    touch-action: pan-y;
+    overscroll-behavior: contain;
     animation-name: animatetop;
     animation-duration: 0.4s;
     position: relative;
@@ -607,8 +612,8 @@ nav.breadcrumb a:hover {
 }
 
 @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
+    from {transform: translateY(-300px); opacity: 0}
+    to {transform: translateY(0); opacity: 1}
 }
 
 .full-image {
@@ -722,6 +727,13 @@ nav.breadcrumb a:hover {
     font-size: 0.9em;
 }
 
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
 .modal.modal-open {
     display: flex;
 }
@@ -755,7 +767,8 @@ nav.breadcrumb a:hover {
         margin: auto;
         width: fit-content;
         max-width: 95vw;
-        max-height: 90vh;
+        max-height: 85vh;
+        max-height: 85dvh;
         overflow-y: auto;
     }
 
@@ -833,7 +846,8 @@ nav.breadcrumb a:hover {
         white-space: pre;
         overflow-x: auto;
         max-width: 90vw;
-        max-height: calc(90vh - 160px);
+        max-height: calc(85vh - 160px);
+        max-height: calc(85dvh - 160px);
         padding: 10px;
     }
 
@@ -843,7 +857,8 @@ nav.breadcrumb a:hover {
         word-wrap: break-word;
         overflow-x: hidden;
         max-width: 90vw;
-        max-height: calc(90vh - 160px);
+        max-height: calc(85vh - 160px);
+        max-height: calc(85dvh - 160px);
         padding: 10px;
     }
 
@@ -1576,8 +1591,8 @@ header {
 }
 
 @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
+    from {transform: translateY(-300px); opacity: 0}
+    to {transform: translateY(0); opacity: 1}
 }
 
 /* Explorer modal body styles */

@@ -94,6 +94,7 @@ function displayText(content, fileName) {
     downloadLink.download = fileName + '.txt';
 
     document.getElementById('textModal').style.display = 'flex';
+    document.body.classList.add('modal-open');
     updateNavCounter();
 }
 
@@ -119,6 +120,7 @@ function updateNavCounter() {
 
 function closeModal() {
     document.getElementById('textModal').style.display = 'none';
+    document.body.classList.remove('modal-open');
     // Clean up blob URL
     const downloadLink = document.getElementById('downloadLink');
     if (downloadLink.href.startsWith('blob:')) {

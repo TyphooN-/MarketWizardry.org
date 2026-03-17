@@ -135,17 +135,20 @@ function openMusing(index) {
         .then(text => {
             document.getElementById('textContent').textContent = text;
             document.getElementById('textModal').style.display = 'flex';
+            document.body.classList.add('modal-open');
         })
         .catch(error => {
             console.error('Error loading musing:', error);
             document.getElementById('textContent').textContent = 'Error loading musing content. Please try again.';
             document.getElementById('textModal').style.display = 'flex';
+            document.body.classList.add('modal-open');
         });
 }
 
 // Close the modal
 function closeModal() {
     document.getElementById('textModal').style.display = 'none';
+    document.body.classList.remove('modal-open');
 }
 
 // Navigate to previous musing

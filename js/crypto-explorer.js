@@ -36,32 +36,7 @@ function linkifyUrls(text) {
     return result;
 }
 
-// Event delegation for data-action attributes
-document.addEventListener('click', function(e) {
-    const action = e.target.getAttribute('data-action');
-    if (action) {
-        switch(action) {
-            case 'open-modal-with-file':
-                e.preventDefault();
-                const outlierFile = e.target.getAttribute('data-outlier-file');
-                const csvFile = e.target.getAttribute('data-csv-file');
-                const displayName = e.target.getAttribute('data-display-name');
-                if (outlierFile && displayName) {
-                    openModalWithFile(outlierFile, csvFile, displayName);
-                }
-                break;
-            case 'close-modal':
-                closeModal();
-                break;
-            case 'previous':
-                previousFile();
-                break;
-            case 'next':
-                nextFile();
-                break;
-        }
-    }
-});
+// Event delegation handled by shared.js - functions exported to window scope below
 
 let currentFileIndex = 0;
 let filesList = [];
@@ -89,7 +64,10 @@ function openModalWithFile(outlierFile, csvFile, title) {
         reportLink.href = outlierFile || '#';
         reportLink.classList.toggle('hidden', !outlierFile);
     }
-    if (modal) modal.style.display = 'flex';
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.classList.add('modal-open');
+    }
 
     updateNavCounter();
 
@@ -109,7 +87,10 @@ function openModalWithFile(outlierFile, csvFile, title) {
 
 function closeModal() {
     const modal = document.getElementById('outlier-modal');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    }
 }
 
 function previousFile() {
