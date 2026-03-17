@@ -140,6 +140,27 @@ h1 {
     color: #004400;
 }
 
+/* Modal content styles */
+.modal-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(80vh - 120px);
+    max-height: calc(80dvh - 120px);
+}
+
+.modal-body pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-family: "Courier New", monospace;
+    color: #00ff00;
+    margin: 0;
+    padding: 15px;
+    line-height: 1.6;
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    background-color: rgba(0, 17, 0, 0.5);
+}
+
 /* Mobile responsive */
 @media screen and (max-width: 768px) {
     body {
