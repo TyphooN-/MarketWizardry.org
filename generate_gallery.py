@@ -545,24 +545,23 @@ document.addEventListener('DOMContentLoaded', function() {{
         <!-- Images will be inserted here by JavaScript -->
     </div>
 
+    </div>
+
     <!-- Modal -->
     <div class="modal" id="fullscreenModal" role="dialog" aria-modal="true" aria-labelledby="modalFilename">
         <div class="modal-content">
-            <button class="close-button" data-action="close-modal" aria-label="Close modal">&times;</button>
-            <div class="filename-display" id="modalFilename"></div>
-            <div class="crt-divider"></div>
+            <div class="modal-header">
+                <div class="filename-display" id="modalFilename"></div>
+                <div class="modal-button-bar">
+                    <button class="nav-button" id="prevButton" data-action="previous-image" aria-label="Previous image">← Previous</button>
+                    <span id="imageCounter" class="image-counter" aria-live="polite"></span>
+                    <button class="nav-button" id="nextButton" data-action="next-image" aria-label="Next image">Next →</button>
+                    <button class="nav-button" id="downloadButton" data-action="download-image" aria-label="Download image">⬇ Download</button>
+                    <button class="close-button" data-action="close-modal" aria-label="Close modal">✕</button>
+                </div>
+            </div>
             <img src="" alt="Fullscreen image" class="full-image" loading="lazy">
-            <div class="nav-buttons">
-                <button class="nav-button" id="prevButton" data-action="previous-image" aria-label="Previous image">← Previous</button>
-                <span id="imageCounter" class="image-counter" aria-live="polite"></span>
-                <button class="nav-button" id="nextButton" data-action="next-image" aria-label="Next image">Next →</button>
-            </div>
-            <div class="download-container">
-                <button class="nav-button" id="downloadButton" data-action="download-image" aria-label="Download image">⬇ Download</button>
-            </div>
         </div>
-    </div>
-    </div>
     </div>
 
     <script src="/js/redirect.js"></script>
