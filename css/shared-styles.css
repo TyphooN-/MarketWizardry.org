@@ -532,13 +532,12 @@ nav.breadcrumb a:hover {
     background-color: #000;
     padding: 10px;
     border: 2px solid #00ff00;
-    width: 90vw;
+    max-width: 90vw;
     max-height: 90vh;
     max-height: 90dvh;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     touch-action: pan-y;
     overscroll-behavior: contain;
-    overflow: hidden;
     animation-name: animatetop;
     animation-duration: 0.4s;
     position: relative;
@@ -766,11 +765,10 @@ body.modal-open {
 
     .modal-content {
         margin: auto;
-        width: 95vw;
+        max-width: 95vw;
         max-height: 85vh;
         max-height: 85dvh;
         overflow-y: auto;
-        overflow-x: hidden;
     }
 
     .modal-header {
