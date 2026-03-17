@@ -89,7 +89,6 @@ const galleryImagePaths = [
 
 // Initialize gallery when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('AI Art gallery data loaded, initializing...');
     if (typeof initializeGallery === 'function') {
         initializeGallery(galleryImagePaths);
     } else {

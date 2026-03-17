@@ -514,18 +514,9 @@ nav.breadcrumb a:hover {
 /* Hide all modal children when modal is not displayed */
 .modal:not([style*="display: flex"]):not([style*="display: block"]) .modal-header,
 .modal:not([style*="display: flex"]):not([style*="display: block"]) .modal-button-bar,
-.modal:not([style*="display: flex"]):not([style*="display: block"]) .nav-buttons,
-.modal:not([style*="display: flex"]):not([style*="display: block"]) .download-container,
 .modal:not([style*="display: flex"]):not([style*="display: block"]) .close-button {
     display: none !important;
     visibility: hidden !important;
-}
-
-/* Download Container */
-.download-container {
-    text-align: center;
-    margin-top: 15px;
-    width: 100%;
 }
 
 .modal-content {
@@ -664,16 +655,6 @@ nav.breadcrumb a:hover {
 .twitter-link:hover {
     background-color: #001100;
     transform: scale(1.02);
-}
-
-/* Navigation Buttons */
-.nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    gap: 10px;
-    padding: 0 15px;
 }
 
 .nav-button {
@@ -888,11 +869,6 @@ body.modal-open {
     .filename-display {
         font-size: 0.7em;
         margin-bottom: 5px;
-    }
-
-    .nav-buttons {
-        margin-top: 5px;
-        gap: 5px;
     }
 
     .twitter-link-container {

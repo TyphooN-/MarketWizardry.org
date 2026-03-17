@@ -590,6 +590,7 @@ ADRs are maintained in `docs/adr/`:
 | ADR-006 | Dual CSS strategy (shared + page-specific) |
 | ADR-007 | Gallery image generation pipeline |
 | ADR-008 | Blog post architecture with modal content loading |
+| ADR-009 | Modal UI standardization (single-row controls, accessibility) |
 
 ---
 
