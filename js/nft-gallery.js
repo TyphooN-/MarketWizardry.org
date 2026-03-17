@@ -19,14 +19,21 @@ function initializeGallery(imagePaths, imageData = []) {
     // Load initial images
     loadMoreImages();
 
-    // Set up scroll listener for lazy loading
+    // Set up scroll listener for lazy loading (throttled with rAF)
+    let scrollTicking = false;
     window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
+        if (!scrollTicking) {
+            requestAnimationFrame(function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
 
-        if (documentHeight - scrollTop - windowHeight < scrollThreshold) {
-            loadMoreImages();
+                if (documentHeight - scrollTop - windowHeight < scrollThreshold) {
+                    loadMoreImages();
+                }
+                scrollTicking = false;
+            });
+            scrollTicking = true;
         }
     });
 

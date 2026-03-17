@@ -152,3 +152,9 @@ function initializeFilesList() {
         display: entry.getAttribute('data-display-name')
     }));
 }
+
+// Export functions to window scope for shared.js event delegation
+window.openModalWithFile = openModalWithFile;
+window.closeModal = closeModal;
+window.previousFile = previousFile;
+window.nextFile = nextFile;

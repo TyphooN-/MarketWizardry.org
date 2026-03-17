@@ -1658,6 +1658,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Set up portfolio position removal handlers (delegated)
+    // Note: data-action handling is done by shared.js - no duplicate delegation here
     document.addEventListener('click', function(e) {
         const removeBtn = e.target.closest('.remove-btn, .position-remove-btn');
         if (removeBtn && (e.target.classList.contains('remove-btn') || e.target.classList.contains('position-remove-btn'))) {
@@ -1666,49 +1667,6 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 window.removePosition(removeBtn);
             }, 100);
-            return;
-        }
-
-        // Handle data-action elements
-        const actionElement = e.target.closest('[data-action]');
-        if (actionElement) {
-            const action = actionElement.getAttribute('data-action');
-            const symbol = actionElement.getAttribute('data-symbol');
-
-
-            switch(action) {
-                case 'select-calculator':
-                    e.preventDefault();
-                    const calculatorType = actionElement.getAttribute('data-calculator');
-                    if (calculatorType) {
-                        window.selectCalculator(calculatorType, actionElement);
-                    }
-                    break;
-                case 'show-symbol-detail':
-                    if (symbol) {
-                        e.preventDefault();
-                        window.showSymbolDetail(symbol);
-                    }
-                    break;
-                case 'use-in-stop-loss':
-                    if (symbol) {
-                        e.preventDefault();
-                        window.useInStopLoss(symbol);
-                    }
-                    break;
-                case 'add-to-portfolio':
-                    if (symbol) {
-                        e.preventDefault();
-                        window.useInPortfolio(symbol);
-                    }
-                    break;
-                case 'find-similar':
-                    if (symbol) {
-                        e.preventDefault();
-                        window.findSimilar(symbol);
-                    }
-                    break;
-            }
         }
     });
 
