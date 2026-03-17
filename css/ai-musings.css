@@ -146,6 +146,8 @@ h1 {
     overflow-x: hidden;
     max-height: calc(80vh - 120px);
     max-height: calc(80dvh - 120px);
+    width: 100%;
+    min-width: 0;
 }
 
 .modal-body pre {
@@ -159,6 +161,8 @@ h1 {
     line-height: 1.6;
     border: 2px solid rgba(0, 255, 0, 0.3);
     background-color: rgba(0, 17, 0, 0.5);
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Mobile responsive */
