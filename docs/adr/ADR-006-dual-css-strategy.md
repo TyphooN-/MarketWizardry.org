@@ -12,7 +12,7 @@ The site has diverse page types -- galleries, data explorers, calculators, blog 
 
 Use a dual CSS strategy:
 
-- **`css/shared-styles.css`** (1714+ lines) contains all common styles used across multiple pages: base terminal aesthetic, CRT effects (scan lines, flicker), modal styles, gallery grid layouts, breadcrumb navigation, mobile responsive breakpoints, and the modal button bar.
+- **`css/shared-styles.css`** (2044+ lines) contains all common styles used across multiple pages: base terminal aesthetic, CRT effects (scan lines, flicker), modal styles, gallery grid layouts, breadcrumb navigation, mobile responsive breakpoints, and the modal button bar.
 - **Page-specific CSS files** (e.g., `blog.css`, `calculator.css`) contain styles unique to individual page types that are not shared elsewhere.
 
 Every page loads `shared-styles.css`. Pages with unique layouts additionally load their page-specific CSS file.
@@ -26,7 +26,7 @@ Every page loads `shared-styles.css`. Pages with unique layouts additionally loa
 - The 1-year cache policy on CSS files (defined in `.htaccess`) maximizes the caching benefit of the shared file.
 
 **Trade-offs:**
-- `shared-styles.css` is large (1714+ lines) and continues to grow, which increases the initial page load cost.
+- `shared-styles.css` is large (2044+ lines) and continues to grow, which increases the initial page load cost.
 - Risk of CSS selector duplication or conflicts between shared and page-specific files (identified in the 2026-03 audit).
 - Contributors must decide whether a new style belongs in the shared file or a page-specific file, which is not always obvious.
 - The shared file contains styles for pages a given visitor may never see, resulting in some wasted bytes.

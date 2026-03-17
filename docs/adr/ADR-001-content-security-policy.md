@@ -18,8 +18,10 @@ img-src 'self' data:; connect-src 'self'; font-src 'self';
 object-src 'none'; media-src 'self';
 frame-src 'self' https://*.youtube.com; worker-src 'none';
 form-action 'self'; base-uri 'self'; manifest-src 'self';
-upgrade-insecure-requests; block-all-mixed-content;
+frame-ancestors 'self'; upgrade-insecure-requests;
 ```
+
+Additionally, HSTS (`Strict-Transport-Security: max-age=31536000; includeSubDomains`) is enforced to prevent SSL-stripping attacks.
 
 All styles must reside in external CSS files under `/css/`. All scripts must reside in external JS files under `/js/`. Interactive elements use `data-action` attributes with event delegation instead of `onclick` or other inline event handlers.
 
@@ -28,7 +30,8 @@ All styles must reside in external CSS files under `/css/`. All scripts must res
 **Benefits:**
 - Achieves a 100/100 security score on CSP evaluators.
 - Eliminates entire classes of XSS attacks by blocking inline code execution.
-- Forces HTTPS via `upgrade-insecure-requests` and blocks mixed content.
+- Forces HTTPS via `upgrade-insecure-requests` and HSTS.
+- `frame-ancestors 'self'` prevents clickjacking.
 - YouTube embeds remain functional through the `frame-src` whitelist.
 
 **Trade-offs:**

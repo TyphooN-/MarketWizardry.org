@@ -30,7 +30,7 @@ document.addEventListener('click', function(e) {
 });
 ```
 
-This pattern is used consistently across `shared.js`, `gallery.js`, `calculator.js`, `crypto-explorer.js`, and `ai-musings.js`.
+`shared.js` serves as the central event delegation hub, routing `data-action` clicks to the appropriate `window.*` function exported by page-specific JS files. Page-specific files (`gallery.js`, `calculator.js`, `crypto-explorer.js`, `ai-musings.js`, etc.) define and export their handler functions to `window` scope but do not register their own `data-action` delegation — avoiding double-handler bugs.
 
 ## Consequences
 

@@ -2,7 +2,7 @@
 
 **Project:** MarketWizardry.org - Financial Trading Tools & NFT Gallery
 **Tech Stack:** Static HTML/CSS/JS, Apache, Python generators
-**Last Updated:** 2026-03-16
+**Last Updated:** 2026-03-17
 
 ---
 
@@ -31,7 +31,7 @@ MarketWizardry.org is a **terminal-aesthetic financial data exploration platform
 - ❌ `unsafe-inline` directive (not allowed)
 - ❌ `unsafe-eval` directive (not allowed)
 
-**Location:** `.htaccess:44`
+**Location:** `.htaccess:51`
 
 **What IS allowed:**
 - ✅ External stylesheets from same origin (`/css/*.css`)
@@ -110,12 +110,12 @@ document.addEventListener('click', function(e) {
 **Location:** `/home/typhoon/git/MarketWizardry.org/.htaccess`
 
 **Contains:**
-- **Enhanced CSP headers (line 44)** - Maximum security (updated 2026-03-17)
-- Security headers (lines 32-37) including HSTS
+- **Enhanced CSP headers (line 51)** - Maximum security (updated 2026-03-17)
+- Security headers (lines 39-43) including HSTS
 - Compression (lines 4-16) including JSON, SVG
-- Caching (lines 18-33) including favicon, SVG, JSON
-- URL rewrites (lines 49-53)
-- Custom 404 page (line 56)
+- Caching (lines 18-35) including favicon, SVG, JSON
+- URL rewrites (lines 55-58)
+- Custom 404 page (line 61)
 
 **Current CSP:**
 ```apache
@@ -143,7 +143,7 @@ frame-ancestors 'self'; upgrade-insecure-requests;
 #### `css/shared-styles.css` - ALL STYLES
 **Location:** `/home/typhoon/git/MarketWizardry.org/css/shared-styles.css`
 
-**2029 lines containing:**
+**2044 lines containing:**
 - Base styles (terminal aesthetic)
 - CRT effects (scan lines, flicker animations)
 - Modal styles (lines 452-709)
@@ -473,7 +473,7 @@ All Python generators (`seo_templates.py`, `generate_gallery.py`, `generate_blog
 
 ## Performance Optimization
 
-### Caching Strategy (.htaccess:17-29)
+### Caching Strategy (.htaccess:18-35)
 - **CSS/JS:** 1 year (`access plus 1 year`)
 - **Images:** 1 year (WebP, PNG, JPG)
 - **HTML:** 1 hour (allows frequent updates)
@@ -488,7 +488,7 @@ All Python generators (`seo_templates.py`, `generate_gallery.py`, `generate_blog
 - **Compression:** Lossy WebP conversion in NFT galleries
 - **Naming:** `*-lossy.webp` for compressed versions
 
-### Compression (.htaccess:4-14)
+### Compression (.htaccess:4-16)
 - GZIP enabled for all text assets
 - Automatic compression via Apache mod_deflate
 
