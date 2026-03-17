@@ -148,6 +148,12 @@ h1 {
     max-height: calc(80dvh - 120px);
     width: 100%;
     min-width: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.modal-body::-webkit-scrollbar {
+    display: none;
 }
 
 .modal-body pre {
