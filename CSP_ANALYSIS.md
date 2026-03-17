@@ -1,3 +1,5 @@
+> **HISTORICAL DOCUMENT** — This analysis is from 2025-10-02 and does not reflect the current CSP configuration. The CSP has since been updated: `block-all-mixed-content` removed (deprecated), `frame-ancestors 'self'` added, HSTS header added. See `docs/adr/ADR-001-content-security-policy.md` for the current policy.
+
 # CSP Security Analysis - MarketWizardry.org
 **Date:** 2025-10-02
 **Analyst:** TyphooN

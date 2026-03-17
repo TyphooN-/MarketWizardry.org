@@ -1,3 +1,5 @@
+> **HISTORICAL DOCUMENT** — This audit is from 2025-10-02 and does not reflect the current state. The CSP, security headers, line numbers, and page counts have all changed. See `CLAUDE.md` and `docs/adr/` for current documentation.
+
 # MarketWizardry.org - SEO & CSP Audit Report
 **Date:** 2025-10-02 (Final Update)
 **Total Pages Audited:** 125 HTML files (19 root + 106 gallery)

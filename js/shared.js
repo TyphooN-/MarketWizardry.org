@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'loadContent':
                 handleLoadContent(e, targetElement);
                 break;
-            case 'toggle-musing':
-                handleToggleMusing(e);
-                break;
             case 'copyToClipboard':
                 handleCopyToClipboard(e);
                 break;
@@ -62,29 +59,17 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'next':
                 handleNextFile(e);
                 break;
-            case 'open-image':
-                handleOpenImage(e);
-                break;
-            case 'stop-propagation':
-                e.stopPropagation();
-                break;
             case 'show-symbol-detail':
                 handleShowSymbolDetail(e, targetElement);
                 break;
             case 'use-in-stop-loss':
                 handleUseInStopLoss(e, targetElement);
                 break;
-            case 'use-in-portfolio':
-                handleUseInPortfolio(e, targetElement);
-                break;
             case 'find-similar':
                 handleFindSimilar(e, targetElement);
                 break;
             case 'add-to-portfolio':
                 handleAddToPortfolio(e, targetElement);
-                break;
-            case 'back-to-list':
-                handleBackToList(e, targetElement);
                 break;
         }
     });
@@ -101,29 +86,6 @@ function handleLoadContent(e, targetElement) {
 }
 
 // AI musings toggle functionality
-function handleToggleMusing(e) {
-    e.preventDefault();
-    const filename = e.target.getAttribute('data-filename');
-    if (filename) {
-        toggleMusing(filename);
-    }
-}
-
-function toggleMusing(filename) {
-    const content = document.getElementById('content-' + filename);
-    const btn = document.getElementById('btn-' + filename);
-
-    if (content && btn) {
-        if (content.style.display === 'none') {
-            content.style.display = 'block';
-            btn.textContent = 'Collapse';
-        } else {
-            content.style.display = 'none';
-            btn.textContent = 'Expand';
-        }
-    }
-}
-
 // Donate page copy to clipboard functionality
 function handleCopyToClipboard(e) {
     e.preventDefault();
@@ -377,19 +339,8 @@ function forceDownloadFallback(event, link) {
         .catch(error => {
             console.error('Download failed:', error);
             // Fallback: Open in new tab
-            window.open(url, '_blank');
+            window.open(url, '_blank', 'noopener,noreferrer');
         });
-}
-
-// NFT Gallery image opening functionality
-function handleOpenImage(e) {
-    e.preventDefault();
-    const index = parseInt(e.target.getAttribute('data-index'));
-    if (!isNaN(index) && window.openModal) {
-        window.openModal(index);
-    } else if (!isNaN(index) && window.openImage) {
-        window.openImage(index);
-    }
 }
 
 // Calculator selection functionality
@@ -423,16 +374,6 @@ function handleUseInStopLoss(e, targetElement) {
     }
 }
 
-function handleUseInPortfolio(e, targetElement) {
-    e.preventDefault();
-    if (!targetElement) return;
-
-    const symbol = targetElement.getAttribute('data-symbol');
-    if (symbol && window.useInPortfolio) {
-        window.useInPortfolio(symbol);
-    }
-}
-
 function handleFindSimilar(e, targetElement) {
     e.preventDefault();
     if (!targetElement) return;
@@ -453,15 +394,7 @@ function handleAddToPortfolio(e, targetElement) {
     }
 }
 
-function handleBackToList(e, targetElement) {
-    e.preventDefault();
-    if (window.backToSymbolList) {
-        window.backToSymbolList();
-    }
-}
-
 // Make functions globally accessible for backward compatibility
-window.toggleMusing = toggleMusing;
 window.copyToClipboard = copyToClipboard;
 window.showCopyNotification = showCopyNotification;
 window.downloadCurrentImage = downloadCurrentImage;
@@ -472,7 +405,5 @@ window.loadAnalysisContent = loadAnalysisContent;
 window.handleSelectCalculator = handleSelectCalculator;
 window.handleShowSymbolDetail = handleShowSymbolDetail;
 window.handleUseInStopLoss = handleUseInStopLoss;
-window.handleUseInPortfolio = handleUseInPortfolio;
 window.handleFindSimilar = handleFindSimilar;
 window.handleAddToPortfolio = handleAddToPortfolio;
-window.handleBackToList = handleBackToList;
