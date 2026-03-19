@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     <!-- Enhanced Standard Meta Tags -->
-    <meta name="description" content="TyphooN">
+    <meta name="description" content="Open-source financial tools by TyphooN. Trading terminals, risk management EAs, and algorithmic trading systems. Rust, MQL5, Python.">
     <meta name="keywords" content="">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="en-US">
@@ -75,14 +75,46 @@
         <div class="crt-divider"></div>
         <div class="flavor-text">Open-source financial tools for masochists who enjoy debugging their way to bankruptcy. Code so beautiful it'll make you weep with algorithmic ecstasy.</div>
         <div class="crt-divider"></div>
-    <a href="https://github.com/TyphooN-/MQL5-NNFX-Risk_Management_System/" target="_blank" rel="noopener noreferrer"> MQL5 NNFX Risk Management System</a> - Magic Key inspired Risk Managment EA + NNFX style trading system (full indicators included).  VaR based risk management supported. <br><br>
-    <a href="https://github.com/TyphooN-/MQL5-ExAmples/" target="_blank" rel="noopener noreferrer"> MQL5 ExAmples</a> - Example EAs/functions that do not make sense to exist in other repos.<br><br>
-    <a href="https://github.com/TyphooN-/MQL5-MaliciousEAmporium/" target="_blank" rel="noopener noreferrer"> MQL5 MalciousEAmporium</a> - Proof of Concept EAs (Expert Advisor) to show the potential dangers of running a random EA on a trading account.<br><br>
-    <a href="https://marketwizardry.org/files/Solo_Whitepaper_v1.0.pdf"> Solo Project</a> - Monero fork with uncle mining support, pool resistant mining algorithm. (Dead in the water).<br><br>
-    <a href="https://github.com/TyphooN-/canslim_scanner" target="_blank" rel="noopener noreferrer">CANSLIM Scanner</a> - Python based CANSLIM scanner based on William O'Neil's CANSLIM method. (forked and updated dead project with working API).
+    <h2 class="section-header">TyphooN-Terminal</h2>
     <div class="crt-divider"></div>
-    <h3>Inspirations (in no particular order)</h3>
-    Linus Torvalds, John McAfee, Terry Davis, Aaron Swartz, John Ehlers, Orchard Forex, Daniel Micay, John Carmack, Dennis Ritchie, Satoshi Nakamoto, Andrey Sabelnikov, and Alan Turing.
+    <p><a href="https://github.com/TyphooN-/TyphooN-Terminal" target="_blank" rel="noopener noreferrer">TyphooN-Terminal</a> — A native desktop trading terminal built in <strong>Rust + Tauri 2.0</strong> for Alpaca Markets. Built in 5 days. 218 commits. 44K lines of code. Replaces MetaTrader 5, Godel Terminal ($80-118/mo), and Bloomberg ($24K/yr) with a free, open-source, 15MB binary.</p>
+
+    <p><strong>Core Stack:</strong> Rust backend, JavaScript frontend, WebGL2 GPU-accelerated charts, Wasm-compiled indicators (~32KB). Binary size ~15MB, memory ~50-100MB, startup &lt;1 second.</p>
+
+    <p><strong>Trading:</strong> 7 order types (market, bracket/OCO, limit, stop, stop-limit, trailing, crypto). Draggable SL/TP lines. Multi-tab charting (Ctrl+T/W). Real-time WebSocket streaming. 44 GPU-rendered drawing tools (Fibonacci, channels, pitchforks, Elliott, Gann, regression).</p>
+
+    <p><strong>Risk Management:</strong> Full port of TyphooN EA v1.420 risk engine from MQL5 to Rust. 4 order modes (% risk, fixed lots, dynamic, VaR). Hedged martingale with forward-looking TRIM and dynamic PROTECT. Monte Carlo simulation (100K runs). Equity TP/SL.</p>
+
+    <p><strong>Indicators:</strong> 30 indicators with exact MT5 visual parity. NNFX system: MultiKAMA, 200 SMA, Previous Candle Levels, ATR Projection, Supply/Demand Zones, Ehlers Fisher Transform, BetterVolume. MTF MA grid across H1/H4/D1/W1.</p>
+
+    <p><strong>Research (286 Bloomberg-style commands via Ctrl+K):</strong> SEC EDGAR fundamentals, options chains with full Greeks, insider trading (Form 4), congressional trades (House Stock Watcher), dark pool volume (FINRA), economic calendar, treasury yield curve with 2Y-10Y inversion detection, Fear &amp; Greed index, world equity indices, forex cross matrix (ECB), crypto top 50 (CoinGecko), FRED macro data, analyst ratings, short interest, stock screener, backtester with walk-forward optimization.</p>
+
+    <p><strong>Security:</strong> 21-pass audit, 97 findings, 91 fixed. AES-256-GCM encrypted credential storage. Zero innerHTML (entire codebase uses createElement/textContent). CSP headers. Input validation. Path traversal guards.</p>
+
+    <p><strong>The stepping stone from 6 manual high-tilt DARWINs to fully automated algorithmic trading.</strong> QRRP (the SOL cascade short) is the first algo-assisted strategy. TyphooN-Terminal is the platform that will run the next generation.</p>
+
+    <p><strong>License:</strong> Apache 2.0 | <strong>Status:</strong> Active development | <a href="blog/03192026-TyphooN-Terminal-Record-Pace.html">Read the full blog post</a></p>
+
+    <div class="crt-divider"></div>
+    <h2 class="section-header">MQL5 Trading Systems</h2>
+    <div class="crt-divider"></div>
+    <p><a href="https://github.com/TyphooN-/MQL5-NNFX-Risk_Management_System/" target="_blank" rel="noopener noreferrer">MQL5 NNFX Risk Management System</a> — The original. TyphooN EA v1.420: forward-looking TRIM, dynamic PROTECT, hard floor, bias protection. Magic Key inspired risk management + NNFX style trading system with full indicators. VaR based risk management. The EA that runs DARWIN QRRP. <a href="blog/03192026-QRRP-SOL-Cascade.html">Read about QRRP</a>.</p>
+
+    <p><a href="https://github.com/TyphooN-/MQL5-ExAmples/" target="_blank" rel="noopener noreferrer">MQL5 ExAmples</a> — Utility scripts: ExportSymbols, OrderLoop, Discord webhook integration, and other EA functions that don't belong in the main repo.</p>
+
+    <p><a href="https://github.com/TyphooN-/MQL5-MaliciousEAmporium/" target="_blank" rel="noopener noreferrer">MQL5 MaliciousEAmporium</a> — Proof of concept EAs demonstrating the dangers of running untrusted Expert Advisors on a live trading account. Educational security research.</p>
+
+    <div class="crt-divider"></div>
+    <h2 class="section-header">Other Projects</h2>
+    <div class="crt-divider"></div>
+    <p><a href="https://github.com/TyphooN-/canslim_scanner" target="_blank" rel="noopener noreferrer">CANSLIM Scanner</a> — Python stock screener based on William O'Neil's CANSLIM method. Forked and updated dead project with working API.</p>
+
+    <p><a href="https://marketwizardry.org/files/Solo_Whitepaper_v1.0.pdf">Solo Project</a> — Monero fork with uncle mining support, pool resistant mining algorithm. (Dead in the water).</p>
+
+    <div class="crt-divider"></div>
+    <h2 class="section-header">Inspirations</h2>
+    <div class="crt-divider"></div>
+    <p>Linus Torvalds, John McAfee, Terry Davis, Aaron Swartz, John Ehlers, Orchard Forex, Daniel Micay, John Carmack, Dennis Ritchie, Satoshi Nakamoto, Andrey Sabelnikov, and Alan Turing.</p>
     <div class="crt-divider"></div>
     </div>
 
