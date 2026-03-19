@@ -1659,6 +1659,7 @@ header {
     padding: 10px;
     max-width: 90vw;
     max-height: 90vh;
+    max-height: 90dvh;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
@@ -1743,6 +1744,7 @@ header {
 .image-modal-body img {
     max-width: calc(90vw - 24px);
     max-height: calc(90vh - 150px);
+    max-height: calc(90dvh - 150px);
     object-fit: contain;
     border: 2px solid rgba(0, 255, 0, 0.3);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
@@ -1797,16 +1799,20 @@ header {
     }
 
     .image-modal-buttons {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
         gap: 5px;
+        overflow-x: auto;
+        scrollbar-gutter: stable;
     }
 
     .image-modal-nav,
     .image-modal-download,
     .image-modal-close {
-        font-size: 0.75em;
-        padding: 6px 10px;
+        font-size: 0.8em;
+        padding: 8px 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     .image-modal-counter {
@@ -1819,15 +1825,18 @@ header {
 }
 
 @media screen and (max-width: 480px) {
-    .image-modal-nav,
-    .image-modal-download {
-        padding: 5px 8px;
-        font-size: 0.7em;
+    .image-modal-content {
+        max-width: 95vw;
+        max-height: 85vh;
+        max-height: 85dvh;
+        padding: 6px;
     }
 
+    .image-modal-nav,
+    .image-modal-download,
     .image-modal-close {
-        padding: 4px 10px;
-        font-size: 1em;
+        padding: 6px 10px;
+        font-size: 0.75em;
     }
 }
 
