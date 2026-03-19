@@ -118,18 +118,31 @@ h1 {
     color: #00cc00;
     background-color: #001100;
 }
-.modal-text::-webkit-scrollbar {
+.modal-text::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+#analysisContent::-webkit-scrollbar {
     width: 12px;
 }
-.modal-text::-webkit-scrollbar-track {
+.modal-text::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+#analysisContent::-webkit-scrollbar-track {
     background: #000;
 }
-.modal-text::-webkit-scrollbar-thumb {
+.modal-text::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+#analysisContent::-webkit-scrollbar-thumb {
     background: #00ff00;
     border: 2px solid #000;
 }
-.modal-text::-webkit-scrollbar-thumb:hover {
+.modal-text::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+#analysisContent::-webkit-scrollbar-thumb:hover {
     background: #00cc00;
+}
+.modal-body,
+#analysisContent {
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #000;
 }
 .modal-button-bar {
     display: flex;
