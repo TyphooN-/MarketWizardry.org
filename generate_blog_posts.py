@@ -362,7 +362,7 @@ def generate_witty_description(content, filename, title):
     upper_filename = filename.upper()
     
     # First try regex pattern
-    ticker_match = re.search(r'-([A-Z]{2,5})\.txt$', upper_filename)
+    ticker_match = re.search(r'-([A-Z]{2,5})\.(txt|md)$', upper_filename)
     if ticker_match:
         stock_ticker = ticker_match.group(1)
     else:
@@ -654,11 +654,11 @@ def extract_title_and_summary(content, filename):
 
     title = title.replace('-', ' ').replace('_', ' ').title()
 
-    if filename == '09092025-C.txt':
+    if filename in ('09092025-C.txt', '09092025-C.md'):
         title = "Citigroup Analysis"
-    elif filename == '09082025-SRPT.txt':
+    elif filename in ('09082025-SRPT.txt', '09082025-SRPT.md'):
         title = "SRPT - Sarepta Therapeutics High-Volatility Biotech Opportunity Analysis"
-    elif filename == 'understanding-iqr-analysis.txt':
+    elif filename in ('understanding-iqr-analysis.txt', 'understanding-iqr-analysis.md'):
         title = "Understanding IQR (Interquartile Range) Analysis"
 
     # Ensure proper VaR capitalization first
@@ -1025,7 +1025,9 @@ def extract_title_from_html(html_file):
             # Check if we have a generic title but specific ticker content
             if title == "Market Analysis":
                 # Check for corresponding .txt file for more specific context
-                txt_file = str(html_file).replace('.html', '.txt')
+                txt_file = str(html_file).replace('.html', '.md')
+                if not os.path.exists(txt_file):
+                    txt_file = str(html_file).replace('.html', '.txt')
                 if os.path.exists(txt_file):
                     try:
                         with open(txt_file, 'r', encoding='utf-8') as tf:
@@ -1087,9 +1089,11 @@ def generate_flavor_text(title, filename):
     # Check if we can read the txt content for better position detection
     txt_content = ""
     try:
-        txt_file = str(filename).replace('.html', '.txt')
-        if not txt_file.endswith('.txt'):
-            txt_file = f"blog/{filename.replace('.html', '.txt')}"
+        txt_file = str(filename).replace('.html', '.md')
+        if not txt_file.endswith('.md'):
+            txt_file = f"blog/{filename.replace('.html', '.md')}"
+        if not os.path.exists(txt_file):
+            txt_file = txt_file.replace('.md', '.txt')
         
         if os.path.exists(txt_file):
             with open(txt_file, 'r', encoding='utf-8') as f:
@@ -1823,7 +1827,7 @@ def main():
 
     # Find all existing files
     html_files = list(blog_path.glob('*.html'))
-    txt_files = list(blog_path.glob('*.txt'))
+    txt_files = list(blog_path.glob('*.md')) + list(blog_path.glob('*.txt'))
     print(f"Found {len(html_files)} existing HTML files and {len(txt_files)} txt files")
 
     if args.new_only:

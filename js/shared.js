@@ -271,20 +271,26 @@ function closeModal() {
 }
 
 function loadAnalysisContent(contentElement) {
-    // Try to find the corresponding .txt file
+    // Try to find the corresponding .md file (fallback to .txt for legacy)
     const currentPath = window.location.pathname;
-    let txtFilename = '';
+    let baseName = '';
 
-    // Extract filename from current path and construct .txt filename
+    // Extract filename from current path
     if (currentPath.includes('blog/')) {
         const pathParts = currentPath.split('/');
         const htmlFilename = pathParts[pathParts.length - 1] || 'index.html';
-        const baseName = htmlFilename.replace('.html', '');
-        txtFilename = baseName + '.txt';
+        baseName = htmlFilename.replace('.html', '');
     }
 
-    if (txtFilename) {
-        fetch(txtFilename)
+    if (baseName) {
+        // Try .md first, fall back to .txt
+        fetch(baseName + '.md')
+            .then(response => {
+                if (!response.ok) {
+                    return fetch(baseName + '.txt');
+                }
+                return response;
+            })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to load analysis content');
