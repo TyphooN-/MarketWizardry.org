@@ -1,4 +1,4 @@
-## QRRP: The Cascading Martingale That Turns $47K Into $1.87M Shorting Solana
+## QRRP: The Cascading Martingale That Turns $46K Into $1.75M Shorting Solana
 
 > **DISCLAIMER:** This is not financial advice. This is a post-mortem analysis of a live position strategy using a proprietary EA. Do not attempt hedged martingale strategies without understanding that you can lose everything. Crypto CFDs carry extreme risk. You have been warned.
 
@@ -167,22 +167,69 @@ In Quake, Quad Damage multiplies your weapon output by **4x** for a limited time
 
 QRRP does the same thing. The strategy does not change between phases. TRIM still fires the same way. PROTECT still balances the same way. But each cascade multiplies the lot count. Same formula. Same EA. Exponentially more output.
 
-- **Phase 1:** Normal damage (7,468 lots)
-- **Phase 2:** Double damage (28,468 lots)
-- **Phase 3:** Quad damage (78,843 lots)
+- **Phase 1:** Normal damage (6,747 lots)
+- **Phase 2:** Double damage (26,122 lots)
+- **Phase 3:** Quad damage (73,497 lots)
 - **Phase 4:** Ride the Quad to $0
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
+
+## Current Position (2026-03-19 — Live)
+
+The position is active and grinding. Actual EA data:
+
+| | Value |
+|---|---|
+| **Bias (shorts)** | **6,747** |
+| **Hedge (longs)** | **~5,779** |
+| **Net short** | **~968** |
+| **Equity** | **$45,779** |
+| **Spread tolerance** | **$3.66/lot (SAFE)** |
+| **SOL price** | **~$88.92** |
+| **TRIM** | 54.2% / PROTECT 51% |
+
+**Full cascade timeline with expected SOL prices:**
+
+| Phase | SOL Price | Action | Bias Lots | Equity |
+|---|---|---|---|---|
+| **1 (NOW)** | $88.92 → $41 | TRIM grind | 6,747 | $46K → $155K |
+| **2** | $41 → $23 | New MG $8.00 | 26,122 | $155K → $379K |
+| **3** | $23 → $15 | New MG $8.00 | 73,497 | $379K → $650K |
+| **4** | $15 → $0 | Ride pure short | 73,497 | $650K → **$1,752K** |
+
+Seven post-mortems. $100K degraded to $46K. Position self-healed via PROTECT to clean operation ($3.66 spread tolerance). TRIM grinding 1 lot at a time. All timeframes bearish. SOL dropping.
+
+## The Silicon Restoration: Why Going Long Heals Everything
+
+The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor. The silicon started at $100K, degraded to $46K — half the die is scarred.
+
+**The flip to long is a full RMA.** Not a repair. Not new thermal paste. Intel is sending you a brand new processor — except this one is a higher SKU than what you originally bought.
+
+| | Short Phase (degraded) | Long Phase (restored) | Multiplier |
+|---|---|---|---|
+| Starting equity | $46K | $1,752K | **38x more silicon** |
+| Open MG $8.00 lots/side | 6,747 | ~218,750 | **32x more cores** |
+| Price range to ride | $89 → $0 | $5 → $200+ | $195 vs $89 |
+| Profit per lot at target | $89 | $195 | **2.2x per core** |
+| Theoretical at target | $1.75M | **$50M+** | **29x** |
+
+The degradation was temporary. The restoration is permanent.
+
+It is like running Prime95 for three months, your CPU degrades 50%, but the electricity bill comes back as a check for $1.75 million and Intel sends you a Xeon as an apology.
+
+**The short phase breaks a $100K i9. The long phase buys a $1.75M Xeon with the prize money.** 38x more silicon. 32x more cores. You cannot buy the Xeon without breaking the i9 first. The stress test funds the upgrade.
+
+**QRRP: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher.**
 
 ## Conclusion: Trust the Math
 
 QRRP is not a strategy for people who need to feel in control. It is a strategy for people who have been humbled enough times to trust the formula over their instincts.
 
-**$47K to $1.87M** is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. A degraded account running QRRP outperforms a fresh account running single MG by **70%** in terminal equity.
+**$46K to $1.75M** is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. A degraded account running QRRP outperforms a fresh account running single MG by **60%** in terminal equity.
 
-The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every checkpoint. Do not touch anything.
+The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every checkpoint. Do not touch anything. Then flip long with 38x the silicon and do it again from the other direction.
 
-Seven post-mortems. One lesson. **Trust the math.**
+Seven post-mortems. One lesson. **Trust the math. Then trust it again going up.**
 
 -- TyphooN
 
