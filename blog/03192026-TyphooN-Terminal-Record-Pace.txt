@@ -1,75 +1,75 @@
-TyphooN-TERMINAL: 44K LINES OF RUST IN 5 DAYS — BUILDING A BLOOMBERG KILLER ON OPEN SOURCE
+## TyphooN-Terminal: 44K Lines of Rust in 5 Days -- Building a Bloomberg Killer on Open Source
 
-===========================================================================================
+> **DISCLAIMER:** This is a technical post-mortem of a software development sprint. The author is not affiliated with Bloomberg, Godel Technologies, MetaQuotes, or any terminal vendor mentioned. Opinions on proprietary trading software are exactly that -- opinions formed after years of paying for tools that should have been open source from the start.
 
-DISCLAIMER: This is a technical post-mortem of a software development sprint. The author is not affiliated with Bloomberg, Godel Technologies, MetaQuotes, or any terminal vendor mentioned. Opinions on proprietary trading software are exactly that — opinions formed after years of paying for tools that should have been open source from the start.
+## Introduction: What If You Could Replace a $24K/Year Terminal in 5 Days?
 
-INTRODUCTION: WHAT IF YOU COULD REPLACE A $24K/YEAR TERMINAL IN 5 DAYS?
-========================================================================
+Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-Bloomberg Terminal costs $24,000 per year. Godel Terminal costs $80-118 per month. MetaTrader 5 is "free" in the same way that a roach motel is free — you walk in, your data never walks out, and MetaQuotes owns the building.
+TyphooN-Terminal shipped in **4.7 days**. March 15 to March 19, 2026. **218 commits**. **44,000 lines of code**. Approximately **46 commits per day**. A ~**12MB** binary that does what Bloomberg charges twenty-four grand a year for.
 
-TyphooN-Terminal shipped in 4.7 days. March 15 to March 19, 2026. Two hundred and eighteen commits. Forty-four thousand lines of code. Approximately forty-six commits per day. A ~12MB binary that does what Bloomberg charges twenty-four grand a year for.
+This is not a mockup. This is not a demo. This is a fully functional trading terminal with **286** Bloomberg-style commands, **30** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, and enough research tools to make a sell-side analyst uncomfortable.
 
-This is not a mockup. This is not a demo. This is a fully functional trading terminal with 286 Bloomberg-style commands, 30 indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, and enough research tools to make a sell-side analyst uncomfortable.
+**Apache 2.0. Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
 
-Apache 2.0. Open source. Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
+## The Backstory: Why Build a Terminal at All?
 
-THE BACKSTORY: WHY BUILD A TERMINAL AT ALL?
-=============================================
+I run six manual high-tilt DARWINs on Darwinex. Six strategies, all discretionary, all managed through a risk management EA (**TyphooN v1.420**) that handles TRIM, PROTECT, hedged martingale position management, and Monte Carlo simulation. The EA has been the equalizer for years -- it does the math so the operator does not have to think about position sizing at 3 AM during a crypto spread spike.
 
-I run six manual high-tilt DARWINs on Darwinex. Six strategies, all discretionary, all managed through a risk management EA (TyphooN v1.420) that handles TRIM, PROTECT, hedged martingale position management, and Monte Carlo simulation. The EA has been the equalizer for years — it does the math so the operator does not have to think about position sizing at 3 AM during a crypto spread spike.
-
-QRRP — the Quad Rothschild Rug Pull, my cascading martingale SOL short strategy — was the first step beyond pure discretionary trading into algo-assisted territory. The EA manages the position autonomously. TRIM builds net short exposure. PROTECT handles spread events. The operator's job is to not touch anything and let the flywheel compound.
+**QRRP** -- the Quad Rothschild Rug Pull, my cascading martingale SOL short strategy -- was the first step beyond pure discretionary trading into algo-assisted territory. The EA manages the position autonomously. TRIM builds net short exposure. PROTECT handles spread events. The operator's job is to not touch anything and let the flywheel compound.
 
 But QRRP exposed the ceiling. MetaTrader 5 is a proprietary black box. MQL5 is a walled garden. You cannot run MT5 on Linux natively. You cannot integrate with Alpaca Markets. You cannot pull SEC EDGAR fundamentals, options chains with Greeks, congressional trading data, or dark pool volume into the same interface where you manage positions. MT5 does what MetaQuotes allows and nothing more.
 
-The terminal I needed did not exist. Bloomberg has the data but costs more than most retail accounts. Godel has the interface but charges monthly for what should be a local binary. Every open-source alternative is either Electron bloatware burning 500MB of RAM to render a candlestick chart, or a Python script with a Tkinter GUI that looks like it escaped from 2004.
+The terminal I needed did not exist. Bloomberg has the data but costs more than most retail accounts. Godel has the interface but charges monthly for what should be a local binary. Every open-source alternative is either Electron bloatware burning **500MB** of RAM to render a candlestick chart, or a Python script with a Tkinter GUI that looks like it escaped from 2004.
 
 So I built it.
 
-THE TECH STACK: WHY RUST AND TAURI, NOT ELECTRON OR QT
-========================================================
+## The Tech Stack: Why Rust and Tauri, Not Electron or Qt
 
 This decision took about ten minutes and the reasoning has not changed since.
 
-RUST + TAURI 2.0 BACKEND:
-- Binary size: ~10-15MB. An equivalent Electron app ships at 150-200MB because it bundles an entire Chromium browser.
-- Memory footprint: ~50-100MB under load. Electron apps routinely consume 200-500MB doing the same work because V8's garbage collector treats RAM like a buffet.
-- No garbage collector. No runtime. Rust compiles to native machine code that runs at the speed your CPU was designed for, not the speed a JIT compiler feels like generating today.
-- Tauri 2.0 uses the system webview (WebKitGTK on Linux, WebView2 on Windows, WKWebView on macOS). Zero bundled browser engines. Your OS already has a renderer — Tauri uses it.
+### Rust + Tauri 2.0 Backend
 
-JS/HTML/CSS FRONTEND:
-- The rendering layer is vanilla JS with WebGL2 GPU-accelerated charts. No React. No Vue. No framework that adds 400KB of abstraction between your code and the DOM.
-- WebGL2 means chart rendering happens on the GPU. Candlesticks, indicators, drawing tools — all GPU-rendered. Your CPU handles data. Your GPU handles pixels. Division of labor that Electron apps do not understand.
+- **Binary size:** ~10-15MB. An equivalent Electron app ships at 150-200MB because it bundles an entire Chromium browser.
+- **Memory footprint:** ~50-100MB under load. Electron apps routinely consume 200-500MB doing the same work because V8's garbage collector treats RAM like a buffet.
+- **No garbage collector.** No runtime. Rust compiles to native machine code that runs at the speed your CPU was designed for, not the speed a JIT compiler feels like generating today.
+- Tauri 2.0 uses the system webview (WebKitGTK on Linux, WebView2 on Windows, WKWebView on macOS). Zero bundled browser engines. Your OS already has a renderer -- Tauri uses it.
 
-WASM INDICATOR MODULES:
-- Performance-critical indicator calculations compile to WebAssembly. The same Rust code that runs on the backend can compile to Wasm and execute in the frontend at near-native speed.
+### JS/HTML/CSS Frontend
+
+- The rendering layer is vanilla JS with **WebGL2** GPU-accelerated charts. No React. No Vue. No framework that adds 400KB of abstraction between your code and the DOM.
+- WebGL2 means chart rendering happens on the GPU. Candlesticks, indicators, drawing tools -- all GPU-rendered. Your CPU handles data. Your GPU handles pixels. Division of labor that Electron apps do not understand.
+
+### WASM Indicator Modules
+
+- Performance-critical indicator calculations compile to **WebAssembly**. The same Rust code that runs on the backend can compile to Wasm and execute in the frontend at near-native speed.
 - This is not "fast for a web app." This is fast, period.
 
-THE ALTERNATIVES AND WHY THEY LOST:
+### The Alternatives and Why They Lost
 
-Electron: Ships a 200MB Chromium instance per application. Uses 500MB of RAM to display a chart. This is not engineering. This is negligence.
+**Electron:** Ships a 200MB Chromium instance per application. Uses 500MB of RAM to display a chart. This is not engineering. This is negligence.
 
-Python/Qt: Python's GIL makes real-time charting a threading nightmare. Qt licensing is a minefield. PyQt5 commercial licenses cost money. PySide6 is LGPL with restrictions. Neither produces binaries under 50MB.
+**Python/Qt:** Python's GIL makes real-time charting a threading nightmare. Qt licensing is a minefield. PyQt5 commercial licenses cost money. PySide6 is LGPL with restrictions. Neither produces binaries under 50MB.
 
-C++/Qt: Fast, but C++ memory management in a trading terminal is asking for use-after-free bugs in production where use-after-free means "your order got duplicated and you are now 2x leveraged by accident."
+**C++/Qt:** Fast, but C++ memory management in a trading terminal is asking for use-after-free bugs in production where use-after-free means "your order got duplicated and you are now 2x leveraged by accident."
 
 Rust eliminates entire categories of bugs at compile time. Memory safety without garbage collection. Thread safety without runtime overhead. When the code compiles, it works. When it works, it works at native speed. For a trading terminal where correctness is not optional, this is the only sane choice.
 
-WHAT WAS BUILT: THE NUMBERS
-=============================
+## What Was Built: The Numbers
 
-In 4.7 days, TyphooN-Terminal shipped with:
+In **4.7 days**, TyphooN-Terminal shipped with:
 
-286 BLOOMBERG-STYLE COMMANDS (Ctrl+K palette):
-- Every function accessible via keyboard. Type what you want, hit enter. No menu diving. No mouse hunting. Bloomberg proved this UX pattern works for professional traders thirty years ago. Everyone else ignored it.
+### 286 Bloomberg-Style Commands (Ctrl+K Palette)
 
-30 INDICATORS WITH EXACT MT5 VISUAL PARITY:
+Every function accessible via keyboard. Type what you want, hit enter. No menu diving. No mouse hunting. Bloomberg proved this UX pattern works for professional traders thirty years ago. Everyone else ignored it.
+
+### 30 Indicators with Exact MT5 Visual Parity
+
 - MultiKAMA, Ehlers Fisher Transform, BetterVolume, Supply/Demand zones, and 26 more.
 - "Exact visual parity" means the indicator output matches MT5 pixel-for-pixel. Same colors. Same line weights. Same calculation methodology. If you are migrating from MT5, your charts look identical on day one.
 
-44 GPU-RENDERED DRAWING TOOLS:
+### 44 GPU-Rendered Drawing Tools
+
 - Fibonacci retracements, extensions, channels, arcs, and time zones
 - Andrew's Pitchfork, Schiff variants
 - Elliott Wave markup
@@ -77,11 +77,13 @@ In 4.7 days, TyphooN-Terminal shipped with:
 - Linear regression channels
 - All rendered on the GPU. Drawing tools on most platforms are canvas-based CPU operations that stutter when you have 15 Fibonacci levels and 30 indicators on a 4K display. GPU rendering does not stutter.
 
-7 ORDER TYPES WITH DRAGGABLE SL/TP:
+### 7 Order Types with Draggable SL/TP
+
 - Market, limit, stop, stop-limit, trailing stop, bracket, OCO
 - Stop-loss and take-profit lines are draggable on the chart. Grab the line, move it, the order updates. This is how order management should have always worked.
 
-FULL RESEARCH SUITE:
+### Full Research Suite
+
 - SEC EDGAR fundamentals integration
 - Options chains with full Greeks calculation
 - Insider trading activity tracking
@@ -94,103 +96,98 @@ FULL RESEARCH SUITE:
 - Forex cross-rate matrix
 - Crypto top 50 with real-time data
 
-That is not a terminal. That is a Bloomberg terminal without the $24K annual subscription and the proprietary lock-in.
+That is not a terminal. That is a Bloomberg terminal without the **$24K** annual subscription and the proprietary lock-in.
 
-THE RISK ENGINE PORT: MQL5 TO RUST
-=====================================
+## The Risk Engine Port: MQL5 to Rust
 
 This is the part that matters most for actual trading.
 
-TyphooN v1.420 has been managing risk on MetaTrader 5 for years. The forward-looking TRIM formula, the PROTECT system, the hedged martingale position management, Monte Carlo simulation — all of it written in MQL5, all of it trapped inside MetaQuotes' ecosystem.
+**TyphooN v1.420** has been managing risk on MetaTrader 5 for years. The forward-looking TRIM formula, the PROTECT system, the hedged martingale position management, Monte Carlo simulation -- all of it written in MQL5, all of it trapped inside MetaQuotes' ecosystem.
 
 The port to Rust preserves every feature:
 
-4 ORDER MODES:
-- The same four modes from the MQL5 EA, mapped to Alpaca Markets order types. Risk percentage calculations, ATR-based stop placement, and position sizing all work identically.
+**4 Order Modes:**
+The same four modes from the MQL5 EA, mapped to Alpaca Markets order types. Risk percentage calculations, ATR-based stop placement, and position sizing all work identically.
 
-HEDGED MARTINGALE WITH TRIM/PROTECT:
-- The TRIM formula: maxSafe = floor((equity / threshold - margin) / marginPerLot)
+**Hedged Martingale with TRIM/PROTECT:**
+- The TRIM formula: `maxSafe = floor((equity / threshold - margin) / marginPerLot)`
 - Forward-looking. Proactive. Calculates safe lot capacity before problems occur, not after.
 - PROTECT fires balanced closes on spread spikes, maintaining net bias while reducing gross exposure.
 - The entire QRRP cascade logic works in Rust exactly as it works in MQL5.
 
-MONTE CARLO SIMULATION:
+**Monte Carlo Simulation:**
 - Run thousands of simulated paths against your current position to estimate drawdown probability, ruin probability, and expected terminal equity.
 - In MQL5 this took seconds. In Rust it takes milliseconds. Compiled native code with zero-cost abstractions does that.
 
 The risk engine port is the bridge from Darwinex to Alpaca Markets. Same math. Same logic. Different broker. No more MetaQuotes dependency. No more Windows-only constraint. No more praying that Wine handles MT5 correctly on Linux.
 
-THE SPEED: 218 COMMITS IN 4.7 DAYS
-=====================================
+## The Speed: 218 Commits in 4.7 Days
 
-Let me contextualize what 46 commits per day means.
+Let me contextualize what **46 commits per day** means.
 
-A typical professional software team ships maybe 2-5 meaningful commits per developer per day. Senior engineers at FAANG companies might push 3-8. A focused solo developer on a deadline might hit 10-15.
+A typical professional software team ships maybe **2-5** meaningful commits per developer per day. Senior engineers at FAANG companies might push **3-8**. A focused solo developer on a deadline might hit **10-15**.
 
 Forty-six per day is not normal. It is the result of three factors:
 
-1. ARCHITECTURAL CLARITY FROM DAY ONE: 33 Architecture Decision Records were written before and during development. Every major decision — state management, IPC protocol, chart rendering pipeline, indicator calculation strategy — was documented and decided before code was written. When you know where everything goes, you do not waste time refactoring.
+1. **Architectural Clarity from Day One:** 33 Architecture Decision Records were written before and during development. Every major decision -- state management, IPC protocol, chart rendering pipeline, indicator calculation strategy -- was documented and decided before code was written. When you know where everything goes, you do not waste time refactoring.
 
-2. RUST'S COMPILER IS THE QA TEAM: When Rust code compiles, entire categories of bugs are already eliminated. No null pointer dereferences. No data races. No use-after-free. No buffer overflows. The time other languages spend debugging memory corruption, Rust spends at compile time. The result is that committed code actually works.
+2. **Rust's Compiler Is the QA Team:** When Rust code compiles, entire categories of bugs are already eliminated. No null pointer dereferences. No data races. No use-after-free. No buffer overflows. The time other languages spend debugging memory corruption, Rust spends at compile time. The result is that committed code actually works.
 
-3. YEARS OF DOMAIN KNOWLEDGE: The risk management logic, the indicator math, the order management patterns — none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
+3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-218 commits is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in under five days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**218 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in under five days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
-SECURITY: 21-PASS AUDIT, 97 FINDINGS, 91 FIXED
-=================================================
+## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
 A trading terminal handles API keys, account credentials, and order execution. Security is not a feature. It is a prerequisite.
 
-TyphooN-Terminal underwent a 21-pass security audit before release:
+TyphooN-Terminal underwent a **21-pass** security audit before release:
 
-- 97 total findings identified
-- 91 fixed and verified
-- 6 accepted as low-risk with documented mitigations
+- **97** total findings identified
+- **91** fixed and verified
+- **6** accepted as low-risk with documented mitigations
 
-KEY SECURITY MEASURES:
-- AES-256-GCM encryption for all stored credentials and API keys
-- Zero innerHTML usage anywhere in the frontend (innerHTML is the number one vector for XSS attacks in desktop web apps — eliminating it entirely removes the attack surface)
+**Key Security Measures:**
+- **AES-256-GCM** encryption for all stored credentials and API keys
+- Zero `innerHTML` usage anywhere in the frontend (innerHTML is the number one vector for XSS attacks in desktop web apps -- eliminating it entirely removes the attack surface)
 - Content Security Policy headers enforced
 - IPC command validation on every Tauri bridge call
-- No eval(). No Function(). No dynamic code execution.
+- No `eval()`. No `Function()`. No dynamic code execution.
 - Credential storage uses OS-native keychains where available
 
 When your terminal can execute market orders, "we'll add security later" is not an acceptable engineering position. The audit happened during development, not after.
 
-WHAT THIS REPLACES AND WHAT IT COSTS
-======================================
+## What This Replaces and What It Costs
 
-THE COMPARISON:
+### The Comparison
 
-Bloomberg Terminal:
-- Cost: $24,000/year
-- Strengths: Unmatched data depth, institutional credibility
-- Weaknesses: Proprietary lock-in, obscene pricing, requires dedicated hardware
+**Bloomberg Terminal:**
+- **Cost:** $24,000/year
+- **Strengths:** Unmatched data depth, institutional credibility
+- **Weaknesses:** Proprietary lock-in, obscene pricing, requires dedicated hardware
 
-Godel Terminal:
-- Cost: $80-118/month ($960-1,416/year)
-- Strengths: Modern UI, good charting
-- Weaknesses: Subscription model, closed source, no risk engine
+**Godel Terminal:**
+- **Cost:** $80-118/month ($960-1,416/year)
+- **Strengths:** Modern UI, good charting
+- **Weaknesses:** Subscription model, closed source, no risk engine
 
-MetaTrader 5:
-- Cost: "Free" (your data is the product)
-- Strengths: Mature platform, large indicator ecosystem
-- Weaknesses: Windows-only native, proprietary MQL5, no fundamental data, MetaQuotes controls everything
+**MetaTrader 5:**
+- **Cost:** "Free" (your data is the product)
+- **Strengths:** Mature platform, large indicator ecosystem
+- **Weaknesses:** Windows-only native, proprietary MQL5, no fundamental data, MetaQuotes controls everything
 
-TyphooN-Terminal:
-- Cost: $0 (Apache 2.0)
-- Binary: ~10-15MB
-- Memory: ~50-100MB
-- Runs on: Linux, Windows, macOS
-- Risk engine: Full TyphooN v1.420 port
-- Research: SEC EDGAR, options, insider, congress, dark pool, economic calendar
-- Source: Open. Read it. Fork it. Improve it.
+**TyphooN-Terminal:**
+- **Cost:** $0 (Apache 2.0)
+- **Binary:** ~10-15MB
+- **Memory:** ~50-100MB
+- **Runs on:** Linux, Windows, macOS
+- **Risk engine:** Full TyphooN v1.420 port
+- **Research:** SEC EDGAR, options, insider, congress, dark pool, economic calendar
+- **Source:** Open. Read it. Fork it. Improve it.
 
-The value proposition is not complicated. The same functionality that costs $24K/year from Bloomberg or $80/month from Godel ships as a 12MB open-source binary that runs on your existing hardware using 50MB of RAM.
+The value proposition is not complicated. The same functionality that costs **$24K/year** from Bloomberg or **$80/month** from Godel ships as a **12MB** open-source binary that runs on your existing hardware using **50MB** of RAM.
 
-WHAT IS NEXT: THE ROAD TO FULL AUTOMATION
-==========================================
+## What Is Next: The Road to Full Automation
 
 TyphooN-Terminal is not the destination. It is the platform.
 
@@ -198,31 +195,30 @@ The six manual DARWINs on Darwinex taught position management. QRRP taught casca
 
 The roadmap:
 
-MULTI-BROKER SUPPORT: Alpaca Markets is first. Interactive Brokers, Tradier, and additional brokers follow. Same risk engine, same interface, different execution venues.
+**Multi-Broker Support:** Alpaca Markets is first. Interactive Brokers, Tradier, and additional brokers follow. Same risk engine, same interface, different execution venues.
 
-FULLY AUTOMATED ALGORITHM: The risk management EA handles position sizing, TRIM, PROTECT, and martingale management. The next step is automated signal generation — entries, exits, and strategy selection without human discretion. The terminal provides the execution layer. The algorithm provides the decisions.
+**Fully Automated Algorithm:** The risk management EA handles position sizing, TRIM, PROTECT, and martingale management. The next step is automated signal generation -- entries, exits, and strategy selection without human discretion. The terminal provides the execution layer. The algorithm provides the decisions.
 
-STRATEGY BACKTESTING: Monte Carlo simulation is already built. Historical backtesting with the same indicators and risk engine follows. Test strategies against the same math that will execute them live.
+**Strategy Backtesting:** Monte Carlo simulation is already built. Historical backtesting with the same indicators and risk engine follows. Test strategies against the same math that will execute them live.
 
-PLUGIN ARCHITECTURE: Custom indicators, custom strategies, custom data sources — all loadable as Wasm modules. Write once in Rust, compile to Wasm, load into the terminal. No MQL5 marketplace gatekeeping.
+**Plugin Architecture:** Custom indicators, custom strategies, custom data sources -- all loadable as Wasm modules. Write once in Rust, compile to Wasm, load into the terminal. No MQL5 marketplace gatekeeping.
 
 The progression is clear: manual trading taught the fundamentals, the risk EA automated position management, TyphooN-Terminal ports that automation to open infrastructure, and the fully automated algorithm completes the pipeline. Every step removes one more human failure mode from the process.
 
-OPEN SOURCE: WHY THIS MATTERS
-===============================
+## Open Source: Why This Matters
 
 Proprietary trading terminals are a tax on retail traders. Bloomberg charges institutional prices because institutions will pay. Godel charges subscriptions because traders are conditioned to accept recurring costs for essential tools. MetaTrader is "free" because MetaQuotes monetizes the ecosystem through broker partnerships and marketplace fees.
 
 None of this is necessary. The APIs are public. The math is known. The rendering technology exists in every browser. The only reason trading terminals cost money is because nobody bothered to build the open-source alternative properly.
 
-TyphooN-Terminal is Apache 2.0. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
+TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-44,000 lines of Rust. 218 commits. 4.7 days. One developer who got tired of paying rent on tools that should be free.
+**44,000 lines of Rust. 218 commits. 4.7 days.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
-- TyphooN
+-- TyphooN
 
 ---
 
-DISCLAIMER: TyphooN-Terminal is open-source software provided as-is under the Apache 2.0 license. It is NOT financial advice and NOT a recommendation to trade. Trading involves substantial risk of loss. The software executes orders as instructed — it does not and cannot guarantee profitable outcomes. Use at your own risk. Test thoroughly in paper trading before risking real capital. The author actively trades using this software and holds positions mentioned in this blog.
+> **DISCLAIMER:** TyphooN-Terminal is open-source software provided as-is under the Apache 2.0 license. It is NOT financial advice and NOT a recommendation to trade. Trading involves substantial risk of loss. The software executes orders as instructed -- it does not and cannot guarantee profitable outcomes. Use at your own risk. Test thoroughly in paper trading before risking real capital. The author actively trades using this software and holds positions mentioned in this blog.
