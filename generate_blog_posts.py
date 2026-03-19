@@ -609,21 +609,36 @@ def generate_witty_description(content, filename, title):
         return select_unused_flavor_text(general_descriptions, "Market autism dissected with surgical precision for your viewing displeasure.")
 
 
-def ensure_var_capitalization(title):
-    """Ensure proper VaR capitalization in titles"""
-    # Replace common variations of VaR with proper capitalization
-    # Use word boundaries to avoid replacing parts of other words
+def ensure_proper_capitalization(title):
+    """Ensure proper capitalization for acronyms, symbols, and special terms in titles"""
     import re
 
-    # Replace standalone "Var" with "VaR" (but not part of other words)
+    # Words that must ALWAYS be fully capitalized (acronyms, symbols, DARWINs)
+    always_caps = [
+        'QRRP', 'SOL', 'ADA', 'DOGE', 'BTC', 'ETH', 'BNB', 'XRP',
+        'DARWIN', 'DARWINS', 'DARWINIA',
+        'SOLUSD', 'ADAUSD', 'DOGEUSD', 'BTCUSD', 'ETHUSD', 'XRPUSD',
+        'SRPT', 'NNFX', 'MQL5', 'MQL4', 'EA', 'EAs',
+        'XUQF', 'TRIM', 'PROTECT',
+        'GPU', 'CPU', 'API', 'CLI', 'UI', 'UX',
+        'ATR', 'IQR', 'EV', 'CFD', 'CFDs',
+        'MT4', 'MT5', 'USA', 'SEC', 'FRED', 'FINRA',
+    ]
+
+    for word in always_caps:
+        # Match the title-cased version and replace with all-caps
+        title_cased = word.title()  # e.g., "Qrrp", "Sol", "Darwin"
+        title = re.sub(r'\b' + re.escape(title_cased) + r'\b', word, title)
+        # Also match lowercase
+        title = re.sub(r'\b' + re.escape(word.lower()) + r'\b', word, title, flags=re.IGNORECASE)
+
+    # Special case: VaR (not VAR, not Var)
     title = re.sub(r'\bVar\b', 'VaR', title)
     title = re.sub(r'\bvar\b', 'VaR', title)
     title = re.sub(r'\bVAR\b', 'VaR', title)
 
-    # Handle specific phrases
-    title = title.replace('Var Rubber Band', 'VaR Rubber Band')
-    title = title.replace('var rubber band', 'VaR Rubber Band')
-    title = title.replace('VAR Rubber Band', 'VaR Rubber Band')
+    # Special case: TyphooN (capital N)
+    title = re.sub(r'\bTyphoon\b', 'TyphooN', title)
 
     return title
 
@@ -662,7 +677,7 @@ def extract_title_and_summary(content, filename):
         title = "Understanding IQR (Interquartile Range) Analysis"
 
     # Ensure proper VaR capitalization first
-    title = ensure_var_capitalization(title)
+    title = ensure_proper_capitalization(title)
 
     # Add acronyms for educational posts (only if not already present)
     if 'what-is-value-at-risk' in filename.lower():
