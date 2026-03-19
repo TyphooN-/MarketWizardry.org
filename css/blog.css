@@ -67,8 +67,7 @@ h1 {
     touch-action: pan-y;
     max-height: calc(100vh - 40px);
     max-height: calc(100dvh - 40px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
