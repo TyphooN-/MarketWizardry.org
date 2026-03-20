@@ -284,6 +284,33 @@ Fetching historical bar data from Alpaca is the single most time-consuming opera
 
 **The result:** Cold load for a full multi-timeframe grid went from **2.5+ hours** to **30 seconds**. A complete MTF grid across all timeframes loads in **3-5 minutes** instead of **3-4 hours**. The chunking strategy turned bar data loading from the terminal's biggest pain point into a solved problem.
 
+## Incremental Fetch and Live Bar Construction
+
+The chunking strategy handles cold loads. But what about returning users who already have cached data? And what about live candle updates?
+
+**Incremental Cache-Aware Fetch:** On every bar request, the backend checks SQLite for existing cached bars. If data exists, it reads the **second-to-last** bar's timestamp (not the last — the last candle is still forming and needs a fresh API read) and fetches only the gap. A session that previously loaded 2,175 BTC/USD 1-Hour bars now fetches **1-2 chunks** instead of 13. That is an **80-95% reduction** in API calls on warm start.
+
+**Cache Freshness Gate:** Before making any API call, `get_cache_age_secs()` checks when the cache was last updated. If the cache is fresher than the bar's timeframe period (e.g., less than 3,600 seconds old for a 1-Hour chart), cached data is returned immediately with zero network calls. This eliminated a bug where the SLV daily chart was re-fetching every 60 seconds with no new data.
+
+**WebSocket Bar Builder:** A new `BarBuilder` module constructs 1-minute OHLCV bars from the live WebSocket trade stream. Trades arrive in real-time via WebSocket. The builder accumulates them into partial bars (tracking open, high, low, close, volume). When the minute rolls over, the bar is "completed" and pushed to the frontend. The frontend polls every 2 seconds, appends completed bars to the chart, and updates the live candle. **Real-time candle updates without a single API call.** Falls back to 10-second API polling when the WebSocket is down.
+
+**Connection Pre-Warming:** `warm_data_connection()` fires a HEAD request to the data API endpoint during the broker connect flow. Since account authentication warms a different endpoint than bar data, this pre-establishes TCP+TLS for the data host ~200ms before the first bar fetch needs it. Shaves the cold-connect latency.
+
+**Fast Compression for Merges:** When merging new bars into existing cache, the system now uses zstd level 3 instead of level 9. Level 3 is **3x faster** with only ~15% larger output. Archival storage (initial writes) still uses level 9 for maximum compression. This reduces CPU overhead on the hot merge path — the one that runs on every incremental update.
+
+**Cache Trim:** `merge_bars()` accepts a `max_bars` limit. After merging and deduplicating, excess bars (oldest first) are trimmed to prevent unbounded SQLite growth. A 2,000-bar prefetch stays at 2,000 bars even after weeks of incremental merges.
+
+**Double-Write Elimination:** The frontend no longer writes to SQLite after receiving data from the backend — the backend already persists during the merge operation. Only the hot in-memory cache is updated in JavaScript. This eliminated duplicate zstd level-9 recompression on every bar fetch.
+
+**Measured result across 3 benchmark runs:**
+
+| Scenario | Before | After | Speedup |
+|---|---|---|---|
+| BTC/USD 1Hour cold | 2.5+ hours | 33-131s | 70-270x |
+| SOL/USD 4Hour cold | 2+ hours | 47-163s | 45-150x |
+| Full MTF grid + prefetch | 3-4 hours | ~3 min | 60-80x |
+| Warm start (cached) | 30s | **instant** | infinite |
+
 ## Four-Tier Cache Architecture
 
 Every piece of market data flows through a four-tier cache before hitting the network. Each tier trades latency for capacity.
