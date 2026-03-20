@@ -223,15 +223,45 @@ It is like running Prime95 for three months, your CPU degrades 50%, but the elec
 
 **QRRP: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher.**
 
+## The Diminishing Returns Lesson (Day 3 — The Hard Way)
+
+Over three days, the operator opened increasingly aggressive MGs on a degrading account:
+
+```
+Day 1: $100K → Open MG $2.00 → PROTECT fires → $47K equity
+Day 2: $47K  → Open MG $0.99 → awaiting PROTECT → ~$31K equity (est.)
+```
+
+Each cycle burned equity for minimal bias gain. The cascade math tells the story:
+
+| Starting Equity | Cascade Result at $0 | Return Multiple |
+|---|---|---|
+| $100K | $1.87M | 18.7x |
+| $47K | $1.75M | 37.2x |
+| $31K | **$1.57M** | **50.6x** |
+
+**The multiplier goes UP but the absolute profit goes DOWN.** Each aggressive MG burns $8-15K of equity via PROTECT self-healing for maybe 500-1,000 extra bias lots. Those lots do not compensate for the lost equity in the cascade math.
+
+**K|NGP|N voltage lesson:** adding voltage when you are already at the wall does not increase the score. It degrades the silicon. The $0.99 MG cost ~$8K of equity for lots that PROTECT will mostly destroy. It is pushing 1.5V through a chip already throttling at 1.35V.
+
+**The critical distinction:**
+
+- **MG at entry price ($89):** burns equity, gains minimal lots, diminishing returns
+- **MG at pure short ($40):** free, gains 16,625 lots per $133K equity, compounding returns
+
+The next MG should be at **pure short (~$40 SOL) with Open MG $8.00**. Not before. The cascade at pure short is the multiplier. Everything before pure short is degradation.
+
+**$100K → $31K = 69% degraded in 3 days of operator intervention.** The EA never asked for any of it. The TRIM formula worked perfectly every time. The code is correct. The voltage was too high.
+
 ## Conclusion: Trust the Math
 
 QRRP is not a strategy for people who need to feel in control. It is a strategy for people who have been humbled enough times to trust the formula over their instincts.
 
-**$46K to $1.75M** is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. A degraded account running QRRP outperforms a fresh account running single MG by **60%** in terminal equity.
+**~$31K to $1.57M** is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. The return multiplier increases as equity decreases — 50x on $31K vs 18.7x on $100K — because the cascade compounds from whatever base it is given.
 
-The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every checkpoint. Do not touch anything. Then flip long with 38x the silicon and do it again from the other direction.
+The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every pure short checkpoint. Do not touch anything between checkpoints. Do not add voltage. Do not open MGs at entry price. Wait for pure short. Then cascade. Then flip long with 50x the silicon and do it again from the other direction.
 
-Seven post-mortems. One lesson. **Trust the math. Then trust it again going up.**
+Seven post-mortems. Three days. 69% degradation. One lesson: **the cascade is the multiplier, not the Open MG. Trust the math. Wait for pure short. Then trust it again going up.**
 
 -- TyphooN
 
