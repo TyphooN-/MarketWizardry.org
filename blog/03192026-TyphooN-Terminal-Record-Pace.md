@@ -343,6 +343,8 @@ The chart engine was built in five distinct phases, each adding a layer of capab
 
 The GPU chart engine is why TyphooN-Terminal can display a 4K chart with 39 indicators and 15 Fibonacci levels without dropping a frame. CPU-based canvas rendering (TradingView, most Electron apps) cannot do this. The GPU can.
 
+**Draggable Panel Splitter:** The chart and sidebar panels resize by dragging the divider between them. Layout proportions persist across sessions. This sounds like a small thing until you realize NinjaTrader has fixed panel widths and TradingView charges for customizable layouts. In TyphooN-Terminal it is a mousedown/mousemove handler and 19 lines of CSS. Open source means features like this take minutes, not feature request tickets.
+
 ## Wasm Indicator Engine
 
 Indicators are the heaviest per-bar computation in any trading terminal. TyphooN-Terminal compiles the indicator math to WebAssembly and runs it off the main thread.
