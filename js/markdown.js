@@ -1,28 +1,13 @@
 // GitHub-Flavored Markdown Parser for MarketWizardry.org
-// Uses marked.js for full GFM support + mermaid.js for diagrams
-// CSP-compliant - loaded from trusted CDN
+// Uses local marked.js for full GFM support + optional mermaid.js CDN for diagrams
 
 (function() {
     'use strict';
 
-    // Load marked.js from CDN
-    const markedScript = document.createElement('script');
-    markedScript.src = 'https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js';
-
-    // Load mermaid.js from CDN
+    // Load mermaid.js from CDN (optional — diagrams are a nice-to-have)
     const mermaidScript = document.createElement('script');
     mermaidScript.src = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
-
-    let markedReady = false;
-    let mermaidReady = false;
-
-    markedScript.onload = function() {
-        markedReady = true;
-        configureMarked();
-    };
-
     mermaidScript.onload = function() {
-        mermaidReady = true;
         if (typeof mermaid !== 'undefined') {
             mermaid.initialize({
                 startOnLoad: false,
@@ -47,65 +32,53 @@
             });
         }
     };
-
-    document.head.appendChild(markedScript);
     document.head.appendChild(mermaidScript);
 
-    function configureMarked() {
-        if (typeof marked === 'undefined') return;
+    function escapeHtml(text) {
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
 
-        // Custom renderer for MarketWizardry.org styling
+    function configureMarked() {
+        if (typeof marked === 'undefined') return false;
+
         const renderer = new marked.Renderer();
 
-        // Headers with md- classes
         renderer.heading = function({ tokens, depth }) {
             const text = this.parser.parseInline(tokens);
-            const tag = 'h' + depth;
-            return '<' + tag + ' class="md-h' + depth + '">' + text + '</' + tag + '>';
+            return '<h' + depth + ' class="md-h' + depth + '">' + text + '</h' + depth + '>';
         };
 
-        // Paragraphs
         renderer.paragraph = function({ tokens }) {
             const text = this.parser.parseInline(tokens);
-            // Check for mermaid code blocks that got wrapped in <p>
-            if (text.startsWith('<pre class="md-mermaid">')) return text;
             return '<p class="md-p">' + text + '</p>';
         };
 
-        // Bold
         renderer.strong = function({ tokens }) {
-            const text = this.parser.parseInline(tokens);
-            return '<strong class="md-bold">' + text + '</strong>';
+            return '<strong class="md-bold">' + this.parser.parseInline(tokens) + '</strong>';
         };
 
-        // Italic
         renderer.em = function({ tokens }) {
-            const text = this.parser.parseInline(tokens);
-            return '<em class="md-italic">' + text + '</em>';
+            return '<em class="md-italic">' + this.parser.parseInline(tokens) + '</em>';
         };
 
-        // Links
         renderer.link = function({ href, title, tokens }) {
             const text = this.parser.parseInline(tokens);
-            const titleAttr = title ? ' title="' + title + '"' : '';
-            return '<a class="md-link" href="' + href + '" target="_blank" rel="noopener noreferrer"' + titleAttr + '>' + text + '</a>';
+            const t = title ? ' title="' + title + '"' : '';
+            return '<a class="md-link" href="' + href + '" target="_blank" rel="noopener noreferrer"' + t + '>' + text + '</a>';
         };
 
-        // Code blocks
         renderer.code = function({ text, lang }) {
             if (lang === 'mermaid') {
                 return '<pre class="md-mermaid">' + text + '</pre>';
             }
-            const langClass = lang ? ' md-code-' + lang : '';
-            return '<pre class="md-codeblock' + langClass + '"><code>' + escapeHtml(text) + '</code></pre>';
+            return '<pre class="md-codeblock"><code>' + escapeHtml(text) + '</code></pre>';
         };
 
-        // Inline code
         renderer.codespan = function({ text }) {
             return '<code class="md-code">' + text + '</code>';
         };
 
-        // Lists
         renderer.list = function({ items, ordered }) {
             const tag = ordered ? 'ol' : 'ul';
             const cls = ordered ? 'md-ol' : 'md-ul';
@@ -114,129 +87,73 @@
         };
 
         renderer.listitem = function({ tokens }) {
-            const text = this.parser.parse(tokens);
-            return '<li class="md-li">' + text + '</li>';
+            return '<li class="md-li">' + this.parser.parse(tokens) + '</li>';
         };
 
-        // Blockquotes
         renderer.blockquote = function({ tokens }) {
-            const text = this.parser.parse(tokens);
-            return '<blockquote class="md-blockquote">' + text + '</blockquote>';
+            return '<blockquote class="md-blockquote">' + this.parser.parse(tokens) + '</blockquote>';
         };
 
-        // Horizontal rules
-        renderer.hr = function() {
-            return '<hr class="md-hr">';
-        };
+        renderer.hr = function() { return '<hr class="md-hr">'; };
 
-        // Tables (GFM)
         renderer.table = function({ header, rows }) {
-            let headerHtml = '<tr>' + header.map(cell =>
-                '<th class="md-th">' + this.parser.parseInline(cell.tokens) + '</th>'
+            let h = '<tr>' + header.map(c =>
+                '<th class="md-th">' + this.parser.parseInline(c.tokens) + '</th>'
             ).join('') + '</tr>';
-
-            let bodyHtml = rows.map(row =>
-                '<tr>' + row.map(cell =>
-                    '<td class="md-td">' + this.parser.parseInline(cell.tokens) + '</td>'
+            let b = rows.map(r =>
+                '<tr>' + r.map(c =>
+                    '<td class="md-td">' + this.parser.parseInline(c.tokens) + '</td>'
                 ).join('') + '</tr>'
             ).join('');
-
-            return '<div class="md-table-wrapper"><table class="md-table"><thead>' +
-                headerHtml + '</thead><tbody>' + bodyHtml + '</tbody></table></div>';
+            return '<div class="md-table-wrapper"><table class="md-table"><thead>' + h + '</thead><tbody>' + b + '</tbody></table></div>';
         };
 
-        // Images
         renderer.image = function({ href, title, text }) {
-            const titleAttr = title ? ' title="' + title + '"' : '';
-            return '<img class="md-img" src="' + href + '" alt="' + text + '"' + titleAttr + ' loading="lazy">';
+            const t = title ? ' title="' + title + '"' : '';
+            return '<img class="md-img" src="' + href + '" alt="' + text + '"' + t + ' loading="lazy">';
         };
 
-        marked.setOptions({
-            renderer: renderer,
-            gfm: true,
-            breaks: false,
-            pedantic: false
+        marked.setOptions({ renderer: renderer, gfm: true, breaks: false, pedantic: false });
+        return true;
+    }
+
+    // Configure immediately (marked.min.js is loaded synchronously via <script> tag)
+    let configured = false;
+
+    function ensureConfigured() {
+        if (!configured && typeof marked !== 'undefined') {
+            configured = configureMarked();
+        }
+        return configured;
+    }
+
+    function renderMermaid() {
+        if (typeof mermaid === 'undefined') return;
+        const blocks = document.querySelectorAll('.md-mermaid');
+        blocks.forEach(function(block, i) {
+            const id = 'mermaid-' + Date.now() + '-' + i;
+            try {
+                mermaid.render(id, block.textContent).then(function(result) {
+                    block.outerHTML = '<div class="md-mermaid-rendered">' + result.svg + '</div>';
+                });
+            } catch (e) { console.warn('Mermaid render failed:', e); }
         });
     }
 
-    function escapeHtml(text) {
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-        return text.replace(/[&<>"']/g, m => map[m]);
-    }
-
-    /**
-     * Parse markdown text into HTML using marked.js (GFM) with fallback
-     */
     function parseMarkdown(text) {
         if (!text) return '';
 
-        // Use marked.js if loaded
-        if (markedReady && typeof marked !== 'undefined') {
+        ensureConfigured();
+
+        if (configured && typeof marked !== 'undefined') {
             let html = marked.parse(text);
-
-            // Process mermaid blocks after render
-            setTimeout(function() {
-                if (mermaidReady && typeof mermaid !== 'undefined') {
-                    const mermaidBlocks = document.querySelectorAll('.md-mermaid');
-                    mermaidBlocks.forEach(function(block, i) {
-                        const id = 'mermaid-' + Date.now() + '-' + i;
-                        try {
-                            mermaid.render(id, block.textContent).then(function(result) {
-                                block.outerHTML = '<div class="md-mermaid-rendered">' + result.svg + '</div>';
-                            });
-                        } catch (e) {
-                            console.warn('Mermaid render failed:', e);
-                        }
-                    });
-                }
-            }, 100);
-
+            setTimeout(renderMermaid, 100);
             return html;
         }
 
-        // Fallback: basic parser if marked.js hasn't loaded yet
-        return fallbackParse(text);
+        // Fallback if marked.js somehow didn't load
+        return '<pre style="white-space:pre-wrap;color:#00ff00">' + escapeHtml(text) + '</pre>';
     }
 
-    /**
-     * Basic fallback parser (used before marked.js loads)
-     */
-    function fallbackParse(text) {
-        let html = escapeHtml(text);
-        const lines = html.split('\n');
-        let result = [];
-        let inList = false;
-
-        for (let i = 0; i < lines.length; i++) {
-            let line = lines[i];
-
-            if (line.match(/^## /)) {
-                if (inList) { result.push('</ul>'); inList = false; }
-                result.push('<h2 class="md-h2">' + line.replace(/^## /, '') + '</h2>');
-            } else if (line.match(/^### /)) {
-                if (inList) { result.push('</ul>'); inList = false; }
-                result.push('<h3 class="md-h3">' + line.replace(/^### /, '') + '</h3>');
-            } else if (line.match(/^[-*] /)) {
-                if (!inList) { result.push('<ul class="md-ul">'); inList = true; }
-                result.push('<li class="md-li">' + line.replace(/^[-*] /, '') + '</li>');
-            } else if (line.match(/^---$/)) {
-                if (inList) { result.push('</ul>'); inList = false; }
-                result.push('<hr class="md-hr">');
-            } else if (line.trim() === '') {
-                if (inList) { result.push('</ul>'); inList = false; }
-                result.push('');
-            } else {
-                if (inList) { result.push('</ul>'); inList = false; }
-                line = line.replace(/\*\*(.+?)\*\*/g, '<strong class="md-bold">$1</strong>');
-                line = line.replace(/\*(.+?)\*/g, '<em class="md-italic">$1</em>');
-                line = line.replace(/`(.+?)`/g, '<code class="md-code">$1</code>');
-                result.push('<p class="md-p">' + line + '</p>');
-            }
-        }
-        if (inList) result.push('</ul>');
-        return result.join('\n');
-    }
-
-    // Export globally
     window.parseMarkdown = parseMarkdown;
 })();
