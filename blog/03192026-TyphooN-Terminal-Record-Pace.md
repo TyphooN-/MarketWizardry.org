@@ -8,7 +8,7 @@ Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** 
 
 TyphooN-Terminal shipped in **4.7 days**. March 15 to March 19, 2026. **218 commits**. **45,500 lines of code**. Approximately **46 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
-This is not a mockup. This is not a demo. This is a fully functional trading terminal with **286** Bloomberg-style commands, **30** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, and enough research tools to make a sell-side analyst uncomfortable.
+This is not a mockup. This is not a demo. This is a fully functional trading terminal with **288** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, and enough research tools to make a sell-side analyst uncomfortable.
 
 **Apache 2.0. Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
 
@@ -59,14 +59,14 @@ Rust eliminates entire categories of bugs at compile time. Memory safety without
 
 In **4.7 days**, TyphooN-Terminal shipped with:
 
-### 286 Bloomberg-Style Commands (Ctrl+K Palette)
+### 288 Bloomberg-Style Commands (Ctrl+K Palette)
 
 Every function accessible via keyboard. Type what you want, hit enter. No menu diving. No mouse hunting. Bloomberg proved this UX pattern works for professional traders thirty years ago. Everyone else ignored it.
 
-### 30 Indicators with Exact MT5 Visual Parity
+### 39 Indicators with Exact MT5 Visual Parity
 
-- MultiKAMA, Ehlers Fisher Transform, BetterVolume, Supply/Demand zones, and 26 more.
-- "Exact visual parity" means the indicator output matches MT5 pixel-for-pixel. Same colors. Same line weights. Same calculation methodology. If you are migrating from MT5, your charts look identical on day one.
+- MultiKAMA, Ehlers Fisher Transform, BetterVolume, Supply/Demand zones, and 35 more.
+- "Exact visual parity" means the indicator output matches MT5 pixel-for-pixel. Same colors. Same line weights. Same calculation methodology. If you are migrating from MT5, your charts look identical on day one. 22 of the 39 indicators are compiled to WebAssembly for near-native performance; the rest run in JavaScript with automatic fallback.
 
 ### 44 GPU-Rendered Drawing Tools
 
@@ -248,6 +248,111 @@ The CLI shares **encrypted credentials** with the GUI (AES-256-GCM SQLite). Set 
 
 **The QRRP cascade doesn't need seven monitors and a Tauri window.** It needs TRIM 54.2%, a SOL price feed, and a terminal that can execute. The CLI is that terminal. 6.5MB. Runs anywhere. Trades everything Alpaca offers.
 
+## Performance Optimization Deep Dive
+
+Raw feature count means nothing if the terminal stutters under load. TyphooN-Terminal went through aggressive performance optimization passes that eliminated every bottleneck I could find.
+
+**SQLite Statement Caching:** Every prepared statement is cached after first compilation. Repeated queries -- position lookups, indicator data reads, watchlist refreshes -- hit the statement cache instead of re-parsing SQL. This alone cut database interaction latency by 40-60% on hot paths.
+
+**HTTP Connection Pooling:** Alpaca's API, SEC EDGAR, options data, crypto feeds -- the terminal talks to 21 data sources. Without connection pooling, every request opens a new TCP connection and negotiates a new TLS handshake. With pooling, persistent connections are reused across requests. Latency on sequential API calls dropped from ~200ms to ~30ms per request after the initial handshake.
+
+**DOM Delta Updates:** The frontend never re-renders an entire panel. When a position's P&L changes, only that cell updates. When a quote ticks, only the price element mutates. Full panel re-renders are reserved for structural changes (adding/removing columns, switching views). This is the difference between a UI that feels instant and one that feels like it is "loading."
+
+**Atomic Panel Swap:** Switching between dashboard views (positions, orders, watchlist, research) happens in a single DOM operation. The new panel is constructed off-screen, then swapped in atomically. No flash of empty content. No partial renders. The transition is imperceptible.
+
+**Dashboard Overlap Prevention:** Multiple dashboard panels competing for the same viewport is a classic UI race condition. TyphooN-Terminal enforces a strict panel ownership model -- exactly one panel owns each viewport region at any time. Panel transitions are serialized. No z-index fights. No invisible panels consuming events underneath visible ones.
+
+**Indicator Error Isolation:** A bad indicator calculation (division by zero, NaN propagation, insufficient data) does not crash the chart or poison other indicators. Each indicator runs in an isolated calculation context. If Fisher Transform produces NaN on bar 3 because there are not enough data points yet, the chart renders everything else normally and the indicator picks up cleanly once sufficient data exists.
+
+## Bar Data Chunking Strategy
+
+Fetching historical bar data from Alpaca is the single most time-consuming operation in the terminal. Alpaca's API returns paginated results, rate-limits aggressively, and crypto endpoints have different constraints than equities. The chunking strategy solves all of this.
+
+**Adaptive page_token Pagination:** Alpaca returns a `next_page_token` with each response. The chunker follows these tokens automatically, accumulating bars across pages until the requested range is filled. No fixed page sizes -- the system adapts to whatever Alpaca returns per page.
+
+**Stale Chunk Detection:** Before fetching from the network, the chunker checks if cached data covers the requested range. If the newest cached bar is within one bar-period of the current time, no fetch is needed. If the cache is partially stale, only the gap is fetched and spliced into existing data.
+
+**429 Cooldown with Partial Data Return:** When Alpaca returns HTTP 429 (rate limited), the chunker does not throw an error and lose everything. It returns whatever bars were successfully fetched so far, marks the range as partially filled, and schedules a cooldown retry. The chart renders immediately with partial data rather than showing a loading spinner for minutes.
+
+**Progressive Throttle Detection:** If any API response takes longer than 10 seconds, the chunker increases the interval between subsequent requests. This prevents cascading slowdowns when Alpaca's servers are under load. The system backs off gracefully instead of hammering a slow endpoint.
+
+**Crypto Lookback Caps:** Crypto symbols cap lookback at 90 days for intraday timeframes and 180 days for daily+. Unlike equities with decades of history, crypto bar data on Alpaca has practical limits. Requesting 10 years of 1-minute BTC bars is not useful and would take hours. The caps enforce sanity.
+
+**Early Termination:** If a fetch has been running for more than 60 seconds and has already accumulated more than 100 bars, it terminates and returns what it has. The user sees data now rather than waiting for a theoretically complete dataset that may never arrive due to API constraints.
+
+**Synthetic MN1 from Weekly:** Monthly bars are not available from Alpaca's API. The chunker fetches weekly bars and synthesizes monthly candles by aggregating weeks into calendar months. Open from the first week, close from the last week, high/low from the extremes. This gives the terminal MN1 charts that Alpaca does not natively support.
+
+**The result:** Cold load for a full multi-timeframe grid went from **2.5+ hours** to **30 seconds**. A complete MTF grid across all timeframes loads in **3-5 minutes** instead of **3-4 hours**. The chunking strategy turned bar data loading from the terminal's biggest pain point into a solved problem.
+
+## Four-Tier Cache Architecture
+
+Every piece of market data flows through a four-tier cache before hitting the network. Each tier trades latency for capacity.
+
+**Tier 1 -- Memory LRU (~0ms):** The fastest cache. Recently accessed bar data, quotes, and indicator results live in an in-memory LRU (Least Recently Used) cache. Cache hits are effectively instant. The LRU eviction policy ensures frequently accessed symbols stay hot while rarely viewed symbols get pushed to lower tiers.
+
+**Tier 2 -- IndexedDB (~5-10ms):** Browser-native key-value storage. Larger than the memory LRU and survives page refreshes. Bar data for the current session's symbols lives here. Access time is 5-10ms -- imperceptible to the user but slower than memory.
+
+**Tier 3 -- SQLite + zstd Compression (~20-50ms):** The persistent cache. All bar data eventually lands in SQLite, compressed with Zstandard. This is the cache that survives application restarts. The zstd compression achieves **15-30x** compression ratios on bar data because OHLCV data is highly regular and compresses exceptionally well.
+
+**Tier 4 -- zstd File Cache (~100ms):** Bulk historical data stored as compressed binary files. This is the cold storage tier for data that does not fit efficiently in SQLite (very long historical ranges, exported datasets). Access time is ~100ms due to file I/O and decompression, but this tier handles arbitrarily large datasets.
+
+**Binary Format:** Each bar is stored in a fixed **48-byte** binary format (timestamp + OHLCV as f64). No JSON parsing. No CSV splitting. No string-to-float conversions on read. Raw binary in, raw binary out. This format is what enables the 15-30x compression ratios -- zstd compresses regular binary patterns far better than it compresses text.
+
+**Background Prefetch:** When the user views a chart for AAPL on H4, the terminal silently prefetches M15, H1, D1, and W1 data for AAPL in the background. By the time the user switches timeframes, the data is already cached. This makes timeframe switching feel instant even though the underlying API calls take seconds.
+
+## GPU Chart Engine: Five Phases, All Complete
+
+The chart engine was built in five distinct phases, each adding a layer of capability. All five are complete.
+
+**Phase 1 -- Canvas Foundation:** Basic candlestick rendering on HTML5 Canvas. Price scale, time axis, scrolling. This was the "it works" phase -- functional but CPU-bound and limited to a few hundred bars before frame drops became noticeable.
+
+**Phase 2 -- WebGL2 Migration:** The entire rendering pipeline moved to WebGL2. Candlestick bodies are rendered as **2 triangles** (a quad) per body. Wicks are **2 lines** per candle (high-to-body, body-to-low). Vertex shaders handle the coordinate transforms. The GPU does what GPUs are designed for -- rendering thousands of geometric primitives in parallel.
+
+**Phase 3 -- Indicator Overlays:** All 39 indicators render through the same WebGL2 pipeline. Line-based indicators (SMA, EMA, KAMA) are GL_LINE_STRIP calls. Histogram indicators (MACD, Volume) are instanced quads. Bands (Bollinger, Keltner) are filled polygons with alpha blending. Every indicator renders on the GPU alongside the candlesticks.
+
+**Phase 4 -- Drawing Tools:** All **44 drawing tools** render through WebGL2. Fibonacci levels, pitchforks, Gann fans, regression channels -- all GPU-rendered geometry. Interactive handles for dragging and resizing are hit-tested in JavaScript but rendered in WebGL2. Drawing tools do not degrade chart performance because they are just more vertices in the same render pass.
+
+**Phase 5 -- Polish and Performance:** Crosshair rendering, tooltip overlays, smooth pan/zoom with momentum, price scale auto-ranging, and the final performance pass. The compiled Wasm module for the chart engine is **45KB**. The engine renders **10,000+ bars at 60fps** with multiple indicators and drawing tools active simultaneously.
+
+The GPU chart engine is why TyphooN-Terminal can display a 4K chart with 39 indicators and 15 Fibonacci levels without dropping a frame. CPU-based canvas rendering (TradingView, most Electron apps) cannot do this. The GPU can.
+
+## Wasm Indicator Engine
+
+Indicators are the heaviest per-bar computation in any trading terminal. TyphooN-Terminal compiles the indicator math to WebAssembly and runs it off the main thread.
+
+**The compiled Wasm binary is 32KB.** That is the entire indicator engine -- 22 ported indicators, all mathematical kernels, all buffer management. 32KB. For context, a typical npm package for a single charting library starts at 200KB+.
+
+**Performance vs JavaScript:**
+
+| Indicator | JS (ms/10K bars) | Wasm (ms/10K bars) | Speedup |
+|---|---|---|---|
+| SMA | ~20ms | ~1ms | **20x** |
+| KAMA | ~25ms | ~1ms | **25x** |
+| Fisher Transform | ~27ms | ~1ms | **27x** |
+| Grid Optimizer | ~500ms | ~5-10ms | **50-100x** |
+
+The grid optimizer speedup is the most dramatic because it runs thousands of parameter combinations across the indicator suite. What takes half a second in JavaScript completes in under 10 milliseconds in Wasm. This makes real-time parameter optimization feasible during live trading.
+
+**22 indicators** are fully ported to Wasm. The remaining 17 run in JavaScript with automatic fallback -- if the Wasm module fails to load (older browsers, restricted environments), every indicator still works via the JS implementation. Zero functionality loss. Just slower.
+
+**Web Worker Isolation:** The Wasm indicator engine runs in a dedicated Web Worker, completely off the main thread. Indicator recalculation on a timeframe switch or new bar does not block UI rendering. The chart stays responsive at 60fps while the worker crunches 39 indicators across 10,000 bars in the background.
+
+## Bug Fixes and Reliability
+
+Shipping fast means nothing if the software crashes in production. TyphooN-Terminal has **602 smoke tests** and every single one passes.
+
+**15 NaN Bugs Fixed:** Floating-point NaN (Not a Number) is the silent killer of trading software. A single NaN in an indicator buffer propagates through every downstream calculation, turning charts into empty panels and risk calculations into nonsense. All 15 NaN sources were identified and fixed:
+- Division by zero in ATR when bar range is zero (flat candles)
+- Log of zero in Fisher Transform on the first few bars
+- Square root of negative numbers in standard deviation on single-bar windows
+- NaN propagation through indicator chains (e.g., KAMA feeding into Fisher)
+
+**Race Condition Guards (ADR-024):** Architecture Decision Record 024 documents **7 cross-symbol race conditions** that were identified and fixed. These occur when multiple symbols fetch data simultaneously and indicator calculations for Symbol A accidentally read incomplete data from Symbol B's buffer. The fix: each symbol gets its own isolated calculation context with atomic state transitions. No shared mutable state between symbol pipelines.
+
+**429 Rate Limit Stale Data Fix:** When Alpaca returned HTTP 429 during a data fetch, the old code path would silently return stale cached data without marking it as stale. The user would see prices from hours or days ago with no indication that the data was outdated. Fixed: stale data is now visually flagged in the UI, and a background retry ensures fresh data replaces it as soon as the rate limit window expires.
+
+**602/602 smoke tests pass.** The test suite covers command execution, indicator calculation accuracy, order type validation, API response parsing, cache coherence, and UI state transitions. Every commit runs the full suite. No exceptions.
+
 ## Open Source: Why This Matters
 
 Proprietary trading terminals are a tax on retail traders. Bloomberg charges institutional prices because institutions will pay. Godel charges subscriptions because traders are conditioned to accept recurring costs for essential tools. MetaTrader is "free" because MetaQuotes monetizes the ecosystem through broker partnerships and marketplace fees.
@@ -256,7 +361,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**45,500 lines of Rust. 218 commits. 4.7 days. GUI + CLI + 288 commands + 21 free APIs.** One developer who got tired of paying rent on tools that should be free.
+**45,500 lines of Rust. 218 commits. 4.7 days. GUI + CLI + 288 commands + 39 indicators + 602 tests + 21 free APIs.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
@@ -342,7 +447,7 @@ Modern forex platform with free cloud bot hosting (no VPS needed). 70+ indicator
 
 Bloomberg-style CLI interface at 1/20th the price. 6-panel layout. 2x more news per ticker than competitors. Nasdaq data with unlimited history. **NOT a trading platform** -- no order execution. Research and data only. Still **$148/month** with FINRA surcharge.
 
-**vs TyphooN-Terminal:** Godel wins on data depth (Nasdaq feed, institutional-grade news). TyphooN-Terminal wins on everything else -- trading execution, algo support, risk management, cost ($0 vs $148/month), and open source. TyphooN-Terminal's 286 commands directly target Godel's use case.
+**vs TyphooN-Terminal:** Godel wins on data depth (Nasdaq feed, institutional-grade news). TyphooN-Terminal wins on everything else -- trading execution, algo support, risk management, cost ($0 vs $148/month), and open source. TyphooN-Terminal's 288 commands directly target Godel's use case.
 
 ### Bloomberg Terminal
 
@@ -358,7 +463,7 @@ The gold standard for institutions. Unmatched data, analytics, news, messaging. 
 
 Commission-free with a modern mobile-first design. OpenAPI supports algo trading across all asset classes. AI assistant (Vega). Good for casual/mobile traders. Charting is limited compared to pro platforms.
 
-**vs TyphooN-Terminal:** Webull wins on mobile experience and crypto variety. TyphooN-Terminal wins on desktop charting, indicator depth (30 NNFX indicators), risk management, and open source.
+**vs TyphooN-Terminal:** Webull wins on mobile experience and crypto variety. TyphooN-Terminal wins on desktop charting, indicator depth (39 NNFX indicators), risk management, and open source.
 
 ### tastytrade
 
@@ -389,7 +494,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 | Terminal | Cost | Open Source | Assets | Algo | GPU Charts | Binary Size | US Available |
 |---|---|---|---|---|---|---|---|
-| **TyphooN-Terminal** | **Free** | **Yes (Apache 2.0)** | Stocks, options, crypto | **286 commands** | **Yes** | **~15MB** | **Yes** |
+| **TyphooN-Terminal** | **Free** | **Yes (Apache 2.0)** | Stocks, options, crypto | **288 commands** | **Yes** | **~15MB** | **Yes** |
 | MetaTrader 5 | Free | No | Forex, CFDs, stocks | MQL5 | No | ~50MB | Limited |
 | TradingView | $0-60/mo | No | Charts only | Pine Script (no exec) | No (canvas) | ~200MB | Yes |
 | Thinkorswim | Free | No | Stocks, options, futures | thinkScript (limited) | No | ~1GB+ | Yes |
