@@ -342,7 +342,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
             </div>
         </div>
         <div class="modal-body">
-            <pre id="analysisContent"></pre>
+            <div id="analysisContent"></div>
         </div>
     </div>
 </div>

@@ -59,14 +59,15 @@ h1 {
     overscroll-behavior: contain;
 }
 .modal-content {
-    margin: 20px auto;
-    padding: 10px;
-    width: 90%;
+    margin: 10px auto;
+    padding: 10px 20px;
+    width: 95%;
+    max-width: 1400px;
     background-color: #000;
     border: 2px solid rgba(0, 255, 0, 0.5);
     touch-action: pan-y;
-    max-height: calc(100vh - 40px);
-    max-height: calc(100dvh - 40px);
+    max-height: calc(100vh - 20px);
+    max-height: calc(100dvh - 20px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -488,6 +489,17 @@ del {
     margin-right: 6px;
 }
 
+/* Desktop: expand modal body to full width */
+@media screen and (min-width: 769px) {
+    .modal-body {
+        max-width: 100%;
+        max-height: calc(100vh - 100px);
+        max-height: calc(100dvh - 100px);
+        font-size: 0.85rem;
+        white-space: normal;
+    }
+}
+
 /* Modal body with rendered markdown - remove pre formatting */
 .modal-body #analysisContent,
 .modal-body pre,
@@ -498,9 +510,14 @@ del {
     white-space: normal;
     font-family: "Courier New", monospace;
     color: #00ff00;
-    padding: 15px;
+    padding: 15px 25px;
     overflow: visible;
     background-color: #000;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* First header in modal content - no top margin */
