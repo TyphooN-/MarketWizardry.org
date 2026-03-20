@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped in **4.7 days**. March 15 to March 19, 2026. **218 commits**. **44,000 lines of code**. Approximately **46 commits per day**. A ~**12MB** binary that does what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped in **4.7 days**. March 15 to March 19, 2026. **218 commits**. **45,500 lines of code**. Approximately **46 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **286** Bloomberg-style commands, **30** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -205,6 +205,49 @@ The roadmap:
 
 The progression is clear: manual trading taught the fundamentals, the risk EA automated position management, TyphooN-Terminal ports that automation to open infrastructure, and the fully automated algorithm completes the pipeline. Every step removes one more human failure mode from the process.
 
+## CLI / TUI: 6.5MB Trading Terminal Over SSH
+
+The GUI requires a display server. Algorithmic trading on a VPS doesn't have one. So TyphooN-Terminal now ships a **standalone CLI binary** — a full TUI (Text User Interface) built with `ratatui` + `crossterm` in pure Rust. **6.5MB.** No WebKitGTK. No Node.js. No Wasm. No display server. Works over SSH on any VPS, any terminal emulator, any platform with ANSI escape codes.
+
+**Full trading parity with the GUI:**
+
+| Feature | GUI | CLI |
+|---|---|---|
+| Account info | Yes | Yes |
+| Positions (interactive) | Yes | Yes |
+| Orders (interactive) | Yes | Yes |
+| Market/Limit/Stop/Bracket orders | Yes | Yes |
+| Close/Partial close | Yes | Yes |
+| Close all / Cancel all | Yes | Yes |
+| Order history | Yes | Yes |
+| Watchlist + live quotes | Yes | Yes |
+| Market clock | Yes | Yes |
+| Risk dashboard (VaR, margin) | Yes | Yes |
+| ASCII candlestick chart | N/A | **Yes** |
+| Custom timeframes (H2-MN1) | Yes | Yes |
+| MT5 CSV import | Yes | Yes |
+| Multi-account aggregate | Yes | Yes |
+
+**Trading from the command line:**
+
+```
+:buy SMCI 100              # Market buy
+:sell SLV 50               # Market sell
+:limit buy AAPL 10 150.00  # Limit order
+:stop sell SMCI 100 25.00  # Stop order
+:bracket buy CC 500 15.00 25.00  # Bracket (OCO)
+:close CC                  # Close position
+:closeall                  # Close everything
+:chart BTC/USD H4          # ASCII candlestick chart
+:import DARWIN_EUR /path.csv  # Import MT5 statement
+```
+
+The CLI shares **encrypted credentials** with the GUI (AES-256-GCM SQLite). Set up API keys once in the GUI, trade from SSH forever. No re-entry. No plaintext config files. Same encryption, same salt, same security model.
+
+**Why this matters:** A **6.5MB binary** that can execute trades, manage positions, display live quotes, render ASCII charts, and import MT5 history — over SSH, on a $5/month VPS, with no GUI dependencies. This is the headless trading terminal that NinjaTrader ($1,099), Sierra Chart ($54/month), and every other Windows-only desktop terminal cannot offer. The algo doesn't need a monitor. It needs an SSH connection and a thesis.
+
+**The QRRP cascade doesn't need seven monitors and a Tauri window.** It needs TRIM 54.2%, a SOL price feed, and a terminal that can execute. The CLI is that terminal. 6.5MB. Runs anywhere. Trades everything Alpaca offers.
+
 ## Open Source: Why This Matters
 
 Proprietary trading terminals are a tax on retail traders. Bloomberg charges institutional prices because institutions will pay. Godel charges subscriptions because traders are conditioned to accept recurring costs for essential tools. MetaTrader is "free" because MetaQuotes monetizes the ecosystem through broker partnerships and marketplace fees.
@@ -213,7 +256,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**44,000 lines of Rust. 218 commits. 4.7 days.** One developer who got tired of paying rent on tools that should be free.
+**45,500 lines of Rust. 218 commits. 4.7 days. GUI + CLI + 288 commands + 21 free APIs.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
