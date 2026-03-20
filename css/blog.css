@@ -408,6 +408,85 @@ nav.breadcrumb a:hover {
     color: #00cc00;
     font-style: italic;
 }
+/* GFM Tables */
+.md-table-wrapper {
+    overflow-x: auto;
+    margin: 1em 0;
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #000;
+}
+.md-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: "Courier New", monospace;
+    font-size: 0.85em;
+}
+.md-th {
+    border: 1px solid #00ff00;
+    padding: 6px 10px;
+    text-align: left;
+    background-color: #001a00;
+    color: #00ff00;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.md-td {
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    padding: 5px 10px;
+    color: #00ff00;
+}
+.md-table tr:hover {
+    background-color: rgba(0, 255, 0, 0.05);
+}
+/* Code blocks */
+.md-codeblock {
+    background-color: #0a0a0a;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 1em 0;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+    font-size: 0.85em;
+    color: #00cc00;
+    white-space: pre;
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #000;
+}
+.md-codeblock code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: inherit;
+}
+/* Mermaid diagrams */
+.md-mermaid-rendered {
+    margin: 1.5em 0;
+    text-align: center;
+    overflow-x: auto;
+}
+.md-mermaid-rendered svg {
+    max-width: 100%;
+    height: auto;
+}
+/* Images */
+.md-img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    margin: 1em 0;
+}
+/* Strikethrough (GFM) */
+del {
+    color: #006600;
+    text-decoration: line-through;
+}
+/* Task lists (GFM) */
+.md-li input[type="checkbox"] {
+    accent-color: #00ff00;
+    margin-right: 6px;
+}
 
 /* Modal body with rendered markdown - remove pre formatting */
 .modal-body #analysisContent {
@@ -415,8 +494,7 @@ nav.breadcrumb a:hover {
     font-family: "Courier New", monospace;
     color: #00ff00;
     padding: 15px;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
+    overflow: visible;
 }
 
 /* First header in modal content - no top margin */
