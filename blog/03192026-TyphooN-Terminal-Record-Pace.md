@@ -380,6 +380,10 @@ Shipping fast means nothing if the software crashes in production. TyphooN-Termi
 
 **429 Rate Limit Stale Data Fix:** When Alpaca returned HTTP 429 during a data fetch, the old code path would silently return stale cached data without marking it as stale. The user would see prices from hours or days ago with no indication that the data was outdated. Fixed: stale data is now visually flagged in the UI, and a background retry ensures fresh data replaces it as soon as the rate limit window expires.
 
+**Arc Cache Lock Contention Fix:** The SQLite cache is now `Arc<SqliteCache>` — the Tauri state lock is dropped immediately after cloning the Arc reference. Heavy operations (API fetch, merge_bars, zstd compression) run outside the lock. Previously, the state lock was held for the entire incremental fetch cycle (seconds to minutes for crypto), which froze the UI. Now the lock is held for microseconds. This is the difference between "the app freezes when loading charts" and "charts load in the background while you trade."
+
+**Dual-Layer Bar Sanitization:** Bad data from APIs is caught at two boundaries. The Rust backend rejects bars with zero/NaN prices, fixes OHLC inconsistency (`true_high = max(o,h,l,c)`), and drops malformed timestamps at parse time. The JavaScript frontend runs `sanitizeBars()` before every chart render — removing duplicates, sorting by time, clamping negative volume. The dual-layer approach means zero chart artifacts even when Alpaca returns malformed crypto bars (which it does, occasionally).
+
 **602/602 smoke tests pass.** The test suite covers command execution, indicator calculation accuracy, order type validation, API response parsing, cache coherence, and UI state transitions. Every commit runs the full suite. No exceptions.
 
 ## Open Source: Why This Matters
