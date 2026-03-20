@@ -10,6 +10,46 @@ The Interquartile Range is the difference between the **75th percentile (Q3)** a
 
 This captures the range containing the middle **50%** of your data, effectively ignoring the most extreme 25% on each side. It's like taking the average height in a room while ignoring the basketball players and toddlers.
 
+### Visualizing IQR: The Box Plot
+
+```mermaid
+graph LR
+    subgraph Box Plot Anatomy
+        direction LR
+        OL["● ● Outliers<br/>(below fence)"] -.-> LF["Lower Fence<br/>Q1 - 1.5×IQR"]
+        LF --- LW["--- Lower Whisker ---"]
+        LW --- Q1["Q1<br/>(25th %ile)"]
+        Q1 --- MED["MEDIAN<br/>(50th %ile)"]
+        MED --- Q3["Q3<br/>(75th %ile)"]
+        Q3 --- UW["--- Upper Whisker ---"]
+        UW --- UF["Upper Fence<br/>Q3 + 1.5×IQR"]
+        UF -.-> OH["● ● Outliers<br/>(above fence)"]
+    end
+
+    style Q1 fill:#69f,stroke:#333,stroke-width:2px
+    style MED fill:#f96,stroke:#333,stroke-width:2px
+    style Q3 fill:#69f,stroke:#333,stroke-width:2px
+    style OL fill:#f66,stroke:#333,stroke-width:2px
+    style OH fill:#f66,stroke:#333,stroke-width:2px
+```
+
+**Concrete Example -- Daily S&P 500 Returns (1 year):**
+
+| Metric | Value |
+|--------|-------|
+| Minimum | -3.2% |
+| Q1 (25th percentile) | -0.45% |
+| Median (50th percentile) | +0.05% |
+| Q3 (75th percentile) | +0.52% |
+| Maximum | +4.1% |
+| **IQR** | **0.97%** (Q3 - Q1) |
+
+**Fence calculations:**
+- Lower fence: -0.45% - (1.5 × 0.97%) = **-1.91%**
+- Upper fence: +0.52% + (1.5 × 0.97%) = **+1.98%**
+
+Any daily return below **-1.91%** or above **+1.98%** is classified as an outlier. In a typical year, that captures ~10-15 trading days -- the days that really matter.
+
 ### Why IQR Matters in Finance
 
 Financial data is notoriously non-normal:
@@ -19,6 +59,8 @@ Financial data is notoriously non-normal:
 - **Regime changes** (market structure shifts)
 
 Traditional measures like standard deviation get distorted by these characteristics. IQR remains stable and provides reliable insights even when your data looks like it was designed by a drunk statistician.
+
+**How badly do outliers wreck standard deviation?** Consider a dataset of daily returns: [+0.5%, +0.3%, -0.2%, +0.1%, -0.4%, +0.2%, -15.0%]. The standard deviation is **5.6%**, but remove that one crash day and it drops to **0.33%**. A single outlier inflated the volatility estimate by **17x**. IQR doesn't flinch -- it stays anchored to the middle 50% regardless.
 
 ### IQR vs Other Spread Measures
 
@@ -54,6 +96,12 @@ Traditional measures like standard deviation get distorted by these characterist
 - Points outside fences are outliers
 - Captures ~**99.3%** of normal data
 
+**The 3.0xIQR Rule (Extreme Outliers):**
+- Lower extreme fence = `Q1 - 3.0 × IQR`
+- Upper extreme fence = `Q3 + 3.0 × IQR`
+- Points outside are *extreme* outliers
+- These are your Black Swan candidates -- the days that make or break portfolios
+
 **Modified Z-Score Using IQR:**
 
     Modified Z = 0.6745 × (X - Median) / IQR
@@ -76,6 +124,16 @@ This is more robust than traditional Z-scores because:
 - Adjust position size based on IQR percentile ranking
 - Scale exposure when current volatility exceeds IQR bounds
 - Reduce size when entering extreme regimes
+
+**Example -- IQR-Based Position Scaling:**
+
+Calculate the IQR of 20-day realized volatility over the past year. If current 20-day vol is:
+- **Below Q1:** Volatility is compressed. Increase position size by 25% (breakout conditions likely).
+- **Between Q1 and Q3:** Normal conditions. Use standard position sizing.
+- **Above Q3:** Elevated volatility. Reduce position size by 25%.
+- **Above Q3 + 1.5×IQR:** Extreme volatility. Cut position size by 50% or stand aside entirely.
+
+This framework automatically scales your risk based on where current conditions sit relative to the statistical distribution -- no guesswork, no gut feelings.
 
 #### 2. Entry Signal Filtering
 
@@ -100,6 +158,28 @@ Price deviation from moving average:
 - Maintain consistent risk-adjusted position sizing
 
 #### 4. Market Regime Detection
+
+```mermaid
+graph TD
+    A["Calculate Rolling IQR<br/>of 20-day Volatility"] --> B["Determine Current<br/>Vol Percentile"]
+
+    B --> C{"Where does current<br/>vol fall?"}
+
+    C -->|"Below Q1"| D["LOW VOLATILITY<br/>Regime"]
+    C -->|"Q1 to Q3"| E["NORMAL<br/>Regime"]
+    C -->|"Q3 to Q3+1.5×IQR"| F["HIGH VOLATILITY<br/>Regime"]
+    C -->|"Above Q3+1.5×IQR"| G["EXTREME<br/>Regime"]
+
+    D --> D1["Strategy: Breakout plays<br/>Increase size 25%<br/>Tight stops"]
+    E --> E1["Strategy: Trend following<br/>Standard sizing<br/>Normal stops"]
+    F --> F1["Strategy: Mean reversion<br/>Reduce size 25%<br/>Wide stops"]
+    G --> G1["Strategy: Capital preservation<br/>Reduce size 50%+<br/>Hedged positions"]
+
+    style D fill:#6f9,stroke:#333,stroke-width:2px
+    style E fill:#69f,stroke:#333,stroke-width:2px
+    style F fill:#f96,stroke:#333,stroke-width:2px
+    style G fill:#f66,stroke:#333,stroke-width:2px
+```
 
 **IQR-based regime classification:**
 - **Low volatility:** Current vol < Q1 of historical IQR

@@ -17,6 +17,38 @@ When DARWIN prices move significantly:
 4. These adjustments can amplify or dampen price movements
 5. Eventually, VaR snaps back to target like a rubber band
 
+```mermaid
+graph TD
+    subgraph Normal State
+        A["DARWIN Trading<br/>VaR ≈ 6.5% Target"]
+    end
+
+    A --> B{"Price Movement<br/>Occurs"}
+
+    B -->|"Large upward move"| C["Realized Vol Spikes<br/>VaR rises above 6.5%"]
+    B -->|"Large downward move"| D["Realized Vol Spikes<br/>VaR rises above 6.5%"]
+    B -->|"Low volatility period"| E["Realized Vol Drops<br/>VaR falls below 3.25%"]
+
+    C --> F["STRETCH PHASE<br/>VaR exceeds target corridor"]
+    D --> F
+    E --> G["SLACK PHASE<br/>VaR below corridor floor"]
+
+    F --> H["Risk Engine Intervenes:<br/>REDUCE leverage"]
+    G --> I["Risk Engine Intervenes:<br/>INCREASE leverage"]
+
+    H --> J["SNAP-BACK PHASE<br/>Position sizes decrease<br/>Performance dampened"]
+    I --> K["EXPANSION PHASE<br/>Position sizes increase<br/>Performance amplified"]
+
+    J --> L["VaR returns to<br/>6.5% target corridor"]
+    K --> L
+
+    L --> A
+
+    style F fill:#f66,stroke:#333,stroke-width:2px
+    style G fill:#69f,stroke:#333,stroke-width:2px
+    style L fill:#6f9,stroke:#333,stroke-width:2px
+```
+
 ### The Rubber Band Dynamics
 
 **Stretch Phase:**
@@ -36,6 +68,31 @@ When DARWIN prices move significantly:
 - New equilibrium established
 - Price action normalizes
 - Next cycle begins
+
+### The VaR Corridor: Numbers That Matter
+
+Understanding the exact corridor boundaries is critical for anticipating risk engine behavior:
+
+```mermaid
+graph LR
+    subgraph VaR Corridor
+        direction LR
+        DANGER_LOW["⚠ Below 3.25%<br/>Engine INCREASES leverage"] --- LOW["3.25%<br/>Corridor Floor"]
+        LOW --- SWEET["~5.0%<br/>Sweet Spot"]
+        SWEET --- TARGET["6.5%<br/>Target Ceiling"]
+        TARGET --- DANGER_HIGH["⚠ Above 6.5%<br/>Engine REDUCES leverage"]
+    end
+
+    style DANGER_LOW fill:#69f,stroke:#333,stroke-width:2px
+    style LOW fill:#ff9,stroke:#333,stroke-width:2px
+    style SWEET fill:#6f9,stroke:#333,stroke-width:2px
+    style TARGET fill:#ff9,stroke:#333,stroke-width:2px
+    style DANGER_HIGH fill:#f66,stroke:#333,stroke-width:2px
+```
+
+**Optimal zone: 4.5% - 5.5% VaR.** This gives you enough headroom below the 6.5% ceiling that moderate volatility spikes won't trigger leverage reduction, while staying far enough above the floor that the engine isn't artificially inflating your leverage during calm periods.
+
+**The multiplier math:** If your signal account trades at 10% VaR and Darwinex normalizes to 6.5%, your DARWIN runs at ~0.65x leverage relative to your signal. If you trade at 3% VaR, the DARWIN runs at ~2.17x. This means low-VaR traders get *amplified* by the engine, and high-VaR traders get *dampened*. The implications for strategy design are enormous.
 
 ### How This Affects Your Trading Strategy
 
@@ -57,6 +114,8 @@ As a trader, this creates unique challenges:
 - Your $10,000 position becomes $7,500 equivalent
 - Future profits are scaled down accordingly
 
+**The frustrating irony:** Your best trading week triggers the risk engine to reduce your DARWIN's leverage. Your signal account might continue crushing it, but investors in your DARWIN see dampened returns. This is the price of risk normalization.
+
 #### 2. Adapting to Volatility Regime Changes
 
 **The Challenge:**
@@ -75,6 +134,13 @@ VaR adjustments lag behind changing market conditions, affecting your strategy's
 - Your positions are smaller than they should be
 - You miss potential profits until VaR recalibrates
 
+**Example -- Vol Spike (Flash Crash):**
+- Market drops 5% in one day
+- Your VaR explodes from 5% to 15%
+- Risk engine aggressively cuts leverage
+- Even if you correctly called the bounce, your DARWIN participates at reduced size
+- The recovery is dampened relative to your signal account
+
 #### 3. Maintaining Leverage Efficiency
 
 **The Goal:** Keep your VaR near the **6.5%** target to maximize leverage allocation.
@@ -90,6 +156,13 @@ VaR adjustments lag behind changing market conditions, affecting your strategy's
 - Higher performance fees due to larger AUM
 - Better DARWIN ratings and investor appeal
 - More consistent income stream
+
+**Practical tips for VaR stability:**
+1. **Diversify across timeframes** -- don't load all risk into one trade
+2. **Scale into positions** rather than entering full size immediately
+3. **Use correlated hedges** during high-vol events to cap VaR spikes
+4. **Monitor your rolling 20-day realized vol** -- when it approaches 6%, start trimming
+5. **Avoid revenge trading after drawdowns** -- erratic sizing destroys VaR stability
 
 #### 4. Using MarketWizardry Tools to Find VaR-Sensitive Symbols
 

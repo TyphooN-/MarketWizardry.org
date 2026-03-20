@@ -18,6 +18,40 @@ Key characteristics:
 
 ### How Darwinex Works
 
+```mermaid
+graph TD
+    subgraph Trader Side
+        T1["Trader trades own capital<br/>via Darwinex broker"] --> T2["Signal Account<br/>(raw trading performance)"]
+        T2 --> T3["12 Investment Attributes<br/>evaluated continuously"]
+        T3 --> T4{"Qualifies for<br/>DARWIN listing?"}
+        T4 -->|"Yes"| T5["DARWIN Created<br/>(investable asset)"]
+        T4 -->|"No"| T6["Keep trading,<br/>improve metrics"]
+        T6 --> T2
+    end
+
+    subgraph Risk Engine
+        T5 --> R1["VaR Normalization<br/>Target: 6.5% monthly"]
+        R1 --> R2["Dynamic Leverage<br/>Adjustment"]
+        R2 --> R3["Risk-Adjusted<br/>DARWIN Performance"]
+    end
+
+    subgraph Investor Side
+        R3 --> I1["DARWIN Marketplace<br/>browse & analyze"]
+        I1 --> I2["Investor allocates<br/>capital to DARWINs"]
+        I2 --> I3["Portfolio of DARWINs<br/>diversified exposure"]
+        I3 --> I4["Returns generated<br/>risk-normalized"]
+    end
+
+    subgraph Fee Structure
+        I4 --> F1["15% Performance Fee<br/>on investor profits"]
+        F1 --> F2["Trader receives fee<br/>as income stream"]
+    end
+
+    style T5 fill:#6f9,stroke:#333,stroke-width:2px
+    style R1 fill:#f96,stroke:#333,stroke-width:2px
+    style I4 fill:#69f,stroke:#333,stroke-width:2px
+```
+
 **For Traders:**
 1. Trade your own capital through Darwinex broker
 2. Get evaluated on **12 performance attributes**
@@ -59,6 +93,43 @@ Darwinex's proprietary risk engine is the secret sauce:
 
 Darwinex evaluates traders across **12 dimensions**:
 
+```mermaid
+graph LR
+    subgraph Risk Management
+        DC["Discipline (Dc)"]
+        RA["Risk Adjustment (Ra)"]
+        RS["Risk Stability (Rs)"]
+    end
+
+    subgraph Performance Quality
+        PF["Performance (Pf)"]
+        PS["Persistence (Ps)"]
+        EX["Experience (Ex)"]
+    end
+
+    subgraph Strategy Character
+        DV["Divergence (Dv)"]
+        DU["Duration (Du)"]
+        AC["Activity (Ac)"]
+    end
+
+    subgraph Behavioral
+        LA["Loss Aversion (La)"]
+        MC["Market Correlation (Mc)"]
+        OS["Negative Skew (Os)"]
+    end
+
+    Risk_Management --> SCORE["D-Score<br/>(Overall Rating)"]
+    Performance_Quality --> SCORE
+    Strategy_Character --> SCORE
+    Behavioral --> SCORE
+
+    SCORE --> CAP["Capacity Allocation<br/>(Max Investor Capital)"]
+
+    style SCORE fill:#f96,stroke:#333,stroke-width:2px
+    style CAP fill:#6f9,stroke:#333,stroke-width:2px
+```
+
 1. **Experience (Ex):** Track record length and consistency
 2. **Activity (Ac):** Trading frequency and market participation
 3. **Discipline (Dc):** Adherence to risk management rules
@@ -71,6 +142,27 @@ Darwinex evaluates traders across **12 dimensions**:
 10. **Persistence (Ps):** Consistency over time
 11. **Risk Adjustment (Ra):** VaR management effectiveness
 12. **Risk Stability (Rs):** Volatility of volatility
+
+**The attributes that matter most for allocation:** Dc, Ra, and Rs are the gateway attributes. Without strong risk management scores, your performance is irrelevant. Darwinex will not allocate investor capital to a trader who can't manage risk, period. This is the correct philosophy -- returns mean nothing if you blow up.
+
+### DarwinIA: The Trading Competition
+
+DarwinIA is Darwinex's monthly capital allocation competition. It's not your typical trading competition where the biggest return wins. Instead, DarwinIA allocates **real investor capital** to the best-performing DARWINs based on a holistic scoring system.
+
+**How DarwinIA Scoring Works:**
+- Evaluated over rolling periods (1, 3, 6, 12 months)
+- Performance is risk-adjusted (not raw returns)
+- Consistency matters more than occasional big wins
+- Risk management attributes weighted heavily
+- Capital is allocated proportionally to D-Score ranking
+
+**What makes DarwinIA different:** Traditional trading competitions reward cowboys who take maximum risk. DarwinIA rewards traders who generate consistent risk-adjusted returns. A trader with 15% annual return and 5% max drawdown will beat a trader with 50% return and 30% drawdown. This is by design -- it selects for traders who can manage institutional capital responsibly.
+
+**DarwinIA Capital Allocation Tiers:**
+- **Top performers:** Up to **$375K** in managed capital
+- **Mid-tier:** $100K-$200K allocations
+- **Entry level:** $40K-$60K allocations
+- Capital is performance-fee generating (15% of profits)
 
 ### DARWIN Marketplace Dynamics
 

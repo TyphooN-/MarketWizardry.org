@@ -2,7 +2,7 @@
 
 **Enterprise Value (EV)** is a comprehensive measure of a company's total value that represents the theoretical takeover price. Unlike market capitalization, which only considers equity value, EV accounts for the entire capital structure including debt, making it a more accurate representation of a company's true economic value.
 
-Think of EV as the price tag if you wanted to buy the entire company outright -- not just the shares, but the whole operation including its debts and obligations.
+Think of EV as the price tag if you wanted to buy the entire company outright -- not just the shares, but the whole operation including its debts and obligations. If market cap is "what stockholders own," EV is "what the whole business costs."
 
 ### Enterprise Value Formula
 
@@ -12,6 +12,34 @@ More detailed formula:
 
     EV = (Shares Outstanding × Stock Price) + Total Debt + Preferred Stock + Minority Interest - Cash - Short-term Investments
 
+```mermaid
+graph TD
+    A["Enterprise Value (EV)"] --> B["Market Capitalization<br/>Shares × Price"]
+    A --> C["+ Total Debt<br/>(Long-term + Short-term)"]
+    A --> D["+ Preferred Stock"]
+    A --> E["+ Minority Interest"]
+    A --> F["- Cash & Equivalents"]
+    A --> G["- Short-term Investments"]
+
+    B --> H["Example: 100M shares × $50 = $5.0B"]
+    C --> I["Example: $2.0B bonds + $500M credit facility"]
+    D --> J["Example: $200M preferred"]
+    E --> K["Example: $100M minority stake"]
+    F --> L["Example: -$1.5B cash on hand"]
+    G --> M["Example: -$300M T-bills"]
+
+    H --> N["EV = $5.0B + $2.5B + $200M + $100M - $1.5B - $300M"]
+    I --> N
+    J --> N
+    K --> N
+    L --> N
+    M --> N
+    N --> O["EV = $6.0 Billion"]
+
+    style A fill:#f96,stroke:#333,stroke-width:2px
+    style O fill:#6f9,stroke:#333,stroke-width:2px
+```
+
 ### Why Cash Is Subtracted
 
 Cash reduces the acquisition cost because:
@@ -20,7 +48,7 @@ Cash reduces the acquisition cost because:
 - It's immediately available to the acquirer
 - Reduces the net investment required
 
-**Example:** If you buy a company for **$100M** but it has **$20M** cash, your net cost is effectively **$80M**.
+**Example:** If you buy a company for **$100M** but it has **$20M** cash, your net cost is effectively **$80M**. You're paying $100M for the equity, but the first thing you can do as the new owner is pull $20M out of the company's bank account. Debt works the opposite way -- you're assuming liability for it.
 
 ### EV vs Market Cap
 
@@ -42,7 +70,7 @@ Company A: Market Cap **$1B**, No Debt, **$100M** Cash
 Company B: Market Cap **$800M**, **$300M** Debt, **$50M** Cash
 `EV = $800M + $300M - $50M = $1.05B`
 
-Company B is actually more expensive despite lower market cap.
+Company B is actually more expensive despite lower market cap. If you bought Company B, you'd pay $800M for the equity and then be on the hook for $300M in debt, minus $50M cash. That's $1.05B total. Company A costs $900M all-in despite its higher market cap. This is why EV matters -- market cap alone is deceptive.
 
 ### Key EV Applications
 
@@ -83,6 +111,32 @@ Most popular EV multiple because:
 - **Mature companies:** 8-15x
 - **Cyclical industries:** 5-12x
 - **Distressed situations:** 3-8x
+
+**Worked Example -- Comparing Two SaaS Companies:**
+
+| Metric | CloudCo | DataCo |
+|--------|---------|--------|
+| Market Cap | $10B | $8B |
+| Debt | $2B | $500M |
+| Cash | $1B | $3B |
+| **EV** | **$11B** | **$5.5B** |
+| EBITDA | $500M | $400M |
+| **EV/EBITDA** | **22.0x** | **13.75x** |
+
+CloudCo looks bigger by market cap, but DataCo is actually the better value play. DataCo's EV is only half of CloudCo's despite generating 80% as much EBITDA. DataCo's fortress balance sheet (low debt, high cash) makes it cheaper on an enterprise basis.
+
+**The lesson:** Always compare on EV multiples, never on P/E alone. P/E ignores the balance sheet entirely.
+
+### EV/Revenue: When Profits Don't Exist Yet
+
+For high-growth companies with no earnings, EV/Revenue is the go-to metric:
+
+- **< 5x EV/Revenue:** Potentially undervalued (if growth is strong)
+- **5-15x EV/Revenue:** Typical for healthy SaaS/growth companies
+- **15-30x EV/Revenue:** Premium growth -- better be growing 40%+ annually
+- **30x+ EV/Revenue:** Bubble territory unless the company is genuinely category-defining
+
+**The rule of 40:** A SaaS company's growth rate + profit margin should exceed 40%. A company growing at 50% with -10% margins (net = 40%) deserves a higher EV/Revenue than one growing at 20% with 15% margins (net = 35%).
 
 ### EV Calculation Challenges
 
@@ -173,6 +227,7 @@ Try our free EV Explorer tool: [EV Explorer](https://marketwizardry.org/ev-explo
 4. **Multiple Misapplication** -- Using inappropriate multiples for specific industries
 5. **Currency Confusion** -- Mixing different currencies without proper conversion
 6. **Timing Mismatch** -- Combining market data from different time periods
+7. **Ignoring dilution** -- Not accounting for options, warrants, and convertible debt that increase share count
 
 ### EV Investment Strategies
 
