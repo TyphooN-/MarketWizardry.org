@@ -300,6 +300,14 @@ function loadAnalysisContent(contentElement) {
             .then(text => {
                 // Parse markdown if parser is available, otherwise show plain text
                 if (typeof window.parseMarkdown === 'function') {
+                    // Replace <pre> with <div> for proper markdown rendering
+                    if (contentElement.tagName === 'PRE') {
+                        const div = document.createElement('div');
+                        div.id = contentElement.id;
+                        div.className = contentElement.className;
+                        contentElement.parentNode.replaceChild(div, contentElement);
+                        contentElement = div;
+                    }
                     contentElement.innerHTML = window.parseMarkdown(text);
                 } else {
                     contentElement.textContent = text;
