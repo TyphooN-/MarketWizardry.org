@@ -51,7 +51,7 @@ h1 {
     width: 100%;
     height: 100%;
     height: 100dvh;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: #000;
     z-index: 10000;
     overflow-y: auto;
     justify-content: center;
@@ -489,12 +489,18 @@ del {
 }
 
 /* Modal body with rendered markdown - remove pre formatting */
+.modal-body #analysisContent,
+.modal-body pre,
+.modal-body div {
+    background-color: #000;
+}
 .modal-body #analysisContent {
     white-space: normal;
     font-family: "Courier New", monospace;
     color: #00ff00;
     padding: 15px;
     overflow: visible;
+    background-color: #000;
 }
 
 /* First header in modal content - no top margin */
