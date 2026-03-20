@@ -167,51 +167,53 @@ In Quake, Quad Damage multiplies your weapon output by **4x** for a limited time
 
 QRRP does the same thing. The strategy does not change between phases. TRIM still fires the same way. PROTECT still balances the same way. But each cascade multiplies the lot count. Same formula. Same EA. Exponentially more output.
 
-- **Phase 1:** Normal damage (6,747 lots)
-- **Phase 2:** Double damage (26,122 lots)
-- **Phase 3:** Quad damage (73,497 lots)
+- **Phase 1:** Normal damage (~6,500 lots)
+- **Phase 2:** Double damage (23,125 lots)
+- **Phase 3:** Quad damage (65,000 lots)
 - **Phase 4:** Ride the Quad to $0
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
 
-## Current Position (2026-03-19 — Live)
+## Current Position (2026-03-20 — Live)
 
-The position is active and grinding. Actual EA data:
+The position is active. Fresh MG opened at $0.99 — maximum aggression before the drop. Self-healing via PROTECT will stabilize the position. Actual EA data:
 
 | | Value |
 |---|---|
-| **Bias (shorts)** | **6,747** |
-| **Hedge (longs)** | **~5,779** |
-| **Net short** | **~968** |
-| **Equity** | **$45,779** |
-| **Spread tolerance** | **$3.66/lot (SAFE)** |
-| **SOL price** | **~$88.92** |
+| **Bias (shorts)** | **20,516** (pre-heal) → **~6,500** (post-heal est.) |
+| **Hedge (longs)** | **~19,710** → **~5,700** (post-heal est.) |
+| **Net short** | **~806** → **~800** (post-heal est.) |
+| **Equity** | **$38,931** → **~$31K** (post-heal est.) |
+| **Spread tolerance** | **$0.97** → **~$2.54** (post-heal est.) |
+| **SOL price** | **~$89.73** |
 | **TRIM** | 54.2% / PROTECT 51% |
+
+**$100K → $47K (Day 1) → $39K (Day 2). 61% thermal budget consumed. Overclock to the max before the initial drop. QRRP all the way.**
 
 **Full cascade timeline with expected SOL prices:**
 
 | Phase | SOL Price | Action | Bias Lots | Equity |
 |---|---|---|---|---|
-| **1 (NOW)** | $88.92 → $41 | TRIM grind | 6,747 | $46K → $155K |
-| **2** | $41 → $23 | New MG $8.00 | 26,122 | $155K → $379K |
-| **3** | $23 → $15 | New MG $8.00 | 73,497 | $379K → $650K |
-| **4** | $15 → $0 | Ride pure short | 73,497 | $650K → **$1,752K** |
+| **1 (NOW)** | $89.73 → $40 | Self-heal + TRIM grind | ~6,500 | ~$31K → $133K |
+| **2** | $40 → $23 | New MG $8.00 | 23,125 | $133K → $335K |
+| **3** | $23 → $15 | New MG $8.00 | 65,000 | $335K → $590K |
+| **4** | $15 → $0 | Ride pure short | 65,000 | $590K → **$1,565K** |
 
-Seven post-mortems. $100K degraded to $46K. Position self-healed via PROTECT to clean operation ($3.66 spread tolerance). TRIM grinding 1 lot at a time. All timeframes bearish. SOL dropping.
+**~$31K → $1.57M = 50x return.** Seven post-mortems. $100K degraded to $31K — 69% thermal budget consumed without running the benchmark. But the cascade math still produces 50x because the strategy doesn't need a golden sample. It needs stable cores and time. QRRP all the way.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
-The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor. The silicon started at $100K, degraded to $46K — half the die is scarred.
+The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor. The silicon started at $100K, degraded to $31K — 69% of the die is scarred. The operator opened at $0.99 for maximum aggression before the drop. Overclock to the max. QRRP all the way.
 
 **The flip to long is a full RMA.** Not a repair. Not new thermal paste. Intel is sending you a brand new processor — except this one is a higher SKU than what you originally bought.
 
 | | Short Phase (degraded) | Long Phase (restored) | Multiplier |
 |---|---|---|---|
-| Starting equity | $46K | $1,752K | **38x more silicon** |
-| Open MG $8.00 lots/side | 6,747 | ~218,750 | **32x more cores** |
+| Starting equity | ~$31K | $1,565K | **50x more silicon** |
+| Open MG $8.00 lots/side | ~6,500 | ~195,625 | **30x more cores** |
 | Price range to ride | $89 → $0 | $5 → $200+ | $195 vs $89 |
 | Profit per lot at target | $89 | $195 | **2.2x per core** |
-| Theoretical at target | $1.75M | **$50M+** | **29x** |
+| Theoretical at target | $1.57M | **$50M+** | **32x** |
 
 The degradation was temporary. The restoration is permanent.
 
