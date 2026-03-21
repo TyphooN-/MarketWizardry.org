@@ -1,4 +1,4 @@
-## TyphooN-Terminal: 44K Lines of Rust in 5 Days -- Building a Bloomberg Killer on Open Source
+## TyphooN-Terminal: 56K Lines of Rust in 6 Days -- Building a Bloomberg Killer on Open Source
 
 > **DISCLAIMER:** This is a technical post-mortem of a software development sprint. The author is not affiliated with Bloomberg, Godel Technologies, MetaQuotes, or any terminal vendor mentioned. Opinions on proprietary trading software are exactly that -- opinions formed after years of paying for tools that should have been open source from the start.
 
@@ -6,9 +6,9 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped in **4.7 days**. March 15 to March 19, 2026. **218 commits**. **45,500 lines of code**. Approximately **46 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **258 commits**. **56,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
-This is not a mockup. This is not a demo. This is a fully functional trading terminal with **288** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, and enough research tools to make a sell-side analyst uncomfortable.
+This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
 **Apache 2.0. Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
 
@@ -57,9 +57,9 @@ Rust eliminates entire categories of bugs at compile time. Memory safety without
 
 ## What Was Built: The Numbers
 
-In **4.7 days**, TyphooN-Terminal shipped with:
+In **6 days**, TyphooN-Terminal shipped with:
 
-### 288 Bloomberg-Style Commands (Ctrl+K Palette)
+### 298 Bloomberg-Style Commands (Ctrl+K Palette)
 
 Every function accessible via keyboard. Type what you want, hit enter. No menu diving. No mouse hunting. Bloomberg proved this UX pattern works for professional traders thirty years ago. Everyone else ignored it.
 
@@ -121,9 +121,9 @@ The same four modes from the MQL5 EA, mapped to Alpaca Markets order types. Risk
 
 The risk engine port is the bridge from Darwinex to Alpaca Markets. Same math. Same logic. Different broker. No more MetaQuotes dependency. No more Windows-only constraint. No more praying that Wine handles MT5 correctly on Linux.
 
-## The Speed: 218 Commits in 4.7 Days
+## The Speed: 258 Commits in 6 Days
 
-Let me contextualize what **46 commits per day** means.
+Let me contextualize what **43 commits per day** means.
 
 A typical professional software team ships maybe **2-5** meaningful commits per developer per day. Senior engineers at FAANG companies might push **3-8**. A focused solo developer on a deadline might hit **10-15**.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**218 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in under five days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**258 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -386,6 +386,58 @@ Shipping fast means nothing if the software crashes in production. TyphooN-Termi
 
 **602/602 smoke tests pass.** The test suite covers command execution, indicator calculation accuracy, order type validation, API response parsing, cache coherence, and UI state transitions. Every commit runs the full suite. No exceptions.
 
+## MT5 Direct SQLite Sync: Zero-Copy Bar Data From Every Darwinex Account
+
+The original MT5 integration used CSV exports. Export from MetaTrader, parse in Rust, store in SQLite. Three steps, file I/O overhead, and manual intervention every time you wanted fresh data. That pipeline is dead.
+
+TyphooN-Terminal now reads MT5's SQLite database **directly**. A custom MQL5 Expert Advisor (**BarCacheWriter.mq5**) writes OHLCV bars to a shared SQLite database in WAL mode. The Rust backend reads the same database file -- zero CSV parsing, zero file I/O intermediary, zero manual export steps. BarCacheWriter writes. TyphooN-Terminal reads. Same database. Different processes. WAL mode handles the concurrency.
+
+**Multi-Instance Sync Across All Darwinex Accounts**
+
+Running six DARWINs means running multiple MT5 instances -- Futures, Crypto, CFD, Stocks/ETFs. Each instance has its own BarCacheWriter database. `find_all_mt5_sqlite_dbs()` discovers every `typhoon_mt5_cache.db` across all `.mt5_*` instance directories and merges them into the terminal's unified cache. Each Darwinex account type contributes unique symbols. No conflicts. No duplicates. One sync command pulls **895 symbols** across all accounts simultaneously.
+
+**Symbol Normalization:** MT5 names like `SOLUSD`, `EURUSD`, `XAUUSD` are normalized at every import boundary -- `SOL/USD`, `EUR/USD`, `XAU/USD`. Crypto, forex, metals all get slash-separated pairs. Indices like `US30` and `DE40` stay as-is. The terminal speaks the same symbol language as Alpaca regardless of where the data originated.
+
+**Live Sync Progress UI:** The sync window shows real-time progress with per-category status bars -- Forex, Crypto, Commodities, Indices, Healthcare, Technology, and more. Each category displays complete, partial, and pending counts. The sync runs continuously with live updates instead of one-shot import. Green bars fill as symbols sync. The UI never freezes because all heavy operations run on `spawn_blocking` threads outside the Tauri state lock.
+
+![MT5 SQLite Direct Sync -- 895 symbols syncing across 3 Darwinex instances with per-category progress bars](/img/mt5-sqlite-sync.webp)
+
+After sync completes, the window shows per-category completion status with every symbol accounted for. Sync #1211 below pulled **2,926,150 total bars** from 2 of 3 Darwinex instance databases -- 47 symbols, 773 bar entries synced, with commodities (21), crypto (7), indices (7), and forex in progress. The continuous sync loop keeps running, picking up new bars as BarCacheWriter writes them.
+
+![MT5 SQLite Sync complete -- 47 symbols, 773 bar entries, 2.9M total bars from 2/3 Darwinex databases](/img/mt5-sqlite-sync-complete.webp)
+
+**BarCacheWriter Optimizations (v1.200):**
+- CSV format instead of JSON -- **60% smaller** payloads, O(n) string construction
+- Incremental writes -- tracks last bar time per symbol:TF, skips unchanged data (**90% less I/O**)
+- Full export only on initialization, incremental 100 bars/TF after
+- 30-second update interval (was 10s), configurable
+
+**The pipeline reduction:** What was CSV export → file discovery → parse → validate → store is now SQLite read → validate → store. Two fewer steps. No human intervention. The sync runs in the background while you trade.
+
+## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
+
+The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, Crypto Explorer) served their purpose -- browser-based outlier analysis from static CSV data. But static CSVs go stale the moment they are generated. The terminal has live data. The explorers belong in the terminal.
+
+**6 new Ctrl+K commands replace the web explorers entirely:**
+
+**VAROUT** -- VaR Outlier Scanner. Scans all available symbols, groups by sector, runs IQR (1.5x interquartile range) outlier detection on VaR/Price ratios. Results display as a ranked table with clickable symbols and Z-scores. The symbols with statistically extreme risk profiles surface instantly.
+
+**ATROUT** -- ATR Volatility Outlier Scanner. Same IQR methodology applied to ATR/Price ratios. Identifies symbols with abnormal volatility relative to their sector peers.
+
+**EVOUT** -- Enterprise Value Scanner. Market cap to enterprise value ratios, balance sheet scoring. Finds companies where the market's valuation diverges significantly from the underlying asset value.
+
+**CRYPTORISK** -- Crypto Risk Analysis. Multi-metric analysis including ATR volatility tiers, VaR levels, and advanced ratios across all available crypto symbols. Pulls from both Alpaca crypto data and MT5 crypto CFDs when available.
+
+**OUTLIERS** -- Combined tabbed report. Launches any scanner from a tabbed interface. Switch between VaR, ATR, EV, and crypto outliers without re-running the analysis.
+
+**SCREEN** -- Multi-Factor Screener. Cross-references VaR and ATR to find dual outliers -- symbols that are extreme on multiple risk dimensions simultaneously. These are the symbols that deserve attention because they are anomalous on more than one axis.
+
+**The Rust backend does the math:** `calculate_atr()` computes Average True Range from OHLC bars. `detect_outliers()` runs IQR-based outlier detection with sector grouping and Z-score classification. `OutlierResult` and `SectorStats` structs provide structured output. All computation happens in compiled Rust -- no JavaScript number crunching, no CSV parsing in the browser.
+
+**DARWINEX Command:** Runs a full analysis pipeline across ALL imported MT5 symbols. Sector classification (Forex/Crypto/Indices/Commodities/Stocks), dual-metric outliers (VaR x ATR), per-sector IQR statistics, top 20 most extreme outliers by Z-score, and crypto risk tiers. One command gives you the complete risk landscape of your Darwinex universe.
+
+`gatherScanSymbols()` unifies symbol collection from positions + watchlist + MT5 cache. All 6 scanner commands automatically include Darwinex data when available. The web explorers are legacy. The terminal scanners are live.
+
 ## Open Source: Why This Matters
 
 Proprietary trading terminals are a tax on retail traders. Bloomberg charges institutional prices because institutions will pay. Godel charges subscriptions because traders are conditioned to accept recurring costs for essential tools. MetaTrader is "free" because MetaQuotes monetizes the ecosystem through broker partnerships and marketplace fees.
@@ -394,7 +446,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**45,500 lines of Rust. 218 commits. 4.7 days. GUI + CLI + 288 commands + 39 indicators + 602 tests + 21 free APIs.** One developer who got tired of paying rent on tools that should be free.
+**56,000+ lines of Rust. 258 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 602 tests + 21 free APIs + 895-symbol MT5 sync.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
@@ -527,7 +579,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 | Terminal | Cost | Open Source | Assets | Algo | GPU Charts | Binary Size | US Available |
 |---|---|---|---|---|---|---|---|
-| **TyphooN-Terminal** | **Free** | **Yes (Apache 2.0)** | Stocks, options, crypto | **288 commands** | **Yes** | **~15MB** | **Yes** |
+| **TyphooN-Terminal** | **Free** | **Yes (Apache 2.0)** | Stocks, options, crypto + MT5 sync | **298 commands** | **Yes** | **~15MB** | **Yes** |
 | MetaTrader 5 | Free | No | Forex, CFDs, stocks | MQL5 | No | ~50MB | Limited |
 | TradingView | $0-60/mo | No | Charts only | Pine Script (no exec) | No (canvas) | ~200MB | Yes |
 | Thinkorswim | Free | No | Stocks, options, futures | thinkScript (limited) | No | ~1GB+ | Yes |
@@ -542,7 +594,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 | Webull | Free | No | Stocks, options, crypto | OpenAPI | No | ~150MB | Yes |
 | tastytrade | Free | No | Stocks, options, futures | REST API | No | ~100MB | Yes |
 
-**TyphooN-Terminal is the only open-source trading terminal with real brokerage integration, GPU-accelerated charts, and a built-in risk management engine.** Every other free option is either closed-source (Webull, IBKR Lite), web-based (TradingView), research-only (Godel free tier), or locked to Windows (NinjaTrader, Sierra Chart, Quantower).
+**TyphooN-Terminal is the only open-source trading terminal with real brokerage integration, GPU-accelerated charts, direct MT5 database sync, built-in outlier scanners, and a built-in risk management engine.** Every other free option is either closed-source (Webull, IBKR Lite), web-based (TradingView), research-only (Godel free tier), or locked to Windows (NinjaTrader, Sierra Chart, Quantower).
 
 -- TyphooN
 
