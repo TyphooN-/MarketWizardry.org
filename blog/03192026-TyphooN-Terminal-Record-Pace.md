@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **258 commits**. **56,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **260 commits**. **56,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**258 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**260 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -405,6 +405,15 @@ Running six DARWINs means running multiple MT5 instances -- Futures, Crypto, CFD
 After sync completes, the window shows per-category completion status with every symbol accounted for. Sync #1211 below pulled **2,926,150 total bars** from 2 of 3 Darwinex instance databases -- 47 symbols, 773 bar entries synced, with commodities (21), crypto (7), indices (7), and forex in progress. The continuous sync loop keeps running, picking up new bars as BarCacheWriter writes them.
 
 ![MT5 SQLite Sync complete -- 47 symbols, 773 bar entries, 2.9M total bars from 2/3 Darwinex databases](/img/mt5-sqlite-sync-complete.webp)
+
+Full sync across all 3 Darwinex instances: **895 symbols**, **8,131 bar entries** synced. Every sector fully populated -- Basic Materials (35), Commodities (44), Communication Services (25+3 pending), Consumer Cyclical (100+3 pending), Consumer Defensive (42), Crypto Currency (7), Financial (172+21 pending), Forex (41+6 pending), Healthcare (96+1 pending), Indices (11), Industrials (110+2 pending), Other (11), Real Estate (8), Technology (120+4 pending), Utilities (29+1 pending). The sync idles at **"no changes"** when BarCacheWriter has nothing new, consuming zero resources until fresh bars arrive.
+
+![MT5 SQLite Sync -- 895 symbols, 8131 bar entries synced across all 3 Darwinex instances with full per-category and per-symbol breakdown](/img/mt5-sync-895-symbols.webp)
+
+**OOM Guards and Sync Safety:**
+- **Sync mutex** via `AtomicBool` prevents concurrent background + foreground syncs from doubling memory usage
+- **100-entry cap** per sync cycle -- excess entries are deferred to the next cycle, preventing memory spikes on initial sync of large databases
+- **Mtime fast-path:** Before scanning metadata, the sync checks filesystem modification times on all MT5 databases. If nothing changed since last cycle, it skips the entire metadata scan -- zero allocations, zero database reads. The UI shows "idle (no changes)" during fast-path skips
 
 **BarCacheWriter Optimizations (v1.200):**
 - CSV format instead of JSON -- **60% smaller** payloads, O(n) string construction
