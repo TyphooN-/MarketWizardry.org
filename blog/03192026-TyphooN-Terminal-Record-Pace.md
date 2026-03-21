@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **260 commits**. **56,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **262 commits**. **56,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**260 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**262 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -414,6 +414,10 @@ Full sync across all 3 Darwinex instances: **895 symbols**, **8,131 bar entries*
 - **Sync mutex** via `AtomicBool` prevents concurrent background + foreground syncs from doubling memory usage
 - **100-entry cap** per sync cycle -- excess entries are deferred to the next cycle, preventing memory spikes on initial sync of large databases
 - **Mtime fast-path:** Before scanning metadata, the sync checks filesystem modification times on all MT5 databases. If nothing changed since last cycle, it skips the entire metadata scan -- zero allocations, zero database reads. The UI shows "idle (no changes)" during fast-path skips
+- **Rayon threshold:** Parallel compression via rayon only kicks in at 32+ entries per cycle. For typical incremental syncs (~9 entries/cycle), sequential compression is faster because rayon's thread pool overhead exceeds the parallelism benefit
+- **Progress event throttling:** `mt5-sync-progress` IPC events fire every 10th entry instead of every entry -- **~90% reduction** in frontend IPC traffic during large syncs
+- **Cached symbol normalization:** `normalize_mt5_symbol()` results are cached in a static `HashMap`. Repeated normalization of the same MT5 symbol (which happens every 30-second sync cycle) hits the cache instead of re-running string comparisons
+- **Covering index:** `idx_bar_meta` index on the SQLite cache enables metadata-only scans without touching bar data pages. Metadata queries (cache age checks, symbol enumeration) run faster because the index covers the query entirely
 
 **BarCacheWriter Optimizations (v1.200):**
 - CSV format instead of JSON -- **60% smaller** payloads, O(n) string construction
@@ -422,6 +426,12 @@ Full sync across all 3 Darwinex instances: **895 symbols**, **8,131 bar entries*
 - 30-second update interval (was 10s), configurable
 
 **The pipeline reduction:** What was CSV export → file discovery → parse → validate → store is now SQLite read → validate → store. Two fewer steps. No human intervention. The sync runs in the background while you trade.
+
+**MT5 as Master Data Source (ADR-037):** MT5 is now the authoritative data source for every symbol it covers. No more merge complexity between MT5 and Alpaca -- if MT5 has the symbol, MT5 wins. The deepest history always takes priority. Alpaca is the fallback for symbols MT5 does not have. The frontend's `cachedGetBars` uses a 5-second rapid dedup window instead of per-timeframe staleness checks (which could defer up to 7 days), ensuring the backend's MT5-first logic always runs. When background MT5 sync imports new bars, the in-memory cache is invalidated and the chart reloads automatically -- no manual refresh needed.
+
+**UI State Persistence:** Every panel toggle -- news, indicators, log, watchlist, positions, orders -- saves session state immediately. Indicator checkbox changes, article opens, and watchlist collapse state all persist. Close the terminal and reopen it: everything is exactly where you left it.
+
+**Auto-Fib Labels:** Fibonacci retracement levels now display text labels with both the ratio and the computed price level (e.g., "61.8% (25.30)"). No more eyeballing where a fib level lands on the price axis.
 
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
