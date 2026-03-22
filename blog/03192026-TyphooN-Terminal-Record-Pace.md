@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **263 commits**. **59,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **264 commits**. **59,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**263 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**264 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -443,15 +443,20 @@ Six DARWINs means six separate Darwinex accounts, each with its own trade histor
 
 **Portfolio-Level Commands (13):** The `DARWINS` command launches a combined portfolio dashboard across all imported DARWINs. Cross-DARWIN position exposure, aggregate equity curves, and combined analytics in one view.
 
-**VaR Analytics Suite:**
-- Historical VaR at **95%** and **99%** confidence intervals
-- CVaR (Conditional Value at Risk) -- expected loss beyond the VaR threshold
-- Sharpe, Sortino, and Calmar ratios
-- Rolling VaR metrics over configurable windows
-- Cross-DARWIN correlation matrix -- how correlated are your six strategies?
-- Monthly returns breakdown
+**DARWINS Risk Analytics Dashboard:**
 
-This is the complete Darwinex analytics pipeline: XLSX import → deal parsing → open position reconstruction → per-account analysis → portfolio-level risk metrics. What previously required a spreadsheet and manual calculation now runs as two Ctrl+K commands.
+The `DARWINS` command is a full risk analytics dashboard with six tabbed views:
+
+- **Portfolio VaR:** VaR 95%/99%, CVaR, Sharpe, Sortino, Calmar ratios with a per-DARWIN comparison table. See which DARWINs contribute the most risk at a glance.
+- **Drawdown Chart:** Portfolio drawdown over time with per-DARWIN current/max drawdown and recovery factor. Canvas-rendered area chart shows exactly when and how deep each drawdown went.
+- **Rolling VaR:** 60-day rolling VaR 95%/99% and rolling Sharpe ratio plotted over time. Spot regime changes in portfolio risk before they become problems.
+- **Monthly Heatmap:** Color-coded monthly returns grid -- combined portfolio and per-DARWIN breakdown. Green months, red months, the full picture at a glance.
+- **P&L Distribution:** Histogram with VaR lines overlaid, plus skew, kurtosis, and win/loss day statistics. Know whether your returns distribution has fat tails.
+- **Correlation Matrix:** Cross-DARWIN correlation with color coding -- green means diversified, red means redundant. If two DARWINs are 0.9 correlated, one of them is not adding value.
+
+All charts use a reusable `drawChart()` canvas helper for consistent line/area rendering across the dashboard.
+
+This is the complete Darwinex analytics pipeline: XLSX import → deal parsing → open position reconstruction → per-account analysis → portfolio-level risk dashboard. What previously required a spreadsheet and manual calculation now runs as two Ctrl+K commands.
 
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
