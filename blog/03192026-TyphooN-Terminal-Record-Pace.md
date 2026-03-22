@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **279 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **280 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**279 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**280 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -560,7 +560,27 @@ The analytics engine expanded again with 12 more modules, bringing `darwin.rs` t
 
 **Benchmark Comparison:** Alpha, beta, information ratio, and tracking error against benchmark indices. How much of your return is skill versus market exposure?
 
-The DARWIN command now has **18 views**. The DARWINS command has **25 views**. Combined with the per-account analysis, the terminal provides deeper analytics than most institutional risk platforms charge five figures a year for.
+The DARWIN command now has **18 views**. The DARWINS command has **33 views**. Combined with the per-account analysis and **5,400+ lines** of Rust in `darwin.rs`, the terminal provides deeper analytics than most institutional risk platforms charge five figures a year for.
+
+## Daily Report, Tax Lots, and Cross-Account Intelligence
+
+The final analytics push completes every remaining view:
+
+**Daily Risk Report:** One-screen portfolio snapshot -- current regime badge, total equity, P&L, VaR, drawdown, top gainers/losers, active alerts. The morning briefing that replaces checking six separate account dashboards.
+
+**Tax Lot Tracking:** FIFO cost basis calculation with short-term versus long-term capital gains classification. Interactive account and year selector with gain/loss summary. Tax season solved by a Ctrl+K command.
+
+**Cross-Account Timing Divergence:** Detects when multiple DARWINs entered the same symbol at different times and prices. If two accounts opened EURUSD three hours apart at different prices, the divergence analysis quantifies the spread and flags concentration risk.
+
+**Regime Performance:** Per-DARWIN Sharpe ratio comparison across LOW, MEDIUM, and HIGH volatility regimes. Know which DARWINs thrive in crisis and which ones only perform in calm markets.
+
+**Investor Flow:** AuM and investor count charts from FTP data, per-DARWIN and portfolio-level. Track when capital enters and exits each strategy over time.
+
+**D-Score Components:** All 8 Darwinex investability scores color-coded -- experience, risk management, consistency, and more. Per-DARWIN and portfolio aggregate views.
+
+**Low-Correlation Finder:** Scans the FTP for DARWINs that are uncorrelated with your current portfolio, ranked by correlation and Sharpe. The diversification discovery tool.
+
+**Benchmark Comparison:** Alpha, beta, tracking error, and information ratio against benchmark indices. Decompose your returns into skill and market exposure.
 
 ## Risk Simulation and Portfolio Optimization
 
