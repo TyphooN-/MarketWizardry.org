@@ -174,32 +174,50 @@ QRRP does the same thing. The strategy does not change between phases. TRIM stil
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
 
-## Current Position (2026-03-20 — Live)
+## Current Position (2026-03-21 — Live, Dual Account)
 
-The position is active. Fresh MG opened at $0.99 — maximum aggression before the drop. Self-healing via PROTECT will stabilize the position. Actual EA data:
+Both Darwinex accounts are now running QRRP on SOLUSD simultaneously. **Zero DARWINs.** All six DARWINs closed. The capital is consolidated into two pure QRRP accounts running MG_SHORT with identical EA parameters. No signal provider overhead. No DARWIN rating games. Just the cascade.
+
+**Account 1 (Crypto CFD):**
 
 | | Value |
 |---|---|
-| **Bias (shorts)** | **20,516** (pre-heal) → **~6,500** (post-heal est.) |
-| **Hedge (longs)** | **~19,710** → **~5,700** (post-heal est.) |
-| **Net short** | **~806** → **~800** (post-heal est.) |
-| **Equity** | **$38,931** → **~$31K** (post-heal est.) |
-| **Spread tolerance** | **$0.97** → **~$2.54** (post-heal est.) |
-| **SOL price** | **~$89.73** |
-| **TRIM** | 54.2% / PROTECT 51% |
+| **Short lots** | **13,900** |
+| **Long lots (hedge)** | **13,092** |
+| **Net short** | **808** |
+| **Equity** | **$37,944** |
+| **Balance** | **$34,493** |
+| **Margin** | **$72,389** |
+| **Margin level** | **52.4%** |
+| **TRIM / PROTECT** | 54.2% / 51.0% |
+| **Dead zone** | 51.0% – 54.2% |
 
-**$100K → $47K (Day 1) → $39K (Day 2). 61% thermal budget consumed. Overclock to the max before the initial drop. QRRP all the way.**
+**Account 2 (Futures/Stocks):**
 
-**Full cascade timeline with expected SOL prices:**
+| | Value |
+|---|---|
+| **Short lots** | **25,142** |
+| **Long lots (hedge)** | **23,215** |
+| **Net short** | **1,927** |
+| **Equity** | **$90,398** |
+| **Balance** | **$96,551** |
+| **Margin** | **$171,811** |
+| **Margin level** | **52.6%** |
+| **TRIM / PROTECT** | 54.2% / 51.0% |
+| **Dead zone** | 51.0% – 54.2% |
 
-| Phase | SOL Price | Action | Bias Lots | Equity |
+**Combined position:** **39,042 short** / **36,307 long** = **2,735 net SHORT**. Combined equity **$128,342**. Both accounts sitting in the dead zone (51.0%–54.2%) — EA does nothing until margin level crosses a threshold. TRIM fires above 54.2% to remove hedge longs. PROTECT fires below 51.0% for balanced closes.
+
+**Full cascade timeline with expected SOL prices (combined):**
+
+| Phase | SOL Price | Action | Net Short Lots | Combined Equity |
 |---|---|---|---|---|
-| **1 (NOW)** | $89.73 → $40 | Self-heal + TRIM grind | ~6,500 | ~$31K → $133K |
-| **2** | $40 → $23 | New MG $8.00 | 23,125 | $133K → $335K |
-| **3** | $23 → $15 | New MG $8.00 | 65,000 | $335K → $590K |
-| **4** | $15 → $0 | Ride pure short | 65,000 | $590K → **$1,565K** |
+| **1 (NOW)** | current → $40 | TRIM grind both accounts | ~2,735 → ~13,000 | $128K → $350K |
+| **2** | $40 → $23 | New MG $8.00 both accounts | ~46,000 | $350K → $750K |
+| **3** | $23 → $15 | New MG $8.00 both accounts | ~130,000 | $750K → $1.3M |
+| **4** | $15 → $0 | Ride pure short | ~130,000 | $1.3M → **$3.25M** |
 
-**~$31K → $1.57M = 50x return.** Seven post-mortems. $100K degraded to $31K — 69% thermal budget consumed without running the benchmark. But the cascade math still produces 50x because the strategy doesn't need a golden sample. It needs stable cores and time. QRRP all the way.
+**$128K → $3.25M = 25x return across two accounts.** Dual-socket QRRP. Two CPUs running the same stress test simultaneously. The cascade math compounds across both accounts independently — each one hits pure short at its own pace, each one cascades on its own equity curve. The combined output exceeds what a single $128K account could produce because the lot distribution is already diversified across two margin pools.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
@@ -207,13 +225,13 @@ The short cascade is running a CPU stress test with insufficient cooling. Every 
 
 **The flip to long is a full RMA.** Not a repair. Not new thermal paste. Intel is sending you a brand new processor — except this one is a higher SKU than what you originally bought.
 
-| | Short Phase (degraded) | Long Phase (restored) | Multiplier |
+| | Short Phase (dual-account) | Long Phase (restored) | Multiplier |
 |---|---|---|---|
-| Starting equity | ~$31K | $1,565K | **50x more silicon** |
-| Open MG $8.00 lots/side | ~6,500 | ~195,625 | **30x more cores** |
-| Price range to ride | $89 → $0 | $5 → $200+ | $195 vs $89 |
+| Starting equity | $128K (combined) | $3,250K | **25x more silicon** |
+| Open MG $8.00 lots/side | ~2,735 net → ~130K | ~406,000 | **3x more cores** |
+| Price range to ride | current → $0 | $5 → $200+ | $195 vs $89 |
 | Profit per lot at target | $89 | $195 | **2.2x per core** |
-| Theoretical at target | $1.57M | **$50M+** | **32x** |
+| Theoretical at target | $3.25M | **$105M+** | **32x** |
 
 The degradation was temporary. The restoration is permanent.
 
@@ -257,7 +275,7 @@ The next MG should be at **pure short (~$40 SOL) with Open MG $8.00**. Not befor
 
 QRRP is not a strategy for people who need to feel in control. It is a strategy for people who have been humbled enough times to trust the formula over their instincts.
 
-**~$31K to $1.57M** is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. The return multiplier increases as equity decreases — 50x on $31K vs 18.7x on $100K — because the cascade compounds from whatever base it is given.
+**$128K to $3.25M** across two accounts is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. Dual-socket QRRP — two accounts, zero DARWINs, pure cascade — compounds from whatever base it is given.
 
 The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every pure short checkpoint. Do not touch anything between checkpoints. Do not add voltage. Do not open MGs at entry price. Wait for pure short. Then cascade. Then flip long with 50x the silicon and do it again from the other direction.
 
