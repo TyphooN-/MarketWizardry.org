@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **270 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **271 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**270 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**271 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -428,6 +428,24 @@ Full sync across all 3 Darwinex instances: **895 symbols**, **8,447 bar entries*
 **Auto-Fib Labels:** Fibonacci retracement levels now display text labels with both the ratio and the computed price level (e.g., "61.8% (25.30)"). No more eyeballing where a fib level lands on the price axis.
 
 **Live Bid/Ask Sync from MT5:** BarCacheWriter now writes a `bid_ask` table alongside bar data. The MT5 sync pipeline reads these quotes and caches them as a JSON array via the `__MT5_QUOTES__` KV key. The frontend falls back to MT5 bid/ask when Alpaca quotes are unavailable -- displayed with a blue indicator to show the MT5 source. This means live quotes for **every symbol MT5 covers**, even when the Alpaca WebSocket has no subscription for that instrument. 895 symbols with live pricing without 895 WebSocket subscriptions.
+
+## Binance Crypto Data Source: Full History From 2017
+
+Alpaca's crypto history is shallow. MT5's crypto coverage depends on your broker. Binance has **every major crypto pair back to 2017** and a public API that requires no API key (1,200 requests/minute).
+
+New module `core/binance.rs` adds Binance as the third data source in a three-tier hierarchy:
+
+1. **MT5 (Darwinex)** -- weekday authority, deepest history for CFDs
+2. **Binance** -- fills weekend gaps, extends history from 2017, covers Binance-only symbols
+3. **Alpaca** -- live trading execution and US equities
+
+**Weekend Gap-Fill:** MT5 crypto CFDs don't trade on weekends. Binance does. The Binance fetcher fills those weekend gaps automatically. Your BTC/USD chart no longer has holes every Saturday and Sunday.
+
+**Any-Symbol Support:** Binance covers symbols that neither Darwinex nor Alpaca list. Symbol mapping handles the conversion (`BTC/USD` → `BTCUSDT`), timeframe mapping translates between terminal and Binance intervals.
+
+**BINANCE Command:** Backfill UI with single-symbol and batch modes. Batch mode backfills ALL crypto symbols across all timeframes from 2017 in one command. Results table shows bars fetched per symbol per timeframe.
+
+The crypto data gap is closed. Seven years of continuous crypto history, weekends included, from a source that never goes offline.
 
 ## DARWIN Import Pipeline: XLSX Trade History to Portfolio Analytics
 
