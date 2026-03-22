@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **277 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **279 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**277 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**279 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -447,7 +447,17 @@ New module `core/kraken.rs` adds Kraken as the third data source in a three-tier
 
 **Smart Incremental Sync:** First run does a full 2013→now fetch in a single pass, filling every weekend gap. Subsequent runs only do incremental forward fill from the latest cached bar. Two tracking keys (`kraken_full` and `kraken_sync`) ensure the full backfill only runs once per symbol:timeframe. Rate limit handling (4s between requests, 15s backoff + retry on 429) ensures the backfill completes without hammering Kraken. Reset Tracking button forces a full re-sync when needed. The frontend shows color-coded status per pair: green (new data), blue (already synced), amber (pending), red (error).
 
-The crypto data gap is closed. Thirteen years of continuous crypto history, weekends included. Binance was the original implementation but was replaced with Kraken due to US geo-blocking restrictions.
+**All 9 Timeframes Backfilled:** 1Min, 5Min, 15Min, 30Min, 1Hour, 4Hour, Daily, Weekly, Monthly -- all gap-filled from Kraken with smart depth limits per timeframe. 1Min goes back 30 days (avoids millions of bars), 5Min 90 days, 15Min 1 year, 30Min 2 years, 1Hour+ full history from 2013.
+
+**Weekend Auto-Poll:** The terminal detects when you are viewing a crypto symbol on a weekend (Friday 22:00 – Sunday 22:00 UTC) and automatically polls Kraken every 30 seconds. The chart cache invalidates and reloads with fresh data. Crypto charts stay live on weekends without manual intervention.
+
+**Bid/Ask Price Lines:** Green dashed line for bid, red dashed for ask, updated every 10 seconds from MT5 quotes. Works on all chart types including the MTF Grid. The spread is visible at a glance on every chart.
+
+**DARWIN Quote Charting:** Type any DARWIN ticker (e.g., `HAKR`) in the symbol bar to chart it. The terminal fetches synthetic OHLC from FTP RETURN data and renders it as a standard candlestick chart. Transparent fallthrough to normal chart loading if the ticker is not a DARWIN.
+
+**Auto-Reimport DARWIN XLSX:** A file watcher monitors `~/mt5xml/` for modified XLSX files and reimports them automatically every 60 seconds. Drop a fresh Darwinex trade history export into the folder and the terminal picks it up without any manual import step.
+
+The crypto data gap is closed. Thirteen years of continuous crypto history across all 9 timeframes, weekends included. Binance was the original implementation but was replaced with Kraken due to US geo-blocking restrictions.
 
 ## DARWIN Import Pipeline: XLSX Trade History to Portfolio Analytics
 
