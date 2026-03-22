@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **268 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **269 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**268 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**269 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -528,7 +528,25 @@ The analytics engine expanded again with 12 more modules, bringing `darwin.rs` t
 
 **Benchmark Comparison:** Alpha, beta, information ratio, and tracking error against benchmark indices. How much of your return is skill versus market exposure?
 
-The DARWIN command now has **18 views**. The DARWINS command has **19 views**. Combined with the per-account analysis, the terminal provides deeper analytics than most institutional risk platforms charge five figures a year for.
+The DARWIN command now has **18 views**. The DARWINS command has **25 views**. Combined with the per-account analysis, the terminal provides deeper analytics than most institutional risk platforms charge five figures a year for.
+
+## Risk Simulation and Portfolio Optimization
+
+The final analytics expansion pushes `darwin.rs` past **4,900 lines** with **120 unit tests** (602 smoke + 47 + 41 + 32 new):
+
+**Margin Call Simulator:** Monte Carlo simulation estimating the probability of margin call at 30 and 90 days. Uses historical return distributions to project thousands of equity paths forward. If the 30-day margin call probability exceeds 5%, you are overleveraged and the simulator tells you before the broker does.
+
+**Slippage Analysis:** Entry price versus deal execution price comparison, broken down by symbol and hour of day. Reveals systematic slippage -- are your fills consistently worse at certain times? Which symbols have the worst execution quality?
+
+**Optimal DARWIN Allocation:** Inverse-volatility weighting with Sharpe contribution analysis. Compares your current equal-weight allocation against the mathematically optimal allocation. Shows exactly how much each DARWIN contributes to portfolio Sharpe and which ones are dragging performance.
+
+**Conditional VaR:** VaR computed separately for LOW, MEDIUM, and HIGH volatility regimes. Standard VaR blends all market conditions together. Conditional VaR tells you your risk in calm markets versus your risk in crisis markets -- two very different numbers.
+
+**Market Regime Detection:** 20-day rolling volatility with automatic regime classification and regime history tracking. Know whether you are currently in a low-vol grind, a normal environment, or a high-vol crisis. The regime history timeline shows how long each regime lasted and when transitions occurred.
+
+**Exposure Treemap:** Hierarchical sector-to-symbol breakdown for treemap visualization. Sector-colored blocks with proportional sizing show portfolio concentration at a glance. Technology taking up half the treemap is impossible to miss.
+
+**What-If Simulator:** Interactive symbol input with real-time VaR impact calculation. Type a symbol, see how adding or removing it changes your portfolio's risk profile. Make allocation decisions with immediate feedback on their risk consequences.
 
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
@@ -562,7 +580,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**63,700+ lines of Rust. 268 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 675 tests + 21 free APIs + 895-symbol MT5 sync + 50+ DARWIN analytics functions + Monte Carlo VaR + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
+**63,700+ lines of Rust. 269 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
