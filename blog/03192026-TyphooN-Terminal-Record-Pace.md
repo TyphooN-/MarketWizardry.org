@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **275 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **277 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**275 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**277 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -445,7 +445,7 @@ New module `core/kraken.rs` adds Kraken as the third data source in a three-tier
 
 **SOURCES Command:** A unified data source manager with 5 views -- Overview (card-style display of all 4 data providers with status), MT5 (cached symbols with TF count, cache size, sync age), Alpaca (account status and portfolio info), Kraken Crypto (cached crypto with bar counts and one-click backfill), and Add from Kraken (live pair listing, click to fetch any symbol). One command to see every data source, its status, and what it covers.
 
-**Smart Incremental Sync:** Two-pass backfill -- backward fill extends history, forward fill catches new bars. Sync state is tracked per symbol:timeframe in the KV cache so already-synced pairs are skipped entirely. Rate limit handling (3s between requests, 10s backoff + retry on 429) ensures the backfill completes without hammering Kraken. The frontend shows color-coded status per pair: green (new data), blue (already synced), amber (pending), red (error).
+**Smart Incremental Sync:** First run does a full 2013→now fetch in a single pass, filling every weekend gap. Subsequent runs only do incremental forward fill from the latest cached bar. Two tracking keys (`kraken_full` and `kraken_sync`) ensure the full backfill only runs once per symbol:timeframe. Rate limit handling (4s between requests, 15s backoff + retry on 429) ensures the backfill completes without hammering Kraken. Reset Tracking button forces a full re-sync when needed. The frontend shows color-coded status per pair: green (new data), blue (already synced), amber (pending), red (error).
 
 The crypto data gap is closed. Thirteen years of continuous crypto history, weekends included. Binance was the original implementation but was replaced with Kraken due to US geo-blocking restrictions.
 
