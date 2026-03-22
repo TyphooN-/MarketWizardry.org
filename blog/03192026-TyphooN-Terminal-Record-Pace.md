@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **266 commits**. **61,600+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **267 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**266 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**267 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -480,6 +480,26 @@ The screener does not trust Darwinex's published metrics. It parses raw RETURN f
 
 This replaces manually browsing Darwinex's platform to find DARWINs worth following. One command. Configurable filters. 50K+ DARWINs scanned. Ranked by math, not marketing.
 
+## Advanced Risk Analytics: Monte Carlo, Stress Tests, Kelly Criterion
+
+The analytics suite went from "useful" to "institutional-grade" with six new analytical modules backed by **32 unit tests** and **2,900+ lines** of Rust in `darwin.rs`:
+
+**Monte Carlo VaR:** 10,000 simulated portfolio paths using historical return distributions. Instead of a single VaR number, you get a percentile distribution -- the 1st, 5th, 10th, 25th, 50th percentile outcomes across all simulated paths. This is how hedge funds estimate tail risk. Now it runs as a Ctrl+K view.
+
+**Stress Testing:** Six historical crash scenarios applied to your portfolio: **COVID crash** (March 2020), **Global Financial Crisis** (2008), **Rate Hike Shock** (2022), **Flash Crash** (May 2010), **Tech Wreck** (2000-2002), and **Crypto Winter** (2022). Each scenario shows projected portfolio impact based on your current positions and correlations. Know how your portfolio would have performed during every major crisis of the last 25 years.
+
+**Kelly Criterion:** Optimal position sizing computed from your actual win rate and payoff ratio. Kelly tells you the mathematically optimal percentage of capital to risk per trade. Overbetting degrades returns. Underbetting leaves money on the table. Kelly finds the edge.
+
+**Sector Exposure:** GICS-classified portfolio breakdown -- Technology, Healthcare, Financials, Energy, and every other sector. Visualizes concentration risk. If 60% of your portfolio is in Technology, the sector exposure chart makes it impossible to ignore.
+
+**VaR Forecast:** Linear trend projection of rolling VaR with threshold crossing estimates. If your VaR has been trending upward for 30 days, the forecast tells you when it will breach your risk limit at the current trajectory.
+
+**Trade Autocorrelation:** Lag-1, lag-2, lag-3, and lag-5 serial dependence tests on your trade returns. If your wins cluster (positive autocorrelation), your strategy has momentum. If your trades are serially independent, each trade is a fresh coin flip. The autocorrelation analysis tells you which one you are running.
+
+**DARWIN Price Series:** Synthetic OHLC candles constructed from FTP RETURN data at daily, weekly, and monthly resolution. View any DARWIN's equity curve as a candlestick chart -- the same way you view a stock. Spot trends, reversals, and consolidation patterns in DARWIN performance.
+
+All 32 unit tests pass against an in-memory SQLite test database covering table creation, account CRUD, open position reconstruction, VaR computation, daily/monthly returns, rolling VaR, equity curves, and every analytical module listed above.
+
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
 The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, Crypto Explorer) served their purpose -- browser-based outlier analysis from static CSV data. But static CSVs go stale the moment they are generated. The terminal has live data. The explorers belong in the terminal.
@@ -512,7 +532,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**61,600+ lines of Rust. 266 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 602 tests + 21 free APIs + 895-symbol MT5 sync + DARWIN portfolio analytics + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
+**63,700+ lines of Rust. 267 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 634 tests + 21 free APIs + 895-symbol MT5 sync + DARWIN portfolio analytics + Monte Carlo VaR + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
