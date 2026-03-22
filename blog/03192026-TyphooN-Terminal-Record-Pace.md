@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **264 commits**. **59,000+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **266 commits**. **61,600+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**264 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**266 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -452,6 +452,34 @@ All charts use a reusable `drawChart()` canvas helper for consistent line/area r
 
 This is the complete Darwinex analytics pipeline: XLSX import → deal parsing → open position reconstruction → per-account analysis → portfolio-level risk dashboard. What previously required a spreadsheet and manual calculation now runs as two Ctrl+K commands.
 
+## Trade Pattern Analytics
+
+Seven new per-DARWIN analytical views that answer the questions every trader asks but never quantifies:
+
+**Win/Loss Streaks:** Distribution chart of consecutive wins and losses. How long do your winning streaks run? How deep do your losing streaks go? The streak analysis exposes whether your strategy clusters wins or distributes them evenly.
+
+**Hourly P&L Heatmap:** P&L and win rate broken down by hour (0-23 UTC). Reveals which hours of the trading day are profitable and which are hemorrhaging money. If your win rate drops to 30% between 14:00-16:00 UTC, the heatmap makes it obvious.
+
+**Day-of-Week Breakdown:** Average P&L and win rate by day. Monday winners, Friday losers -- or the reverse. Pattern detection across the weekly cycle.
+
+**Hold Time Distribution:** Seven buckets from <1 hour to >4 weeks, with median, average, min, and max hold times. Are your best trades the quick scalps or the multi-week holds? The distribution answers empirically.
+
+**Position Sizing Efficiency:** Quartile analysis -- do larger positions perform better than smaller ones? If your top-quartile position sizes underperform your bottom quartile, your sizing model is backwards.
+
+**Commission & Swap Cost Analysis:** Cumulative costs, per-symbol breakdown, and costs as percentage of equity. The drag that nobody tracks until it has eaten 15% of their returns.
+
+**Cross-DARWIN Trade Overlaps:** Symbols held in multiple accounts simultaneously, with concentration risk warnings. If three DARWINs are all long EURUSD, that is not diversification -- it is concentrated exposure with extra commissions.
+
+## DARWIN RADAR: FTP Screener for 50K+ DARWINs
+
+The `RADAR` command scans Darwinex's FTP server to screen **all 50,000+ DARWINs** with configurable filters: minimum trading days, minimum return percentage, maximum drawdown percentage. Results are ranked by a composite score.
+
+The screener does not trust Darwinex's published metrics. It parses raw RETURN files for equity curves and independently computes Sharpe ratios and drawdown. It reads POSITIONS files to identify which symbols each DARWIN trades. The analysis is from primary data, not derived ratings.
+
+**Radar Snapshot Export:** Dumps MT5 specs to `~/mt5xml/radar/` for MarketWizardry.org compatibility. Symbol lifecycle tracking shows first/last trade dates, active months, and P&L per symbol for every DARWIN in the scan.
+
+This replaces manually browsing Darwinex's platform to find DARWINs worth following. One command. Configurable filters. 50K+ DARWINs scanned. Ranked by math, not marketing.
+
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
 The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, Crypto Explorer) served their purpose -- browser-based outlier analysis from static CSV data. But static CSVs go stale the moment they are generated. The terminal has live data. The explorers belong in the terminal.
@@ -484,7 +512,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**59,000+ lines of Rust. 263 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 602 tests + 21 free APIs + 895-symbol MT5 sync + DARWIN portfolio analytics.** One developer who got tired of paying rent on tools that should be free.
+**61,600+ lines of Rust. 266 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 602 tests + 21 free APIs + 895-symbol MT5 sync + DARWIN portfolio analytics + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
