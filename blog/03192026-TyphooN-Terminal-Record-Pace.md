@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **267 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **268 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**267 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**268 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -498,7 +498,37 @@ The analytics suite went from "useful" to "institutional-grade" with six new ana
 
 **DARWIN Price Series:** Synthetic OHLC candles constructed from FTP RETURN data at daily, weekly, and monthly resolution. View any DARWIN's equity curve as a candlestick chart -- the same way you view a stock. Spot trends, reversals, and consolidation patterns in DARWIN performance.
 
-All 32 unit tests pass against an in-memory SQLite test database covering table creation, account CRUD, open position reconstruction, VaR computation, daily/monthly returns, rolling VaR, equity curves, and every analytical module listed above.
+All **73 unit tests** pass (32 + 41 new) against an in-memory SQLite test database covering table creation, account CRUD, open position reconstruction, VaR computation, daily/monthly returns, rolling VaR, equity curves, and every analytical module listed above.
+
+## Complete Analytics Expansion: 50+ Functions, 4,200 Lines of Rust
+
+The analytics engine expanded again with 12 more modules, bringing `darwin.rs` to **4,200+ lines** with **50+ analytics functions**:
+
+**Seasonal Analysis:** Monthly return patterns across years with bar chart data. Average and median returns per month, plus best/worst year for each month. Reveals whether January is consistently your best month or if August is consistently deadly.
+
+**MAE/MFE Estimation:** Maximum Adverse Excursion and Maximum Favorable Excursion estimated from daily volatility and hold time. How far do your trades go against you before recovering? How far do they run in your favor before reversing? MAE/MFE separates good entries from bad ones.
+
+**What-If Simulator:** Portfolio VaR impact of closing a specific symbol. Before you exit a position, see how the portfolio's risk profile changes. If closing EURUSD increases your VaR because it was hedging other positions, the what-if tells you before you click.
+
+**Liquidity Risk:** Days-to-exit estimation by volume tier with risk classifications. If your position would take 15 days to unwind at normal volume, the liquidity risk module flags it. Concentration warnings included.
+
+**Tail Risk Dashboard:** Skewness, kurtosis, Ulcer Index, Omega ratio, gain-to-pain ratio, and fat tail warnings. Know whether your return distribution has the kind of tails that blow up accounts.
+
+**Trading Burst Detection:** Weekly trade clustering with intensity classification. Identifies periods of excessive trading activity -- the kind that usually correlates with emotional decision-making rather than strategy execution.
+
+**Position Pyramiding Analysis:** Detects scaling-in versus averaging-down behavior per symbol. Scaling into winners is a valid strategy. Averaging down into losers is a different thing entirely. The pyramiding analysis distinguishes the two.
+
+**Low-Correlation DARWIN Finder:** Scans the FTP for DARWINs that are uncorrelated with your current portfolio. The diversification tool that finds what you are missing.
+
+**Investor Flow Reader:** AuM (Assets under Management) and investor count from FTP INVESTMENT_CHART data. Track capital inflows and outflows over time.
+
+**D-Score Components:** Reads all 8 Darwinex investability scores from FTP. Experience, risk management, consistency, and more -- decomposed into individual components instead of a single opaque rating.
+
+**Alert System:** VaR breach, drawdown threshold, concentration risk, trade overlap, and correlation spike detection. Alerts fire with severity badges and color-coded thresholds. Risk monitoring that does not require staring at dashboards.
+
+**Benchmark Comparison:** Alpha, beta, information ratio, and tracking error against benchmark indices. How much of your return is skill versus market exposure?
+
+The DARWIN command now has **18 views**. The DARWINS command has **19 views**. Combined with the per-account analysis, the terminal provides deeper analytics than most institutional risk platforms charge five figures a year for.
 
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
@@ -532,7 +562,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**63,700+ lines of Rust. 267 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 634 tests + 21 free APIs + 895-symbol MT5 sync + DARWIN portfolio analytics + Monte Carlo VaR + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
+**63,700+ lines of Rust. 268 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 675 tests + 21 free APIs + 895-symbol MT5 sync + 50+ DARWIN analytics functions + Monte Carlo VaR + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
