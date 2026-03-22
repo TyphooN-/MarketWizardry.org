@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **284 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **289 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**284 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**289 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -453,7 +453,7 @@ New module `core/kraken.rs` adds Kraken as the third data source in a three-tier
 
 **Quake Console Toggle:** Backtick (`` ` ``) and tilde (`~`) toggle the command bar -- tap to focus and select all, tap again to dismiss. The same muscle memory as opening the Quake console. Capture phase handler prevents the character from typing into the input.
 
-**Weekend Auto-Poll:** The terminal detects when you are viewing a crypto symbol on a weekend (Friday 22:00 – Sunday 22:00 UTC) and automatically polls Kraken every 30 seconds. The chart cache invalidates and reloads with fresh data. Crypto charts stay live on weekends without manual intervention.
+**Weekend Auto-Poll:** The terminal detects when you are viewing a crypto symbol on a weekend (Friday 22:00 – Sunday 22:00 UTC) and automatically polls Kraken every 30 seconds. The chart cache invalidates and reloads with fresh data. Crypto charts stay live on weekends without manual intervention. Weekend candles render with a **blue tint** to visually distinguish Kraken-sourced bars from MT5 weekday bars -- you always know which data source painted each candle. A "Kraken (weekend)" badge appears in the chart header during off-hours.
 
 **Bid/Ask Price Lines:** Green dashed line for bid, red dashed for ask, updated every 10 seconds from MT5 quotes. Works on all chart types including the MTF Grid. The spread is visible at a glance on every chart.
 
