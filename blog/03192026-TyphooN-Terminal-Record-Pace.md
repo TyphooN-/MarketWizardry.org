@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **292 commits**. **63,700+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **293 commits**. **70,400+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**292 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**293 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -604,6 +604,42 @@ The final analytics expansion pushes `darwin.rs` past **4,900 lines** with **120
 
 **What-If Simulator:** Interactive symbol input with real-time VaR impact calculation. Type a symbol, see how adding or removing it changes your portfolio's risk profile. Make allocation decisions with immediate feedback on their risk consequences.
 
+## Indicator Parity Fixes, Multi-Symbol MTF Grid, and Performance
+
+Twelve indicator fixes across JS, WASM, Web Worker, and fallback paths: EMA SMA bootstrap, KAMA seed, Fisher median+window, MACD signal, DEMA, Bollinger NaN handling, ATR initial value, minBars enforcement, Ichimoku Chikou, BetterVolume 2-bar, Alligator shift, ForceIndex. Every indicator now produces identical output regardless of which execution path handles it.
+
+**Multi-Symbol MTF Grid:** The grid now supports multiple symbols simultaneously. View CC+SLV across H4+D1+MN1 in a single grid. GPU-first rendering with full `addLineSeries` wrapper. Sequential grid cell loading with `requestAnimationFrame` yields keeps the UI responsive during heavy multi-symbol loads.
+
+**get_bars_tail: 34x Faster MT5 Bar Serving.** The old path serialized entire bar arrays to JSON, round-tripped through IPC, and deserialized. The new path does a binary tail read from the SQLite cache -- direct binary slice, zero JSON overhead. MT5 sync no longer triggers a full chart reload either (was freezing the UI every 30 seconds).
+
+**Indicator Bar Cap:** Indicators compute on the most recent 1,000 bars. Full data is preserved for scrolling. This eliminates the case where a 10,000-bar chart causes 39 indicators to recompute on every pan, turning the GPU chart into a slideshow.
+
+## Backup, LAN Sync, and Credential Management
+
+**BACKUP-CREDS / RESTORE-CREDS:** AES-256-GCM encrypted credential backup to `.ttbackup` files. Export your API keys and broker credentials as a single encrypted file. Move between machines without re-entering keys.
+
+**BACKUP-DATA / RESTORE-DATA:** Full SQLite database and DARWIN data backup to `.ttfull` files. The complete terminal state -- bar cache, DARWIN analytics, settings -- in one portable archive.
+
+**LAN-SERVER / LAN-CLIENT / LAN-STATUS:** WebSocket-based LAN sync with HMAC authentication. Run the terminal on two machines and keep their data synchronized over the local network. The server pushes updates, the client receives them, HMAC prevents unauthorized connections.
+
+## Extended DARWIN Analytics
+
+Seven new DARWIN dashboard views:
+
+**DRAWDOWN:** Combined drawdown dashboard with SVG bar charts. Portfolio and per-DARWIN drawdown visualized side by side.
+
+**FLOATING:** Mark-to-market equity using live Alpaca quotes. Real-time portfolio valuation, not end-of-day snapshots.
+
+**REBALANCE:** Profit-only portfolio rebalancer with 45-day correlation window and 0.95 correlation threshold. Suggests allocation changes using only realized profits -- never touches principal.
+
+**VAR-MULTIPLIER:** Darwinex VaR corridor prediction (3.25-6.5% target range) using a blended 45-day + 6-month model. Predicts when your VaR will breach Darwinex's investability thresholds.
+
+**SYMBOL-OVERLAP:** Cross-DARWIN correlation heatmap. Visual heat grid showing which DARWINs are trading the same symbols with correlated timing.
+
+**DARWIN-TRADES:** Buy/sell arrows from deal history rendered directly on the chart. See exactly where every entry and exit occurred on the price action.
+
+**MT5-Style Margin Bar:** Balance, Equity, Margin, Free Margin, and Margin Level percentage displayed in a familiar MT5-format status bar at the bottom of the dashboard.
+
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
 The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, Crypto Explorer) served their purpose -- browser-based outlier analysis from static CSV data. But static CSVs go stale the moment they are generated. The terminal has live data. The explorers belong in the terminal.
@@ -636,7 +672,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**63,700+ lines of Rust. 269 commits. 6 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
+**70,400+ lines of Rust. 293 commits. 8 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + LAN sync + backup/restore + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
