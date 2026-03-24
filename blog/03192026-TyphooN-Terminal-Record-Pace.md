@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **293 commits**. **70,400+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **319 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**293 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**319 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -640,6 +640,28 @@ Seven new DARWIN dashboard views:
 
 **MT5-Style Margin Bar:** Balance, Equity, Margin, Free Margin, and Margin Level percentage displayed in a familiar MT5-format status bar at the bottom of the dashboard.
 
+## SEC Filing System: 27 Form Types, Insider Tracking, Auto-Alerts
+
+New module `sec_filing.rs` turns the terminal into an SEC EDGAR research platform:
+
+**27 form types tracked:** 10-K, 10-Q, 8-K, Form 3/4/5, SC 13D/G, 13F-HR, S-1/S-3/S-4, 424B, PREM14A, DEF14A, SC TO, 15-12B/G, CORRESP, 11-K, and amended/late filing variants. Each form type has an importance score (10-85) and category classification.
+
+**Form 4 XML Parser:** Extracts insider name, title, transaction type, shares, and price from Form 4 filings. The raw data that insider trading trackers charge subscriptions for, parsed locally from primary SEC data.
+
+**Auto-Alerts:** Activist accumulation (SC 13D), financial restatement (10-K/A), dilution risk (S-3/424B), delisting warning (15-12B), tender offers (SC TO), late filings, and SEC inquiry detection. Alerts fire automatically with severity classification.
+
+**SEC-SCANNER:** Filing dashboard with form type filters, importance bars, and one-click "Scrape Now." **INSIDER-TRACKER:** Insider trade aggregation with BUY/SELL color coding across all tracked symbols. **SEC-ALERTS:** Alert cards with dismiss and reason dropdown. **SEC-OVERLAY:** Filing event markers rendered directly on the price chart -- see exactly when an 8-K dropped relative to the price move.
+
+**EV-OUTLIER:** Market cap to enterprise value IQR outlier detection by industry -- the MarketWizardry.org EV Explorer, ported to Rust and running on live data.
+
+**Daily auto-scrape** runs on startup if more than 24 hours since the last run. Rate limited at 200ms between SEC requests. CIK lookups cached in SQLite.
+
+## Full Indicator Data and MTF Grid Improvements
+
+The 1,000-bar indicator cap is gone. Indicators now compute on **all bars** -- matching MT5 behavior exactly. WASM handles the heavy lifting (SMA, EMA, KAMA, RSI, ATR) while the backend serves up to 50,000 bars per request. Grid cells increased from 250 to 500 bars.
+
+**MTF Grid: Current Symbol vs All Tabs.** A radio toggle switches the grid between showing all timeframes for the current symbol or displaying all open tabs simultaneously. Live rebuild on toggle -- no page reload needed.
+
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
 The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, Crypto Explorer) served their purpose -- browser-based outlier analysis from static CSV data. But static CSVs go stale the moment they are generated. The terminal has live data. The explorers belong in the terminal.
@@ -672,7 +694,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**70,400+ lines of Rust. 293 commits. 8 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + LAN sync + backup/restore + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
+**73,100+ lines of Rust. 319 commits. 9 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + LAN sync + SEC EDGAR scraper + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
