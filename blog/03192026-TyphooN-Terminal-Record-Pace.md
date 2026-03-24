@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **366 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **369 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**366 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**369 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -707,6 +707,13 @@ This is the final architecture. The Tauri/WebKit version proved the feature set.
 - **Backtest engine:** SMA Cross + NNFX strategies, grid search optimizer, trade reports, equity curves
 - **Risk/margin engine:** risk lot calculator, margin monitor, max safe lots, PROTECT urgency
 - Session persistence, CSV export, OLED `#000000` theme, Quake console (`~`)
+- **Order Entry panel:** symbol, side, quantity, type (market/limit/stop/bracket), limit/stop/TP prices, risk preview with notional + ATR calculation
+- **Data Window:** floating panel showing all indicator values at cursor position, color-coded and auto-updating as the crosshair moves
+- **Price Alerts:** set alerts at any price with labels, triggered within 0.1% tolerance, managed from a dedicated Alerts panel
+- **Previous Candle Levels:** daily and weekly high/low rendered as dotted lines (white=daily, magenta=weekly)
+- **NNFX preset:** one command enables SMA200 + KAMA + Fisher + ATR Projection + Better Volume + Previous Levels -- the complete NNFX indicator suite in one click
+- **Per-DARWIN equity curves** rendered with egui_plot in each account detail section
+- **91 commands**, **32 windows**, **22 indicators**
 
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
