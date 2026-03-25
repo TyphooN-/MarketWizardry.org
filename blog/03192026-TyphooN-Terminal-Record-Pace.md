@@ -719,6 +719,40 @@ The architecture:
 - `native/` -- egui + wgpu native GPU application. The entire UI rendered at monitor refresh rate via adaptive vsync. 0fps when idle.
 - `mql5_compiler/` -- pest parser → AST → IR → WASM codegen for custom MQL5 indicators.
 
+### Why egui: Immediate Mode GUI on the GPU
+
+**egui** is an immediate-mode GUI library written in pure Rust. "Immediate mode" means the UI is rebuilt from scratch every frame -- there is no retained widget tree, no layout cache, no stale state. Every frame, the code says "draw a button here, a chart there, a table here" and the GPU renders it. If the data changed, the next frame reflects it automatically. There is no `setState()`, no `invalidate()`, no "why isn't my widget updating" debugging.
+
+This is the opposite of how every traditional GUI works. Qt, GTK, WinForms, Swing, Electron/React -- they all maintain a retained widget tree. You create widgets, attach them to a hierarchy, bind data to them, and then pray that the update propagation works correctly. Retained mode GUIs are complex because state synchronization between data and widgets is an unsolved problem. React exists because the DOM's retained model is so painful that Facebook built an entire abstraction layer to pretend it is immediate mode (virtual DOM diffing).
+
+egui skips all of that. The widget IS the render call. The data IS the frame. No virtual DOM. No diffing. No reconciliation. No stale widget pointing at deallocated data. The entire UI is a function: `fn ui(data) → pixels`. Every frame. At 60fps. On the GPU.
+
+**Why this matters for a trading terminal:**
+
+- **Real-time data is immediate by nature.** Prices tick every millisecond. Positions change. Indicators recalculate. A retained GUI fights this -- you update the data, then chase down every widget that needs to know. An immediate GUI renders the current truth every frame. The data IS the UI. There is nothing to synchronize.
+
+- **No layout engine overhead.** CSS Flexbox computation, DOM reflow, paint invalidation rectangles -- all of that is CPU work that happens before a single pixel is drawn. egui computes layout inline during the render pass. The layout IS the rendering. One pass. Zero reflow.
+
+- **GPU-native from the ground up.** egui outputs a mesh of textured triangles. wgpu uploads that mesh to the GPU and renders it in a single draw call. Panels, buttons, text, charts -- everything is triangles on the GPU. The same GPU that renders Cyberpunk 2077 is rendering your candlestick chart. It is not even trying.
+
+- **Adaptive vsync.** The render loop runs at monitor refresh rate (60/120/144hz) when the UI is changing and drops to **0fps when idle**. A static chart with no interaction consumes zero GPU cycles. TradingView's requestAnimationFrame loop runs at 60fps whether anything changed or not.
+
+- **Background thread isolation.** Heavy operations (DARWIN analytics queries, SEC scraping, broker API calls) run on background threads via `tokio`. The UI thread never blocks. A `try_lock` pattern on shared data means the UI renders the last known state while the background thread computes the next state. Zero freezes. Zero spinners. The terminal never says "loading" -- it shows what it has and updates when more arrives.
+
+### wgpu: Vulkan/Metal/DX12 Without the Pain
+
+**wgpu** is Rust's GPU abstraction layer -- the same API used by Firefox's WebGPU implementation. It compiles to Vulkan on Linux, Metal on macOS, and DX12 on Windows. One codebase. Three GPU backends. Native performance on every platform.
+
+The chart rendering pipeline:
+1. Bar data arrives from SQLite (binary, zero-copy)
+2. Indicator computation runs on GPU compute shaders (SMA, EMA in VRAM)
+3. egui builds the UI mesh (panels, text, widgets)
+4. Custom chart rendering adds candlesticks, indicators, drawings as GPU geometry
+5. wgpu submits one render pass to the GPU
+6. Pixels appear on screen
+
+**Total CPU involvement: data loading and egui layout.** Everything else is GPU. This is why the terminal can render a 4K chart with 32+ indicators, 7 harmonic patterns, supply/demand zones, pivot points, fractals, and Fibonacci levels simultaneously without dropping a frame. The GPU does not care. It was built for this.
+
 This is what TradingView would be if it were built by someone who understood that a browser is not a rendering engine. This is what Bloomberg Terminal would be if it were built in 2026 instead of 1982. **The rendering pipeline that every other terminal got wrong, done right.**
 
 **Full feature parity achieved in 5,147 lines of native Rust:**
