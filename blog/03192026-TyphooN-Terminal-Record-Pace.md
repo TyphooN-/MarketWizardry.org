@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **431 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **443 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -24,7 +24,7 @@ The terminal I needed did not exist. Bloomberg has the data but costs more than 
 
 So I built it.
 
-## The Tech Stack: Why Rust and Tauri, Not Electron or Qt
+## The Tech Stack: Why Rust — And Why Tauri Was Only the Beginning
 
 This decision took about ten minutes and the reasoning has not changed since.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**431 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**443 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -684,18 +684,42 @@ The rendering and computation pipeline was rebuilt from the ground up:
 
 A new `mql5_compiler` crate parses MQL5 source code and compiles it to WebAssembly. The pipeline: **pest parser → AST → IR → WASM codegen**. The `COMPILE` command in the Ctrl+K palette triggers compilation from within the terminal. This is the foundation for running custom MQL5 indicators natively in the terminal without MetaTrader — write once in MQL5, compile to WASM, execute at near-native speed alongside the existing 39 indicators.
 
-## Native Rust GPU Renderer: Zero JavaScript, Zero WebKit
+## Native Rust GPU Renderer: The Architecture Every Other Terminal Got Wrong
 
-The entire JavaScript/WebKit frontend has been eliminated. **40,000 lines of JS deleted.** The WASM chart engine (WebGL2) and WASM indicator worker -- gone. Every byte of functionality is being rebuilt in pure Rust with **egui + wgpu** for native GPU rendering.
+Every trading terminal on the market makes the same mistake. TradingView is an Electron wrapper around lightweight-charts -- a JavaScript canvas library running inside Chromium. NinjaTrader is C# with GDI+ software rendering. Thinkorswim is Java Swing. Sierra Chart is Win32 GDI. Even the "modern" terminals like Quantower and Godel are CPU-rendered desktop apps with web-tech charting layers bolted on.
 
-The architecture shift:
-- `src-tauri/` (Tauri backend) → `engine/` (pure Rust library, zero framework dependency)
-- New `native/` crate: egui + wgpu native GPU application
-- Cargo workspace: `engine` + `native` + `mql5_compiler`
-- **Zero JSON serialization.** Data flows from Rust structs directly to GPU buffers. No IPC. No string parsing. No garbage collection.
-- **Zero WebKit.** No system webview. No Chromium. No DOM. The terminal is a native window with GPU-rendered pixels.
+The rendering pipeline in every one of these terminals:
 
-This is the final architecture. The Tauri/WebKit version proved the feature set. The native version delivers it without the overhead. Direct memory → GPU -- rendered by the GPU instead of a browser engine pretending to be a desktop application.
+```
+Market Data → JSON/String parsing → CPU indicator math → CPU canvas drawing → compositor → pixels
+```
+
+Every step is CPU-bound. Every step contends with the UI thread. Every step adds latency between data arrival and pixel output. This is why TradingView stutters with 10 indicators on a 4K display. This is why Thinkorswim eats 2GB of RAM. This is why NinjaTrader freezes during data replay.
+
+**TyphooN-Terminal v2 eliminated the entire legacy pipeline.** The JavaScript/WebKit/Tauri frontend was deleted -- **40,000 lines of JS, gone.** The WebGL2 WASM chart engine -- gone. lightweight-charts -- never used it, but the point stands: every library that renders charts through a browser engine is doing it wrong.
+
+The new pipeline:
+
+```
+Market Data → Rust structs (zero-copy) → GPU compute shaders → wgpu render pipeline → pixels
+```
+
+**Zero JavaScript.** No V8. No garbage collector. No JSON serialization between backend and frontend because there is no frontend -- it is all one Rust binary.
+
+**Zero WebKit.** No system webview. No Chromium. No DOM. No CSS layout engine computing where a candlestick body should appear. The terminal is a native window with GPU-rendered pixels via **wgpu** (Vulkan/Metal/DX12).
+
+**Zero IPC.** Tauri's architecture required serializing every piece of data to JSON, sending it over an IPC bridge, deserializing it in JavaScript, then rendering it in a webview. That entire serialization layer is eliminated. Rust structs flow directly from the SQLite cache to GPU buffers.
+
+**Zero canvas.** No HTML5 Canvas. No `ctx.fillRect()` called 10,000 times per frame. Candlestick bodies are GPU quads. Indicator lines are GPU line strips. The GPU does what GPUs are designed for -- rendering thousands of geometric primitives in parallel -- while the CPU handles data and computation.
+
+**GPU Compute Shaders:** Indicator computation itself runs on the GPU via wgpu compute shaders. SMA is fully parallel (256 threads per workgroup). Bar data lives in VRAM. The CPU's only job is feeding data to the GPU and reading results back.
+
+The architecture:
+- `engine/` -- pure Rust library, zero framework dependency. Broker APIs, data cache, indicators, DARWIN analytics, SEC scraper, risk engine. Reusable by any frontend.
+- `native/` -- egui + wgpu native GPU application. The entire UI rendered at monitor refresh rate via adaptive vsync. 0fps when idle.
+- `mql5_compiler/` -- pest parser → AST → IR → WASM codegen for custom MQL5 indicators.
+
+This is what TradingView would be if it were built by someone who understood that a browser is not a rendering engine. This is what Bloomberg Terminal would be if it were built in 2026 instead of 1982. **The rendering pipeline that every other terminal got wrong, done right.**
 
 **Full feature parity achieved in 5,147 lines of native Rust:**
 
@@ -908,7 +932,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 | Webull | Free | No | Stocks, options, crypto | OpenAPI | No | ~150MB | Yes |
 | tastytrade | Free | No | Stocks, options, futures | REST API | No | ~100MB | Yes |
 
-**TyphooN-Terminal is the only open-source trading terminal with real brokerage integration, GPU-accelerated charts, direct MT5 database sync, built-in outlier scanners, and a built-in risk management engine.** Every other free option is either closed-source (Webull, IBKR Lite), web-based (TradingView), research-only (Godel free tier), or locked to Windows (NinjaTrader, Sierra Chart, Quantower).
+**TyphooN-Terminal is the only trading terminal with a native GPU rendering pipeline (wgpu/Vulkan), zero JavaScript, zero WebKit, real brokerage integration, direct MT5 database sync, GPU compute shaders for indicators, built-in outlier scanners, and a built-in risk management engine.** Every other option is either CPU-rendered (NinjaTrader, Sierra Chart, Thinkorswim), browser-based (TradingView), Electron bloatware, closed-source (Webull, IBKR), research-only (Godel), or locked to Windows (NinjaTrader, Sierra Chart, Quantower). TyphooN-Terminal is the only one that got the rendering pipeline right.
 
 -- TyphooN
 
