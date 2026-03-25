@@ -6,11 +6,11 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **401 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **418 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
-**Apache 2.0. Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
+**BSL (Business Source License). Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
 
 ## The Backstory: Why Build a Terminal at All?
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**401 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**418 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -177,7 +177,7 @@ When your terminal can execute market orders, "we'll add security later" is not 
 - **Weaknesses:** Windows-only native, proprietary MQL5, no fundamental data, MetaQuotes controls everything
 
 **TyphooN-Terminal:**
-- **Cost:** $0 (Apache 2.0)
+- **Cost:** $0 (BSL)
 - **Binary:** ~10-15MB
 - **Memory:** ~50-100MB
 - **Runs on:** Linux, Windows, macOS
@@ -755,7 +755,7 @@ Proprietary trading terminals are a tax on retail traders. Bloomberg charges ins
 
 None of this is necessary. The APIs are public. The math is known. The rendering technology exists in every browser. The only reason trading terminals cost money is because nobody bothered to build the open-source alternative properly.
 
-TyphooN-Terminal is **Apache 2.0**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
+TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
 **73,100+ lines of Rust. 319 commits. 9 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + LAN sync + SEC EDGAR scraper + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
 
@@ -890,7 +890,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 | Terminal | Cost | Open Source | Assets | Algo | GPU Charts | Binary Size | US Available |
 |---|---|---|---|---|---|---|---|
-| **TyphooN-Terminal** | **Free** | **Yes (Apache 2.0)** | Stocks, options, crypto + MT5 sync | **298 commands** | **Yes** | **~15MB** | **Yes** |
+| **TyphooN-Terminal** | **Free** | **Yes (BSL)** | Stocks, options, crypto + MT5 sync | **298 commands** | **Yes** | **~15MB** | **Yes** |
 | MetaTrader 5 | Free | No | Forex, CFDs, stocks | MQL5 | No | ~50MB | Limited |
 | TradingView | $0-60/mo | No | Charts only | Pine Script (no exec) | No (canvas) | ~200MB | Yes |
 | Thinkorswim | Free | No | Stocks, options, futures | thinkScript (limited) | No | ~1GB+ | Yes |
@@ -911,4 +911,4 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 ---
 
-> **DISCLAIMER:** TyphooN-Terminal is open-source software provided as-is under the Apache 2.0 license. It is NOT financial advice and NOT a recommendation to trade. Trading involves substantial risk of loss. The software executes orders as instructed -- it does not and cannot guarantee profitable outcomes. Use at your own risk. Test thoroughly in paper trading before risking real capital. The author actively trades using this software and holds positions mentioned in this blog. Prop firm information is current as of March 2026 and may change -- verify directly with each firm before funding an account.
+> **DISCLAIMER:** TyphooN-Terminal is open-source software provided as-is under the BSL (Business Source License) license. It is NOT financial advice and NOT a recommendation to trade. Trading involves substantial risk of loss. The software executes orders as instructed -- it does not and cannot guarantee profitable outcomes. Use at your own risk. Test thoroughly in paper trading before risking real capital. The author actively trades using this software and holds positions mentioned in this blog. Prop firm information is current as of March 2026 and may change -- verify directly with each firm before funding an account.
