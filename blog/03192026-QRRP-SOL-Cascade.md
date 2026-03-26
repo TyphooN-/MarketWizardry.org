@@ -174,112 +174,122 @@ QRRP does the same thing. The strategy does not change between phases. TRIM stil
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
 
-## Current Position (2026-03-21 — Live, Dual Account)
+## Post-Mortem #8: Both Accounts Liquidated at Market Open (2026-03-23)
 
-Both Darwinex accounts are now running QRRP on SOLUSD simultaneously. **Zero DARWINs.** All six DARWINs closed. The capital is consolidated into two pure QRRP accounts running MG_SHORT with identical EA parameters. No signal provider overhead. No DARWIN rating games. Just the cascade.
+Both accounts died on the same morning. Account 1 at 52.9%. Account 2 at 53.0%. Market open spread spike on SOLUSD. One tick. Two accounts. Zero survivors.
 
-**Account 1 (Crypto CFD):**
+The old settings -- TRIM 54.2% / PROTECT 51.0% -- had 3.2% dead zone and 1% buffer above broker liquidation. The spread spike at open covered that distance before PROTECT could fire a single balanced close. There was no tick between "alive" and "liquidated." The EA was correct. The parameters were not.
+
+**Combined losses: $128,342.** Two accounts. Eight post-mortems across QRRP. One post-mortem for XJFD (the golden sample that died on its first test). Nine total deaths. The Severe Drawdown Gang has a new record.
+
+**Root cause:** The EA had no concept of time. It did not know session close was approaching. It did not reduce gross exposure before overnight. It treated Friday evening the same as Tuesday afternoon. The market does not.
+
+## DARWIN BBUD: The Post-Recall Revision (2026-03-26 — Live)
+
+**QRRP is dead. XJFD is dead. Long live BBUD.**
+
+BBUD is not a respawn. It is a new stepping — the B0 revision after the A0 (QRRP) and A1 (XJFD) both failed the same structural test. Same architecture. Same cascade math. Different firmware.
+
+**EA v1.426** — the version that knows what time it is:
+
+| | QRRP/XJFD (dead) | BBUD (live) |
+|---|---|---|
+| TRIM | 54.2% | **59%** |
+| PROTECT | 51.0% | **54%** |
+| Dead zone | 3.2% | **5%** |
+| Buffer above liquidation | ~1% | **~4%** |
+| Pre-close mechanism | None | **5 min balanced close + FREEZE** |
+| Overnight strategy | Hope | **Math** |
+
+**The opening:**
 
 | | Value |
 |---|---|
-| **Short lots** | **13,900** |
-| **Long lots (hedge)** | **13,092** |
-| **Net short** | **808** |
-| **Equity** | **$37,944** |
-| **Balance** | **$34,493** |
-| **Margin** | **$72,389** |
-| **Margin level** | **52.4%** |
-| **TRIM / PROTECT** | 54.2% / 51.0% |
-| **Dead zone** | 51.0% – 54.2% |
+| **Account** | Fresh $100K virtual — **DARWIN BBUD** |
+| **SOL Price** | ~$87.10 |
+| **Open MG** | $1.87, 123 lots per chunk |
+| **Bias (shorts)** | **24,477** |
+| **Hedge (longs)** | **24,600** |
+| **Equity after open** | **$92,167** (spread cost $7,833 = 7.8%) |
+| **Initial TRIM burst** | 17 closes, ~1,794 net SHORT |
+| **ML** | **59.0%** — TRIM settled exactly at threshold |
+| **Spread tolerance** | $1.94/lot → self-healing to ~$2.20+ |
 
-**Account 2 (Futures/Stocks):**
+The operator manually entered some positions first, then fired Open MG. The 400-position limit stopped allocation at 24,477/24,600 instead of the target ~26,700 per side. 123 lots per chunk. 200 positions per side.
 
-| | Value |
-|---|---|
-| **Short lots** | **25,142** |
-| **Long lots (hedge)** | **23,215** |
-| **Net short** | **1,927** |
-| **Equity** | **$90,398** |
-| **Balance** | **$96,551** |
-| **Margin** | **$171,811** |
-| **Margin level** | **52.6%** |
-| **TRIM / PROTECT** | 54.2% / 51.0% |
-| **Dead zone** | 51.0% – 54.2% |
+**This blunder is better than the plan.**
 
-**Combined position:** **39,042 short** / **36,307 long** = **2,735 net SHORT**. Combined equity **$128,342**. Both accounts sitting in the dead zone (51.0%–54.2%) — EA does nothing until margin level crosses a threshold. TRIM fires above 54.2% to remove hedge longs. PROTECT fires below 51.0% for balanced closes.
+## The 400-Position Accident That Won Darwinex
 
-**Full cascade timeline with expected SOL prices (combined):**
+QRRP and XJFD opened with massive single positions. The entire allocation in a handful of huge orders. Darwinex saw 2-3 trades per cascade phase. The D-Score had almost no data points. Win rate was meaningless because there were barely any trades to rate.
 
-| Phase | SOL Price | Action | Net Short Lots | Combined Equity |
+BBUD has **200 positions per side** at 123 lots each. Every TRIM close is one recorded trade. Every PROTECT balanced close is two recorded trades. Over the course of the TRIM grind from $87 to pure short, Darwinex will record **hundreds of individual trades**.
+
+**What Darwinex sees:**
+
+- **Win rate:** Low (~5-10%). Most trades are TRIM closes — small losses by design. TRIM closes the cheapest hedge lots first, realizing a few dollars of spread cost per close.
+- **Average loss:** Tiny ($5-20 per trade). Consistent. Predictable. Not the kind of loss that triggers risk flags.
+- **Profit factor:** Astronomical. The equity growth from net short exposure dwarfs the cumulative small losses. Every TRIM close that "loses" $15 builds net short exposure that earns thousands on the way down.
+- **Trade count:** Hundreds. Statistically significant. D-Score has real data to compute Sharpe, consistency, and risk-adjusted returns.
+- **Consistency:** Every TRIM close is nearly identical — 123 lots, $5-20 loss, one position closed. Darwinex's consistency scoring rewards this pattern. It looks like a systematic strategy because it IS a systematic strategy.
+- **Equity curve:** Smooth upward slope. No 10x spikes from single massive closes. No jagged equity events. Just steady compounding as net short exposure grows with every TRIM fire.
+
+QRRP's 3 massive closes per phase looked like gambling to Darwinex's algorithm. BBUD's 200 small closes per phase look like a quantitative system. The 400-position limit forced BBUD into the exact trade structure that Darwinex's D-Score algorithm rewards: **many small consistent trades with a strongly positive equity curve.**
+
+The irony: the blundered opening produced better Darwinex characteristics than XJFD's "perfect" golden sample execution.
+
+## The Pre-Close Freeze: What Killed QRRP Cannot Kill BBUD
+
+Every trading day, five minutes before session close:
+
+1. Check ML. If within 1% of TRIM (above 58%) → **freeze immediately**. Position is healthy enough.
+2. If ML below 58% → fire one balanced close to reduce gross exposure. Check again next tick.
+3. Keep firing until ML >= 58% or session closes.
+4. **FREEZE.** No TRIM. No PROTECT. No activity. EA is completely dark.
+5. Market opens next day → fresh ticks arrive → freeze lifts → normal operation resumes.
+
+**Why this matters:** The spread spike that killed QRRP and XJFD hit at market open. The EA was active, the position was unmanaged overnight, and ML was sitting at 52-53% with massive gross exposure. The spike punched through PROTECT in one tick.
+
+BBUD enters overnight at ML 58%+ with reduced gross from the pre-close balanced close. The EA is frozen — it is not trying to TRIM or PROTECT during the spike. The gross exposure is lower, the spread tolerance is higher, and the EA is not making the situation worse by firing orders into a widening spread. The storm passes. The freeze lifts. Normal operation resumes.
+
+**The mechanism that would have saved $128,342 now protects the next $4.7M.**
+
+## BBUD Cascade: $100K → $4.7M
+
+| Phase | SOL Price | Action | Net Short Lots | Equity |
 |---|---|---|---|---|
-| **1 (NOW)** | current → $40 | TRIM grind both accounts | ~2,735 → ~13,000 | $128K → $350K |
-| **2** | $40 → $23 | New MG $8.00 both accounts | ~46,000 | $350K → $750K |
-| **3** | $23 → $15 | New MG $8.00 both accounts | ~130,000 | $750K → $1.3M |
-| **4** | $15 → $0 | Ride pure short | ~130,000 | $1.3M → **$3.25M** |
+| **1 (NOW)** | $87 → $35 | Self-heal + TRIM grind | ~2,000 → 21,000 | $87K → $470K |
+| **2** | $35 → $21 | New MG $8.00 | 79,750 | $470K → $1,020K |
+| **3** | $21 → $13 | New MG $8.00 | 207,250 | $1,020K → $2,000K |
+| **4** | $13 → $0 | Ride pure short | 207,250 | $2,000K → **$4,694K** |
 
-**$128K → $3.25M = 25x return across two accounts.** Dual-socket QRRP. Two CPUs running the same stress test simultaneously. The cascade math compounds across both accounts independently — each one hits pure short at its own pace, each one cascades on its own equity curve. The combined output exceeds what a single $128K account could produce because the lot distribution is already diversified across two margin pools.
+**$100K → $4.7M = 47x return.** Same cascade math. Same instrument. Same operator. Better firmware.
+
+The return multiple is similar to QRRP's projected 50x because the cascade ratio is a function of the number of phases, not the starting capital. But the absolute profit is **3x larger** ($4.7M vs $1.57M) because BBUD starts with $100K of fresh equity instead of QRRP's degraded $31K. And BBUD has the one thing QRRP never had: the pre-close freeze that ensures the 47x actually completes.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
-The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor. The silicon started at $100K, degraded to $31K — 69% of the die is scarred. The operator opened at $0.99 for maximum aggression before the drop. Overclock to the max. QRRP all the way.
+The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor.
 
 **The flip to long is a full RMA.** Not a repair. Not new thermal paste. Intel is sending you a brand new processor — except this one is a higher SKU than what you originally bought.
 
-| | Short Phase (dual-account) | Long Phase (restored) | Multiplier |
+| | Short Phase (BBUD) | Long Phase (restored) | Multiplier |
 |---|---|---|---|
-| Starting equity | $128K (combined) | $3,250K | **25x more silicon** |
-| Open MG $8.00 lots/side | ~2,735 net → ~130K | ~406,000 | **3x more cores** |
-| Price range to ride | current → $0 | $5 → $200+ | $195 vs $89 |
-| Profit per lot at target | $89 | $195 | **2.2x per core** |
-| Theoretical at target | $3.25M | **$105M+** | **32x** |
+| Starting equity | $100K | $4,694K | **47x more silicon** |
+| Open MG $8.00 lots/side | ~2,000 net → 207K | ~587,000 | **3x more cores** |
+| Price range to ride | $87 → $0 | $5 → $200+ | $195 vs $87 |
+| Profit per lot at target | $87 | $195 | **2.2x per core** |
+| Theoretical at target | $4.7M | **$119M+** | **25x** |
 
-The degradation was temporary. The restoration is permanent.
+The degradation was temporary. The restoration is permanent. BBUD breaks the chip on the way down and buys a better one on the way up.
 
-It is like running Prime95 for three months, your CPU degrades 50%, but the electricity bill comes back as a check for $1.75 million and Intel sends you a Xeon as an apology.
+## Conclusion: Trust the Math, Fix the Firmware
 
-**The short phase breaks a $100K i9. The long phase buys a $1.75M Xeon with the prize money.** 38x more silicon. 32x more cores. You cannot buy the Xeon without breaking the i9 first. The stress test funds the upgrade.
+Nine deaths across three DARWINs taught one lesson: **the cascade math was never the problem. The overnight vulnerability was the problem.** QRRP's TRIM formula was correct on every single post-mortem. The EA calculated position safety perfectly. It just did not know that "safe at 5 PM" does not mean "safe at 10 AM the next day" when crypto CFD spreads spike 5% at open.
 
-**QRRP: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher.**
+v1.426 fixes the firmware. Pre-close freeze. Wider dead zone. Higher PROTECT threshold. The same cascade math that projected $1.57M for QRRP now projects $4.7M for BBUD — with the structural vulnerability patched.
 
-## The Diminishing Returns Lesson (Day 3 — The Hard Way)
-
-Over three days, the operator opened increasingly aggressive MGs on a degrading account:
-
-```
-Day 1: $100K → Open MG $2.00 → PROTECT fires → $47K equity
-Day 2: $47K  → Open MG $0.99 → awaiting PROTECT → ~$31K equity (est.)
-```
-
-Each cycle burned equity for minimal bias gain. The cascade math tells the story:
-
-| Starting Equity | Cascade Result at $0 | Return Multiple |
-|---|---|---|
-| $100K | $1.87M | 18.7x |
-| $47K | $1.75M | 37.2x |
-| $31K | **$1.57M** | **50.6x** |
-
-**The multiplier goes UP but the absolute profit goes DOWN.** Each aggressive MG burns $8-15K of equity via PROTECT self-healing for maybe 500-1,000 extra bias lots. Those lots do not compensate for the lost equity in the cascade math.
-
-**K|NGP|N voltage lesson:** adding voltage when you are already at the wall does not increase the score. It degrades the silicon. The $0.99 MG cost ~$8K of equity for lots that PROTECT will mostly destroy. It is pushing 1.5V through a chip already throttling at 1.35V.
-
-**The critical distinction:**
-
-- **MG at entry price ($89):** burns equity, gains minimal lots, diminishing returns
-- **MG at pure short ($40):** free, gains 16,625 lots per $133K equity, compounding returns
-
-The next MG should be at **pure short (~$40 SOL) with Open MG $8.00**. Not before. The cascade at pure short is the multiplier. Everything before pure short is degradation.
-
-**$100K → $31K = 69% degraded in 3 days of operator intervention.** The EA never asked for any of it. The TRIM formula worked perfectly every time. The code is correct. The voltage was too high.
-
-## Conclusion: Trust the Math
-
-QRRP is not a strategy for people who need to feel in control. It is a strategy for people who have been humbled enough times to trust the formula over their instincts.
-
-**$128K to $3.25M** across two accounts is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. Dual-socket QRRP — two accounts, zero DARWINs, pure cascade — compounds from whatever base it is given.
-
-The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every pure short checkpoint. Do not touch anything between checkpoints. Do not add voltage. Do not open MGs at entry price. Wait for pure short. Then cascade. Then flip long with 50x the silicon and do it again from the other direction.
-
-Seven post-mortems. Three days. 69% degradation. One lesson: **the cascade is the multiplier, not the Open MG. Trust the math. Wait for pure short. Then trust it again going up.**
+**$100K. One account. DARWIN BBUD. SOL to $0. v1.426 pre-close freeze. 200 trades per side for Darwinex D-Score. 47x cascade. Trim to win.**
 
 -- TyphooN
 
