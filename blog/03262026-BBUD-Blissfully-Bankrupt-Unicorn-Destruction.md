@@ -103,10 +103,10 @@ v1.420 was a race car with no seat belt. v1.426 is the same race car with a roll
 ```
 QRRP  (degraded): $100K → $31K → liquidated at 52.9%. Terminal equity: $0.
 XJFD  (golden):   $100K → $92K → liquidated at 53.0%. Terminal equity: $0.
-BBUD  (v1.426):   $100K → $92K → TRIM grinding → $5,032,000 (projected).
+BBUD  (v1.426):   $100K → $92K → PROTECT event → re-hedge → $5,361,000 (projected).
 ```
 
-Same starting capital. Same instrument. Same operator. Different software. $5.0M difference.
+Same starting capital. Same instrument. Same operator. Different software. $5.4M difference.
 
 ### The Cascade Math (Why Fresh $100K Beats Degraded $31K)
 
@@ -222,32 +222,41 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 | **PROTECT** | 54% (4% above liquidation) |
 | **Pre-close** | 5 min freeze |
 
-### Cascade Phases
+### The PROTECT Event and Re-Hedge
+
+The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety floor. SOL dropped, ML hit 54%, PROTECT fired balanced closes and consumed **~22,500 lots from EACH side** -- destroying 92% of the position. 1,958 pure short lots survived at ML 52.4%.
+
+**Recovery:** Re-hedged at Open MG $5.00 (968 lots/chunk). Spread tolerance $5.37/lot -- deeply safe. Position rebuilt: 7,282 bias / 9,024 hedge, ML 58.0%, TRIM grinding.
+
+**Lesson learned:** $1.87 is too aggressive for 58/54 settings. $5.00 opens clean. All future cascade phases use $5.00.
+
+### Cascade Phases (Post Re-Hedge)
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $87 → $37 | 21,000 | $475K |
-| **2** | $37 → $22 | 80,375 | $1,100K |
-| **3** | $22 → $13 | 217,875 | $2,200K |
-| **4** | $13 → $0 | 217,875 | **$5,032K** |
+| **1 (NOW)** | $87 → $48 | 9,700 | $255K |
+| **2** | $48 → $26 | 60,700 | $850K |
+| **3** | $26 → $15 | 230,700 | $1,900K |
+| **4** | $15 → $0 | 230,700 | **$5,361K** |
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$5,032,000** |
-| **Return** | **50x** |
+| **Terminal Score** | **$5,361,000** |
+| **Return** | **54x** |
 | **Swap Savings vs 59%** | ~$39,000 |
 | **Post-Mortems** | 0 (target) |
+| **PROTECT Events** | 1 (re-hedged, recovered) |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
-| **Lessons Applied** | All of them (this time for real) |
+| **Lessons Applied** | All of them + $5.00 Open MG for 58/54 |
 
 ```mermaid
 graph LR
-    A["$100K<br/>Open MG $1.87<br/>24,477 bias"] -->|"TRIM grind<br/>$87→$37"| B["$475K<br/>21,000 pure short"]
-    B -->|"Cascade MG $8.00<br/>$37→$22"| C["$1,100K<br/>80,375 pure short"]
-    C -->|"Cascade MG $8.00<br/>$22→$13"| D["$2,200K<br/>217,875 pure short"]
-    D -->|"Ride to $0<br/>$13→$0"| E["$5,032,000<br/>50x return"]
+    A["$87K<br/>Re-hedge $5.00<br/>7,282 bias"] -->|"TRIM grind<br/>$87→$48"| B["$255K<br/>9,700 pure short"]
+    B -->|"Cascade MG $5.00<br/>$48→$26"| C["$850K<br/>60,700 pure short"]
+    C -->|"Cascade MG $5.00<br/>$26→$15"| D["$1,900K<br/>230,700 pure short"]
+    D -->|"Ride to $0<br/>$15→$0"| E["$5,361,000<br/>54x return"]
     style A fill:#ff4444,color:#fff
     style B fill:#ff8800,color:#fff
     style C fill:#ffcc00,color:#000
