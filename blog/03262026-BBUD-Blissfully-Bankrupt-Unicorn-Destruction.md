@@ -90,13 +90,27 @@ BBUD does not pretend to be a golden sample. BBUD is the battle-hardened revisio
 - **U** — Unicorn. As in the mythical creature that Silicon Valley uses to describe startups valued at $1B+. SOL is the crypto unicorn — the one VCs parade around conference stages, the one with the "Ethereum killer" narrative, the one with the valuation that assumes infinite demand against infinite supply. Unicorns do not exist. Neither does SOL's fair value above $0.
 - **D** — Destruction. Same D as XJFD. The court has ruled. The sentence is $0. The execution is automatic. The only thing that changed is the executioner got a firmware update and the unicorn still doesn't know it's in the courtroom.
 
-### The EA: v1.426
+### The EA: v1.426 — Settings Set in Stone
 
 QRRP ran v1.420. XJFD ran v1.425. Both are dead.
 
 BBUD runs **v1.426** — the version with the pre-close freeze mechanism. The version that knows what time it is. The version that reduces gross exposure before session close, freezes all activity overnight, and resumes when fresh ticks confirm the market is open.
 
-v1.420 was a race car with no seat belt. v1.426 is the same race car with a roll cage, HANS device, and a kill switch that activates five minutes before the track closes. Same engine. Same speed. Actually survives the crash.
+v1.420 was a race car with no seat belt. v1.426 is the same race car with a roll cage, HANS device, and a kill switch that activates four minutes before the track closes. Same engine. Same speed. Actually survives the crash.
+
+![BBUD EA Settings — set in stone](/img/bbud-ea-settings.webp)
+
+| Parameter | Value |
+|---|---|
+| **TRIM** | **58.0%** |
+| **Open MG** | **$4.20133769** |
+| **PROTECT** | **54.0%** |
+| **Pre-close** | **4 min** → force TRIM, then FREEZE |
+| **Hard floor** | **10.0%** |
+
+**Why $4.20133769:** Every cent from $4.00 to $5.00 was simulated. The sweet spot is $4.29 (Phase 2 spread tolerance exactly $2.00). $4.20 is 9 cents more aggressive — PROTECT fires 1-2 times on cascade open, pads Darwinex D-Score with consistent small trades, self-heals to clean operation. The meme number IS the math.
+
+**These settings will not change until SOL reaches $0.**
 
 ### The Numbers
 
