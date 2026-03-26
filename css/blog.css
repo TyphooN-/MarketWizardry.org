@@ -199,9 +199,12 @@ h1 {
     }
     .modal-content {
         width: 95%;
-        margin: 2% auto;
-        max-height: 90vh;
+        margin: 5px auto;
+        max-height: calc(100vh - 70px);
+        max-height: calc(100dvh - 70px);
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
     }
     .modal-header {
         flex-wrap: wrap;
@@ -247,7 +250,9 @@ h1 {
     }
     .modal-content {
         width: 95%;
-        margin: 10px auto;
+        margin: 5px auto;
+        max-height: calc(100vh - 50px);
+        max-height: calc(100dvh - 50px);
     }
     .modal-text {
         font-size: 0.65em;
@@ -547,6 +552,10 @@ del {
     }
     .modal-body #analysisContent {
         padding: 10px;
-        max-height: calc(100vh - 120px);
+    }
+    .modal-body {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
     }
 }
