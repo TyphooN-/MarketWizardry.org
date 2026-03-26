@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **453 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **472 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
 
 This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -135,7 +135,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**453 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**472 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -712,7 +712,7 @@ Market Data → Rust structs (zero-copy) → GPU compute shaders → wgpu render
 
 **Zero canvas.** No HTML5 Canvas. No `ctx.fillRect()` called 10,000 times per frame. Candlestick bodies are GPU quads. Indicator lines are GPU line strips. The GPU does what GPUs are designed for -- rendering thousands of geometric primitives in parallel -- while the CPU handles data and computation.
 
-**GPU Compute Shaders:** Indicator computation itself runs on the GPU via wgpu compute shaders. SMA is fully parallel (256 threads per workgroup). Bar data lives in VRAM. The CPU's only job is feeding data to the GPU and reading results back.
+**GPU Compute Shaders:** Indicator computation runs on the GPU via **10 WGSL compute shaders** -- SMA, EMA, RSI, KAMA, Bollinger Bands, ATR, MACD, Fisher Transform, Stochastic, and ADX. Full OHLC data uploads to VRAM for indicators requiring high/low data. SMA and Bollinger use parallel dispatch (256 threads per workgroup). Sequential indicators (EMA, RSI, KAMA, ATR, MACD, Fisher, Stochastic, ADX) use single workgroups -- still faster than CPU due to GPU clock speeds and zero memory latency from VRAM. The CPU's only job is feeding data to the GPU and reading results back.
 
 The architecture:
 - `engine/` -- pure Rust library, zero framework dependency. Broker APIs, data cache, indicators, DARWIN analytics, SEC scraper, risk engine. Reusable by any frontend.
@@ -745,7 +745,7 @@ egui skips all of that. The widget IS the render call. The data IS the frame. No
 
 The chart rendering pipeline:
 1. Bar data arrives from SQLite (binary, zero-copy)
-2. Indicator computation runs on GPU compute shaders (SMA, EMA in VRAM)
+2. Indicator computation runs on 10 GPU compute shaders (SMA, EMA, RSI, KAMA, BB, ATR, MACD, Fisher, Stoch, ADX in VRAM)
 3. egui builds the UI mesh (panels, text, widgets)
 4. Custom chart rendering adds candlesticks, indicators, drawings as GPU geometry
 5. wgpu submits one render pass to the GPU
@@ -780,7 +780,7 @@ This is what TradingView would be if it were built by someone who understood tha
 - **S/D Zone Labels:** zones classified as Untested, Tested, or Proven based on price interaction history
 - **Right Panel:** tabbed layout (Trade/Positions/Orders/Watchlist/Risk), colored trading buttons, SL/TP inputs, MTF moving average dot grid, position P&L, colored watchlist
 - **Chart Overlay:** ATR, close, volume, SL/TP, risk-reward displayed in the chart's top-right corner
-- **GPU Compute Shaders:** wgpu compute pipeline for indicator computation -- bar data in VRAM, SMA fully parallel (256 threads/workgroup), EMA sequential
+- **10 GPU Compute Shaders:** SMA, EMA, RSI, KAMA, Bollinger, ATR, MACD, Fisher, Stochastic, ADX -- all in VRAM via wgpu compute pipelines
 - **MultiKAMA + FakeCandle:** 10/10 MT5 custom indicator parity achieved in the native renderer
 - **MTF_MA Overlay:** 200 SMA status, KAMA, Bull/Bear Power text overlay matching MTF_MA.mqh
 - **44 unit tests** for all indicator computations
