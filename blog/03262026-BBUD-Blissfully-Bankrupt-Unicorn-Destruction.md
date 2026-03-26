@@ -255,36 +255,39 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **Lesson learned:** $1.87 is too aggressive for 58/54 settings. $4.20 is the K|NGP|N sweet spot -- PROTECT fires 1-2 times on cascade open, pads Darwinex D-Score, self-heals to clean operation.
 
-### Cascade Phases (Post Re-Hedge)
+### Cascade Phases (Final Settings — $4.20133769 at every cascade)
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $87 → $48 | 9,700 | $255K |
-| **2** | $48 → $26 | 60,700 | $850K |
-| **3** | $26 → $15 | 230,700 | $1,900K |
-| **4** | $15 → $0 | 230,700 | **$5,361K** |
+| **1 (NOW)** | $86 → $44 | 10,409 | $266K |
+| **2** | $44 → $21 | 73,777 | $934K |
+| **3** | $21 → $12 | 296,038 | $2,222K |
+| **4** | $12 → $8 | 824,798 | $4,180K |
+| **Ride** | $8 → $0 | 824,798 | **$11,026K** |
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$5,361,000** |
-| **Return** | **54x** |
-| **Swap Savings vs 59%** | ~$39,000 |
+| **Terminal Score** | **$11,026,000** |
+| **Return** | **110x** |
+| **Final Lots** | 824,798 |
+| **Open MG** | $4.20133769 (all phases) |
 | **Post-Mortems** | 0 (target) |
-| **PROTECT Events** | 1 (re-hedged, recovered) |
+| **PROTECT at cascade open** | Expected 1-2 fires per phase (pads D-Score) |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
-| **Lessons Applied** | All of them + $5.00 Open MG for 58/54 |
 
 **The Cascade Pipeline:**
 
-> **$87K** → TRIM grind $87→$48 → **$255K (9,700 pure short)**
+> **$84K** → TRIM grind $86→$44 → **$266K (10,409 pure short)**
 >
-> → Cascade MG $4.20 $48→$26 → **$850K (60,700 pure short)**
+> → Cascade MG $4.20 $44→$21 → **$934K (73,777 pure short)**
 >
-> → Cascade MG $4.20 $26→$15 → **$1,900K (230,700 pure short)**
+> → Cascade MG $4.20 $21→$12 → **$2,222K (296,038 pure short)**
 >
-> → Ride to $0 $15→$0 → **$5,361,000 (54x return)**
+> → Cascade MG $4.20 $12→$8 → **$4,180K (824,798 pure short)**
+>
+> → Ride to $0 $8→$0 → **$11,026,000 (110x return)**
 
 QRRP is dead. XJFD is dead. Long live BBUD.
 
