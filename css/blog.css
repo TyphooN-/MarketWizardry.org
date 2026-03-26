@@ -53,24 +53,27 @@ h1 {
     height: 100dvh;
     background-color: #000;
     z-index: 10000;
-    overflow-y: auto;
+    overflow: hidden;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     overscroll-behavior: contain;
+    padding: 5px;
+    box-sizing: border-box;
 }
 .modal-content {
-    margin: 10px auto;
+    margin: 0 auto;
     padding: 10px 20px;
     width: 95%;
     max-width: 1400px;
     background-color: #000;
     border: 2px solid rgba(0, 255, 0, 0.5);
     touch-action: pan-y;
-    max-height: calc(100vh - 20px);
-    max-height: calc(100dvh - 20px);
+    max-height: calc(100vh - 10px);
+    max-height: calc(100dvh - 10px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 .modal-header {
     display: flex;
@@ -329,10 +332,20 @@ nav.breadcrumb a:hover {
     color: #004400;
 }
 
-/* Mobile breadcrumb optimization */
+/* Mobile breadcrumb - visible with compact styling */
 @media screen and (max-width: 768px) {
     .breadcrumb {
-        display: none;
+        font-size: 0.75em;
+        padding: 8px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .breadcrumb .separator {
+        margin: 0 3px;
+    }
+    nav.breadcrumb a {
+        padding: 8px 4px;
+        display: inline-block;
     }
 }
 

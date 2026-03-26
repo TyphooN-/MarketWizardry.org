@@ -147,7 +147,13 @@ nav.breadcrumb a:hover {
 /* Mobile breadcrumb optimization */
 @media screen and (max-width: 768px) {
     .breadcrumb {
-        display: none;
+        font-size: 0.7em;
+        padding: 5px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .breadcrumb .separator {
+        margin: 0 3px;
     }
 }
 
