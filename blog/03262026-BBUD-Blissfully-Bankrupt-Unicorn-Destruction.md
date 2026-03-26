@@ -112,6 +112,17 @@ v1.420 was a race car with no seat belt. v1.426 is the same race car with a roll
 
 **These settings will not change until SOL reaches $0.**
 
+### Pre-Close Freeze: First Live Test — PASSED (2026-03-26)
+
+```
+16:54:58  PRE-CLOSE: ML 57.9% >= 57.0% (TRIM-1%). Close enough. FREEZING until next session.
+17:05:01  PRE-CLOSE FREEZE lifted — market open, new session. Resuming normal operation.
+```
+
+The mechanism that would have saved QRRP and XJFD just proved itself live. ML was 57.9% — within 1% of TRIM. Freeze activated. EA went completely dark for 10 minutes across the session boundary. Zero activity during the spread spike window that killed both predecessors. Market reopened. Freeze lifted. TRIM resumed.
+
+**PM#8 cannot happen again.** The position survived its first overnight. The firmware works.
+
 ### The Numbers
 
 ```
