@@ -209,34 +209,50 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 
 ## Final Score Projection
 
-```
-╔══════════════════════════════════════════════════════════════╗
-║                    DARWIN BBUD                                ║
-║                    Post-Recall Revision                       ║
-╠══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  Silicon:     B0 stepping (v1.426, pre-close freeze)         ║
-║  Budget:      $100,000 (fresh, no degradation)               ║
-║  Entry:       ~$87.10 SOL (same range as QRRP/XJFD)       ║
-║  Open MG:     $1.87 (K|NGP|N sweet spot)                    ║
-║  Bias lots:   24,477                                          ║
-║  TRIM:        58% (4% dead zone, saves ~$39K swap vs 59%)    ║
-║  PROTECT:     54% (4% above liquidation)                     ║
-║  Pre-close:   5 min freeze                                   ║
-║                                                               ║
-║  Phase 1:     $87 → $37   |  21,000 lots  |  $475K           ║
-║  Phase 2:     $37 → $22   |  80,375 lots  |  $1,100K        ║
-║  Phase 3:     $22 → $13   |  217,875 lots |  $2,200K        ║
-║  Phase 4:     $13 → $0    |  217,875 lots |  $5,032K        ║
-║                                                               ║
-║  TERMINAL SCORE: $5,032,000                                  ║
-║  RETURN: 50x                                                  ║
-║  SWAP SAVINGS vs 59%: ~$39,000                                ║
-║  POST-MORTEMS: 0 (target)                                    ║
-║  PREDECESSOR DEATHS: 8 (QRRP) + 1 (XJFD) = 9               ║
-║  LESSONS APPLIED: All of them (this time for real)           ║
-║                                                               ║
-╚══════════════════════════════════════════════════════════════╝
+### DARWIN BBUD — Post-Recall Revision (B0 Stepping)
+
+| Parameter | Value |
+|---|---|
+| **Silicon** | B0 stepping (v1.426, pre-close freeze) |
+| **Budget** | $100,000 (fresh, no degradation) |
+| **Entry** | ~$87.10 SOL |
+| **Open MG** | $1.87 (K\|NGP\|N sweet spot) |
+| **Bias lots** | 24,477 |
+| **TRIM** | 58% (4% dead zone, saves ~$39K swap vs 59%) |
+| **PROTECT** | 54% (4% above liquidation) |
+| **Pre-close** | 5 min freeze |
+
+### Cascade Phases
+
+| Phase | SOL Price | Final Lots | Equity |
+|---|---|---|---|
+| **1 (NOW)** | $87 → $37 | 21,000 | $475K |
+| **2** | $37 → $22 | 80,375 | $1,100K |
+| **3** | $22 → $13 | 217,875 | $2,200K |
+| **4** | $13 → $0 | 217,875 | **$5,032K** |
+
+### Scorecard
+
+| Metric | Value |
+|---|---|
+| **Terminal Score** | **$5,032,000** |
+| **Return** | **50x** |
+| **Swap Savings vs 59%** | ~$39,000 |
+| **Post-Mortems** | 0 (target) |
+| **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
+| **Lessons Applied** | All of them (this time for real) |
+
+```mermaid
+graph LR
+    A["$100K<br/>Open MG $1.87<br/>24,477 bias"] -->|"TRIM grind<br/>$87→$37"| B["$475K<br/>21,000 pure short"]
+    B -->|"Cascade MG $8.00<br/>$37→$22"| C["$1,100K<br/>80,375 pure short"]
+    C -->|"Cascade MG $8.00<br/>$22→$13"| D["$2,200K<br/>217,875 pure short"]
+    D -->|"Ride to $0<br/>$13→$0"| E["$5,032,000<br/>50x return"]
+    style A fill:#ff4444,color:#fff
+    style B fill:#ff8800,color:#fff
+    style C fill:#ffcc00,color:#000
+    style D fill:#44cc44,color:#fff
+    style E fill:#00ff00,color:#000
 ```
 
 QRRP is dead. XJFD is dead. Long live BBUD.
