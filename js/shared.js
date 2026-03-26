@@ -251,6 +251,10 @@ function openModal() {
         document.body.classList.add('modal-open');
         modal.focus();
 
+        // Scroll modal body to top
+        var modalBody = modal.querySelector('.modal-body');
+        if (modalBody) modalBody.scrollTop = 0;
+
         // Add escape key handler
         const escapeHandler = (event) => {
             if (event.key === 'Escape') {
