@@ -240,9 +240,9 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 
 The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety floor. SOL dropped, ML hit 54%, PROTECT fired balanced closes and consumed **~22,500 lots from EACH side** -- destroying 92% of the position. 1,958 pure short lots survived at ML 52.4%.
 
-**Recovery:** Re-hedged at Open MG $5.00 (968 lots/chunk). Spread tolerance $5.37/lot -- deeply safe. Position rebuilt: 7,282 bias / 9,024 hedge, ML 58.0%, TRIM grinding.
+**Recovery:** Re-hedged at Open MG $5.00 (968 lots/chunk), then re-opened at **$4.20133769** (the permanent setting). Position rebuilt: 8,684 hedge / 10,409 bias, ML 57.9%, TRIM grinding. Spread tolerance $4.53/lot -- deeply safe.
 
-**Lesson learned:** $1.87 is too aggressive for 58/54 settings. $5.00 opens clean. All future cascade phases use $5.00.
+**Lesson learned:** $1.87 is too aggressive for 58/54 settings. $4.20 is the K|NGP|N sweet spot -- PROTECT fires 1-2 times on cascade open, pads Darwinex D-Score, self-heals to clean operation.
 
 ### Cascade Phases (Post Re-Hedge)
 
@@ -265,18 +265,15 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 | **Lessons Applied** | All of them + $5.00 Open MG for 58/54 |
 
-```mermaid
-graph LR
-    A["$87K<br/>Re-hedge $5.00<br/>7,282 bias"] -->|"TRIM grind<br/>$87→$48"| B["$255K<br/>9,700 pure short"]
-    B -->|"Cascade MG $5.00<br/>$48→$26"| C["$850K<br/>60,700 pure short"]
-    C -->|"Cascade MG $5.00<br/>$26→$15"| D["$1,900K<br/>230,700 pure short"]
-    D -->|"Ride to $0<br/>$15→$0"| E["$5,361,000<br/>54x return"]
-    style A fill:#ff4444,color:#fff
-    style B fill:#ff8800,color:#fff
-    style C fill:#ffcc00,color:#000
-    style D fill:#44cc44,color:#fff
-    style E fill:#00ff00,color:#000
-```
+**The Cascade Pipeline:**
+
+> **$87K** → TRIM grind $87→$48 → **$255K (9,700 pure short)**
+>
+> → Cascade MG $4.20 $48→$26 → **$850K (60,700 pure short)**
+>
+> → Cascade MG $4.20 $26→$15 → **$1,900K (230,700 pure short)**
+>
+> → Ride to $0 $15→$0 → **$5,361,000 (54x return)**
 
 QRRP is dead. XJFD is dead. Long live BBUD.
 
