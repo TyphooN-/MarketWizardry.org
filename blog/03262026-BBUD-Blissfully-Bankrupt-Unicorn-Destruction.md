@@ -256,6 +256,62 @@ QRRP picked up the BFG 9000 after seven deaths. XJFD spawned with it. BBUD spawn
 
 ---
 
+## The Sam Hyde BBUD Podcast — Episode 2: "He Can't Keep Getting Away With It"
+
+**[Intro music: distorted Quake 3 Arena announcer saying "HOLY SHIT" on loop, overlaid with the sound of a margin call notification]**
+
+**Sam:** OK so people keep asking me, they keep sending me messages — "Sam, didn't QRRP die?" Yes. "Sam, didn't XJFD also die?" Also yes. "Sam, you opened a THIRD account doing the EXACT same thing?" Yes but actually no. Let me explain. It's the SAME thing but BETTER because — and this is important — we added FOUR LINES OF CODE that check what time it is.
+
+That's it. That's the fix. The previous two accounts — combined value $128,000, nine post-mortems between them, the Severe Drawdown Gang's most decorated members — died because the EA did not know that clocks exist. It did not know that session close happens at the same time every single day. It did not know that spread spikes happen at the same time every single morning. It had the mathematical sophistication of a hedge fund and the temporal awareness of a goldfish.
+
+**[Sound effect: Quake announcer "IMPRESSIVE"]**
+
+**Sam:** So here's what happened. March 23rd, 2026. Market opens. Spread spikes on SOLUSD. Both accounts are sitting at 52-53% margin level with PROTECT at 51%. The spread spike punches through PROTECT in ONE TICK. There is no tick between "alive" and "dead." The broker liquidates everything. $128,000. Gone. In the time it takes to blink.
+
+And you know what I did? I wrote a document about it. A lessons learned document. I've written a LOT of lessons learned documents. The lessons learned document for PM#6 said "do not open MG below $5.00." I then opened at $0.99. The lessons learned document for PM#7 said "settings are LOCKED, will not change." I changed them four times that day. But THIS time — THIS TIME — I wrote the lessons learned document AND I wrote the code that implements the lessons. In Rust. Because if you put the lessons in a document, the operator ignores them. If you put the lessons in compiled code, the compiler enforces them.
+
+**[Sound effect: Quake announcer "GODLIKE"]**
+
+**Sam:** The pre-close freeze. Let me tell you about the pre-close freeze. It is the most beautiful piece of code I have ever written and it is ELEVEN LINES LONG. Eleven lines. Four minutes before session close, the EA checks if margin level is within 1% of TRIM. If yes: FREEZE. No more TRIM. No more PROTECT. No more anything. The EA goes completely dark. The position sleeps. The spread spike happens at open and hits a frozen position that was deliberately tightened before close.
+
+The first time it fired in production — March 26th, 16:54 UTC — I actually screamed. Not because something went wrong. Because something went RIGHT. For the first time in nine post-mortems, something went right. The EA printed "FREEZING until next session" and then it printed nothing for ten minutes. Ten glorious minutes of silence across the session boundary. Then "FREEZE lifted — market open, new session. Resuming normal operation."
+
+That is the most beautiful log message in the history of algorithmic trading. "Resuming normal operation." After nine deaths. After $128,000 in losses. After writing and violating six lessons learned documents. "Resuming normal operation." The account survived.
+
+**[Sound effect: Quake announcer "EXCELLENT"]**
+
+**Sam:** Now people are going to say "Sam, you set it to $4.20 because you think you're funny." And to that I say: we simulated every cent from $4.00 to $5.00. The mathematically optimal spacing is $4.29 — Phase 2 spread tolerance exactly $2.00. $4.20 is nine cents more aggressive, which means PROTECT fires 1-2 times on each cascade open, which means Darwinex records those as trades, which means the D-Score sees hundreds of consistent small losses that create a smooth equity curve. The meme number produces better Darwinex metrics than the "optimal" number. THE MEME IS THE MATH. THE MATH IS THE MEME.
+
+Also we set TRIM to 57% instead of 58% because — and I need people to understand this — ONE PERCENT tighter TRIM produces $737,000 more terminal equity and 36,000 more final lots. Seven hundred and thirty seven THOUSAND dollars. For one percent. K|NGP|N would set it to 56%. FUGGER would unlock the hidden multiplier at 55.5%. We are CONSERVATIVE at 57%.
+
+**[Sound effect: Quake announcer "QUAD DAMAGE"]**
+
+**Sam:** Let me walk you through what happened on Day 1. The opening. Oh God, the opening.
+
+I manually entered some positions first. Then I clicked Open MG. The EA starts filling. 123 lots per chunk. Buy, sell, buy, sell. 200 orders per side. It's filling beautifully. And then — position limit. 400 positions. The broker says "no more." The EA says "cannot place any size. Stopping order loop."
+
+So now I have 24,477 short and 24,600 long and the allocation is WRONG because I manually entered positions before letting the EA handle it. The spread tolerance is $1.94 per lot. Below the $2.00 safety floor. In the DANGER zone.
+
+SOL starts dropping. ML hits 54%. PROTECT fires. Balanced close. 123 lots from each side. ML recovers to 57%. SOL drops again. ML hits 54% again. PROTECT fires again. And again. And again. Each PROTECT fire destroys 123 lots from BOTH sides. After three PROTECT events, 92% of the position is gone. Twenty-two thousand lots from each side. Consumed. The EA prints "no hedges remaining — refusing to close bias. Standing down."
+
+I'm sitting there with 1,958 naked short lots and $89,000 equity and a margin level of 52.4% and NO HEDGES. Zero. The hedge is gone. The safety net is gone. One spread spike and it's PM#9.
+
+**[Sound effect: Quake announcer "WICKED SICK"]**
+
+**Sam:** So what did I do? I fixed the EA to allow re-hedging while MG is active — because the original code BLOCKED Open MG if a martingale was already running. A safety feature that became a death sentence when PROTECT ate all the hedges. I deployed the fix. I re-hedged at $5.00 Open MG. Then I re-opened at $4.20133769 — the permanent setting.
+
+And the position WORKS. TRIM is grinding. 76 closes. Zero PROTECT fires since the re-hedge. The pre-close freeze fired successfully. The first overnight survived. The second overnight survived. Every overnight since has survived.
+
+The blundered opening — the 400-position limit, the wrong allocation, the PROTECT cascade, the 92% lot destruction, the emergency re-hedge — all of that produced BETTER Darwinex metrics than a clean opening would have. Because each PROTECT fire was a recorded trade. Each re-hedge chunk was a recorded trade. Darwinex saw hundreds of small consistent trades instead of QRRP's 3 massive closes per phase. The D-Score loves it. The accident is better than the plan.
+
+He can't keep getting away with it.
+
+*But he does. He just does.*
+
+**[End credits: scrolling list of all 9 post-mortems with death timestamps, followed by current equity: $92,383. TRIM grinding. Pre-close freeze active. SOL to $0.]*
+
+---
+
 ## The Rothschild Upgrade
 
 > *"Buy when there's blood in the streets, even if the blood is your own."*
