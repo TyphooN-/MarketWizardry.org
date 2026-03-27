@@ -1,4 +1,4 @@
-## TyphooN-Terminal: 56K Lines of Rust in 6 Days -- Building a Bloomberg Killer on Open Source
+## TyphooN-Terminal: 38K Lines of Pure Rust -- Building a Bloomberg Killer With Zero JavaScript
 
 > **DISCLAIMER:** This is a technical post-mortem of a software development sprint. The author is not affiliated with Bloomberg, Godel Technologies, MetaQuotes, or any terminal vendor mentioned. Opinions on proprietary trading software are exactly that -- opinions formed after years of paying for tools that should have been open source from the start.
 
@@ -6,9 +6,9 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal shipped its first functional build in **4.7 days**. March 15 to March 20, 2026. **514 commits**. **73,100+ lines of code**. Approximately **43 commits per day**. A ~**12-15MB GUI binary** and a **6.5MB standalone CLI** that do what Bloomberg charges twenty-four grand a year for.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **38,662 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **514 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
-This is not a mockup. This is not a demo. This is a fully functional trading terminal with **298** Bloomberg-style commands, **39** indicators with exact MT5 visual parity, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
+This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **103** Bloomberg-style commands, **32+** indicators (all computed on GPU via WGSL shaders), a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
 **BSL (Business Source License). Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
 
@@ -24,36 +24,55 @@ The terminal I needed did not exist. Bloomberg has the data but costs more than 
 
 So I built it.
 
-## The Tech Stack: Why Rust — And Why Tauri Was Only the Beginning
+## The Development Lifecycle: Three Frontends, One Lesson
 
-This decision took about ten minutes and the reasoning has not changed since.
+The backend was always Rust. That decision took ten minutes and never changed. The frontend was rebuilt three times because each iteration revealed that the bottleneck was not the code -- it was the architecture.
 
-### Rust + Tauri 2.0 Backend
+### Iteration 1: Tauri + CPU Canvas (Days 1-5)
 
-- **Binary size:** ~10-15MB. An equivalent Electron app ships at 150-200MB because it bundles an entire Chromium browser.
-- **Memory footprint:** ~50-100MB under load. Electron apps routinely consume 200-500MB doing the same work because V8's garbage collector treats RAM like a buffet.
-- **No garbage collector.** No runtime. Rust compiles to native machine code that runs at the speed your CPU was designed for, not the speed a JIT compiler feels like generating today.
-- Tauri 2.0 uses the system webview (WebKitGTK on Linux, WebView2 on Windows, WKWebView on macOS). Zero bundled browser engines. Your OS already has a renderer -- Tauri uses it.
+The first build used **Tauri 2.0** with a vanilla JS frontend rendering charts on HTML5 Canvas. No React. No framework. Just DOM manipulation and `ctx.fillRect()` for every candlestick. It shipped fast and proved the feature set: 288 commands, indicators, order management, risk engine.
 
-### JS/HTML/CSS Frontend
+**What worked:** Tauri's ~15MB binary vs Electron's 200MB. System webview instead of bundled Chromium. The Rust backend was fast. The IPC bridge was tolerable.
 
-- The rendering layer is vanilla JS with **WebGL2** GPU-accelerated charts. No React. No Vue. No framework that adds 400KB of abstraction between your code and the DOM.
-- WebGL2 means chart rendering happens on the GPU. Candlesticks, indicators, drawing tools -- all GPU-rendered. Your CPU handles data. Your GPU handles pixels. Division of labor that Electron apps do not understand.
+**What broke:** CPU canvas rendering collapsed above 5,000 bars with indicators active. Every pan, every zoom, every new bar required the CPU to repaint thousands of rectangles. The chart stuttered. The UI froze during data loads. Canvas is not a rendering engine -- it is a drawing API pretending to be one.
 
-### WASM Indicator Modules
+### Iteration 2: Tauri + WebGL2 GPU Charts + WASM Indicators (Days 5-20)
 
-- Performance-critical indicator calculations compile to **WebAssembly**. The same Rust code that runs on the backend can compile to Wasm and execute in the frontend at near-native speed.
-- This is not "fast for a web app." This is fast, period.
+The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick bodies became GPU quads (2 triangles each). Indicator lines became GL_LINE_STRIP calls. Drawing tools became GPU geometry. A **WASM indicator engine** moved the heaviest math off the main thread into Web Workers running compiled Rust at near-native speed.
 
-### The Alternatives and Why They Lost
+**The codebase peaked at ~73,000 lines** -- 40,000+ lines of JavaScript, 32KB of WASM indicator modules, and the Rust backend.
 
-**Electron:** Ships a 200MB Chromium instance per application. Uses 500MB of RAM to display a chart. This is not engineering. This is negligence.
+**What worked:** GPU rendering was fast. 10,000 bars at 60fps with 39 indicators. The WebGL2 pipeline proved that GPU chart rendering is the correct architecture.
 
-**Python/Qt:** Python's GIL makes real-time charting a threading nightmare. Qt licensing is a minefield. PyQt5 commercial licenses cost money. PySide6 is LGPL with restrictions. Neither produces binaries under 50MB.
+**What broke:** The IPC bridge. Every piece of data -- bar arrays, indicator results, position updates, quotes -- had to be serialized to JSON in Rust, sent over the Tauri IPC bridge, deserialized in JavaScript, and then fed to the WebGL2 renderer. The serialization overhead dominated. A 50,000-bar dataset spent more time in `JSON.parse()` than in the actual rendering. WebKitGTK on Linux added its own overhead -- layout reflows, garbage collection pauses, compositor delays. The webview was the bottleneck, not the chart engine.
+
+### Iteration 3: Native Rust GPU (egui + wgpu) — Zero JavaScript (Days 20+)
+
+The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
+
+**The codebase dropped from 73,000 to 38,662 lines** -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction.
+
+**What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
+
+**The current architecture:**
+
+| Crate | Purpose | Lines of Rust |
+|---|---|---|
+| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 16,200 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders | 18,687 |
+| **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,237 |
+| **mql5-compiler/** | pest parser → AST → IR → WASM codegen for custom MQL5 indicators | 1,538 |
+| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **38,662** |
+
+### Why Rust Won (And Why Everything Else Still Loses)
+
+**Electron:** Ships a 200MB Chromium instance per application. Uses 500MB of RAM to display a chart. TyphooN-Terminal tried the Tauri variant of this approach -- system webview instead of bundled Chromium -- and even that was too much overhead. If the lightest possible webview (Tauri) is the bottleneck, Electron never had a chance.
+
+**Python/Qt:** Python's GIL makes real-time charting a threading nightmare. Qt licensing is a minefield. Neither produces binaries under 50MB.
 
 **C++/Qt:** Fast, but C++ memory management in a trading terminal is asking for use-after-free bugs in production where use-after-free means "your order got duplicated and you are now 2x leveraged by accident."
 
-Rust eliminates entire categories of bugs at compile time. Memory safety without garbage collection. Thread safety without runtime overhead. When the code compiles, it works. When it works, it works at native speed. For a trading terminal where correctness is not optional, this is the only sane choice.
+**The lesson from three rebuilds:** The only architecture that works for a real-time trading terminal is compiled native code rendering directly to the GPU with zero intermediary layers. No webview. No bridge. No serialization. Rust + egui + wgpu is that architecture. Everything else adds overhead that compounds under load until the terminal stutters at exactly the moment you need it most.
 
 ## What Was Built: The Numbers
 
@@ -828,7 +847,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**73,100+ lines of Rust. 319 commits. 9 days. GUI + CLI + 298 commands + 39 indicators + 722 tests + 21 free APIs + 895-symbol MT5 sync + LAN sync + SEC EDGAR scraper + 50+ DARWIN analytics functions + Monte Carlo VaR + margin call simulator + 50K DARWIN radar screener.** One developer who got tired of paying rent on tools that should be free.
+**38,662 lines of pure Rust. 514 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 103 commands + 32+ indicators (all GPU compute shaders) + 69 DARWIN analytics functions + SEC EDGAR scraper + MQL5 compiler + risk-of-ruin + replay mode + GPU strategy optimizer. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
