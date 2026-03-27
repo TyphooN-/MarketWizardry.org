@@ -1,4 +1,4 @@
-## TyphooN-Terminal: 38K Lines of Pure Rust -- Building a Bloomberg Killer With Zero JavaScript
+## TyphooN-Terminal: 40K Lines of Pure Rust -- Building a Bloomberg Killer With Zero JavaScript
 
 > **DISCLAIMER:** This is a technical post-mortem of a software development sprint. The author is not affiliated with Bloomberg, Godel Technologies, MetaQuotes, or any terminal vendor mentioned. Opinions on proprietary trading software are exactly that -- opinions formed after years of paying for tools that should have been open source from the start.
 
@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **38,662 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **531 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **40,681 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **535 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **103** Bloomberg-style commands, **32+** indicators (all computed on GPU via WGSL shaders), a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -58,11 +58,11 @@ The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, g
 
 | Crate | Purpose | Lines of Rust |
 |---|---|---|
-| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 16,200 |
-| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders | 18,687 |
-| **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,237 |
+| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 16,990 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders | 19,908 |
+| **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,245 |
 | **mql5-compiler/** | pest parser → AST → IR → WASM codegen for custom MQL5 indicators | 1,538 |
-| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **38,662** |
+| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **40,681** |
 
 ### Why Rust Won (And Why Everything Else Still Loses)
 
@@ -154,7 +154,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**531 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**535 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -849,7 +849,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**38,662 lines of pure Rust. 514 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 103 commands + 32+ indicators (all GPU compute shaders) + 69 DARWIN analytics functions + SEC EDGAR scraper + MQL5 compiler + risk-of-ruin + replay mode + GPU strategy optimizer. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**40,681 lines of pure Rust. 535 commits. 12 days. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 103 commands + 32+ indicators (all GPU compute shaders) + 69 DARWIN analytics functions + SEC EDGAR scraper + MQL5 compiler + risk-of-ruin + replay mode + GPU strategy optimizer. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
