@@ -443,6 +443,26 @@ BBUD's premiums are swap costs. Every day the position is open, the broker charg
 
 ---
 
+## Current State: The Grind (2026-03-27)
+
+![BBUD grinding — 8,505 hedge / 10,409 bias, ML 55.9%, P&L +$5,019, 76 TRIM closes](/img/bbud-grinding.webp)
+
+| | Value |
+|---|---|
+| **Hedge / Bias** | 8,505 L / 10,409 S |
+| **Net SHORT** | 1,904 |
+| **Equity** | $92,158 |
+| **P&L** | +$5,019.26 |
+| **ML** | 55.9% [DEAD] |
+| **TRIM closes** | 76 |
+| **PROTECT fires** | 0 |
+| **VaR %** | 12.07 (net) |
+| **Risk** | $2,178,912 (2,500) |
+
+The position is grinding. SOL dropped from $87 to $83. Every dollar down adds $1,904 to equity. TRIM re-engages above 57%. The pre-close freeze fires every session close. Zero PROTECT fires since re-hedge. The robochiller hums. The silicon holds.
+
+---
+
 ## Final Score Projection
 
 ### DARWIN BBUD — Post-Recall Revision (B0 Stepping)
