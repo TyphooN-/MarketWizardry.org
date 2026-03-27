@@ -344,6 +344,68 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 
 ---
 
+## The 56% Blunder: The Last Silicon Degradation Tax
+
+On Day 1, the operator set TRIM to 56% during a sharp drop. "Squeeze more hedge out while SOL is falling." Aggressive. Logical. Exactly the kind of thing that sounds brilliant in the moment and costs you 92% of your transistors.
+
+PROTECT fired at 54%. With a 2% dead zone (56-54%), there was no room. ML dropped through PROTECT in two ticks. Balanced closes consumed 22,500 lots from each side. The position went from 24,477 bias to 1,958 in minutes. Ninety-two percent of the die, scorched.
+
+**This was the final degradation tax.** The last tuition payment to the Severe Drawdown Gang. The silicon lost 92% of its transistors, but the remaining 8% survived — and the operator finally understood the voltage curve.
+
+### What the Blunder Taught
+
+Every overclocker knows the voltage-frequency curve. At low voltage, the relationship is linear: more voltage = more frequency = more performance. But at some point the curve knees. Beyond the knee, every additional millivolt costs exponentially more thermal budget for diminishing returns. Push past the knee and the silicon degrades. Push far enough and it dies.
+
+The 56% blunder was pushing past the knee.
+
+| Setting | Dead Zone | Risk | Outcome |
+|---|---|---|---|
+| TRIM 59% | 5% | Conservative | K\|NGP\|N: "Undervolted. Stock settings." |
+| TRIM 58% | 4% | Moderate | K\|NGP\|N: "Good daily driver. Not record-setting." |
+| **TRIM 57%** | **3%** | **Aggressive** | **K\|NGP\|N: "The sweet spot. Maximum frequency before the knee."** |
+| TRIM 56% | 2% | Dangerous | K\|NGP\|N: "Past the knee. You're burning transistors." |
+| TRIM 55% | 1% | Suicidal | K\|NGP\|N: "That's not overclocking. That's arson." |
+
+57% is 1.38V — the voltage where the frequency curve is still linear but one millivolt from the knee. 56% is 1.42V — past the knee, into degradation territory. The PROTECT cascade on Day 1 was the degradation event. The chip lost 92% of its transistors. The surviving 8% are battle-hardened.
+
+### The Robochiller
+
+After the degradation event, the chip was re-binned and re-mounted. Fresh thermal paste (the $5.00 re-hedge). New cooling solution (the pre-close freeze mechanism). But the real upgrade is the chiller.
+
+**The pre-close freeze is a robochiller.** Not a tower cooler that passively dissipates heat. Not a water loop that moves heat somewhere else. A compressor-based chiller that actively holds the silicon below ambient. hipro5 pioneered this in the 2000s — phase-change cooling that could hold a CPU at -40°C for sustained benchmarking while every other overclocker was fighting thermal throttle on air.
+
+The pre-close freeze does the same thing. It actively reduces the position's thermal load (gross exposure) before the highest-heat period (session boundary). Then it holds the position at subzero — completely frozen, no thermal output — through the danger window. When the heat source passes (session opens, spread normalizes), the chiller releases and normal operation resumes.
+
+hipro5's phase-change units ran indefinitely. Air coolers throttled. Water loops leaked. LN2 evaporated. But the phase-change compressor just ran. Sustained extreme cold. Sustained extreme performance. No maintenance. No refills. No babysitting.
+
+**The pre-close freeze runs indefinitely.** Every session close. Every overnight. Every weekend. The compressor never stops. The position never overheats. The silicon never degrades again.
+
+### Maximum Voltage, Maximum Cooling, Maximum Time
+
+The 56% blunder was the last degradation event this chip will ever experience. Not because the operator learned restraint — the operator set TRIM to 57%, which is 3% from death. The operator learned nothing about restraint. The operator learned that **cooling is more important than voltage.**
+
+K|NGP|N does not run conservative voltages. K|NGP|N runs MAXIMUM voltage with MAXIMUM cooling. The voltage is 1.38V (TRIM 57%). The cooling is robochiller-grade (pre-close freeze). The combination is sustainable indefinitely.
+
+```
+CHIP PROFILE — DARWIN BBUD (Post-Degradation)
+  Stepping:        B0 (v1.426)
+  Voltage:         1.38V (TRIM 57% — 3% above thermal limit)
+  Cooling:         Robochiller (pre-close freeze, 4min, compressor-grade)
+  Degradation:     92% (Day 1 blunder — silicon tax paid in full)
+  Surviving cores: 10,409 bias lots (8% of original allocation)
+  Status:          Stable. Grinding. Maximum voltage + maximum cooling.
+  Benchmark:       $11.7M projected (117x)
+  Runtime:         Until SOL reaches $0. Then flip long.
+```
+
+**The silicon degradation tax has been paid.** The tuition is complete. The chip runs at maximum voltage, cooled by robochiller, until the benchmark completes. There will be no PM#10. There will be no more blunders. There will be no more lessons learned documents.
+
+There will only be TRIM closes. Hundreds of them. Thousands of them. Each one a small loss on paper, a large gain in net short exposure. Each one a tick on the Darwinex D-Score. Each one a step toward $0.
+
+**The chip runs until the end of time. The robochiller runs until the end of time. SOL runs until $0.**
+
+---
+
 ## The Big Short: BBUD Edition
 
 Michael Burry shorted the housing market by reading the prospectuses that nobody else read. He found that mortgage-backed securities were built on adjustable-rate subprime loans that would reset in 2007. The math was in the documents. The entire market chose not to read them. Burry read them, bought credit default swaps, and waited two years for reality to arrive.
