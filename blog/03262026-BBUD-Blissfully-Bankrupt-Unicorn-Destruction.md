@@ -56,7 +56,7 @@ TRIM closes hedges to build net short exposure. PROTECT fires balanced closes to
 
 | | Old (QRRP/XJFD) | New (BBUD) |
 |---|---|---|
-| TRIM | 54.2% | **58%** |
+| TRIM | 54.2% | **57%** |
 | PROTECT | 51.0% | **54%** |
 | Dead zone | 3.2% | **5%** |
 | Buffer above liquidation | ~1% | **~4%** |
@@ -102,7 +102,7 @@ v1.420 was a race car with no seat belt. v1.426 is the same race car with a roll
 
 | Parameter | Value |
 |---|---|
-| **TRIM** | **58.0%** |
+| **TRIM** | **57.0%** |
 | **Open MG** | **$4.20133769** |
 | **PROTECT** | **54.0%** |
 | **Pre-close** | **4 min** → force TRIM, then FREEZE |
@@ -128,10 +128,10 @@ The mechanism that would have saved QRRP and XJFD just proved itself live. ML wa
 ```
 QRRP  (degraded): $100K → $31K → liquidated at 52.9%. Terminal equity: $0.
 XJFD  (golden):   $100K → $92K → liquidated at 53.0%. Terminal equity: $0.
-BBUD  (v1.426):   $100K → $92K → PROTECT event → re-hedge → $5,361,000 (projected).
+BBUD  (v1.426):   $100K → $92K → PROTECT event → re-hedge → $11,738,000 (projected).
 ```
 
-Same starting capital. Same instrument. Same operator. Different software. $5.4M difference.
+Same starting capital. Same instrument. Same operator. Different software. $11.7M difference.
 
 ### The Cascade Math (Why Fresh $100K Beats Degraded $31K)
 
@@ -168,15 +168,15 @@ K|NGP|N would appreciate the irony. The blundered opening produced better silico
 
 Every trading day, five minutes before session close:
 
-1. Check ML. If within 1% of TRIM (above 58%) → freeze immediately. Position is healthy.
-2. If ML below 58% → fire one balanced close to reduce gross exposure. Check again next tick.
-3. Keep firing until ML >= 58% or session closes.
+1. Check ML. If within 1% of TRIM (above 57%) → freeze immediately. Position is healthy.
+2. If ML below 57% → fire one balanced close to reduce gross exposure. Check again next tick.
+3. Keep firing until ML >= 57% or session closes.
 4. **FREEZE.** No TRIM. No PROTECT. No activity. EA is completely dark.
 5. Market opens next day → fresh ticks arrive → freeze lifts → normal operation resumes.
 
 This is the mechanism that would have saved QRRP and XJFD. The spread spike at open hits a position that was deliberately tightened before close. The gross exposure is lower. The spread tolerance is higher. The EA is not trying to TRIM or PROTECT during the spike — it is frozen, letting the storm pass.
 
-QRRP entered overnight at ML 52% with no preparation. BBUD enters overnight at ML 58%+ with reduced gross. That is the difference between liquidation and survival.
+QRRP entered overnight at ML 52% with no preparation. BBUD enters overnight at ML 57%+ with reduced gross. That is the difference between liquidation and survival.
 
 ---
 
@@ -247,7 +247,7 @@ PATCH v1.426 NOTES:
 - Fixed: spread spike at session open causing instant death
 - Added: pre-close freeze mechanism (5 min before close)
 - Changed: PROTECT 51% → 54% (4% buffer above liquidation, was 1%)
-- Changed: TRIM 54.2% → 58% (4% dead zone, was 3.2%)
+- Changed: TRIM 54.2% → 57% (3% dead zone, was 3.2%)
 - Changed: dead zone from "hope" to "managed"
 - Known issue: SOL still exists above $0 (working on it)
 ```
@@ -288,6 +288,43 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 
 ---
 
+## The Big Short: BBUD Edition
+
+Michael Burry shorted the housing market by reading the prospectuses that nobody else read. He found that mortgage-backed securities were built on adjustable-rate subprime loans that would reset in 2007. The math was in the documents. The entire market chose not to read them. Burry read them, bought credit default swaps, and waited two years for reality to arrive.
+
+**BBUD is the same trade on different paper.**
+
+The "prospectus" is SOL's tokenomics: 4% annual inflation, no supply cap, 18.6 million new SOL minted per year, $4.5 million of daily sell pressure. The math is public. The Solana Foundation publishes the emission schedule. The staking dashboard shows the inflation rate. Every SOL holder can read it. Almost none of them do.
+
+> *"It ain't what you don't know that gets you into trouble. It's what you know for sure that just ain't so."*
+> — Mark Twain (quoted in The Big Short)
+
+SOL holders "know for sure" that staking yield is free money. It ain't so. The yield is funded by inflation that devalues their holdings. A 6% staking APY on a token with 4% inflation and declining demand is not a 6% return — it is a 2% return denominated in an asset that is losing purchasing power. In a bear market, the math flips negative: the staking yield does not compensate for the price decline.
+
+**Burry waited 2 years for the adjustable rates to reset.** BBUD waits for the next bear cycle for demand to collapse below emission. The timeline is different. The structure is identical: a leveraged bet against a mathematically unsustainable system that the market has chosen to ignore.
+
+### The Cast
+
+**Michael Burry** read the documents and shorted the housing market. TyphooN read the tokenomics and shorted SOL.
+
+**Mark Baum (Steve Eisman)** was angry about the fraud. TyphooN is angry about MetaQuotes and proprietary terminal vendors charging rent on tools that should be open source.
+
+**Jared Vennett (Greg Lippmann)** sold the trade to investors who did not understand it. Darwinex sells BBUD to investors who can read the D-Score and decide for themselves.
+
+**Ben Rickert** moved to a farm because he was disgusted by Wall Street. TyphooN runs six DARWINs from a Linux box because he is disgusted by Windows-only trading software.
+
+The CDO managers who packaged subprime mortgages into "AAA" securities are the crypto VCs who package inflationary tokenomics into "institutional-grade investment vehicles." Same structure. Same incentives. Same outcome.
+
+### "I'm Going to Wait for the Premiums"
+
+In The Big Short, Burry's investors demand he close the trade as the premiums drain his fund. He refuses. The math is right. The timing is uncertain. The premiums are the cost of being early.
+
+BBUD's premiums are swap costs. Every day the position is open, the broker charges swap on gross lots. The swap is the cost of being early. The math is right: SOL's inflation creates $4.5M of daily sell pressure. The timing is uncertain: the bear cycle could start tomorrow or in six months.
+
+**The swap is the premium. The cascade is the payout. The tokenomics are the prospectus. The market has not read it.**
+
+---
+
 ## Final Score Projection
 
 ### DARWIN BBUD — Post-Recall Revision (B0 Stepping)
@@ -299,7 +336,7 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 | **Entry** | ~$87.10 SOL |
 | **Open MG** | $1.87 (K\|NGP\|N sweet spot) |
 | **Bias lots** | 24,477 |
-| **TRIM** | 58% (4% dead zone, saves ~$39K swap vs 59%) |
+| **TRIM** | 57% (3% dead zone, saves ~$39K swap vs 59%) |
 | **PROTECT** | 54% (4% above liquidation) |
 | **Pre-close** | 5 min freeze |
 
@@ -315,19 +352,19 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $86 → $44 | 10,409 | $266K |
-| **2** | $44 → $21 | 73,777 | $934K |
-| **3** | $21 → $12 | 296,038 | $2,222K |
-| **4** | $12 → $8 | 824,798 | $4,180K |
-| **Ride** | $8 → $0 | 824,798 | **$11,026K** |
+| **1 (NOW)** | $83 → $45 | 10,409 | $267K |
+| **2** | $45 → $22 | 73,971 | $948K |
+| **3** | $22 → $12 | 299,668 | $2,358K |
+| **4** | $12 → $8 | 860,983 | $4,419K |
+| **Ride** | $8 → $0 | 860,983 | **$11,738K** |
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$11,026,000** |
-| **Return** | **110x** |
-| **Final Lots** | 824,798 |
+| **Terminal Score** | **$11,738,000** |
+| **Return** | **117x** |
+| **Final Lots** | 860,983 |
 | **Open MG** | $4.20133769 (all phases) |
 | **Post-Mortems** | 0 (target) |
 | **PROTECT at cascade open** | Expected 1-2 fires per phase (pads D-Score) |
@@ -335,15 +372,15 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **The Cascade Pipeline:**
 
-> **$84K** → TRIM grind $86→$44 → **$266K (10,409 pure short)**
+> **$92K** → TRIM grind $83→$45 → **$267K (10,409 pure short)**
 >
-> → Cascade MG $4.20 $44→$21 → **$934K (73,777 pure short)**
+> → Cascade MG $4.20 $45→$22 → **$948K (73,971 pure short)**
 >
-> → Cascade MG $4.20 $21→$12 → **$2,222K (296,038 pure short)**
+> → Cascade MG $4.20 $22→$12 → **$2,358K (299,668 pure short)**
 >
-> → Cascade MG $4.20 $12→$8 → **$4,180K (824,798 pure short)**
+> → Cascade MG $4.20 $12→$8 → **$4,419K (860,983 pure short)**
 >
-> → Ride to $0 $8→$0 → **$11,026,000 (110x return)**
+> → Ride to $0 $8→$0 → **$11,738,000 (117x return)**
 
 QRRP is dead. XJFD is dead. Long live BBUD.
 
