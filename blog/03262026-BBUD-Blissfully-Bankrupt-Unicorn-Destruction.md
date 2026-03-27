@@ -292,7 +292,7 @@ I manually entered some positions first. Then I clicked Open MG. The EA starts f
 
 So now I have 24,477 short and 24,600 long and the allocation is WRONG because I manually entered positions before letting the EA handle it. The spread tolerance is $1.94 per lot. Below the $2.00 safety floor. In the DANGER zone.
 
-SOL starts dropping. ML hits 54%. PROTECT fires. Balanced close. 123 lots from each side. ML recovers to 57%. SOL drops again. ML hits 54% again. PROTECT fires again. And again. And again. Each PROTECT fire destroys 123 lots from BOTH sides. After three PROTECT events, 92% of the position is gone. Twenty-two thousand lots from each side. Consumed. The EA prints "no hedges remaining — refusing to close bias. Standing down."
+SOL starts dropping. ML hits 54%. PROTECT fires. Balanced close. 123 lots from each side. ML recovers to 57%. SOL drops again. ML hits 54% again. PROTECT fires again. And again. And again. Each PROTECT fire destroys 123 lots from BOTH sides. After three PROTECT events, the gross position is gutted — twenty-two thousand lots from each side. Consumed. But equity only dropped 8% because balanced closes preserve net bias. The EA prints "no hedges remaining — refusing to close bias. Standing down."
 
 I'm sitting there with 1,958 naked short lots and $89,000 equity and a margin level of 52.4% and NO HEDGES. Zero. The hedge is gone. The safety net is gone. One spread spike and it's PM#9.
 
@@ -302,7 +302,7 @@ I'm sitting there with 1,958 naked short lots and $89,000 equity and a margin le
 
 And the position WORKS. TRIM is grinding. 76 closes. Zero PROTECT fires since the re-hedge. The pre-close freeze fired successfully. The first overnight survived. The second overnight survived. Every overnight since has survived.
 
-The blundered opening — the 400-position limit, the wrong allocation, the PROTECT cascade, the 92% lot destruction, the emergency re-hedge — all of that produced BETTER Darwinex metrics than a clean opening would have. Because each PROTECT fire was a recorded trade. Each re-hedge chunk was a recorded trade. Darwinex saw hundreds of small consistent trades instead of QRRP's 3 massive closes per phase. The D-Score loves it. The accident is better than the plan.
+The blundered opening — the 400-position limit, the wrong allocation, the PROTECT cascade, the gross lot destruction, the emergency re-hedge — all of that produced BETTER Darwinex metrics than a clean opening would have. Because each PROTECT fire was a recorded trade. Each re-hedge chunk was a recorded trade. Darwinex saw hundreds of small consistent trades instead of QRRP's 3 massive closes per phase. The D-Score loves it. The accident is better than the plan.
 
 He can't keep getting away with it.
 
@@ -346,27 +346,27 @@ BBUD is the B0 stepping. QRRP was A0. XJFD was A1. The architecture was always c
 
 ## The 56% Blunder: The Last Silicon Degradation Tax
 
-On Day 1, the operator set TRIM to 56% during a sharp drop. "Squeeze more hedge out while SOL is falling." Aggressive. Logical. Exactly the kind of thing that sounds brilliant in the moment and costs you 92% of your transistors.
+On Day 1, the operator set TRIM to 56% during a sharp drop. "Squeeze more hedge out while SOL is falling." Aggressive. Logical. Exactly the kind of thing that sounds brilliant in the moment and costs you 8% of your thermal budget.
 
 PROTECT fired at 54%. With a 2% dead zone (56-54%), there was no room. ML dropped through PROTECT in two ticks. Balanced closes consumed 22,500 lots from each side. The position went from 24,477 bias to 1,958 in minutes. Ninety-two percent of the die, scorched.
 
-**This was the final degradation tax.** The last tuition payment to the Severe Drawdown Gang. The silicon lost 92% of its transistors, but the remaining 8% survived — and the operator finally understood the voltage curve.
+**This was the final degradation tax.** The last tuition payment to the Severe Drawdown Gang. The silicon lost 8% of its thermal budget ($100K → $92K). 92% of the chip survived intact. The balanced closes destroyed lots from both sides equally — the net bias barely changed, the equity barely moved, but the gross exposure was reset. The chip came out of the degradation event lighter, tighter, and ready to re-mount with fresh thermal paste.
 
 ### What the Blunder Taught
 
-Every overclocker knows the voltage-frequency curve. At low voltage, the relationship is linear: more voltage = more frequency = more performance. But at some point the curve knees. Beyond the knee, every additional millivolt costs exponentially more thermal budget for diminishing returns. Push past the knee and the silicon degrades. Push far enough and it dies.
+Every overclocker knows the voltage-frequency curve. At low voltage, the relationship is linear: more voltage = more frequency = more performance. But at some point you hit the wall. Beyond the wall, every additional millivolt costs exponentially more thermal budget for diminishing returns. Push past the wall and the silicon degrades. Push far enough and it dies.
 
-The 56% blunder was pushing past the knee.
+The 56% blunder was pushing past the wall.
 
 | Setting | Dead Zone | Risk | Outcome |
 |---|---|---|---|
-| TRIM 59% | 5% | Conservative | K\|NGP\|N: "Undervolted. Stock settings." |
-| TRIM 58% | 4% | Moderate | K\|NGP\|N: "Good daily driver. Not record-setting." |
-| **TRIM 57%** | **3%** | **Aggressive** | **K\|NGP\|N: "The sweet spot. Maximum frequency before the knee."** |
-| TRIM 56% | 2% | Dangerous | K\|NGP\|N: "Past the knee. You're burning transistors." |
-| TRIM 55% | 1% | Suicidal | K\|NGP\|N: "That's not overclocking. That's arson." |
+| TRIM 59% (1.35V) | 5% | Conservative | K\|NGP\|N: "Undervolted. Stock settings. Intel Baseline Profile." |
+| TRIM 58% (1.40V) | 4% | Moderate | K\|NGP\|N: "Good daily driver. Not record-setting." |
+| **TRIM 57% (1.45V)** | **3%** | **Aggressive** | **K\|NGP\|N: "At the wall. Maximum frequency. This is where records happen."** |
+| TRIM 56% (1.50V) | 2% | Dangerous | K\|NGP\|N: "Past the wall. You're burning transistors for diminishing returns." |
+| TRIM 55% (1.55V) | 1% | Suicidal | K\|NGP\|N: "That's not overclocking. That's arson." |
 
-57% is 1.38V — the voltage where the frequency curve is still linear but one millivolt from the knee. 56% is 1.42V — past the knee, into degradation territory. The PROTECT cascade on Day 1 was the degradation event. The chip lost 92% of its transistors. The surviving 8% are battle-hardened.
+57% is 1.45V — the voltage where the frequency curve is still linear but right at the wall. 56% is 1.50V — past the wall, into degradation territory. We attempted 1.50V. The silicon paid the price. The PROTECT cascade on Day 1 was the degradation event. The chip lost 8% of its thermal budget. 92% survived. The degradation was minimal — the position rebuilt cleanly because balanced closes preserve net bias.
 
 ### The Robochiller
 
@@ -389,9 +389,9 @@ K|NGP|N does not run conservative voltages. K|NGP|N runs MAXIMUM voltage with MA
 ```
 CHIP PROFILE — DARWIN BBUD (Post-Degradation)
   Stepping:        B0 (v1.426)
-  Voltage:         1.38V (TRIM 57% — 3% above thermal limit)
+  Voltage:         1.45V (TRIM 57% — at the wall, maximum safe)
   Cooling:         Robochiller (pre-close freeze, 4min, compressor-grade)
-  Degradation:     92% (Day 1 blunder — silicon tax paid in full)
+  Degradation:     8% ($100K → $92K). 92% of silicon survived.
   Surviving cores: 10,409 bias lots (8% of original allocation)
   Status:          Stable. Grinding. Maximum voltage + maximum cooling.
   Benchmark:       $11.7M projected (117x)
@@ -460,7 +460,7 @@ BBUD's premiums are swap costs. Every day the position is open, the broker charg
 
 ### The PROTECT Event and Re-Hedge
 
-The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety floor. SOL dropped, ML hit 54%, PROTECT fired balanced closes and consumed **~22,500 lots from EACH side** -- destroying 92% of the position. 1,958 pure short lots survived at ML 52.4%.
+The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety floor. SOL dropped, ML hit 54%, PROTECT fired balanced closes and consumed **~22,500 lots from EACH side** -- gutting gross lots from both sides (equity hit only 8% — balanced closes preserve net bias). 1,958 pure short lots survived at ML 52.4%.
 
 **Recovery:** Re-hedged at Open MG $5.00 (968 lots/chunk), then re-opened at **$4.20133769** (the permanent setting). Position rebuilt: 8,684 hedge / 10,409 bias, ML 57.9%, TRIM grinding. Spread tolerance $4.53/lot -- deeply safe.
 
