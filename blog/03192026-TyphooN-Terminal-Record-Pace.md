@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **40,681 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **576 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **43,739 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **576 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **103** Bloomberg-style commands, **32+** indicators (all computed on GPU via WGSL shaders), a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -58,11 +58,11 @@ The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, g
 
 | Crate | Purpose | Lines of Rust |
 |---|---|---|
-| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 16,990 |
-| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders | 19,908 |
+| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 17,715 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders | 22,223 |
 | **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,245 |
 | **mql5-compiler/** | pest parser → AST → IR → WASM codegen for custom MQL5 indicators | 1,538 |
-| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **40,681** |
+| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **43,721** |
 
 ### Why Rust Won (And Why Everything Else Still Loses)
 
