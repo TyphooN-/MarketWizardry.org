@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **40,681 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **566 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **40,681 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **576 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **103** Bloomberg-style commands, **32+** indicators (all computed on GPU via WGSL shaders), a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -154,7 +154,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**566 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**576 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -815,6 +815,12 @@ This is what TradingView would be if it were built by someone who understood tha
 - **FRED Economic Data Dashboard:** yield curve visualization with automatic inversion detection -- see when the 2Y/10Y spread flips negative
 - **Economic Calendar:** upcoming events with impact ratings
 - **Congressional Trade Tracker:** monitor disclosed trades by US lawmakers
+- **Supply/Demand Zones:** fractal-based 1:1 port of SupplyDemand.mqh (GPU+CPU hybrid rendering)
+- **BetterVolume:** full rewrite with buy/sell pressure estimation (1:1 MQL5 port)
+- **DARWIN Trade Overlay:** buy/sell arrows + open position SL/TP lines rendered on chart
+- **Broker Selector:** dropdown for Alpaca / tastytrade / Both with per-broker connection status
+- **LAN Sync TLS:** encrypted WebSocket sync (wss:// with ephemeral self-signed certs)
+- **GPU/CPU Indicator Audit:** 28 indicator pairs verified, 3 mismatches fixed between GPU and CPU paths
 - **MultiKAMA + FakeCandle:** 10/10 MT5 custom indicator parity achieved in the native renderer
 - **MTF_MA Overlay:** 200 SMA status, KAMA, Bull/Bear Power text overlay matching MTF_MA.mqh
 - **44 unit tests** for all indicator computations
