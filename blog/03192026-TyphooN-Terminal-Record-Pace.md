@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **43,739 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **576 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **43,739 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **594 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **103** Bloomberg-style commands, **32+** indicators (all computed on GPU via WGSL shaders), a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -154,7 +154,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
 
-**576 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**594 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -821,6 +821,15 @@ This is what TradingView would be if it were built by someone who understood tha
 - **Broker Selector:** dropdown for Alpaca / tastytrade / Both with per-broker connection status
 - **LAN Sync TLS:** encrypted WebSocket sync (wss:// with ephemeral self-signed certs)
 - **GPU/CPU Indicator Audit:** 28 indicator pairs verified, 3 mismatches fixed between GPU and CPU paths
+- **5 New Indicators:** Supertrend (ATR-based trend bands with direction flip), Donchian Channels (N-bar high/low), Keltner Channels (EMA ± ATR), Regression Channel (rolling linear regression ± std error), Squeeze Momentum (BB-inside-KC detection with momentum histogram)
+- **Session Highlighting:** Asian/London/NY timezone shading on charts
+- **MA Ribbon Fill:** KAMA vs SMA200 green/red gradient fill
+- **Volume Heatmap Candles:** color-coded by relative volume (blue→green→yellow→red)
+- **VWAP with Deviation Bands:** daily-anchored VWAP with 1σ/2σ/3σ bands
+- **Price Distribution Histogram:** time-at-level displayed on chart right side
+- **Drawing Toolbar:** left-side floating toolbar, TradingView-style
+- **O(n) Performance Optimizations:** Bollinger, KAMA, Fisher, Stochastic, Williams %R, CCI all rewritten from O(n²) to O(n) with rolling sums and monotonic deques
+- **112 tests pass**
 - **MultiKAMA + FakeCandle:** 10/10 MT5 custom indicator parity achieved in the native renderer
 - **MTF_MA Overlay:** 200 SMA status, KAMA, Bull/Bear Power text overlay matching MTF_MA.mqh
 - **44 unit tests** for all indicator computations
