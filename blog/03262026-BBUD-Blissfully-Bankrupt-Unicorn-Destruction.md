@@ -443,23 +443,26 @@ BBUD's premiums are swap costs. Every day the position is open, the broker charg
 
 ---
 
-## Current State: The Grind (2026-03-27)
+## Current State: Pure Short Achieved → Reopened (2026-03-29)
 
-![BBUD grinding — 8,505 hedge / 10,409 bias, ML 55.9%, P&L +$5,019, 76 TRIM closes](/img/bbud-grinding.webp)
+XJFD/BBUD reached **PURE SHORT** at 1,953 lots on 2026-03-29 17:05. All hedge consumed. "PROTECT deactivated — PURE SHORT achieved. No hedges remaining. Bias is sacred. Riding to $0."
+
+**Immediately reopened** with Open MG $4.20133769 at $81.88 SOL. SOL cliff-diving. DEATH X all timeframes. Bear Power INIT everywhere.
 
 | | Value |
 |---|---|
-| **Hedge / Bias** | 8,505 L / 10,409 S |
-| **Net SHORT** | 1,904 |
-| **Equity** | $92,158 |
-| **P&L** | +$5,019.26 |
-| **ML** | 55.9% [DEAD] |
-| **TRIM closes** | 76 |
+| **Hedge / Bias** | 9,022 L / 10,866 S |
+| **Net SHORT** | 1,844 |
+| **Equity** | $88,038 |
+| **Balance** | $81,255 |
+| **ML** | 57.8% (TRIM grinding) |
+| **SOL Price** | ~$81.88 (dropping hard) |
+| **TRIM closes** | 4 (initial burst: 1,870 longs consumed) |
 | **PROTECT fires** | 0 |
-| **VaR %** | 12.07 (net) |
-| **Risk** | $2,178,912 (2,500) |
+| **Spread tolerance** | **$4.43/lot — SAFE** |
+| **Settings** | TRIM 57/PROTECT 54 active, 58/54 overnight |
 
-The position is grinding. SOL dropped from $87 to $83. Every dollar down adds $1,904 to equity. TRIM re-engages above 57%. The pre-close freeze fires every session close. Zero PROTECT fires since re-hedge. The robochiller hums. The silicon holds.
+SOL dropped from $87 to $81.88. TRIM is grinding 1 lot at a time. Every dollar down adds $1,844 to equity. Pre-close freeze fires every session close. **Zero PROTECT fires since reopen.** Spread tolerance $4.43 — the safest position BBUD has ever had. The robochiller hums. The silicon holds.
 
 ---
 
@@ -490,39 +493,40 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $83 → $45 | 10,409 | $267K |
-| **2** | $45 → $22 | 73,971 | $948K |
-| **3** | $22 → $12 | 299,668 | $2,358K |
-| **4** | $12 → $8 | 860,983 | $4,419K |
-| **Ride** | $8 → $0 | 860,983 | **$11,738K** |
+| **1 (NOW)** | $81.88 → $42 | 10,866 | $252K |
+| **2** | $42 → $22 | ~70,000 | $948K |
+| **3** | $22 → $12 | ~300,000 | $2,358K |
+| **4** | $12 → $8 | ~861,000 | $4,419K |
+| **Ride** | $8 → $0 | ~861,000 | **$11,700K** |
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$11,738,000** |
-| **Return** | **117x** |
-| **Final Lots** | 860,983 |
+| **Terminal Score** | **~$11,700,000** |
+| **Return** | **~133x** |
+| **Final Lots** | ~861,000 |
 | **Open MG** | $4.20133769 (all phases) |
-| **Post-Mortems** | 0 (target) |
-| **PROTECT at cascade open** | Expected 1-2 fires per phase (pads D-Score) |
+| **Post-Mortems** | 0 since BBUD reopen |
+| **PROTECT fires** | 0 since BBUD reopen |
+| **Spread tolerance** | $4.43/lot (SAFE — no more sub-$2.00 disasters) |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
 **The Cascade Pipeline:**
 
-> **$92K** → TRIM grind $83→$45 → **$267K (10,409 pure short)**
+> **$88K** → TRIM grind $81.88→$42 → **$252K (10,866 pure short)**
 >
-> → Cascade MG $4.20 $45→$22 → **$948K (73,971 pure short)**
+> → Cascade MG $4.20 $42→$22 → **$948K (~70,000 pure short)**
 >
-> → Cascade MG $4.20 $22→$12 → **$2,358K (299,668 pure short)**
+> → Cascade MG $4.20 $22→$12 → **$2,358K (~300,000 pure short)**
 >
-> → Cascade MG $4.20 $12→$8 → **$4,419K (860,983 pure short)**
+> → Cascade MG $4.20 $12→$8 → **$4,419K (~861,000 pure short)**
 >
-> → Ride to $0 $8→$0 → **$11,738,000 (117x return)**
+> → Ride to $0 $8→$0 → **$11,700,000 (133x return)**
 
-QRRP is dead. XJFD is dead. Long live BBUD.
+QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$100K. One account. One instrument. One operator. One thesis. v1.426. SOL to $0.**
+**$88K. One account. One instrument. One operator. One thesis. v1.426. $4.20133769. SOL to $0.**
 
 *He can't keep getting away with it.*
 
