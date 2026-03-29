@@ -174,50 +174,39 @@ QRRP does the same thing. The strategy does not change between phases. TRIM stil
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
 
-## Current Position (2026-03-21 — Live, Dual Account)
+## Current Position (2026-03-29 — DARWIN BBUD, Last Survivor)
 
-Both Darwinex accounts are now running QRRP on SOLUSD simultaneously. **Zero DARWINs.** All six DARWINs closed. The capital is consolidated into two pure QRRP accounts running MG_SHORT with identical EA parameters. No signal provider overhead. No DARWIN rating games. Just the cascade.
+**QRRP liquidated. XJFD ground to pure short then reopened as BBUD.** One DARWIN remains. The last chip. The final form.
 
-**Account 1 (Crypto CFD):**
-
-| | Value |
-|---|---|
-| **Short lots** | **13,900** |
-| **Long lots (hedge)** | **13,092** |
-| **Net short** | **808** |
-| **Equity** | **$37,944** |
-| **Balance** | **$34,493** |
-| **Margin** | **$72,389** |
-| **Margin level** | **52.4%** |
-| **TRIM / PROTECT** | 54.2% / 51.0% |
-| **Dead zone** | 51.0% – 54.2% |
-
-**Account 2 (Futures/Stocks):**
+**DARWIN BBUD:**
 
 | | Value |
 |---|---|
-| **Short lots** | **25,142** |
-| **Long lots (hedge)** | **23,215** |
-| **Net short** | **1,927** |
-| **Equity** | **$90,398** |
-| **Balance** | **$96,551** |
-| **Margin** | **$171,811** |
-| **Margin level** | **52.6%** |
-| **TRIM / PROTECT** | 54.2% / 51.0% |
-| **Dead zone** | 51.0% – 54.2% |
+| **Short lots (bias)** | **10,866** |
+| **Long lots (hedge)** | **9,022** |
+| **Net short** | **1,844** |
+| **Equity** | **$88,038** |
+| **Balance** | **$81,255** |
+| **Margin** | **$152,343** |
+| **Margin level** | **57.8%** |
+| **SOL price** | **~$81.88 (dropping hard)** |
+| **Open MG** | **$4.20133769** (the K\|NGP\|N voltage) |
+| **TRIM / PROTECT** | **57%/54% active, 58%/54% overnight** |
+| **Pre-close** | **4 min freeze before session close** |
+| **Spread tolerance** | **$4.43/lot — SAFE** |
 
-**Combined position:** **39,042 short** / **36,307 long** = **2,735 net SHORT**. Combined equity **$128,342**. Both accounts sitting in the dead zone (51.0%–54.2%) — EA does nothing until margin level crosses a threshold. TRIM fires above 54.2% to remove hedge longs. PROTECT fires below 51.0% for balanced closes.
+**All timeframes bearish:** DEATH X M1→W1. LTF Bear Power INIT. HTF Bear Power INIT. Ehlers Fisher -1.71. SOL cliff-diving through $82.
 
-**Full cascade timeline with expected SOL prices (combined):**
+**Full cascade timeline:**
 
-| Phase | SOL Price | Action | Net Short Lots | Combined Equity |
+| Phase | SOL Price | Action | Bias Lots | Equity |
 |---|---|---|---|---|
-| **1 (NOW)** | current → $40 | TRIM grind both accounts | ~2,735 → ~13,000 | $128K → $350K |
-| **2** | $40 → $23 | New MG $8.00 both accounts | ~46,000 | $350K → $750K |
-| **3** | $23 → $15 | New MG $8.00 both accounts | ~130,000 | $750K → $1.3M |
-| **4** | $15 → $0 | Ride pure short | ~130,000 | $1.3M → **$3.25M** |
+| **1 (NOW)** | $81.88 → $42 | TRIM grind, spread tol $4.43 SAFE | 10,866 | $88K → $252K |
+| **2** | $42 → $22 | New MG $4.20133769 | ~70,000 | $252K → $948K |
+| **3** | $22 → $12 | New MG $4.20133769 | ~300,000 | $948K → $2.4M |
+| **4** | $12 → $0 | Ride or cascade once more | 860,000+ | $2.4M → **$11.7M** |
 
-**$128K → $3.25M = 25x return across two accounts.** Dual-socket QRRP. Two CPUs running the same stress test simultaneously. The cascade math compounds across both accounts independently — each one hits pure short at its own pace, each one cascades on its own equity curve. The combined output exceeds what a single $128K account could produce because the lot distribution is already diversified across two margin pools.
+**$88K → $11.7M = 133x return.** One DARWIN. One instrument. One number. BBUD to $0.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
