@@ -491,18 +491,20 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 ### 2 Martingale 2 Furious — Final Plan
 
-**Current: 17,629L / 19,264S, net 1,635. Equity $76,962. ML 56.5%. TRIM 57/PROTECT 54.**
+**Current: 16,174L / 17,817S, net 1,643. Equity $78,124. ML 57.5% [TRIM]. Pre-close v1.428 survived overnight.**
 
 **2 Martingale 2 Furious.** Two entries total. The first was the setup. The second is the knockout. There is no third — because by then, SOL is at $0 and we're already flipping long.
 
+**Pre-close freeze tested 2026-03-30:** v1.427 fired balanced close which LOWERED ML (wrong). Operator manually closed bias to push ML to 57.5%. EA v1.428 now automates: closes bias (shorts) to reduce net → reduce margin → increase ML above TRIM before freeze.
+
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $84 → $42 | ~19,944 | $320K |
-| **2 (FINAL)** | $42 → $32 | ~73,277 | $660K |
-| **Ride** | $32 → $0 | ~73,277 | **$3,005K** |
+| **1 (NOW)** | $84 → $42 | 17,817 | $300K |
+| **2 (FINAL)** | $42 → $33 | ~67,817 | $580K |
+| **Ride** | $33 → $0 | ~67,817 | **$2,818K** |
 | **Flip** | ~$2-5 | — | MG: LONG → ride bull cycle to ATH |
 
-**2 Martingale 2 Furious. $76K → $3.0M (40x). Two entries. One instrument. Ride to $0. Flip long.**
+**2 Martingale 2 Furious. $78K → $2.8M (36x). Two entries. One instrument. Ride to $0. Flip long.**
 
 ### EA v1.427: Pre-Close Freeze Overhaul
 
@@ -519,12 +521,12 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$3,005,000** |
-| **Return** | **~40x** |
-| **Final Lots** | ~73,277 |
+| **Terminal Score** | **$2,818,000** |
+| **Return** | **~36x** |
+| **Final Lots** | ~67,817 |
 | **Entries** | **2 total** (this one + one cascade at pure short ~$42) |
 | **Open MG** | $4.20133769 (phase 1), $5-6 (phase 2 — conservative fast unwind) |
-| **EA version** | v1.427 (pre-close freeze overhaul) |
+| **EA version** | v1.428 (pre-close bias close to push ML above TRIM) |
 | **After $0** | **Flip long** — MG: LONG from bottom, ride bull cycle to ATH |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
@@ -542,7 +544,7 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$76K. 2 Martingale 2 Furious. 73,277 lots ride to $0. $3.0M. Then flip long. EA v1.427.**
+**$78K. 2 Martingale 2 Furious. 67,817 lots ride to $0. $2.8M. Then flip long. EA v1.428.**
 
 *The first martingale was the setup. The second martingale is the knockout. There is no third — because by then, SOL is at $0 and we're already flipping long.*
 
