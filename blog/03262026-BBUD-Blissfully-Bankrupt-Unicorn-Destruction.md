@@ -489,11 +489,11 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **Lesson learned:** $1.87 is too aggressive for 58/54 settings. $4.20 is the K|NGP|N sweet spot -- PROTECT fires 1-2 times on cascade open, pads Darwinex D-Score, self-heals to clean operation.
 
-### TWO ENTRIES ONLY — Final Plan
+### 2 Martingale 2 Furious — Final Plan
 
 **Current: 17,629L / 19,264S, net 1,635. Equity $76,962. ML 56.5%. TRIM 57/PROTECT 54.**
 
-**Two martingale entries total. This one + one cascade at pure short. Then ride to $0 and flip long.**
+**2 Martingale 2 Furious.** Two entries total. The first was the setup. The second is the knockout. There is no third — because by then, SOL is at $0 and we're already flipping long.
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
@@ -502,7 +502,7 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 | **Ride** | $32 → $0 | ~73,277 | **$3,005K** |
 | **Flip** | ~$2-5 | — | MG: LONG → ride bull cycle to ATH |
 
-**Two entries. One instrument. Ride to $0. Flip long from the bottom. $76K → $3.0M (40x).**
+**2 Martingale 2 Furious. $76K → $3.0M (40x). Two entries. One instrument. Ride to $0. Flip long.**
 
 ### EA v1.427: Pre-Close Freeze Overhaul
 
@@ -538,15 +538,17 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 >
 > → **FLIP LONG** from ~$2-5 → ride bull cycle to ATH
 >
-> **Two entries. One instrument. Ride to $0. Flip long. The benchmark runs to completion.**
+> **2 Martingale 2 Furious. Ride to $0. Flip long. The benchmark runs to completion.**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$76K. One account. One instrument. Two entries. 73,277 lots ride to $0. $3.0M. Then flip long. EA v1.427.**
+**$76K. 2 Martingale 2 Furious. 73,277 lots ride to $0. $3.0M. Then flip long. EA v1.427.**
+
+*The first martingale was the setup. The second martingale is the knockout. There is no third — because by then, SOL is at $0 and we're already flipping long.*
 
 *He can't keep getting away with it.*
 
-*But he does. He just does.*
+*But he does. He just does. 2 Furious.*
 
 -- TyphooN
 

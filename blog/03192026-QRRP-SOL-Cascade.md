@@ -197,7 +197,7 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 
 **All timeframes bearish.** Ehlers Fisher -1.71. SOL cliff-diving through $82.
 
-**Full plan — TWO ENTRIES ONLY, then flip long:**
+**2 Martingale 2 Furious — two entries, then flip long:**
 
 | Phase | SOL Price | Action | Bias Lots | Equity |
 |---|---|---|---|---|
@@ -206,7 +206,7 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 | **Ride** | $32 → $0 | Pure short to $0 | ~73,277 | $660K → **$3,005K** |
 | **Flip** | ~$2-5 | Close shorts, open MG: LONG | — | Ride bull to ATH |
 
-**$76K → $3.0M = 40x return.** Two entries. One instrument. Ride to $0. Flip long. BBUD.
+**$76K → $3.0M = 40x return. 2 Martingale 2 Furious.** One instrument. Ride to $0. Flip long. BBUD.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
