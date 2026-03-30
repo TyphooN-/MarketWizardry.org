@@ -489,44 +489,46 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **Lesson learned:** $1.87 is too aggressive for 58/54 settings. $4.20 is the K|NGP|N sweet spot -- PROTECT fires 1-2 times on cascade open, pads Darwinex D-Score, self-heals to clean operation.
 
-### Cascade Phases (Final Settings — $4.20133769 at every cascade)
+### Cascade Phases (MG $4.20133769 at every cascade)
+
+**Current: 20,511L / 22,148S, net 1,637. 8 TRIM closes, 0 PROTECT fires.** The $1.87 reopened MG is holding clean.
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $81.88 → $42 | 10,866 | $252K |
-| **2** | $42 → $22 | ~70,000 | $948K |
-| **3** | $22 → $12 | ~300,000 | $2,358K |
-| **4** | $12 → $8 | ~861,000 | $4,419K |
-| **Ride** | $8 → $0 | ~861,000 | **$11,700K** |
+| **1 (NOW)** | $84 → $42 | 22,148 | $340K |
+| **2** | $42 → $22 | 103,100 | $1,332K |
+| **3** | $22 → $12 | 420,242 | $3,493K |
+| **4** | $12 → $8 | 1,251,913 | $6,301K |
+| **Ride** | $8 → $0 | 1,251,913 | **$16,316K** |
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **~$11,700,000** |
-| **Return** | **~133x** |
-| **Final Lots** | ~861,000 |
-| **Open MG** | $4.20133769 (all phases) |
-| **Post-Mortems** | 0 since BBUD reopen |
-| **PROTECT fires** | 0 since BBUD reopen |
-| **Spread tolerance** | $4.43/lot (SAFE — no more sub-$2.00 disasters) |
+| **Terminal Score** | **$16,316,000** |
+| **Return** | **~209x** |
+| **Final Lots** | 1,251,913 |
+| **Open MG** | $4.20133769 (cascade phases), $1.87 (current phase) |
+| **TRIM closes** | 8 (and counting) |
+| **PROTECT fires** | **0** (holding clean) |
+| **Current spread tol** | $1.82/lot (tight but surviving) |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
 **The Cascade Pipeline:**
 
-> **$88K** → TRIM grind $81.88→$42 → **$252K (10,866 pure short)**
+> **$78K** → TRIM grind $84→$42 → **$340K (22,148 pure short)**
 >
-> → Cascade MG $4.20 $42→$22 → **$948K (~70,000 pure short)**
+> → Cascade MG $4.20 $42→$22 → **$1,332K (103,100 pure short)**
 >
-> → Cascade MG $4.20 $22→$12 → **$2,358K (~300,000 pure short)**
+> → Cascade MG $4.20 $22→$12 → **$3,493K (420,242 pure short)**
 >
-> → Cascade MG $4.20 $12→$8 → **$4,419K (~861,000 pure short)**
+> → Cascade MG $4.20 $12→$8 → **$6,301K (1,251,913 pure short)**
 >
-> → Ride to $0 $8→$0 → **$11,700,000 (133x return)**
+> → Ride to $0 $8→$0 → **$16,316,000 (209x return)**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$88K. One account. One instrument. One operator. One thesis. v1.426. $4.20133769. SOL to $0.**
+**$78K. One account. One instrument. One operator. One thesis. v1.426. $4.20133769. 22,148 bias lots at 0 PROTECT fires. SOL to $0.**
 
 *He can't keep getting away with it.*
 
