@@ -497,21 +497,22 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 |---|---|---|---|
 | **1 (NOW)** | $84 → $42 | 22,148 | $340K |
 | **2** | $42 → $22 | 103,100 | $1,332K |
-| **3** | $22 → $12 | 420,242 | $3,493K |
-| **4** | $12 → $8 | 1,251,913 | $6,301K |
-| **Ride** | $8 → $0 | 1,251,913 | **$16,316K** |
+| **3 (FINAL)** | $22 → $12 | 420,242 | $3,493K |
+| **Ride** | $12 → $0 | 420,242 | **$8,538K** |
+
+**No entries below $20.** Three cascades total. Final MG at ~$22. Then 420,242 pure short lots ride naked to $0.
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$16,316,000** |
-| **Return** | **~209x** |
-| **Final Lots** | 1,251,913 |
+| **Terminal Score** | **$8,538,000** |
+| **Return** | **~109x** |
+| **Final Lots** | 420,242 |
+| **Cascades** | 3 total (final at ~$22, no entries below $20) |
 | **Open MG** | $4.20133769 (cascade phases), $1.87 (current phase) |
 | **TRIM closes** | 8 (and counting) |
 | **PROTECT fires** | **0** (holding clean) |
-| **Current spread tol** | $1.82/lot (tight but surviving) |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
 **The Cascade Pipeline:**
@@ -520,15 +521,15 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 >
 > → Cascade MG $4.20 $42→$22 → **$1,332K (103,100 pure short)**
 >
-> → Cascade MG $4.20 $22→$12 → **$3,493K (420,242 pure short)**
+> → **FINAL** Cascade MG $4.20 $22→$12 → **$3,493K (420,242 pure short)**
 >
-> → Cascade MG $4.20 $12→$8 → **$6,301K (1,251,913 pure short)**
+> → Ride to $0 $12→$0 → **$8,538,000 (109x return)**
 >
-> → Ride to $0 $8→$0 → **$16,316,000 (209x return)**
+> **No more entries below $20. The voltage is set. The benchmark runs to completion.**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$78K. One account. One instrument. One operator. One thesis. v1.426. $4.20133769. 22,148 bias lots at 0 PROTECT fires. SOL to $0.**
+**$78K. One account. One instrument. Three cascades. Final entry at $22. 420,242 lots ride to $0. $8.5M.**
 
 *He can't keep getting away with it.*
 
