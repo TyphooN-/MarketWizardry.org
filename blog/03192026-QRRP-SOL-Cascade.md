@@ -197,16 +197,16 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 
 **All timeframes bearish.** Ehlers Fisher -1.71. SOL cliff-diving through $82.
 
-**Full cascade timeline:**
+**Full plan — TWO ENTRIES ONLY, then flip long:**
 
 | Phase | SOL Price | Action | Bias Lots | Equity |
 |---|---|---|---|---|
-| **1 (NOW)** | $81.88 → $42 | TRIM grind, spread tol $4.43 SAFE | 10,866 | $88K → $252K |
-| **2** | $42 → $22 | New MG $4.20133769 | ~70,000 | $252K → $948K |
-| **3** | $22 → $12 | New MG $4.20133769 | ~300,000 | $948K → $2.4M |
-| **4** | $12 → $0 | Ride or cascade once more | 860,000+ | $2.4M → **$11.7M** |
+| **1 (NOW)** | $84 → $42 | TRIM grind (19,944 bias, ML 56.5%) | 19,944 | $76K → $320K |
+| **2 (FINAL)** | $42 → $32 | MG $5-6 — last entry, fast unwind | ~73,277 | $320K → $660K |
+| **Ride** | $32 → $0 | Pure short to $0 | ~73,277 | $660K → **$3,005K** |
+| **Flip** | ~$2-5 | Close shorts, open MG: LONG | — | Ride bull to ATH |
 
-**$88K → $11.7M = 133x return.** One DARWIN. One instrument. One number. BBUD to $0.
+**$76K → $3.0M = 40x return.** Two entries. One instrument. Ride to $0. Flip long. BBUD.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 

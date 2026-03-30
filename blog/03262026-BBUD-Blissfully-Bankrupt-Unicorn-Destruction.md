@@ -489,18 +489,20 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **Lesson learned:** $1.87 is too aggressive for 58/54 settings. $4.20 is the K|NGP|N sweet spot -- PROTECT fires 1-2 times on cascade open, pads Darwinex D-Score, self-heals to clean operation.
 
-### Cascade Phases (MG $4.20133769 at every cascade)
+### TWO ENTRIES ONLY — Final Plan
 
-**Current: 20,511L / 22,148S, net 1,637. 8 TRIM closes, 0 PROTECT fires.** The $1.87 reopened MG is holding clean.
+**Current: 17,629L / 19,264S, net 1,635. Equity $76,962. ML 56.5%. TRIM 57/PROTECT 54.**
+
+**Two martingale entries total. This one + one cascade at pure short. Then ride to $0 and flip long.**
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $84 → $42 | 19,944 | $320K |
-| **2** | $42 → $22 | 96,134 | $1,240K |
-| **3 (FINAL)** | $22 → $14 | 302,801 | $2,473K |
-| **Ride** | $14 → $0 | 302,801 | **$6,710K** |
+| **1 (NOW)** | $84 → $42 | ~19,944 | $320K |
+| **2 (FINAL)** | $42 → $32 | ~73,277 | $660K |
+| **Ride** | $32 → $0 | ~73,277 | **$3,005K** |
+| **Flip** | ~$2-5 | — | MG: LONG → ride bull cycle to ATH |
 
-**No entries below $20.** Three cascades total. Final MG at ~$22 with conservative $6.00 Open MG (faster unwind, safer spread tol). Then 302,801 pure short lots ride naked to $0.
+**Two entries. One instrument. Ride to $0. Flip long from the bottom. $76K → $3.0M (40x).**
 
 ### EA v1.427: Pre-Close Freeze Overhaul
 
@@ -517,31 +519,30 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$6,710,000** |
-| **Return** | **~88x** |
-| **Final Lots** | 302,801 |
-| **Cascades** | 3 total (final at ~$22 with $6.00 MG, no entries below $20) |
-| **Open MG** | $4.20133769 (phases 1-2), $6.00 (phase 3 — conservative fast unwind) |
-| **TRIM closes** | 35 (and counting) |
-| **PROTECT fires** | 2 (reduced bias from 22,148 → 19,944) |
+| **Terminal Score** | **$3,005,000** |
+| **Return** | **~40x** |
+| **Final Lots** | ~73,277 |
+| **Entries** | **2 total** (this one + one cascade at pure short ~$42) |
+| **Open MG** | $4.20133769 (phase 1), $5-6 (phase 2 — conservative fast unwind) |
 | **EA version** | v1.427 (pre-close freeze overhaul) |
+| **After $0** | **Flip long** — MG: LONG from bottom, ride bull cycle to ATH |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
-**The Cascade Pipeline:**
+**The Pipeline — Two Entries, Then the Flip:**
 
 > **$76K** → TRIM grind $84→$42 → **$320K (19,944 pure short)**
 >
-> → Cascade MG $4.20 $42→$22 → **$1,240K (96,134 pure short)**
+> → **FINAL** Cascade MG $5-6 $42→$32 → **$660K (73,277 pure short)**
 >
-> → **FINAL** Cascade MG $6.00 $22→$14 → **$2,473K (302,801 pure short)**
+> → Ride to $0 $32→$0 → **$3,005,000 (40x return)**
 >
-> → Ride to $0 $14→$0 → **$6,710,000 (88x return)**
+> → **FLIP LONG** from ~$2-5 → ride bull cycle to ATH
 >
-> **No more entries below $20. The voltage is set. Pre-close freeze protects overnight. The benchmark runs to completion.**
+> **Two entries. One instrument. Ride to $0. Flip long. The benchmark runs to completion.**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$76K. One account. One instrument. Three cascades. Final entry at $22 with $6.00 fast unwind. 302,801 lots ride to $0. $6.7M. EA v1.427.**
+**$76K. One account. One instrument. Two entries. 73,277 lots ride to $0. $3.0M. Then flip long. EA v1.427.**
 
 *He can't keep getting away with it.*
 
