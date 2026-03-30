@@ -495,41 +495,53 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $84 → $42 | 22,148 | $340K |
-| **2** | $42 → $22 | 103,100 | $1,332K |
-| **3 (FINAL)** | $22 → $12 | 420,242 | $3,493K |
-| **Ride** | $12 → $0 | 420,242 | **$8,538K** |
+| **1 (NOW)** | $84 → $42 | 19,944 | $320K |
+| **2** | $42 → $22 | 96,134 | $1,240K |
+| **3 (FINAL)** | $22 → $14 | 302,801 | $2,473K |
+| **Ride** | $14 → $0 | 302,801 | **$6,710K** |
 
-**No entries below $20.** Three cascades total. Final MG at ~$22. Then 420,242 pure short lots ride naked to $0.
+**No entries below $20.** Three cascades total. Final MG at ~$22 with conservative $6.00 Open MG (faster unwind, safer spread tol). Then 302,801 pure short lots ride naked to $0.
+
+### EA v1.427: Pre-Close Freeze Overhaul
+
+The pre-close freeze mechanism was overhauled to run BEFORE regular PROTECT in execution order. Previous version (v1.426) only activated pre-close logic when ML > PROTECT — if a spread spike crashed ML below 54% during the pre-close window, regular PROTECT fired balanced closes into widening session-close spreads, destroying bias for nothing.
+
+**v1.427 pre-close logic:**
+- **ML ≤ PROTECT (≤54%):** EMERGENCY FREEZE — broker handles stop-out. Bias is sacred.
+- **ML between PROTECT and TRIM-1% (54-56%):** Balanced close to push ML up, then freeze.
+- **ML ≥ TRIM-1% (≥56%):** Freeze immediately — ride into close.
+
+This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-close freeze handles session boundaries.
 
 ### Scorecard
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$8,538,000** |
-| **Return** | **~109x** |
-| **Final Lots** | 420,242 |
-| **Cascades** | 3 total (final at ~$22, no entries below $20) |
-| **Open MG** | $4.20133769 (cascade phases), $1.87 (current phase) |
-| **TRIM closes** | 8 (and counting) |
-| **PROTECT fires** | **0** (holding clean) |
+| **Terminal Score** | **$6,710,000** |
+| **Return** | **~88x** |
+| **Final Lots** | 302,801 |
+| **Cascades** | 3 total (final at ~$22 with $6.00 MG, no entries below $20) |
+| **Open MG** | $4.20133769 (phases 1-2), $6.00 (phase 3 — conservative fast unwind) |
+| **TRIM closes** | 35 (and counting) |
+| **PROTECT fires** | 2 (reduced bias from 22,148 → 19,944) |
+| **EA version** | v1.427 (pre-close freeze overhaul) |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
 **The Cascade Pipeline:**
 
-> **$78K** → TRIM grind $84→$42 → **$340K (22,148 pure short)**
+> **$76K** → TRIM grind $84→$42 → **$320K (19,944 pure short)**
 >
-> → Cascade MG $4.20 $42→$22 → **$1,332K (103,100 pure short)**
+> → Cascade MG $4.20 $42→$22 → **$1,240K (96,134 pure short)**
 >
-> → **FINAL** Cascade MG $4.20 $22→$12 → **$3,493K (420,242 pure short)**
+> → **FINAL** Cascade MG $6.00 $22→$14 → **$2,473K (302,801 pure short)**
 >
-> → Ride to $0 $12→$0 → **$8,538,000 (109x return)**
+> → Ride to $0 $14→$0 → **$6,710,000 (88x return)**
 >
-> **No more entries below $20. The voltage is set. The benchmark runs to completion.**
+> **No more entries below $20. The voltage is set. Pre-close freeze protects overnight. The benchmark runs to completion.**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$78K. One account. One instrument. Three cascades. Final entry at $22. 420,242 lots ride to $0. $8.5M.**
+**$76K. One account. One instrument. Three cascades. Final entry at $22 with $6.00 fast unwind. 302,801 lots ride to $0. $6.7M. EA v1.427.**
 
 *He can't keep getting away with it.*
 
