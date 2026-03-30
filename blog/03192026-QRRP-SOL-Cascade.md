@@ -195,7 +195,7 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 | **Pre-close** | **4 min freeze before session close** |
 | **Spread tolerance** | **$4.43/lot — SAFE** |
 
-**All timeframes bearish:** DEATH X M1→W1. LTF Bear Power INIT. HTF Bear Power INIT. Ehlers Fisher -1.71. SOL cliff-diving through $82.
+**All timeframes bearish.** Ehlers Fisher -1.71. SOL cliff-diving through $82.
 
 **Full cascade timeline:**
 

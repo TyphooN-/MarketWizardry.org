@@ -447,7 +447,7 @@ BBUD's premiums are swap costs. Every day the position is open, the broker charg
 
 XJFD/BBUD reached **PURE SHORT** at 1,953 lots on 2026-03-29 17:05. All hedge consumed. "PROTECT deactivated — PURE SHORT achieved. No hedges remaining. Bias is sacred. Riding to $0."
 
-**Immediately reopened** with Open MG $4.20133769 at $81.88 SOL. SOL cliff-diving. DEATH X all timeframes. Bear Power INIT everywhere.
+**Immediately reopened** with Open MG $4.20133769 at $81.88 SOL. SOL cliff-diving. All timeframes bearish. SOL cliff-diving.
 
 | | Value |
 |---|---|
