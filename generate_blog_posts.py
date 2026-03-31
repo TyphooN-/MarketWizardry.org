@@ -619,7 +619,7 @@ def ensure_proper_capitalization(title):
         'DARWIN', 'DARWINS', 'DARWINIA',
         'SOLUSD', 'ADAUSD', 'DOGEUSD', 'BTCUSD', 'ETHUSD', 'XRPUSD',
         'SRPT', 'NNFX', 'MQL5', 'MQL4', 'EA', 'EAs',
-        'XUQF', 'TRIM', 'PROTECT',
+        'XUQF', 'BBUD', 'XJFD', 'AJTK', 'TRIM', 'PROTECT',
         'GPU', 'CPU', 'API', 'CLI', 'UI', 'UX',
         'ATR', 'IQR', 'EV', 'CFD', 'CFDs',
         'MT4', 'MT5', 'USA', 'SEC', 'FRED', 'FINRA',
