@@ -498,14 +498,28 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 | Phase | Symbol | SOL Price | Action | Equity |
 |---|---|---|---|---|
 | **MG 1 (NOW)** | SOL SHORT $1.337 | $80.53 → ~$38 | TRIM grind (28,510 bias, v1.429) | $66K → $350K |
-| **MG 2 CASCADE** | SOL SHORT $4.20 | $38 → $26 | MG $4.20 at pure short → 111,843 bias | $350K → $1,086K |
-| **Naked Ride** | SOL SHORT | $26 → $5 | Smooth, $111,843/dollar, 21 dollars | $1,086K → $3,435K |
-| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2.5M) | $2,500K → **$120M** |
-| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($935K) | $935K → **$50M** |
+| **MG 2 CASCADE** | SOL SHORT $3.00 | $38 → $24 | MG $3.00 at pure short → ~130K bias | $350K → $1,350K |
+| **Naked Ride** | SOL SHORT | $24 → $5 | Smooth, ~$130K/dollar, 19 dollars | $1,350K → $3,820K |
+| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2.8M) | $2,800K → **$130M** |
+| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($1.0M) | $1,000K → **$60M** |
 
-**3 Martingale 3 Furious + Full Basket. $66K → $3.4M (SOL short + cascade) → $170M (MG long + naked basket). 400 positions. 7 symbols. 4.236 fib targets.** v1.429 PROTECT closes bias to fix ML. Cascade at pure short. Smooth ride $26→$5. Long everything from the bottom.
+**3 Martingale 3 Furious + Full Basket. $66K → $3.8M (SOL short + $3.00 cascade) → $190M (MG long + naked basket). 400 positions. 7 symbols. 4.236 fib targets.** v1.429 PROTECT closes bias to fix ML. $3.00 cascade at pure short. Smooth ride $24→$5. Long everything from the bottom.
 
-**Current: 12,692L / 14,305S, net 1,613. 101 TRIM closes, 5 PROTECT fires. Grinding to pure short ~$44. Cascade immediately. Unwound by $30. Smooth ride to $5.**
+**Current: 27,064L / 28,510S, net 1,446. MG $1.337 at $80.53. v1.429. 2 TRIM closes. Grinding to pure short ~$38. Cascade $3.00 immediately. Unwound by ~$24. Smooth ride to $5.**
+
+### The Severe Drawdown Gang Would Be Proud
+
+**XUQF was the prototype.** The first DARWIN. The one that caught fire on the test bench. It got the Severe Drawdown badge before the EA was even stable. XUQF would look at BBUD's $34K of degradation and say: *"That's nothing. I lost 90% before the operator even knew what PROTECT did."*
+
+**QRRP was the survivor.** Seven post-mortems. Nine wrenches. $100K ground to $31K. QRRP would look at BBUD and say: *"You only lost $34K? I lost $69K and came back three times. The badge is earned through blood."*
+
+**BBUD didn't restart.** That's what the Severe Drawdown Gang respects. The operator could have abandoned the account — closed everything, deposited fresh $100K, started clean. Instead: debug the firmware, fix the bugs, keep the position, keep grinding. The $66K account with v1.429 is worth more than a fresh $100K with v1.426 because the software is correct and the operator stopped touching the BIOS.
+
+**And none of this may even matter.** BBUD is still in calibration — the DARWIN hasn't been created yet. The calibration period is 3 months. The drawdown happened during calibration. By the time the DARWIN goes live, BBUD could be in overall profit — the SOL drop from $80 to $38 (pure short) puts the account at $350K from a $100K start. **That's a 250% gain during calibration.** Darwinex would see a DARWIN that launched at $100K and is now at $350K with a clean equity curve from $38 onward. No Severe Drawdown badge. No red flag. Just results.
+
+**The scuffed start becomes invisible.** Calibration absorbs the damage. The DARWIN launches clean. VaR Cult, not Severe Drawdown Gang. The firmware bugs were fixed before the DARWIN was born.
+
+*XUQF and QRRP earned their red badges. BBUD might never need one.*
 
 ### EA v1.428: Pre-Close Bias Close
 
