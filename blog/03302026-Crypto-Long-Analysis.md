@@ -186,19 +186,139 @@ The current plan in MARTINGALE_SIMULATION.md. Highest raw return. But you are go
 
 ---
 
+## The Full Crypto Basket: 400 Positions, 7 Symbols, Max Margin
+
+**Updated plan: $2.75M deployed across ALL 7 Darwinex cryptos. MG on the strongest (ETH/BTC). Naked long on the rest. Fill every Darwinex position slot. 4.236 Fibonacci targets.**
+
+### 4.236 Fib Targets (from estimated bear market bottoms)
+
+| Symbol | Est. Bottom | ATH | **4.236 Fib Target** | Multiple from Bottom |
+|---|---|---|---|---|
+| **BTC** | $10,000 | $69,000 | **$292,000** | 29.2x |
+| **ETH** | $200 | $4,800 | **$20,300** | 101x |
+| **BNB** | $50 | $690 | **$2,920** | 58x |
+| **SOL** | $5 | $260 | **$1,100** | 220x |
+| **XRP** | $0.10 | $3.40 | **$14.40** | 144x |
+| **ADA** | $0.05 | $3.10 | **$13.10** | 262x |
+| **DOGE** | $0.005 | $0.73 | **$3.09** | 618x |
+
+### MG LONG Settings (ETH and BTC only)
+
+| Parameter | Value |
+|---|---|
+| Mode | **MG: LONG** |
+| Open MG | **$4.20133769** |
+| TRIM | **57.0%** |
+| PROTECT | **54.0%** |
+| Pre-close | **4 min freeze (v1.428 — close bias to push ML above TRIM)** |
+| Hard floor | **10.0%** |
+
+**Why MG only on ETH/BTC:** Spread efficiency. ETH at 0.05% and BTC at 0.01% are the only symbols where the TRIM grind doesn't bleed to spread costs. Every TRIM close on DOGE (1.06%) or ADA (0.15%) costs 10-100x more per lot than ETH/BTC. Naked longs on the rest avoid this entirely.
+
+### Detailed Position Plan: ETH MG LONG (Primary — 55% allocation)
+
+```
+Allocation: $1,500,000
+ETH price: ~$200 (estimated bear bottom)
+Open MG $4.20: $1,500,000 / $4.20 = 357,143 per side
+Gross: 714,286 lots
+Positions: ~200 (357,143 / ~1,786 lots per chunk)
+
+TRIM fires immediately:
+  maxSafe = floor(($1,500K / 0.57) / $200) = floor($2,631K / $200) = 13,158
+  Net long after TRIM: 13,158 lots
+  Hedge remaining: 357,143 - 13,158 = 343,985
+  Margin: 13,158 × $200 = $2,631K
+  ML: $1,500K / $2,631K = 57.0% ✓
+
+TRIM grinds as ETH rises. Pure long when all shorts consumed.
+```
+
+| ETH Price | Equity | Hedge | Net Long | Status |
+|---|---|---|---|---|
+| **$200 (entry)** | **$1,500K** | **343,985** | **13,158** | **MG LONG starts** |
+| $500 | $5,447K | 280,000 | 77,143 | Building |
+| $1,000 | $13,147K | 150,000 | 207,143 | Accelerating |
+| $2,000 | $31,347K | 20,000 | 337,143 | Nearly pure |
+| **~$2,500** | **~$44,000K** | **0** | **357,143** | **PURE LONG** |
+| $5,000 (ATH) | $133,000K | 0 | 357,143 | Printing |
+| **$20,300 (4.236)** | **$578,000K** | **0** | **357,143** | **TARGET** |
+
+### Detailed Position Plan: BTC MG LONG (Secondary — 18% allocation)
+
+```
+Allocation: $500,000
+BTC price: ~$10,000 (estimated bear bottom)
+Open MG $4.20: $500,000 / $4.20 = 119,048 per side
+BUT: 1 BTC lot = $10,000 margin. Can only hold $500K / $10K = 50 net long lots.
+Gross: way more lots than equity can support as net.
+Positions: ~50
+
+TRIM fires immediately:
+  maxSafe = floor(($500K / 0.57) / $10,000) = floor($877K / $10K) = 87
+  Net long after TRIM: 87 lots
+  Hedge remaining: 119,048 - 87 = 118,961
+
+BTC is lot-constrained due to high price per lot.
+But each lot earns $190K+ on the ride to $200K.
+```
+
+| BTC Price | Equity | Net Long | Status |
+|---|---|---|---|
+| **$10K (entry)** | **$500K** | **87** | **MG LONG starts** |
+| $50K | $4,000K | 500 | Building |
+| $100K | $16,000K | 2,000 | Accelerating |
+| **$200K (target)** | **$45,000K** | **5,000+** | **Deep profit** |
+| **$292K (4.236)** | **$72,000K** | **5,000+** | **TARGET** |
+
+### Detailed Position Plan: Naked Longs (5 symbols)
+
+**No martingale. No hedge. Just buy at the bottom and hold. One order each (or a few orders to fill allocation).**
+
+| Symbol | Allocation | Entry Price | Lots | Orders | Max Vol/Order | Margin | 4.236 Target | **Profit at Target** |
+|---|---|---|---|---|---|---|---|---|
+| **DOGE** | $250K | $0.005 | 50,000,000 | 5 | 10,000,000 | $250K | $3.09 | **$154M** |
+| **SOL** | $200K | $5.00 | 40,000 | 1 | 10,000,000 | $200K | $1,100 | **$43.8M** |
+| **ADA** | $150K | $0.05 | 3,000,000 | 1 | 10,000,000 | $150K | $13.10 | **$39.2M** |
+| **XRP** | $100K | $0.10 | 1,000,000 | 1 | 10,000,000 | $100K | $14.40 | **$14.3M** |
+| **BNB** | $50K | $50.00 | 1,000 | 1 | 10,000,000 | $50K | $2,920 | **$2.9M** |
+
+**DOGE swap warning:** At 50M lots, swap = -3.2 points/day = ~$1,600/day. 6-month max hold. Sell at meme peak, don't hold through the full cycle.
+
+### Total Basket Summary
+
+| Component | Allocation | Strategy | Positions | **Equity at 4.236 Fib** |
+|---|---|---|---|---|
+| **ETH** | $1,500K | MG LONG $4.20 | ~200 | **$578M** |
+| **BTC** | $500K | MG LONG $4.20 | ~50 | **$72M** |
+| **DOGE** | $250K | Naked long (6mo) | 5 | **$154M** |
+| **SOL** | $200K | Naked long | 50 | **$44M** |
+| **ADA** | $150K | Naked long | 50 | **$39M** |
+| **XRP** | $100K | Naked long | 25 | **$14M** |
+| **BNB** | $50K | Naked long | 20 | **$3M** |
+| **TOTAL** | **$2,750K** | **400 positions** | **400** | **$904M** |
+
+**$78K → $2.75M (SOL short) → $904M (full basket at 4.236 fibs) = 11,590x return.**
+
+*These are theoretical maximums at 4.236 Fibonacci extensions. Realistic targets (previous ATH) give ~$138M. The 4.236 numbers assume a crypto supercycle comparable to 2020-2021 magnitudes. Not financial advice. Crypto can also go to $0.*
+
 ## The Verdict
 
 The SOL short worked because supply dynamics were the thesis. Not charts. Not vibes. Not Elon tweets. Supply.
 
-The long should work for the same reason.
+The long works for the same reason — plus 400 positions across every Darwinex crypto from the absolute bottom.
 
-**ETH has the best supply dynamics for a long.** Near-zero emission. Structural demand from DeFi and L2 adoption. Staking yield that incentivizes holding. And 0.05% spread that makes MG execution frictionless.
+**ETH has the best supply dynamics for MG LONG.** Near-zero emission. Structural demand from DeFi and L2 adoption. Staking yield that incentivizes holding. 0.05% spread that makes MG execution frictionless.
 
-BTC is safer. SOL pays more. But ETH is the answer.
+**BTC is the safety anchor.** Strongest supply thesis. Lot-constrained but each lot earns $190K+.
 
-$76K → $2.08M (SOL short) → $27.0M (ETH long). Two martingales. Two supply theses. One account. One DARWIN.
+**DOGE is the lottery ticket.** 50 million lots at half a penny. Elon tweets. Retail FOMOs. 6-month hold max (swap kills it longer).
 
-**2 Martingale 2 Furious.**
+**Everything else is a naked ride.** SOL, ADA, XRP, BNB — buy at the bottom, hold through the cycle, sell at 4.236 fib.
+
+$78K → $2.75M (SOL short) → $138M realistic / $904M theoretical (full basket). 3 Martingale 3 Furious + naked basket. 400 positions. 7 symbols. One account. One DARWIN.
+
+**3 Martingale 3 Furious. $4.20133769 on the MGs. Naked aggression on the rest. To the 4.236.**
 
 ---
 
