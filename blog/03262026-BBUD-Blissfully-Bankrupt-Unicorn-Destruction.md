@@ -495,15 +495,16 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **Pre-close freeze tested 2026-03-30:** v1.427 fired balanced close which LOWERED ML (wrong). Operator manually closed bias to push ML to 57.5%. EA v1.428 now automates: closes bias (shorts) to reduce net → reduce margin → increase ML above TRIM before freeze.
 
-| Phase | SOL Price | Bias Lots | Equity |
-|---|---|---|---|
-| **MG 1 (NOW)** | $83.58 → ~$44 | 14,305 | $78K → $268K |
-| **Naked Ride** | ~$44 → $5 | 14,305 | $268K → $826K |
-| **MG 2 (FLIP)** | $5 → $200 | 196,607 | $826K → **$39.2M** |
+| Phase | Symbol | SOL Price | Action | Equity |
+|---|---|---|---|---|
+| **MG 1 (NOW)** | SOL SHORT | $83 → ~$44 | TRIM grind (14,305 bias, 101 trims) | $78K → $268K |
+| **MG 2 CASCADE** | SOL SHORT | $44 → $30 | MG $4.20 at pure short → 78,115 bias | $268K → $796K |
+| **Naked Ride** | SOL SHORT | $30 → $5 | Smooth, $78,115/dollar, 25 dollars | $796K → $2,749K |
+| **MG 3 LONG** | **Best crypto** | Bottom → ATH | Deploy $2.75M, strongest supply | $2,749K → **$95-120M** |
 
-**2 Martingale 2 Furious. $78K → $39.2M (444x). NO cascade. NO more Open MGs. 14,305 lots ride naked to $5. Flip long 196,607 lots to $200.**
+**3 Martingale 3 Furious. $78K → $2.75M (SOL short + cascade) → $95-120M (best crypto long).** Cascade at pure short. Grind early. Smooth ride $30→$5. Long the strongest from the bottom.
 
-**Current: 12,692L / 14,305S, net 1,613. 101 TRIM closes, 5 PROTECT fires. $14,305 per dollar of SOL drop. Smooth, linear, DarwinIA-friendly.**
+**Current: 12,692L / 14,305S, net 1,613. 101 TRIM closes, 5 PROTECT fires. Grinding to pure short ~$44. Cascade immediately. Unwound by $30. Smooth ride to $5.**
 
 ### EA v1.428: Pre-Close Bias Close
 
@@ -519,11 +520,11 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$39,200,000** |
-| **Return** | **444x** |
-| **MGs Total** | **2** (1 short + 1 long) |
-| **Short Lots** | 14,305 (ride naked ~$44→$5) |
-| **Long Lots (flip)** | 196,607 (MG $4.20133769 at $5) |
+| **Terminal Score** | **$95-120M** |
+| **Return** | **1,200-1,500x** |
+| **MGs Total** | **3** (1 short + 1 cascade + 1 long) |
+| **Short Lots (after cascade)** | 78,115 (naked ride $30→$5) |
+| **Long Lots (flip)** | TBD (MG $4.20133769, best crypto from bottom) |
 | **Open MG** | $4.20133769 (both phases) |
 | **EA version** | v1.428 (pre-close bias close to push ML above TRIM) |
 | **After $5** | **Flip long** — MG: LONG $4.20133769, TRIM → pure long from first tick, ride to $200 |
@@ -541,17 +542,17 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 >
 > → Ride $5→$200 → **$38,900,000 (492x return)**
 >
-> **2 Martingale 2 Furious. 1 down. 1 up. No cascade. The benchmark runs to completion.**
+> **3 Martingale 3 Furious. 1 short. 1 cascade. 1 long. Short the weakest. Long the strongest.**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$79K. 2 Martingale 2 Furious. 17,655 lots ride naked to $5. Flip long. 195,476 lots ride to $200. $38.9M. EA v1.428.**
+**$78K. 3 Martingale 3 Furious. Cascade at pure short ($44). 78,115 lots ride smooth $30→$5. Extract $2.75M. Long best crypto from bottom → $95-120M. EA v1.428.**
 
-*The first martingale was the short. The second martingale is the long. There is no cascade — because the naked ride funds the flip, and the flip is the real trade.*
+*The first martingale shorts SOL down. The second martingale cascades at pure short — grind early, smooth ride longer. The third martingale longs the best crypto from the bottom. Different symbols. Same number. $4.20133769 all the way.*
 
 *He can't keep getting away with it.*
 
-*But he does. He just does. 492x Furious.*
+*But he does. He just does. 1,500x Furious.*
 
 -- TyphooN
 
