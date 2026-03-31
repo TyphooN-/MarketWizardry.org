@@ -1,4 +1,6 @@
-# AJTK: Rise From the Ashes
+# AJTK: Automated Judicial Termination of Kapital
+
+*Rise From the Ashes*
 
 **Published: 2026-03-31 | TyphooN | MarketWizardry.org**
 
@@ -50,7 +52,16 @@ Four critical bugs. Each discovered through account destruction. Each fixed in t
 
 ---
 
-## AJTK: The Final Form
+## AJTK: Automated Judicial Termination of Kapital
+
+**A.J.T.K.**
+
+- **A** — Automated. TyphooN v1.429. No human intervention. TRIM fires on tick. PROTECT fires on threshold. Pre-close fires on schedule. The EA is the judge, jury, and executioner. The operator's only job is to not touch the BIOS.
+- **J** — Judicial. This is not random violence against SOL's market cap. It is a calculated, evidence-based sentence handed down after evaluating the supply dynamics of all 7 Darwinex cryptos. SOL was found guilty of 4% perpetual inflation with no cap. The sentence is $0.
+- **T** — Termination. Of SOL's capital. Of every long position that bought the "Solana killer" narrative. Of the $1.65 billion in annual dilution that the market pretends doesn't exist. TRIM terminates hedge longs one at a time. Each close is a verdict. Each net short lot is a sentence served.
+- **K** — Kapital. Not "capital" — Kapital. As in Marx. As in the systematic deconstruction of an asset's value through the exploitation of its own structural contradictions. SOL's 4% emission is the internal contradiction. AJTK is the dialectical response. The inflation creates the sell pressure. The sell pressure feeds the short. The short funds the long. The long rebuilds the capital that SOL destroyed. Kapital terminates itself. AJTK just automates the process.
+
+**The court has ruled. The sentence is $0. The execution is automatic. TyphooN v1.429 carries it out one TRIM at a time.**
 
 AJTK is fresh $100K with the correct firmware and the proven voltage. For the first time in this strategy's history, both variables are right simultaneously.
 
