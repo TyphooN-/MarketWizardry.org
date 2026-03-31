@@ -174,24 +174,23 @@ QRRP does the same thing. The strategy does not change between phases. TRIM stil
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
 
-## Current Position (2026-03-30 — DARWIN BBUD, Last Survivor)
+## Current Position (2026-03-31 — DARWIN AJTK, Rising From the Ashes)
 
-**QRRP liquidated. XJFD ground to pure short then reopened as BBUD.** One DARWIN remains. The last chip. The final form.
+**QRRP liquidated. XJFD ground to pure short then reopened as BBUD. BBUD died — $0.69 Open MG was too aggressive, broker stopped out.** AJTK rises from the ashes. Fresh $100K. Correct firmware (v1.429). Proven voltage ($1.87). 10 DARWINs died to get here.
 
-**DARWIN BBUD:**
+**DARWIN AJTK:**
 
 | | Value |
 |---|---|
-| **Short lots (bias)** | **17,655** |
-| **Long lots (hedge)** | **15,974** |
-| **Net short** | **1,681** |
-| **Equity** | **$79,411** |
-| **SOL price** | **~$82.13 (dropping)** |
-| **Margin level** | **56.6%** |
-| **Open MG** | **$4.20133769** (the K\|NGP\|N voltage) |
-| **TRIM / PROTECT** | **57%/54% active, 58%/54% overnight** |
+| **Short lots (bias)** | **26,737** |
+| **Long lots (hedge)** | **~24,753** |
+| **Net short** | **~1,984** |
+| **Equity** | **$91,373** |
+| **SOL price** | **~$80.68 (dropping)** |
+| **Open MG** | **$1.87** (validated on XJFD — ~10% degradation, ~18,500 surviving bias) |
+| **TRIM / PROTECT** | **57%/54%** |
 | **Pre-close** | **4 min freeze before session close** |
-| **EA version** | **v1.428** |
+| **EA version** | **v1.429** |
 
 **All timeframes bearish.**
 
@@ -199,35 +198,35 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 
 | Phase | Symbol | SOL Price | Action | Equity |
 |---|---|---|---|---|
-| **MG 1 (NOW)** | SOL SHORT | $83 → ~$44 | TRIM grind (14,305 bias, 101 trims) | $78K → $268K |
-| **MG 2 CASCADE** | SOL SHORT | $44 → $30 | MG $4.20 at pure short → 78,115 bias, unwound by $30 | $268K → $796K |
-| **Naked Ride** | SOL SHORT | $30 → $5 | Smooth, $78,115/dollar, 25 dollars of ride | $796K → $2,749K |
-| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2M) | $2,000K → **$95M** |
-| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($750K) | $750K → **$43M** |
+| **MG 1 (NOW)** | SOL SHORT | $81 → ~$35 | TRIM grind ($1.87 MG, ~18,500 bias after self-heal) | $91K → $360K |
+| **MG 2 CASCADE** | SOL SHORT | $35 → ~$22 | MG $3.00 at pure short → ~130K bias, unwound by ~$22 | $360K → $1,190K |
+| **Naked Ride** | SOL SHORT | $22 → $5 | Smooth, ~$130K/dollar, 17 dollars of ride | $1,190K → $3,400K |
+| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2.4M) | $2,400K → **$95M** |
+| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($1.0M) | $1,000K → **$95M** |
 
-**$78K → $2.75M (SOL short + cascade) → $138M (full crypto basket). 3 Martingale 3 Furious + basket.** 400 positions. 7 symbols. 4.236 fib targets. MG on ETH/BTC. Naked long everything else. Short the weakest down, long EVERYTHING up.
+**$100K → $3.4M (SOL short + cascade) → $190M+ (full crypto basket). 3 Martingale 3 Furious + basket.** 400 positions. 7 symbols. 4.236 fib targets. MG on ETH/BTC. Naked long everything else. Short the weakest down, long EVERYTHING up.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
-The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor. The silicon started at $100K, degraded to $31K — 69% of the die is scarred. The operator opened at $0.99 for maximum aggression before the drop. Overclock to the max. QRRP all the way.
+The short cascade is running a CPU stress test with insufficient cooling. Every PROTECT fire is thermal throttling. Every lost bias lot is a dead transistor. 10 DARWINs died across 3 accounts — $134K of tuition. AJTK is the fresh chip with the correct firmware (v1.429) and the proven voltage ($1.87).
 
 **The flip to long is a full RMA.** Not a repair. Not new thermal paste. Intel is sending you a brand new processor — except this one is a higher SKU than what you originally bought.
 
-| | Short Phase (BBUD) | Long Phase (restored) | Multiplier |
+| | Short Phase (AJTK) | Long Phase (restored) | Multiplier |
 |---|---|---|---|
-| Starting equity | $79K | $821K | **10x more silicon** |
-| Lots/side at flip | 17,655 net short | 195,476 | **11x more cores** |
-| Price range to ride | $82 → $5 | $5 → $200 | $195 vs $77 |
-| Profit per lot at target | $77 | $195 | **2.5x per core** |
-| Theoretical at target | $821K | **$38.9M** | **47x** |
+| Starting equity | $100K | $3,400K | **34x more silicon** |
+| Lots/side at flip | ~18,500 net short | ~340,000 | **18x more cores** |
+| Price range to ride | $81 → $5 | $5 → $200 | $195 vs $76 |
+| Profit per lot at target | $76 | $195 | **2.6x per core** |
+| Theoretical at target | $3,400K | **$190M+** | **56x** |
 
 The degradation was temporary. The restoration is permanent.
 
-It is like running Prime95 for three months, your CPU degrades 50%, but the electricity bill comes back as a check for $821K and Intel sends you a Xeon as an apology. Then you flip the Xeon long and it benches $38.9M.
+It is like running Prime95 for three months, your CPU degrades 50%, but the electricity bill comes back as a check for $3.4M and Intel sends you a Xeon as an apology. Then you flip the Xeon long and it benches $190M+.
 
-**The short phase breaks a $79K i9. The long phase buys an $821K Xeon with the prize money.** 10x more silicon. 11x more cores. You cannot buy the Xeon without breaking the i9 first. The stress test funds the upgrade.
+**The short phase breaks a $100K i9. The long phase buys a $3.4M Xeon with the prize money.** 34x more silicon. 18x more cores. You cannot buy the Xeon without breaking the i9 first. The stress test funds the upgrade.
 
-**BBUD: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher. $79K → $38.9M.**
+**AJTK: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher. $100K → $190M+.**
 
 ## The Diminishing Returns Lesson (Day 3 — The Hard Way)
 
@@ -263,11 +262,11 @@ The next MG should be at **pure short (~$40 SOL) with Open MG $8.00**. Not befor
 
 QRRP is not a strategy for people who need to feel in control. It is a strategy for people who have been humbled enough times to trust the formula over their instincts.
 
-**$79K to $38.9M** on a single account is not hopium. It is arithmetic. 1 short MG grinds to pure short, rides naked to $5, then flips long with 195,476 lots and rides to $200. No cascade needed. The naked ride funds the flip. The flip is the real trade.
+**$100K to $190M+** on a single account is not hopium. It is arithmetic. 1 short MG grinds to pure short, cascade $3.00 at ~$35, ride naked to $5, extract ~$3.4M, deploy full crypto basket (MG LONG ETH/BTC + naked everything else), ride to 4.236 fib targets. The short funds the long. The long is the real trade.
 
-The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every pure short checkpoint. Do not touch anything between checkpoints. Do not add voltage. Do not open MGs at entry price. Wait for pure short. Then cascade. Then flip long with 50x the silicon and do it again from the other direction.
+The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at pure short. Do not touch anything between checkpoints. Do not add voltage. Do not open MGs at entry price. Wait for pure short. Then cascade. Then flip long with 34x the silicon and do it again from the other direction.
 
-Nine post-mortems. Two dead DARWINs. One survivor. One lesson: **the flip is the multiplier, not the cascade. Trust the math. Ride naked to $5. Then flip long and trust it again going up. $79K → $38.9M.**
+Ten post-mortems. Three dead DARWINs. One survivor. One lesson: **the flip is the multiplier, not the cascade. Trust the math. Ride naked to $5. Then flip long and trust it again going up. $100K → $190M+.**
 
 -- TyphooN
 

@@ -1,14 +1,14 @@
-# The $2.08M Question: Which Crypto Do You Go LONG From the Bottom?
+# The $3.4M Question: Which Crypto Do You Go LONG From the Bottom?
 
-**Published: 2026-03-30 | TyphooN | MarketWizardry.org**
+**Published: 2026-03-30 (updated 2026-03-31) | TyphooN | MarketWizardry.org**
 
 ---
 
-BBUD is grinding SOL to zero. The cascade martingale is doing what cascade martingales do — compounding geometrically through TRIM events, eating hedge lots for fuel, building a net short position that prints $14,305 per dollar of SOL decline. At $5, the short closes. Equity: approximately $2.08M from a $76K starting account. 27x return on the short side.
+AJTK is grinding SOL to zero. The cascade martingale is doing what cascade martingales do — compounding geometrically through TRIM events, eating hedge lots for fuel, building a net short position that prints ~$130K per dollar of SOL decline after the cascade. At $5, the short closes. Equity: approximately $3.4M from a fresh $100K account. 34x return on the short side.
 
 Then what?
 
-The bear market that killed SOL will have cratered every crypto on the board. BTC at $10K. ETH at $200. SOL at $5. Blood everywhere. And we are sitting on $2.08M of dry powder from having shorted the exact thing that just died.
+The bear market that killed SOL will have cratered every crypto on the board. BTC at $10K. ETH at $200. SOL at $5. Blood everywhere. And we are sitting on $3.4M of dry powder from having shorted the exact thing that just died.
 
 Rothschild bought the ashes after Waterloo. This is the same play. The question is not whether to buy — the question is what to buy.
 
@@ -172,7 +172,7 @@ BTC is the safer bet but lot-constrained. SOL has the highest raw return but the
 
 $2.08M → ETH MG LONG at $200 → 5,200 lots pure long → ride to $5,000 → $27.0M.
 
-One instrument. One direction. One DARWIN. The same philosophy that made BBUD's SOL short work. Supply thesis purity. The short succeeded because SOL's supply dynamics worked against it. The long succeeds because ETH's supply dynamics work for it.
+One instrument. One direction. One DARWIN. The same philosophy that made AJTK's SOL short work. Supply thesis purity. The short succeeded because SOL's supply dynamics worked against it. The long succeeds because ETH's supply dynamics work for it.
 
 **Option B: Split (60/40 ETH/BTC)**
 
@@ -188,7 +188,7 @@ The current plan in MARTINGALE_SIMULATION.md. Highest raw return. But you are go
 
 ## The Full Crypto Basket: 400 Positions, 7 Symbols, Max Margin
 
-**Updated plan: $2.75M deployed across ALL 7 Darwinex cryptos. MG on the strongest (ETH/BTC). Naked long on the rest. Fill every Darwinex position slot. 4.236 Fibonacci targets.**
+**Updated plan: $3.4M deployed across ALL 7 Darwinex cryptos. MG on the strongest (ETH/BTC). Naked long on the rest. Fill every Darwinex position slot. 4.236 Fibonacci targets.**
 
 ### 4.236 Fib Targets (from estimated bear market bottoms)
 
@@ -210,7 +210,7 @@ The current plan in MARTINGALE_SIMULATION.md. Highest raw return. But you are go
 | Open MG | **$4.20133769** |
 | TRIM | **57.0%** |
 | PROTECT | **54.0%** |
-| Pre-close | **4 min freeze (v1.428 — close bias to push ML above TRIM)** |
+| Pre-close | **4 min freeze (v1.429 — close bias to push ML above TRIM)** |
 | Hard floor | **10.0%** |
 
 **Why MG only on ETH/BTC:** Spread efficiency. ETH at 0.05% and BTC at 0.01% are the only symbols where the TRIM grind doesn't bleed to spread costs. Every TRIM close on DOGE (1.06%) or ADA (0.15%) costs 10-100x more per lot than ETH/BTC. Naked longs on the rest avoid this entirely.
@@ -298,7 +298,7 @@ But each lot earns $190K+ on the ride to $200K.
 | **BNB** | $50K | Naked long | 20 | **$3M** |
 | **TOTAL** | **$2,750K** | **400 positions** | **400** | **$904M** |
 
-**$78K → $2.75M (SOL short) → $904M (full basket at 4.236 fibs) = 11,590x return.**
+**$100K → $3.4M (SOL short) → $904M (full basket at 4.236 fibs) = 9,040x return.**
 
 *These are theoretical maximums at 4.236 Fibonacci extensions. Realistic targets (previous ATH) give ~$138M. The 4.236 numbers assume a crypto supercycle comparable to 2020-2021 magnitudes. Not financial advice. Crypto can also go to $0.*
 
@@ -316,7 +316,7 @@ The long works for the same reason — plus 400 positions across every Darwinex 
 
 **Everything else is a naked ride.** SOL, ADA, XRP, BNB — buy at the bottom, hold through the cycle, sell at 4.236 fib.
 
-$78K → $2.75M (SOL short) → $138M realistic / $904M theoretical (full basket). 3 Martingale 3 Furious + naked basket. 400 positions. 7 symbols. One account. One DARWIN.
+$100K → $3.4M (SOL short) → $190M+ realistic / $904M theoretical (full basket). 3 Martingale 3 Furious + naked basket. 400 positions. 7 symbols. One account. One DARWIN.
 
 **3 Martingale 3 Furious. $4.20133769 on the MGs. Naked aggression on the rest. To the 4.236.**
 

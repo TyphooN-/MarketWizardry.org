@@ -128,7 +128,7 @@ The strategy running on SOL is a cascading hedged martingale. Here is the short 
 
 The plan is simpler now: 1 MG down, naked ride to $5, flip long with MG #2 at $4.20133769. No cascade. The naked ride builds $821K of equity. The long MG at $5 creates 195,476 lots/side. TRIM instantly consumes all shorts, leaving pure long from the first tick. Ride $5 to $200 = $38.9M. $79K → $38.9M = 492x return.
 
-For the full technical breakdown of how TRIM, PROTECT, and the cascade mechanics work, see the [QRRP cascade post](/blog/03192026-QRRP-SOL-Cascade) and the [BBUD post](/blog/03262026-BBUD-Blissfully-Bankrupt-Unicorn-Destruction) which covers the lessons learned from running (and killing) two previous DARWINs.
+For the full technical breakdown of how TRIM, PROTECT, and the cascade mechanics work, see the [QRRP cascade post](/blog/03192026-QRRP-SOL-Cascade) and the [AJTK post](/blog/03312026-AJTK-Rise-From-Ashes) which covers the lessons learned from running (and killing) ten previous DARWINs across three accounts.
 
 ---
 
@@ -148,31 +148,30 @@ The critical number: **$4.5 million of new SOL per day.** That is $31.5M per wee
 
 ---
 
-## BBUD Current Status (2026-03-30)
+## AJTK Current Status (2026-03-31)
 
-DARWIN BBUD is the live execution of this thesis.
+DARWIN AJTK is the live execution of this thesis. The fourth iteration. The final form.
 
 | Metric | Value |
 |---|---|
-| Lots Long | 15,974 |
-| Lots Short | 17,655 |
-| Net Short | 1,681 |
-| Equity | ~$79,411 |
-| ML | 56.6% |
+| Lots Long | ~24,753 |
+| Lots Short | 26,737 |
+| Net Short | ~1,984 |
+| Equity | ~$91,373 |
 | TRIM / PROTECT | 57% / 54% |
-| Open MG | $4.20133769 |
-| EA Version | v1.428 |
+| Open MG | $1.87 |
+| EA Version | v1.429 |
 
-BBUD is the third iteration. QRRP and XJFD — the first two DARWINs running this strategy — both died on 2026-03-23 when a spread spike at session open punched through their margin buffers in a single tick. BBUD incorporates the fixes: wider dead zone (5% vs 3.2%), higher TRIM/PROTECT thresholds (57/54 vs 54/51), and a pre-close freeze mechanism that reduces gross exposure before overnight.
+AJTK is the fourth DARWIN running this strategy. QRRP (8 post-mortems, liquidated), XJFD (1 PM, reached pure short, reopened as BBUD), and BBUD (1 PM, $0.69 Open MG too aggressive, broker stopped out) all died. 10 DARWINs across 3 accounts. $134K of tuition. AJTK incorporates every fix: v1.429 PROTECT closes bias (not balanced close), pre-close freeze, and the proven $1.87 Open MG that self-heals with ~10% degradation.
 
-The plan from here: **1 Martingale Down, 1 Martingale Up. No cascade.**
+The plan from here: **MG $1.87 → cascade $3.00 at pure short → smooth ride → extract ~$3.4M → deploy full crypto basket.**
 
-- **MG 1** (current → ~$42 SOL): TRIM eats hedge to pure short (17,655 lots)
-- **Naked Ride** (~$42 → $5): Pure short, no cascade — $17,655 per dollar drop, perfectly linear
-- **MG 2 (FLIP)** ($5): Close shorts, open MG: LONG $4.20133769 — 195,476 lots/side, TRIM → pure long from first tick
-- **Ride** ($5 → $200): Pure long to $200
+- **MG 1** (current → ~$35 SOL): TRIM eats hedge to pure short (~18,500 lots after self-heal)
+- **MG 2 CASCADE** (~$35): Open MG $3.00 at pure short → ~130K bias, unwound by ~$22
+- **Naked Ride** (~$22 → $5): Pure short, ~$130K per dollar drop
+- **FLIP** ($5): Close shorts, deploy ~$3.4M into full crypto basket — MG LONG ETH/BTC + naked DOGE/SOL/ADA/XRP/BNB
 
-No cascade pre-committed. If conviction is extreme during the drop, the operator may cascade opportunistically, but no price target is set. Projected terminal equity: **~$38.9M (492x return).**
+400 positions. 7 symbols. 4.236 fib targets. Projected terminal equity: **~$190M+ ($100K → $3.4M → $190M+).**
 
 ---
 
