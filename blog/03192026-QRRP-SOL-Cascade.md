@@ -174,7 +174,7 @@ QRRP does the same thing. The strategy does not change between phases. TRIM stil
 
 The pickup respawns at every pure short checkpoint. Grab it every time.
 
-## Current Position (2026-03-29 — DARWIN BBUD, Last Survivor)
+## Current Position (2026-03-30 — DARWIN BBUD, Last Survivor)
 
 **QRRP liquidated. XJFD ground to pure short then reopened as BBUD.** One DARWIN remains. The last chip. The final form.
 
@@ -182,31 +182,28 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 
 | | Value |
 |---|---|
-| **Short lots (bias)** | **10,866** |
-| **Long lots (hedge)** | **9,022** |
-| **Net short** | **1,844** |
-| **Equity** | **$88,038** |
-| **Balance** | **$81,255** |
-| **Margin** | **$152,343** |
-| **Margin level** | **57.8%** |
-| **SOL price** | **~$81.88 (dropping hard)** |
+| **Short lots (bias)** | **17,655** |
+| **Long lots (hedge)** | **15,974** |
+| **Net short** | **1,681** |
+| **Equity** | **$79,411** |
+| **SOL price** | **~$82.13 (dropping)** |
+| **Margin level** | **56.6%** |
 | **Open MG** | **$4.20133769** (the K\|NGP\|N voltage) |
 | **TRIM / PROTECT** | **57%/54% active, 58%/54% overnight** |
 | **Pre-close** | **4 min freeze before session close** |
-| **Spread tolerance** | **$4.43/lot — SAFE** |
+| **EA version** | **v1.428** |
 
-**All timeframes bearish.** Ehlers Fisher -1.71. SOL cliff-diving through $82.
+**All timeframes bearish.**
 
-**2 Martingale 2 Furious — two entries, then flip long:**
+**2 Martingale 2 Furious — 1 down, 1 up, no cascade:**
 
 | Phase | SOL Price | Action | Bias Lots | Equity |
 |---|---|---|---|---|
-| **1 (NOW)** | $84 → $42 | TRIM grind (19,944 bias, ML 56.5%) | 19,944 | $76K → $320K |
-| **2 (FINAL)** | $42 → $32 | MG $5-6 — last entry, fast unwind | ~73,277 | $320K → $660K |
-| **Ride** | $32 → $0 | Pure short to $0 | ~73,277 | $660K → **$3,005K** |
-| **Flip** | ~$2-5 | Close shorts, open MG: LONG | — | Ride bull to ATH |
+| **MG 1 (NOW)** | $82 → ~$42 | TRIM grind (17,655 bias, ML 56.6%) | 17,655 | $79K → $272K |
+| **Naked Ride** | ~$42 → $5 | Pure short, no cascade — $17,655/dollar | 17,655 | $272K → $821K |
+| **MG 2 (FLIP)** | $5 → $200 | Close shorts, MG: LONG $4.20133769 — TRIM → pure long | 195,476 | $821K → **$38.9M** |
 
-**$76K → $3.0M = 40x return. 2 Martingale 2 Furious.** One instrument. Ride to $0. Flip long. BBUD.
+**$79K → $38.9M = 492x return. 2 Martingale 2 Furious.** 1 short MG + 1 long MG. Ride naked. Flip long. BBUD.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 
@@ -214,21 +211,21 @@ The short cascade is running a CPU stress test with insufficient cooling. Every 
 
 **The flip to long is a full RMA.** Not a repair. Not new thermal paste. Intel is sending you a brand new processor — except this one is a higher SKU than what you originally bought.
 
-| | Short Phase (dual-account) | Long Phase (restored) | Multiplier |
+| | Short Phase (BBUD) | Long Phase (restored) | Multiplier |
 |---|---|---|---|
-| Starting equity | $128K (combined) | $3,250K | **25x more silicon** |
-| Open MG $8.00 lots/side | ~2,735 net → ~130K | ~406,000 | **3x more cores** |
-| Price range to ride | current → $0 | $5 → $200+ | $195 vs $89 |
-| Profit per lot at target | $89 | $195 | **2.2x per core** |
-| Theoretical at target | $3.25M | **$105M+** | **32x** |
+| Starting equity | $79K | $821K | **10x more silicon** |
+| Lots/side at flip | 17,655 net short | 195,476 | **11x more cores** |
+| Price range to ride | $82 → $5 | $5 → $200 | $195 vs $77 |
+| Profit per lot at target | $77 | $195 | **2.5x per core** |
+| Theoretical at target | $821K | **$38.9M** | **47x** |
 
 The degradation was temporary. The restoration is permanent.
 
-It is like running Prime95 for three months, your CPU degrades 50%, but the electricity bill comes back as a check for $1.75 million and Intel sends you a Xeon as an apology.
+It is like running Prime95 for three months, your CPU degrades 50%, but the electricity bill comes back as a check for $821K and Intel sends you a Xeon as an apology. Then you flip the Xeon long and it benches $38.9M.
 
-**The short phase breaks a $100K i9. The long phase buys a $1.75M Xeon with the prize money.** 38x more silicon. 32x more cores. You cannot buy the Xeon without breaking the i9 first. The stress test funds the upgrade.
+**The short phase breaks a $79K i9. The long phase buys an $821K Xeon with the prize money.** 10x more silicon. 11x more cores. You cannot buy the Xeon without breaking the i9 first. The stress test funds the upgrade.
 
-**QRRP: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher.**
+**BBUD: break the chip on the way down. Buy a better one on the way up. The silicon always restores. The score only goes higher. $79K → $38.9M.**
 
 ## The Diminishing Returns Lesson (Day 3 — The Hard Way)
 
@@ -264,11 +261,11 @@ The next MG should be at **pure short (~$40 SOL) with Open MG $8.00**. Not befor
 
 QRRP is not a strategy for people who need to feel in control. It is a strategy for people who have been humbled enough times to trust the formula over their instincts.
 
-**$128K to $3.25M** across two accounts is not hopium. It is arithmetic. Cascading martingale phases with geometric lot compounding produce returns that single-phase strategies cannot match regardless of starting capital. Dual-socket QRRP — two accounts, zero DARWINs, pure cascade — compounds from whatever base it is given.
+**$79K to $38.9M** on a single account is not hopium. It is arithmetic. 1 short MG grinds to pure short, rides naked to $5, then flips long with 195,476 lots and rides to $200. No cascade needed. The naked ride funds the flip. The flip is the real trade.
 
 The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at every pure short checkpoint. Do not touch anything between checkpoints. Do not add voltage. Do not open MGs at entry price. Wait for pure short. Then cascade. Then flip long with 50x the silicon and do it again from the other direction.
 
-Seven post-mortems. Three days. 69% degradation. One lesson: **the cascade is the multiplier, not the Open MG. Trust the math. Wait for pure short. Then trust it again going up.**
+Nine post-mortems. Two dead DARWINs. One survivor. One lesson: **the flip is the multiplier, not the cascade. Trust the math. Ride naked to $5. Then flip long and trust it again going up. $79K → $38.9M.**
 
 -- TyphooN
 

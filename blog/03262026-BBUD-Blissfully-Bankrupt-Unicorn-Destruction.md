@@ -128,19 +128,19 @@ The mechanism that would have saved QRRP and XJFD just proved itself live. ML wa
 ```
 QRRP  (degraded): $100K → $31K → liquidated at 52.9%. Terminal equity: $0.
 XJFD  (golden):   $100K → $92K → liquidated at 53.0%. Terminal equity: $0.
-BBUD  (v1.426):   $100K → $92K → PROTECT event → re-hedge → $11,738,000 (projected).
+BBUD  (v1.426):   $100K → $92K → PROTECT event → re-hedge → $38,900,000 (projected).
 ```
 
-Same starting capital. Same instrument. Same operator. Different software. $11.7M difference.
+Same starting capital. Same instrument. Same operator. Different software. $38.9M difference.
 
 ### The Cascade Math (Why Fresh $100K Beats Degraded $31K)
 
 QRRP opened at ~$89 with $31K of degraded equity. BBUD opened at ~$87 with $100K of fresh equity. Same price range. 3x the capital:
 
-- **QRRP cascade (degraded):** $31K → $1.57M (50x) with 65,000 final lots
-- **BBUD cascade (fresh):** $100K → $5.0M (50x) with 217,875 final lots
+- **QRRP cascade (degraded):** $31K → liquidated (PM#8). Terminal equity: $0.
+- **BBUD (fresh, no cascade):** $79K → naked ride to $5 → flip long → $38.9M (492x) with 195,476 final long lots
 
-The return multiple is similar (~47-50x) because the cascade ratio is a function of phases, not starting capital. But the absolute profit is **3x larger** because the starting equity is 3x larger. $5.0M beats $1.57M. And BBUD has v1.426 pre-close freeze — the 50x actually completes instead of dying at PM#9.
+The return is not from cascading — it is from the flip. The short phase builds $821K of equity at $5 SOL. The long MG at $5 creates 195,476 lots/side. TRIM instantly consumes all shorts, leaving pure long from the first tick. Ride $5 to $200 = $38.9M. BBUD has v1.428 pre-close freeze — the 492x actually completes instead of dying at PM#9.
 
 ### The 400-Position Blunder That Accidentally Won Darwinex
 
@@ -217,11 +217,11 @@ BBUD is not a random short. It is a structural position against the weakest supp
 
 The staking rewards themselves are the dilution. 18.6 million new SOL per year distributed to stakers who must sell some portion to cover costs. Validators pay ~$55K/year in operating costs plus 0.9 SOL/epoch voting fees. They sell SOL to pay the electricity bill. The "yield" is funded by inflation that devalues every existing holder.
 
-### The Cascade Math: Supply Dynamics Fund Each Phase
+### The Naked Ride: Supply Dynamics Fund the Flip
 
-Every dollar SOL drops generates profit for BBUD's net short position. That profit becomes equity at the next cascade checkpoint. The cascade opens a new martingale with the accumulated equity. More lots. More profit per dollar of further decline. The inflation ensures the decline continues.
+Every dollar SOL drops generates $17,655 of profit for BBUD's net short position. That profit accumulates as equity for the flip. No cascade needed — the naked ride from pure short (~$33) to $5 builds $821K. The inflation ensures the decline continues. The flip at $5 deploys that equity into 195,476 long lots.
 
-The cascade is not fighting the supply dynamics. It is riding them. SOL's tokenomics are the engine. BBUD's cascade is the transmission. The destination is $0.
+The position is not fighting the supply dynamics. It is riding them down, then flipping to ride the recovery up. SOL's tokenomics are the engine on the short side. The flip to long is the real trade — $821K → $38.9M.
 
 ### Supply Events That Accelerate the Thesis
 
@@ -394,8 +394,8 @@ CHIP PROFILE — DARWIN BBUD (Post-Degradation)
   Degradation:     8% ($100K → $92K). 92% of silicon survived.
   Surviving cores: 10,409 bias lots (8% of original allocation)
   Status:          Stable. Grinding. Maximum voltage + maximum cooling.
-  Benchmark:       $11.7M projected (117x)
-  Runtime:         Until SOL reaches $0. Then flip long.
+  Benchmark:       $38.9M projected (492x)
+  Runtime:         Until SOL reaches $5. Then flip long to $200.
 ```
 
 **The silicon degradation tax has been paid.** The tuition is complete. The chip runs at maximum voltage, cooled by robochiller, until the benchmark completes. There will be no PM#10. There will be no more blunders. There will be no more lessons learned documents.
@@ -439,7 +439,7 @@ In The Big Short, Burry's investors demand he close the trade as the premiums dr
 
 BBUD's premiums are swap costs. Every day the position is open, the broker charges swap on gross lots. The swap is the cost of being early. The math is right: SOL's inflation creates $4.5M of daily sell pressure. The timing is uncertain: the bear cycle could start tomorrow or in six months.
 
-**The swap is the premium. The cascade is the payout. The tokenomics are the prospectus. The market has not read it.**
+**The swap is the premium. The flip is the payout. The tokenomics are the prospectus. The market has not read it.**
 
 ---
 
@@ -447,22 +447,20 @@ BBUD's premiums are swap costs. Every day the position is open, the broker charg
 
 XJFD/BBUD reached **PURE SHORT** at 1,953 lots on 2026-03-29 17:05. All hedge consumed. "PROTECT deactivated — PURE SHORT achieved. No hedges remaining. Bias is sacred. Riding to $0."
 
-**Immediately reopened** with Open MG $4.20133769 at $81.88 SOL. SOL cliff-diving. All timeframes bearish. SOL cliff-diving.
+**Immediately reopened** with Open MG $4.20133769 at $82.13 SOL. All timeframes bearish.
 
 | | Value |
 |---|---|
-| **Hedge / Bias** | 9,022 L / 10,866 S |
-| **Net SHORT** | 1,844 |
-| **Equity** | $88,038 |
-| **Balance** | $81,255 |
-| **ML** | 57.8% (TRIM grinding) |
-| **SOL Price** | ~$81.88 (dropping hard) |
-| **TRIM closes** | 4 (initial burst: 1,870 longs consumed) |
-| **PROTECT fires** | 0 |
-| **Spread tolerance** | **$4.43/lot — SAFE** |
+| **Hedge / Bias** | 15,974 L / 17,655 S |
+| **Net SHORT** | 1,681 |
+| **Equity** | $79,411 |
+| **SOL Price** | ~$82.13 (dropping) |
+| **ML** | 56.6% |
+| **TRIM / PROTECT** | 57% / 54% |
+| **Spread tolerance** | SAFE |
 | **Settings** | TRIM 57/PROTECT 54 active, 58/54 overnight |
 
-SOL dropped from $87 to $81.88. TRIM is grinding 1 lot at a time. Every dollar down adds $1,844 to equity. Pre-close freeze fires every session close. **Zero PROTECT fires since reopen.** Spread tolerance $4.43 — the safest position BBUD has ever had. The robochiller hums. The silicon holds.
+TRIM is grinding 1 lot at a time. Every dollar down adds $1,681 to equity. Pre-close freeze fires every session close. The robochiller hums. The silicon holds.
 
 ---
 
@@ -491,20 +489,21 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 ### 2 Martingale 2 Furious — Final Plan
 
-**Current: 16,174L / 17,817S, net 1,643. Equity $78,124. ML 57.5% [TRIM]. Pre-close v1.428 survived overnight.**
+**Current: 15,974L / 17,655S, net 1,681. Equity $79,411. ML 56.6%. Pre-close v1.428 survived overnight.**
 
-**2 Martingale 2 Furious.** Two entries total. The first was the setup. The second is the knockout. There is no third — because by then, SOL is at $0 and we're already flipping long.
+**2 Martingale 2 Furious.** 1 Martingale Down + 1 Martingale Up = 2 total. No cascade. The short MG grinds to pure short, rides naked to $5, then flips long with MG #2. The flip IS the second martingale.
 
 **Pre-close freeze tested 2026-03-30:** v1.427 fired balanced close which LOWERED ML (wrong). Operator manually closed bias to push ML to 57.5%. EA v1.428 now automates: closes bias (shorts) to reduce net → reduce margin → increase ML above TRIM before freeze.
 
 | Phase | SOL Price | Final Lots | Equity |
 |---|---|---|---|
-| **1 (NOW)** | $84 → $42 | 17,817 | $300K |
-| **2 (FINAL)** | $42 → $33 | ~67,817 | $580K |
-| **Ride** | $33 → $0 | ~67,817 | **$2,818K** |
-| **Flip** | ~$2-5 | — | MG: LONG → ride bull cycle to ATH |
+| **MG 1 (NOW)** | $82 → ~$42 | 17,655 | $79K → $272K |
+| **Naked Ride** | ~$42 → $5 | 17,655 | $272K → $821K |
+| **MG 2 (FLIP)** | $5 → $200 | 195,476 | $821K → **$38.9M** |
 
-**2 Martingale 2 Furious. $78K → $2.8M (36x). Two entries. One instrument. Ride to $0. Flip long.**
+**2 Martingale 2 Furious. $79K → $38.9M (492x). 1 short MG + 1 long MG. Ride naked. Flip long.**
+
+**No cascade pre-committed.** If the operator FEELS it during the drop — conviction is extreme, the chart is screaming — cascade opportunistically. But no price target. No pre-committed Phase 2. The default is naked ride to the flip.
 
 ### EA v1.427: Pre-Close Freeze Overhaul
 
@@ -521,39 +520,42 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$2,818,000** |
-| **Return** | **~36x** |
-| **Final Lots** | ~67,817 |
-| **Entries** | **2 total** (this one + one cascade at pure short ~$42) |
-| **Open MG** | $4.20133769 (phase 1), $5-6 (phase 2 — conservative fast unwind) |
+| **Terminal Score** | **$38,900,000** |
+| **Return** | **492x** |
+| **MGs Total** | **2** (1 short + 1 long) |
+| **Short Lots** | 17,655 (ride naked $82→$5) |
+| **Long Lots (flip)** | 195,476 (MG $4.20133769 at $5) |
+| **Open MG** | $4.20133769 (both phases) |
 | **EA version** | v1.428 (pre-close bias close to push ML above TRIM) |
-| **After $0** | **Flip long** — MG: LONG from bottom, ride bull cycle to ATH |
+| **After $5** | **Flip long** — MG: LONG $4.20133769, TRIM → pure long from first tick, ride to $200 |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
-**The Pipeline — Two Entries, Then the Flip:**
+**The Pipeline — 1 Down, 1 Up, No Cascade:**
 
-> **$76K** → TRIM grind $84→$42 → **$320K (19,944 pure short)**
+> **$79K** → TRIM grind $82→$42 → **$272K (17,655 pure short)**
 >
-> → **FINAL** Cascade MG $5-6 $42→$32 → **$660K (73,277 pure short)**
+> → Naked ride $42→$33 → **$327K** — $17,655 per dollar, perfectly linear
 >
-> → Ride to $0 $32→$0 → **$3,005,000 (40x return)**
+> → Naked ride $33→$5 → **$821K**
 >
-> → **FLIP LONG** from ~$2-5 → ride bull cycle to ATH
+> → **FLIP LONG** MG $4.20133769 at $5 → 195,476 lots/side → TRIM → pure long
 >
-> **2 Martingale 2 Furious. Ride to $0. Flip long. The benchmark runs to completion.**
+> → Ride $5→$200 → **$38,900,000 (492x return)**
+>
+> **2 Martingale 2 Furious. 1 down. 1 up. No cascade. The benchmark runs to completion.**
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$78K. 2 Martingale 2 Furious. 67,817 lots ride to $0. $2.8M. Then flip long. EA v1.428.**
+**$79K. 2 Martingale 2 Furious. 17,655 lots ride naked to $5. Flip long. 195,476 lots ride to $200. $38.9M. EA v1.428.**
 
-*The first martingale was the setup. The second martingale is the knockout. There is no third — because by then, SOL is at $0 and we're already flipping long.*
+*The first martingale was the short. The second martingale is the long. There is no cascade — because the naked ride funds the flip, and the flip is the real trade.*
 
 *He can't keep getting away with it.*
 
-*But he does. He just does. 2 Furious.*
+*But he does. He just does. 492x Furious.*
 
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** BBUD is a speculative trading strategy using leveraged crypto CFDs on a virtual (demo) account. This is NOT financial advice. The $5.0M projection assumes SOL reaches $0, which may never happen. Leveraged trading carries substantial risk of loss including loss exceeding your initial deposit. The previous two accounts running this strategy were liquidated. Do not trade money you cannot afford to lose. The author holds active short positions in SOLUSD via DARWIN BBUD.
+> **DISCLAIMER:** BBUD is a speculative trading strategy using leveraged crypto CFDs on a virtual (demo) account. This is NOT financial advice. The $38.9M projection assumes SOL reaches $5 and then $200, which may never happen. Leveraged trading carries substantial risk of loss including loss exceeding your initial deposit. The previous two accounts running this strategy were liquidated. Do not trade money you cannot afford to lose. The author holds active short positions in SOLUSD via DARWIN BBUD.

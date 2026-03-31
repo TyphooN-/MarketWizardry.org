@@ -108,7 +108,7 @@ Why does this matter? Because the cascade martingale strategy opens and closes t
 
 At ~$89, one short lot of SOL captures $89 of downside per dollar of price movement. At ~$0.093, one short lot of DOGE captures $0.093. The margin requirement per lot is comparable. SOL generates **~390x more profit per margin dollar** than DOGE at current prices.
 
-For a cascade strategy where lot count compounds geometrically at each phase, this difference determines whether terminal equity is $6.7M or $17K.
+For a strategy where lot count at the flip determines the terminal equity, this difference determines whether the long phase produces $38.9M or $17K.
 
 ### The Verdict
 
@@ -126,7 +126,7 @@ The strategy running on SOL is a cascading hedged martingale. Here is the short 
 4. **Cascade** — at the pure short checkpoint, use accumulated equity to open a NEW hedged martingale. The new MG seeds from the profits of the old one. Lot count multiplies geometrically.
 5. **Repeat** until final cascade, then ride to zero.
 
-The cascade is what turns a linear short into a geometric one. Each phase compounds on the last. Three cascades turn $76K into an estimated $6.7M if SOL goes to zero.
+The plan is simpler now: 1 MG down, naked ride to $5, flip long with MG #2 at $4.20133769. No cascade. The naked ride builds $821K of equity. The long MG at $5 creates 195,476 lots/side. TRIM instantly consumes all shorts, leaving pure long from the first tick. Ride $5 to $200 = $38.9M. $79K → $38.9M = 492x return.
 
 For the full technical breakdown of how TRIM, PROTECT, and the cascade mechanics work, see the [QRRP cascade post](/blog/03192026-QRRP-SOL-Cascade) and the [BBUD post](/blog/03262026-BBUD-Blissfully-Bankrupt-Unicorn-Destruction) which covers the lessons learned from running (and killing) two previous DARWINs.
 
@@ -154,24 +154,25 @@ DARWIN BBUD is the live execution of this thesis.
 
 | Metric | Value |
 |---|---|
-| Lots Long | 17,638 |
-| Lots Short | 19,944 |
-| Net Short | 1,626 |
-| Equity | ~$76,000 |
+| Lots Long | 15,974 |
+| Lots Short | 17,655 |
+| Net Short | 1,681 |
+| Equity | ~$79,411 |
+| ML | 56.6% |
 | TRIM / PROTECT | 57% / 54% |
-| Spread Tolerance | $2.02 |
 | Open MG | $4.20133769 |
+| EA Version | v1.428 |
 
 BBUD is the third iteration. QRRP and XJFD — the first two DARWINs running this strategy — both died on 2026-03-23 when a spread spike at session open punched through their margin buffers in a single tick. BBUD incorporates the fixes: wider dead zone (5% vs 3.2%), higher TRIM/PROTECT thresholds (57/54 vs 54/51), and a pre-close freeze mechanism that reduces gross exposure before overnight.
 
-The cascade plan from here:
+The plan from here: **1 Martingale Down, 1 Martingale Up. No cascade.**
 
-- **Phase 1** (current → ~$42 SOL): TRIM eats hedge to pure short
-- **Phase 2** ($42 → ~$22): Fresh cascade with accumulated equity
-- **Phase 3 FINAL** ($22 → ~$14): Last cascade, maximum lot count
-- **Ride** ($14 → $0): Pure short, no more cascades
+- **MG 1** (current → ~$42 SOL): TRIM eats hedge to pure short (17,655 lots)
+- **Naked Ride** (~$42 → $5): Pure short, no cascade — $17,655 per dollar drop, perfectly linear
+- **MG 2 (FLIP)** ($5): Close shorts, open MG: LONG $4.20133769 — 195,476 lots/side, TRIM → pure long from first tick
+- **Ride** ($5 → $200): Pure long to $200
 
-Below $20 is the final entry. No more cascades after that. The lot count at Phase 3 is sufficient to ride to zero. Projected terminal equity: **~$6.7M (88x return).**
+No cascade pre-committed. If conviction is extreme during the drop, the operator may cascade opportunistically, but no price target is set. Projected terminal equity: **~$38.9M (492x return).**
 
 ---
 
