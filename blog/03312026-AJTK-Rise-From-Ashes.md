@@ -117,56 +117,56 @@ v1.429 PROTECT closes BIAS (shorts) to increase ML. This is the opposite of what
 
 ## The Plan
 
-### Phase 1: TRIM Grind to Pure Short ($81 → ~$35 SOL)
+### Phase 1: TRIM Grind to Pure Short — Self-Healed ($83 → ~$40 SOL)
 
-MG $1.87 self-heals to ~$87K equity, ~18,500 bias, ~16,613 hedge. TRIM grinds at 57%.
+MG $1.87 opened with 26,737/side. Broker forced closures during spread spikes self-healed position to 15,440L / 17,300S. Spread tolerance improved from $1.77 to $2.59. 148 TRIM closes, 0 EA PROTECT fires. TRIM now generating profit as SOL drops below entry.
 
 | SOL Price | Equity | Hedge | Net Short | Spread Tol | Status |
 |---|---|---|---|---|---|
-| **$81 (now)** | **$91K** | **~24,753** | **~1,984** | **$1.77** | **Self-healing** |
-| $75 (post-heal) | $87K | 16,613 | 1,887 | $2.18 | Safe |
-| $55 | $146K | 10,072 | 8,428 | $4.87 | Deep safety |
-| **~$35** | **~$360K** | **0** | **~18,500** | **$19.46** | **PURE SHORT** |
+| **$83.24 (now)** | **$84,962** | **15,440** | **1,860** | **$2.59** | **Self-healed, SAFE** |
+| $75 | $100,500 | 14,200 | 3,100 | $3.10 | Comfortable |
+| $55 | $141,500 | 9,200 | 8,100 | $5.51 | Deep safety |
+| **~$40** | **~$320,000** | **0** | **17,300** | **$18.50** | **PURE SHORT → CASCADE** |
 
-Expected pure short at ~$35 SOL. ~18,500 lots. ~$360K equity.
+Expected pure short at ~$40 SOL. 17,300 lots. ~$320K equity. **TRIM closes are now profitable** — SOL dropped below the $1.87 MG entry price. Balance recovers as longs close at profit. Lost shorts from broker forced closes are being offset by TRIM profit.
 
-### Phase 2: Cascade $3.00 at Pure Short (~$35 → ~$22 SOL)
+### Phase 2: Cascade $3.00 at Pure Short (~$40 → ~$26 SOL)
 
-Open MG $3.00 at pure short. ~120K new lots per side. v1.429 PROTECT fires 1-2x, ~130K bias survive.
+Open MG $3.00 at pure short. ~107K new lots per side. v1.429 PROTECT fires 1-2x, ~110K bias survive.
 
 | SOL Price | Equity | Hedge | Net Short | Status |
 |---|---|---|---|---|
-| **$35 (cascade)** | **$360K** | **115,000** | **23,500** | **Phase 2 starts** |
-| $25 | $795K | 20,000 | 118,500 | Fast |
-| **~$22** | **~$1,190K** | **0** | **~130,000** | **PURE SHORT — FINAL** |
+| **$40 (cascade)** | **$320K** | **102,000** | **21,300** | **Phase 2 starts** |
+| $30 | $880K | 30,000 | 93,300 | Accelerating |
+| **~$26** | **~$1,150K** | **0** | **~110,000** | **PURE SHORT — FINAL** |
 
-### Naked Ride: $22 → $5
+### Naked Ride: $26 → $5
 
-~130,000 pure short lots. ~$130K per dollar of SOL decline. Smooth ride for 17 dollars.
+~110,000 pure short lots. ~$110K per dollar of SOL decline. Smooth ride for 21 dollars.
 
 | SOL Price | Equity | Status |
 |---|---|---|
-| $22 | $1,190K | Smooth ride begins |
-| $15 | $2,100K | Cruising |
-| $10 | $2,750K | Deep profit |
-| **$5** | **$3,400K** | **CLOSE ALL** |
+| $26 | $1,150K | Smooth ride begins |
+| $20 | $1,810K | Cruising |
+| $10 | $2,910K | Deep profit |
+| **$5** | **$3,460K** | **CLOSE ALL** |
 
 ### Deploy Full Crypto Basket
 
-Close SOL shorts at $5 with ~$3.4M. Deploy into all 7 Darwinex cryptos.
+Close SOL shorts at $5 with ~$3.46M. Deploy into all 7 Darwinex cryptos.
 
 | Component | Allocation | Strategy | Target Equity |
 |---|---|---|---|
-| **ETH** | $1,800K | MG LONG $4.20 | **$79M** |
+| **ETH** | $2,000K | MG LONG $4.20 | **$95M** |
 | **BTC** | $600K | MG LONG $4.20 | **$35M** |
-| **DOGE** | $400K | Naked long (6mo) | **$39M** |
-| **SOL** | $250K | Naked long | **$10M** |
+| **DOGE** | $350K | Naked long (6mo) | **$34M** |
+| **SOL** | $200K | Naked long | **$8M** |
 | **ADA** | $150K | Naked long | **$6M** |
 | **XRP** | $100K | Naked long | **$3M** |
-| **BNB** | $100K | Naked long | **$2M** |
-| **TOTAL** | **$3,400K** | **400 positions** | **~$190M+** |
+| **BNB** | $60K | Naked long | **$2M** |
+| **TOTAL** | **$3,460K** | **400 positions** | **~$183M+** |
 
-**$100K → $3.4M (SOL short + cascade) → $190M+ (full crypto basket long).**
+**$100K → $3.46M (SOL short + cascade) → $183M+ (full crypto basket long). 1,830x.**
 
 400 positions. 7 symbols. 4.236 fib targets. MG on ETH/BTC. Naked long on everything else. Short the weakest supply on the way down. Long EVERYTHING on the way up.
 
