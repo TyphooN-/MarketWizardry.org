@@ -509,17 +509,15 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 ### The Severe Drawdown Gang Would Be Proud
 
-**XUQF was the prototype.** The first DARWIN. The one that caught fire on the test bench. It got the Severe Drawdown badge before the EA was even stable. XUQF would look at BBUD's $34K of degradation and say: *"That's nothing. I lost 90% before the operator even knew what PROTECT did."*
-
-**QRRP was the survivor.** Seven post-mortems. Nine wrenches. $100K ground to $31K. QRRP would look at BBUD and say: *"You only lost $34K? I lost $69K and came back three times. The badge is earned through blood."*
+**XUQF was the prototype.** The first TyphooN DARWIN. Pure manual trading — no EA, no TRIM, no PROTECT. Just a man, six charts, and an NNFX system. It earned the Severe Drawdown badge the old-fashioned way: discretionary trades, human error, and the emotional volatility of manual position management. XUQF would look at BBUD's $34K of degradation and say: *"That's nothing. I lost 90% making decisions with my own hands. You lost $34K to a firmware bug."*
 
 **BBUD didn't restart.** That's what the Severe Drawdown Gang respects. The operator could have abandoned the account — closed everything, deposited fresh $100K, started clean. Instead: debug the firmware, fix the bugs, keep the position, keep grinding. The $66K account with v1.429 is worth more than a fresh $100K with v1.426 because the software is correct and the operator stopped touching the BIOS.
 
-**And none of this may even matter.** BBUD is still in calibration — the DARWIN hasn't been created yet. The calibration period is 3 months. The drawdown happened during calibration. By the time the DARWIN goes live, BBUD could be in overall profit — the SOL drop from $80 to $38 (pure short) puts the account at $350K from a $100K start. **That's a 250% gain during calibration.** Darwinex would see a DARWIN that launched at $100K and is now at $350K with a clean equity curve from $38 onward. No Severe Drawdown badge. No red flag. Just results.
+**And none of this may even matter.** BBUD is still in calibration — the DARWIN hasn't been created yet. The calibration period is **15 trading days**. The drawdown happened during calibration. By the time the DARWIN goes live, BBUD could be in overall profit — the SOL drop from $80 to $38 (pure short) puts the account at $350K from a $100K start. **That's a 250% gain during calibration.** Darwinex would see a DARWIN that launched at $100K and is now at $350K with a clean equity curve from $38 onward. No Severe Drawdown badge. No red flag. Just results.
 
 **The scuffed start becomes invisible.** Calibration absorbs the damage. The DARWIN launches clean. VaR Cult, not Severe Drawdown Gang. The firmware bugs were fixed before the DARWIN was born.
 
-*XUQF and QRRP earned their red badges. BBUD might never need one.*
+*XUQF earned its red badge through manual trading. BBUD might never need one — the firmware was fixed before the DARWIN was born.*
 
 ### EA v1.428: Pre-Close Bias Close
 
