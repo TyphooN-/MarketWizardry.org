@@ -202,9 +202,10 @@ The pickup respawns at every pure short checkpoint. Grab it every time.
 | **MG 1 (NOW)** | SOL SHORT | $83 → ~$44 | TRIM grind (14,305 bias, 101 trims) | $78K → $268K |
 | **MG 2 CASCADE** | SOL SHORT | $44 → $30 | MG $4.20 at pure short → 78,115 bias, unwound by $30 | $268K → $796K |
 | **Naked Ride** | SOL SHORT | $30 → $5 | Smooth, $78,115/dollar, 25 dollars of ride | $796K → $2,749K |
-| **MG 3 LONG** | **Best crypto** | Bottom → ATH | Deploy $2.75M, strongest supply | $2,749K → **$95-120M** |
+| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2M) | $2,000K → **$95M** |
+| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($750K) | $750K → **$43M** |
 
-**$78K → $2.75M (SOL short + cascade) → $95-120M (best crypto long). 3 Martingale 3 Furious.** Cascade early at pure short. Grind early. Smooth ride longer. Long the strongest from the bottom.
+**$78K → $2.75M (SOL short + cascade) → $138M (full crypto basket). 3 Martingale 3 Furious + basket.** 400 positions. 7 symbols. 4.236 fib targets. MG on ETH/BTC. Naked long everything else. Short the weakest down, long EVERYTHING up.
 
 ## The Silicon Restoration: Why Going Long Heals Everything
 

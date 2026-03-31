@@ -500,9 +500,10 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 | **MG 1 (NOW)** | SOL SHORT | $83 → ~$44 | TRIM grind (14,305 bias, 101 trims) | $78K → $268K |
 | **MG 2 CASCADE** | SOL SHORT | $44 → $30 | MG $4.20 at pure short → 78,115 bias | $268K → $796K |
 | **Naked Ride** | SOL SHORT | $30 → $5 | Smooth, $78,115/dollar, 25 dollars | $796K → $2,749K |
-| **MG 3 LONG** | **Best crypto** | Bottom → ATH | Deploy $2.75M, strongest supply | $2,749K → **$95-120M** |
+| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2M) | $2,000K → **$95M** |
+| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($750K) | $750K → **$43M** |
 
-**3 Martingale 3 Furious. $78K → $2.75M (SOL short + cascade) → $95-120M (best crypto long).** Cascade at pure short. Grind early. Smooth ride $30→$5. Long the strongest from the bottom.
+**3 Martingale 3 Furious + Full Basket. $78K → $2.75M (SOL short + cascade) → $138M (MG long + naked basket). 400 positions. 7 symbols. 4.236 fib targets.** Cascade at pure short. Grind early. Smooth ride $30→$5. Long everything from the bottom.
 
 **Current: 12,692L / 14,305S, net 1,613. 101 TRIM closes, 5 PROTECT fires. Grinding to pure short ~$44. Cascade immediately. Unwound by $30. Smooth ride to $5.**
 
