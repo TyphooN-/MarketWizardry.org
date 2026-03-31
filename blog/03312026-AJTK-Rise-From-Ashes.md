@@ -70,13 +70,14 @@ AJTK is fresh $100K with the correct firmware and the proven voltage. For the fi
 | **Account** | DARWIN AJTK — fresh $100K Darwinex Zero Crypto |
 | **Open MG** | $1.87 (validated on XJFD: ~10% degradation, ~18,500 surviving bias) |
 | **EA Version** | v1.429 (PROTECT closes bias, pre-close freeze, hard floor 10%) |
-| **Position** | 14,364L / 16,200S, net 1,836 SHORT |
-| **Equity** | $84,376 (self-healed, spread tol $2.76 — SAFE) |
+| **Position** | 13,263L / 15,100S, net 1,837 SHORT |
+| **Equity** | $84,287 \| Balance $91,831 \| Margin $148,251 |
 | **SOL Price** | $83.15, ML 56.9% [DEAD] — TRIM paused, resumes on ML recovery |
+| **Spread tol** | $2.97/lot ← SAFE (was $1.77 at open) |
 | **TRIM / PROTECT** | 57% / 54% |
 | **Pre-close** | 4 min freeze |
-| **TRIM closes** | 148+ |
-| **PROTECT closes** | 0 (EA), ~10,500 broker forced |
+| **TRIM closes** | 51 (this session) |
+| **PROTECT closes** | 0 (EA) |
 
 ### Why $1.87 Is Not Random
 
@@ -119,38 +120,38 @@ v1.429 PROTECT closes BIAS (shorts) to increase ML. This is the opposite of what
 
 ### Phase 1: TRIM Grind to Pure Short — Self-Healed ($83 → ~$40 SOL)
 
-MG $1.87 opened with 26,737/side. Broker forced ~10,500 balanced closures during spread spikes and session boundaries, self-healing position to 14,364L / 16,200S. Spread tolerance improved from $1.77 to $2.76 — SAFE. 148+ TRIM closes, 0 EA PROTECT fires. ML at 56.9% [DEAD] — paused just below TRIM 57%, resumes automatically when SOL drops and ML recovers.
+MG $1.87 opened with 26,737/side. Broker forced ~12,900 balanced closures during spread spikes and session boundaries, self-healing position to 13,263L / 15,100S. Spread tolerance improved from $1.77 to $2.97 — SAFE. 51 TRIM closes this session, 0 EA PROTECT fires. ML at 56.9% [DEAD] — paused just below TRIM 57%, resumes automatically when SOL drops and ML recovers.
 
 | SOL Price | Equity | Hedge | Net Short | Spread Tol | Status |
 |---|---|---|---|---|---|
-| **$83.15 (now)** | **$84,376** | **14,364** | **1,836** | **$2.76** | **[DEAD] — waiting for ML recovery** |
-| $80 | $90,100 | 13,500 | 2,700 | $3.02 | TRIM resumes |
-| $70 | $108,600 | 11,800 | 4,400 | $3.62 | Comfortable |
-| $60 | $131,400 | 9,200 | 7,000 | $5.06 | Deep safety |
-| **~$40** | **~$300,000** | **0** | **~16,200** | **$18.52** | **PURE SHORT → CASCADE** |
+| **$83.15 (now)** | **$84,287** | **13,263** | **1,837** | **$2.97** | **[DEAD] — waiting for ML recovery** |
+| $80 | $89,800 | 12,500 | 2,600 | $3.18 | TRIM resumes |
+| $70 | $108,100 | 10,800 | 4,300 | $3.88 | Comfortable |
+| $60 | $130,600 | 8,300 | 6,800 | $5.42 | Deep safety |
+| **~$40** | **~$295,000** | **0** | **~15,100** | **$19.54** | **PURE SHORT → CASCADE** |
 
-Expected pure short at ~$40 SOL. ~16,200 lots. ~$300K equity. **TRIM closes are profitable** — SOL dropped below the $1.87 MG entry price. Each $1 SOL decline adds ~$1,836 equity from net short exposure.
+Expected pure short at ~$40 SOL. ~15,100 lots. ~$295K equity. **TRIM closes are profitable** — SOL dropped below the $1.87 MG entry price. Each $1 SOL decline adds ~$1,837 equity from net short exposure.
 
 ### Phase 2: Cascade $3.00 at Pure Short (~$40 → ~$24 SOL)
 
-Open MG $3.00 at pure short. ~100K new lots per side. v1.429 PROTECT fires 1-2x, ~105K bias survive.
+Open MG $3.00 at pure short. ~98K new lots per side. v1.429 PROTECT fires 1-2x, ~103K bias survive.
 
 | SOL Price | Equity | Hedge | Net Short | Status |
 |---|---|---|---|---|
-| **$40 (cascade)** | **$300K** | **95,000** | **21,200** | **Phase 2 starts** |
-| $30 | $512K | 55,000 | 61,200 | Accelerating |
-| **~$24** | **~$1,100K** | **0** | **~105,000** | **PURE SHORT — FINAL** |
+| **$40 (cascade)** | **$295K** | **93,000** | **20,100** | **Phase 2 starts** |
+| $30 | $503K | 54,000 | 59,100 | Accelerating |
+| **~$24** | **~$1,090K** | **0** | **~103,000** | **PURE SHORT — FINAL** |
 
 ### Naked Ride: $24 → $5
 
-~105,000 pure short lots. ~$105K per dollar of SOL decline. Smooth ride for 19 dollars.
+~103,000 pure short lots. ~$103K per dollar of SOL decline. Smooth ride for 19 dollars.
 
 | SOL Price | Equity | Status |
 |---|---|---|
-| $24 | $1,100K | Smooth ride begins |
-| $20 | $1,520K | Cruising |
-| $10 | $2,570K | Deep profit |
-| **$5** | **$3,095K** | **CLOSE ALL** |
+| $24 | $1,090K | Smooth ride begins |
+| $20 | $1,502K | Cruising |
+| $10 | $2,533K | Deep profit |
+| **$5** | **$3,047K** | **CLOSE ALL** |
 
 ### Deploy Full Crypto Basket
 
@@ -158,16 +159,16 @@ Close SOL shorts at $5 with ~$3.1M. Deploy into all 7 Darwinex cryptos.
 
 | Component | Allocation | Strategy | Target Equity |
 |---|---|---|---|
-| **ETH** | $1,600K | MG LONG $4.20 | **$70M** |
-| **BTC** | $550K | MG LONG $4.20 | **$32M** |
-| **DOGE** | $395K | Naked long (6mo) | **$39M** |
-| **SOL** | $225K | Naked long | **$9M** |
-| **ADA** | $130K | Naked long | **$5M** |
-| **XRP** | $100K | Naked long | **$3M** |
-| **BNB** | $95K | Naked long | **$2M** |
-| **TOTAL** | **$3,095K** | **400 positions** | **~$160M+** |
+| **ETH** | $1,580K | MG LONG $4.20 | **$69M** |
+| **BTC** | $520K | MG LONG $4.20 | **$31M** |
+| **DOGE** | $397K | Naked long (6mo) | **$39M** |
+| **SOL** | $215K | Naked long | **$9M** |
+| **ADA** | $125K | Naked long | **$5M** |
+| **XRP** | $120K | Naked long | **$4M** |
+| **BNB** | $90K | Naked long | **$2M** |
+| **TOTAL** | **$3,047K** | **400 positions** | **~$159M+** |
 
-**$100K → $3.1M (SOL short + cascade) → $160M+ (full crypto basket long). 1,600x.**
+**$100K → $3.0M (SOL short + cascade) → $159M+ (full crypto basket long). 1,590x.**
 
 400 positions. 7 symbols. 4.236 fib targets. MG on ETH/BTC. Naked long on everything else. Short the weakest supply on the way down. Long EVERYTHING on the way up.
 
@@ -204,7 +205,7 @@ Run 11 (AJTK):    Right firmware, right voltage. Fresh silicon.
 
 The firmware is correct. The voltage is validated. The silicon is fresh. AJTK is the final form.
 
-$100K → $3.1M → $160M+. One DARWIN. One thesis. One EA. One man who killed 10 DARWINs learning how to run one.
+$100K → $3.0M → $159M+. One DARWIN. One thesis. One EA. One man who killed 10 DARWINs learning how to run one.
 
 -- TyphooN
 
