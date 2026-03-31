@@ -497,13 +497,13 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 | Phase | Symbol | SOL Price | Action | Equity |
 |---|---|---|---|---|
-| **MG 1 (NOW)** | SOL SHORT | $83 → ~$44 | TRIM grind (14,305 bias, 101 trims) | $78K → $268K |
-| **MG 2 CASCADE** | SOL SHORT | $44 → $30 | MG $4.20 at pure short → 78,115 bias | $268K → $796K |
-| **Naked Ride** | SOL SHORT | $30 → $5 | Smooth, $78,115/dollar, 25 dollars | $796K → $2,749K |
-| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2M) | $2,000K → **$95M** |
-| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($750K) | $750K → **$43M** |
+| **MG 1 (NOW)** | SOL SHORT $1.337 | $80.53 → ~$38 | TRIM grind (28,510 bias, v1.429) | $66K → $350K |
+| **MG 2 CASCADE** | SOL SHORT $4.20 | $38 → $26 | MG $4.20 at pure short → 111,843 bias | $350K → $1,086K |
+| **Naked Ride** | SOL SHORT | $26 → $5 | Smooth, $111,843/dollar, 21 dollars | $1,086K → $3,435K |
+| **MG 3 LONG** | **ETH/BTC** | Bottom → ATH | MG $4.20 on ETH/BTC ($2.5M) | $2,500K → **$120M** |
+| **BASKET** | **ALL 7** | Bottom → ATH | Naked long DOGE/SOL/ADA/XRP/BNB ($935K) | $935K → **$50M** |
 
-**3 Martingale 3 Furious + Full Basket. $78K → $2.75M (SOL short + cascade) → $138M (MG long + naked basket). 400 positions. 7 symbols. 4.236 fib targets.** Cascade at pure short. Grind early. Smooth ride $30→$5. Long everything from the bottom.
+**3 Martingale 3 Furious + Full Basket. $66K → $3.4M (SOL short + cascade) → $170M (MG long + naked basket). 400 positions. 7 symbols. 4.236 fib targets.** v1.429 PROTECT closes bias to fix ML. Cascade at pure short. Smooth ride $26→$5. Long everything from the bottom.
 
 **Current: 12,692L / 14,305S, net 1,613. 101 TRIM closes, 5 PROTECT fires. Grinding to pure short ~$44. Cascade immediately. Unwound by $30. Smooth ride to $5.**
 
@@ -521,14 +521,14 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$95-120M** |
-| **Return** | **1,200-1,500x** |
-| **MGs Total** | **3** (1 short + 1 cascade + 1 long) |
-| **Short Lots (after cascade)** | 78,115 (naked ride $30→$5) |
-| **Long Lots (flip)** | TBD (MG $4.20133769, best crypto from bottom) |
-| **Open MG** | $4.20133769 (both phases) |
-| **EA version** | v1.428 (pre-close bias close to push ML above TRIM) |
-| **After $5** | **Flip long** — MG: LONG $4.20133769, TRIM → pure long from first tick, ride to $200 |
+| **Terminal Score** | **~$170M** |
+| **Return** | **2,576x** |
+| **MGs Total** | **3** (MG1 short $1.337 + MG2 cascade $4.20 + MG3 long $4.20) |
+| **Short Lots (after cascade)** | 111,843 (smooth ride $26→$5) |
+| **Long Deployment** | $3.4M → MG ETH/BTC + naked DOGE/SOL/ADA/XRP/BNB |
+| **Open MG** | $1.337 (phase 1), $4.20133769 (cascade + long) |
+| **EA version** | v1.429 (PROTECT closes bias to fix ML — no more dehedge) |
+| **After $5** | **Deploy full crypto basket** — 400 positions, 7 symbols, 4.236 fib targets |
 | **Predecessor Deaths** | 8 (QRRP) + 1 (XJFD) = 9 |
 
 **The Pipeline — 1 Down, 1 Up, No Cascade:**
@@ -547,7 +547,7 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. The final form.
 
-**$78K. 3 Martingale 3 Furious. Cascade at pure short ($44). 78,115 lots ride smooth $30→$5. Extract $2.75M. Long best crypto from bottom → $95-120M. EA v1.428.**
+**$66K. 3 Martingale 3 Furious. MG $1.337 → cascade $4.20 at pure short ($38). 111,843 lots ride smooth $26→$5. Extract $3.4M. Long best crypto basket → $170M. EA v1.429.**
 
 *The first martingale shorts SOL down. The second martingale cascades at pure short — grind early, smooth ride longer. The third martingale longs the best crypto from the bottom. Different symbols. Same number. $4.20133769 all the way.*
 
