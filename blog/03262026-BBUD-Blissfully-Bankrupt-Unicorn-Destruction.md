@@ -495,24 +495,23 @@ The $1.87 Open MG created $1.94/lot spread tolerance -- below the $2.00 safety f
 
 **Pre-close freeze tested 2026-03-30:** v1.427 fired balanced close which LOWERED ML (wrong). Operator manually closed bias to push ML to 57.5%. EA v1.428 now automates: closes bias (shorts) to reduce net → reduce margin → increase ML above TRIM before freeze.
 
-| Phase | SOL Price | Final Lots | Equity |
+| Phase | SOL Price | Bias Lots | Equity |
 |---|---|---|---|
-| **MG 1 (NOW)** | $82 → ~$42 | 17,655 | $79K → $272K |
-| **Naked Ride** | ~$42 → $5 | 17,655 | $272K → $821K |
-| **MG 2 (FLIP)** | $5 → $200 | 195,476 | $821K → **$38.9M** |
+| **MG 1 (NOW)** | $83.58 → ~$44 | 14,305 | $78K → $268K |
+| **Naked Ride** | ~$44 → $5 | 14,305 | $268K → $826K |
+| **MG 2 (FLIP)** | $5 → $200 | 196,607 | $826K → **$39.2M** |
 
-**2 Martingale 2 Furious. $79K → $38.9M (492x). 1 short MG + 1 long MG. Ride naked. Flip long.**
+**2 Martingale 2 Furious. $78K → $39.2M (444x). NO cascade. NO more Open MGs. 14,305 lots ride naked to $5. Flip long 196,607 lots to $200.**
 
-**No cascade pre-committed.** If the operator FEELS it during the drop — conviction is extreme, the chart is screaming — cascade opportunistically. But no price target. No pre-committed Phase 2. The default is naked ride to the flip.
+**Current: 12,692L / 14,305S, net 1,613. 101 TRIM closes, 5 PROTECT fires. $14,305 per dollar of SOL drop. Smooth, linear, DarwinIA-friendly.**
 
-### EA v1.427: Pre-Close Freeze Overhaul
+### EA v1.428: Pre-Close Bias Close
 
-The pre-close freeze mechanism was overhauled to run BEFORE regular PROTECT in execution order. Previous version (v1.426) only activated pre-close logic when ML > PROTECT — if a spread spike crashed ML below 54% during the pre-close window, regular PROTECT fired balanced closes into widening session-close spreads, destroying bias for nothing.
+The pre-close freeze (v1.428) closes bias (shorts) to push ML above TRIM before session close. v1.427's balanced close LOWERED ML (costs spread). v1.428 closes bias instead — reduces net → reduces margin → ML rises.
 
-**v1.427 pre-close logic:**
-- **ML ≤ PROTECT (≤54%):** EMERGENCY FREEZE — broker handles stop-out. Bias is sacred.
-- **ML between PROTECT and TRIM-1% (54-56%):** Balanced close to push ML up, then freeze.
-- **ML ≥ TRIM-1% (≥56%):** Freeze immediately — ride into close.
+**v1.428 pre-close logic:**
+- **ML ≥ TRIM (57%):** Freeze immediately — safe, ride into close.
+- **ML < TRIM:** Close bias (shorts) to push ML up to TRIM, then freeze. Sacrifices a few lots to save the entire account overnight.
 
 This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-close freeze handles session boundaries.
 
@@ -520,11 +519,11 @@ This is the mechanism that protects BBUD overnight. 57% TRIM permanent. Pre-clos
 
 | Metric | Value |
 |---|---|
-| **Terminal Score** | **$38,900,000** |
-| **Return** | **492x** |
+| **Terminal Score** | **$39,200,000** |
+| **Return** | **444x** |
 | **MGs Total** | **2** (1 short + 1 long) |
-| **Short Lots** | 17,655 (ride naked $82→$5) |
-| **Long Lots (flip)** | 195,476 (MG $4.20133769 at $5) |
+| **Short Lots** | 14,305 (ride naked ~$44→$5) |
+| **Long Lots (flip)** | 196,607 (MG $4.20133769 at $5) |
 | **Open MG** | $4.20133769 (both phases) |
 | **EA version** | v1.428 (pre-close bias close to push ML above TRIM) |
 | **After $5** | **Flip long** — MG: LONG $4.20133769, TRIM → pure long from first tick, ride to $200 |
