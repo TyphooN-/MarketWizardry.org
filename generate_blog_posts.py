@@ -885,8 +885,9 @@ def update_blog_index(all_new_entries):
 
     print(f"Updating blog with {len(all_new_entries)} total entries")
 
-    # Separate educational posts from daily analysis
+    # Separate educational posts, DARWIN lore, and daily analysis
     educational_posts = []
+    darwin_lore_posts = []
     daily_analysis_posts = []
 
     educational_keywords = [
@@ -895,16 +896,23 @@ def update_blog_index(all_new_entries):
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator'
     ]
 
+    darwin_lore_keywords = [
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'crypto-supply-analysis', 'crypto-long-analysis'
+    ]
+
     for entry in all_new_entries:
         filename_lower = entry['filename'].lower()
         is_educational = any(keyword in filename_lower for keyword in educational_keywords)
+        is_darwin_lore = any(keyword in filename_lower for keyword in darwin_lore_keywords)
 
         if is_educational:
             educational_posts.append(entry)
+        elif is_darwin_lore:
+            darwin_lore_posts.append(entry)
         else:
             daily_analysis_posts.append(entry)
 
-    print(f"Separated into {len(educational_posts)} educational posts and {len(daily_analysis_posts)} daily analysis posts")
+    print(f"Separated into {len(educational_posts)} educational, {len(darwin_lore_posts)} DARWIN lore, and {len(daily_analysis_posts)} daily analysis posts")
 
     # All entries now have flavor text, so we use them all
     all_entries = all_new_entries
@@ -945,6 +953,17 @@ def update_blog_index(all_new_entries):
         educational_html.extend(generate_entries_html(educational_posts, "educational"))
         educational_html.append('        </div>')
 
+    darwin_lore_html = []
+    if darwin_lore_posts:
+        darwin_lore_html = [
+            '        <div class="crt-divider"></div>',
+            '        <h2 class="section-header">📜 DARWIN Lore</h2>',
+            '        <div class="crt-divider"></div>',
+            '        <div class="grid darwin-lore-grid">'
+        ]
+        darwin_lore_html.extend(generate_entries_html(darwin_lore_posts, "darwin_lore"))
+        darwin_lore_html.append('        </div>')
+
     if daily_analysis_posts:
         daily_analysis_html = [
             '        <div class="crt-divider"></div>',
@@ -956,7 +975,7 @@ def update_blog_index(all_new_entries):
         daily_analysis_html.append('        </div>')
 
     # Combine all entries HTML with sections
-    entries_html = educational_html + daily_analysis_html
+    entries_html = educational_html + darwin_lore_html + daily_analysis_html
     
     entries_section = '\n'.join(entries_html)
 
