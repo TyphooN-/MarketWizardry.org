@@ -534,6 +534,7 @@ window.getAssetClassDisplay = function(assetClass, sector, description) {
     return assetClassMap[assetClass] || { emoji: '❓', name: assetClass || 'Unknown' };
 };
 
+/**
  * MarketWizardry.org Calculator - Portfolio & Symbol Functions
  * Part 2: Portfolio VaR Calculator and Symbol Lookup functionality
  */
@@ -906,6 +907,7 @@ window.addSymbolToPortfolio = function(symbol) {
     }
 };
 
+/**
  * MarketWizardry.org Calculator - Symbol Lookup Functions
  * Part 3: Symbol lookup, search, and interaction functionality
  */
@@ -1537,6 +1539,7 @@ window.backToSymbolList = function() {
     window.showAllSymbols();
 };
 
+/**
  * MarketWizardry.org Calculator - Initialization
  * Part 4: Event handlers and DOM initialization
  */
