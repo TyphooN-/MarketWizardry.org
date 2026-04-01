@@ -34,18 +34,8 @@ function createMatrixText() {
 
 // Initialize matrix animation
 function initMatrixAnimation() {
-    // Find the last crt-divider and position the container below it
-    const dividers = document.querySelectorAll('.crt-divider');
-    const lastDivider = dividers[dividers.length - 1];
-
-    if (lastDivider && container.id === 'matrixContainer') {
-        const rect = lastDivider.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const topPosition = rect.bottom + scrollTop;
-
-        container.style.top = topPosition + 'px';
-        container.style.height = `calc(100vh - ${rect.bottom}px)`;
-    }
+    // Container is placed after .container div in the HTML — already at the bottom of the page.
+    // No repositioning needed; CSS handles height (80vh).
 
     // Create periodic matrix text
     setInterval(createMatrixText, 50);

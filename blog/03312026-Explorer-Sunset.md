@@ -40,7 +40,7 @@ Static HTML pages with day-old data cannot compete with a native GPU application
 
 The explorer pages still exist at their original URLs for anyone who bookmarked them. They just aren't in the sidebar anymore. The data is frozen — no further updates will be generated.
 
-**Darwinex RADAR remains in the sidebar.** RADAR tracks DARWIN performance metrics that aren't replicated in the terminal yet. It stays until it doesn't.
+**Darwinex RADAR remains in the sidebar.** RADAR is low-maintenance and useful as-is. A replacement feature is in the works for TyphooN-Terminal.
 
 **Blog stays.** Obviously.
 
