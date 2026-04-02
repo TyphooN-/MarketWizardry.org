@@ -864,7 +864,7 @@ The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, C
 
 ## Post-Launch: 56 Commits, LAN Parity, Drawing Tools UX, MQL5→WGSL Phase 2
 
-Since the initial sprint, 56 more commits have landed. The terminal is now **57,399 lines** across **699 commits**. The major post-launch themes:
+Since the initial sprint, 56 more commits have landed. The terminal is now **57,399 lines** across **703 commits**. The major post-launch themes:
 
 ### LAN Sync: Full Client/Server Parity
 
@@ -874,6 +874,8 @@ LAN sync evolved from a basic WebSocket bridge to a zero-gap replication system.
 - **15-second periodic resync** (down from 60s)
 - **try_lock instead of lock.await** — eliminates UI freezes on the client when FetchBars runs
 - **FetchBars forwarding** — client sends bar requests to the server instead of erroring with "Broker not connected"
+- **Multi-source bar lookup** with dedup — eliminates FetchBars spam
+- **Alpaca 429 fix** — GetPositions no longer fires on every OrderResult, preventing rate limit cascades
 - **KV-based analytics:** all 31 DARWIN analytics functions are computed on the server and synced as KV pairs. Client reads computed results — zero local deal queries
 - **TLS encryption:** wss:// with ephemeral self-signed certificates
 - **Status bar:** shows "ONLINE [LAN x.x.x.x]" when connected
@@ -917,7 +919,7 @@ A security audit pass eliminated all panic risks:
 | Metric | Launch (Mar 20) | Current |
 |---|---|---|
 | **LOC** | 43,739 | **57,399** |
-| **Commits** | 594 | **699** |
+| **Commits** | 594 | **703** |
 | **Indicators** | 32+ | **60+** (31 GPU compute) |
 | **Drawing tools** | 44 | **70** |
 | **Floating windows** | 29 | **110** |
@@ -933,7 +935,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**57,399 lines of pure Rust. 699 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**57,399 lines of pure Rust. 703 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
