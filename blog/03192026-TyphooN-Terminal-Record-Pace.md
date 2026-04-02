@@ -1,4 +1,4 @@
-## TyphooN-Terminal: 40K Lines of Pure Rust -- Building a Bloomberg Killer With Zero JavaScript
+## TyphooN-Terminal: 57K Lines of Pure Rust -- Building a Bloomberg Killer With Zero JavaScript
 
 > **DISCLAIMER:** This is a technical post-mortem of a software development sprint. The author is not affiliated with Bloomberg, Godel Technologies, MetaQuotes, or any terminal vendor mentioned. Opinions on proprietary trading software are exactly that -- opinions formed after years of paying for tools that should have been open source from the start.
 
@@ -6,17 +6,17 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **43,739 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **594 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **57,399 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **687 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
-This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **103** Bloomberg-style commands, **32+** indicators (all computed on GPU via WGSL shaders), a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
+This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
 **BSL (Business Source License). Open source.** Because proprietary trading terminals are a racket and somebody needed to say it out loud by shipping the alternative.
 
 ## The Backstory: Why Build a Terminal at All?
 
-I run six manual high-tilt DARWINs on Darwinex. Six strategies, all discretionary, all managed through a risk management EA (**TyphooN v1.420**) that handles TRIM, PROTECT, hedged martingale position management, and Monte Carlo simulation. The EA has been the equalizer for years -- it does the math so the operator does not have to think about position sizing at 3 AM during a crypto spread spike.
+I run DARWINs on Darwinex — including **AJTK** (Automated Judicial Termination of Kapital), an active hedged martingale SOLUSD short managed by **TyphooN v1.429**. The EA handles TRIM, PROTECT, hedged martingale position management, and Monte Carlo simulation. 10 DARWINs died before AJTK. $134K of tuition paid for the correct firmware (v1.429) and correct voltage (Open MG $1.87).
 
-**QRRP** -- the Quad Rothschild Rug Pull, my cascading martingale SOL short strategy -- was the first step beyond pure discretionary trading into algo-assisted territory. The EA manages the position autonomously. TRIM builds net short exposure. PROTECT handles spread events. The operator's job is to not touch anything and let the flywheel compound.
+**QRRP** — the Quad Rothschild Rug Pull — was the first step beyond pure discretionary trading into algo-assisted territory. The EA manages the position autonomously. TRIM builds net short exposure. PROTECT handles spread events. The operator's job is to not touch anything and let the flywheel compound.
 
 But QRRP exposed the ceiling. MetaTrader 5 is a proprietary black box. MQL5 is a walled garden. You cannot run MT5 on Linux natively. You cannot integrate with Alpaca Markets. You cannot pull SEC EDGAR fundamentals, options chains with Greeks, congressional trading data, or dark pool volume into the same interface where you manage positions. MT5 does what MetaQuotes allows and nothing more.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **57,399 lines** across **687 commits**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -58,11 +58,11 @@ The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, g
 
 | Crate | Purpose | Lines of Rust |
 |---|---|---|
-| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 17,715 |
-| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders | 22,223 |
+| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 22,784 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 48 floating windows | 28,797 |
 | **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,245 |
-| **mql5-compiler/** | pest parser → AST → IR → WASM codegen for custom MQL5 indicators | 1,538 |
-| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **43,721** |
+| **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5 indicators | 3,573 |
+| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **57,399** |
 
 ### Why Rust Won (And Why Everything Else Still Loses)
 
@@ -82,18 +82,21 @@ In **6 days**, TyphooN-Terminal shipped with:
 
 Every function accessible via keyboard. Type what you want, hit enter. No menu diving. No mouse hunting. Bloomberg proved this UX pattern works for professional traders thirty years ago. Everyone else ignored it.
 
-### 39 Indicators with Exact MT5 Visual Parity
+### 60+ Indicators with Exact MT5 Visual Parity
 
-- MultiKAMA, Ehlers Fisher Transform, BetterVolume, Supply/Demand zones, and 35 more.
-- "Exact visual parity" means the indicator output matches MT5 pixel-for-pixel. Same colors. Same line weights. Same calculation methodology. If you are migrating from MT5, your charts look identical on day one. 22 of the 39 indicators are compiled to WebAssembly for near-native performance; the rest run in JavaScript with automatic fallback.
+- Moving averages (SMA, EMA, KAMA, WMA, HMA), Bollinger Bands, Keltner Channels, Donchian Channels, ATR, RSI, MACD, Stochastic, Ichimoku, ADX, Supertrend, Fisher Transform, Squeeze Momentum, VWAP with deviation bands, OBV, BetterVolume, Supply/Demand zones, pivot points, fractals, auto-Fibonacci levels, and 5+ Ehlers indicators (Super Smoother, Decycler, MAMA/FAMA, Cyber Cycle, Roofing Filter).
+- All computed on GPU via the native Rust engine. No WebAssembly. No JavaScript fallback. Direct GPU compute.
 
-### 44 GPU-Rendered Drawing Tools
+### 70 GPU-Rendered Drawing Tools
 
-- Fibonacci retracements, extensions, channels, arcs, and time zones
-- Andrew's Pitchfork, Schiff variants
-- Elliott Wave markup
-- Gann fans and squares
-- Linear regression channels
+- Fibonacci retracements, extensions, channels, arcs, time zones, wedge, circle, spiral
+- Andrew's Pitchfork, Schiff, Modified Schiff, Inside Pitchfork
+- Elliott Wave markup, XABCD Harmonic patterns, Head & Shoulders
+- Gann fans and boxes
+- Linear regression channels, trend channels, speed resistance fan/arc
+- Measurement tools: ruler, date range, price range, risk/reward box
+- Annotations: text labels, price labels, callouts, anchor notes, signposts
+- Freehand drawing: brush, polyline, arc, Bezier curve, path
 - All rendered on the GPU. Drawing tools on most platforms are canvas-based CPU operations that stutter when you have 15 Fibonacci levels and 30 indicators on a 4K display. GPU rendering does not stutter.
 
 ### 7 Order Types with Draggable SL/TP
@@ -152,9 +155,9 @@ Forty-six per day is not normal. It is the result of three factors:
 
 2. **Rust's Compiler Is the QA Team:** When Rust code compiles, entire categories of bugs are already eliminated. No null pointer dereferences. No data races. No use-after-free. No buffer overflows. The time other languages spend debugging memory corruption, Rust spends at compile time. The result is that committed code actually works.
 
-3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across six DARWINs and seven post-mortems. The math was proven. It just needed a better home.
+3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**594 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**687 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -210,7 +213,7 @@ The value proposition is not complicated. The same functionality that costs **$2
 
 TyphooN-Terminal is not the destination. It is the platform.
 
-The six manual DARWINs on Darwinex taught position management. QRRP taught cascading automation. The v1.420 EA proved that algorithmic risk management outperforms human discretion every single time (seven post-mortems confirm this empirically).
+The six manual DARWINs on Darwinex taught position management. QRRP taught cascading automation. The v1.420 EA proved that algorithmic risk management outperforms human discretion every single time (ten post-mortems confirm this empirically).
 
 The roadmap:
 
@@ -354,13 +357,13 @@ The chart engine was built in five distinct phases, each adding a layer of capab
 
 **Phase 2 -- WebGL2 Migration:** The entire rendering pipeline moved to WebGL2. Candlestick bodies are rendered as **2 triangles** (a quad) per body. Wicks are **2 lines** per candle (high-to-body, body-to-low). Vertex shaders handle the coordinate transforms. The GPU does what GPUs are designed for -- rendering thousands of geometric primitives in parallel.
 
-**Phase 3 -- Indicator Overlays:** All 39 indicators render through the same WebGL2 pipeline. Line-based indicators (SMA, EMA, KAMA) are GL_LINE_STRIP calls. Histogram indicators (MACD, Volume) are instanced quads. Bands (Bollinger, Keltner) are filled polygons with alpha blending. Every indicator renders on the GPU alongside the candlesticks.
+**Phase 3 -- Indicator Overlays:** All 60+ indicators render through the native GPU pipeline via egui + wgpu. Line-based indicators (SMA, EMA, KAMA) are GPU draw calls. Histogram indicators (MACD, Volume) are instanced quads. Bands (Bollinger, Keltner) are filled polygons with alpha blending. Every indicator renders on the GPU alongside the candlesticks.
 
-**Phase 4 -- Drawing Tools:** All **44 drawing tools** render through WebGL2. Fibonacci levels, pitchforks, Gann fans, regression channels -- all GPU-rendered geometry. Interactive handles for dragging and resizing are hit-tested in JavaScript but rendered in WebGL2. Drawing tools do not degrade chart performance because they are just more vertices in the same render pass.
+**Phase 4 -- Drawing Tools:** All **70 drawing tools** render through the native GPU pipeline. Fibonacci levels, pitchforks, harmonic patterns, Gann fans, regression channels -- all GPU-rendered geometry. Interactive handles for dragging and resizing are hit-tested in Rust. Drawing tools do not degrade chart performance because they are just more vertices in the same render pass.
 
-**Phase 5 -- Polish and Performance:** Crosshair rendering, tooltip overlays, smooth pan/zoom with momentum, price scale auto-ranging, and the final performance pass. The compiled Wasm module for the chart engine is **45KB**. The engine renders **10,000+ bars at 60fps** with multiple indicators and drawing tools active simultaneously.
+**Phase 5 -- Polish and Performance:** Crosshair rendering, tooltip overlays, smooth pan/zoom with momentum, price scale auto-ranging, and the final performance pass. The engine renders **10,000+ bars at 60fps** with multiple indicators and drawing tools active simultaneously.
 
-The GPU chart engine is why TyphooN-Terminal can display a 4K chart with 39 indicators and 15 Fibonacci levels without dropping a frame. CPU-based canvas rendering (TradingView, most Electron apps) cannot do this. The GPU can.
+The GPU chart engine is why TyphooN-Terminal can display a 4K chart with 60+ indicators and 15 Fibonacci levels without dropping a frame. CPU-based canvas rendering (TradingView, most Electron apps) cannot do this. The GPU can.
 
 **Draggable Panel Splitter:** The chart and sidebar panels resize by dragging the divider between them. Layout proportions persist across sessions. This sounds like a small thing until you realize NinjaTrader has fixed panel widths and TradingView charges for customizable layouts. In TyphooN-Terminal it is a mousedown/mousemove handler and 19 lines of CSS. Open source means features like this take minutes, not feature request tickets.
 
@@ -413,7 +416,7 @@ TyphooN-Terminal now reads MT5's SQLite database **directly**. A custom MQL5 Exp
 
 **Multi-Instance Sync Across All Darwinex Accounts**
 
-Running six DARWINs means running multiple MT5 instances -- Futures, Crypto, CFD, Stocks/ETFs. Each instance has its own BarCacheWriter database. `find_all_mt5_sqlite_dbs()` discovers every `typhoon_mt5_cache.db` across all `.mt5_*` instance directories and merges them into the terminal's unified cache. Each Darwinex account type contributes unique symbols. No conflicts. No duplicates. One sync command pulls **895 symbols** across all accounts simultaneously.
+Running multiple DARWINs means running multiple MT5 instances -- Futures, Crypto, CFD, Stocks/ETFs. Each instance has its own BarCacheWriter database. `find_all_mt5_sqlite_dbs()` discovers every `typhoon_mt5_cache.db` across all `.mt5_*` instance directories and merges them into the terminal's unified cache. Each Darwinex account type contributes unique symbols. No conflicts. No duplicates. One sync command pulls **895 symbols** across all accounts simultaneously.
 
 **Symbol Normalization:** MT5 names like `SOLUSD`, `EURUSD`, `XAUUSD` are normalized at every import boundary -- `SOL/USD`, `EUR/USD`, `XAU/USD`. Crypto, forex, metals all get slash-separated pairs. Indices like `US30` and `DE40` stay as-is. The terminal speaks the same symbol language as Alpaca regardless of where the data originated.
 
@@ -486,7 +489,7 @@ The crypto data gap is closed. Thirteen years of continuous crypto history acros
 
 Six DARWINs means six separate Darwinex accounts, each with its own trade history. Darwinex exports trade history as XLSX spreadsheets. TyphooN-Terminal now ingests those spreadsheets directly.
 
-**core/darwin.rs** (1,178 lines of new Rust) parses XLSX files via the `calamine` crate, extracts every deal, stores them in SQLite, and reconstructs open positions using volume-balance detection. The entire deal history for all six DARWINs lives in the terminal's database with dedicated SQLite connections -- no contention with the MT5 sync pipeline.
+**core/darwin.rs** (1,178 lines of new Rust) parses XLSX files via the `calamine` crate, extracts every deal, stores them in SQLite, and reconstructs open positions using volume-balance detection. The entire deal history for all multiple DARWINs lives in the terminal's database with dedicated SQLite connections -- no contention with the MT5 sync pipeline.
 
 **Per-DARWIN Commands (9):** The `DARWIN` command opens a per-account viewer -- account summary, open positions, equity curve, P&L breakdown by symbol, and full deal history. Every DARWIN gets its own analysis dashboard.
 
