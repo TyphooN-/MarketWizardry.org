@@ -70,13 +70,12 @@ AJTK is fresh $100K with the correct firmware and the proven voltage. For the fi
 | **Account** | DARWIN AJTK — fresh $100K Darwinex Zero Crypto |
 | **Open MG** | $1.87 (validated on XJFD: ~10% degradation, ~18,500 surviving bias) |
 | **EA Version** | v1.429 (PROTECT closes bias, pre-close freeze, hard floor 10%) |
-| **Position** | 7,650L / 9,600S, net 1,950 SHORT |
-| **Equity** | $89,889 \| Balance $89,509 \| Margin $157,361 |
-| **SOL Price** | $78.88, ML 57.1% — TRIM firing multi-lot (maxSafe 4-5) |
-| **Spread tol** | $5.21/lot ← SAFE (was $1.77 at open) |
+| **Position** | 6,442L / 8,400S, net 1,958 SHORT |
+| **Equity** | $89,691 \| ML 56.8% [DEAD] |
+| **SOL Price** | $79, spread tol $6.04/lot ← SAFE (was $1.77 at open) |
 | **TRIM / PROTECT** | 57% / 54% |
 | **Pre-close** | 4 min freeze |
-| **TRIM closes** | 451 (multi-lot accelerating) |
+| **TRIM closes** | 539 (burst: 914 lots in one operation at ML 130.8%) |
 | **PROTECT closes** | 0 (EA) |
 
 ### Why $1.87 Is Not Random
@@ -120,54 +119,54 @@ v1.429 PROTECT closes BIAS (shorts) to increase ML. This is the opposite of what
 
 ### Phase 1: TRIM Grind to Pure Short — Self-Healed ($83 → ~$40 SOL)
 
-MG $1.87 opened with 26,737/side. Broker forced closures during spread spikes and session boundaries. EA TRIM closed 451 hedge longs — now firing multi-lot (maxSafe 4-5 per tick). Position now 7,650L / 9,600S. Spread tolerance improved from $1.77 to $5.21 — SAFE. 0 EA PROTECT fires. SOL dropped from $85 to $79 — equity UP from $79K to $90K via net short exposure. ML broke above TRIM threshold at 57.1%.
+MG $1.87 opened with 26,737/side. Broker forced closures during spread spikes and session boundaries — including ~1,200 bias (short) closures overnight on Apr 1-2 that temporarily collapsed net to 849 and spiked ML to 130.8%. TRIM immediately consumed the room — 914 lots in one operation — rebuilding net to 1,958. Position now 6,442L / 8,400S. Spread tolerance improved from $1.77 to $6.04 — SAFE. 0 EA PROTECT fires.
 
 | SOL Price | Equity | Hedge | Net Short | Spread Tol | Status |
 |---|---|---|---|---|---|
-| **$78.88 (now)** | **$89,889** | **7,650** | **1,950** | **$5.21** | **TRIM multi-lot, ML 57.1%** |
-| $70 | $110,000 | 4,500 | 5,600 | $5.74 | Accelerating |
-| $60 | $133,000 | 1,500 | 8,600 | $9.86 | Deep safety |
-| **~$40** | **~$220,000** | **0** | **~9,600** | **$22.92** | **PURE SHORT → CASCADE** |
+| **$79 (now)** | **$89,691** | **6,442** | **1,958** | **$6.04** | **[DEAD] 56.8%, resumes on ML recovery** |
+| $70 | $108,000 | 4,000 | 5,000 | $6.00 | Accelerating |
+| $60 | $130,000 | 1,200 | 7,800 | $11.06 | Deep safety |
+| **~$40** | **~$205,000** | **0** | **~8,400** | **$24.40** | **PURE SHORT → CASCADE** |
 
-Expected pure short at ~$40 SOL. ~9,600 lots. ~$220K equity. **Flywheel accelerating** — SOL dropped $6 in one session, equity increased $10K, TRIM fired 269 closes with multi-lot acceleration. Each $1 SOL decline adds ~$1,950 equity from net short exposure.
+Expected pure short at ~$40 SOL. ~8,400 lots. ~$205K equity. **Self-healing confirmed** — broker forced 1,200 bias closures, TRIM recaptured 1,109 hedge longs in a burst, net short rebuilt to 1,958. Nearly identical net (1,958 vs 1,950) with 2,300 fewer gross lots and better spread tolerance ($6.04 vs $5.21). Each $1 SOL decline adds ~$1,958 equity from net short exposure.
 
 ### Phase 2: Cascade $3.00 at Pure Short (~$40 → ~$24 SOL)
 
-Open MG $3.00 at pure short. ~73K new lots per side. v1.429 PROTECT fires 1-2x, ~75K bias survive.
+Open MG $3.00 at pure short. ~68K new lots per side. v1.429 PROTECT fires 1-2x, ~69K bias survive.
 
 | SOL Price | Equity | Hedge | Net Short | Status |
 |---|---|---|---|---|
-| **$40 (cascade)** | **$220K** | **68,000** | **14,600** | **Phase 2 starts** |
-| $30 | $585K | 39,000 | 44,000 | Accelerating |
-| **~$24** | **~$780K** | **0** | **~75,000** | **PURE SHORT — FINAL** |
+| **$40 (cascade)** | **$205K** | **63,000** | **13,400** | **Phase 2 starts** |
+| $30 | $540K | 36,000 | 41,000 | Accelerating |
+| **~$24** | **~$720K** | **0** | **~69,000** | **PURE SHORT — FINAL** |
 
 ### Naked Ride: $24 → $5
 
-~75,000 pure short lots. ~$75K per dollar of SOL decline. Smooth ride for 19 dollars.
+~69,000 pure short lots. ~$69K per dollar of SOL decline. Smooth ride for 19 dollars.
 
 | SOL Price | Equity | Status |
 |---|---|---|
-| $24 | $780K | Smooth ride begins |
-| $20 | $1,080K | Cruising |
-| $10 | $1,830K | Deep profit |
-| **$5** | **$2,205K** | **CLOSE ALL** |
+| $24 | $720K | Smooth ride begins |
+| $20 | $996K | Cruising |
+| $10 | $1,686K | Deep profit |
+| **$5** | **$2,031K** | **CLOSE ALL** |
 
 ### Deploy Full Crypto Basket
 
-Close SOL shorts at $5 with ~$2.2M. Deploy into all 7 Darwinex cryptos.
+Close SOL shorts at $5 with ~$2.0M. Deploy into all 7 Darwinex cryptos.
 
 | Component | Allocation | Strategy | Target Equity |
 |---|---|---|---|
-| **ETH** | $1,140K | MG LONG $4.20 | **$50M** |
-| **BTC** | $375K | MG LONG $4.20 | **$22M** |
-| **DOGE** | $290K | Naked long (6mo) | **$18M** |
-| **SOL** | $155K | Naked long | **$6M** |
-| **ADA** | $92K | Naked long | **$3M** |
-| **XRP** | $87K | Naked long | **$2M** |
-| **BNB** | $66K | Naked long | **$1M** |
-| **TOTAL** | **$2,205K** | **400 positions** | **~$102M+** |
+| **ETH** | $1,050K | MG LONG $4.20 | **$46M** |
+| **BTC** | $345K | MG LONG $4.20 | **$21M** |
+| **DOGE** | $265K | Naked long (6mo) | **$16M** |
+| **SOL** | $145K | Naked long | **$6M** |
+| **ADA** | $85K | Naked long | **$2M** |
+| **XRP** | $80K | Naked long | **$2M** |
+| **BNB** | $61K | Naked long | **$1M** |
+| **TOTAL** | **$2,031K** | **400 positions** | **~$94M+** |
 
-**$100K → $2.2M (SOL short + cascade) → $102M+ (full crypto basket long). 1,024x.**
+**$100K → $2.0M (SOL short + cascade) → $94M+ (full crypto basket long). 943x.**
 
 400 positions. 7 symbols. 4.236 fib targets. MG on ETH/BTC. Naked long on everything else. Short the weakest supply on the way down. Long EVERYTHING on the way up.
 
@@ -204,7 +203,7 @@ Run 11 (AJTK):    Right firmware, right voltage. Fresh silicon.
 
 The firmware is correct. The voltage is validated. The silicon is fresh. AJTK is the final form.
 
-$100K → $2.2M → $102M+. One DARWIN. One thesis. One EA. One man who killed 10 DARWINs learning how to run one.
+$100K → $2.0M → $94M+. One DARWIN. One thesis. One EA. One man who killed 10 DARWINs learning how to run one.
 
 -- TyphooN
 
