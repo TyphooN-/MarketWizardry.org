@@ -864,7 +864,7 @@ The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, C
 
 ## Post-Launch: 56 Commits, LAN Parity, Drawing Tools UX, MQL5→WGSL Phase 2
 
-Since the initial sprint, 56 more commits have landed. The terminal is now **57,399 lines** across **706 commits**. The major post-launch themes:
+Since the initial sprint, 56 more commits have landed. The terminal is now **57,399 lines** across **707 commits**. The major post-launch themes:
 
 ### LAN Sync: Full Client/Server Parity
 
@@ -879,6 +879,7 @@ LAN sync evolved from a basic WebSocket bridge to a zero-gap replication system.
 - **Crypto weekend bar merge** — CryptoCompare+Kraken data merged in `try_load()` for seamless weekend gap-fill
 - **Broader LIVE detection** — status bar shows LIVE when MT5, API keys, or cached data available (not just broker connection)
 - **LAN client data source display** — client shows server's connected data sources; reduced BG thread log spam
+- **LAN remote FETCH_BARS** — server executes Alpaca bar fetches on behalf of the client (client needs zero API keys for chart data)
 - **KV-based analytics:** all 31 DARWIN analytics functions are computed on the server and synced as KV pairs. Client reads computed results — zero local deal queries
 - **TLS encryption:** wss:// with ephemeral self-signed certificates
 - **Status bar:** shows "ONLINE [LAN x.x.x.x]" when connected
@@ -969,7 +970,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**57,399 lines of pure Rust. 706 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**57,399 lines of pure Rust. 707 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
