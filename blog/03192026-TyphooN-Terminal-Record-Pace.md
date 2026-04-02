@@ -836,7 +836,7 @@ This is what TradingView would be if it were built by someone who understood tha
 - **MultiKAMA + FakeCandle:** 10/10 MT5 custom indicator parity achieved in the native renderer
 - **MTF_MA Overlay:** 200 SMA status, KAMA, Bull/Bear Power text overlay matching MTF_MA.mqh
 - **44 unit tests** for all indicator computations
-- **93 commands**, **32 windows**, **32+ indicators**
+- **110 commands**, **110 windows**, **60+ indicators**, **70 drawing tools**
 
 ## Explorer Migration: VaR/ATR/EV/Crypto Scanners Built Into the Terminal
 
@@ -862,6 +862,69 @@ The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, C
 
 `gatherScanSymbols()` unifies symbol collection from positions + watchlist + MT5 cache. All 6 scanner commands automatically include Darwinex data when available. The web explorers are legacy. The terminal scanners are live.
 
+## Post-Launch: 56 Commits, LAN Parity, Drawing Tools UX, MQL5→WGSL Phase 2
+
+Since the initial sprint, 56 more commits have landed. The terminal is now **57,399 lines** across **699 commits**. The major post-launch themes:
+
+### LAN Sync: Full Client/Server Parity
+
+LAN sync evolved from a basic WebSocket bridge to a zero-gap replication system. The server broadcasts all data — bar cache, DARWIN analytics, broker positions, account details — via KV sync. The client receives everything and never needs to recompute locally.
+
+- **Auto-start:** LAN server launches on startup
+- **15-second periodic resync** (down from 60s)
+- **try_lock instead of lock.await** — eliminates UI freezes on the client when FetchBars runs
+- **FetchBars forwarding** — client sends bar requests to the server instead of erroring with "Broker not connected"
+- **KV-based analytics:** all 31 DARWIN analytics functions are computed on the server and synced as KV pairs. Client reads computed results — zero local deal queries
+- **TLS encryption:** wss:// with ephemeral self-signed certificates
+- **Status bar:** shows "ONLINE [LAN x.x.x.x]" when connected
+
+### Drawing Tools: 70 Tools with Professional UX
+
+Drawing tools went from 44 to **70** with major UX improvements:
+
+- **Undo/redo** (Ctrl+Z / Ctrl+Y) for all drawing operations
+- **Color picker** per drawing object
+- **Live preview** during placement — see the tool before committing
+- **OHLC snapping** — drawing points align to candlestick open/high/low/close levels
+- **Trashcan button** for quick deletion
+- **Status text** showing active tool name and instructions
+- New tools: FibWedge, FibSpiral, RotatedRectangle, AnchoredVwapLine, TrendChannel, InsidePitchfork, PriceNote, MeasureTool, and more
+
+### MQL5→WGSL Phase 2: Compile MQL5 Indicators to GPU
+
+The MQL5 compiler now targets **WGSL (WebGPU Shading Language)** instead of WASM. Custom MQL5 indicators compile directly to GPU compute shaders. Write your indicator in MQL5 → the compiler generates WGSL → wgpu dispatches it on the GPU. No JavaScript. No WASM. No CPU. The indicator runs alongside the 31 built-in GPU shaders in the same compute pipeline.
+
+Parser improvements: function call arguments in variable declaration initializers now parse correctly.
+
+### Crypto Backfill: CryptoCompare + Kraken
+
+Sub-hourly crypto timeframes now backfill from **CryptoCompare** with **Kraken** as fallback. Skip-if-cached logic prevents redundant fetches. The three-tier hierarchy (MT5 → Kraken → CryptoCompare → Alpaca) covers every crypto gap.
+
+### Dual-Connection SQLiteCache
+
+The "Cache busy" error is permanently eliminated. The SQLite cache now uses **two connections** — a dedicated read connection and a dedicated write connection. Background operations (MT5 sync, bar merges, DARWIN imports) use the write connection. UI reads use the read connection. Zero contention. Zero "database is locked" errors. Zero UI freezes during data operations.
+
+### Security Hardening
+
+A security audit pass eliminated all panic risks:
+- All `unwrap()` calls on fallible operations replaced with proper error handling
+- Safe integer conversions (no truncation panics)
+- Graceful fallbacks for missing data instead of crashes
+- BarCacheWriter raw blob handling (no zstd assumption)
+
+### Updated Stats (2026-04-02)
+
+| Metric | Launch (Mar 20) | Current |
+|---|---|---|
+| **LOC** | 43,739 | **57,399** |
+| **Commits** | 594 | **699** |
+| **Indicators** | 32+ | **60+** (31 GPU compute) |
+| **Drawing tools** | 44 | **70** |
+| **Floating windows** | 29 | **110** |
+| **Console commands** | 103 | **110** |
+| **DARWIN analytics** | 69 | **31 public functions** |
+| **Crates** | 4 | 4 (engine, native, cli, mql5-compiler) |
+
 ## Open Source: Why This Matters
 
 Proprietary trading terminals are a tax on retail traders. Bloomberg charges institutional prices because institutions will pay. Godel charges subscriptions because traders are conditioned to accept recurring costs for essential tools. MetaTrader is "free" because MetaQuotes monetizes the ecosystem through broker partnerships and marketplace fees.
@@ -870,7 +933,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**40,681 lines of pure Rust. 535 commits. 12 days. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 103 commands + 32+ indicators (all GPU compute shaders) + 69 DARWIN analytics functions + SEC EDGAR scraper + MQL5 compiler + risk-of-ruin + replay mode + GPU strategy optimizer. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**57,399 lines of pure Rust. 699 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
@@ -1003,7 +1066,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 | Terminal | Cost | Open Source | Assets | Algo | GPU Charts | Binary Size | US Available |
 |---|---|---|---|---|---|---|---|
-| **TyphooN-Terminal** | **Free** | **Yes (BSL)** | Stocks, options, crypto + MT5 sync | **298 commands** | **Yes** | **~15MB** | **Yes** |
+| **TyphooN-Terminal** | **Free** | **Yes (BSL)** | Stocks, options, crypto + MT5 sync | **110 commands** | **Yes (wgpu)** | **~15MB** | **Yes** |
 | MetaTrader 5 | Free | No | Forex, CFDs, stocks | MQL5 | No | ~50MB | Limited |
 | TradingView | $0-60/mo | No | Charts only | Pine Script (no exec) | No (canvas) | ~200MB | Yes |
 | Thinkorswim | Free | No | Stocks, options, futures | thinkScript (limited) | No | ~1GB+ | Yes |
@@ -1018,7 +1081,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 | Webull | Free | No | Stocks, options, crypto | OpenAPI | No | ~150MB | Yes |
 | tastytrade | Free | No | Stocks, options, futures | REST API | No | ~100MB | Yes |
 
-**TyphooN-Terminal is the only trading terminal with a native GPU rendering pipeline (wgpu/Vulkan), zero JavaScript, zero WebKit, real brokerage integration, direct MT5 database sync, GPU compute shaders for indicators, built-in outlier scanners, and a built-in risk management engine.** Every other option is either CPU-rendered (NinjaTrader, Sierra Chart, Thinkorswim), browser-based (TradingView), Electron bloatware, closed-source (Webull, IBKR), research-only (Godel), or locked to Windows (NinjaTrader, Sierra Chart, Quantower). TyphooN-Terminal is the only one that got the rendering pipeline right.
+**TyphooN-Terminal is the only trading terminal with a native GPU rendering pipeline (wgpu/Vulkan), zero JavaScript, zero WebKit, real brokerage integration, direct MT5 database sync, GPU compute shaders for indicators, LAN sync with TLS, built-in outlier scanners, MQL5→WGSL compiler, and a built-in risk management engine.** Every other option is either CPU-rendered (NinjaTrader, Sierra Chart, Thinkorswim), browser-based (TradingView), Electron bloatware, closed-source (Webull, IBKR), research-only (Godel), or locked to Windows (NinjaTrader, Sierra Chart, Quantower). TyphooN-Terminal is the only one that got the rendering pipeline right.
 
 -- TyphooN
 
