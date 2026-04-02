@@ -914,6 +914,37 @@ A security audit pass eliminated all panic risks:
 - Graceful fallbacks for missing data instead of crashes
 - BarCacheWriter raw blob handling (no zstd assumption)
 
+### BarCacheWriter v1.435: Ramdisk via /dev/shm
+
+The biggest I/O bottleneck in the terminal pipeline was BarCacheWriter's SQLite database — 851 symbols × 9 timeframes = 7,659 keys written every 30 seconds. On spinning disk or even NVMe, the write amplification from SQLite journaling and fsync made each cycle slow enough to notice.
+
+**The fix: move the database to `/dev/shm` (Linux tmpfs ramdisk) via symlink.**
+
+`deploy_ramdisk.sh` symlinks each MT5 instance's `typhoon_mt5_cache.db` from the Wine filesystem to `/dev/shm/`. MQL5 code is completely unaware — `DatabaseOpen("typhoon_mt5_cache.db")` follows the symlink transparently. Zero EA code changes needed.
+
+**Performance gains:**
+
+| Metric | Before (NVMe) | After (ramdisk) | Speedup |
+|---|---|---|---|
+| Metadata queries | ~12 seconds | <100ms | **>120x** |
+| Statement execution | baseline | ~10x faster (pre-prepared reset+rebind) | **10x** |
+| CopyRates calls | 7,659/cycle | ~766/cycle (TF gating) | **90% eliminated** |
+| Lock overhead | 7,659 individual | ~85 batch transactions | **90x fewer locks** |
+
+**Key optimizations baked into v1.435:**
+
+- **Covering index** on `bar_cache(key, timestamp, bar_count)` — readers get metadata from index alone without scanning multi-MB blob rows
+- **Batch transactions** — 10 symbols per `BEGIN/COMMIT` = ~85 transactions per cycle instead of 7,659
+- **TF gating** — only calls `CopyRates` near bar boundaries (H4 only updates every 4 hours, not every tick)
+- **Pre-prepared statements** — `reset+rebind` is ~10x faster than `prepare+finalize` per call
+- **SQLite pragmas tuned for ramdisk:** `journal_mode=DELETE` (WAL shared memory doesn't work across Wine/Linux boundary), `synchronous=NORMAL`, `cache_size=16MB`, `temp_store=MEMORY`
+
+**Operational notes:**
+- `/dev/shm` is tmpfs — data does NOT survive reboot. BarCacheWriter re-exports all 851 symbols on startup (~5-10 min)
+- Steady-state: ~2GB per MT5 instance (3 instances = ~6GB in /dev/shm)
+- TyphooN-Terminal's Mt5Sync reads directly from ramdisk paths — configure in Settings → MT5 BarCacheWriter Sources
+- v1.434 attempted Wine Z: drive mapping to `/dev/shm` directly — abandoned in favor of symlinks (more reliable, zero EA code changes)
+
 ### Updated Stats (2026-04-02)
 
 | Metric | Launch (Mar 20) | Current |
