@@ -172,6 +172,92 @@ Close SOL shorts at $5 with ~$2.0M. Deploy into all 7 Darwinex cryptos.
 
 ---
 
+## Why Not Just Short Naked? — Single Swing vs 2x Cascade
+
+The obvious question: if the thesis is "SOL goes to $0," why not just open a naked short with everything and ride it down? Why the hedged martingale? Why the cascade? Why 10 dead DARWINs of complexity?
+
+Because the math isn't close.
+
+### Option A: Single Naked Short — Full Tilt Swing to $0
+
+Take the entire $90K equity. Open one massive short at $79.
+
+**Darwinex crypto CFDs are 1:1 leverage.** Margin = position size. So:
+
+| | Value |
+|---|---|
+| Equity | $90,000 |
+| SOL price | $79 |
+| Max lots (1:1) | $90,000 / $79 = **1,139 lots** |
+| Margin used | $89,981 (99.98%) |
+| ML at entry | ~100% |
+| Profit per $1 SOL drop | **$1,139** |
+| Equity at SOL $0 | $90,000 + (1,139 × $79) = **$179,981** |
+| **Return** | **1.8x** |
+
+Problems:
+- **ML starts at 100%.** Any price move UP eats margin. SOL goes to $90 (+$11) → loss $12,529 → ML 86% → PROTECT territory. SOL goes to $120 (+$41) → loss $46,699 → ML ~52% → dead.
+- **No spread tolerance buffer.** The position IS the equity. One spread spike can trigger stop-out.
+- **Darwinex VaR corridor (3.25%-6.5%).** A naked 1,139-lot short has VaR well above the corridor ceiling. D-Score gets crushed. Investor allocation goes to zero. The DARWIN becomes uninvestable.
+- **No recovery from drawdown.** If SOL bounces 50% before going to $0, the account is dead. No PROTECT. No hedge. No self-healing.
+
+**$90K → $180K. 1.8x. One shot. No second chance.**
+
+### Option B: Hedged Martingale with 2x Cascade (AJTK Plan)
+
+Same $100K starting equity. Open MG $1.87 — 26,737 lots per side. Net exposure: ~0. Margin: ~$0.
+
+| | Value |
+|---|---|
+| Open equity | $100,000 |
+| MG $1.87 | 26,737 lots per side |
+| Net at open | ~0 (fully hedged) |
+| Margin at open | ~$0 (net-based) |
+| ML at open | 999%+ |
+| Spread tolerance at open | $1.87/lot (self-heals to $6+) |
+
+**Phase 1:** TRIM grinds hedge longs. Net short builds from 0 → 1,958 → eventually ~8,400 at pure short. Equity grows from $100K → $205K as SOL drops to $40. The position SURVIVES bounces because the hedge absorbs adverse moves while TRIM only fires when ML is above threshold.
+
+**Phase 2:** Cascade $3.00 at pure short ($40). Fresh 68K lots per side on $205K equity. v1.429 PROTECT fires 1-2x, ~69K bias survive. TRIM grinds again to pure short #2 at ~$24.
+
+**Naked Ride:** 69,000 pure short lots from $24 → $5. **$69K per dollar of SOL decline.** That's 60x the profit rate of the single naked short ($1,139/dollar).
+
+| | Single Swing | 2x Cascade |
+|---|---|---|
+| Lots at pure short | 1,139 | **69,000** |
+| Profit per $1 drop | $1,139 | **$69,000** |
+| Equity at SOL $5 | $180K | **$2,031K** |
+| Equity at SOL $0 | $180K | **$2,375K** |
+| Return | 1.8x | **20.3x** |
+| Survives 50% bounce | No | **Yes** |
+| Survives spread spikes | No | **Yes** |
+| Darwinex VaR compliant | No | **Yes** (hedged = low VaR) |
+
+**Then deploy the $2.0M into the full crypto basket long:**
+
+| | Single Swing | 2x Cascade + Basket |
+|---|---|---|
+| Equity at SOL $5 | $180K | $2,031K |
+| Deploy into basket | N/A (too small) | MG LONG ETH/BTC + naked longs |
+| Equity at 4.236 fib targets | ~$180K (already extracted) | **$94M+** |
+| **Total return** | **1.8x** | **943x** |
+
+### Why the Cascade Works and the Swing Doesn't
+
+1. **Net-based margin is the exploit.** Darwinex charges margin on NET exposure, not gross. A hedged position with 26,737 lots per side uses ~$0 margin. A naked 1,139-lot short uses $90K margin. The hedge lets you carry 23x more gross exposure on the same equity.
+
+2. **TRIM converts hedge into direction for free.** Every closed hedge long adds one net short lot without opening a new position. No additional margin. No additional spread cost. The flywheel compounds because TRIM fires on every tick where ML exceeds threshold.
+
+3. **The cascade multiplies the base.** At pure short ($40), equity is $205K — not because of trading gains, but because TRIM built net short exposure that profited as SOL dropped. That $205K becomes the base for cascade #2, which produces 69,000 bias lots. The single swing can never access this multiplication because it started and stays at 1,139 lots.
+
+4. **Darwinex VaR compliance.** A hedged position starts with near-zero VaR (net exposure ≈ 0). As TRIM builds net, VaR grows gradually. The DARWIN stays within the 3.25%-6.5% corridor. A naked 1,139-lot short has VaR spiking from day one — D-Score gets hammered, investors flee, the DARWIN becomes a pariah. AJTK can attract investor capital while building the position. The single swing cannot.
+
+5. **Survival.** SOL bounces. Crypto bounces violently. A 40% bounce from $79 takes SOL to $111. The naked short loses $36K → account at $54K → ML ~48% → broker stop-out. The hedged position? ML barely moves because the hedge absorbs the bounce. TRIM pauses, PROTECT might fire 1-2 balanced closes. The position survives and resumes when SOL drops again.
+
+**The single swing is a bet. The cascade is a machine.** The bet returns 1.8x and dies on the first serious bounce. The machine returns 943x and self-heals through broker forced closures, spread spikes, and overnight gaps.
+
+---
+
 ## Lessons Learned: The $134K Education
 
 Every lesson below was paid for with real money:
