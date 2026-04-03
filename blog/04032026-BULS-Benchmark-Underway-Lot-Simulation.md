@@ -78,6 +78,29 @@ One letter away from BULLS. Because that's where this ends — 400 naked longs a
 
 *"I know kung fu."* — Neo, after downloading the training data from twelve dead predecessors.
 
+### Corpse Explosion
+
+In Diablo II, the Necromancer doesn't waste the dead. He detonates them. **Corpse Explosion** turns every fallen enemy into a weapon — the bigger the corpse, the bigger the blast radius. The battlefield fuels itself.
+
+BULS is a Necromancer.
+
+Every dead DARWIN is a corpse on the battlefield. And every corpse explodes into damage against SOL:
+
+| Corpse | HP at Death | Explosion Radius | Damage Dealt to BULS |
+|---|---|---|---|
+| **QRRP** (8 deaths) | $100K equity, 8 post-mortems | TRIM formula, forward-looking math | TRIM fires 95+ closes and counting |
+| **XJFD** | $100K equity, reached pure short | Open MG voltage calibration | $0.75 MG — the proven voltage |
+| **BBUD** | $58K equity, 30-second death | Spread tolerance floor discovery | $0.75 floor — the line that holds |
+| **AJTK** | $100K equity, 398 positions, $0.14 | v1.430 firmware, true floor, position limit | PROTECT fires partial (4 lots, not 1,200) |
+
+**$234K of corpses. Each one detonated for maximum splash damage.**
+
+QRRP's 8 deaths don't just teach TRIM — they ARE TRIM. The formula was carved from QRRP's bones. XJFD's pure short run doesn't just validate the voltage — it IS the voltage parameter. BBUD's 30-second death doesn't just discover the floor — it IS the floor. AJTK's 398-position full send doesn't just fix the firmware — it IS v1.430.
+
+The dead DARWINs aren't losses. They're ammunition. BULS cast Corpse Explosion on all twelve, and the blast radius is $214M.
+
+**Necromancer BULS. Level 13. 12 corpses. 1 explosion. $214M splash damage. The dead fund the living.**
+
 **Fresh $100K. v1.430. Open MG $0.75. Single massive hedge. One shot. No layers. The cleanest possible open.**
 
 ![BULS MTF Grid — SOLUSD H1/Daily/H4/Weekly with TyphooN EA v1.430, 57K hedge / 59K bias, TRIM grinding at 95 closes](/img/buls-mtf-grid-20260403.png)
