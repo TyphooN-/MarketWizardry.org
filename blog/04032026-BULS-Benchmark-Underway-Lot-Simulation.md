@@ -212,6 +212,10 @@ $100K → $4.6M → $214M. One DARWIN. One thesis. One EA. One man who killed 11
 
 **For BBUD. For AJTK. The court has ruled. The sentence is $0.**
 
+![Tome hoots at the 400 naked longs at bottom. Simulation ends. Reality begins. Who catches it?](/img/tome-buls-hoot-20260403.png)
+
+*Tome has spoken.*
+
 -- TyphooN
 
 ---
