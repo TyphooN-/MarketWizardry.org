@@ -34,7 +34,7 @@ AJTK final state:
 4. **398 positions is possible.** The broker accepted all 398. TRIM fired. The position worked until the session close spread spike.
 5. **The cascade barrage was the correct discovery.** Opening multiple MG layers to fill position slots is the optimal strategy — but at $0.75 floor, not $0.14.
 
-**Total tuition across 12 post-mortems:** ~$234K (QRRP $100K + XJFD→BBUD $34K + AJTK $100K). Each death taught something. AJTK's death taught the true floor.
+**Total tuition across 12 post-mortems:** ~$1.2M+ virtual capital destroyed across 12 DARWINs ($100K each on Darwinex Zero). Each death taught something. AJTK's death taught the true floor.
 
 ---
 
@@ -65,7 +65,7 @@ AJTK's true floor discovery → $0.75 survives session close, $0.14 does not
 
 Twelve DARWINs entered the Matrix. Twelve DARWINs died. Each death was a lesson. Each lesson became a line of code. Each line of code lives in BULS.
 
-BULS is not the 13th attempt. BULS is the compilation of all twelve. The chosen DARWIN. Neo after absorbing every Agent Smith. The One who carries the accumulated knowledge of every crash, every bug, every post-mortem, every $234K of tuition — and runs the benchmark to completion.
+BULS is not the 13th attempt. BULS is the compilation of all twelve. The chosen DARWIN. Neo after absorbing every Agent Smith. The One who carries the accumulated knowledge of every crash, every bug, every post-mortem, every $1.2M+ of tuition — and runs the benchmark to completion.
 
 The others were training data. BULS is the model.
 
@@ -93,7 +93,7 @@ Every dead DARWIN is a corpse on the battlefield. And every corpse explodes into
 | **BBUD** | $58K equity, 30-second death | Spread tolerance floor discovery | $0.75 floor — the line that holds |
 | **AJTK** | $100K equity, 398 positions, $0.14 | v1.430 firmware, true floor, position limit | PROTECT fires partial (4 lots, not 1,200) |
 
-**$234K of corpses. Each one detonated for maximum splash damage.**
+**$1.2M+ of corpses. Each one detonated for maximum splash damage.**
 
 QRRP's 8 deaths don't just teach TRIM — they ARE TRIM. The formula was carved from QRRP's bones. XJFD's pure short run doesn't just validate the voltage — it IS the voltage parameter. BBUD's 30-second death doesn't just discover the floor — it IS the floor. AJTK's 398-position full send doesn't just fix the firmware — it IS v1.430.
 
@@ -225,7 +225,7 @@ Close SOL shorts at $5 with ~$4.6M. Deploy into 400 naked long positions across 
 
 ---
 
-## Lessons Learned: The $234K Education (Updated)
+## Lessons Learned: The $1.2M+ Education (Updated)
 
 Every lesson below was paid for with real money:
 
