@@ -68,11 +68,12 @@ AJTK is fresh $100K with the correct firmware and the proven voltage. For the fi
 | | Value |
 |---|---|
 | **Account** | DARWIN AJTK — fresh $100K Darwinex Zero Crypto |
-| **Open MG** | $1.87 (initial) + full cascade barrage at $79 |
-| **EA Version** | **v1.430** (CRITICAL FIX: PositionClosePartial in PRE-CLOSE/PROTECT) |
-| **Position** | 53,604L / 55,176S, net 1,572 SHORT |
-| **Equity** | $70,145 \| ML 56.5% [DEAD] |
-| **SOL Price** | $79, spread tol $0.64/lot — BBUD+2 cents. For BBUD. |
+| **Open MG** | $1.87 (initial) → cascade barrage → **$0.01 fill to 398 positions** |
+| **EA Version** | **v1.430** (PositionClosePartial — PROTECT closed 16 lots, not 1,200) |
+| **Position** | 141,000L / 141,305S, net 905 SHORT |
+| **Equity** | $40,345 \| ML 55.4% [DEAD] |
+| **SOL Price** | $79, spread tol $0.14/lot — **MAXIMUM VOLTAGE** |
+| **Positions** | 398 / 400 |
 | **TRIM / PROTECT** | 57% / 54% |
 | **Pre-close** | 5 min freeze |
 | **TRIM closes** | 4 (post-cascade) |
@@ -119,41 +120,44 @@ v1.429 PROTECT closes BIAS (shorts) to increase ML. This is the opposite of what
 
 ## The Plan
 
-### Phase 1: Full Cascade Barrage + TRIM Grind to Pure Short (~$79 → ~$51 SOL)
+### Phase 1: FULL SEND — 398 Positions, TRIM Grind to Pure Short (~$79 → ~$50.6 SOL)
 
-v1.430 fixes the PositionClose bug. Full cascade barrage fired at market open — MG $6.69, $21.00, and additional layers. Maximum intensity. 53,604 hedge / 55,176 bias. Spread tol $0.64 — two cents above BBUD's death number. This is for BBUD. Every bug squashed. Every lesson learned. Every dead DARWIN avenged.
+v1.430 fixes the PositionClose bug. Cascade barrage → $0.01 MG fill to 398 positions. MAXIMUM VOLTAGE. MAXIMUM ORDERS. 141,000 hedge / 141,305 bias. Spread tol $0.14. PROTECT fired 2x, closed 16 lots (v1.430 working). This is for BBUD. K|NGP|N would approve.
+
+**Key discovery: the $2.00 spread tolerance floor was an artifact of the v1.429 PositionClose bug, not a fundamental limit.** Every previous account death involved PRE-CLOSE or PROTECT nuking entire positions in a cascade failure. With v1.430 partial close, PROTECT costs 16 lots, not 1,200. The chain reaction is broken. $0.14 spread tol is survivable because the firmware is correct.
 
 | SOL Price | Equity | Hedge | Net Short | Spread Tol | Status |
 |---|---|---|---|---|---|
-| **$79 (now)** | **$70,145** | **53,604** | **1,572** | **$0.64** | **[DEAD] 56.5%, BBUD+2 cents** |
-| $75 | $76,400 | 51,000 | 5,700 | $0.66 | TRIM unlocking |
-| $70 | $84,000 | 47,000 | 10,200 | $0.74 | TRIM grinding |
-| $60 | $155,000 | 30,000 | 27,200 | $1.36 | Building momentum |
-| $55 | $280,000 | 15,000 | 42,200 | $2.45 | **Above $2.00** |
-| **~$51** | **~$1,612,000** | **0** | **~55,176** | **$29.22** | **PURE SHORT → CASCADE** |
+| **$79 (now)** | **$40,345** | **141,000** | **905** | **$0.14** | **MAXIMUM VOLTAGE** |
+| $75 | $43,900 | 139,000 | 3,800 | $0.15 | TRIM grinding |
+| $70 | $50,000 | 135,000 | 8,800 | $0.17 | Accelerating |
+| $60 | $100,000 | 115,000 | 30,000 | $0.34 | Building |
+| $55 | $200,000 | 90,000 | 55,000 | $0.69 | Momentum |
+| $52 | $500,000 | 50,000 | 95,000 | $1.72 | Nearing pure short |
+| **~$50.6** | **~$4,086,000** | **0** | **~141,305** | **$28.79** | **PURE SHORT** |
 
-Expected pure short at ~$51 SOL. ~55,176 lots. ~$1.6M equity. Spread tol recovers above $2.00 at ~$55 SOL.
+Expected pure short at ~$50.6 SOL. ~141,305 lots. ~$4.1M equity. $141K per dollar of SOL decline.
 
 ### NO CASCADE AT PURE SHORT
 
-54,013 naked short lots printing $54K per dollar. Unkillable. No more spread tolerance danger. No more TRIM grind. No more dice. The cascade would add 6.4x terminal equity but re-introduce the exact risk that killed 10 DARWINs. Not worth it. The benchmark is running.
+141,305 naked short lots printing $141K/dollar. Unkillable. No more dice.
 
-### Naked Ride: $51 → $5
+### Naked Ride: $50.6 → $5
 
-~54,013 pure short lots. ~$54K per dollar of SOL decline. Smooth ride for 46 dollars. Zero risk.
+~141,305 pure short lots. ~$141K per dollar of SOL decline. Smooth ride for 45.6 dollars. Zero risk.
 
 | SOL Price | Equity | Status |
 |---|---|---|
-| ~$51 (pure short) | $1,600K | **Smooth ride — zero risk** |
-| $40 | $2,194K | Autopilot |
-| $30 | $2,734K | Cruising |
-| $20 | $3,274K | Deep profit |
-| $10 | $3,814K | Printing |
-| **$5** | **$4,084K** | **CLOSE ALL → DEPLOY LONGS** |
+| ~$50.6 (pure short) | $4,086K | **Smooth ride — zero risk** |
+| $40 | $5,580K | Autopilot |
+| $30 | $6,993K | Cruising |
+| $20 | $8,406K | Deep profit |
+| $10 | $9,819K | Printing |
+| **$5** | **$10,526K** | **CLOSE ALL → DEPLOY LONGS** |
 
 ### Deploy 400 Naked Longs at Bottom ($5 SOL)
 
-Close SOL shorts at $5 with ~$4.1M. Deploy into 400 naked long positions across all 7 Darwinex cryptos. Maximum volume per slot. No martingale. Just hold.
+Close SOL shorts at $5 with ~$10.5M. Deploy into 400 naked long positions across all 7 Darwinex cryptos. Maximum volume per slot. No martingale. Just hold.
 
 **Deployment framework (computed at execution with live data):**
 
@@ -168,11 +172,11 @@ Close SOL shorts at $5 with ~$4.1M. Deploy into 400 naked long positions across 
 
 **Hold strategy:** 7 core swings hold to 4.236 fib and beyond — permanent portfolio. They cost $0 after the SOL short paid for them. Remaining 393 may trim at 1.618, 2.618, 3.618 to lock profits.
 
-**Target: ~$190M+ at 4.236 fib targets.** Exact allocation computed by TyphooN-Terminal at deployment with live correlations.
+**Target: ~$487M+ at 4.236 fib targets.** Exact allocation computed by TyphooN-Terminal at deployment with live correlations.
 
-**$100K → $4.1M (SOL short, no second cascade) → $190M+ (400 naked longs at bottom). 1,900x.**
+**$100K → $10.5M (SOL short, 398 positions, no cascade at PS) → $487M+ (400 naked longs at bottom). 4,870x.**
 
-400 positions. 7 symbols. 4.236 fib targets. All naked longs. Maximum volume. VaR-optimized at 3.25% corridor floor. Short the weakest supply on the way down. Long EVERYTHING at the bottom. **For BBUD. The court has ruled. The sentence is $0. No more dice.**
+400 positions. 7 symbols. 4.236 fib targets. All naked longs. Maximum volume. VaR-optimized at 3.25% corridor floor. Short the weakest supply on the way down. Long EVERYTHING at the bottom. **For BBUD. MAXIMUM VOLTAGE. The sentence is $0. No more dice.**
 
 ---
 
@@ -239,12 +243,12 @@ Same $100K starting equity. Open MG $1.87 — 26,737 lots per side. Net exposure
 
 **Then deploy the $2.0M into the full crypto basket long:**
 
-| | Single Swing | Full Cascade + Naked Ride + 400 Longs |
+| | Single Swing | FULL SEND 398 positions + Naked Ride + 400 Longs |
 |---|---|---|
-| Equity at SOL $5 | $180K | $4,084K |
+| Equity at SOL $5 | $180K | $10,526K |
 | Deploy into basket | N/A (too small) | 400 naked longs at bottom |
-| Equity at 4.236 fib targets | ~$180K (already extracted) | **$190M+** |
-| **Total return** | **1.8x** | **1,900x** |
+| Equity at 4.236 fib targets | ~$180K (already extracted) | **$487M+** |
+| **Total return** | **1.8x** | **4,870x** |
 
 ### Why the Cascade Works and the Swing Doesn't
 
@@ -293,7 +297,7 @@ Run 11 (AJTK):    Right firmware, right voltage. Fresh silicon.
 
 The firmware is correct. The voltage is validated. The silicon is fresh. AJTK is the final form.
 
-$100K → $4.1M → $190M. One DARWIN. One thesis. One EA. One man who killed 10 DARWINs learning how to run one. v1.430 is the final form. No more dice. For BBUD.
+$100K → $10.5M → $487M. One DARWIN. One thesis. One EA. 398 positions. 141,305 bias. $0.14 spread tol. One man who killed 10 DARWINs learning how to run one. v1.430 is the final form. MAXIMUM VOLTAGE. For BBUD.
 
 -- TyphooN
 
