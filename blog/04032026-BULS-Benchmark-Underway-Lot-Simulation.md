@@ -164,14 +164,14 @@ Single open at $0.75 produces fewer bias lots than AJTK's 398-position barrage (
 
 ### Phase 1: TRIM Grind to Pure Short (~$79 → ~$50.5 SOL)
 
-Open MG $0.75 with 66,666/side. Broker self-heal + PROTECT cost 7,926 bias → **58,740 surviving bias**. TRIM grinds 56,991 remaining hedge longs to pure short.
+Open MG $0.75 with 66,666/side. Broker self-heal + PROTECT cost 10,785 bias → **55,881 surviving bias**. TRIM grinds 53,262 remaining hedge longs to pure short. Survived first weekend swap.
 
-ML-constrained model (TRIM 57%): `P_ps = ($79,517/58,740 + $79.3) / 1.57 = ~$51.3`
-`E_ps = 0.3631 × ($79,517 + $79.3 × 58,740) = ~$1,720,000`
+ML-constrained model (TRIM 57%): `P_ps = ($72,126/55,881 + $79.8) / 1.57 = ~$51.6`
+`E_ps = 0.3631 × ($72,126 + $79.8 × 55,881) = ~$1,644,000`
 
 | SOL Price | Equity | Hedge | Net Short | Spread Tol | Status |
 |---|---|---|---|---|---|
-| **$79.3 (now)** | **$79,517** | **56,991** | **1,749** | **$0.69** | TRIM 116 closes, PROTECT 26 fires (36 lots) |
+| **$79.8 (weekend)** | **$72,126** | **53,262** | **1,619** | **$0.66** | TRIM 258 closes, survived weekend swap |
 | $75 | $87,600 | 56,000 | 6,400 | $0.70 | TRIM grinding |
 | $70 | $100,000 | 51,000 | 12,600 | $0.79 | Accelerating |
 | $65 | $125,000 | 43,000 | 21,600 | $0.97 | Building |
@@ -182,20 +182,20 @@ ML-constrained model (TRIM 57%): `P_ps = ($79,517/58,740 + $79.3) / 1.57 = ~$51.
 
 ### Phase 2: NO CASCADE — Naked Ride to $5
 
-58,740 naked short lots. $58,740 per dollar of SOL decline. Smooth ride for 46.3 dollars. Zero risk.
+55,881 naked short lots. $55,881 per dollar of SOL decline. Smooth ride for 46.6 dollars. Zero risk.
 
 | SOL Price | Equity | Status |
 |---|---|---|
-| ~$51.3 (pure short) | $1,720K | **Smooth ride — zero risk** |
-| $40 | $2,384K | Autopilot |
-| $30 | $2,971K | Cruising |
-| $20 | $3,559K | Deep profit |
-| $10 | $4,146K | Printing |
-| **$5** | **$4,440K** | **CLOSE ALL → DEPLOY LONGS** |
+| ~$51.6 (pure short) | $1,644K | **Smooth ride — zero risk** |
+| $40 | $2,292K | Autopilot |
+| $30 | $2,851K | Cruising |
+| $20 | $3,410K | Deep profit |
+| $10 | $3,968K | Printing |
+| **$5** | **$4,248K** | **CLOSE ALL → DEPLOY LONGS** |
 
 ### Phase 3: Deploy 400 Naked Longs at Bottom ($5 SOL)
 
-Close SOL shorts at $5 with ~$4.4M. Deploy into 400 naked long positions across all 7 Darwinex cryptos. Maximum volume per slot.
+Close SOL shorts at $5 with ~$4.2M. Deploy into 400 naked long positions across all 7 Darwinex cryptos. Maximum volume per slot.
 
 **Deployment framework (computed at execution with live data):**
 
@@ -206,7 +206,7 @@ Close SOL shorts at $5 with ~$4.4M. Deploy into 400 naked long positions across 
 5. **Maximum volume per slot.** 400 positions, all max lot size.
 6. **Minimum 1 swing per pair.** 7 core swings ride to 4.236+ and beyond.
 
-**Target: ~$206M+ at 4.236 fib targets.**
+**Target: ~$197M+ at 4.236 fib targets.**
 
 ---
 
@@ -214,14 +214,14 @@ Close SOL shorts at $5 with ~$4.4M. Deploy into 400 naked long positions across 
 
 | Phase | Action | Equity |
 |---|---|---|
-| **MG OPEN (DONE)** | SOL SHORT $0.75: 66,666/side, v1.430, TRIM 57/54. Self-heal: 58,740 surviving bias | $100K → $79.5K |
-| **TRIM GRIND** | Consume ~57,000 hedge longs → pure short ~$51.3 | $79.5K → $1,720K |
-| **Naked Ride** | SOL SHORT: Smooth ride $51.3 → $5, ~$59K/dollar, NO CASCADE | $1,720K → $4,440K |
-| **Close SOL** | Extract $4.4M | **$4,440K** |
-| **400 NAKED LONGS** | All 7 Darwinex cryptos, VaR-optimized at 3.25%, max volume | $4,440K |
-| **Bull Cycle** | 400 naked long positions, 7 symbols, 4.236 fib targets | → **$206M+** |
+| **MG OPEN (DONE)** | SOL SHORT $0.75: 66,666/side, v1.430, TRIM 57/54. Self-heal: 55,881 surviving bias | $100K → $72K |
+| **TRIM GRIND** | Consume ~53,262 hedge longs → pure short ~$51.6 | $72K → $1,644K |
+| **Naked Ride** | SOL SHORT: Smooth ride $51.6 → $5, ~$56K/dollar, NO CASCADE | $1,644K → $4,248K |
+| **Close SOL** | Extract $4.2M | **$4,248K** |
+| **400 NAKED LONGS** | All 7 Darwinex cryptos, VaR-optimized at 3.25%, max volume | $4,248K |
+| **Bull Cycle** | 400 naked long positions, 7 symbols, 4.236 fib targets | → **$197M+** |
 
-**$100K → $4.4M (SOL short, single open at v1.430 floor) → $206M (400 naked longs at bottom). 2,060x.**
+**$100K → $4.2M (SOL short, single open at v1.430 floor) → $197M (400 naked longs at bottom). 1,970x.**
 
 ---
 
@@ -260,7 +260,7 @@ Run 12 (BULS):    Right firmware, calibrated voltage ($0.75). Fresh silicon.
 
 AJTK was the liquid nitrogen test. It proved the silicon can handle $0.14 under load — the firmware held, PROTECT fired correctly 92 times. But session close thermals killed it. BULS is the 24/7 benchmark — calibrated voltage that survives thermal spikes.
 
-$100K → $4.4M → $206M. One DARWIN. One thesis. One EA. One man who killed 11 DARWINs learning how to run one. v1.430 is the final form. The voltage is calibrated. The cooling is proven.
+$100K → $4.2M → $197M. One DARWIN. One thesis. One EA. One man who killed 11 DARWINs learning how to run one. v1.430 is the final form. The voltage is calibrated. The cooling is proven.
 
 **For BBUD. For AJTK. The court has ruled. The sentence is $0.**
 
