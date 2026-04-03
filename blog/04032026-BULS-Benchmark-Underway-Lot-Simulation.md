@@ -51,6 +51,8 @@ One letter away from BULLS. Because that's where this ends — 400 naked longs a
 
 **Fresh $100K. v1.430. Open MG $0.75. Single massive hedge. One shot. No layers. The cleanest possible open.**
 
+![BULS MTF Grid — SOLUSD H1/Daily/H4/Weekly with TyphooN EA v1.430, 57K hedge / 59K bias, TRIM grinding at 95 closes](/img/buls-mtf-grid-20260403.png)
+
 ---
 
 ## The Setup
