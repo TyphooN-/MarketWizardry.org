@@ -126,9 +126,9 @@ The strategy running on SOL is a cascading hedged martingale. Here is the short 
 4. **Cascade** — at the pure short checkpoint, use accumulated equity to open a NEW hedged martingale. The new MG seeds from the profits of the old one. Lot count multiplies geometrically.
 5. **Repeat** until final cascade, then ride to zero.
 
-The plan is simpler now: 1 MG down, naked ride to $5, flip long with MG #2 at $4.20133769. No cascade. The naked ride builds $821K of equity. The long MG at $5 creates 195,476 lots/side. TRIM instantly consumes all shorts, leaving pure long from the first tick. Ride $5 to $200 = $38.9M. $79K → $38.9M = 492x return.
+The plan: single MG down at $0.75 (v1.430 floor), naked ride to $5, deploy 400 naked longs at the bottom. No cascade at pure short — 60,673 naked short lots printing $61K/dollar is unkillable. At $5, close all and deploy $4.6M into 400 VaR-optimized naked longs across all 7 cryptos.
 
-For the full technical breakdown of how TRIM, PROTECT, and the cascade mechanics work, see the [QRRP cascade post](/blog/03192026-QRRP-SOL-Cascade) and the [AJTK post](/blog/03312026-AJTK-Rise-From-Ashes) which covers the lessons learned from running (and killing) ten previous DARWINs across three accounts.
+For the full technical breakdown of how TRIM, PROTECT, and the cascade mechanics work, see the [BULS post](/blog/04032026-BULS-Benchmark-Underway-Lot-Simulation), the [AJTK post](/blog/03312026-AJTK-Rise-From-Ashes) (RIP — proved $2.00 floor was a v1.429 bug artifact), and the [QRRP cascade post](/blog/03192026-QRRP-SOL-Cascade). 12 DARWINs died across 4 accounts. $234K of tuition.
 
 ---
 
@@ -148,36 +148,37 @@ The critical number: **$4.5 million of new SOL per day.** That is $31.5M per wee
 
 ---
 
-## AJTK Current Status (2026-03-31)
+## BULS Current Status (2026-04-03)
 
-DARWIN AJTK is the live execution of this thesis. The fourth iteration. The final form.
+DARWIN BULS — Benchmark Underway, Lot Simulation — is the live execution of this thesis. The 13th DARWIN. The one that runs to completion.
 
 | Metric | Value |
 |---|---|
-| Lots Long | ~24,753 |
-| Lots Short | 26,737 |
-| Net Short | ~1,984 |
-| Equity | ~$91,373 |
+| Lots Long | 58,949 |
+| Lots Short | 60,673 |
+| Net Short | 1,724 |
+| Equity | ~$79,000 |
 | TRIM / PROTECT | 57% / 54% |
-| Open MG | $1.87 |
-| EA Version | v1.429 |
+| Open MG | $0.75 (v1.430 floor) |
+| EA Version | v1.430 |
+| Spread Tol | $0.66 |
 
-AJTK is the fourth DARWIN running this strategy. QRRP (8 post-mortems, liquidated), XJFD (1 PM, reached pure short, reopened as BBUD), and BBUD (1 PM, $0.69 Open MG too aggressive, broker stopped out) all died. 10 DARWINs across 3 accounts. $134K of tuition. AJTK incorporates every fix: v1.429 PROTECT closes bias (not balanced close), pre-close freeze, and the proven $1.87 Open MG that self-heals with ~10% degradation.
+**DARWIN history:** QRRP (8 post-mortems, liquidated), XJFD (1 PM, reached pure short, reopened as BBUD), BBUD (1 PM, $0.69 MG too aggressive), AJTK (1 PM, proved $2.00 floor was v1.429 bug artifact, died at $0.14 spread tol after 398-position full send). **12 DARWINs died across 4 accounts. $234K tuition.** Every death taught something. AJTK discovered the v1.430 PositionClosePartial fix and the true $0.75 spread tolerance floor.
 
-The plan from here: **MG $1.87 → cascade $3.00 at pure short → smooth ride → extract ~$3.4M → deploy full crypto basket.**
+**The plan: single open, no cascade, naked ride to $5, 400 naked longs at bottom.**
 
-- **MG 1** (current → ~$35 SOL): TRIM eats hedge to pure short (~18,500 lots after self-heal)
-- **MG 2 CASCADE** (~$35): Open MG $3.00 at pure short → ~130K bias, unwound by ~$22
-- **Naked Ride** (~$22 → $5): Pure short, ~$130K per dollar drop
-- **FLIP** ($5): Close shorts, deploy ~$3.4M into full crypto basket — MG LONG ETH/BTC + naked DOGE/SOL/ADA/XRP/BNB
+- **TRIM GRIND** ($80 → ~$51.6): Consume 58,949 hedge longs → pure short with ~$1.8M equity
+- **Naked Ride** ($51.6 → $5): 60,673 lots × $46.6 = ~$2.8M profit. Total equity ~$4.6M
+- **400 NAKED LONGS** ($5): Deploy $4.6M, VaR-optimized at 3.25% corridor floor, max volume per slot
+- **Bull Cycle** (4.236 fib targets): ~$214M+
 
-400 positions. 7 symbols. 4.236 fib targets. Projected terminal equity: **~$190M+ ($100K → $3.4M → $190M+).**
+**$100K → $4.6M → $214M. 2,140x. No cascade. No more dice. For BBUD. For AJTK.**
 
 ---
 
 ## Disclaimer
 
-This is not financial advice. This is an analysis of cryptocurrency supply dynamics and a description of a live speculative position. Hedged martingale strategies on crypto CFDs carry extreme risk including total loss of capital — which has already happened twice on previous iterations of this strategy (QRRP and XJFD, both wiped March 2026). Crypto CFDs involve leverage, overnight funding costs, and spread spikes that can liquidate positions faster than any protective mechanism can respond. Do not trade crypto CFDs with money you cannot afford to lose. Do not attempt cascade martingale strategies without understanding that you can lose everything. You have been warned.
+This is not financial advice. This is an analysis of cryptocurrency supply dynamics and a description of a live speculative position. Hedged martingale strategies on crypto CFDs carry extreme risk including total loss of capital — which has happened on twelve previous iterations of this strategy (QRRP, XJFD, BBUD, AJTK — all wiped 2026). Crypto CFDs involve leverage, overnight funding costs, and spread spikes that can liquidate positions faster than any protective mechanism can respond. Do not trade crypto CFDs with money you cannot afford to lose. Do not attempt hedged martingale strategies without understanding that you can lose everything. You have been warned.
 
 ---
 

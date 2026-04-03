@@ -1,14 +1,14 @@
-# The $3.4M Question: Which Crypto Do You Go LONG From the Bottom?
+# The $4.6M Question: Which Crypto Do You Go LONG From the Bottom?
 
-**Published: 2026-03-30 (updated 2026-03-31) | TyphooN | MarketWizardry.org**
+**Published: 2026-03-30 (updated 2026-04-03) | TyphooN | MarketWizardry.org**
 
 ---
 
-AJTK is grinding SOL to zero. The cascade martingale is doing what cascade martingales do — compounding geometrically through TRIM events, eating hedge lots for fuel, building a net short position that prints ~$130K per dollar of SOL decline after the cascade. At $5, the short closes. Equity: approximately $3.4M from a fresh $100K account. 34x return on the short side.
+BULS is grinding SOL to zero. The hedged martingale is doing what hedged martingales do — TRIM eating hedge lots for fuel, building a net short position that prints ~$61K per dollar of SOL decline. At $5, the short closes. Equity: approximately $4.6M from a fresh $100K account. 46x return on the short side. No cascade — 60,673 naked short lots are unkillable once pure short is reached.
 
 Then what?
 
-The bear market that killed SOL will have cratered every crypto on the board. BTC at $10K. ETH at $200. SOL at $5. Blood everywhere. And we are sitting on $3.4M of dry powder from having shorted the exact thing that just died.
+The bear market that killed SOL will have cratered every crypto on the board. BTC at $10K. ETH at $200. SOL at $5. Blood everywhere. And we are sitting on $4.6M of dry powder from having shorted the exact thing that just died. 12 DARWINs died getting here (QRRP, XJFD, BBUD, AJTK). $234K of tuition. BULS is the 13th. The one that runs to completion.
 
 Rothschild bought the ashes after Waterloo. This is the same play. The question is not whether to buy — the question is what to buy.
 
@@ -172,7 +172,7 @@ BTC is the safer bet but lot-constrained. SOL has the highest raw return but the
 
 $2.08M → ETH MG LONG at $200 → 5,200 lots pure long → ride to $5,000 → $27.0M.
 
-One instrument. One direction. One DARWIN. The same philosophy that made AJTK's SOL short work. Supply thesis purity. The short succeeded because SOL's supply dynamics worked against it. The long succeeds because ETH's supply dynamics work for it.
+One instrument. One direction. One DARWIN. The same philosophy that makes BULS's SOL short work (and QRRP/XJFD/BBUD/AJTK before it). Supply thesis purity. The short succeeded because SOL's supply dynamics worked against it. The long succeeds because ETH's supply dynamics work for it.
 
 **Option B: Split (60/40 ETH/BTC)**
 
@@ -316,7 +316,7 @@ The long works for the same reason — plus 400 positions across every Darwinex 
 
 **Everything else is a naked ride.** SOL, ADA, XRP, BNB — buy at the bottom, hold through the cycle, sell at 4.236 fib.
 
-$100K → $3.4M (SOL short) → $190M+ realistic / $904M theoretical (full basket). 3 Martingale 3 Furious + naked basket. 400 positions. 7 symbols. One account. One DARWIN.
+$100K → $4.6M (SOL short via BULS, no cascade) → $214M+ (400 naked longs, VaR-optimized at 3.25% corridor). 400 positions. 7 symbols. One account. One DARWIN. 2,140x. For BBUD. For AJTK.
 
 **3 Martingale 3 Furious. $4.20133769 on the MGs. Naked aggression on the rest. To the 4.236.**
 
