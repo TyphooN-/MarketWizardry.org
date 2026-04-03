@@ -893,11 +893,13 @@ def update_blog_index(all_new_entries):
     educational_keywords = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
-        'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator'
+        'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
+        'nnfx-backtesting', 'backtest-optimization'
     ]
 
     darwin_lore_keywords = [
-        'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp', 'crypto-supply-analysis', 'crypto-long-analysis'
+        'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp', 'crypto-supply-analysis', 'crypto-long-analysis',
+        'burst-trim', 'xngusd'
     ]
 
     for entry in all_new_entries:
