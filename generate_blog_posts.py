@@ -897,7 +897,7 @@ def update_blog_index(all_new_entries):
     ]
 
     darwin_lore_keywords = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'crypto-supply-analysis', 'crypto-long-analysis'
+        'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp', 'crypto-supply-analysis', 'crypto-long-analysis'
     ]
 
     for entry in all_new_entries:
