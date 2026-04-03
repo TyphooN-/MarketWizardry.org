@@ -1126,6 +1126,40 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 **TyphooN-Terminal is the only trading terminal with a native GPU rendering pipeline (wgpu/Vulkan), zero JavaScript, zero WebKit, real brokerage integration, direct MT5 database sync, GPU compute shaders for indicators, LAN sync with TLS, built-in outlier scanners, MQL5→WGSL compiler, and a built-in risk management engine.** Every other option is either CPU-rendered (NinjaTrader, Sierra Chart, Thinkorswim), browser-based (TradingView), Electron bloatware, closed-source (Webull, IBKR), research-only (Godel), or locked to Windows (NinjaTrader, Sierra Chart, Quantower). TyphooN-Terminal is the only one that got the rendering pipeline right.
 
+## Update (2026-04-02): Calculator Suite Sunset — VaR, ATR, and Portfolio Tools Retired
+
+The calculator page just lost three tools:
+
+- **Stop Loss Calculator** — removed (was non-functional: JS referenced HTML fields that didn't exist)
+- **Portfolio VaR Calculator** — removed (100% dependent on explorer data that no longer updates)
+- **Symbol Lookup Tool** — removed (850-symbol database from `calculator_complete_data.js` is now stale)
+
+**What remains:** The **Position Size Calculator** (account size, risk %, entry price, stop loss → position size) and the **Compound Interest Calculator** (standalone, no market data needed). These two tools work without any external data dependencies.
+
+### Why These Specific Calculators?
+
+The removed tools all shared one fatal dependency: `window.varData` — a consolidated dataset of 850 symbols generated from the explorer CSVs. With the explorers frozen (see [Explorer Sunset](03312026-Explorer-Sunset.html)), that data is permanently stale. A VaR calculator showing October 2025 volatility data in April 2026 isn't a calculator — it's a liability.
+
+The Stop Loss Calculator had an additional problem: the JavaScript referenced `sl-account-size` and `sl-risk-percent`, but the HTML form contained `sl-risk-value` and `sl-risk-mode`. It was never functional in its current state.
+
+### Where These Features Live Now
+
+| Removed Web Calculator | TyphooN-Terminal Equivalent |
+|---|---|
+| **Stop Loss Calculator** | Risk panel: VaR-based SL, ATR-based SL, 4 order modes |
+| **Portfolio VaR Calculator** | `VAR` command, DARWIN analytics (80 functions), correlation matrix |
+| **Symbol Lookup Tool** | `SEARCH` command, anomaly scanner (4D: VaR+EV+ATR+SEC), stock screener |
+
+The terminal computes VaR live from broker position data. It calculates ATR on GPU compute shaders across any timeframe. It pulls SEC EDGAR fundamentals, options chains, insider trading data, and dark pool volume. A static HTML page with a frozen JSON dataset cannot compete with a native GPU application pulling live feeds.
+
+### The Remaining Calculators
+
+The **Position Size Calculator** is pure math: you enter four numbers, it tells you how many shares to buy. No market data needed. No API calls. No staleness risk. It stays because it works.
+
+The **Compound Interest Calculator** is the same story — standalone math with wealth milestones, yearly breakdowns, and timeline visualization. Zero external dependencies. It stays.
+
+The website calculator page is now two tools that do two things correctly, rather than five tools where three are broken or stale. That's the right trade.
+
 -- TyphooN
 
 ---

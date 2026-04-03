@@ -74,4 +74,33 @@ The terminal roadmap continues:
 
 The explorers were version 0. The terminal is version 1. There won't be a version 2 of the explorers.
 
+---
+
+## Update (2026-04-02): Calculator Tools Follow the Explorers
+
+The cleanup continues. Three calculator tools have been removed from the [Calculator Suite](/calculator.html):
+
+- **Stop Loss Calculator** — removed (broken: JS referenced non-existent HTML fields)
+- **Portfolio VaR Calculator** — removed (required `window.varData` from frozen explorer data)
+- **Symbol Lookup Tool** — removed (850-symbol database permanently stale)
+
+All three depended on `calculator_complete_data.js`, a consolidated dataset generated from the same explorer CSVs that are no longer updated. A VaR calculator showing October 2025 data in April 2026 is worse than no calculator at all.
+
+**What remains on the calculator page:**
+
+| Calculator | Status | Why It Stays |
+|---|---|---|
+| **Position Size Calculator** | ✅ Active | Pure math — account size, risk %, entry, stop loss → position size. No data dependencies. |
+| **Compound Interest Calculator** | ✅ Active | Standalone — principal, rate, time → growth projections. No market data needed. |
+
+**Where the removed tools live now:**
+
+| Removed Web Tool | TyphooN-Terminal Equivalent |
+|---|---|
+| Stop Loss Calculator | Risk panel with VaR-based and ATR-based SL across 4 order modes |
+| Portfolio VaR Calculator | `VAR` command + DARWIN analytics (80 functions) + correlation matrix |
+| Symbol Lookup Tool | `SEARCH` command + anomaly scanner (VaR+EV+ATR+SEC) + stock screener |
+
+Same pattern as the explorers: static web tools with frozen data replaced by a native GPU application with live broker feeds. The website keeps what works standalone. Everything else is in the terminal.
+
 -- TyphooN
