@@ -287,39 +287,48 @@ But each lot earns $190K+ on the ride to $200K.
 
 ### Total Basket Summary
 
-| Component | Allocation | Strategy | Positions | **Equity at 4.236 Fib** |
+### Updated Basket Plan (2026-04-03): 400 Naked Longs, No MG
+
+The original plan used MG LONG on ETH/BTC. The updated plan uses **400 naked longs** — no martingale on the way up. One MG short (BULS) to build equity, then pure naked longs at the bottom.
+
+**Deployment framework (computed at execution with live data):**
+
+1. **Target portfolio VaR: 3.25%** — Darwinex corridor floor, maximum VaR multiplier
+2. **Fill iteratively** — BTC/ETH anchors first, XRP/BNB VaR compressors second, SOL/ADA/DOGE satellites last
+3. **Maximum volume per slot** — all 400 positions at max lot size
+4. **7 core swings** (1 per pair) hold to 4.236+ and beyond
+
+| Component | Allocation | Strategy | Positions | **Target at 4.236 Fib** |
 |---|---|---|---|---|
-| **ETH** | $1,500K | MG LONG $4.20 | ~200 | **$578M** |
-| **BTC** | $500K | MG LONG $4.20 | ~50 | **$72M** |
-| **DOGE** | $250K | Naked long (6mo) | 5 | **$154M** |
-| **SOL** | $200K | Naked long | 50 | **$44M** |
-| **ADA** | $150K | Naked long | 50 | **$39M** |
-| **XRP** | $100K | Naked long | 25 | **$14M** |
-| **BNB** | $50K | Naked long | 20 | **$3M** |
-| **TOTAL** | **$2,750K** | **400 positions** | **400** | **$904M** |
+| **ETH** | 40% | Naked long | 80 | Largest allocation — best supply dynamics |
+| **BTC** | 20% | Naked long | 60 | Safety anchor — strongest supply thesis |
+| **DOGE** | 10% | Naked long (6mo max) | 60 | Lottery ticket — swap kills long holds |
+| **SOL** | 10% | Naked long | 60 | Thesis pair — from short to long |
+| **ADA** | 8% | Naked long | 50 | Satellite |
+| **XRP** | 7% | Naked long | 50 | VaR compressor — low BTC correlation |
+| **BNB** | 5% | Naked long | 40 | VaR compressor |
+| **TOTAL** | **$4.6M** | **Naked long** | **400** | **~$214M+** |
 
-**$100K → $3.4M (SOL short) → $904M (full basket at 4.236 fibs) = 9,040x return.**
+**$100K → $4.6M (BULS SOL short, single MG) → $214M+ (400 naked longs at bottom, VaR-optimized). 2,140x.**
 
-*These are theoretical maximums at 4.236 Fibonacci extensions. Realistic targets (previous ATH) give ~$138M. The 4.236 numbers assume a crypto supercycle comparable to 2020-2021 magnitudes. Not financial advice. Crypto can also go to $0.*
+*Exact allocations computed by TyphooN-Terminal at deployment with live correlations. The framework is fixed. The numbers are computed at $5 SOL.*
 
 ## The Verdict
 
-The SOL short worked because supply dynamics were the thesis. Not charts. Not vibes. Not Elon tweets. Supply.
+The SOL short works because supply dynamics are the thesis. Not charts. Not vibes. Not Elon tweets. Supply.
 
-The long works for the same reason — plus 400 positions across every Darwinex crypto from the absolute bottom.
+The long works for the same reason — 400 naked positions across every Darwinex crypto from the absolute bottom. No MG on the way up. No TRIM, no PROTECT, no spread tolerance danger. Just hold.
 
-**ETH has the best supply dynamics for MG LONG.** Near-zero emission. Structural demand from DeFi and L2 adoption. Staking yield that incentivizes holding. 0.05% spread that makes MG execution frictionless.
+**ETH has the best supply dynamics.** Near-zero emission. Structural demand from DeFi and L2 adoption. Staking yield that incentivizes holding.
 
-**BTC is the safety anchor.** Strongest supply thesis. Lot-constrained but each lot earns $190K+.
+**BTC is the safety anchor.** Strongest supply thesis. Hardest money.
 
-**DOGE is the lottery ticket.** 50 million lots at half a penny. Elon tweets. Retail FOMOs. 6-month hold max (swap kills it longer).
+**XRP and BNB are VaR compressors.** Lowest BTC correlation — pull portfolio VaR down while adding notional exposure.
 
-**Everything else is a naked ride.** SOL, ADA, XRP, BNB — buy at the bottom, hold through the cycle, sell at 4.236 fib.
+**Everything else is a naked ride.** SOL, ADA, DOGE — buy at the bottom, hold through the cycle, trim at fib levels.
 
-$100K → $4.6M (SOL short via BULS, no cascade) → $214M+ (400 naked longs, VaR-optimized at 3.25% corridor). 400 positions. 7 symbols. One account. One DARWIN. 2,140x. For BBUD. For AJTK.
-
-**3 Martingale 3 Furious. $4.20133769 on the MGs. Naked aggression on the rest. To the 4.236.**
+$100K → $4.6M (BULS SOL short, 1 MG) → $214M+ (400 naked longs). 1 DARWIN. 1 martingale. 400 naked longs. 2,140x. For BBUD. For AJTK.
 
 ---
 
-*This analysis is part of the [Darwinex Crypto Supply Analysis](/blog/03302026-Crypto-Supply-Analysis-SOL-Specialist) series. Full simulation data and MG mechanics documented in the MARTINGALE_SIMULATION.md and CRYPTO_SUPPLY_ANALYSIS.md repositories.*
+*This analysis is part of the [Darwinex Crypto Supply Analysis](/blog/03302026-Crypto-Supply-Analysis-SOL-Specialist) series. BULS strategy documented in the [BULS post](/blog/04032026-BULS-Benchmark-Underway-Lot-Simulation).*
