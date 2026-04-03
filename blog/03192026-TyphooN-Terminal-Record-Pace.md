@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **57,399 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **687 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **59,769 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **687 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **57,399 lines** across **687 commits**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **59,769 lines** across **687 commits**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -62,7 +62,7 @@ The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, g
 | **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 48 floating windows | 28,797 |
 | **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,245 |
 | **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5 indicators | 3,573 |
-| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **57,399** |
+| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **59,769** |
 
 ### Why Rust Won (And Why Everything Else Still Loses)
 
@@ -864,7 +864,7 @@ The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, C
 
 ## Post-Launch: 56 Commits, LAN Parity, Drawing Tools UX, MQL5→WGSL Phase 2
 
-Since the initial sprint, 56 more commits have landed. The terminal is now **57,399 lines** across **713 commits**. The major post-launch themes:
+Since the initial sprint, 56 more commits have landed. The terminal is now **59,769 lines** across **734 commits**. The major post-launch themes:
 
 ### LAN Sync: Full Client/Server Parity
 
@@ -961,12 +961,44 @@ The biggest I/O bottleneck in the terminal pipeline was BarCacheWriter's SQLite 
 - TyphooN-Terminal's Mt5Sync reads directly from ramdisk paths — configure in Settings → MT5 BarCacheWriter Sources
 - v1.434 attempted Wine Z: drive mapping to `/dev/shm` directly — abandoned in favor of symlinks (more reliable, zero EA code changes)
 
-### Updated Stats (2026-04-02)
+### Symbol Explorer: Full Broker Universe + Fundamentals
+
+New **Symbol Explorer** floating window displays the complete broker symbol universe with fundamentals-based categorization. Browse every available instrument, sorted by sector, with live data. No more guessing what symbols your broker offers.
+
+### tastytrade Integration
+
+tastytrade positions now wire to chart overlay and positions panel. All symbol matching normalized across Alpaca, tastytrade, and DARWIN sources. Position visibility toggles: show/hide DARWIN, Alpaca, or tastytrade positions independently.
+
+### POSITION_CHARTS Command
+
+Type `POSITION_CHARTS` and the terminal opens weekly chart tabs for every open position simultaneously. One command, all positions visible.
+
+### Backfill Candle Coloring
+
+Bars from non-primary sources now render in distinct colors:
+- **Magenta** — backfill/weekend bars (Kraken, CryptoCompare)
+- Weekly and monthly timeframes exempt (weekend coloring disabled for W1/MN1)
+
+Visual distinction so you always know which data source painted each candle.
+
+### Supply/Demand GPU→CPU Fallback
+
+When GPU compute produces zero supply/demand zones (edge cases with insufficient data), the engine falls back to CPU computation automatically. Zero missing zones.
+
+### Performance & Stability
+
+- **480 tests passing, 0 vulnerabilities** (cargo update bumped all compatible crates)
+- **UI freeze fix** during fundamentals scrape — per-ticker lock release prevents blocking
+- **Session saves on window close** — no more lost state
+- **LAN sync auto-reconnect** with session IP persistence
+- **NNFX preset cleanup** — disables volume heatmap + 10 non-NNFX indicators for clean NNFX charts
+
+### Updated Stats (2026-04-03)
 
 | Metric | Launch (Mar 20) | Current |
 |---|---|---|
-| **LOC** | 43,739 | **57,399** |
-| **Commits** | 594 | **705** |
+| **LOC** | 43,739 | **59,769** |
+| **Commits** | 594 | **734** |
 | **Indicators** | 32+ | **60+** (31 GPU compute) |
 | **Drawing tools** | 44 | **70** |
 | **Floating windows** | 29 | **110** |
@@ -982,7 +1014,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**57,399 lines of pure Rust. 713 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**59,769 lines of pure Rust. 734 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
