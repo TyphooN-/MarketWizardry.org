@@ -153,22 +153,26 @@ Expected pure short at ~$51 SOL. ~55,176 lots. ~$1.6M equity. Spread tol recover
 
 ### Deploy 400 Naked Longs at Bottom ($5 SOL)
 
-Close SOL shorts at $5 with ~$4.1M. Deploy into 400 naked long positions across all 7 Darwinex cryptos. Maximum volume. No martingale. Just hold.
+Close SOL shorts at $5 with ~$4.1M. Deploy into 400 naked long positions across all 7 Darwinex cryptos. Maximum volume per slot. No martingale. Just hold.
 
-| Component | Allocation | Positions | Target (4.236 fib) |
-|---|---|---|---|
-| **ETH** | $1,640K (40%) | 80 | **$72M** |
-| **BTC** | $820K (20%) | 60 | **$49M** |
-| **DOGE** | $410K (10%) | 60 | **$25M** |
-| **SOL** | $410K (10%) | 60 | **$17M** |
-| **ADA** | $330K (8%) | 50 | **$9M** |
-| **XRP** | $290K (7%) | 50 | **$8M** |
-| **BNB** | $200K (5%) | 40 | **$10M** |
-| **TOTAL** | **$4,084K** | **400** | **~$190M+** |
+**Deployment framework (computed at execution with live data):**
+
+1. **Target portfolio VaR: 3.25%** — floor of Darwinex corridor. Maximum VaR multiplier = maximum investor leverage.
+2. **Fill iteratively.** Each batch sized based on VaR impact of positions already open.
+3. **Fill order:** BTC/ETH first (anchors), then XRP/BNB (VaR compressors — lowest BTC correlation), then SOL/ADA/DOGE (satellites).
+4. **After each batch:** TyphooN-Terminal correlation matrix + VaR calculator determines next allocation. Keep portfolio VaR at 3.25%.
+5. **Maximum volume per slot.** All 400 positions at max lot size for their pair.
+6. **Minimum 1 swing position per pair.** 7 core swings ride to 4.236+ and beyond. Remaining 393 may trim at fib levels.
+
+**VaR compression:** Low-correlation pairs (XRP ~0.65, BNB ~0.70 to BTC) pull portfolio VaR down while adding notional exposure. Portfolio VaR < sum of individual VaRs. The diversification benefit funds larger positions while staying in the corridor.
+
+**Hold strategy:** 7 core swings hold to 4.236 fib and beyond — permanent portfolio. They cost $0 after the SOL short paid for them. Remaining 393 may trim at 1.618, 2.618, 3.618 to lock profits.
+
+**Target: ~$190M+ at 4.236 fib targets.** Exact allocation computed by TyphooN-Terminal at deployment with live correlations.
 
 **$100K → $4.1M (SOL short, no second cascade) → $190M+ (400 naked longs at bottom). 1,900x.**
 
-400 positions. 7 symbols. 4.236 fib targets. All naked longs. No martingale on the way up. Short the weakest supply on the way down. Long EVERYTHING at the bottom. **For BBUD. The court has ruled. The sentence is $0. No more dice.**
+400 positions. 7 symbols. 4.236 fib targets. All naked longs. Maximum volume. VaR-optimized at 3.25% corridor floor. Short the weakest supply on the way down. Long EVERYTHING at the bottom. **For BBUD. The court has ruled. The sentence is $0. No more dice.**
 
 ---
 
