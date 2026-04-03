@@ -38,16 +38,45 @@ AJTK final state:
 
 ---
 
-## BULS: The 12th DARWIN
+## BULS: The Chosen DARWIN
 
 **B.U.L.S. — Benchmark Underway, Lot Simulation.**
 
-- **B** — Benchmark. This is the benchmark run. The settings are proven. The firmware is correct. The voltage is calibrated. $0.75 spread tolerance — the v1.430 floor validated by AJTK's death at $0.14 and survival at $0.64.
-- **U** — Underway. The benchmark is running. TRIM is grinding. 66,666 lots per side. The flywheel compounds.
-- **L** — Lot. 133,332 gross lots. Each TRIM close converts one hedge lot into one net short lot. At pure short: 66,666 naked lots printing $67K per dollar of SOL decline.
-- **S** — Simulation. The ML-constrained model predicts pure short at ~$51.7, equity ~$2.0M. Then the simulation ends and reality takes over — 400 naked longs at the bottom, ride to 4.236 fib.
+BULS is not a new strategy. BULS is every dead DARWIN simultaneously.
+
+QRRP taught TRIM. Eight post-mortems. Eight ways the flywheel can break. Each death carved one line of correct code. QRRP's soul lives in the forward-looking TRIM formula — `maxSafe = floor((equity/threshold - margin) / marginPerLot)` — the equation that makes it mathematically impossible to overshoot. QRRP died so TRIM could be born.
+
+XJFD taught voltage. Open MG $1.87 — the exact number that produces spread tolerance above $2.00 after self-heal. Not $2.00 (too conservative). Not $1.337 (too aggressive). $1.87. XJFD reached pure short and proved the voltage works. Then it was sacrificed and reopened as BBUD. XJFD's soul lives in the Open MG parameter.
+
+BBUD taught the floor. $0.69 Open MG. Spread tolerance $0.62. Dead before v1.429 could fire a single event. The firmware was correct. The voltage was lethal. BBUD died in 30 seconds and taught more than 8 QRRP post-mortems combined: **the spread tolerance floor is real, and you cannot negotiate with it.** BBUD's soul lives in the $0.75 floor.
+
+AJTK taught the firmware. v1.429 had the PositionClose bug — PRE-CLOSE and PROTECT nuked entire positions instead of closing partial lots. Every session close destroyed thousands of bias lots. AJTK discovered the bug, fixed it (v1.430 PositionClosePartial), then pushed to 398 positions at $0.14 spread tolerance to prove the firmware works. PROTECT fired 92 times. Each fire closed partial lots. The firmware held. Then the session close spread spike killed it — not the firmware, not the EA, but raw arithmetic: `$1 × 282K gross > $38K equity`. AJTK's soul lives in v1.430.
+
+**BULS carries all of them.**
+
+```
+QRRP's TRIM formula        → lines 1326-1340 of TyphooN.mq5
+XJFD's voltage validation   → Open MG $0.75
+BBUD's floor discovery      → spread tol $0.75 (not $0.62, not $0.14)
+AJTK's firmware fix         → v1.430 PositionClosePartial
+AJTK's position limit       → ACCOUNT_LIMIT_ORDERS check in MG open loops
+AJTK's true floor discovery → $0.75 survives session close, $0.14 does not
+```
+
+Twelve DARWINs entered the Matrix. Twelve DARWINs died. Each death was a lesson. Each lesson became a line of code. Each line of code lives in BULS.
+
+BULS is not the 13th attempt. BULS is the compilation of all twelve. The chosen DARWIN. Neo after absorbing every Agent Smith. The One who carries the accumulated knowledge of every crash, every bug, every post-mortem, every $234K of tuition — and runs the benchmark to completion.
+
+The others were training data. BULS is the model.
+
+- **B** — Benchmark. The settings are proven. The firmware is correct. The voltage is calibrated.
+- **U** — Underway. The benchmark is running. TRIM is grinding. 60,673 bias. The flywheel compounds.
+- **L** — Lot. Each TRIM close converts one hedge lot into one net short lot. At pure short: 60,673 naked lots printing $61K per dollar of SOL decline.
+- **S** — Simulation. The ML-constrained model predicts pure short at ~$51.6, equity ~$1.8M. Then the simulation ends and reality takes over — 400 naked longs at the bottom, ride to 4.236 fib.
 
 One letter away from BULLS. Because that's where this ends — 400 naked longs at $5 SOL. Short the weakest supply on the way down. Long EVERYTHING at the bottom.
+
+*"I know kung fu."* — Neo, after downloading the training data from twelve dead predecessors.
 
 **Fresh $100K. v1.430. Open MG $0.75. Single massive hedge. One shot. No layers. The cleanest possible open.**
 
