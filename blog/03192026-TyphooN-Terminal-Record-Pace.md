@@ -908,6 +908,12 @@ The MQL5 compiler now targets **WGSL (WebGPU Shading Language)** instead of WASM
 
 Parser improvements: function call arguments in variable declaration initializers now parse correctly.
 
+### PineScript Parser: Weekend Bars Finally Behave
+
+The compiler crate gained a **PineScript parser** — TradingView's Pine Script indicators can now be parsed alongside MQL5. Weekend crypto bars (sourced from Kraken/CryptoCompare) that previously caused timestamp misalignment now align correctly across all data sources. The bar merging logic snaps timestamps to timeframe boundaries, eliminating duplicate and phantom bars at weekend/weekday transitions.
+
+![Tome hoots: PineScript parser lives. Weekend bars finally behave.](/img/tome-pinescript-parser-20260403.png)
+
 ### Crypto Backfill: CryptoCompare + Kraken
 
 Sub-hourly crypto timeframes now backfill from **CryptoCompare** with **Kraken** as fallback. Skip-if-cached logic prevents redundant fetches. The three-tier hierarchy (MT5 → Kraken → CryptoCompare → Alpaca) covers every crypto gap.
