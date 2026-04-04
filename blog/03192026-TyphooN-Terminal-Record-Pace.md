@@ -1410,7 +1410,20 @@ All 71 unique drawing colors now use the per-drawing `draw_color` field instead 
 
 Test distribution: **575 total** (up from 537). All pass.
 
-**788 total commits. ~63,500 LOC. 575 tests. Zero warnings.**
+### Graphical Upgrades: 6 Analytics Windows (2026-04-06, cont.)
+
+Six stats windows upgraded from plain text/tables to native egui charts and color-coded visualizations:
+
+- **Monte Carlo VaR** — bar chart rendering of VaR/CVaR levels instead of raw numbers
+- **Correlation Matrix** — colored heatmap cells: green (low) → yellow → orange → red (high correlation). Spot redundant DARWINs at a glance
+- **Seasonal Patterns** — monthly return bar chart with green (positive) / red (negative) bars. Visual seasonality detection
+- **Margin Monitor** — horizontal gauge with color zones (red/yellow/green) showing current margin utilization against thresholds
+- **Trade Journal** — cumulative P&L line chart tracking equity curve over journal entries
+- **Data Window** — color-coded indicator values: RSI overbought (red) / oversold (green), Fisher positive (green) / negative (red), ATR dimmed for context
+
+These windows previously showed raw numbers in tables. Now they render native egui charts — bar charts, heatmaps, gauges, and line plots — all GPU-rendered in the same frame as the rest of the UI.
+
+**789 total commits. ~63,600 LOC. 575 tests. Zero warnings.**
 
 -- TyphooN
 
