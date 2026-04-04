@@ -1435,15 +1435,23 @@ Five more analytics windows upgraded to native charts:
 
 **Color consistency pass across 12+ uncolored percentages:** drawdowns always render red, win rates use green/yellow/red thresholds, VaR corridor values color-coded to zone, contribution percentages green (positive) / red (negative). No more raw white numbers for metrics that have inherent good/bad semantics.
 
-### Order Entry Wired: Real Trades From the GUI (2026-04-06, final)
+### Order Entry Wired: Real Trades From the GUI (2026-04-06)
 
 The Order Entry panel's Submit button was logging instead of sending real orders — a migration regression from the frontend rewrite. Fixed: all five Alpaca order types (market, limit, stop, bracket, cancel) and tastytrade equity orders now fire real `BrokerCmd` messages to the broker backend. The button does what it says.
+
+Order placement integrates with the full **TyphooN v1.420 risk engine** already ported to Rust — all 4 order modes from the MQL5 EA are supported. The `RISK_CALC` command opens the position sizing calculator: enter equity, risk %, entry, stop loss, take profit, tick value/size → get lot sizing via `risk_lots()`, dollar risk, SL distance, R:R ratio, and usable margin. The margin monitor (`MARGIN` command) computes `max_safe_lots()` from the forward-looking TRIM formula and PROTECT urgency — the same math that manages live DARWINs on Darwinex. 100% of the TyphooN MQL5 EA's risk management features are available natively in Rust.
 
 **Order cancel buttons** added to the Orders panel — click to cancel any open order directly. No more command-line-only cancellation.
 
 **`warm_data_connection`** fires on Alpaca connect — pre-establishes the TCP+TLS handshake to the data API endpoint so the first bar fetch doesn't eat a cold-connect penalty.
 
-**791 total commits. ~63,900 LOC. 575 tests. Zero warnings.**
+### Compound Interest Calculator + Crypto Auto-Refresh (2026-04-06, late)
+
+**`COMPOUND` command** — compound interest calculator with growth chart. Enter principal, monthly contribution, annual rate, and time horizon. The calculator renders a line chart showing principal growth vs total contributions over time, with final balance and total interest earned. The same calculator from MarketWizardry.org's web tools, now native in the terminal with an egui line chart instead of a static HTML page.
+
+**Periodic crypto bar refresh** — crypto symbols auto-fetch fresh bars approximately every 60 seconds. Charts stay current without manual refresh or switching timeframes.
+
+**792 total commits. ~63,900 LOC. 575 tests. Zero warnings.**
 
 -- TyphooN
 
