@@ -1451,7 +1451,15 @@ Order placement integrates with the full **TyphooN v1.420 risk engine** already 
 
 **Periodic crypto bar refresh** — crypto symbols auto-fetch fresh bars approximately every 60 seconds. Charts stay current without manual refresh or switching timeframes.
 
-**792 total commits. ~63,900 LOC. 575 tests. Zero warnings.**
+### Fear & Greed Index, Trailing Stop, Per-Position Close (2026-04-07)
+
+**Fear & Greed Index window** — pulls live data from the alternative.me API and renders a colored gauge visualization (extreme fear → fear → neutral → greed → extreme greed). Auto-fetches on window open. One more data point for regime detection without leaving the terminal.
+
+**Order entry expanded to 6 order types** — added **trailing stop** and **stop-limit** to the existing market, limit, stop, and bracket types. Trailing stop follows price movement by a specified trail amount. Stop-limit converts to a limit order when the stop price is hit. Both wired to Alpaca's API.
+
+**Per-position close button** — each Alpaca position in the right panel now has an `(x)` button for one-click close. Sends `ClosePosition` command directly. Disabled for LAN clients (read-only mode prevents accidental trades from non-primary machines).
+
+**795 total commits. ~64,300 LOC. 575 tests. Zero warnings.**
 
 -- TyphooN
 
