@@ -1,4 +1,4 @@
-# DARWIN WBYE — The Bag Holder
+# DARWIN WBYE: The Bag Holder
 
 *46 symbols. -$246K. Diversification was supposed to save us.*
 

@@ -1,4 +1,4 @@
-# DARWIN BULS — Operation Maximum Voltage
+# DARWIN BULS: Operation Maximum Voltage
 
 *AJTK is dead. Long live BULS.*
 

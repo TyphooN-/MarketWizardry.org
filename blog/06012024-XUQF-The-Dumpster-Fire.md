@@ -1,4 +1,4 @@
-# DARWIN XUQF — The Dumpster Fire
+# DARWIN XUQF: The Dumpster Fire
 
 *1,140 consecutive losing trades. This is not a typo.*
 

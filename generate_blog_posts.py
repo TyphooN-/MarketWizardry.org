@@ -810,7 +810,20 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
         'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
     ]
-    article_section = 'DARWIN Lore' if any(kw in txt_file.name.lower() for kw in darwin_lore_stems) else 'Financial Analysis'
+    educational_stems = [
+        'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
+        'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
+        'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
+        'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
+        'terminal-record-pace'
+    ]
+    fname_lower = txt_file.name.lower()
+    if any(kw in fname_lower for kw in darwin_lore_stems):
+        article_section = 'DARWIN Lore'
+    elif any(kw in fname_lower for kw in educational_stems):
+        article_section = 'Educational Resources'
+    else:
+        article_section = 'Financial Analysis'
 
     # Generate schema.org data
     schema_config = {
@@ -944,7 +957,8 @@ def update_blog_index(all_new_entries):
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
-        'nnfx-backtesting', 'backtest-optimization'
+        'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
+        'terminal-record-pace'
     ]
 
     darwin_lore_keywords = [

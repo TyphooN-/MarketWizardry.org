@@ -1,3 +1,5 @@
+# DARWIN QRRP: The Cascading Martingale That Turns $46K Into $1.75M Shorting Solana
+
 ## QRRP: The Cascading Martingale That Turns $46K Into $1.75M Shorting Solana
 
 > **DISCLAIMER:** This is not financial advice. This is a post-mortem analysis of a live position strategy using a proprietary EA. Do not attempt hedged martingale strategies without understanding that you can lose everything. Crypto CFDs carry extreme risk. You have been warned.

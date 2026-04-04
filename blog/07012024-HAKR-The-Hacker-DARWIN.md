@@ -1,4 +1,4 @@
-# DARWIN HAKR — H4ck1ng 4ll Kn0wn R3s1stanc3s
+# DARWIN HAKR: H4ck1ng 4ll Kn0wn R3s1stanc3s
 
 *H4ck th3 pl4n3t.*
 

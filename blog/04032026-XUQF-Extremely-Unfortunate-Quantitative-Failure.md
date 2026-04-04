@@ -1,4 +1,4 @@
-# DARWIN XUQF — eXtremely Unfortunate, Quite Frankly
+# DARWIN XUQF: eXtremely Unfortunate, Quite Frankly
 
 *Captain of the Drawdown Gang. Rank #2,032. -$669,580. Undefeated.*
 

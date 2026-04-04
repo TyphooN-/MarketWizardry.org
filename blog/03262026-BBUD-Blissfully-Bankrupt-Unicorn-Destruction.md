@@ -1,4 +1,4 @@
-# DARWIN BBUD — Blissfully Bankrupt Unicorn Destruction
+# DARWIN BBUD: Blissfully Bankrupt Unicorn Destruction
 
 **In loving memory of QRRP and XJFD, who died as they lived: overleveraged and blaming the spread.**
 

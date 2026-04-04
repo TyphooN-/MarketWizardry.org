@@ -1,4 +1,4 @@
-# DARWIN MFSO — The Balanced Killer
+# DARWIN MFSO: The Balanced Killer
 
 *Perfectly balanced, as all things should be.*
 

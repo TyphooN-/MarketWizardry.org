@@ -1,4 +1,4 @@
-# DARWIN GVZJ — The CHGG Specialist
+# DARWIN GVZJ: The CHGG Specialist
 
 *One stock to rule them all.*
 

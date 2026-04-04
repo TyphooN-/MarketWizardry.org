@@ -1,4 +1,4 @@
-# DARWIN WBYE — Wave Bye, Your Equity
+# DARWIN WBYE: Wave Bye, Your Equity
 
 *Why buy? Yeah. Exactly.*
 

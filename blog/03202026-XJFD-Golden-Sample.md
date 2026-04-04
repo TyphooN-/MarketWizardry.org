@@ -1,4 +1,4 @@
-# DARWIN XJFD — eXtreme Judicial Financial Destruction
+# DARWIN XJFD: eXtreme Judicial Financial Destruction
 
 **The golden sample. The reference chip. The one K|NGP|N keeps in the vault behind two padlocks and a retinal scanner, wrapped in anti-static foam, stored at exactly 21°C.**
 
