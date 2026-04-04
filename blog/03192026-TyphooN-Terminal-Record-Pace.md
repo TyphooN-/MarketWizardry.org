@@ -1435,7 +1435,15 @@ Five more analytics windows upgraded to native charts:
 
 **Color consistency pass across 12+ uncolored percentages:** drawdowns always render red, win rates use green/yellow/red thresholds, VaR corridor values color-coded to zone, contribution percentages green (positive) / red (negative). No more raw white numbers for metrics that have inherent good/bad semantics.
 
-**790 total commits. ~63,800 LOC. 575 tests. Zero warnings.**
+### Order Entry Wired: Real Trades From the GUI (2026-04-06, final)
+
+The Order Entry panel's Submit button was logging instead of sending real orders — a migration regression from the frontend rewrite. Fixed: all five Alpaca order types (market, limit, stop, bracket, cancel) and tastytrade equity orders now fire real `BrokerCmd` messages to the broker backend. The button does what it says.
+
+**Order cancel buttons** added to the Orders panel — click to cancel any open order directly. No more command-line-only cancellation.
+
+**`warm_data_connection`** fires on Alpaca connect — pre-establishes the TCP+TLS handshake to the data API endpoint so the first bar fetch doesn't eat a cold-connect penalty.
+
+**791 total commits. ~63,900 LOC. 575 tests. Zero warnings.**
 
 -- TyphooN
 
