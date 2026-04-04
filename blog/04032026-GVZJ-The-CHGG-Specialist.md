@@ -4,9 +4,9 @@
 
 **Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
-## G.V.Z.J. — Gambled Very Zealously on Just-CHGG
+## G.V.Z.J. — Gloriously Volatile Zero-hedge Junkie
 
-*Acronym expanded: **G**ambled **V**ery **Z**ealously on **J**ust-CHGG. 5,370 out of 7,319 trades. 73%. One stock. One obsession. One autistic love story between an algorithm and a failing education company. GVZJ doesn't need a diverse portfolio. GVZJ needs CHGG. Specifically CHGG. Only CHGG. Do not offer GVZJ another stock. GVZJ will not look at you.*
+*Acronym expanded: **G**loriously **V**olatile **Z**ero-hedge **J**unkie. 5,370 out of 7,319 trades. 73%. One stock. One obsession. One autistic love story between an algorithm and a failing education company. Zero hedge. Zero diversification. Zero fucks given. GVZJ doesn't need a diverse portfolio. GVZJ needs CHGG. Specifically CHGG. Only CHGG. Do not offer GVZJ another stock. GVZJ will not look at you.*
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Betting 73% of your trades on a single stock is not a strategy most people should attempt. You have been warned.
 
