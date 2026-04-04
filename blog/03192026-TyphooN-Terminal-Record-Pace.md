@@ -1206,10 +1206,10 @@ The website calculator page is now two tools that do two things correctly, rathe
 
 | Metric | 2026-04-03 | 2026-04-05 |
 |---|---|---|
-| **LOC** | 59,769 | **~62,700** (peaked 63,200, then -515 dead code purge) |
-| **Commits** | 734 | **778** |
+| **LOC** | 59,769 | **~62,900** |
+| **Commits** | 734 | **782** |
 | **Tests** | 480 | **537** |
-| **Drawing tools** | 70 | **89** |
+| **Drawing tools** | 70 | **89** (82 TV parity + 7 bonus) |
 | **Console commands** | 110 | **115** |
 | **BrokerCmd variants** | — | **57** |
 | **Crates** | 4 | 4 |
@@ -1363,7 +1363,30 @@ That's every harmonic pattern, every Elliott Wave variant, Gann squares, project
 
 **Zero bare `unwrap()` in production code.** Every fallible call in hot paths replaced with `unwrap_or`, `match`, early return, or `unwrap_or_default()`. `VecDeque::front()` uses `unwrap_or(&0)`. `bars.last()` returns early. Background connection and summary paths use `match`-continue. The tokio runtime init uses `expect()` (unrecoverable — acceptable). Chrono conversions use `unwrap_or_default()`. A trading terminal that panics during order execution is not a trading terminal — it's a liability. Zero panicking unwraps remain in any path that handles live data.
 
-**779 total commits. ~62,700 LOC. 537 tests. Zero warnings. Zero dead code. Zero bare unwraps.**
+### Full TradingView Drawing UX Parity (2026-04-05, cont.)
+
+The drawing toolkit now matches TradingView's UX feature-for-feature, plus 7 bonus tools TradingView doesn't have:
+
+**TradingView-standard keyboard shortcuts:**
+- `Alt+H` — Horizontal Line
+- `Alt+V` — Vertical Line
+- `Alt+T` — Trend Line
+- `Alt+F` — Fibonacci Retracement
+- `Alt+R` — Rectangle
+- `Alt+E` — Eraser
+- `Alt+C` — Cycle chart type (Candlestick → Heikin Ashi → Line → OHLC → Renko)
+
+**Pre-placement color picker:** 8-color toolbar palette. Select the color before placing the drawing — no more draw-first-edit-later workflow.
+
+**Per-drawing right-click property editor:** right-click any selected drawing to change its color, line width, and line style inline. No modal dialog. No settings panel. Right-click → pick → done.
+
+**Control point handles on selected drawings** — drag individual anchor points (Gap #3 from ADR-068, now complete). Select a Fibonacci, grab an endpoint, reposition it. Same interaction model as TradingView.
+
+**Follow-latest toggle** — lock the chart to auto-scroll with new bars, or unlock to freely scroll history. Toggle in the toolbar.
+
+All 71 unique drawing colors now use the per-drawing `draw_color` field instead of hardcoded constants. Removed unused `HLINE_COL`. **89 drawing tools = 82 TradingView tools + 7 bonus** (ElliottTripleCombo, CypherPattern, ThreeDrives, BarsPattern, DoubleCurve, AnchoredText, Comment).
+
+**782 total commits. ~62,900 LOC. 537 tests. Zero warnings.**
 
 -- TyphooN
 
