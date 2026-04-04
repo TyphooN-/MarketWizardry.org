@@ -1361,7 +1361,9 @@ That's every harmonic pattern, every Elliott Wave variant, Gann squares, project
 - **Discord webhook URL validation** hardened against path traversal and hostname spoofing. Webhook URLs are now validated for correct hostname (`discord.com` / `discordapp.com`) and path structure before any request fires. Prevents SSRF via malicious webhook URLs.
 - **Log VecDeque bounded to 500 entries** — the log buffer was unbounded, growing without limit. On long-running sessions, this was a slow memory leak. Capped at 500 entries with oldest-first eviction.
 
-**778 total commits. ~62,700 LOC. 537 tests. Zero warnings. Zero dead code.**
+**Zero bare `unwrap()` in production code.** Every fallible call in hot paths replaced with `unwrap_or`, `match`, early return, or `unwrap_or_default()`. `VecDeque::front()` uses `unwrap_or(&0)`. `bars.last()` returns early. Background connection and summary paths use `match`-continue. The tokio runtime init uses `expect()` (unrecoverable — acceptable). Chrono conversions use `unwrap_or_default()`. A trading terminal that panics during order execution is not a trading terminal — it's a liability. Zero panicking unwraps remain in any path that handles live data.
+
+**779 total commits. ~62,700 LOC. 537 tests. Zero warnings. Zero dead code. Zero bare unwraps.**
 
 -- TyphooN
 
