@@ -1198,6 +1198,111 @@ The **Compound Interest Calculator** is the same story — standalone math with 
 
 The website calculator page is now two tools that do two things correctly, rather than five tools where three are broken or stale. That's the right trade.
 
+## Update (2026-04-04): 765 Commits, 537 Tests, Drawing Tools Complete
+
+31 more commits since the last update. **765 total commits.** The codebase crossed **61,900 lines of pure Rust** across all four crates. 537 tests. Every major drawing tool category is now fully wired, draggable, and selectable.
+
+### Updated Stats (2026-04-04)
+
+| Metric | 2026-04-03 | 2026-04-04 |
+|---|---|---|
+| **LOC** | 59,769 | **~61,900** |
+| **Commits** | 734 | **765** |
+| **Tests** | 480 | **537** |
+| **Drawing tools** | 70 | **73** |
+| **Crates** | 4 | 4 |
+
+### MQL5 Compiler UI: Load, Compile, Inspect
+
+The MQL5 compiler crate got a full UI. The `COMPILE` command now opens a dedicated compiler window: select an MQL5 or PineScript file, compile it, and get structured diagnostics with line numbers, error categories, and metadata. Compilation results include function signatures, variable types, and detected indicator outputs. The compiler targets WGSL — custom indicators go straight to the GPU pipeline, not WASM, not a CPU fallback.
+
+**7 new tests** cover the compiler's output and AST pipeline.
+
+### BarBuilder: Real-Time Bar Streaming
+
+`BarBuilder` is the new live data engine for chart candles. The `StartStream` command initiates a streaming session. `StreamTick` and `StreamQuoteTick` messages feed individual tick data into the builder. The builder accumulates ticks into OHLCV bars, completes them at bar boundaries, and pushes them to the chart in real time.
+
+This is the headless path for algo deployment — no polling, no API calls on a timer. The stream feeds bars as they form. Charts update continuously without a refresh cycle.
+
+**7 new BarBuilder tests.**
+
+### Notifications Wired to Indicator Alerts
+
+Discord, Pushover, and ntfy notifications are now wired to the indicator alert engine. Configure an alert threshold on any indicator — when it fires, the notification goes out on all enabled channels. The terminal becomes an alert system that works whether you are watching it or not.
+
+**13 new notification tests.**
+
+### Drawing Tools: 73 Types, All Selectable, All Draggable
+
+Drawing tools hit **73 types** with complete professional UX:
+
+- **Hit-test selection** on all 73 drawing types — click any drawing object on the chart to select it
+- **Move/drag** for all 73 types — grab any drawing and reposition it on the chart
+- **Width and style** controls wired across all types — line weight, dash style, and selection tint
+- **Undo/redo sync** across tab drag-drop and drawing operations
+- **Tab drag-drop** — reorder chart tabs by dragging
+
+Previously, selection worked on roughly 20 drawing types. Now it works on all of them. The drawing toolkit is at TradingView parity for selection and manipulation UX.
+
+### Analyst/Holders/Orderbook DOM/Option Chain Windows
+
+Four floating windows that previously logged raw data are now fully wired with structured rendering:
+
+- **Analyst Window** — analyst ratings, price targets, buy/hold/sell consensus
+- **Institutional Holders** — top holder names, share counts, percentage ownership, change quarter-over-quarter
+- **Orderbook DOM** — depth of market ladder with bid/ask stacks, volume visualization
+- **Option Chain** — strikes, expiry, Greeks (delta/gamma/theta/vega), OI, volume, IV — the full options analysis panel that tastytrade and Thinkorswim charge for
+
+All four render structured data grids instead of raw log output.
+
+### Screener: Filter, Sort, 5-Column Grid
+
+The stock screener got a UX pass:
+- **Filter bar** — type to filter results in real time
+- **Sort by bars** — order results by bar count (most data first)
+- **Colored source column** — visual distinction between MT5, Alpaca, Kraken, and other data sources
+- **5-column grid layout** — more results visible per screen without scrolling
+
+### Replay Mode: Actually Masks Future Bars
+
+Replay mode's chart now correctly hides future bars during playback. Previously the full bar history was visible while the replay cursor stepped through it — defeating the entire purpose of replay. Fixed: bars beyond the playback cursor are masked from the chart. Historical strategy review now works as intended.
+
+### 32 Custom Timeframes Restored
+
+The timeframe selector was rebuilt as a **ComboBox dropdown**, replacing the row of buttons that ran out of space above M5. All **32 custom timeframes via bar aggregation** are available: M2 through Y10. Right-click on any timeframe to switch context. `Alt+TF` keyboard shortcut. Every aggregated timeframe that MT5 offers, available in the terminal.
+
+### UX Polish
+
+- **Middle-click close** — close any chart tab with middle mouse button
+- **P&L%** — positions panel shows P&L as both dollar amount and percentage simultaneously
+- **MTF grid focus fix** — multi-timeframe grid correctly tracks focused symbol
+- **Weekend crypto auto-poll** — Kraken poll fires automatically on weekends without manual trigger
+
+### Smart MT5SYNC + Live Forming Bars
+
+The MT5 sync pipeline was overhauled:
+
+- **Smart skip** — MT5SYNC detects unchanged symbols and skips them, eliminating redundant database reads and bar merges on every sync cycle
+- **Regression detection** — if new bar data has fewer bars than the cache for a symbol, it is flagged as a regression instead of silently overwriting good data with bad data
+- **Detailed sync stats** — the sync window shows per-symbol counts: synced, skipped, regressed, errors
+- **Live bid/ask every 30s** — MT5 bid/ask prices update on a 30-second cycle and feed the chart's price lines
+- **Bar sync every 60s** — incremental bar sync on a 60-second cycle with auto-reload when new bars arrive
+- **Live forming bars** — the currently-forming bar updates in real time from MT5 bid/ask, Alpaca quotes, and watchlist prices without waiting for the bar to close
+
+### LAN Server Reliability
+
+The LAN server had a persistent auto-start regression where the KV client recovery path was overriding server mode on startup. Fixed via KV cache persistence — `server_enabled` survives restarts. IP address also persists across sessions. The LAN server now starts reliably on primary machines and stays off on client machines without manual configuration every session.
+
+Periodic resync added on the client side — the client resyncs on a schedule rather than waiting for server pushes, eliminating staleness on reconnect.
+
+### MQL5 Export Tests
+
+**7 new tests** for the MQL5 export pipeline covering round-trip accuracy from MQL5 source → AST → IR → WGSL output.
+
+**9 new LAN sync tests** covering the server/client state machine, KV propagation, and reconnect behavior.
+
+Total: **537 tests across all crates.** All pass.
+
 -- TyphooN
 
 ---
