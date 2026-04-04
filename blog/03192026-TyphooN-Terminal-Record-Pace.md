@@ -1392,7 +1392,13 @@ All 71 unique drawing colors now use the per-drawing `draw_color` field instead 
 
 **Fit All Bars** — `FIT` command or right-click menu. Zooms the chart to show the entire bar history in the viewport. One click to see the full picture.
 
-**784 total commits. ~62,900 LOC. 537 tests. Zero warnings.**
+### Adjustable Indicator Parameters + Multi-Symbol Chart Overlay (2026-04-05, final)
+
+**Adjustable indicator parameters:** 10 key indicator periods are now configurable per-chart via DragValue sliders in the Indicators panel — SMA slow/fast, EMA, RSI, ATR, Bollinger Bands, Stochastic, ADX, Fisher Transform, and Momentum. Drag a slider, the GPU recomputes immediately. No restart. No config file. No reloading the chart. Every parameter change triggers a GPU compute shader dispatch with the new period. Session-persisted per chart — set RSI to 21 on your BTC chart and it stays 21 next session.
+
+**Multi-symbol chart overlay** (`COMPARE` command): load a second symbol from cache and render it as a purple percentage-change line normalized to the primary chart's price axis. Compare AAPL vs SPY on the same chart. The overlay scales the second symbol's price history to percentage change from its first visible bar, so both symbols share the same Y-axis regardless of absolute price difference. Session-persisted.
+
+**786 total commits. ~63,100 LOC. 537 tests. Zero warnings.**
 
 -- TyphooN
 
