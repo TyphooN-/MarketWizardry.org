@@ -20,7 +20,7 @@ XUQF is the animal.
 
 **-$669,580.** Net. After commissions. Across 5,769 trades. Over 21 months. On a signal account that started with $100,000 of virtual capital and spent every single one of those 21 months working hard to send that capital into the void.
 
-XUQF is ranked **#2,032 out of 9,138 DARWINs** in the Silver pool. The 2,032nd best DARWIN. In a pool of 9,138. That means 7,106 DARWINs are performing better than XUQF by Darwinex's scoring system. The DarwinIA algorithm looks at XUQF's 66.44 rating and says "we need to have a conversation."
+XUQF is ranked **#2,032 out of 9,138 DARWINs** in the Silver pool. The 2,032nd best DARWIN. In a pool of 9,138. That means XUQF is outperforming **7,106 DARWINs** below it by Darwinex's scoring system. Let that sink in — a DARWIN that lost $669K is still beating 78% of the competition. The DarwinIA algorithm looks at XUQF's 66.44 rating and says "we need to have a conversation" — but at least it's having that conversation from the top quartile.
 
 The guaranteed allocation threshold is 75.00. XUQF is at 66.44. XUQF isn't just below the threshold — it's the threshold calling XUQF from across the room and XUQF answering from a different area code.
 

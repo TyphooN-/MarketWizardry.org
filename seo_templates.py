@@ -125,8 +125,8 @@ class SEOManager:
         Args:
             breadcrumb_path: List of dicts with 'name' and 'url' keys
             Example: [
-                {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
-                {'name': '📊 Blog', 'url': 'blog.html'},
+                {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
+                {'name': '📊 Blog', 'url': '/blog.html'},
                 {'name': 'VaR Analysis', 'url': None}  # Current page
             ]
         """
@@ -477,61 +477,61 @@ PAGE_CONFIGS = {
 def get_breadcrumb_paths():
     """Define standard breadcrumb paths for the site"""
     return {
-        'home': [{'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'}],
+        'home': [{'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'}],
         'blog': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
-            {'name': '📊 Blog', 'url': 'blog.html'}
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
+            {'name': '📊 Blog', 'url': '/blog.html'}
         ],
         'calculator': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': 'Calculator Suite', 'url': 'calculator.html'}
         ],
         'var_explorer': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '🎯 VaR Explorer', 'url': 'var-explorer.html'}
         ],
         'atr_explorer': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '📈 ATR Explorer', 'url': 'atr-explorer.html'}
         ],
         'ev_explorer': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '💼 EV Explorer', 'url': 'ev-explorer.html'}
         ],
         'gallery': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '🎨 NFT Gallery', 'url': 'nft-gallery.html'}
         ],
         'about': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': 'ℹ️ About', 'url': 'about.html'}
         ],
         'affiliates': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '🤝 Affiliates', 'url': 'affiliates.html'}
         ],
         'donate': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '💰 Donate', 'url': 'donate.html'}
         ],
         'code': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '💻 Code', 'url': 'code.html'}
         ],
         'var_cult': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '🔮 VaR Cult', 'url': 'var-cult.html'}
         ],
         'terms': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '📜 Terms', 'url': 'terms.html'}
         ],
         'ai_art': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '🎨 AI Art', 'url': 'ai-art.html'}
         ],
         'ai_musings': [
-            {'name': '🏠 Market Wizardry', 'url': 'market-wizardry.html'},
+            {'name': '🏠 Market Wizardry', 'url': '/market-wizardry.html'},
             {'name': '🤖 AI Musings', 'url': 'ai-musings.html'}
         ]
     }

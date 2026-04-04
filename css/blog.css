@@ -198,14 +198,14 @@ h1 {
         padding: 10px;
     }
     .modal {
-        padding-top: 20px;
+        padding: 10px 5px;
     }
     .modal-content {
         width: 95%;
-        margin: 5px auto;
-        max-height: calc(100vh - 70px);
-        max-height: calc(100dvh - 70px);
-        overflow-y: auto;
+        margin: 0 auto;
+        max-height: calc(100vh - 20px);
+        max-height: calc(100dvh - 20px);
+        overflow: hidden;
         display: flex;
         flex-direction: column;
     }
@@ -252,10 +252,10 @@ h1 {
         padding: 10px;
     }
     .modal-content {
-        width: 95%;
-        margin: 5px auto;
-        max-height: calc(100vh - 50px);
-        max-height: calc(100dvh - 50px);
+        width: 98%;
+        margin: 0 auto;
+        max-height: calc(100vh - 20px);
+        max-height: calc(100dvh - 20px);
     }
     .modal-text {
         font-size: 0.65em;
