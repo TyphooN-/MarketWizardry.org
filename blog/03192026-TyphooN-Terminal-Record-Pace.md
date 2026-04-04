@@ -1204,11 +1204,11 @@ The website calculator page is now two tools that do two things correctly, rathe
 
 ### Updated Stats (2026-04-04)
 
-| Metric | 2026-04-03 | 2026-04-04 |
+| Metric | 2026-04-03 | 2026-04-05 |
 |---|---|---|
-| **LOC** | 59,769 | **~63,200** |
-| **Commits** | 734 | **774** |
-| **Tests** | 480 | **551** |
+| **LOC** | 59,769 | **~62,700** (peaked 63,200, then -515 dead code purge) |
+| **Commits** | 734 | **778** |
+| **Tests** | 480 | **537** |
 | **Drawing tools** | 70 | **89** |
 | **Console commands** | 110 | **115** |
 | **BrokerCmd variants** | — | **57** |
@@ -1349,7 +1349,19 @@ That's every harmonic pattern, every Elliott Wave variant, Gann squares, project
 
 **Watchlist CRUD + Alpaca options chain** wired to the API layer. DARWIN export/import pattern warnings cleaned up — zero compiler warnings across the entire codebase.
 
-**BrokerCmd count: 57** (was 46). **Drawing tools: 89** (was 70). **774 total commits. ~63,200 LOC. 551 tests. Zero warnings.**
+**BrokerCmd count: 57** (was 46). **Drawing tools: 89** (was 70).
+
+### Dead Code Purge + Security Hardening (2026-04-05)
+
+**515 lines of dead code removed** in a single commit. Deleted: 8 unused CSS color constants, the `DrawingEntry` struct, `ATR_PROJ_COL`, `KEEPALIVE_SECS`, `confirm_close_all`, `watchlist_symbols`, `screenshot_path`, `created_at`, `should_query_db()`, standalone `OrderBlock`/`FVG`/`MarketStructure` detection helpers (inline versions in `draw_chart` remain). Removed all stale `#[allow(dead_code)]` annotations from 50+ Drawing variants and used structs. LOC went from ~63,200 to ~62,700 — the codebase got smaller while gaining features.
+
+**Three security fixes:**
+
+- **Constant-time HMAC comparison** in LAN sync authentication — the previous byte-by-byte comparison was vulnerable to timing attacks. An attacker on the LAN could theoretically measure response time differences to reconstruct the HMAC key byte by byte. Fixed with constant-time comparison.
+- **Discord webhook URL validation** hardened against path traversal and hostname spoofing. Webhook URLs are now validated for correct hostname (`discord.com` / `discordapp.com`) and path structure before any request fires. Prevents SSRF via malicious webhook URLs.
+- **Log VecDeque bounded to 500 entries** — the log buffer was unbounded, growing without limit. On long-running sessions, this was a slow memory leak. Capped at 500 entries with oldest-first eviction.
+
+**778 total commits. ~62,700 LOC. 537 tests. Zero warnings. Zero dead code.**
 
 -- TyphooN
 
