@@ -1206,9 +1206,9 @@ The website calculator page is now two tools that do two things correctly, rathe
 
 | Metric | 2026-04-03 | 2026-04-04 |
 |---|---|---|
-| **LOC** | 59,769 | **~62,000** |
-| **Commits** | 734 | **766** |
-| **Tests** | 480 | **537** |
+| **LOC** | 59,769 | **~62,300** |
+| **Commits** | 734 | **769** |
+| **Tests** | 480 | **551** |
 | **Drawing tools** | 70 | **73** |
 | **Console commands** | 110 | **115** |
 | **Crates** | 4 | 4 |
@@ -1316,7 +1316,23 @@ Five new commands wired to previously untapped Alpaca API endpoints:
 
 The FRED economic data dashboard expanded from a partial implementation to the **full 10-series suite**: Federal Funds Rate, 2Y/10Y/30Y Treasury Yields, CPI YoY, Core PCE, Unemployment Rate, Initial Jobless Claims, GDP Growth, and Consumer Sentiment. All 10 time series display with proper date ranges and auto-refresh.
 
-ADR counts updated: **46 BrokerCmd** variants, **29 BrokerMsg** variants. **766 total commits. ~62,000 LOC.**
+ADR counts updated: **46 BrokerCmd** variants, **29 BrokerMsg** variants.
+
+### DARWIN Analytics Wiring + 551 Tests (2026-04-04, cont.)
+
+Three DARWIN analytics functions wired to the per-account display:
+
+- **Performance Attribution** — decomposes per-DARWIN returns into symbol-level contributions. See exactly which symbols drove profits and which dragged performance for each account.
+- **D-Score Components** — all 8 Darwinex investability scores rendered per-account with color-coded thresholds (experience, risk management, consistency, etc.)
+- **Investment Velocity** — AuM growth rate and investor flow momentum per DARWIN over time.
+
+**Price target** data now displays in the Analyst window alongside ratings consensus — mean, median, high, low targets visible at a glance next to buy/hold/sell counts.
+
+**14 new tests:** 4 FRED endpoint tests + 10 screener tests covering filter logic, sort ordering, and source column rendering. Test distribution: **82 compiler + 383 engine + 86 native = 551 total.**
+
+Code cleanup: `FISHER_SIG` constant replaces hardcoded `Color32` for the Fisher Transform signal line — consistent theming across indicator rendering.
+
+**769 total commits. ~62,300 LOC.**
 
 -- TyphooN
 
