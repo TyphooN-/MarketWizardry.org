@@ -1206,11 +1206,12 @@ The website calculator page is now two tools that do two things correctly, rathe
 
 | Metric | 2026-04-03 | 2026-04-04 |
 |---|---|---|
-| **LOC** | 59,769 | **~62,300** |
-| **Commits** | 734 | **769** |
+| **LOC** | 59,769 | **~63,200** |
+| **Commits** | 734 | **774** |
 | **Tests** | 480 | **551** |
-| **Drawing tools** | 70 | **73** |
+| **Drawing tools** | 70 | **89** |
 | **Console commands** | 110 | **115** |
+| **BrokerCmd variants** | — | **57** |
 | **Crates** | 4 | 4 |
 
 ### MQL5 Compiler UI: Load, Compile, Inspect
@@ -1332,7 +1333,23 @@ Three DARWIN analytics functions wired to the per-account display:
 
 Code cleanup: `FISHER_SIG` constant replaces hardcoded `Color32` for the Fisher Transform signal line — consistent theming across indicator rendering.
 
-**769 total commits. ~62,300 LOC.**
+### 19 New Drawing Tools (70→89), Eraser, Cross-TF, DXLink Streaming (2026-04-04, final)
+
+The drawing toolkit jumped from **70 to 89 tools** in a single commit. The 19 new tools:
+
+Circle, PitchFan, TrendFibTime, GannSquare, GannSquareFixed, BarsPattern, Projection, DoubleCurve, AnchoredText, Comment, ArrowMarkerLeft, ArrowMarkerRight, TrianglePattern, ThreeDrives, ElliottDouble, AbcdPattern, CypherPattern, ElliottTriangle, ElliottTripleCombo.
+
+That's every harmonic pattern, every Elliott Wave variant, Gann squares, projection tools, and annotation types. The drawing toolkit now covers the full TradingView drawing palette.
+
+**Eraser cursor mode** (`DRAW_ERASER`): click near any drawing to delete it instantly. No more right-click → delete menu diving. Click. Gone.
+
+**Cross-timeframe drawings** (`CROSS_TF`): toggle to share drawings across all timeframes for the same symbol. Draw a Fibonacci on H4, see it on D1 and W1 automatically. Previously, drawings were timeframe-locked.
+
+**DXLink real-time streaming**: `subscribe_quotes()` wires tastytrade's DXLink WebSocket for live quote streaming. Real-time bid/ask/last from tastytrade alongside Alpaca's feed.
+
+**Watchlist CRUD + Alpaca options chain** wired to the API layer. DARWIN export/import pattern warnings cleaned up — zero compiler warnings across the entire codebase.
+
+**BrokerCmd count: 57** (was 46). **Drawing tools: 89** (was 70). **774 total commits. ~63,200 LOC. 551 tests. Zero warnings.**
 
 -- TyphooN
 
