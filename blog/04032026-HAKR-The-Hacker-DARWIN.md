@@ -2,7 +2,7 @@
 
 *H4ck th3 pl4n3t.*
 
-**Published: 2024-07-01 | Updated: 2026-04-03 | TyphooN | MarketWizardry.org**
+**Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The humor is real. The losses were real. The $1.18M profit was also real. Do not attempt to replicate any of this without understanding that you can and will lose money. You have been warned. H4ck th3 pl4n3t.
 

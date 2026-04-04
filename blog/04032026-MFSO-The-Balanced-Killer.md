@@ -2,7 +2,7 @@
 
 *Perfectly balanced, as all things should be.*
 
-**Published: 2024-11-01 | Updated: 2026-04-03 | TyphooN | MarketWizardry.org**
+**Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
 ## M.F.S.O. — Magnificently F***ing Slow Operation
 

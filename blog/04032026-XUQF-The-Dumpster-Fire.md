@@ -2,7 +2,7 @@
 
 *1,140 consecutive losing trades. This is not a typo.*
 
-**Published: 2024-06-01 | TyphooN | MarketWizardry.org**
+**Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. What you are about to read is a cautionary tale. If at any point you think "that sounds like something I would do," close your trading account immediately and take up gardening. You have been warned.
 

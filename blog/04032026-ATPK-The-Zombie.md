@@ -2,7 +2,7 @@
 
 *Not dead. Not alive. Just... here.*
 
-**Published: 2024-10-01 | Updated: 2026-04-03 | TyphooN | MarketWizardry.org**
+**Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
 ## A.T.P.K. — At This Point, Kill (Switch)
 
