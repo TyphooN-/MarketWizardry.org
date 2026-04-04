@@ -4,9 +4,9 @@
 
 **Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
-## M.F.S.O. — Magnificently F***ing Slow Operation
+## M.F.S.O. — Magnificently Fucking Slow Operation
 
-*Acronym expanded: **M**agnificently **F**\*\*\*ing **S**low **O**peration. $296K in profit. 51% long. 49% short. One $95,040 single trade. The most boring DARWIN in the portfolio. The one that shows up on time, drinks two beers, makes a quarter million dollars, and goes home at a reasonable hour while everyone else is either printing millions (HAKR) or lighting money on fire (XUQF). Magnificently fucking slow. Magnificently fucking profitable.*
+*Acronym expanded: **M**agnificently **F**ucking **S**low **O**peration. $296K in profit. 51% long. 49% short. One $95,040 single trade. The most boring DARWIN in the portfolio. The one that shows up on time, drinks two beers, makes a quarter million dollars, and goes home at a reasonable hour while everyone else is either printing millions (HAKR) or lighting money on fire (XUQF). Magnificently fucking slow. Magnificently fucking profitable.*
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The balance between long and short does not mean balanced risk. You can still lose everything. You have been warned.
 

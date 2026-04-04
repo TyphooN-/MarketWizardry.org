@@ -10,7 +10,7 @@
 
 ## X.U.Q.F. — eXtremely Unfortunate, Quite Frankly
 
-*Phonetically: "Excuse me? ...F***."*
+*Phonetically: "Excuse me? ...Fuck."*
 
 Every portfolio has an apex predator. Every portfolio also has the animal that the apex predator eats for breakfast, wipes its mouth with, and doesn't think about again.
 
