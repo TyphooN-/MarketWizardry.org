@@ -1423,7 +1423,19 @@ Six stats windows upgraded from plain text/tables to native egui charts and colo
 
 These windows previously showed raw numbers in tables. Now they render native egui charts — bar charts, heatmaps, gauges, and line plots — all GPU-rendered in the same frame as the rest of the UI.
 
-**789 total commits. ~63,600 LOC. 575 tests. Zero warnings.**
+### Graphical Upgrades Batch 2: 5 More Windows + Color Pass (2026-04-06, final)
+
+Five more analytics windows upgraded to native charts:
+
+- **Stress Test** — impact bar chart showing projected portfolio loss under each historical crash scenario (COVID, GFC, Rate Hike, Flash Crash, Tech Wreck, Crypto Winter)
+- **VaR Multiplier** — corridor gauge showing current VaR position within the Darwinex 3.25%–6.5% target range with color zones
+- **Risk Calculator** — risk/reward visualization bar for the current trade setup
+- **Cache Statistics** — data distribution bar chart showing cache utilization across tiers
+- **News** — sentiment coloring on headlines (positive/negative/neutral)
+
+**Color consistency pass across 12+ uncolored percentages:** drawdowns always render red, win rates use green/yellow/red thresholds, VaR corridor values color-coded to zone, contribution percentages green (positive) / red (negative). No more raw white numbers for metrics that have inherent good/bad semantics.
+
+**790 total commits. ~63,800 LOC. 575 tests. Zero warnings.**
 
 -- TyphooN
 
