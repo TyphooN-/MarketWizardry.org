@@ -1206,10 +1206,11 @@ The website calculator page is now two tools that do two things correctly, rathe
 
 | Metric | 2026-04-03 | 2026-04-04 |
 |---|---|---|
-| **LOC** | 59,769 | **~61,900** |
-| **Commits** | 734 | **765** |
+| **LOC** | 59,769 | **~62,000** |
+| **Commits** | 734 | **766** |
 | **Tests** | 480 | **537** |
 | **Drawing tools** | 70 | **73** |
+| **Console commands** | 110 | **115** |
 | **Crates** | 4 | 4 |
 
 ### MQL5 Compiler UI: Load, Compile, Inspect
@@ -1302,6 +1303,20 @@ Periodic resync added on the client side — the client resyncs on a schedule ra
 **9 new LAN sync tests** covering the server/client state machine, KV propagation, and reconnect behavior.
 
 Total: **537 tests across all crates.** All pass.
+
+### 5 Missing Alpaca API Endpoints + FRED Full 10-Series (2026-04-04, late)
+
+Five new commands wired to previously untapped Alpaca API endpoints:
+
+- **PRICE_TARGET** — analyst price target consensus (mean, median, high, low) from Alpaca's corporate actions API
+- **SHORT_INTEREST** — short interest data for any symbol, showing shares short, days to cover, and short ratio
+- **CORPORATE** — corporate actions feed (dividends, splits, spinoffs, mergers) with date ranges
+- **MOST_ACTIVE** — most active symbols by volume from Alpaca's market movers endpoint
+- **PORTFOLIO_HIST** — historical portfolio equity curve from the broker, rendered as a time series
+
+The FRED economic data dashboard expanded from a partial implementation to the **full 10-series suite**: Federal Funds Rate, 2Y/10Y/30Y Treasury Yields, CPI YoY, Core PCE, Unemployment Rate, Initial Jobless Claims, GDP Growth, and Consumer Sentiment. All 10 time series display with proper date ranges and auto-refresh.
+
+ADR counts updated: **46 BrokerCmd** variants, **29 BrokerMsg** variants. **766 total commits. ~62,000 LOC.**
 
 -- TyphooN
 
