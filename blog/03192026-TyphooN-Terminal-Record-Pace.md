@@ -1208,7 +1208,7 @@ The website calculator page is now two tools that do two things correctly, rathe
 |---|---|---|
 | **LOC** | 59,769 | **~62,900** |
 | **Commits** | 734 | **782** |
-| **Tests** | 480 | **537** |
+| **Tests** | 480 | **575** |
 | **Drawing tools** | 70 | **89** (82 TV parity + 7 bonus) |
 | **Console commands** | 110 | **115** |
 | **BrokerCmd variants** | — | **57** |
@@ -1398,7 +1398,19 @@ All 71 unique drawing colors now use the per-drawing `draw_color` field instead 
 
 **Multi-symbol chart overlay** (`COMPARE` command): load a second symbol from cache and render it as a purple percentage-change line normalized to the primary chart's price axis. Compare AAPL vs SPY on the same chart. The overlay scales the second symbol's price history to percentage change from its first visible bar, so both symbols share the same Y-axis regardless of absolute price difference. Session-persisted.
 
-**786 total commits. ~63,100 LOC. 537 tests. Zero warnings.**
+### Bid/Ask Spread Lines + 575 Tests (2026-04-06)
+
+**Live bid/ask spread lines on chart** — green dashed line for bid, red dashed for ask, fed from real-time streaming quotes. The spread is visible at a glance on every chart without checking a separate panel. All TradingView/MT5 UX gaps now filled.
+
+**Undo/redo toast feedback** — undo (`Ctrl+Z`) and redo (`Ctrl+Y`) actions now show confirmation messages in the log panel so you know what was undone.
+
+**38 new tests** covering two previously untested broker integrations:
+- **DXLink (16 tests):** token struct, candle struct, quote struct, `parse_f64` edge cases (NaN, Infinity, null, bool coercion)
+- **tastytrade (22 tests):** session/account/position/expiration/strike/Greeks struct tests, Greeks defaults, empty strikes handling
+
+Test distribution: **575 total** (up from 537). All pass.
+
+**788 total commits. ~63,500 LOC. 575 tests. Zero warnings.**
 
 -- TyphooN
 
