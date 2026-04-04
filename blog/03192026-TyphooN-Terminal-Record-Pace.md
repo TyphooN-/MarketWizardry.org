@@ -1386,7 +1386,13 @@ The drawing toolkit now matches TradingView's UX feature-for-feature, plus 7 bon
 
 All 71 unique drawing colors now use the per-drawing `draw_color` field instead of hardcoded constants. Removed unused `HLINE_COL`. **89 drawing tools = 82 TradingView tools + 7 bonus** (ElliottTripleCombo, CypherPattern, ThreeDrives, BarsPattern, DoubleCurve, AnchoredText, Comment).
 
-**782 total commits. ~62,900 LOC. 537 tests. Zero warnings.**
+### Logarithmic Price Scale + Fit All Bars (2026-04-05, late)
+
+**Logarithmic price scale** — `Alt+L`, `LOG_SCALE` command, or right-click menu. Uses `ln()` mapping so that a move from $10→$20 (100%) takes the same vertical space as $100→$200 (100%). Essential for volatile assets like crypto and small-caps where linear scale compresses the early price history into a flat line. Session-persisted per chart — switch to log on BTC/USD and it stays log when you reopen.
+
+**Fit All Bars** — `FIT` command or right-click menu. Zooms the chart to show the entire bar history in the viewport. One click to see the full picture.
+
+**784 total commits. ~62,900 LOC. 537 tests. Zero warnings.**
 
 -- TyphooN
 
