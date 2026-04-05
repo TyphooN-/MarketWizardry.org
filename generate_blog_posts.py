@@ -606,8 +606,8 @@ def generate_witty_description(content, filename, title):
         'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
-        'atpk': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
-        'the-zombie': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
+        'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
+        'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
@@ -1263,8 +1263,8 @@ def generate_flavor_text(title, filename):
         'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
-        'atpk': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
-        'the-zombie': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
+        'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
+        'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'wave-bye': "DARWIN WBYE: Wave Bye, Your Equity. -$245K net. $228K incinerated on NVDA across 159 trades. Rating 76.53 — above guaranteed allocation. The signal is a crime scene. The DARWIN is a rehabilitation project.",
         'bag-holder': "DARWIN WBYE: The Bag Holder. The DARWIN that holds bags so heavy they have their own gravitational field. NVDA, LAZR, and a complete inability to let go.",
         'extremely-unfortunate': "DARWIN XUQF: eXtremely Unfortunate, Quite Frankly. -$669K. 14.54% win rate. Captain of the Drawdown Gang. LAZR: 2,127 trades, -$555K. Still beating 78% of DarwinIA Silver.",

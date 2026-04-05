@@ -4,9 +4,9 @@
 
 **Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
-## A.T.P.K. — At This Point, Kill (Switch)
+## A.T.P.K. — Always Targeting Player Kills
 
-*Acronym expanded: **A**t **T**his **P**oint, **K**ill (switch). As in: at this point, you should probably flip the kill switch. But you don't. Because it's technically profitable. Because $7.29 per trade is technically positive. Because the zombie is technically alive. At this point, kill — but you can't. It won't die.*
+*Acronym expanded: **A**lways **T**argeting **P**layer **K**ills. The undead PKer of the Darwinex arena. Shambling through the market, $7.29 per kill. Other DARWINs swing for millions. ATPK grinds mobs for copper. 2,879 kills and counting. Every other trader's stop loss is ATPK's loot drop. The zombie doesn't need to be fast. It just needs to be relentless. Always targeting. Always killing. Always collecting $7.29 from the corpse.*
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Making $7.29 per trade is not a viable retirement strategy. You have been warned.
 
