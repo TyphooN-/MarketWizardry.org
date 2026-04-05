@@ -682,7 +682,7 @@ def ensure_proper_capitalization(title):
     always_caps = [
         'QRRP', 'SOL', 'ADA', 'DOGE', 'BTC', 'ETH', 'BNB', 'XRP',
         'DARWIN', 'DARWINS', 'DARWINIA',
-        'SOLUSD', 'ADAUSD', 'DOGEUSD', 'BTCUSD', 'ETHUSD', 'XRPUSD',
+        'SOLUSD', 'ADAUSD', 'DOGEUSD', 'BTCUSD', 'ETHUSD', 'XRPUSD', 'XNGUSD',
         'SRPT', 'NNFX', 'MQL5', 'MQL4', 'EA', 'EAs',
         'XUQF', 'BBUD', 'XJFD', 'AJTK', 'TRIM', 'PROTECT',
         'WBYE', 'HAKR', 'ATPK', 'GVZJ', 'MFSO', 'BULS', 'QRRP',
