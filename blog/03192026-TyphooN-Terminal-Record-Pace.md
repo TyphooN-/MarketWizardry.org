@@ -1495,11 +1495,21 @@ Crypto charts on weekends were broken on the LAN client — the periodic fetch r
 
 BarCacheWriter exports all 851 symbols × 9 timeframes on every reboot — a 5-10 minute cold start that re-exports data the terminal may never use. The new **demand.txt** system fixes this.
 
-On session save, the terminal writes a `demand_N.txt` file listing only the symbols it actually needs — chart tab symbols + watchlist symbols. The file is written to persistent `~/.typhoon/cache/` (survives `/dev/shm` reboot) and a copy is placed next to the MT5 database for BarCacheWriter to read. Symlinks are resolved via `canonicalize()` to avoid writing to ramdisk.
+On session save, the terminal writes `demand.txt` to persistent `~/.typhoon/cache/` (survives `/dev/shm` reboot). **Smart filtering:** only MT5-sourced symbols are included — crypto (Kraken/CryptoCompare) and ETFs/indices (Alpaca) are excluded since neither needs BarCacheWriter. DARWIN open position symbols are added automatically. The filter checks chart source prefix (`mt5`/`default`/`paper_`) to determine what actually comes from MT5.
 
-When BarCacheWriter reads `demand.txt` on startup, it only re-exports the listed symbols instead of the full 851. Cold start drops from 5-10 minutes to seconds — only the symbols you're actively watching get re-exported. One `demand_N.txt` per MT5 database instance.
+When BarCacheWriter reads `demand.txt` on startup, it only re-exports the listed symbols instead of the full 851. Cold start drops from 5-10 minutes to seconds.
 
-**809 total commits. ~65,000 LOC. 586 tests. Zero warnings.**
+### LAN Crypto Fix + Workspace Freeze Fix (2026-04-08)
+
+Three fixes in one commit:
+
+1. **Periodic crypto fetch is now server-only** — LAN clients get crypto data via KV sync, no direct API calls. Reverts the earlier "local execution on both" approach which caused duplicate Kraken/CryptoCompare requests. The server fetches once, syncs to all clients.
+
+2. **CryptoCompare for D1+ backfill** — daily and higher timeframe crypto bars now fetch from CryptoCompare instead of Alpaca `FetchBars`. CryptoCompare has deeper crypto history and doesn't require broker authentication.
+
+3. **Workspace UI freeze eliminated** — the `WORKSPACE` command was calling 11 `keyring::store` operations synchronously on the main thread, each hitting DBUS on Linux (~100-200ms per call). Total: 1-2 seconds of frozen UI. All 11 keyring calls moved to a background thread. The workspace saves instantly and the keyring writes happen asynchronously.
+
+**812 total commits. ~65,000 LOC. 586 tests. Zero warnings.**
 
 -- TyphooN
 
