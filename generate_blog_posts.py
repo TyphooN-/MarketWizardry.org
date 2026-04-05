@@ -581,12 +581,27 @@ def generate_witty_description(content, filename, title):
         "Market research proving your economic analysis makes medieval alchemy look like modern chemistry."
     ]
     
-    # DARWIN lore posts — detect by filename keywords and content
+    # DARWIN graveyard posts — dead/retired DARWINs
+    darwin_graveyard_filenames = [
+        'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
+    ]
+    if any(kw in filename.lower() for kw in darwin_graveyard_filenames):
+        graveyard_descriptions = [
+            "Here lies a DARWIN that died the way it lived: at maximum voltage with zero regrets. BULS scavenged the corpse for detonation fuel.",
+            "Post-mortem from the DARWIN Graveyard. The corpse was exhumed, studied, and its organs transplanted into BULS. Flowers optional.",
+            "Another DARWIN rests in peace in a dark cemetery alongside its fallen siblings. BULS dug up the lessons and strapped them to a warhead.",
+            "From the graveyard: a DARWIN that fought the market and the market won. BULS looted the body for firmware upgrades.",
+            "Rest in pieces. This DARWIN's corpse was recycled into BULS ammunition. The dead fuel the living.",
+            "DARWIN Graveyard dispatch. Cause of death: documented in excruciating detail. Corpse donated to BULS for controlled detonation.",
+        ]
+        return select_unused_flavor_text(graveyard_descriptions, "Here lies a DARWIN that died the way it lived: at maximum voltage with zero regrets.")
+
+    # DARWIN lore posts — active/living DARWINs
     darwin_lore_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
-        'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
     ]
     if any(kw in filename.lower() for kw in darwin_lore_filenames):
         darwin_lore_descriptions = [
@@ -680,14 +695,14 @@ def extract_title_and_summary(content, filename):
         except (ValueError, TypeError):
             date_str = date_raw
 
-    # For DARWIN lore posts, read the H1 title directly from the markdown
-    darwin_lore_filenames = [
+    # For DARWIN lore/graveyard posts, read the H1 title directly from the markdown
+    darwin_all_filenames = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
         'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
     ]
-    is_darwin_lore = any(kw in filename.lower() for kw in darwin_lore_filenames)
+    is_darwin_lore = any(kw in filename.lower() for kw in darwin_all_filenames)
 
     if is_darwin_lore:
         # Extract H1 from markdown content
@@ -804,21 +819,26 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     })
 
     # Determine article section
+    darwin_graveyard_stems = [
+        'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
+    ]
     darwin_lore_stems = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
-        'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
     ]
     educational_stems = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
         'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
-        'terminal-record-pace'
+        'terminal-record-pace', 'burst-trim'
     ]
     fname_lower = txt_file.name.lower()
-    if any(kw in fname_lower for kw in darwin_lore_stems):
+    if any(kw in fname_lower for kw in darwin_graveyard_stems):
+        article_section = 'DARWIN Graveyard'
+    elif any(kw in fname_lower for kw in darwin_lore_stems):
         article_section = 'DARWIN Lore'
     elif any(kw in fname_lower for kw in educational_stems):
         article_section = 'Educational Resources'
@@ -948,9 +968,10 @@ def update_blog_index(all_new_entries):
 
     print(f"Updating blog with {len(all_new_entries)} total entries")
 
-    # Separate educational posts, DARWIN lore, and daily analysis
+    # Separate educational posts, DARWIN lore, graveyard, and daily analysis
     educational_posts = []
     darwin_lore_posts = []
+    darwin_graveyard_posts = []
     daily_analysis_posts = []
 
     educational_keywords = [
@@ -958,30 +979,39 @@ def update_blog_index(all_new_entries):
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
         'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
-        'terminal-record-pace'
+        'terminal-record-pace', 'burst-trim'
     ]
 
+    # Dead DARWINs — stopped out, post-mortems
+    darwin_graveyard_keywords = [
+        'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade'
+    ]
+
+    # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
-        'buls', 'ajtk', 'bbud', 'xjfd', 'qrrp', 'crypto-supply-analysis', 'crypto-long-analysis',
-        'burst-trim', 'xngusd',
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'the-hacker', 'the-zombie',
-        'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster', 'wave-bye',
+        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
+        'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
+        'the-bag-holder', 'the-dumpster', 'wave-bye', 'benchmark-underway',
         'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore'
     ]
 
     for entry in all_new_entries:
         filename_lower = entry['filename'].lower()
         is_educational = any(keyword in filename_lower for keyword in educational_keywords)
+        is_graveyard = any(keyword in filename_lower for keyword in darwin_graveyard_keywords)
         is_darwin_lore = any(keyword in filename_lower for keyword in darwin_lore_keywords)
 
         if is_educational:
             educational_posts.append(entry)
+        elif is_graveyard:
+            darwin_graveyard_posts.append(entry)
         elif is_darwin_lore:
             darwin_lore_posts.append(entry)
         else:
             daily_analysis_posts.append(entry)
 
-    print(f"Separated into {len(educational_posts)} educational, {len(darwin_lore_posts)} DARWIN lore, and {len(daily_analysis_posts)} daily analysis posts")
+    print(f"Separated into {len(educational_posts)} educational, {len(darwin_lore_posts)} DARWIN lore, {len(darwin_graveyard_posts)} graveyard, and {len(daily_analysis_posts)} daily analysis posts")
 
     # All entries now have flavor text, so we use them all
     all_entries = all_new_entries
@@ -1033,6 +1063,17 @@ def update_blog_index(all_new_entries):
         darwin_lore_html.extend(generate_entries_html(darwin_lore_posts, "darwin_lore"))
         darwin_lore_html.append('        </div>')
 
+    darwin_graveyard_html = []
+    if darwin_graveyard_posts:
+        darwin_graveyard_html = [
+            '        <div class="crt-divider"></div>',
+            '        <h2 class="section-header">🪦 DARWIN Graveyard</h2>',
+            '        <div class="crt-divider"></div>',
+            '        <div class="grid darwin-graveyard-grid">'
+        ]
+        darwin_graveyard_html.extend(generate_entries_html(darwin_graveyard_posts, "darwin_graveyard"))
+        darwin_graveyard_html.append('        </div>')
+
     if daily_analysis_posts:
         daily_analysis_html = [
             '        <div class="crt-divider"></div>',
@@ -1044,7 +1085,7 @@ def update_blog_index(all_new_entries):
         daily_analysis_html.append('        </div>')
 
     # Combine all entries HTML with sections
-    entries_html = educational_html + darwin_lore_html + daily_analysis_html
+    entries_html = educational_html + darwin_lore_html + darwin_graveyard_html + daily_analysis_html
     
     entries_section = '\n'.join(entries_html)
 

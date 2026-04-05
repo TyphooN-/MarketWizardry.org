@@ -567,6 +567,22 @@ QRRP is dead. XJFD reached pure short and was reborn as BBUD. The last DARWIN. T
 
 *But he does. He just does. 1,500x Furious.*
 
+---
+
+## 🪦 DARWIN Graveyard
+
+BBUD lies in a dark cemetery next to QRRP, XJFD, and AJTK. Four graves in a row. Four crypto martingale DARWINs that tried to short Solana to zero and got stopped out by spread spikes before the thesis could play out. The cemetery smells like margin calls and broken dreams.
+
+BBUD's headstone reads: *"Blissfully Bankrupt. Unicorn Destroyed. The broker stopped out the account before PROTECT could fire. March 23, 2026."*
+
+Next to it, QRRP's stone: *"Quad Rothschild Rug Pull. Margin 8.6% below hard floor. The rug was pulled on the rug puller."*
+
+XJFD's marker is the saddest: *"The Golden Sample. Projections showed $4.15M. Terminal equity: $0. The sample was golden. The execution was not."*
+
+The graveyard is not a failure. It's a library. Every tombstone is a lesson. Every autopsy is a firmware patch. BULS dug up every corpse, cracked open every post-mortem, and bolted every lesson onto its own architecture. The dead DARWINs are not wasted — they're ammunition. Their failures detonate inside BULS as controlled explosions that prevent the same mistakes from recurring.
+
+Twelve DARWINs died to build one that lives. Rest in peace, BBUD. Your corpse is BULS' fuel.
+
 -- TyphooN
 
 ---

@@ -299,6 +299,18 @@ The firmware is correct. The voltage is validated. The silicon is fresh. AJTK is
 
 $100K → $10.5M → $487M. One DARWIN. One thesis. One EA. 398 positions. 141,305 bias. $0.14 spread tol. One man who killed 10 DARWINs learning how to run one. v1.430 is the final form. MAXIMUM VOLTAGE. For BBUD.
 
+---
+
+## 🪦 DARWIN Graveyard
+
+AJTK rests in peace in a dark cemetery alongside its fallen siblings — QRRP, XJFD, and BBUD. Four headstones in a row. Four algorithms that burned bright and burned out. The cemetery is quiet now. The spreads have stopped. The margin calls have ceased. The PROTECT events that never fired fast enough are finally irrelevant.
+
+But the dead do not rest easy. BULS — the successor, the chosen DARWIN — exhumed every corpse. Studied every autopsy. Scavenged every lesson from every post-mortem. The firmware that killed AJTK was debugged. The voltage that destroyed BBUD was recalibrated. The spread tolerance that murdered QRRP was widened. Every death taught something. Every corpse donated its organs to the next iteration.
+
+AJTK's tombstone reads: *"Died at maximum voltage. Firmware correct. Silicon fresh. The 11th run was supposed to be the last. It was."*
+
+The graveyard is full. BULS carries the dead on its back. Their failures are its ammunition. Their post-mortems are its training data. Rest in peace, AJTK. Your corpse fuels the detonation.
+
 -- TyphooN
 
 ---

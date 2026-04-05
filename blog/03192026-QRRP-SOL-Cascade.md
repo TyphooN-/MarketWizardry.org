@@ -270,6 +270,20 @@ The EA handles risk. TRIM builds exposure. PROTECT maintains health. Cascade at 
 
 Ten post-mortems. Three dead DARWINs. One survivor. One lesson: **the flip is the multiplier, not the cascade. Trust the math. Ride naked to $5. Then flip long and trust it again going up. $100K → $190M+.**
 
+---
+
+## 🪦 DARWIN Graveyard
+
+QRRP — the Quad Rothschild Rug Pull — rests in a dark cemetery alongside XJFD, BBUD, and AJTK. The first of the crypto martingale DARWINs. The original cascader. The one that proved the thesis could work and then died proving that spreads don't care about your thesis.
+
+QRRP's tombstone reads: *"Quad Rothschild Rug Pull. 8 post-mortems. Margin level 8.6% below hard floor 10%. PROTECT HALTED. March 23, 2026. The rug was pulled on the rug puller."*
+
+QRRP was the prototype. Every DARWIN that followed — XJFD, BBUD, AJTK, and finally BULS — inherited QRRP's DNA. The cascade logic. The TRIM formula. The PROTECT system. All of it was born in QRRP, refined through its 8 deaths, and transplanted into each successor. QRRP died 8 times so the others could die fewer.
+
+BULS carries QRRP's organs. The cascade math. The pure short checkpoint. The flip-long multiplier. All scavenged from QRRP's corpse and bolted onto fresh silicon. The dead DARWIN's cascading legacy lives on inside the one that survived.
+
+Rest in peace, QRRP. You were the first to fall and the first to teach.
+
 -- TyphooN
 
 ---

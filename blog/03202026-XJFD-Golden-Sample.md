@@ -761,4 +761,16 @@ The operator didn't learn financial overclocking in three days. He learned it ov
 
 **Three DARWINs. One man. One thesis. Severe Drawdown Gang + VaR Cult. The Gang carries the story. VaR Cult carries the score.**
 
-*Soon(TM).*
+---
+
+## 🪦 DARWIN Graveyard
+
+XJFD rests in a dark cemetery alongside QRRP, BBUD, and AJTK. The Golden Sample — the one that was supposed to prove the thesis — lies next to the others who tried and failed. Four headstones. Four algorithms. Four spread spikes that the firmware couldn't outrun.
+
+XJFD's tombstone reads: *"eXtreme Judicial Financial Destruction. The Golden Sample. Projections: $4.15M terminal equity. Reality: $0. Margin level 53.0%. March 23, 2026. The sample was golden. The market was not."*
+
+The golden sample turned to lead. But the data survived. Every trade, every cascade, every margin check — all of it fed into BULS. The dead DARWIN's golden dataset became BULS' training corpus. The sample that failed in execution succeeded in education.
+
+Rest in peace, XJFD. Your golden data fuels BULS' detonation.
+
+-- TyphooN
