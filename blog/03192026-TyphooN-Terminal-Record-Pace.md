@@ -1541,7 +1541,9 @@ The XLSX trade history import is no longer Darwinex-only. The import pipeline no
 
 **LAN crypto backfill architecture finalized:** the server is the single source of truth for crypto data. Server runs periodic Kraken/CryptoCompare fetches for its active chart. The LAN client sends `FETCH_BARS` to the server (forwarded via LAN protocol), then triggers `LanResyncBars` for fast delivery. Server's `FETCH_BARS` handler detects crypto symbols and routes through `KrakenBackfill` (works on weekends without Alpaca). Client never hits Kraken/CC APIs directly.
 
-**820 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
+**LAN client demand forwarding:** clients no longer write a local `demand.txt`. Instead, the client's symbol list is forwarded to the server via KV (`client:demand`). On session save, the server reads `client:demand` from its KV cache and merges those symbols into its own `demand.txt` for BarCacheWriter. Result: BarCacheWriter re-exports symbols that ANY machine in the LAN is actively viewing — not just the server's charts.
+
+**821 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
