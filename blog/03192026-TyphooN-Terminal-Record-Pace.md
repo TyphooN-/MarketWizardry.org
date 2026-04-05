@@ -1491,7 +1491,15 @@ Crypto charts on weekends were broken on the LAN client — the periodic fetch r
 
 **Forming bar cascade fix:** synthesis now tries ALL lower timeframes from ALL sources (kraken/mt5/cryptocompare/alpaca × M1/M5/M15/M30/H1/H4/D1/W1) instead of just M5/M1. MN1 crypto backfill fixed — was sending `'MN1'` label instead of `'1Month'` cache suffix to Kraken. Periodic fetch uses next-lower TF for forming bar data. FetchBars handler now accepts both MT5 labels (`M1`/`H1`/`D1`/`W1`/`MN1`) and Alpaca format (`1Min`/`1Hour`/`1Day`/`1Week`/`1Month`) transparently — no cache key rename needed.
 
-**807 total commits. ~64,900 LOC. 586 tests. Zero warnings.**
+### Demand-Based BarCacheWriter Sync (2026-04-07, final)
+
+BarCacheWriter exports all 851 symbols × 9 timeframes on every reboot — a 5-10 minute cold start that re-exports data the terminal may never use. The new **demand.txt** system fixes this.
+
+On session save, the terminal writes a `demand_N.txt` file listing only the symbols it actually needs — chart tab symbols + watchlist symbols. The file is written to persistent `~/.typhoon/cache/` (survives `/dev/shm` reboot) and a copy is placed next to the MT5 database for BarCacheWriter to read. Symlinks are resolved via `canonicalize()` to avoid writing to ramdisk.
+
+When BarCacheWriter reads `demand.txt` on startup, it only re-exports the listed symbols instead of the full 851. Cold start drops from 5-10 minutes to seconds — only the symbols you're actively watching get re-exported. One `demand_N.txt` per MT5 database instance.
+
+**809 total commits. ~65,000 LOC. 586 tests. Zero warnings.**
 
 -- TyphooN
 
