@@ -12,7 +12,7 @@
 
 ## C.K.U.C. — Chad Killing Undervalued Commodities
 
-*Acronym expanded: **C**had **K**illing **U**ndervalued **C**ommodities. Read the ticker backwards. Now read it forwards. CKUC is CUCK in reverse. The inverse cuck. While other DARWINs hedge, diversify, and apologize for their positions, CKUC goes 32.1 lots long on XNGUSD and tells the market to come get some. No hedge. No safety net. No polite risk management. Just raw, uncut Chad energy directed at the natural gas supercycle thesis. The cuck watches his portfolio get fucked by the market. The inverse cuck fucks the market back.*
+*Acronym expanded: **C**had **K**illing **U**ndervalued **C**ommodities. Yes, the ticker shares letters with a certain word read backwards. No, CKUC is not that word. CKUC is the opposite of that word. CKUC doesn't watch — CKUC acts. CKUC doesn't hedge — CKUC goes 32.1 lots long on XNGUSD and tells the market to come get some. Just raw, uncut Chad energy directed at the natural gas supercycle thesis. TyphooN writes the rules. The market follows them or gets run over. 467% risk. Zero hedge. Full tilt. That's not reckless — that's conviction with a brokerage account.*
 
 ---
 
