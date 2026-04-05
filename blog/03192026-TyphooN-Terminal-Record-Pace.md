@@ -1208,7 +1208,7 @@ The website calculator page is now two tools that do two things correctly, rathe
 |---|---|---|
 | **LOC** | 59,769 | **~62,900** |
 | **Commits** | 734 | **782** |
-| **Tests** | 480 | **575** |
+| **Tests** | 480 | **586** |
 | **Drawing tools** | 70 | **89** (82 TV parity + 7 bonus) |
 | **Console commands** | 110 | **115** |
 | **BrokerCmd variants** | — | **57** |
@@ -1459,7 +1459,29 @@ Order placement integrates with the full **TyphooN v1.420 risk engine** already 
 
 **Per-position close button** — each Alpaca position in the right panel now has an `(x)` button for one-click close. Sends `ClosePosition` command directly. Disabled for LAN clients (read-only mode prevents accidental trades from non-primary machines).
 
-**795 total commits. ~64,300 LOC. 575 tests. Zero warnings.**
+### Draggable SL/TP, World Indices, Crypto50, Forex, HTF Forming Bars (2026-04-07, cont.)
+
+**Draggable SL/TP lines — full MT5 EA parity.** The complete TyphooN.mq5 `OrderLines` workflow is now native in the terminal:
+1. **Buy Lines** places SL at visible low + TP at visible high (Sell Lines inverted) — matching TyphooN.mq5 exactly
+2. **Drag** SL or TP line on the chart — click within 8px to start dragging, release to set new price. Blocks chart pan during drag.
+3. **Set SL / Set TP** buttons place real GTC stop/limit orders at the line price, opposite to position direction. `AlpacaModifyOrder` handles modifying existing bracket legs.
+4. **Destroy Lines** clears both.
+
+All buttons appear in both the right panel and Trading menu. This is the exact SL/TP management workflow from the MQL5 EA, running natively on Alpaca instead of MT5.
+
+**World Indices dashboard** (`INDICES` command) — 16 major global indices via ETF proxies (SPY, QQQ, IWM, DIA, EFA, EEM, VGK, EWJ, FXI, EWZ, etc.). Live quotes in a single dashboard.
+
+**Crypto Top 50** (`CRYPTO50` command) — top 50 cryptocurrencies by market cap from CoinGecko API with live prices, 24h change, market cap, and volume.
+
+**Forex major pairs** (`FOREX` command) — 10 major forex pairs with proper decimal precision (5 decimals for most, 3 for JPY crosses).
+
+**HTF forming bar synthesis** — when the last bar on H1/H4/D1/W1/MN1 is stale (common on weekends for crypto), the engine aggregates M5/M1 bars newer than the last HTF period boundary into a single forming bar. Tries M5 first, then M1, from MT5/Kraken/CryptoCompare sources. Fixes the weekend gap where HTF charts showed stale data while lower-timeframe data was available.
+
+**BarBuilder hardened** — validates NaN/Infinity/negative size/empty symbol/invalid timestamps (rejects instead of silently accepting). Added `ingest_quote()` for bid/ask mid-price updates, `flush_stale()` for timed bar completion, 10K completed buffer limit, and `active_count()`/`pending_count()` metrics. **18 tests** (was 7).
+
+**586 total tests.** Only 2 remaining feature gaps are external constraints (SqueezMetrics paid API, Alpaca OCO limitation). Every blog-claimed feature now exists.
+
+**803 total commits. ~64,800 LOC. 586 tests. Zero warnings.**
 
 -- TyphooN
 
