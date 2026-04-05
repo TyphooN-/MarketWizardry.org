@@ -1543,7 +1543,17 @@ The XLSX trade history import is no longer Darwinex-only. The import pipeline no
 
 **LAN client demand forwarding:** clients no longer write a local `demand.txt`. Instead, the client's symbol list is forwarded to the server via KV (`client:demand`). On session save, the server reads `client:demand` from its KV cache and merges those symbols into its own `demand.txt` for BarCacheWriter. Result: BarCacheWriter re-exports symbols that ANY machine in the LAN is actively viewing — not just the server's charts.
 
-**821 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
+### BARDATA: Full History Download + Multi-Broker Fetch (2026-04-09, cont.)
+
+**`BARDATA` command** — download ALL available bars from every connected broker in one command. `get_all_bars()` paginates from 2015 (equities) or 2000 (crypto) to present with progress reporting. Handles Alpaca rate limiting, monthly aggregation from weekly, crypto symbol normalization. Stores in cache, triggers chart reload. ADR-071 documents the feature.
+
+The command also pulls from **tastytrade** — DXLink historical bars plus the option chain for the symbol. One command, all brokers, all available data.
+
+**tastytrade sandbox fix:** sandbox URL updated from `api.cert.tastyworks.com` to `api.cert.tastytrade.com` (rebrand). Session saves on Settings close so `tt_sandbox` persists immediately. UI labels renamed TT → Tasty.
+
+**Negative price elimination (two passes):** bar sanity filter moved outside crypto-only block — now runs on ALL bars unconditionally. Added filter at cache read time (primary + gap-fill sources) to reject bad bars before merge. Also fixed the source: `aggregate_to_monthly` in both Kraken and CryptoCompare now skips zero/negative price daily bars during aggregation. Combined with load-time filtering, negative prices can never appear on any chart.
+
+**826 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
