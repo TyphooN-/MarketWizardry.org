@@ -1569,7 +1569,9 @@ The command also pulls from **tastytrade** — DXLink historical bars plus the o
 
 **ADR-072: Kraken as full broker** — proposed 3-phase integration: authentication + account info, order placement, WebSocket streaming. US-friendly, real-time, 200+ crypto pairs. Would make Kraken the third trading broker alongside Alpaca and tastytrade.
 
-**834 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
+**Multi-broker symbol search:** autocomplete now queries Alpaca (12K+ symbols), tastytrade (via `search_symbols` API), and CryptoCompare (48 popular coins) in parallel. Results show source tag `[Alpaca]`/`[tastytrade]`/`[CryptoCompare]`. Deduplicates across brokers. Type any ticker and see every broker that offers it — one search bar, three data sources.
+
+**835 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
