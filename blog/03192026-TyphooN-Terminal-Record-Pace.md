@@ -1559,7 +1559,9 @@ The command also pulls from **tastytrade** — DXLink historical bars plus the o
 
 **Smart BARDATA:** skips fully-cached symbols (>100 bars = sufficiently cached), prioritizes uncached first. Checks cache for existing symbol:TF combos before fetching. Crypto routes through Kraken + CryptoCompare only (not Alpaca). Stocks/forex use Alpaca. Only fetches missing TFs per symbol. Reports queued vs skipped counts — no redundant API calls on repeat runs.
 
-**829 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
+**Zero API calls on LAN clients and before cache loads.** Every periodic fetch path now has two guards: `is_lan_client` (server/standalone only) and `cache_loaded` (no calls until cache is ready). Periodic crypto fetch, weekend crypto sync, watchlist quotes — all gated. LAN clients get all data from the server via KV sync. No rogue API calls on startup, no rate limit hits before the terminal is ready, no duplicate fetches from client machines.
+
+**831 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
