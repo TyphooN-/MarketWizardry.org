@@ -1208,7 +1208,7 @@ The website calculator page is now two tools that do two things correctly, rathe
 |---|---|---|
 | **LOC** | 59,769 | **~62,900** |
 | **Commits** | 734 | **782** |
-| **Tests** | 480 | **586** |
+| **Tests** | 480 | **612** |
 | **Drawing tools** | 70 | **89** (82 TV parity + 7 bonus) |
 | **Console commands** | 110 | **115** |
 | **BrokerCmd variants** | — | **57** |
@@ -1509,7 +1509,17 @@ Three fixes in one commit:
 
 3. **Workspace UI freeze eliminated** — the `WORKSPACE` command was calling 11 `keyring::store` operations synchronously on the main thread, each hitting DBUS on Linux (~100-200ms per call). Total: 1-2 seconds of frozen UI. All 11 keyring calls moved to a background thread. The workspace saves instantly and the keyring writes happen asynchronously.
 
-**812 total commits. ~65,000 LOC. 586 tests. Zero warnings.**
+### 26 Compiler Tests — Zero Test Gaps (2026-04-08, cont.)
+
+**26 new tests** across 4 previously untested MQL5 compiler modules:
+- **lib.rs (5):** `compile_mql5`/`compile_pine` integration tests — end-to-end compilation pipeline
+- **ast.rs (9):** AST node construction, all variants, clone/debug trait verification
+- **ir.rs (6):** IrModule construction, `extract_metadata` with properties/inputs, lower empty program
+- **runtime.rs (6):** JS template content validation
+
+Test distribution: **108 compiler + 383 engine + 86 native + 35 other = 612 total.** Every compiler module now has test coverage. Zero gaps.
+
+**813 total commits. ~65,000 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
