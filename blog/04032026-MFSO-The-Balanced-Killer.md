@@ -10,6 +10,8 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The balance between long and short does not mean balanced risk. You can still lose everything. You have been warned.
 
+> **TRADING METHOD:** MFSO is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
+
 ---
 
 ## The Thanos of DARWINs
@@ -44,7 +46,7 @@ $296,000 net profit. 36.19% win rate. And the single largest winning trade acros
 | **Symbols Traded** | 28 |
 | **Long/Short Split** | **51% Long / 49% Short** |
 
-![DARWIN MFSO — DarwinIA Silver ranking, April 2026](/img/darwin-mfso-darwinia.webp)
+![DARWIN MFSO — DarwinIA Silver ranking, April 2026](/img/darwin-mfso-darwinia-202604.webp)
 
 Let's address the headline number: 26.57% max drawdown. That's the lowest of any profitable DARWIN in this portfolio. HAKR ate 40.82%. GVZJ took 33.41%. MFSO kept its drawdown under 27%.
 

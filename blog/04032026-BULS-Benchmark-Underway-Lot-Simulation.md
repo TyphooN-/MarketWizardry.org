@@ -8,7 +8,7 @@
 
 ---
 
-![DARWIN BULS — Calibration, April 2026](/img/darwin-buls-calibration.webp)
+![DARWIN BULS — Calibration, April 2026](/img/darwin-buls-calibration-202604.webp)
 
 ## AJTK Post-Mortem #12: $0.14 Spread Tolerance — The Benchmark That Broke
 

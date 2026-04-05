@@ -6,6 +6,8 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The humor is real. The losses were real. The $1.18M profit was also real. Do not attempt to replicate any of this without understanding that you can and will lose money. You have been warned. H4ck th3 pl4n3t.
 
+> **TRADING METHOD:** HAKR is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging. The TyphooN EA serves as **risk management only** — position sizing and monitoring. No TRIM, no PROTECT, no martingale. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat. BULS is the only fully automated DARWIN.
+
 ---
 
 ## H.A.K.R. — Hacking All Known Resistances
@@ -179,7 +181,7 @@ Every attempt to stop HAKR by turning it off at 20% drawdown would have cost you
 | **Rating** | 79.62 |
 | **Last Year Return** | 34.66% |
 
-![DARWIN HAKR — DarwinIA Silver ranking, April 2026](/img/darwin-hakr-darwinia.webp)
+![DARWIN HAKR — DarwinIA Silver ranking, April 2026](/img/darwin-hakr-darwinia-202604.webp)
 
 The signal account lost $1.18M (virtual). The DARWIN turned that chaos into +34.66% returns for investors. This is what Darwinex's Risk Management Engine does — it takes HAKR's 40% drawdowns and compresses them to 18.74%. It takes HAKR's volatility and serves it as a product.
 

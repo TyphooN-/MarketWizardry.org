@@ -10,6 +10,8 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Betting 73% of your trades on a single stock is not a strategy most people should attempt. You have been warned.
 
+> **TRADING METHOD:** GVZJ is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
+
 ---
 
 ## The Chegg Whisperer
@@ -46,7 +48,7 @@ If diversification is the only free lunch in finance, GVZJ brought a peanut butt
 | **Symbols Traded** | **18** (fewest across all DARWINs) |
 | **Best Month** | January 2026: **+$209,300** |
 
-![DARWIN GVZJ — DarwinIA Silver ranking, April 2026](/img/darwin-gvzj-darwinia.webp)
+![DARWIN GVZJ — DarwinIA Silver ranking, April 2026](/img/darwin-gvzj-darwinia-202604.webp)
 
 Let's talk about that win rate. 49.06%. The HIGHEST across all six DARWINs. Basically a coin flip. You could replace GVZJ's algorithm with an actual quarter and get similar directional accuracy.
 

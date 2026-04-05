@@ -10,6 +10,8 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Making $7.29 per trade is not a viable retirement strategy. You have been warned.
 
+> **TRADING METHOD:** ATPK is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
+
 ---
 
 ## "It's Not Much, But It's Honest Work"
@@ -45,7 +47,7 @@ HAKR made $1.18 million. MFSO made $296K. GVZJ made $143K. And then there's ATPK
 | **Sharpe Ratio** | **0.020** |
 | **Symbols Traded** | 24 |
 
-![DARWIN ATPK — DarwinIA Silver ranking, April 2026](/img/darwin-atpk-darwinia.webp)
+![DARWIN ATPK — DarwinIA Silver ranking, April 2026](/img/darwin-atpk-darwinia-202604.webp)
 
 Let's sit with that profit factor for a moment. 1.037. That means for every dollar ATPK risks, it gets back $1.037. Three point seven cents of profit per dollar risked. If ATPK were a vending machine, it would charge you a dollar for a candy bar and give you the candy bar plus three pennies and a lint ball.
 

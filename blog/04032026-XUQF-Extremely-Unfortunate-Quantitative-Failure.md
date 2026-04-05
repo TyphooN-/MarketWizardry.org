@@ -6,6 +6,8 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Losing $555,445 on a single stock across 2,127 trades is the kind of number that ends partnerships, triggers audits, and causes compliance officers to develop drinking problems. You have been warned.
 
+> **TRADING METHOD:** XUQF is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
+
 ---
 
 ## X.U.Q.F. — eXtremely Unfortunate, Quite Frankly
@@ -177,7 +179,7 @@ Then August 2025: +$25,789. September 2025: -$13,444. October 2025: -$3,718. Jan
 | **DarwinIA Bonus** | +3 points |
 | **Seed Capital Allocations** | 2 |
 
-![DARWIN XUQF — DarwinIA Silver ranking, April 2026](/img/darwin-xuqf-darwinia.webp)
+![DARWIN XUQF — DarwinIA Silver ranking, April 2026](/img/darwin-xuqf-darwinia-202604.webp)
 
 The signal is down $670K lifetime. The DARWIN is down 11.05% since inception. Rating 66.44. Max drawdown 26.87%.
 

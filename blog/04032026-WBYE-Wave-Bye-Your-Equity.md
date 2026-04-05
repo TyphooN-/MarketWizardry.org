@@ -6,6 +6,8 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Losing $228,000 on NVDA in 159 trades while simultaneously making $421,000 on LUMN is a spiritual experience that no financial disclaimer can adequately capture. You have been warned.
 
+> **TRADING METHOD:** WBYE is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
+
 ---
 
 ## W.B.Y.E. — Wave Bye, Your Equity
@@ -180,7 +182,7 @@ The problem is LAZR (-$224K) and NVDA (-$228K) are also real, and they're bigger
 | **Rating** | 76.53 |
 | **Last Year Return** | 4.94% |
 
-![DARWIN WBYE — DarwinIA Silver ranking, April 2026](/img/darwin-wbye-darwinia.webp)
+![DARWIN WBYE — DarwinIA Silver ranking, April 2026](/img/darwin-wbye-darwinia-202604.webp)
 
 The signal account is down $245K. The DARWIN is up 2.38%.
 
