@@ -833,7 +833,7 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
         'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
-        'terminal-record-pace', 'burst-trim'
+        'terminal-record-pace', 'burst-trim', 'discord-to-matrix', 'var-cult-discord'
     ]
     fname_lower = txt_file.name.lower()
     if any(kw in fname_lower for kw in darwin_graveyard_stems):
@@ -979,7 +979,7 @@ def update_blog_index(all_new_entries):
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
         'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
-        'terminal-record-pace', 'burst-trim'
+        'terminal-record-pace', 'burst-trim', 'discord-to-matrix', 'var-cult-discord'
     ]
 
     # Dead DARWINs — stopped out, post-mortems

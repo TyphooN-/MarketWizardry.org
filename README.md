@@ -220,7 +220,7 @@ All contributions must maintain our **zero-compromise security standards**:
 ## 🌐 **Community & Support**
 
 ### **💬 Join Our Community**
-- **Discord Server**: [https://marketwizardry.info](https://marketwizardry.info) - Real-time trading discussions, technical analysis, and community support
+- **VaR Cult Matrix Space**: Contact [`@TyphooN-:matrix.org`](https://matrix.to/#/@TyphooN-:matrix.org) on Matrix for an invite
 - **X (Twitter)**: [https://x.com/MarketW1zardry](https://x.com/MarketW1zardry) - Daily market insights, project updates, and technical analysis
 - **Website**: [https://marketwizardry.org](https://marketwizardry.org) - Complete platform access and documentation
 
@@ -229,12 +229,12 @@ All contributions must maintain our **zero-compromise security standards**:
 - **Financial Data**: Check MetaTrader 5 connection and CSV exports
 - **Security Questions**: Reference our CSP audit documentation
 - **Feature Requests**: Submit with security impact assessment
-- **Trading Discussion**: Join our Discord community for real-time support
+- **Trading Discussion**: Contact `@TyphooN-:matrix.org` on Matrix for a VaR Cult Matrix Space invite
 
 ### **📞 Support Channels**
 | Platform | Purpose |
 |----------|---------|
-| **Discord** | Real-time community support |
+| **Matrix** | Contact `@TyphooN-:matrix.org` for VaR Cult Matrix Space invite |
 | **X/Twitter** | Public updates & announcements |
 | **GitHub Issues** | Technical bug reports |
 
@@ -285,7 +285,7 @@ MarketWizardry.org represents the **pinnacle of secure web development** - provi
 **Join our community and experience the future of secure financial web applications:**
 
 🔗 **[Visit MarketWizardry.org](https://marketwizardry.org)**
-💬 **[Join Discord Community](https://marketwizardry.info)**
+💬 **[Join VaR Cult on Matrix — contact @TyphooN-:matrix.org](https://matrix.to/#/@TyphooN-:matrix.org)** (recommended client: [FluffyChat](https://fluffychat.im))
 🐦 **[Follow on X](https://x.com/MarketW1zardry)**
 
 ---
