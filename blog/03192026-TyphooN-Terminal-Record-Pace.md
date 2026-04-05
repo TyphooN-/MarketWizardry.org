@@ -1519,7 +1519,17 @@ Three fixes in one commit:
 
 Test distribution: **108 compiler + 383 engine + 86 native + 35 other = 612 total.** Every compiler module now has test coverage. Zero gaps.
 
-**813 total commits. ~65,000 LOC. 612 tests. Zero warnings.**
+### AI Chat, Matrix Chat, Reddit WSB Viewer (2026-04-08, final)
+
+**AI Chat window** — built-in Claude and GPT chat. Provider selector toggles between Anthropic Messages API and OpenAI Chat Completions. Chat history persists per session. Ask Claude about your positions, paste chart data, get analysis — without leaving the terminal. API keys stored in the system keyring, configurable in Settings.
+
+**Matrix Chat window** — public Matrix room message viewer via the client-server API. Read VaR Cult Matrix Space messages directly inside the terminal. No browser tab. No separate client. Trading discussion and chart analysis in the same window.
+
+**Reddit r/WallStreetBets viewer** (`WSB` command) — hot posts with score and comment counts. No Reddit authentication required. Sentiment gauge for the degenerates. **20 out of 22 data sources** now integrated — only whale-alert (needs API key) and QuiverQuant (paid) remain.
+
+**ADR-070: LAN-Lite client mode** — proposed architecture for lightweight clients that only download bars for viewed symbols instead of syncing the full 851-symbol cache. Reuses existing `RequestEntries`/`EntryData` protocol with a full vs lite toggle in Settings.
+
+**816 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
