@@ -1553,7 +1553,11 @@ The command also pulls from **tastytrade** — DXLink historical bars plus the o
 
 **Negative price elimination (two passes):** bar sanity filter moved outside crypto-only block — now runs on ALL bars unconditionally. Added filter at cache read time (primary + gap-fill sources) to reject bad bars before merge. Also fixed the source: `aggregate_to_monthly` in both Kraken and CryptoCompare now skips zero/negative price daily bars during aggregation. Combined with load-time filtering, negative prices can never appear on any chart.
 
-**826 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
+**BARDATA expanded: ALL symbols × ALL timeframes × ALL brokers.** One command now collects symbols from chart tabs, watchlist, DARWIN positions, Alpaca positions, and tastytrade positions. For each symbol: Alpaca full history (D1/W1/H1/H4/MN1), Kraken + CryptoCompare for crypto, tastytrade DXLink bars + option chains. Builds the complete cache in a single invocation.
+
+**Symbol Explorer LAN client:** shows `cached (local)` label on LAN clients. Per-symbol sync button (📥) requests all 9 timeframes from the server and triggers `LanResyncBars` for fast delivery. Tooltips on all buttons (Load chart, Add to watchlist, Sync from server).
+
+**828 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
