@@ -581,8 +581,12 @@ def generate_witty_description(content, filename, title):
         "Market research proving your economic analysis makes medieval alchemy look like modern chemistry."
     ]
     
-    # Per-DARWIN unique flavor text — graveyard (dead DARWINs)
+    # Unique editorial article summaries
     fname = filename.lower()
+    if 'discord-to-matrix' in fname or 'moves-to-matrix' in fname or 'var-cult-discord' in fname:
+        return "Discord demanded government ID. We said no. VaR Cult now lives on Matrix — open protocol, end-to-end encrypted, self-hostable. Protocols beat platforms. Always have."
+
+    # Per-DARWIN unique flavor text — graveyard (dead DARWINs)
     darwin_graveyard_unique = {
         'ajtk': "Here lies AJTK — Automated Judicial Termination of Kapital. Died at maximum voltage with 398 positions open. BULS scavenged the corpse for firmware. v1.430 was the final form.",
         'rise-from-ashes': "Here lies AJTK — Automated Judicial Termination of Kapital. Died at maximum voltage with 398 positions open. BULS scavenged the corpse for firmware. v1.430 was the final form.",
