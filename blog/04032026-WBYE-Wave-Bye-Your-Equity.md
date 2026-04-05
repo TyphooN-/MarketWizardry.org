@@ -180,6 +180,8 @@ The problem is LAZR (-$224K) and NVDA (-$228K) are also real, and they're bigger
 | **Rating** | 76.53 |
 | **Last Year Return** | 4.94% |
 
+![DARWIN WBYE — DarwinIA Silver ranking, April 2026](/img/darwin-wbye-darwinia.webp)
+
 The signal account is down $245K. The DARWIN is up 2.38%.
 
 This is what Darwinex's Risk Management Engine does when it's doing its job: it takes a signal that's down 40%+ and compresses it into something that's up 2.38% with only 10.85% max drawdown. The RME doesn't make WBYE profitable. The RME makes WBYE investable.

@@ -46,6 +46,8 @@ If diversification is the only free lunch in finance, GVZJ brought a peanut butt
 | **Symbols Traded** | **18** (fewest across all DARWINs) |
 | **Best Month** | January 2026: **+$209,300** |
 
+![DARWIN GVZJ — DarwinIA Silver ranking, April 2026](/img/darwin-gvzj-darwinia.webp)
+
 Let's talk about that win rate. 49.06%. The HIGHEST across all six DARWINs. Basically a coin flip. You could replace GVZJ's algorithm with an actual quarter and get similar directional accuracy.
 
 But here's the thing about a coin flip that slightly favors heads: flip it 7,319 times and the edge adds up. GVZJ wins 49.06% of the time with an average win of $387 vs average loss of $348. The edge is tiny — a 1.11x win/loss ratio — but applied 7,319 times, it produces $143K.

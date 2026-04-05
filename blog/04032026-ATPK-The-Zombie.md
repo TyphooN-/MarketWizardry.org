@@ -45,6 +45,8 @@ HAKR made $1.18 million. MFSO made $296K. GVZJ made $143K. And then there's ATPK
 | **Sharpe Ratio** | **0.020** |
 | **Symbols Traded** | 24 |
 
+![DARWIN ATPK — DarwinIA Silver ranking, April 2026](/img/darwin-atpk-darwinia.webp)
+
 Let's sit with that profit factor for a moment. 1.037. That means for every dollar ATPK risks, it gets back $1.037. Three point seven cents of profit per dollar risked. If ATPK were a vending machine, it would charge you a dollar for a candy bar and give you the candy bar plus three pennies and a lint ball.
 
 The Sharpe ratio is 0.020. To put this in perspective:

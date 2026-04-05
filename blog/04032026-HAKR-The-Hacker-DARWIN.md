@@ -179,6 +179,8 @@ Every attempt to stop HAKR by turning it off at 20% drawdown would have cost you
 | **Rating** | 79.62 |
 | **Last Year Return** | 34.66% |
 
+![DARWIN HAKR — DarwinIA Silver ranking, April 2026](/img/darwin-hakr-darwinia.webp)
+
 The signal account lost $1.18M (virtual). The DARWIN turned that chaos into +34.66% returns for investors. This is what Darwinex's Risk Management Engine does — it takes HAKR's 40% drawdowns and compresses them to 18.74%. It takes HAKR's volatility and serves it as a product.
 
 **The algorithm hacks the market. Darwinex hacks the algorithm. Everyone profits except XUQF.**

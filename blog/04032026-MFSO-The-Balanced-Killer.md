@@ -44,6 +44,8 @@ $296,000 net profit. 36.19% win rate. And the single largest winning trade acros
 | **Symbols Traded** | 28 |
 | **Long/Short Split** | **51% Long / 49% Short** |
 
+![DARWIN MFSO — DarwinIA Silver ranking, April 2026](/img/darwin-mfso-darwinia.webp)
+
 Let's address the headline number: 26.57% max drawdown. That's the lowest of any profitable DARWIN in this portfolio. HAKR ate 40.82%. GVZJ took 33.41%. MFSO kept its drawdown under 27%.
 
 MFSO is the DARWIN your financial advisor wishes they could build. Except your financial advisor charges 2% AUM for a portfolio that tracks the S&P 500 minus fees, and MFSO returned $296K while keeping drawdown to a quarter of the account. Fire your financial advisor.

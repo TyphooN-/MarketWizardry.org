@@ -177,6 +177,8 @@ Then August 2025: +$25,789. September 2025: -$13,444. October 2025: -$3,718. Jan
 | **DarwinIA Bonus** | +3 points |
 | **Seed Capital Allocations** | 2 |
 
+![DARWIN XUQF — DarwinIA Silver ranking, April 2026](/img/darwin-xuqf-darwinia.webp)
+
 The signal is down $670K lifetime. The DARWIN is down 11.05% since inception. Rating 66.44. Max drawdown 26.87%.
 
 The rating of 66.44 is the honest number. Darwinex's algorithm has looked at 21 months of XUQF data, computed risk-adjusted returns, drawdown profiles, and consistency metrics, and produced a 66.44. The market for DARWIN investment requires 75.00 for guaranteed allocation. XUQF is 8.56 points away from where it needs to be.

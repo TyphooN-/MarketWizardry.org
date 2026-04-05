@@ -8,6 +8,8 @@
 
 ---
 
+![DARWIN BULS — Calibration, April 2026](/img/darwin-buls-calibration.webp)
+
 ## AJTK Post-Mortem #12: $0.14 Spread Tolerance — The Benchmark That Broke
 
 AJTK died the way it lived: at maximum voltage.
