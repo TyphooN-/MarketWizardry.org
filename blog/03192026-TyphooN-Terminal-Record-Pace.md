@@ -1561,7 +1561,15 @@ The command also pulls from **tastytrade** — DXLink historical bars plus the o
 
 **Zero API calls on LAN clients and before cache loads.** Every periodic fetch path now has two guards: `is_lan_client` (server/standalone only) and `cache_loaded` (no calls until cache is ready). Periodic crypto fetch, weekend crypto sync, watchlist quotes — all gated. LAN clients get all data from the server via KV sync. No rogue API calls on startup, no rate limit hits before the terminal is ready, no duplicate fetches from client machines.
 
-**831 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
+### Symbol Explorer: 8,000+ Crypto Universe + Kraken Broker ADR (2026-04-10)
+
+**Symbol Explorer crypto expansion:** fetches the full CryptoCompare universe on open — **8,000+ coins** with full names (e.g. "Solana", "Monero", "Monero"). Dynamic list with filter search, `[cached]` tag for already-downloaded symbols. Top 200 shown by default, filter narrows to 500 max. Replaces the hardcoded 48-coin list. Click to load chart, +WL to add to watchlist, sync button for LAN clients. Works on both server and client.
+
+**Expanded crypto detection:** XMR, ZEC, DASH added to crypto detection + Kraken pair mapping (`XXMRZUSD`, `XZECZUSD`). SHIB, APE, ARB, OP, HBAR, VET, THETA, AXS added to Kraken pairs. XMR data available from CryptoCompare (2014+) and Kraken.
+
+**ADR-072: Kraken as full broker** — proposed 3-phase integration: authentication + account info, order placement, WebSocket streaming. US-friendly, real-time, 200+ crypto pairs. Would make Kraken the third trading broker alongside Alpaca and tastytrade.
+
+**834 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
