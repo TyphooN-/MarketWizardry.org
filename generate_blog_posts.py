@@ -858,7 +858,7 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
         'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
-        'terminal-record-pace', 'burst-trim', 'discord-to-matrix', 'var-cult-discord'
+        'terminal-record-pace', 'burst-trim', 'discord-to-matrix', 'var-cult-discord', 'moves-to-matrix'
     ]
     fname_lower = txt_file.name.lower()
     if any(kw in fname_lower for kw in darwin_graveyard_stems):
@@ -1004,7 +1004,7 @@ def update_blog_index(all_new_entries):
         'what-is-darwinex', 'understanding-iqr', 'var-rubber-band', 'proactive-risk-management',
         'gpu-buyers-guide', 'darwinex_rating_cap', 'darwinex-rating-cap', 'how-to-use-var-calculator',
         'nnfx-backtesting', 'backtest-optimization', 'explorer-sunset', 'typhoon-terminal',
-        'terminal-record-pace', 'burst-trim', 'discord-to-matrix', 'var-cult-discord'
+        'terminal-record-pace', 'burst-trim', 'discord-to-matrix', 'var-cult-discord', 'moves-to-matrix'
     ]
 
     # Dead DARWINs — stopped out, post-mortems
@@ -1296,6 +1296,10 @@ def generate_flavor_text(title, filename):
     for kw, desc in _darwin_flavor.items():
         if kw in filename_lower:
             return desc
+
+    # Unique flavor text for specific educational/editorial articles
+    if 'discord-to-matrix' in filename_lower or 'var-cult-discord' in filename_lower or 'moves-to-matrix' in filename_lower:
+        return "The internet used to be protocols. Then it became platforms. Discord wants your government ID now. Matrix is bringing protocols back. VaR Cult moved. You should too."
 
     # Check if we can read the txt content for better position detection
     txt_content = ""
