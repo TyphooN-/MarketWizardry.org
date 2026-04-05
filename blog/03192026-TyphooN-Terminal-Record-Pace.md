@@ -1529,7 +1529,11 @@ Test distribution: **108 compiler + 383 engine + 86 native + 35 other = 612 tota
 
 **ADR-070: LAN-Lite client mode** — proposed architecture for lightweight clients that only download bars for viewed symbols instead of syncing the full 851-symbol cache. Reuses existing `RequestEntries`/`EntryData` protocol with a full vs lite toggle in Settings.
 
-**816 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
+### Generalized MT5 XLSX Import — Any Server (2026-04-08, late)
+
+The XLSX trade history import is no longer Darwinex-only. The import pipeline now accepts XLSX exports from **any MT5 server** — OANDA, Forex.com, IC Markets, Pepperstone, any broker running MetaTrader 5. Core analytics (equity curves, P&L, streaks, correlation, monthly returns, hold time, position sizing) work for any server's export. Darwinex-specific features (VaR multiplier, FTP scanner, D-Score components, investor flow) remain labeled as Darwinex.
+
+**817 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
