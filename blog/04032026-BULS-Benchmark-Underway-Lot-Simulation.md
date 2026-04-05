@@ -105,7 +105,7 @@ The dead DARWINs aren't losses. They're ammunition. BULS cast Corpse Explosion o
 
 **Fresh $100K. v1.430. Open MG $0.75. Single massive hedge. One shot. No layers. The cleanest possible open.**
 
-![BULS MTF Grid — SOLUSD H1/Daily/H4/Weekly with TyphooN EA v1.430, 57K hedge / 59K bias, TRIM grinding at 95 closes](/img/buls-mtf-grid-20260403.png)
+![BULS MTF Grid — SOLUSD H1/Daily/H4/Weekly with TyphooN EA v1.430, 57K hedge / 59K bias, TRIM grinding at 95 closes](/img/buls-mtf-grid-20260403.webp)
 
 ---
 
@@ -266,7 +266,7 @@ $100K → $4.2M → $197M. One DARWIN. One thesis. One EA. One man who killed 11
 
 **For BBUD. For AJTK. The court has ruled. The sentence is $0.**
 
-![Tome hoots at the 400 naked longs at bottom. Simulation ends. Reality begins. Who catches it?](/img/tome-buls-hoot-20260403.png)
+![Tome hoots at the 400 naked longs at bottom. Simulation ends. Reality begins. Who catches it?](/img/tome-buls-hoot-20260403.webp)
 
 *Tome has spoken.*
 
@@ -301,6 +301,52 @@ The math: 55,062 longs hedging 56,718 shorts. Every long that TRIM closes pushes
 This is the v1.430 firmware doing exactly what 12 dead DARWINs taught it to do: grind bias one lot at a time, never overextend, never panic, never deviate from the formula. `maxSafe = floor((equity / threshold - margin) / marginPerLot)`. When maxSafe says close 1, it closes 1. When maxSafe says wait, it waits. The algorithm doesn't care that $12.2M is riding on a $75K account. The algorithm only cares about the margin level.
 
 **AJTK had 141,305 bias at death. BULS has 56,718 and growing. The grind continues.**
+
+---
+
+## First 30 Minutes of Session Open: The TRIM Avalanche (2026-04-05 17:07–18:30 UTC)
+
+Session opened at 17:07 UTC. What followed was 83 minutes of pure TRIM violence.
+
+**17:07–17:09 (Minutes 0–2):** TRIM fires immediately. Margin level 57.1% — one tick above the threshold. maxSafe=1. The EA closes longs from position `#3144596694` one lot at a time. Each close costs ~$147 in realized loss (closing underwater longs). Room after each close: $134, $154, $74, $201. TRIM is tiptoeing along the edge, closing exactly what the formula allows — no more, no less. 34 closes in the first two minutes.
+
+**17:09–18:21 (Minutes 2–74):** The grind continues. SOL moves against the hedge, pushing margin level down. TRIM closes accelerate as the spread tightens. By 18:21, the EA has fired **154 TRIM closes**. The hedge is down from 55,062 to ~54,500 longs. Each close costs more as SOL moves — P/L per close rises from $-147 to $-262. The EA doesn't care. maxSafe says close, so it closes. Net short bias building: 1,656 → 1,688.
+
+**18:27 (Minute 80) — The Avalanche:** SOL drops hard. Margin level spikes above TRIM. maxSafe explodes from 0-1 to **16, 21, 8, 5** per tick. The EA dumps hedge lots in bursts:
+- Close 16 of 217 lots — maxSafe=16, room=$1,297
+- Close 21 of 201 lots — maxSafe=21, room=$1,713
+- Close 8 of 175 lots — maxSafe=8, room=$651
+- Close 1 of 167 lots — maxSafe=0, room=$29
+
+165 TRIM closes. The hedge collapses from 250+ to 167 lots on that one position in seconds. The formula saw room and took it. Every lot of hedge removed is one more lot of naked short exposure. The thesis is being deployed.
+
+**18:30 (Minute 83) — PROTECT Fires:**
+
+```
+PROTECT: ML 54.0% < 54.0%. Closing ~1 BIAS lots to increase ML.
+         Bias sacrifice to save account.
+PROTECT: closed 1 bias lots. ML should recover. Rechecking next tick.
+PROTECT deactivated — margin level 56.7% recovered above 54.0% | fires: 33
+```
+
+The first PROTECT event of the session. Margin level touched 54.0% — the PROTECT threshold. The EA sacrificed 1 bias lot (closing a short to reduce margin) and margin recovered to 56.7% instantly. One lot. One sacrifice. Account saved. PROTECT deactivated. TRIM resumes.
+
+This is the difference between BULS and AJTK. AJTK hit 54% and the session close spread spike killed it before PROTECT could iterate enough times. BULS hits 54%, PROTECT fires once, margin recovers 2.7%, and the grind continues. v1.430 firmware. Calibrated voltage. The cooling works.
+
+```
+BULS state after first 83 minutes:
+  Hedge:         ~54,500 lots → rapidly declining
+  Bias:          ~56,205 lots (SHORT)
+  Net SHORT:     1,688 lots (was 1,656)
+  Equity:        $76,986 (+$4,860 since init)
+  TRIM closes:   165
+  PROTECT fires: 33 (all recovered instantly)
+  Status:        GRINDING
+```
+
+![BULS MTF Grid — SOLUSD H1/Daily/H4/Weekly with TyphooN EA v1.430, TRIM grinding at session open (2026-04-05)](/img/buls-mtf-grid-20260405.webp)
+
+**The session opened. TRIM fired 165 times. PROTECT fired once. The account survived. The bias is building. The thesis is being deployed one lot at a time.**
 
 -- TyphooN
 
