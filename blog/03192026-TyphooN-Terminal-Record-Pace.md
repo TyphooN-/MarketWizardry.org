@@ -1481,7 +1481,15 @@ All buttons appear in both the right panel and Trading menu. This is the exact S
 
 **586 total tests.** Only 2 remaining feature gaps are external constraints (SqueezMetrics paid API, Alpaca OCO limitation). Every blog-claimed feature now exists.
 
-**803 total commits. ~64,800 LOC. 586 tests. Zero warnings.**
+### LAN Client/Server Crypto Weekend Parity (2026-04-07, late)
+
+Crypto charts on weekends were broken on the LAN client — the periodic fetch required `broker_connected` which is false on client machines. Fixed: Kraken and CryptoCompare fetches now run locally on both server and client without broker dependency. The periodic crypto refresh fetches M1 + M5 + the chart's active timeframe, so forming bar synthesis always has lower-timeframe data to aggregate from.
+
+**Server→client live quote sync:** the server stores live quotes to KV as `quote:SYMBOL` keys. The LAN client reads them every ~5 seconds and uses them to update forming bars. Bid/ask lines now work on both server and client — previously the client showed stale bid/ask because it had no direct quote feed.
+
+**Forming bar synthesis priority:** `kraken:M1` is tried first for the freshest granularity, then falls back to other sources. Kraken fetch triggers `Mt5SyncDone` → chart reload → forming bar synthesis from M5 data. The full pipeline works end-to-end on weekends without manual intervention on either machine.
+
+**805 total commits. ~64,900 LOC. 586 tests. Zero warnings.**
 
 -- TyphooN
 
