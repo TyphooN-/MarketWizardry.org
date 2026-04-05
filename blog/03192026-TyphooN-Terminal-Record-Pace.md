@@ -1533,7 +1533,15 @@ Test distribution: **108 compiler + 383 engine + 86 native + 35 other = 612 tota
 
 The XLSX trade history import is no longer Darwinex-only. The import pipeline now accepts XLSX exports from **any MT5 server** — OANDA, Forex.com, IC Markets, Pepperstone, any broker running MetaTrader 5. Core analytics (equity curves, P&L, streaks, correlation, monthly returns, hold time, position sizing) work for any server's export. Darwinex-specific features (VaR multiplier, FTP scanner, D-Score components, investor flow) remain labeled as Darwinex.
 
-**817 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
+### Crypto Bar Merge + LAN Backfill Architecture Fix (2026-04-09)
+
+**W1/MN1 bar merge fix:** weekly bars now snap to Monday 00:00 UTC (was dividing by `7*86400000` which misaligned week boundaries). Monthly bars snap to 1st-of-month 00:00 UTC (was dividing by `30*86400000` which doesn't match real months). This caused duplicate bars from different sources appearing at slightly different timestamps within the same week/month — Kraken and CryptoCompare would each produce a bar for the same period but with timestamps a few hours apart. Both duplicates are now eliminated.
+
+**Bar sanity filter:** reject bars with negative, zero, or NaN prices, and bars where high < low. Catches malformed data from APIs before it enters the cache.
+
+**LAN crypto backfill architecture finalized:** the server is the single source of truth for crypto data. Server runs periodic Kraken/CryptoCompare fetches for its active chart. The LAN client sends `FETCH_BARS` to the server (forwarded via LAN protocol), then triggers `LanResyncBars` for fast delivery. Server's `FETCH_BARS` handler detects crypto symbols and routes through `KrakenBackfill` (works on weekends without Alpaca). Client never hits Kraken/CC APIs directly.
+
+**820 total commits. ~65,300 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
