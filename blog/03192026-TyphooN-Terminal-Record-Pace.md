@@ -1489,7 +1489,9 @@ Crypto charts on weekends were broken on the LAN client — the periodic fetch r
 
 **Forming bar synthesis priority:** `kraken:M1` is tried first for the freshest granularity, then falls back to other sources. Kraken fetch triggers `Mt5SyncDone` → chart reload → forming bar synthesis from M5 data. The full pipeline works end-to-end on weekends without manual intervention on either machine.
 
-**805 total commits. ~64,900 LOC. 586 tests. Zero warnings.**
+**Forming bar cascade fix:** synthesis now tries ALL lower timeframes from ALL sources (kraken/mt5/cryptocompare/alpaca × M1/M5/M15/M30/H1/H4/D1/W1) instead of just M5/M1. MN1 crypto backfill fixed — was sending `'MN1'` label instead of `'1Month'` cache suffix to Kraken. Periodic fetch uses next-lower TF for forming bar data. FetchBars handler now accepts both MT5 labels (`M1`/`H1`/`D1`/`W1`/`MN1`) and Alpaca format (`1Min`/`1Hour`/`1Day`/`1Week`/`1Month`) transparently — no cache key rename needed.
+
+**807 total commits. ~64,900 LOC. 586 tests. Zero warnings.**
 
 -- TyphooN
 
