@@ -1208,7 +1208,7 @@ The website calculator page is now two tools that do two things correctly, rathe
 |---|---|---|
 | **LOC** | 59,769 | **~62,900** |
 | **Commits** | 734 | **782** |
-| **Tests** | 480 | **612** |
+| **Tests** | 480 | **618** |
 | **Drawing tools** | 70 | **89** (82 TV parity + 7 bonus) |
 | **Console commands** | 110 | **115** |
 | **BrokerCmd variants** | — | **57** |
@@ -1571,7 +1571,27 @@ The command also pulls from **tastytrade** — DXLink historical bars plus the o
 
 **Multi-broker symbol search:** autocomplete now queries Alpaca (12K+ symbols), tastytrade (via `search_symbols` API), and CryptoCompare (48 popular coins) in parallel. Results show source tag `[Alpaca]`/`[tastytrade]`/`[CryptoCompare]`. Deduplicates across brokers. Type any ticker and see every broker that offers it — one search bar, three data sources.
 
-**835 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
+### Kraken Broker: Live Trading From the Terminal (2026-04-10, cont.)
+
+**Kraken is now the third trading broker** alongside Alpaca and tastytrade. ADR-072 Phase 1+2 complete:
+
+- **Full REST API with HMAC-SHA512 authentication** — balance, open orders, open positions, place order (market/limit/stop), cancel order, tradeable pairs (public endpoint)
+- **Native UI wired** — Settings panel with API key/secret + connect button, Kraken option in broker selector dropdown, auto-connect on startup, keyring persistence
+- **Order placement functional** — market and limit orders from the Order Entry panel, cancel from the Orders panel
+- **Symbol search integration** — Kraken tradeable pairs merged into multi-broker autocomplete
+- **6 new tests** for the Kraken API module. **618 total tests.**
+
+Three brokers. One terminal. Alpaca for US equities/options/crypto. tastytrade for options/futures. Kraken for 200+ crypto pairs with real-time trading. All three share the same risk engine, the same chart, the same order entry panel.
+
+### BARDATA Progress Window + Rate Limiting (2026-04-10, final)
+
+**BARDATA progress window:** green progress bar, stats grid (total/queued/completed/skipped), scrollable activity log. Opens automatically on `BARDATA` command. FetchAllBars now runs sequentially (not parallel spawned) to respect Alpaca rate limits.
+
+**CryptoCompare rate limiting fixed:** retry with exponential backoff (10s/20s/30s) instead of immediate abort. Body-level rate limit returns partial data instead of error. BARDATA includes full Alpaca universe + Kraken tradeable pairs.
+
+**Cleanup pass:** dead LAN client code path removed from periodic fetch (outer guard already blocks). Crypto symbol normalization in BARDATA (strip slashes). CryptoCompare limited to H1+ timeframes in BARDATA (sub-hourly has 7-day history limit). Forming bar synthesis cache key slash-stripping fixed.
+
+**840 total commits. ~66,400 LOC. 618 tests. Zero warnings.**
 
 -- TyphooN
 
