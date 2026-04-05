@@ -581,41 +581,66 @@ def generate_witty_description(content, filename, title):
         "Market research proving your economic analysis makes medieval alchemy look like modern chemistry."
     ]
     
-    # DARWIN graveyard posts — dead/retired DARWINs
-    darwin_graveyard_filenames = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp',
-        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample',
-    ]
-    if any(kw in filename.lower() for kw in darwin_graveyard_filenames):
-        graveyard_descriptions = [
-            "Here lies a DARWIN that died the way it lived: at maximum voltage with zero regrets. BULS scavenged the corpse for detonation fuel.",
-            "Post-mortem from the DARWIN Graveyard. The corpse was exhumed, studied, and its organs transplanted into BULS. Flowers optional.",
-            "Another DARWIN rests in peace in a dark cemetery alongside its fallen siblings. BULS dug up the lessons and strapped them to a warhead.",
-            "From the graveyard: a DARWIN that fought the market and the market won. BULS looted the body for firmware upgrades.",
-            "Rest in pieces. This DARWIN's corpse was recycled into BULS ammunition. The dead fuel the living.",
-            "DARWIN Graveyard dispatch. Cause of death: documented in excruciating detail. Corpse donated to BULS for controlled detonation.",
-        ]
-        return select_unused_flavor_text(graveyard_descriptions, "Here lies a DARWIN that died the way it lived: at maximum voltage with zero regrets.")
+    # Per-DARWIN unique flavor text — graveyard (dead DARWINs)
+    fname = filename.lower()
+    darwin_graveyard_unique = {
+        'ajtk': "Here lies AJTK — Automated Judicial Termination of Kapital. Died at maximum voltage with 398 positions open. BULS scavenged the corpse for firmware. v1.430 was the final form.",
+        'rise-from-ashes': "Here lies AJTK — Automated Judicial Termination of Kapital. Died at maximum voltage with 398 positions open. BULS scavenged the corpse for firmware. v1.430 was the final form.",
+        'bbud': "Here lies BBUD — Blissfully Bankrupt Unicorn Destruction. The broker stopped out the account before PROTECT could fire. BULS dug up the corpse and strapped the lessons to a warhead.",
+        'blissfully-bankrupt': "Here lies BBUD — Blissfully Bankrupt Unicorn Destruction. The broker stopped out the account before PROTECT could fire. BULS dug up the corpse and strapped the lessons to a warhead.",
+        'xjfd': "Here lies XJFD — eXtreme Judicial Financial Destruction. The Golden Sample. Projections: $4.15M. Reality: $0. BULS looted the golden dataset for training data.",
+        'golden-sample': "Here lies XJFD — eXtreme Judicial Financial Destruction. The Golden Sample. Projections: $4.15M. Reality: $0. BULS looted the golden dataset for training data.",
+        'qrrp': "Here lies QRRP — Quad Rothschild Rug Pull. 8 post-mortems. The rug was pulled on the rug puller. BULS recycled the cascade math into controlled detonation fuel.",
+        'sol-cascade': "Here lies QRRP — Quad Rothschild Rug Pull. 8 post-mortems. The rug was pulled on the rug puller. BULS recycled the cascade math into controlled detonation fuel.",
+        'burst-trim': "Burst-TRIM lessons from the crypto martingale graveyard. What happens when you manually fire TRIM at 51% and PROTECT answers 11 times.",
+    }
+    for kw, desc in darwin_graveyard_unique.items():
+        if kw in fname:
+            return desc
 
-    # DARWIN lore posts — active/living DARWINs
+    # Per-DARWIN unique flavor text — active/living DARWINs
+    darwin_lore_unique = {
+        'hakr': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'the-hacker': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'mfso': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
+        'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
+        'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
+        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
+        'atpk': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
+        'the-zombie': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
+        'wbye': None,  # handled below for multiple WBYE posts
+        'xuqf': None,  # handled below for multiple XUQF posts
+        'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
+        'benchmark-underway': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
+    }
+    for kw, desc in darwin_lore_unique.items():
+        if kw in fname and desc is not None:
+            return desc
+
+    # WBYE — two posts with different flavors
+    if 'wbye' in fname:
+        if 'wave-bye' in fname or 'equity' in fname:
+            return "DARWIN WBYE: Wave Bye, Your Equity. -$245K net. $228K incinerated on NVDA across 159 trades. Rating 76.53 — above guaranteed allocation. The signal is a crime scene. The DARWIN is a rehabilitation project."
+        elif 'bag-holder' in fname:
+            return "DARWIN WBYE: The Bag Holder. Original lore. The DARWIN that holds bags so heavy they have their own gravitational field. NVDA, LAZR, and a complete inability to let go."
+        return "DARWIN WBYE: Wave Bye, Your Equity. The signal lost $245K. The DARWIN is somehow still alive. Darwinex's Risk Management Engine is doing God's work."
+
+    # XUQF — two posts with different flavors
+    if 'xuqf' in fname:
+        if 'extremely-unfortunate' in fname or 'quantitative' in fname:
+            return "DARWIN XUQF: eXtremely Unfortunate, Quite Frankly. -$669K. 14.54% win rate. Captain of the Drawdown Gang. LAZR: 2,127 trades, -$555K. Still beating 78% of DarwinIA Silver. Somehow."
+        elif 'dumpster' in fname:
+            return "DARWIN XUQF: The Dumpster Fire. Original lore. The worst DARWIN in the portfolio — and it's not even close. -$670K and a 1,140-trade losing streak that deserves its own Wikipedia article."
+        return "DARWIN XUQF: eXtremely Unfortunate, Quite Frankly. The DARWIN that lost $669K and still has a DarwinIA ranking. Respect the persistence, if not the results."
+
+    # Fallback for any unmatched DARWIN lore
     darwin_lore_filenames = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
     ]
-    if any(kw in filename.lower() for kw in darwin_lore_filenames):
-        darwin_lore_descriptions = [
-            "DARWIN lore — where algorithms go to sin, suffer, and occasionally print money. Scroll if you dare.",
-            "The complete postmortem. Real trades. Real losses. Real lessons. No mercy, no filter.",
-            "DARWIN lore for traders who enjoy pain documentation as a spiritual practice.",
-            "Signal account autopsy. Causes of death: LAZR, ego, and an inexplicable relationship with declining stocks.",
-            "One algorithm. Many losses. Several surprising wins. Zero regrets. Full documentation.",
-            "The kind of trading history that makes your compliance officer need a drink and a long walk.",
-            "DARWIN lore: because someone has to document what happens when you give an algorithm a brokerage account and zero supervision.",
-            "Raw signal data, uncut. The wins were real. The losses were realer. The LAZR was eternal.",
-            "DARWIN portfolio lore — proof that virtual capital still produces very real lessons about what not to do.",
-        ]
-        return select_unused_flavor_text(darwin_lore_descriptions, "DARWIN lore — where algorithms go to sin, suffer, and occasionally print money.")
+    if any(kw in fname for kw in darwin_lore_filenames):
+        return "DARWIN lore — where discretionary outlier trading meets open-source risk management. Real trades. Real losses. Real lessons."
 
     # Smart content-specific detection
     if stock_ticker and len(stock_ticker) <= 5:
@@ -1229,7 +1254,49 @@ def generate_flavor_text(title, filename):
     """Generate sarcastic flavor text based on content type with RNG variety"""
     title_lower = title.lower()
     filename_lower = filename.lower()
-    
+
+    # Per-DARWIN unique flavor text — highest priority
+    _darwin_flavor = {
+        'hakr': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'the-hacker': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'mfso': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
+        'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
+        'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
+        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
+        'atpk': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
+        'the-zombie': "DARWIN ATPK: At This Point, Kill (Switch). $21K profit at $7.29 per trade. Profit factor 1.037. Not dead. Not alive. Just shuffling through the market collecting pennies from the void.",
+        'wave-bye': "DARWIN WBYE: Wave Bye, Your Equity. -$245K net. $228K incinerated on NVDA across 159 trades. Rating 76.53 — above guaranteed allocation. The signal is a crime scene. The DARWIN is a rehabilitation project.",
+        'bag-holder': "DARWIN WBYE: The Bag Holder. The DARWIN that holds bags so heavy they have their own gravitational field. NVDA, LAZR, and a complete inability to let go.",
+        'extremely-unfortunate': "DARWIN XUQF: eXtremely Unfortunate, Quite Frankly. -$669K. 14.54% win rate. Captain of the Drawdown Gang. LAZR: 2,127 trades, -$555K. Still beating 78% of DarwinIA Silver.",
+        'dumpster': "DARWIN XUQF: The Dumpster Fire. The worst DARWIN in the portfolio — and it's not even close. -$670K and a 1,140-trade losing streak that deserves its own Wikipedia article.",
+        'benchmark-underway': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
+        'ajtk': "Here lies AJTK — Automated Judicial Termination of Kapital. Died at maximum voltage with 398 positions open. BULS scavenged the corpse for firmware. v1.430 was the final form.",
+        'rise-from-ashes': "Here lies AJTK — Automated Judicial Termination of Kapital. Died at maximum voltage with 398 positions open. BULS scavenged the corpse for firmware. v1.430 was the final form.",
+        'bbud': "Here lies BBUD — Blissfully Bankrupt Unicorn Destruction. The broker stopped out the account before PROTECT could fire. BULS dug up the corpse and strapped the lessons to a warhead.",
+        'blissfully-bankrupt': "Here lies BBUD — Blissfully Bankrupt Unicorn Destruction. The broker stopped out the account before PROTECT could fire. BULS dug up the corpse and strapped the lessons to a warhead.",
+        'xjfd': "Here lies XJFD — eXtreme Judicial Financial Destruction. The Golden Sample. Projections: $4.15M. Reality: $0. BULS looted the golden dataset for training data.",
+        'golden-sample': "Here lies XJFD — eXtreme Judicial Financial Destruction. The Golden Sample. Projections: $4.15M. Reality: $0. BULS looted the golden dataset for training data.",
+        'qrrp': "Here lies QRRP — Quad Rothschild Rug Pull. 8 post-mortems. The rug was pulled on the rug puller. BULS recycled the cascade math into controlled detonation fuel.",
+        'sol-cascade': "Here lies QRRP — Quad Rothschild Rug Pull. 8 post-mortems. The rug was pulled on the rug puller. BULS recycled the cascade math into controlled detonation fuel.",
+    }
+    # Match BULS separately (avoid matching 'buls' in other words)
+    if 'buls' in filename_lower and ('benchmark' in filename_lower or 'buls' in filename_lower.split('-')):
+        return _darwin_flavor['benchmark-underway']
+    # Match WBYE/XUQF by specific post type
+    if 'wbye' in filename_lower:
+        if 'wave-bye' in filename_lower or 'equity' in filename_lower:
+            return _darwin_flavor['wave-bye']
+        elif 'bag-holder' in filename_lower or 'bag_holder' in filename_lower:
+            return _darwin_flavor['bag-holder']
+    if 'xuqf' in filename_lower:
+        if 'extremely-unfortunate' in filename_lower or 'quantitative' in filename_lower:
+            return _darwin_flavor['extremely-unfortunate']
+        elif 'dumpster' in filename_lower:
+            return _darwin_flavor['dumpster']
+    for kw, desc in _darwin_flavor.items():
+        if kw in filename_lower:
+            return desc
+
     # Check if we can read the txt content for better position detection
     txt_content = ""
     try:
