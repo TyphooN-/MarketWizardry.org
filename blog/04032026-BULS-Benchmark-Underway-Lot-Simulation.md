@@ -270,6 +270,38 @@ $100K → $4.2M → $197M. One DARWIN. One thesis. One EA. One man who killed 11
 
 *Tome has spoken.*
 
+---
+
+## Live Status Update: 2026-04-05 — TRIM Grinding, Bias Building
+
+BULS is alive and the TRIM is grinding.
+
+```
+BULS live state (2026-04-05 17:09 UTC):
+  Hedge:            55,062 lots (LONG)
+  Bias:             56,718 lots (SHORT)
+  Net SHORT:        1,656 lots
+  Gross:            111,780 lots
+  Margin Level:     57.0%
+  TRIM threshold:   ≥57.0%
+  DEAD zone:        54.0-57.0%
+  PROTECT:          ≤54.0%
+  Equity:           $75,435
+  Risk (notional):  $12,245,516
+  VaR %:            9.17 (net)
+  Total P/L:        -$14,971
+  TRIM closes:      34
+  PROTECT fires:    0
+```
+
+Margin level 57.0% — right on the TRIM edge. The EA is closing longs one at a time, building net short bias lot by lot. Each TRIM close removes one long from the hedge pile, increasing net short exposure by one lot. 34 closes so far. Zero PROTECT events — the margin level hasn't dropped below 54%. The firmware is holding.
+
+The math: 55,062 longs hedging 56,718 shorts. Every long that TRIM closes pushes net short up by one. At 1,656 net short, BULS has built meaningful directional exposure while keeping gross margin in the TRIM zone. The equity is $75K against $12.2M notional risk — leverage that would make a traditional risk manager's eye twitch. But the hedge absorbs it. The longs absorb the upside. The shorts carry the thesis. TRIM balances the margin. PROTECT stands ready if it doesn't.
+
+This is the v1.430 firmware doing exactly what 12 dead DARWINs taught it to do: grind bias one lot at a time, never overextend, never panic, never deviate from the formula. `maxSafe = floor((equity / threshold - margin) / marginPerLot)`. When maxSafe says close 1, it closes 1. When maxSafe says wait, it waits. The algorithm doesn't care that $12.2M is riding on a $75K account. The algorithm only cares about the margin level.
+
+**AJTK had 141,305 bias at death. BULS has 56,718 and growing. The grind continues.**
+
 -- TyphooN
 
 ---
