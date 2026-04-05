@@ -1557,7 +1557,9 @@ The command also pulls from **tastytrade** — DXLink historical bars plus the o
 
 **Symbol Explorer LAN client:** shows `cached (local)` label on LAN clients. Per-symbol sync button (📥) requests all 9 timeframes from the server and triggers `LanResyncBars` for fast delivery. Tooltips on all buttons (Load chart, Add to watchlist, Sync from server).
 
-**828 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
+**Smart BARDATA:** skips fully-cached symbols (>100 bars = sufficiently cached), prioritizes uncached first. Checks cache for existing symbol:TF combos before fetching. Crypto routes through Kraken + CryptoCompare only (not Alpaca). Stocks/forex use Alpaca. Only fetches missing TFs per symbol. Reports queued vs skipped counts — no redundant API calls on repeat runs.
+
+**829 total commits. ~65,500 LOC. 612 tests. Zero warnings.**
 
 -- TyphooN
 
