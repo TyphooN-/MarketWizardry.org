@@ -150,7 +150,7 @@ EA Configuration:
 
 **TRIM at 60%, PROTECT at 54%.** With ML at 57.0%, CKUC is in the DEAD zone — the EA sits idle, watching. When ML recovers above 60%, TRIM starts closing shorts to build net long exposure. When ML drops below 54%, PROTECT sacrifices long lots to save the account.
 
-6% DEAD zone (54-60%). Tight but effective — the position breathes without the EA touching it, and TRIM fires as soon as there's room. A spread spike on natgas can swing ML by several percent. The 8% DEAD zone (54-62%) is where the position breathes without the EA touching it.
+6% DEAD zone (54-60%). Tight but effective — the position breathes without the EA touching it, and TRIM fires as soon as there's room.
 
 **XNGUSD spread: 14 points ($0.014/lot).** At 184 lots gross, a spread spike to even $0.10/lot = $18.40 total. Equity is $56K. Spread risk on this instrument is negligible compared to BULS's 44K lots on SOLUSD. The danger on CKUC isn't spreads — it's directional. If natgas keeps dropping, PROTECT will fire and erode bias. If natgas turns, TRIM builds the thesis.
 
