@@ -201,9 +201,56 @@ The PROTECT formula works perfectly on SOLUSD where margin per lot is $80 and th
 
 **The fix (future firmware):** cap PROTECT closes per event — never sacrifice more than ~10% of gross in a single PROTECT fire. Iterate multiple smaller fires instead of one large one. The account still survives, but the bias inversion is avoided. This is a v1.431 enhancement, not a settings change.
 
-**For now:** 60/54 settings remain correct. The PROTECT fire was aggressive but the account survived. TRIM is restoring the position. The thesis is intact. The firmware learned something.
+**The fix (future firmware):** cap PROTECT closes per event — never sacrifice more than ~10% of gross in a single PROTECT fire. Iterate multiple smaller fires instead of one large one. The account still survives, but the bias inversion is avoided. This is a v1.431 enhancement, not a settings change.
 
-*Full tilt. XNGUSD. Long. Hedged. EA-managed. Supercycle. Chad energy only.*
+### The Cost of the First Settings (60/54)
+
+The initial 60/54 configuration on XNGUSD cost CKUC:
+
+- **43 bias lots** destroyed by PROTECT overcorrection (109 → 66 longs)
+- **-$17,179 realized losses** from PROTECT + TRIM closing underwater positions
+- **Balance: $100K → $82,596** (-$17,404) in realized cost
+- **Bias inversion** from Net LONG 38 to Net SHORT -4.4 (recovered by TRIM)
+- Time and equity spent rebuilding the hedge position
+
+The 60% TRIM threshold was too tight for XNGUSD. With $2,900 margin per lot (vs $80 on SOLUSD), the margin level swings faster per lot. A 6% DEAD zone (54-60%) didn't give enough room — ML hit PROTECT territory within hours.
+
+After the overcorrection, the position was rebuilt (113L / 96S) and settings widened to **61/54** (7% DEAD zone). Then widened again to **62/54** (8% DEAD zone) after discovering XNGUSD's swap structure.
+
+### Lesson Learned: Swap-Aware TRIM Threshold
+
+![XNGUSD Contract Specifications — Swap short +48, Swap long -78, Wednesday 3x](/img/ckuc-xngusd-specs-20260406.webp)
+
+XNGUSD swap rates:
+- **Swap short: +48** per lot per day (you get PAID to hold shorts)
+- **Swap long: -78** per lot per day (you pay to hold longs)
+- **Wednesday: 3x** swap (triple rollover)
+
+At 88 shorts: **+$4,224/day** swap income from the short side. At 113 longs: **-$8,814/day** swap cost. Net: **-$4,590/day**. The longs cost more than the shorts earn — but the shorts are generating real income that offsets the position's carry cost.
+
+**Every short that TRIM closes is -$48/day of passive income lost.** This changes the TRIM calculus. On SOLUSD (BULS), there's no swap benefit to keeping shorts alive — TRIM should close them as fast as possible. On XNGUSD, shorts earn money every day they exist. Keeping shorts alive longer has direct financial value.
+
+**Settings widened to 62/54:**
+```
+MartingaleUnwindMarginPct  = 62      // TRIM — wider to preserve swap-earning shorts
+MartingaleDangerMarginPct  = 54      // PROTECT
+```
+
+8% DEAD zone. TRIM fires less aggressively, shorts survive longer, swap income persists. The thesis builds slower but cheaper. On Wednesday triple-swap days, 88 shorts earn **+$12,672** in a single overnight hold. That's not negligible — it's a funding rate that partially offsets the cost of maintaining the hedge.
+
+**The lesson:** TRIM thresholds aren't universal. They depend on the instrument's margin per lot, swap structure, and position size. SOLUSD at $80/lot with no swap benefit → tight TRIM (57%). XNGUSD at $2,900/lot with +48 short swap → wide TRIM (62%). The same EA, the same firmware, different calibration. The firmware is correct. The voltage needs to match the silicon.
+
+```
+CKUC final settings (2026-04-06):
+  TRIM:     62% (was 60% → overcorrection → 61% → 62%)
+  PROTECT:  54%
+  DEAD:     8% (54-62%)
+  Status:   113L / 88S, Net LONG 25.1, ML 63.1%
+  Swap:     +$4,224/day shorts, -$8,814/day longs
+  Lesson:   $17K tuition paid for swap-aware TRIM calibration
+```
+
+*Full tilt. XNGUSD. Long. Hedged. EA-managed. Swap-optimized. Supercycle. Chad energy only.*
 
 -- TyphooN
 
