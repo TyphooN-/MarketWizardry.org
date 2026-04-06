@@ -168,6 +168,8 @@ IYCN damage report (before Round 2):
 
 Two stop-outs in one day. $27,601 in tuition. The first attempt (naked long, 32.3 lots) lasted 8 hours. The single-layer hedge (61L/32S at 64/54) lasted even less. CKUC had already died the same day with $54,686 in losses. Combined tuition: **$82,287 in one calendar day** learning how to trade XNGUSD with the TyphooN EA.
 
+![IYCN after $28K tuition — Doomguy at 15% health](/img/iycn-doomguy-15pct-20260406.webp)
+
 IYCN's status bar face looks like Doomguy at 15% health — bloodied, bruised, one eye swollen shut, teeth showing through a grin that says "I'm not done yet." $28K of damage and the face is still grinning. The BFG is loaded. The thesis is the ammunition. The next room is the supercycle. Doomguy doesn't retreat at 15% health. Doomguy finds a medkit and keeps shooting. IYCN found 69/55 settings and kept trading.
 
 *"Walk down the right back alley in Sin City and you can find anything."* — IYCN walked down the alley, got mugged twice, and came back a third time with better armor. The alley is still there. The supercycle is still there. The thesis didn't change. The settings did.
