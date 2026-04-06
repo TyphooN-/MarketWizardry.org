@@ -260,7 +260,7 @@ $18K to balance. Sounds dramatic. It isn't.
 
 *"'Tis but a scratch!"* — The Black Knight, Monty Python and the Holy Grail. Both arms are off. The knight keeps fighting. CKUC lost $18K to balance on day one and the thesis hasn't moved one millimeter. The supercycle doesn't care about your first day's tuition.
 
-*"I'm not locked in here with you. You're locked in here with me."* — Rorschach, Watchmen. The market thinks it's punishing CKUC with an $18K drawdown. CKUC thinks the market just gave it a better entry. The natgas supercycle doesn't check your daily P&L. It checks your thesis.
+*"Is that the best you can do, you pansies?"* — Marv, Sin City. Taking hit after hit and asking for more. The market dumps $18K of pain on CKUC and CKUC grins through broken teeth and asks if that's all it's got. Marv didn't flinch when they electrocuted him twice. CKUC doesn't flinch at a balance drawdown that the rating system won't remember in 6 months.
 
 Here's why $18K is noise:
 
