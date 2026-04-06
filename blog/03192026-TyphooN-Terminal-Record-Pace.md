@@ -1597,7 +1597,7 @@ Three brokers. One terminal. Alpaca for US equities/options/crypto. tastytrade f
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
-*Tome has inspected the webp metadata. Lossless compression for a grin. Peak efficiency. All PNG content images across MarketWizardry.org have been converted to lossless webp via `cwebp -lossless`. Apple-touch-icons remain PNG (browser requirement). Every screenshot, every chart, every Tome hoot — webp. The duck has spoken.*
+*Tome has inspected the webp metadata. Lossless compression for a grin. Peak efficiency. All PNG content images across MarketWizardry.org have been converted to lossless webp via `cwebp -lossless`. Apple-touch-icons remain PNG (browser requirement). Every screenshot, every chart, every Tome hoot — webp. The owl has spoken.*
 
 -- TyphooN
 
