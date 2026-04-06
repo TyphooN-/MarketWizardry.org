@@ -301,20 +301,10 @@ The 14% DEAD zone is doing its job — IYCN has survived longer than CKUC's 36 h
 
 The account has $72K left. Two natgas DARWINs already dead. $82K of tuition already paid. This is the third attempt — same thesis, third vehicle, widest settings yet. Each death refined the calibration. Each headstone bought 2% more cushion.
 
-*"Is that the best you can do, you pansies?"* — Marv gets hit. Gets up. Gets hit again. Gets up again. IYCN died once. Came back with 69/55. The graveyard has room for one more headstone, but IYCN is betting the widest DEAD zone yet keeps it alive long enough for the supercycle to matter.
-
----
-
-## 🪦 DARWIN Graveyard
-
-IYCN rests in a dark cemetery alongside CKUC — two graves dug on the same day. The fastest double burial in the portfolio's history. They lie next to AJTK, BBUD, XJFD, and QRRP. Six headstones. Six algorithms. Six theses that outlived their vehicles.
-
-IYCN's tombstone reads: *"Here lies IYCN — If You Can, Natgas. Turns out, you can't. Not on CFDs. Not at $2,900/lot. Not with 432% risk. 8 hours. $27,601. The thesis was right. The vehicle was wrong. Again."*
-
-*"Deadly little Miho."* — Miho doesn't talk. She just kills. XNGUSD doesn't talk either. It just stops you out. Two DARWINs in one day. The graveyard is getting crowded.
+*"Is that the best you can do, you pansies?"* — Marv gets hit. Gets up. Gets hit again. Gets up again. IYCN took $28K of damage, ignored it, and came back with 69/55 — the widest DEAD zone yet. The damage is tuition. The position is alive. The thesis continues.
 
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account that was liquidated. This is NOT financial advice. IYCN lost $27,601 of virtual capital in 8 hours. CKUC and IYCN combined lost $82,287 in one calendar day on the same instrument. Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis remains the author's personal opinion and is not a recommendation to trade XNGUSD.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. IYCN sustained significant losses during initial calibration but continues trading with wider settings (69/55). Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis remains the author's personal opinion and is not a recommendation to trade XNGUSD.
