@@ -902,7 +902,7 @@ Parser improvements: function call arguments in variable declaration initializer
 
 The compiler crate gained a **PineScript parser** — TradingView's Pine Script indicators can now be parsed alongside MQL5. Weekend crypto bars (sourced from Kraken/CryptoCompare) that previously caused timestamp misalignment now align correctly across all data sources. The bar merging logic snaps timestamps to timeframe boundaries, eliminating duplicate and phantom bars at weekend/weekday transitions.
 
-![Tome hoots: PineScript parser lives. Weekend bars finally behave.](/img/tome-pinescript-parser-20260403.png)
+![Tome hoots: PineScript parser lives. Weekend bars finally behave.](/img/tome-pinescript-parser-20260403.webp)
 
 ### Crypto Backfill: CryptoCompare + Kraken
 
