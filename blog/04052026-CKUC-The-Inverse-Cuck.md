@@ -160,6 +160,49 @@ EA Configuration:
 
 ML 57.7%. 109L / 74S. Net LONG 35.2. P/L -$38,778. VaR 93.00%. Sitting in the DEAD zone. H4 shows Demand Proven + Demand Tested below. Weekly shows Supply Untested above and Demand Untested at support. Monthly Demand Proven holding. The EA watches. The position breathes. The supercycle thesis is intact.
 
+---
+
+## The PROTECT Overcorrection: Lessons from High-Margin Instruments (2026-04-06, morning)
+
+CKUC's first PROTECT event was educational.
+
+**08:30–08:45 UTC — TRIM grinds, then PROTECT detonates:**
+
+TRIM was working normally — closing shorts 0.1 lots at a time, ML hovering at 60.3%. 41 TRIM closes. Then natgas moved. ML dropped to 53.9%.
+
+```
+08:45:18 PROTECT: ML 53.9% < 54.0%. Closing ~43 BIAS lots. Bias sacrifice.
+08:45:19 PROTECT: closed 43 bias lots. ML recovered.
+08:45:19 PROTECT deactivated — margin level 477.9% | fires: 1
+```
+
+**477.9% margin level.** PROTECT closed 43 of 109 longs — 39% of the bias position — in one event. ML didn't just recover above 54%. It rocketed to 477.9%.
+
+**What happened:** On SOLUSD (BULS), margin per lot is ~$80. Closing 43 lots frees ~$3,440 of margin. On XNGUSD, margin per lot is ~$2,900. Closing 43 lots freed **$124,700** of margin on a $60K equity account. The PROTECT formula calculated the correct number of lots to push ML above 54% — but the per-lot margin release on XNGUSD is 36x larger than SOLUSD. The recovery overshoot is proportional.
+
+**The bias inverted.** 109 longs → 66 longs. 70.5 shorts remained. Net position flipped from **LONG 38.0 to SHORT -4.4**.
+
+**Then TRIM saved it.** TRIM saw 477.9% ML (way above 60%) and went nuclear on the shorts. Closed 30 lots in one tick, then 8.4 to finish one position. Started grinding through the second short position. TRIM is restoring LONG bias by removing the excess shorts that PROTECT's overcorrection left behind.
+
+```
+CKUC state after PROTECT + TRIM recovery:
+  Longs:        66 lots (was 109 — PROTECT sacrificed 43)
+  Shorts:       ~30 lots (was 70.5 — TRIM closing aggressively)
+  Net LONG:     ~36 lots (recovering from -4.4 inversion)
+  Equity:       ~$60K
+  ML:           grinding back toward 60%
+  TRIM closes:  53 and counting
+  PROTECT fires: 1
+```
+
+### Lesson Learned: High Margin Per Lot = PROTECT Overshoot
+
+The PROTECT formula works perfectly on SOLUSD where margin per lot is $80 and the position is 55K lots. On XNGUSD where margin per lot is $2,900 and the position is 109 lots, the same formula produces correct-but-violent results. Closing 43 lots out of 109 is proportionally equivalent to closing 21,700 lots out of 55,000 on BULS — except on BULS, PROTECT closes 33 lots at a time, not 43.
+
+**The fix (future firmware):** cap PROTECT closes per event — never sacrifice more than ~10% of gross in a single PROTECT fire. Iterate multiple smaller fires instead of one large one. The account still survives, but the bias inversion is avoided. This is a v1.431 enhancement, not a settings change.
+
+**For now:** 60/54 settings remain correct. The PROTECT fire was aggressive but the account survived. TRIM is restoring the position. The thesis is intact. The firmware learned something.
+
 *Full tilt. XNGUSD. Long. Hedged. EA-managed. Supercycle. Chad energy only.*
 
 -- TyphooN
