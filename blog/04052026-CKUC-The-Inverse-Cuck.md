@@ -156,9 +156,9 @@ EA Configuration:
 
 **No more adding on.** The position is built. The EA manages from here. CKUC went from naked long to hedged martingale in one session. The thesis is the same. The risk management is automated. The operator's job is to not touch anything.
 
-![DARWIN CKUC — XNGUSD H4/Weekly/Daily/Monthly with TyphooN EA v1.430 MG: LONG, 109L/75S (2026-04-06)](/img/darwin-ckuc-mtf-20260406.webp)
+![DARWIN CKUC — XNGUSD H4/Weekly/Daily/Monthly with TyphooN EA v1.430 MG: LONG, 109L/74S (2026-04-06)](/img/darwin-ckuc-mtf-20260406b.webp)
 
-ML 57.0% — sitting in the DEAD zone. W1 100SMA at 3.2059 (target overhead). Demand Proven on monthly. The EA watches. The position breathes. The supercycle thesis is intact.
+ML 57.7%. 109L / 74S. Net LONG 35.2. P/L -$38,778. VaR 93.00%. Sitting in the DEAD zone. H4 shows Demand Proven + Demand Tested below. Weekly shows Supply Untested above and Demand Untested at support. Monthly Demand Proven holding. The EA watches. The position breathes. The supercycle thesis is intact.
 
 *Full tilt. XNGUSD. Long. Hedged. EA-managed. Supercycle. Chad energy only.*
 
