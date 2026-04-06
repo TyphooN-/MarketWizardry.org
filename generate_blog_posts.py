@@ -598,8 +598,10 @@ def generate_witty_description(content, filename, title):
         'sol-cascade': "Here lies QRRP — Quad Rothschild Rug Pull. 8 post-mortems. The rug was pulled on the rug puller. BULS recycled the cascade math into controlled detonation fuel.",
         'ckuc': "Here lies CKUC — Chad Killing Undervalued Commodities. The Inverse Cuck. 36 hours. $54,686. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot.",
         'inverse-cuck': "Here lies CKUC — Chad Killing Undervalued Commodities. The Inverse Cuck. 36 hours. $54,686. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot.",
-        'iycn': "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson.",
-        'basin-city': "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson.",
+        'iycn': "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong.",
+        'basin-city': "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong.",
+        'wnso': "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Didn't matter. Broker collapsed everything to $25K in a single action. Four natgas DARWINs dead. The thesis lives. The vehicle doesn't.",
+        'will-not-stop': "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Didn't matter. Broker collapsed everything to $25K in a single action. Four natgas DARWINs dead. The thesis lives. The vehicle doesn't.",
         'burst-trim': "Burst-TRIM lessons from the crypto martingale graveyard. What happens when you manually fire TRIM at 51% and PROTECT answers 11 times.",
     }
     for kw, desc in darwin_graveyard_unique.items():
@@ -616,8 +618,6 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'wnso': "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/52 on fresh $100K. 20% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop.",
-        'will-not-stop': "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/52 on fresh $100K. 20% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
@@ -645,9 +645,9 @@ def generate_witty_description(content, filename, title):
 
     # Fallback for any unmatched DARWIN lore
     darwin_lore_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'wnso',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'will-not-stop',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
     ]
     if any(kw in fname for kw in darwin_lore_filenames):
         return "DARWIN lore — where discretionary outlier trading meets open-source risk management. Real trades. Real losses. Real lessons."
@@ -855,13 +855,13 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
 
     # Determine article section
     darwin_graveyard_stems = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn',
-        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city',
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn', 'wnso',
+        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city', 'will-not-stop',
     ]
     darwin_lore_stems = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'wnso',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'will-not-stop',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
     ]
     educational_stems = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
@@ -1019,16 +1019,16 @@ def update_blog_index(all_new_entries):
 
     # Dead DARWINs — stopped out, post-mortems
     darwin_graveyard_keywords = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn',
-        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade', 'inverse-cuck', 'basin-city'
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn', 'wnso',
+        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade', 'inverse-cuck', 'basin-city', 'will-not-stop'
     ]
 
     # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
-        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'wnso',
+        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
         'the-bag-holder', 'the-dumpster', 'wave-bye', 'benchmark-underway',
-        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore', 'will-not-stop'
+        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore'
     ]
 
     for entry in all_new_entries:
@@ -1295,7 +1295,7 @@ def generate_flavor_text(title, filename):
     if 'iycn' in filename_lower or 'basin-city' in filename_lower:
         return "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition across CKUC and IYCN. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson."
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
-        return "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/52 on fresh $100K. 20% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop."
+        return "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Broker collapsed everything to $25K in a single action. Swap theory doesn't work. Four natgas DARWINs dead."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type

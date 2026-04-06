@@ -6,7 +6,7 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. This is the fourth XNGUSD DARWIN. Three predecessors are dead. $82K of combined tuition. If you're still reading, you already know what kind of person opens a fourth natgas account after burying three.
 
-> **TRADING METHOD:** WNSO is managed by TyphooN EA in hedged martingale mode on XNGUSD CFD. Settings: 72/52, 225L/209S on $100K. Discretionary entry by TyphooN, algorithm takes over from there.
+> **TRADING METHOD:** WNSO was managed by TyphooN EA in hedged martingale mode on XNGUSD CFD. Settings: 72/52, 225L/209S on $100K. **Status: DEAD. Broker collapsed all positions to $25K balance in a single action. Resting in the DARWIN Graveyard alongside CKUC and IYCN.**
 
 ---
 
@@ -119,8 +119,35 @@ The thesis hasn't changed. Natgas supercycle. The instrument hasn't changed. XNG
 
 *"Deadly little Miho."* Silent. Precise. Patient. WNSO doesn't need to be loud. It just needs to survive long enough for the thesis to print.
 
+---
+
+## R.I.P. WNSO — The Broker Will (2026-04-06)
+
+*"Turns out, the broker will stop you."*
+
+The broker collapsed everything to $25K balance in a single action. 225L/209S — gone. 20% DEAD zone — irrelevant. 72/52 settings — never got to prove themselves. The widest configuration ever deployed on XNGUSD didn't survive its first day.
+
+**The swap theory doesn't work.** The premise was sound on paper: shorts collect +$48/lot/day, partially offsetting long carry cost, printing balance when TRIM closes them in profit. In reality, the negative net swap (-$7,518/day) bleeds equity faster than TRIM can grind. The shorts don't earn enough to offset the longs. The carry cost compounds. The broker sees the equity collapse and acts.
+
+**Four natgas DARWINs. Four deaths. One lesson:**
+
+| DARWIN | Settings | DEAD Zone | Result |
+|---|---|---|---|
+| CKUC | 60/54, 62/54 | 6-8% | Dead in 36h |
+| IYCN R1 | 64/54 | 10% | Dead in 8h |
+| IYCN R2 | 69/55 | 14% | Dead |
+| **WNSO** | **72/52** | **20%** | **Broker collapse to $25K** |
+
+Every iteration widened the DEAD zone. Every iteration died anyway. The failure mode isn't the settings — it's the instrument. XNGUSD at $2,900/lot margin with negative net swap is not compatible with hedged martingale at any configuration. The margin per lot is too high. The swap is net negative. The broker acts before the EA can.
+
+**Total natgas tuition: $82K+ across CKUC, IYCN, and WNSO.** The most expensive lesson in DARWIN history: hedged martingale requires positive or neutral net swap and low margin per lot. SOLUSD works ($68/lot, +$2.37 net swap). XNGUSD doesn't ($2,900/lot, -$30/lot net swap). The math was never going to work.
+
+WNSO joins CKUC and IYCN in the DARWIN graveyard. Three headstones in a row, all XNGUSD, all the same thesis, all dead. The natgas supercycle thesis may still be right — but hedged martingale is not the vehicle to trade it.
+
+*"Will Not Stop, Obviously."* The broker disagreed.
+
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Three previous XNGUSD DARWINs (CKUC, IYCN) sustained total account losses. Combined tuition: $82K+. WNSO uses conservative sizing derived from those failures but carries the same inherent risks. Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis is the author's personal opinion and is not a recommendation to trade XNGUSD.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Four XNGUSD DARWINs (CKUC, IYCN x2, WNSO) sustained total account losses. Combined tuition: $82K+. Hedged martingale on XNGUSD is not viable at any tested configuration. Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis is the author's personal opinion and is not a recommendation to trade XNGUSD.
