@@ -612,8 +612,8 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'ckuc': "DARWIN CKUC: The Inverse Cuck. 32.1 lots XNGUSD long. 467% risk. R:R 287:1. TP $134M. Zero hedge. Full tilt into the natural gas supercycle. Chad energy only.",
-        'inverse-cuck': "DARWIN CKUC: The Inverse Cuck. 32.1 lots XNGUSD long. 467% risk. R:R 287:1. TP $134M. Zero hedge. Full tilt into the natural gas supercycle. Chad energy only.",
+        'ckuc': "DARWIN CKUC: The Inverse Cuck. 113L/88S hedged martingale on XNGUSD. 1,950% risk. TRIM grinding shorts to build naked long for the natgas supercycle. The hedge pays you while it dies. Chad energy only.",
+        'inverse-cuck': "DARWIN CKUC: The Inverse Cuck. 113L/88S hedged martingale on XNGUSD. 1,950% risk. TRIM grinding shorts to build naked long for the natgas supercycle. The hedge pays you while it dies. Chad energy only.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
@@ -1289,7 +1289,7 @@ def generate_flavor_text(title, filename):
     if 'buls' in filename_lower and ('benchmark' in filename_lower or 'buls' in filename_lower.split('-')):
         return _darwin_flavor['benchmark-underway']
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
-        return "DARWIN CKUC: The Inverse Cuck. 32.1 lots XNGUSD long. 467% risk. R:R 287:1. TP $134M. Zero hedge. Full tilt into the natural gas supercycle. Chad energy only."
+        return "DARWIN CKUC: The Inverse Cuck. 113L/88S hedged martingale on XNGUSD. 1,950% risk. TRIM grinding shorts to build naked long for the natgas supercycle. The hedge pays you while it dies. Chad energy only."
     # Match WBYE/XUQF by specific post type
     if 'wbye' in filename_lower:
         if 'wave-bye' in filename_lower or 'equity' in filename_lower:
