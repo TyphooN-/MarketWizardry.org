@@ -199,9 +199,7 @@ CKUC state after PROTECT + TRIM recovery:
 
 The PROTECT formula works perfectly on SOLUSD where margin per lot is $80 and the position is 55K lots. On XNGUSD where margin per lot is $2,900 and the position is 109 lots, the same formula produces correct-but-violent results. Closing 43 lots out of 109 is proportionally equivalent to closing 21,700 lots out of 55,000 on BULS — except on BULS, PROTECT closes 33 lots at a time, not 43.
 
-**The fix (future firmware):** cap PROTECT closes per event — never sacrifice more than ~10% of gross in a single PROTECT fire. Iterate multiple smaller fires instead of one large one. The account still survives, but the bias inversion is avoided. This is a v1.431 enhancement, not a settings change.
-
-**The fix (future firmware):** cap PROTECT closes per event — never sacrifice more than ~10% of gross in a single PROTECT fire. Iterate multiple smaller fires instead of one large one. The account still survives, but the bias inversion is avoided. This is a v1.431 enhancement, not a settings change.
+**The fix:** wider DEAD zone. On high-margin instruments like XNGUSD ($2,900/lot), the DEAD zone needs to be wide enough that normal price action doesn't push ML into PROTECT territory. The 62/54 settings (8% DEAD zone) provide this buffer. PROTECT must remain aggressive — capping it risks the broker liquidating the entire position before PROTECT can iterate. AJTK died because PROTECT couldn't close fast enough. CKUC survived because PROTECT closed everything it needed in one fire. The overcorrection is the cost of survival. The wider DEAD zone prevents it from happening in the first place.
 
 ### The Cost of the First Settings (60/54)
 
