@@ -1295,7 +1295,7 @@ def generate_flavor_text(title, filename):
     if 'iycn' in filename_lower or 'basin-city' in filename_lower:
         return "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition across CKUC and IYCN. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson."
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
-        return "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 150/150 hedged MG at 69/55 on fresh $100K. Three dead predecessors paid $82K tuition. The thesis prints or the thesis dies — but it will not stop."
+        return "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/55 on fresh $100K. 17% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type
