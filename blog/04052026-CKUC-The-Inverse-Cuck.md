@@ -252,6 +252,77 @@ CKUC final settings (2026-04-06):
   Lesson:   $17K tuition paid for swap-aware TRIM calibration
 ```
 
+---
+
+## Why CKUC Isn't Flinching: $18K Is a Rounding Error
+
+$18K to balance. Sounds dramatic. It isn't.
+
+*"'Tis but a scratch!"* — The Black Knight, Monty Python and the Holy Grail. Both arms are off. The knight keeps fighting. CKUC lost $18K to balance on day one and the thesis hasn't moved one millimeter. The supercycle doesn't care about your first day's tuition.
+
+*"I'm not locked in here with you. You're locked in here with me."* — Rorschach, Watchmen. The market thinks it's punishing CKUC with an $18K drawdown. CKUC thinks the market just gave it a better entry. The natgas supercycle doesn't check your daily P&L. It checks your thesis.
+
+Here's why $18K is noise:
+
+### Darwinex Doesn't Care About Today
+
+The DarwinIA Silver rating formula:
+
+| Component | Weight | Window |
+|---|---|---|
+| **Cumulative return** | 67% | Last 6 months |
+| **Current month return** | 22% | This calendar month |
+| **Max drawdown** | 11% | Last 6 months |
+| **Track record bonus** | +1/+2/+3 | 6/12/18+ months |
+
+The rating has a **hard 6-month rolling window**. Not exponential decay — a hard cutoff. Everything older than 6 months is invisible to the algorithm. WBYE's catastrophic -$329,865 opening month in July 2024? Completely gone from the rating by February 2025. The algorithm doesn't know it happened. The rating doesn't remember.
+
+CKUC's $18K tuition from the PROTECT overcorrection? It's a blip in the current month component (22% weight). By next month, it's folded into the 6-month cumulative (67% weight) and diluted by 5 other months of performance. By month 7, it literally doesn't exist in the formula.
+
+*"After a while, you learn to ignore the stuff that just doesn't matter."* — Tyler Durden, Fight Club. $18K in the context of a $134M TP target is 0.013% of the thesis. Fight Club rules apply: the first rule of CKUC is you don't panic about calibration-day noise.
+
+### The VaR Engine Absorbs the Shock
+
+Darwinex normalizes every DARWIN to a **6.5% target VaR** with a corridor of **3.25%–6.5%**. The Risk Management Engine compresses signal account volatility into investable risk-adjusted returns. This is what it does:
+
+- WBYE's signal lost $245K → the DARWIN is **up 2.38%**
+- XUQF's signal lost $670K → the DARWIN returned **+14.25% last year**
+- HAKR's signal had 40.82% max drawdown → the DARWIN's max DD is **18.74%**
+
+The RME takes your chaos and serves it as a product. An $18K balance hit on the signal account gets compressed by the VaR normalization engine. The DARWIN investors see a risk-adjusted version of CKUC, not the raw $18K tuition payment.
+
+### The 1/15 Calibration Window
+
+VaR is recalibrated on a rolling basis — roughly 1 calibration event per 15 trading days. Between calibrations, the VaR multiplier is fixed. A quick loss that happens and recovers between calibration windows barely registers in the DARWIN's VaR profile. The RME looks at the volatility signature, not individual losing trades.
+
+The PROTECT overcorrection happened and recovered in the same session. TRIM rebuilt the position. By the next VaR calibration, the volatility signature shows a spike that's already resolved. The DARWIN barely noticed.
+
+### Drawdown Caps — Where It Actually Matters
+
+The real danger zones from the Darwinex rating system:
+
+| DARWIN Max DD | Rating Impact |
+|---|---|
+| < 5.4% | Full rating potential |
+| 5.4% – 7.2% | First allocation cliff (-29% to -70%) |
+| 7.2% – 20% | Rapid allocation decline |
+| 20% – 50% | Hard Silver ceiling (~89-90 max) |
+| > 50% | Bronze floor (88.89 absolute minimum) |
+
+CKUC's $18K loss on a $100K account is an 18% signal drawdown. But the DARWIN drawdown is what matters for the rating — and the RME compresses that. WBYE has a signal drawdown of 40%+ but a DARWIN drawdown of only 10.85%. The RME is doing God's work.
+
+As long as CKUC's DARWIN drawdown stays under 20%, the rating system is forgiving. And with a hedged martingale where TRIM/PROTECT manage margin level, the equity curve is smoother than the balance curve. The $18K is a balance hit (closed P&L). The equity (which includes unrealized P&L on the remaining position) tells the real story.
+
+### The Math
+
+$18K lost. $134M TP target. Risk-reward: 287:1. The $18K is **0.013%** of the thesis.
+
+*"You miss 100% of the shots you don't take."* — Wayne Gretzky, quoted by Michael Scott, The Office. CKUC took the shot. The shot cost $18K in tuition. The thesis is worth $134M. The math works. The rating forgives. The VaR engine compresses. The supercycle doesn't check your balance history.
+
+CKUC isn't flinching because flinching is for DARWINs that don't have a thesis. CKUC has a thesis, a hedged martingale, swap income while the hedge dies, and a rating system that forgets everything older than 6 months. The $18K is already being forgotten.
+
+*"I'll be back."* — The Terminator. So will the $18K. And then some.
+
 *Full tilt. XNGUSD. Long. Hedged. EA-managed. Swap-optimized. Supercycle. Chad energy only.*
 
 -- TyphooN
