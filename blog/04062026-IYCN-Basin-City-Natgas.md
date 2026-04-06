@@ -232,7 +232,49 @@ Key insight: 69% TRIM means TRIM barely fires
 
 **On $500K+:** hedged martingale at 55/69 might work. Each lot = 0.6% of margin instead of 3%. PROTECT closing 5 lots = 3% ML swing instead of 15%. The grind is slow (swap-funded, collecting +$48/lot/day on shorts) and the DEAD zone is enormous. But this requires 5x the capital that was available.
 
-**The verdict:** XNGUSD hedged martingale on $100K is not viable at any TRIM/PROTECT setting. The margin-per-lot math kills it. The thesis is correct. The instrument needs either naked directional exposure or a much larger account.
+**The verdict from the first two deaths:** XNGUSD hedged martingale on $100K was not viable at 60/54, 62/54, or 64/54. The DEAD zone was too narrow for $2,900/lot margin swings.
+
+**But we paid tuition to fly closer to the sun.** Every dead DARWIN bought 2% more DEAD zone. $82,287 of tuition across two accounts. The question became: is there a setting wide enough?
+
+---
+
+## IYCN Round 2: 69/55 — The Widest Configuration (2026-04-06, late)
+
+IYCN came back. Same account ($72K remaining). Same thesis. New approach: **hedged martingale at 69/55 — 14% DEAD zone.**
+
+![IYCN EA Settings: TRIM 69%, PROTECT 55%, Open MG $2.00, Pre-close 5min, Floor 10%](/img/iycn-settings-69-55-20260406.webp)
+
+```
+IYCN Round 2 state (2026-04-06 10:20 UTC):
+  Longs:        118 lots
+  Shorts:       103.7 lots (declining — TRIM active)
+  Net LONG:     14.3 lots
+  ML:           99.0% at init → 71.4% mid-session
+  Equity:       $40,711
+  Balance:      $71,320
+  TRIM closes:  8 (grinding 0.1 lots at ML edge)
+  PROTECT fires: 0
+  Settings:     69/55 (14% DEAD zone)
+```
+
+Open MG at $2.00 filled the account with hedge pairs. 118L / 104S. ML started at 99% and immediately began dropping as natgas moved. TRIM fired at 69% — 6 lots in the first close, then grinding 0.1 at a time.
+
+**Why 69/55 might survive where 60/54, 62/54, 64/54 died:**
+
+| Config | DEAD Zone | Result | Why It Failed |
+|---|---|---|---|
+| 60/54 (CKUC) | 6% | Dead in 36h | PROTECT overcorrection, too narrow |
+| 62/54 (CKUC) | 8% | Dead | Still too narrow for $2,900/lot swings |
+| 64/54 (IYCN) | 10% | Dead in 8h | TRIM unwound hedge too fast, left naked |
+| **69/55** | **14%** | **Active** | TRIM fires high (69%), massive buffer to PROTECT |
+
+The 69% TRIM threshold means TRIM only fires when ML is comfortably high — plenty of margin room. The 14% DEAD zone means price has to move dramatically before PROTECT territory. On previous attempts, PROTECT fired within hours. At 69/55, PROTECT needs ML to drop from 69% to 55% — a 14-point slide that requires much more adverse price action.
+
+**The swap edge remains:** shorts earn +$48/lot/day. At 104 shorts, that's **+$4,992/day** of swap income while the hedge exists. The wider DEAD zone means shorts survive longer, collecting more swap before TRIM closes them. Wednesday triple swap: **+$14,976** in one overnight.
+
+The account has $72K left. Two natgas DARWINs already dead. $82K of tuition already paid. This is the third attempt — same thesis, third vehicle, widest settings yet. Each death refined the calibration. Each headstone bought 2% more cushion.
+
+*"Is that the best you can do, you pansies?"* — Marv gets hit. Gets up. Gets hit again. Gets up again. IYCN died once. Came back with 69/55. The graveyard has room for one more headstone, but IYCN is betting the widest DEAD zone yet keeps it alive long enough for the supercycle to matter.
 
 ---
 
