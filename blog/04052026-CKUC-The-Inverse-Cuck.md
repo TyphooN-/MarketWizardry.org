@@ -139,7 +139,7 @@ The TyphooN EA v1.430 is now managing CKUC's position autonomously:
 ```
 EA Configuration:
   EnableMartingale           = true
-  MartingaleUnwindMarginPct  = 62      // TRIM — start closing shorts above 62%
+  MartingaleUnwindMarginPct  = 61      // TRIM — start closing shorts above 61% (1% above 60% for spread cushion)
   MartingaleDangerMarginPct  = 54      // PROTECT — sacrifice longs below 54%
   MartingaleMarginFloor      = 10      // Hard floor
   PreCloseMinutes            = 5       // Pre-close TRIM
@@ -148,9 +148,9 @@ EA Configuration:
   Bias:                      MG: LONG (auto-detected from TP > SL)
 ```
 
-**TRIM at 62%, PROTECT at 54%.** With ML at 56.6%, CKUC is in the DEAD zone — the EA sits idle, watching. When ML recovers above 62% (natgas drops, equity increases), TRIM starts closing shorts to build net long exposure. When ML drops below 54% (natgas rises against the hedge, or spread spikes), PROTECT sacrifices long lots to save the account.
+**TRIM at 61%, PROTECT at 54%.** With ML at 57.0%, CKUC is in the DEAD zone — the EA sits idle, watching. When ML recovers above 61% (natgas drops, equity increases), TRIM starts closing shorts to build net long exposure. When ML drops below 54% (natgas rises against the hedge, or spread spikes), PROTECT sacrifices long lots to save the account.
 
-The 62% TRIM threshold gives 2% cushion above 60% — important because XNGUSD spreads are wider than SOLUSD. A spread spike on natgas can swing ML by several percent. The 8% DEAD zone (54-62%) is where the position breathes without the EA touching it.
+The 61% TRIM threshold gives 1% cushion above 60% — just enough for XNGUSD's wider spreads without being so conservative that TRIM never fires. A spread spike on natgas can swing ML by several percent. The 8% DEAD zone (54-62%) is where the position breathes without the EA touching it.
 
 **XNGUSD spread: 14 points ($0.014/lot).** At 184 lots gross, a spread spike to even $0.10/lot = $18.40 total. Equity is $56K. Spread risk on this instrument is negligible compared to BULS's 44K lots on SOLUSD. The danger on CKUC isn't spreads — it's directional. If natgas keeps dropping, PROTECT will fire and erode bias. If natgas turns, TRIM builds the thesis.
 
