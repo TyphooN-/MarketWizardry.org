@@ -616,8 +616,8 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'wnso': "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/55 on fresh $100K. 17% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop.",
-        'will-not-stop': "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/55 on fresh $100K. 17% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop.",
+        'wnso': "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/54 on fresh $100K. 18% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop.",
+        'will-not-stop': "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/54 on fresh $100K. 18% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
@@ -1295,7 +1295,7 @@ def generate_flavor_text(title, filename):
     if 'iycn' in filename_lower or 'basin-city' in filename_lower:
         return "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition across CKUC and IYCN. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson."
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
-        return "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/55 on fresh $100K. 17% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop."
+        return "DARWIN WNSO: Will Not Stop, Obviously. The final XNGUSD DARWIN. 225L/209S hedged MG at 72/54 on fresh $100K. 18% DEAD zone — widest ever. Three dead predecessors paid $82K tuition. Shorts print balance during unwind. The thesis prints or the thesis dies — but it will not stop."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type
