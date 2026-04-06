@@ -312,10 +312,10 @@ The account is dead. Again. Three attempts. Four configurations. $82K combined t
 **The lesson:** not the settings. Not the firmware. The **sizing**. Too many lots per side on a $100K account. Each PROTECT close swung ML by 3%. The overcorrection was inherent to the position density, not the DEAD zone width. At ~$321/lot hedged margin, 200+ gross lots on $100K leaves no runway.
 
 **What IYCN taught WNSO:**
-- 72/54 settings — 18% DEAD zone, the widest ever deployed. Every dead DARWIN bought more width.
+- 72/52 settings — 20% DEAD zone, the widest ever deployed. PROTECT at 52% sits below spread-induced ML dips — eliminates the spread-triggered overcorrection that killed CKUC and IYCN.
 - 225L/209S on fresh $100K. Shorts print balance during unwind — funding the long thesis while they die.
 - Swap income on shorts (+$48/lot/day) partially offsets long carry cost while they survive.
-- TRIM at 72% is more patient. PROTECT at 54% gives maximum DEAD zone buffer — 18%.
+- TRIM at 72% is more patient. PROTECT at 52% gives maximum DEAD zone buffer — 20%.
 
 IYCN joins CKUC in the DARWIN graveyard. Two headstones, one thesis. Three accounts, zero survivors. But the data is priceless. Every dead DARWIN refined the calibration. WNSO — Will Not Stop, Obviously — inherits all of it.
 

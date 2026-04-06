@@ -6,15 +6,15 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. This is the fourth XNGUSD DARWIN. Three predecessors are dead. $82K of combined tuition. If you're still reading, you already know what kind of person opens a fourth natgas account after burying three.
 
-> **TRADING METHOD:** WNSO is managed by TyphooN EA in hedged martingale mode on XNGUSD CFD. Settings: 72/54, 225L/209S on $100K. Discretionary entry by TyphooN, algorithm takes over from there.
+> **TRADING METHOD:** WNSO is managed by TyphooN EA in hedged martingale mode on XNGUSD CFD. Settings: 72/52, 225L/209S on $100K. Discretionary entry by TyphooN, algorithm takes over from there.
 
 ---
 
 ## W.N.S.O. — Will Not Stop, Obviously
 
-*Acronym expanded: **W**ill **N**ot **S**top, **O**bviously. IYCN asked "if you can." WNSO answers: obviously. Three dead DARWINs didn't kill the thesis. They refined the calibration. CKUC died at 60/54, 62/54. IYCN died at 64/54, 72/54. Every headstone bought data. Every account wipe narrowed the failure mode. The firmware was never wrong. The sizing was wrong. WNSO fixes the sizing.*
+*Acronym expanded: **W**ill **N**ot **S**top, **O**bviously. IYCN asked "if you can." WNSO answers: obviously. Three dead DARWINs didn't kill the thesis. They refined the calibration. CKUC died at 60/54, 62/54. IYCN died at 64/54, 72/52. Every headstone bought data. Every account wipe narrowed the failure mode. The firmware was never wrong. The sizing was wrong. WNSO fixes the sizing.*
 
-*"That there is one damn fine coat you're wearing."* — The coat is $82K of tuition stitched into a trading plan. The coat is three dead DARWINs worth of calibration data. WNSO wears it well. 72/54 — the widest DEAD zone ever deployed on XNGUSD. 15% of pure breathing room.
+*"That there is one damn fine coat you're wearing."* — The coat is $82K of tuition stitched into a trading plan. The coat is three dead DARWINs worth of calibration data. WNSO wears it well. 72/52 — the widest DEAD zone ever deployed on XNGUSD. 15% of pure breathing room.
 
 ---
 
@@ -44,7 +44,7 @@ ML 68.9% — sitting in the DEAD zone. TRIM (72%) is paused. PROTECT (56%) is 12
 
 ![WNSO Mobile: -$66K P/L, ML 68.57%, wall of red — but the EA is driving, not the broker](/img/wnso-mobile-ml68-20260406.webp)
 
-This screenshot looks like a disaster. -$66,040 floating P/L. Every position bleeding red. Negative free margin. ML 68.57%. On any normal account, this is a panic moment. On WNSO, **the EA is driving, not the broker.** ML 68.57% sits in the DEAD zone (55%-71%). TRIM is paused — it needs 72% to fire. PROTECT is sleeping — it needs 54% to wake up. The algorithm is calmly waiting for natgas to move. The position breathes. The broker isn't liquidating because ML is above the margin call threshold. Everything on this screen is by design.
+This screenshot looks like a disaster. -$66,040 floating P/L. Every position bleeding red. Negative free margin. ML 68.57%. On any normal account, this is a panic moment. On WNSO, **the EA is driving, not the broker.** ML 68.57% sits in the DEAD zone (55%-71%). TRIM is paused — it needs 72% to fire. PROTECT is sleeping — it needs 52% to wake up. The algorithm is calmly waiting for natgas to move. The position breathes. The broker isn't liquidating because ML is above the margin call threshold. Everything on this screen is by design.
 
 ---
 
@@ -54,7 +54,7 @@ This screenshot looks like a disaster. -$66,040 floating P/L. Every position ble
 
 **Phase 1: Deploy at 225/209**
 - 225 longs, 209 shorts deployed. ML 68.9% — in the DEAD zone
-- TRIM threshold: 72%. PROTECT threshold: 54%. DEAD zone: 15%
+- TRIM threshold: 72%. PROTECT threshold: 52%. DEAD zone: 15%
 - TRIM paused. The position sits. Swap accumulates on the short side (+$48/lot/day)
 - Shorts print balance as they unwind — funding the long thesis
 
@@ -96,7 +96,7 @@ WNSO stands on the graves of three DARWINs:
 |---|---|---|---|
 | **CKUC** | 60/54, 62/54 | $54,686 | DEAD zone too narrow for $2,900/lot. PROTECT overcorrects. |
 | **IYCN R1** | 64/54 | $27,601 | 10% DEAD zone still not enough. TRIM unwinds hedge too fast. |
-| **IYCN R2** | 72/54 | ~$50K remaining | 18% DEAD zone held longer but account was already damaged from R1. Sizing on depleted capital = same failure. |
+| **IYCN R2** | 72/52 | ~$50K remaining | 20% DEAD zone held longer but account was already damaged from R1. Sizing on depleted capital = same failure. |
 
 **Total tuition: ~$82K.** The most expensive calibration dataset in DARWIN history. But every headstone sharpened the edge. WNSO inherits all of it — the firmware, the settings, and the one thing the dead DARWINs never had: **conservative sizing on a fresh account.**
 
@@ -108,12 +108,14 @@ WNSO stands on the graves of three DARWINs:
 
 1. **Fresh $100K** — not $72K remaining from a wounded account
 2. **225L/209S** — full deployment, 15 net LONG from the start
-3. **72/54 settings** — widest DEAD zone ever deployed: 15%. Every dead DARWIN bought more width
+3. **72/52 settings** — widest DEAD zone ever deployed: 15%. Every dead DARWIN bought more width
 4. **Shorts print balance** — as TRIM closes shorts in profit, that balance strengthens ML. The shorts fund the long thesis on their way to the grave. Swap income on shorts (+$48/lot/day) partially offsets long carry cost while they survive
-5. **18% DEAD zone** — TRIM at 72%, PROTECT at 54%. Widest configuration ever tested on XNGUSD
+5. **20% DEAD zone** — TRIM at 72%, PROTECT at 52%. Widest configuration ever tested on XNGUSD
 6. **Data from 3 deaths** — every failure mode is documented, every overcorrection understood
 
-The thesis hasn't changed. Natgas supercycle. The instrument hasn't changed. XNGUSD CFD. The firmware hasn't changed. 72/54, hedged martingale. The only thing that changed is the sizing — and sizing is what killed every predecessor.
+The thesis hasn't changed. Natgas supercycle. The instrument hasn't changed. XNGUSD CFD. The firmware hasn't changed. 72/52, hedged martingale. The only thing that changed is the sizing — and sizing is what killed every predecessor.
+
+**Why 52% PROTECT?** Because spread kills. On XNGUSD, the spread widens during off-hours and volatility spikes — temporarily tanking ML. On previous DARWINs, PROTECT fired on spread noise, overcorrected by closing bias lots, and the account never recovered. At 52%, PROTECT sits below where spread-induced ML dips can reach. A spread widening can't fake a 20% ML drop from TRIM territory. If ML actually hits 52%, it's a real move, not a spread artifact. The 20% DEAD zone eliminates the spread-triggered overcorrection failure mode that killed CKUC and IYCN.
 
 *"Deadly little Miho."* Silent. Precise. Patient. WNSO doesn't need to be loud. It just needs to survive long enough for the thesis to print.
 
