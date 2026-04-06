@@ -598,7 +598,6 @@ def generate_witty_description(content, filename, title):
         'sol-cascade': "Here lies QRRP — Quad Rothschild Rug Pull. 8 post-mortems. The rug was pulled on the rug puller. BULS recycled the cascade math into controlled detonation fuel.",
         'ckuc': "Here lies CKUC — Chad Killing Undervalued Commodities. The Inverse Cuck. 36 hours. $54,686. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot.",
         'inverse-cuck': "Here lies CKUC — Chad Killing Undervalued Commodities. The Inverse Cuck. 36 hours. $54,686. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot.",
-        'iycn': "Here lies IYCN — If You Can, Natgas. Turns out, you can't. 8 hours. $27,601. Two natgas DARWINs dead in one day. $82K combined tuition. The thesis was right. The vehicle was wrong. Again.",
         'basin-city': "Here lies IYCN — If You Can, Natgas. Turns out, you can't. 8 hours. $27,601. Two natgas DARWINs dead in one day. $82K combined tuition. The thesis was right. The vehicle was wrong. Again.",
         'burst-trim': "Burst-TRIM lessons from the crypto martingale graveyard. What happens when you manually fire TRIM at 51% and PROTECT answers 11 times.",
     }
@@ -616,8 +615,8 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'iycn': "DARWIN IYCN: If You Can, Natgas. 61L/32S on XNGUSD. R:R 312:1. CKUC died so IYCN could live. If you can stomach 432% risk after your last DARWIN died in 36 hours, you deserve the supercycle.",
-        'basin-city': "DARWIN IYCN: If You Can, Natgas. 61L/32S on XNGUSD. R:R 312:1. CKUC died so IYCN could live. If you can stomach 432% risk after your last DARWIN died in 36 hours, you deserve the supercycle.",
+        'iycn': "DARWIN IYCN: If You Can, Natgas. 118L/94S hedged MG at 69/55 on XNGUSD. Third attempt. CKUC died twice teaching the right settings. 14% DEAD zone. The thesis survives.",
+        'basin-city': "DARWIN IYCN: If You Can, Natgas. 118L/94S hedged MG at 69/55 on XNGUSD. Third attempt. CKUC died twice teaching the right settings. 14% DEAD zone. The thesis survives.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
@@ -855,8 +854,8 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
 
     # Determine article section
     darwin_graveyard_stems = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn',
-        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city',
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc',
+        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck',
     ]
     darwin_lore_stems = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'iycn',
@@ -1019,13 +1018,13 @@ def update_blog_index(all_new_entries):
 
     # Dead DARWINs — stopped out, post-mortems
     darwin_graveyard_keywords = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn',
-        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade', 'inverse-cuck', 'basin-city'
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc',
+        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade', 'inverse-cuck'
     ]
 
     # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
-        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
+        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'iycn',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
         'the-bag-holder', 'the-dumpster', 'wave-bye', 'benchmark-underway',
         'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore'
@@ -1293,7 +1292,7 @@ def generate_flavor_text(title, filename):
     if 'buls' in filename_lower and ('benchmark' in filename_lower or 'buls' in filename_lower.split('-')):
         return _darwin_flavor['benchmark-underway']
     if 'iycn' in filename_lower or 'basin-city' in filename_lower:
-        return "Here lies IYCN — If You Can, Natgas. Turns out, you can't. 8 hours. $27,601. Two natgas DARWINs dead in one day. The thesis was right. The vehicle was wrong. Again."
+        return "DARWIN IYCN: If You Can, Natgas. 118L/94S hedged MG on XNGUSD at 69/55 — 14% DEAD zone. CKUC died so IYCN could live. Third attempt. Widest settings. The thesis survives."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type

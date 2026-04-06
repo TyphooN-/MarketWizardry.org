@@ -51,13 +51,17 @@ IYCN is the answer. Same thesis. Same conviction. Same natgas. **No hedge. No ma
 ### Update: Single-Layer Hedge (2026-04-06)
 
 ```
-IYCN current state:
-  Longs:        61 lots
-  Shorts:       32 lots
-  Net LONG:     29
-  Total P/L:    -$18,521
-  Risk:         $816,159 (816.7%)
-  VaR %:        55.71 (net)
+IYCN current state (Round 2, 69/55 settings):
+  Longs:        118 lots
+  Shorts:       94 lots (declining — 38 TRIM closes)
+  Net LONG:     24.0
+  Total P/L:    -$26,975
+  Risk:         $320,424 (455.3%)
+  ML:           62.9% [DEAD zone]
+  Equity:       $43,400
+  Balance:      $70,375
+  TRIM closes:  38
+  PROTECT fires: 0
 ```
 
 One layer of hedge. Not the multi-layer nightmare that killed CKUC. 32 shorts hedging 61 longs. One short position to TRIM through, not three overlapping positions fighting each other. The lesson from CKUC: if you hedge on XNGUSD, do it once. One layer. One set of shorts. One clean unwind path.
@@ -270,7 +274,30 @@ Open MG at $2.00 filled the account with hedge pairs. 118L / 104S. ML started at
 
 The 69% TRIM threshold means TRIM only fires when ML is comfortably high — plenty of margin room. The 14% DEAD zone means price has to move dramatically before PROTECT territory. On previous attempts, PROTECT fired within hours. At 69/55, PROTECT needs ML to drop from 69% to 55% — a 14-point slide that requires much more adverse price action.
 
-**The swap edge remains:** shorts earn +$48/lot/day. At 104 shorts, that's **+$4,992/day** of swap income while the hedge exists. The wider DEAD zone means shorts survive longer, collecting more swap before TRIM closes them. Wednesday triple swap: **+$14,976** in one overnight.
+### Swap Income Projection (94 shorts remaining)
+
+| Period | Short Swap (+$48/lot/day) | Long Swap (-$78/lot/day) | Net Swap | Cumulative |
+|---|---|---|---|---|
+| **Daily** | +$4,512 (94 shorts) | -$9,204 (118 longs) | -$4,692 | -$4,692 |
+| **Wednesday 3x** | +$13,536 | -$27,612 | -$14,076 | — |
+| **Weekly (7 days)** | +$31,584 | -$64,428 | -$32,844 | -$32,844 |
+| **Monthly (30 days)** | +$135,360 | -$276,120 | -$140,760 | -$140,760 |
+
+Net swap is negative — longs cost more than shorts earn. But the short swap partially offsets: without it, the carry cost would be -$9,204/day instead of -$4,692. The shorts cut the daily carry cost in half. As TRIM closes shorts, the swap benefit decreases and the carry cost rises toward the full -$9,204.
+
+### Hedge Unwind Projection (94 shorts, avg entry ~$2.87)
+
+| Scenario | Price Move | Target | Short P/L per Lot | Total | TRIM Speed | Timeline |
+|---|---|---|---|---|---|---|
+| **Range-bound** | ±$0.03 | $2.83–$2.89 | -$100 to +$200 | -$9.4K to +$18.8K | 0.1 lots/tick at ML edge | **6-10 weeks** |
+| **1 ATR D1 drop** | -$0.151 | **$2.71** | +$1,600/lot | **+$150K total** | Fast (ML spikes above 69%) | **1-2 weeks** |
+| **1 ATR W1 drop** | -$0.473 | **$2.39** | +$4,800/lot | **+$451K total** | Very fast | **2-3 days** |
+| **Price rises $0.10** | +$0.10 | $2.96 | -$1,300/lot | -$122K | DEAD zone holds | **Stalled** |
+| **Price rises $0.20** | +$0.20 | $3.06 | -$2,300/lot | -$216K | **PROTECT fires** | **Account at risk** |
+
+**Current state:** ML 62.9% in the DEAD zone. TRIM paused (needs 69%). 94 shorts surviving, collecting swap. If natgas drops $0.05, ML rises above 69% and TRIM resumes grinding. If natgas rises $0.15+, ML approaches 55% PROTECT territory.
+
+The 14% DEAD zone is doing its job — IYCN has survived longer than CKUC's 36 hours or IYCN Round 1's 8 hours. The position breathes. The swap accumulates. The thesis waits.
 
 The account has $72K left. Two natgas DARWINs already dead. $82K of tuition already paid. This is the third attempt — same thesis, third vehicle, widest settings yet. Each death refined the calibration. Each headstone bought 2% more cushion.
 

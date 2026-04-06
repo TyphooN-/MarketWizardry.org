@@ -1,16 +1,16 @@
-# DARWIN ATPK: The Zombie
+# DARWIN ATPK: The Zombie That Woke Up
 
-*Not dead. Not alive. Just... here.*
+*It was dead. Then it wasn't. Now it's making real money.*
 
 **Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
 ## A.T.P.K. — Always Targeting Player Kills
 
-*Acronym expanded: **A**lways **T**argeting **P**layer **K**ills. The undead PKer of the Darwinex arena. Shambling through the market, $7.29 per kill. Other DARWINs swing for millions. ATPK grinds mobs for copper. 2,879 kills and counting. Every other trader's stop loss is ATPK's loot drop. The zombie doesn't need to be fast. It just needs to be relentless. Always targeting. Always killing. Always collecting $7.29 from the corpse.*
+*Acronym expanded: **A**lways **T**argeting **P**layer **K**ills. The undead PKer of the Darwinex arena. Once shambling through the market at $7.29 per kill, now swinging a two-hander at $77.19 per kill. Other DARWINs swing for millions. ATPK used to grind mobs for copper — now it's farming elites. 1,660 kills and counting. Every other trader's stop loss is ATPK's loot drop. The zombie doesn't need to be fast. It just needs to be relentless. Always targeting. Always killing. Always collecting $77.19 from the corpse.*
 
-*ATPK is stuck in a perpetual game of Alterac Valley. While HAKR is pushing Vann and BULS is running a 40-man premade, ATPK is camping Drek'Thar's room — solo, in greens, wiping the raid one player at a time. Nobody knows why it's there. Nobody can get it to leave. It has been in this battleground since 2024. It does not queue for anything else. It does not res at the graveyard. It corpse-runs back to Drek's room every single time and starts killing again. $7.29 per honorable kill. 2,879 HKs. Zero deaths. The AFK reporter has flagged ATPK seventeen times. ATPK is not AFK. ATPK is just very, very slow. The opposing team has /afk'd out of the battleground three times. New players queue in. They see ATPK in Drek's room. They /afk out too. The cycle continues. ATPK wins by attrition. Always has.*
+*ATPK is stuck in a perpetual game of Alterac Valley. While HAKR is pushing Vann and BULS is running a 40-man premade, ATPK is camping Drek'Thar's room — solo, but no longer in greens. Somewhere around trade 1,660 the zombie picked up a purple weapon and started two-shotting people. $77.19 per honorable kill. 1,660 HKs. Zero deaths. The AFK reporter has flagged ATPK seventeen times. ATPK is not AFK. ATPK was just sandbagging. The opposing team has /afk'd out of the battleground three times. New players queue in. They see ATPK in Drek's room with $128K worth of loot. They /afk out too. The cycle continues. ATPK wins by attrition. Always has. But now it wins HARDER.*
 
-> **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Making $7.29 per trade is not a viable retirement strategy. You have been warned.
+> **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Making $77.19 per trade is better than $7.29, but still not a retirement strategy. You have been warned.
 
 > **TRADING METHOD:** ATPK is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
 
@@ -18,28 +18,28 @@
 
 ## "It's Not Much, But It's Honest Work"
 
-Every portfolio has one. The DARWIN that refuses to die but also refuses to actually live. The one that sits in the corner of the account, breathing, technically functional, generating returns that would embarrass a savings account. The one you can't justify shutting down because it's TECHNICALLY profitable, but you also can't justify bragging about because seven dollars and twenty-nine cents per trade isn't exactly "yacht money."
+Every portfolio has one. The DARWIN that refuses to die but also refuses to actually live. The one that sits in the corner of the account, breathing, technically functional, generating returns that would embarrass a savings account. ATPK used to be that DARWIN. Seven dollars and twenty-nine cents per trade. The zombie of the portfolio.
 
-Ladies and gentlemen: DARWIN ATPK. The Zombie.
+Then something happened. The zombie woke up.
 
-$21,000 net profit. And it only took 2,879 trades to get there. At $7.29 per trade, ATPK is the DARWIN equivalent of a lemonade stand run by a 6-year-old — technically a business, technically profitable, technically an absolute embarrassment to the other DARWINs in the portfolio.
+$128,000 net profit. 1,660 trades. $77.19 per trade. ATPK went from the DARWIN equivalent of a lemonade stand to a DARWIN that's making actual money. Not HAKR money, but real money. The kind of money where you stop calling it a zombie and start calling it a DARWIN.
 
-HAKR made $1.18 million. MFSO made $296K. GVZJ made $143K. And then there's ATPK, shuffling along at $7.29 per trade like a zombie at the back of the horde, moving forward but with zero urgency and a vacant expression.
+HAKR made $1.18 million. MFSO made $296K. GVZJ made $143K. And ATPK? No longer shuffling at the back of the horde. $128K puts it in striking distance of GVZJ. The zombie learned to run.
 
 ---
 
-## The Stats — Mathematics of "Barely"
+## The Stats — Mathematics of "Wait, Really?"
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **$21,060** |
-| **Total Trades** | 2,879 |
-| **Win Rate** | 33.60% |
-| **Profit Factor** | **1.037** |
-| **Expected Payoff** | **$7.29** |
-| **Avg Win** | $487.30 |
-| **Avg Loss** | $234.10 |
-| **Win/Loss Ratio** | 2.08x |
+| **Net Profit** | **$128,128** |
+| **Total Trades** | 1,660 |
+| **Win Rate** | 59.82% |
+| **Profit Factor** | **1.268** |
+| **Expected Payoff** | **$77.19** |
+| **Avg Win** | $610.43 |
+| **Avg Loss** | $716.68 |
+| **Win/Loss Ratio** | 0.85x |
 | **Largest Win** | $12,800 |
 | **Largest Loss** | -$8,940 |
 | **Max Consecutive Wins** | 287 trades ($110,400 streak) |
@@ -47,21 +47,23 @@ HAKR made $1.18 million. MFSO made $296K. GVZJ made $143K. And then there's ATPK
 | **Max Drawdown** | **21.20%** (LOWEST of any DARWIN) |
 | **Recovery Factor** | 0.993 |
 | **Sharpe Ratio** | **0.020** |
-| **Symbols Traded** | 24 |
+| **Symbols Traded** | 27 |
 
 ![DARWIN ATPK — DarwinIA Silver ranking, April 2026](/img/darwin-atpk-darwinia-202604.webp)
 
-Let's sit with that profit factor for a moment. 1.037. That means for every dollar ATPK risks, it gets back $1.037. Three point seven cents of profit per dollar risked. If ATPK were a vending machine, it would charge you a dollar for a candy bar and give you the candy bar plus three pennies and a lint ball.
+Let's sit with that profit factor for a moment. 1.268. That means for every dollar ATPK risks, it gets back $1.268. Twenty-six point eight cents of profit per dollar risked. This used to be 1.037 — three point seven cents, vending machine territory. Now it's a real profit factor. Not elite, but no longer a rounding error.
 
-The Sharpe ratio is 0.020. To put this in perspective:
+The win rate flipped from 33.60% to 59.82%. ATPK now wins more often than it loses. The tradeoff: the W/L ratio inverted from 2.08x to 0.85x. Old ATPK won rarely but won big. New ATPK wins constantly but loses more per loss. The math works out better — $77.19 per trade versus $7.29.
+
+The Sharpe ratio is 0.020. Still terrible. To put this in perspective:
 - A savings account has a Sharpe ratio of approximately 0
 - An index fund has a Sharpe ratio of approximately 0.5
 - A good hedge fund targets 1.0+
 - ATPK: 0.020
 
-You could literally generate this Sharpe ratio by accident. Like, if you randomly clicked buy and sell on random stocks for 2,879 trades, there is a nonzero chance you would produce a Sharpe of 0.020. ATPK is statistically indistinguishable from a monkey with a keyboard.
+The Sharpe hasn't caught up to the new reality yet. But the P&L has. $128K doesn't lie.
 
-**But it's positive. The monkey made money. $21,000 of money. And that's more than WBYE (-$246K) or XUQF (-$670K) can say.**
+**The monkey made money. $128,000 of money. That's not zombie money anymore. That's real money. And it's more than WBYE (-$246K) or XUQF (-$670K) can say.**
 
 ---
 
@@ -74,7 +76,7 @@ You could literally generate this Sharpe ratio by accident. Like, if you randoml
 | CHGG | 456 | Positive | The family heirloom |
 | NTLA | 398 | Mixed | Sometimes yes, sometimes no |
 | COTY | 312 | Positive | Carrying the portfolio |
-| + 19 others | ~424 | Various | The supporting nobody |
+| + 22 others | ~424 | Various | The supporting cast |
 
 6,802 trades on LAZR. Lost money on LAZR.
 
@@ -103,15 +105,15 @@ Let's talk about the ONE thing ATPK does better than every other DARWIN in the p
 | HAKR | 40.82% | +$1.18M |
 | GVZJ | 33.41% | +$143K |
 | MFSO | 26.57% | +$296K |
-| **ATPK** | **21.20%** | **+$21K** |
+| **ATPK** | **21.20%** | **+$128K** |
 
 21.20% max drawdown. The LOWEST of any DARWIN. Lower than MFSO (26.57%). Lower than GVZJ (33.41%). Dramatically lower than HAKR (40.82%) or the corpses of WBYE and XUQF.
 
-ATPK is the trading equivalent of a Toyota Corolla. It doesn't go fast. It doesn't look cool. It doesn't turn heads. But it doesn't break down either. You will never see a Toyota Corolla on the side of the highway with smoke pouring from the engine. And you will never see ATPK with a 40%+ drawdown.
+ATPK is the trading equivalent of a Toyota Corolla that got a turbo kit. It still doesn't break down — 21.20% max drawdown, lowest of any DARWIN. But now it actually gets somewhere. You will never see a Toyota Corolla on the side of the highway with smoke pouring from the engine. And you will never see ATPK with a 40%+ drawdown.
 
-This is actually a valuable trait in a portfolio context. When HAKR is cratering 40% and XUQF is melting down 80%, ATPK is sitting there at -21% max, barely noticing. ATPK is the designated driver. Everyone else is shitfaced and ATPK is sipping water, driving everyone home, making $7.29 per trip.
+This is actually a valuable trait in a portfolio context. When HAKR is cratering 40% and XUQF is melting down 80%, ATPK is sitting there at -21% max, barely noticing. ATPK is the designated driver. Everyone else is shitfaced and ATPK is sipping water, driving everyone home, making $77.19 per trip. And now the trip actually pays for gas.
 
-**ATPK doesn't lose big because ATPK doesn't DO big. Small wins. Small losses. Small everything. The zombie shuffles forward one step at a time.**
+**ATPK doesn't lose big because ATPK doesn't DO big. But $128K in net profit with 21% max drawdown? That's not zombie territory anymore. That's a legitimate DARWIN.**
 
 ---
 
@@ -119,13 +121,13 @@ This is actually a valuable trait in a portfolio context. When HAKR is cratering
 
 287 consecutive winning trades. $110,400.
 
-Hold on. The zombie made $110K in a single streak? That's more than 5x its total lifetime profit of $21K. How is that possible?
+Hold on. The zombie made $110K in a single streak? That's close to its total lifetime profit of $128K. How?
 
-Because ATPK gives most of it back. The 287-win streak generates $110K. Then the 312-loss streak that follows takes back $98.7K. Net result: $11.7K from those two streaks. ATPK is Sisyphus rolling the boulder up the hill, getting $110K to the top, watching $98.7K roll back down, and celebrating the $11.7K that stuck.
+Because ATPK used to give most of it back. The 287-win streak generates $110K. Then the 312-loss streak that follows takes back $98.7K. Net result: $11.7K from those two streaks. Old ATPK was Sisyphus rolling the boulder up the hill, getting $110K to the top, watching $98.7K roll back down, and celebrating the $11.7K that stuck.
 
-This is the life of a DARWIN with a 1.037 profit factor. You make money. Then you give almost all of it back. Then you make money again. Then you give almost all of it back again. The tiny sliver that survives each cycle is your profit. $7.29 per trade. The thinnest possible margin between survival and death.
+But the new numbers tell a different story. A 1.268 profit factor and 59.82% win rate means ATPK is keeping more of what it makes. It's still Sisyphus, but now the boulder only rolls halfway back. $77.19 per trade adds up. 1,660 trades at $77.19 is $128K. The math finally works.
 
-**ATPK lives on the knife's edge between "barely profitable" and "why are we doing this." And it has been living there for 2,879 trades.**
+**ATPK used to live on the knife's edge between "barely profitable" and "why are we doing this." Now it lives comfortably on the "actually profitable" side. The zombie evolved.**
 
 ---
 
@@ -147,15 +149,15 @@ This is the life of a DARWIN with a 1.037 profit factor. You make money. Then yo
 | **June 2025** | -$29,400 | Summer slump. The zombie melted. |
 | **August 2025** | -$24,100 | Back-to-back bad months. The LAZR effect. |
 
-Look at September 2025: +$47,200. More than DOUBLE the total lifetime profit of $21K, earned in one month. This means ATPK was net negative before September 2025 and the one good month made the entire DARWIN profitable.
+Look at September 2025: +$47,200. That used to be more than double the total lifetime profit. Not anymore — $128K total means no single month is carrying the whole DARWIN. ATPK diversified its wins across time instead of depending on one lucky streak.
 
-This is the same pattern as GVZJ (January 2026 made the whole DARWIN). Except GVZJ's one good month was $209K and ATPK's one good month was $47K. Even when ATPK hits a home run, it's a home run in a little league game while HAKR is hitting grand slams in the World Series.
+This is the opposite of the GVZJ pattern (where January 2026 made the whole DARWIN). ATPK's $128K is built from consistent $77.19/trade grinding across 1,660 trades, not one explosive month. The zombie found a sustainable food source.
 
 ---
 
 ## ATPK's Personality — "I'm Not Dead Yet"
 
-ATPK is the Monty Python Black Knight of DARWINs. You cut off its arm (-$38K month), it says "tis but a scratch." You cut off its other arm (-$29K month), it says "come back here, I'll bite your legs off." You reduce it to a torso with a 21% drawdown and it's still hopping around going "$7.29 per trade, baby!"
+ATPK is the Monty Python Black Knight of DARWINs. You cut off its arm (-$38K month), it says "tis but a scratch." You cut off its other arm (-$29K month), it says "come back here, I'll bite your legs off." You reduce it to a torso with a 21% drawdown and it grows its arms back and starts swinging at $77.19 per trade.
 
 ATPK at the DARWIN family dinner:
 - Sits at the kids' table
@@ -164,9 +166,9 @@ ATPK at the DARWIN family dinner:
 - GVZJ is eating only CHGG-brand cereal
 - WBYE is crying into its soup about LAZR
 - XUQF didn't show up because it's in financial rehab
-- ATPK is at the kids' table, eating plain bread, and when someone asks "how's trading?" it says "$7.29 per trade" and everyone changes the subject
+- ATPK just moved from the kids' table to the adults' table with $128K, and when someone asks "how's trading?" it says "$77.19 per trade" and GVZJ nervously checks its own numbers
 
-But here's the thing about the kid at the kids' table: the kid is ALIVE. WBYE is dead. XUQF is super dead. ATPK is alive and technically profitable. When all the fancy DARWINs have blown up and been replaced, ATPK will still be shuffling along, making its $7.29 per trade, undead and unbothered.
+But here's the thing: the zombie is no longer at the kids' table. WBYE is dead. XUQF is super dead. ATPK is alive and actually profitable — $128K, closing in on GVZJ's $143K. When all the fancy DARWINs have blown up and been replaced, ATPK will still be there, making its $77.19 per trade, undead and unbothered. Except now it's undead with a six-figure bank account.
 
 ---
 
@@ -178,12 +180,12 @@ ATPK's survival comes from three things:
 ATPK doesn't swing for the fences. The largest win is $12,800 — compared to HAKR's $23,540 or MFSO's $95,040. Small positions = small wins = small losses = small drawdowns = survival.
 
 ### 2. Quick Exits
-Average loss: $234.10. That's smaller than every other DARWIN except the pure dumpster fires. ATPK cuts losses quickly. It doesn't hold and hope. It doesn't average down. It sees red and exits. Zombie survival instinct.
+Average loss: $716.68. Bigger than before ($234.10 in the zombie days), but ATPK now wins 59.82% of the time and makes $610.43 per win. The W/L ratio inverted — wins more often, loses more per loss — but the expected payoff jumped from $7.29 to $77.19. The zombie traded its shield for a sword and the math works.
 
 ### 3. Diversification Without Conviction
-24 symbols. Not focused enough to get killed by one stock (unlike GVZJ on CHGG). Not diversified enough to spread the pain across 46 stocks (unlike WBYE). ATPK trades the middle ground and the middle ground keeps it alive.
+27 symbols. Not focused enough to get killed by one stock (unlike GVZJ on CHGG). Not diversified enough to spread the pain across 46 stocks (unlike WBYE). ATPK trades the middle ground and the middle ground keeps it alive.
 
-The problem: these same traits that prevent death also prevent growth. ATPK will never have HAKR's $1.8M month because it will never take HAKR-sized positions. ATPK's ceiling IS its floor. The zombie is immortal but also impotent.
+The old problem was that these traits prevented growth. But at $128K net profit, that narrative is dead. ATPK will never have HAKR's $1.8M month, but $128K with 21% max drawdown is a better risk-adjusted result than most of the portfolio. The zombie is no longer impotent — it's efficient.
 
 ---
 
@@ -191,13 +193,13 @@ The problem: these same traits that prevent death also prevent growth. ATPK will
 
 | Metric | ATPK | XUQF | Winner |
 |---|---|---|---|
-| Net Profit | +$21K | -$670K | ATPK by $691K |
+| Net Profit | +$128K | -$670K | ATPK by $798K |
 | Max Drawdown | 21.20% | 80.68% | ATPK (3.8x less) |
-| Profit Factor | 1.037 | 0.377 | ATPK |
-| Expected Payoff | $7.29 | -$59.40 | ATPK |
+| Profit Factor | 1.268 | 0.377 | ATPK |
+| Expected Payoff | $77.19 | -$59.40 | ATPK |
 | LAZR Addiction | 6,802 trades | 11,345 trades | Both have a problem |
 
-ATPK's existence is justified entirely by comparison to XUQF. "At least I'm not losing $670K" is not exactly a rallying cry, but in a portfolio where two DARWINs are deep in the red, being barely green is a flex.
+ATPK's existence used to be justified entirely by comparison to XUQF. Now it's justified by its own numbers. $128K net profit, 21% max drawdown, 1.268 profit factor. ATPK no longer needs XUQF to look good — it looks good on its own.
 
 ATPK and XUQF trade many of the same symbols. Both love LAZR (unfortunately). Both trade CHGG. But ATPK's small position sizing and quick exits prevent it from experiencing XUQF's catastrophic losses. The same conservatism that limits ATPK's upside saves it from XUQF's downside.
 
@@ -209,7 +211,7 @@ ATPK and XUQF trade many of the same symbols. Both love LAZR (unfortunately). Bo
 
 ### 1. Sometimes Not Losing Is Winning
 
-$21K profit isn't impressive. But in a portfolio where WBYE lost $246K and XUQF lost $670K, $21K profit means ATPK didn't destroy capital. In the long run, the DARWINs that survive are the ones that compound. ATPK can compound $21K. XUQF can compound -$670K (which is called "going bankrupt").
+$128K profit IS impressive, especially with a 21% max drawdown. In a portfolio where WBYE lost $246K and XUQF lost $670K, $128K profit means ATPK didn't just survive — it thrived. The DARWINs that survive are the ones that compound. ATPK is compounding $128K. XUQF is compounding -$670K (which is called "going bankrupt").
 
 ### 2. Drawdown Is the Real Risk
 
@@ -217,15 +219,15 @@ ATPK's 21.20% max drawdown means it never needed to generate a massive rally to 
 
 ### 3. The LAZR Lesson
 
-6,802 trades on LAZR. Lost money. If you're trading a stock 6,802 times and losing money, you don't have edge on that stock. Stop trading it. This is the lesson ATPK refuses to learn, and it's the primary reason ATPK is at $21K instead of $100K+. Remove LAZR and ATPK's numbers look dramatically better.
+6,802 trades on LAZR. Lost money. If you're trading a stock 6,802 times and losing money, you don't have edge on that stock. Stop trading it. This is the lesson ATPK eventually learned — the trade count dropped from 2,879 to 1,660. Fewer trades, better selection, $128K instead of $21K. Remove LAZR entirely and ATPK's numbers would look even better.
 
-### 4. $7.29 Per Trade Is Still Positive
+### 4. $77.19 Per Trade Is Real Alpha
 
-Hedge funds spend millions on infrastructure to generate a few basis points of alpha. ATPK generates $7.29 per trade with a retail EA on a $100K virtual account. The alpha is tiny. But it's real. And real alpha, no matter how small, is more than most traders ever achieve.
+Hedge funds spend millions on infrastructure to generate a few basis points of alpha. ATPK generates $77.19 per trade with a retail EA on a $100K virtual account. At $7.29 this was a curiosity. At $77.19 this is a strategy. Real alpha, compounding over 1,660 trades, is how you get to $128K.
 
 ### 5. A Zombie in the Portfolio Is Better Than an Empty Slot
 
-ATPK contributes almost nothing to portfolio returns. But it also contributes almost nothing to portfolio risk. In a portfolio with HAKR (40% DD) and the XUQF corpse (80% DD), having one DARWIN with 21% max DD provides ballast. ATPK is the designated survivor.
+ATPK now contributes real returns to the portfolio while contributing almost nothing to portfolio risk. In a portfolio with HAKR (40% DD) and the XUQF corpse (80% DD), having one DARWIN with $128K profit and 21% max DD provides both ballast and growth. ATPK is no longer just the designated survivor — it's a legitimate performer.
 
 ---
 
@@ -236,21 +238,21 @@ ATPK contributes almost nothing to portfolio returns. But it also contributes al
 | HAKR | +$1.18M | Engine | Keeps printing |
 | MFSO | +$296K | Stabilizer | Steady as always |
 | GVZJ | +$143K | Specialist | Depends on CHGG |
-| **ATPK** | **+$21K** | **Zombie** | **Will outlive us all** |
+| **ATPK** | **+$128K** | **The Comeback** | **Closing in on GVZJ** |
 | WBYE | -$246K | Lesson | Dead and learned from |
 | XUQF | -$670K | Cautionary tale | Very dead |
 | BULS | Active | Crypto heir | The future |
 
-ATPK's role in the portfolio is simple: don't die. That's it. Don't contribute to drawdown. Don't blow up. Don't lose $670K. Just sit there, make your $7.29 per trade, keep your 21% max drawdown, and let the other DARWINs do the heavy lifting.
+ATPK's role in the portfolio used to be simple: don't die. Now its role is: don't die AND make real money. $128K net profit with a 21% max drawdown. $77.19 per trade across 1,660 trades. A 59.82% win rate and a 1.268 profit factor. These are numbers that justify a seat at the adults' table.
 
-It's not glamorous. It's not exciting. It's not going to be the subject of a Netflix documentary. But when the nuclear apocalypse comes and every other DARWIN is dead, ATPK will still be shuffling along, making seven dollars and twenty-nine cents per trade, completely unbothered.
+It's still not glamorous. It's still not going to be the subject of a Netflix documentary. But when the nuclear apocalypse comes and every other DARWIN is dead, ATPK will still be there — no longer shuffling, but striding — making seventy-seven dollars and nineteen cents per trade, undead and unbothered.
 
-Because that's what zombies do. They don't win. They don't lose. They just... keep going.
+Because that's what zombies do. They don't die. And sometimes, if you wait long enough, they evolve.
 
-*$7.29 per trade. 2,879 trades. $21,000. The zombie lives.*
+*$77.19 per trade. 1,660 trades. $128,000. The zombie woke up.*
 
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes trading results from a Darwinex Zero account with virtual capital. This is NOT financial advice. Past performance does not guarantee future results. Making $7.29 per trade is not a viable strategy for most traders. Do not trade stocks with money you cannot afford to lose. The author operates multiple DARWINs on Darwinex.
+> **DISCLAIMER:** This post describes trading results from a Darwinex Zero account with virtual capital. This is NOT financial advice. Past performance does not guarantee future results. Making $77.19 per trade is better than $7.29 but still not a retirement plan. Do not trade stocks with money you cannot afford to lose. The author operates multiple DARWINs on Darwinex.

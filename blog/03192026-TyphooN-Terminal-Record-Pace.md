@@ -1581,7 +1581,19 @@ Three brokers. One terminal. Alpaca for US equities/options/crypto. tastytrade f
 
 **Cleanup pass:** dead LAN client code path removed from periodic fetch (outer guard already blocks). Crypto symbol normalization in BARDATA (strip slashes). CryptoCompare limited to H1+ timeframes in BARDATA (sub-hourly has 7-day history limit). Forming bar synthesis cache key slash-stripping fixed.
 
-**840 total commits. ~66,400 LOC. 618 tests. Zero warnings.**
+### BARDATA Optimization, DELETE_DARWIN, MT5 Sync Fix (2026-04-06+)
+
+**BARDATA v2:** cache threshold dropped from 100→0 bars (any cached data = skip). Uses incremental `FetchBars` (1,000 bars) instead of `FetchAllBars` (full history from 2000). **Stop button** in the BARDATA progress window to cancel mid-run. `demand.txt` v2 format with timestamps for cache freshness tracking.
+
+**DELETE_DARWIN command:** delete a single DARWIN/MT5 account and all its data — deals, positions, equity snapshots. Usage: `DELETE_DARWIN CKUC`. Also available via delete button in the account detail panel. Returns row count for confirmation.
+
+**Yahoo scrape failures blocklist:** `scrape_failures` SQLite table records symbols that return 404/Not Found from Yahoo Finance. On subsequent `EVSCRAPE` runs, failed symbols are silently skipped — no wasted API calls. Persists across sessions.
+
+**MT5 sync regression check removed:** the check was blocking new bars after reboot. BarCacheWriter caps at 10K bars per export, but the terminal cache had 100K from pre-reboot exports. The regression check saw 10K < 50K (100K/2) and refused ALL updates. Now accepts any source with newer timestamps. BarCacheWriter handles its own integrity.
+
+**The terminal now manages all 6 active DARWINs simultaneously** — TyphooN uses the cross-DARWIN correlation matrix, symbol overlap heatmap, and portfolio VaR tools to juggle correlation and optimize profits across all accounts in real-time. The DARWINS command shows combined portfolio analytics. The DARWIN command shows per-account detail. One terminal, six accounts, zero spreadsheets.
+
+**848 total commits. ~66,500 LOC. 618 tests. Zero warnings.**
 
 -- TyphooN
 

@@ -4,7 +4,7 @@
 
 **Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
-> **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The humor is real. The losses were real. The $1.18M profit was also real. Do not attempt to replicate any of this without understanding that you can and will lose money. You have been warned. H4ck th3 pl4n3t.
+> **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The humor is real. The losses were real. The $1.43M profit was also real. Do not attempt to replicate any of this without understanding that you can and will lose money. You have been warned. H4ck th3 pl4n3t.
 
 > **TRADING METHOD:** HAKR is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging. The TyphooN EA serves as **risk management only** — position sizing and monitoring. No TRIM, no PROTECT, no martingale. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat. BULS is the only fully automated DARWIN.
 
@@ -18,11 +18,11 @@ In 1988, Dade Murphy — handle: Zero Cool — crashed 1,507 Wall Street compute
 
 On his 18th birthday, the first thing he did was hack a television station. Then he enrolled at Stanton High School, met Acid Burn, tangled with The Plague, and hacked the Gibson — the most powerful supercomputer on Earth — live on international television while rollerblading through Manhattan with the FBI on his ass.
 
-HAKR traded 8,443 positions across 37 symbols and made **$1,183,742**. Nobody arrested HAKR. Nobody fined HAKR. The Secret Service did not show up at HAKR's door with a warrant because HAKR doesn't have a door. HAKR runs on a server in a datacenter and it does not give a single solitary shit about your feelings, your regulatory framework, or your outdated threat assessment protocols.
+HAKR traded 8,334 positions across 36 symbols and made **$1,425,623**. Nobody arrested HAKR. Nobody fined HAKR. The Secret Service did not show up at HAKR's door with a warrant because HAKR doesn't have a door. HAKR runs on a server in a datacenter and it does not give a single solitary shit about your feelings, your regulatory framework, or your outdated threat assessment protocols.
 
 H.A.K.R. — **H**acking **A**ll **K**nown **R**esistances. The Gibson is the market. HAKR is already inside. The Plague is the drawdown. And the floppy disk with the Da Vinci virus? That's the algorithm.
 
-*"There is no right and wrong. There's only fun and boring."* — Zero Cool was talking about trading and didn't even know it. HAKR makes $140.21 per trade because the edge is fun and losing money is boring.
+*"There is no right and wrong. There's only fun and boring."* — Zero Cool was talking about trading and didn't even know it. HAKR makes $171.06 per trade because the edge is fun and losing money is boring.
 
 *1 4m 1n.*
 
@@ -32,14 +32,14 @@ H.A.K.R. — **H**acking **A**ll **K**nown **R**esistances. The Gibson is the ma
 
 | M3tr1c | V4lu3 |
 |---|---|
-| **Net Profit** | **$1,183,742** |
-| **Total Trades** | 8,443 |
-| **Win Rate** | 29.41% |
+| **Net Profit** | **$1,425,623** |
+| **Total Trades** | 8,334 |
+| **Win Rate** | 29.93% |
 | **Profit Factor** | 1.554 |
-| **Expected Payoff** | $140.21 |
-| **Avg Win** | $1,336.68 |
-| **Avg Loss** | $358.48 |
-| **Win/Loss Ratio** | **3.73x** |
+| **Expected Payoff** | $171.06 |
+| **Avg Win** | $1,347.98 |
+| **Avg Loss** | $331.55 |
+| **Win/Loss Ratio** | **4.07x** |
 | **Largest Win** | $23,540 |
 | **Largest Loss** | -$17,830 |
 | **Max Consecutive Wins** | 695 trades ($1,917,880 streak) |
@@ -47,19 +47,19 @@ H.A.K.R. — **H**acking **A**ll **K**nown **R**esistances. The Gibson is the ma
 | **Max Drawdown** | 40.82% |
 | **Recovery Factor** | 1.092 |
 | **Sharpe Ratio** | 0.052 |
-| **Symbols Traded** | 37 |
+| **Symbols Traded** | 36 |
 | **Best Month** | March 2025: **+$1,868,590** |
 | **Worst Month** | Multiple months at -$200K+ |
 
-29.41% win rate. Seven out of ten trades are losers.
+29.93% win rate. Seven out of ten trades are losers.
 
 This is the part where every trading guru on YouTube who sells a $997 course about "consistent 80% win rates" quietly closes this tab and goes back to posting screenshots of winners on a demo account. *"You could sit at home, and do like absolutely nothing, and your name goes through like 17 computers a day."* — The Phantom Phreak wasn't wrong. These algorithms run whether you watch them or not.
 
-HAKR is wrong 70% of the time. HAKR made $1.18 million. The math works because when HAKR loses it loses $358, and when HAKR wins it wins $1,337. That's a 3.73x win/loss ratio. You could be wrong 3.73 times for every right and STILL break even. At 29.41% wins, HAKR wins about 1 in 3.4 trades. That's above the 1-in-3.73 breakeven. Razor thin margin of safety. Rock solid result.
+HAKR is wrong 70% of the time. HAKR made $1.43 million. The math works because when HAKR loses it loses $332, and when HAKR wins it wins $1,348. That's a 4.07x win/loss ratio. You could be wrong 4.07 times for every right and STILL break even. At 29.93% wins, HAKR wins about 1 in 3.3 trades. That's above the 1-in-4.07 breakeven. Razor thin margin of safety. Rock solid result.
 
-Cereal Killer said *"Dude, this is a really big deal. This is like being invited to the most exclusive club in New York City."* Except the club is a 29% win rate with a 3.73x payoff ratio, the bouncer is a drawdown, and the VIP section costs $1.18M to enter. Most traders can't get past the door because they panic at loss #5.
+Cereal Killer said *"Dude, this is a really big deal. This is like being invited to the most exclusive club in New York City."* Except the club is a 29% win rate with a 4.07x payoff ratio, the bouncer is a drawdown, and the VIP section costs $1.43M to enter. Most traders can't get past the door because they panic at loss #5.
 
-**Cut losses fast. Let winners run. This is the entire philosophy. Print this out and tape it to your monitor. Or don't. Doesn't matter. HAKR already made $1.18M and doesn't need your validation.**
+**Cut losses fast. Let winners run. This is the entire philosophy. Print this out and tape it to your monitor. Or don't. Doesn't matter. HAKR already made $1.43M and doesn't need your validation.**
 
 ---
 
@@ -87,11 +87,11 @@ Did HAKR post a 4,000-word thread about how delisting is market manipulation? Di
 
 No. HAKR went to CC. NTLA. CHGG. Didn't even log the incident. The algorithm found the next edge and started trading it immediately. When Dade got banned from computers at age 11, he didn't quit hacking. He spent 7 years waiting, then hacked a TV station on his birthday. HAKR lost its primary target and found a new one the same day. **Zero Cool didn't cry when the Gibson crashed. He uploaded the worm and moved on.**
 
-*"You wanted to know who I am, Zero Cool? Well, let me explain the New World Order. Governments and corporations need people like you and me."* — Eugene "The Plague" Belford was talking about algo traders. The market needs liquidity providers. HAKR provides liquidity 8,443 times and takes $1.18M for the service.
+*"You wanted to know who I am, Zero Cool? Well, let me explain the New World Order. Governments and corporations need people like you and me."* — Eugene "The Plague" Belford was talking about algo traders. The market needs liquidity providers. HAKR provides liquidity 8,334 times and takes $1.43M for the service.
 
 ---
 
-## Symbol Breakdown — "Th3s3 4r3 n0t 37 st0cks. Th3y'r3 37 g1bs0ns."
+## Symbol Breakdown — "Th3s3 4r3 n0t 36 st0cks. Th3y'r3 36 g1bs0ns."
 
 | Symbol | Trades | Role |
 |---|---|---|
@@ -101,13 +101,13 @@ No. HAKR went to CC. NTLA. CHGG. Didn't even log the incident. The algorithm fou
 | **CHGG** | 3,190 | The family stock. Every DARWIN touches CHGG. It's tradition. |
 | **LAZR** | 2,880 | The LAZR virus. Every DARWIN catches it. HAKR survived. Others didn't. |
 | **COTY** | 2,100 | Beauty stock. Because hackers need skincare apparently. |
-| **+ 31 others** | ~various | The botnet. Each one a node in the algorithm. |
+| **+ 30 others** | ~various | The botnet. Each one a node in the algorithm. |
 
-37 symbols. HAKR doesn't diversify because it read a textbook about modern portfolio theory. HAKR diversifies because when one Gibson goes down, you need 36 backup Gibsons. This is basic operational security. As Lord Nikon put it: *"FYI man, alright. You could sit at home, and do like absolutely nothing, and your name goes through like 17 computers a day."* HAKR's name goes through 37 symbols a day.
+36 symbols. HAKR doesn't diversify because it read a textbook about modern portfolio theory. HAKR diversifies because when one Gibson goes down, you need 35 backup Gibsons. This is basic operational security. As Lord Nikon put it: *"FYI man, alright. You could sit at home, and do like absolutely nothing, and your name goes through like 17 computers a day."* HAKR's name goes through 36 symbols a day.
 
-The 31 "other" symbols aren't there because HAKR couldn't find better targets. They're there because HAKR runs a distributed attack. You don't crack a mainframe from one IP address. You run the exploit from 37 nodes simultaneously and let the algorithm route the traffic. Remember when Zero Cool, Acid Burn, Cereal Killer, Lord Nikon, and Phantom Phreak all attacked the Gibson simultaneously from different terminals? That's HAKR's 37 symbols. Coordinated. Parallel. Each one probing a different vulnerability.
+The 30 "other" symbols aren't there because HAKR couldn't find better targets. They're there because HAKR runs a distributed attack. You don't crack a mainframe from one IP address. You run the exploit from 36 nodes simultaneously and let the algorithm route the traffic. Remember when Zero Cool, Acid Burn, Cereal Killer, Lord Nikon, and Phantom Phreak all attacked the Gibson simultaneously from different terminals? That's HAKR's 36 symbols. Coordinated. Parallel. Each one probing a different vulnerability.
 
-**Zero Cool didn't hack one computer. He crashed 1,507. HAKR doesn't trade one stock. It trades 37. Parallelized. Automated. Profitable.** *"HACK THE PLANET!"*
+**Zero Cool didn't hack one computer. He crashed 1,507. HAKR doesn't trade one stock. It trades 36. Parallelized. Automated. Profitable.** *"HACK THE PLANET!"*
 
 ---
 
@@ -165,7 +165,7 @@ HAKR ate 40% and came back to life. Recovery factor: 1.092. Every single hole wa
 
 In the movie, the Secret Service confiscated Dade's computer, put him on a watch list, and banned him from keyboards for 7 years. That's a 100% drawdown on computing privileges. He came back and hacked the Gibson on live television. 40.82% drawdown? That's a Tuesday. *"God gave me a gift. I shovel well. I shovel very well."* — Joey. HAKR shovels money very well.
 
-Every attempt to stop HAKR by turning it off at 20% drawdown would have cost you $1.18M in profit. The market's security system cannot permanently stop an algorithm that has positive expected value. It can delay. It cannot deny. *"There is no right and wrong. There's only fun and boring."* — And drawdowns are boring. Recovery is fun.
+Every attempt to stop HAKR by turning it off at 20% drawdown would have cost you $1.43M in profit. The market's security system cannot permanently stop an algorithm that has positive expected value. It can delay. It cannot deny. *"There is no right and wrong. There's only fun and boring."* — And drawdowns are boring. Recovery is fun.
 
 ---
 
@@ -183,7 +183,7 @@ Every attempt to stop HAKR by turning it off at 20% drawdown would have cost you
 
 ![DARWIN HAKR — DarwinIA Silver ranking, April 2026](/img/darwin-hakr-darwinia-202604.webp)
 
-The signal account lost $1.18M (virtual). The DARWIN turned that chaos into +34.66% returns for investors. This is what Darwinex's Risk Management Engine does — it takes HAKR's 40% drawdowns and compresses them to 18.74%. It takes HAKR's volatility and serves it as a product.
+The signal account lost $1.43M (virtual). The DARWIN turned that chaos into +34.66% returns for investors. This is what Darwinex's Risk Management Engine does — it takes HAKR's 40% drawdowns and compresses them to 18.74%. It takes HAKR's volatility and serves it as a product.
 
 **The algorithm hacks the market. Darwinex hacks the algorithm. Everyone profits except XUQF.**
 
@@ -193,7 +193,7 @@ The signal account lost $1.18M (virtual). The DARWIN turned that chaos into +34.
 
 If the DARWINs were characters in "Hackers" (1995):
 
-- **HAKR** — **Zero Cool / Crash Override.** Age 11, crashed 1,507 Wall Street computers. Banned from keyboards for 7 years. Came back at 18, hacked the Gibson on live TV, cleared his name, got the girl, got the pool on the roof. $1.18M. The protagonist. *"Mess with the best, die like the rest."*
+- **HAKR** — **Zero Cool / Crash Override.** Age 11, crashed 1,507 Wall Street computers. Banned from keyboards for 7 years. Came back at 18, hacked the Gibson on live TV, cleared his name, got the girl, got the pool on the roof. $1.43M. The protagonist. *"Mess with the best, die like the rest."*
 - **MFSO** — **Acid Burn (Kate Libby).** Smart. Balanced. 51/49. *"I don't do dates."* Won't admit it respects Zero Cool but definitely respects Zero Cool. The one who types 28 WPM on a Powerbook while wearing leather. $296K and impeccable taste.
 - **GVZJ** — **Cereal Killer (Emmanuel Goldstein).** Only talks about CHGG. *"Dude, this is a really big deal."* Brings cereal to the rave. Makes $143K anyway. Named after the real-life hacker zine editor because of course he is.
 - **ATPK** — **The Phantom Phreak (Ramon Sanchez).** Phone phreaker extraordinaire. Quiet. Boring. Makes $7.29 per trade. Somehow still alive. *"FYI man, you could sit at home and do like absolutely nothing..."* That's ATPK's entire strategy.
@@ -214,17 +214,17 @@ HAKR shares exploit code with every DARWIN in the portfolio:
 - **LAZR** — HAKR (2,880), WBYE (2,616), XUQF (2,127), ATPK (6,802). The LAZR virus. HAKR survived it. Others were hospitalized.
 - **CC** — HAKR (4,944), MFSO (1,923). The post-LUMN pivot. HAKR made CC its new primary target after LUMN's delisting.
 
-The difference between HAKR and XUQF isn't the stocks. It's the settings, the sizing, and the discipline. XUQF traded the same Gibsons. XUQF lost $670K on them. HAKR made $1.18M on almost the exact same instruments. *"Never send a boy to do a woman's job."* — Acid Burn, on XUQF's risk management. XUQF wasn't hacking the Gibson. XUQF was The Plague — embezzling from its own account and blaming it on market conditions.
+The difference between HAKR and XUQF isn't the stocks. It's the settings, the sizing, and the discipline. XUQF traded the same Gibsons. XUQF lost $670K on them. HAKR made $1.43M on almost the exact same instruments. *"Never send a boy to do a woman's job."* — Acid Burn, on XUQF's risk management. XUQF wasn't hacking the Gibson. XUQF was The Plague — embezzling from its own account and blaming it on market conditions.
 
 ---
 
 ## Lessons from Zero Cool — "H4ck th3 pl4n3t"
 
 ### 1. Win Rate Is For People Who Don't Understand Math
-29.41% win rate. $1.18M. Engrave this on your tombstone if you have to. The win rate doesn't matter. The expected value per trade matters. $140.21 per trade × 8,443 trades = $1.18M. Win rate is a vanity metric for people who prefer being right over being rich. *"Of all the things I've lost, I miss my mind the most."* — If your mind tells you a 29% win rate can't be profitable, you're using the wrong mind.
+29.93% win rate. $1.43M. Engrave this on your tombstone if you have to. The win rate doesn't matter. The expected value per trade matters. $171.06 per trade × 8,334 trades = $1.43M. Win rate is a vanity metric for people who prefer being right over being rich. *"Of all the things I've lost, I miss my mind the most."* — If your mind tells you a 30% win rate can't be profitable, you're using the wrong mind.
 
 ### 2. Position Sizing Is The Exploit
-$1,337 avg win vs $358 avg loss = 3.73x. This is the Da Vinci virus — the code injection that makes the system vulnerable. In the movie, The Plague planted the Da Vinci virus to skim fractions of cents from Ellingson's oil transactions. HAKR's 3.73x ratio does the same thing in reverse — skim 3.73x more per win than per loss, repeat 8,443 times, collect $1.18M. The market's security model doesn't account for this asymmetry.
+$1,348 avg win vs $332 avg loss = 4.07x. This is the Da Vinci virus — the code injection that makes the system vulnerable. In the movie, The Plague planted the Da Vinci virus to skim fractions of cents from Ellingson's oil transactions. HAKR's 4.07x ratio does the same thing in reverse — skim 4.07x more per win than per loss, repeat 8,334 times, collect $1.43M. The market's security model doesn't account for this asymmetry.
 
 ### 3. Drawdowns Are The Secret Service Raid
 40.82% max drawdown. The Secret Service kicked in the door, confiscated the hardware, and hauled Zero Cool downtown. But they couldn't confiscate the knowledge. They couldn't delete the skill. They could only delay. Every time you turn off the EA during a drawdown, you're the Secret Service confiscating your own computer. You're Agent Gill arresting yourself.
@@ -236,7 +236,7 @@ LUMN got delisted. The Gibson ceased to exist. HAKR found CC. When the Gibson we
 March 2025 showed up after February 2025's -$198K. You don't know March is coming. You only find out after you stayed in. The traders who turned off their EA in February missed the month that made HAKR's entire year. Zero Cool got arrested at 11. He spent 7 years banned from computers. He didn't know the Gibson was coming. He waited. *"I don't play well with others."* Neither does patience.
 
 ### 6. 695 Consecutive Wins Happen To Algorithms, Not Egos
-An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scared at loss #50 and size-down. It executes the same logic at trade 8,443 that it ran at trade 1. That consistency — that absolute mechanical absence of emotional contamination — is the reason 695 wins in a row is possible. A human would have blown it at win #23 by doubling size "because I'm on a streak." Zero Cool didn't freestyle the Gibson hack. He had a plan. The crew executed. *"Hack the planet!"*
+An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scared at loss #50 and size-down. It executes the same logic at trade 8,334 that it ran at trade 1. That consistency — that absolute mechanical absence of emotional contamination — is the reason 695 wins in a row is possible. A human would have blown it at win #23 by doubling size "because I'm on a streak." Zero Cool didn't freestyle the Gibson hack. He had a plan. The crew executed. *"Hack the planet!"*
 
 ---
 
@@ -244,7 +244,7 @@ An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scar
 
 | DARWIN | Net Profit | Role |
 |---|---|---|
-| **HAKR** | **+$1,183,742** | Zero Cool. The Gibson is mine. |
+| **HAKR** | **+$1,425,623** | Zero Cool. The Gibson is mine. |
 | **MFSO** | +$296,000 | Acid Burn. Balanced and quietly dangerous. |
 | **GVZJ** | +$143,000 | Cereal Killer. Only talks about CHGG. |
 | **ATPK** | +$21,000 | The Phantom Phreak. $7.29/trade. Alive by spite. |
@@ -252,7 +252,7 @@ An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scar
 | **XUQF** | -$670,000 | The Plague. Thought it was hacking the Gibson. |
 | **BULS** | Active (SOL) | The successor. Absorbed all the dead DARWINs' skills. |
 
-HAKR's $1.18M covers WBYE's -$246K and XUQF's -$670K disaster **with $267K to spare**. The portfolio is profitable because of one DARWIN. One algorithm. One Zero Cool moment in March 2025 that printed $1.87M while the rest of the portfolio was either grinding or bleeding.
+HAKR's $1.43M covers WBYE's -$246K and XUQF's -$670K disaster **with $510K to spare**. The portfolio is profitable because of one DARWIN. One algorithm. One Zero Cool moment in March 2025 that printed $1.87M while the rest of the portfolio was either grinding or bleeding.
 
 Without HAKR, this is a losing portfolio. With HAKR, it's a $727K winner. That's not luck. That's an exploit that works.
 
@@ -268,7 +268,7 @@ This is the scene in Hackers where Agent Gill confiscates Dade's laptop. The hac
 
 But here's the thing about Zero Cool: he came back. He didn't come back smaller. He came back for the Gibson.
 
-HAKR found CC. Found NTLA. Rebuilt the symbol allocation. The algorithm adapted. The edge migrated. And now HAKR is climbing back — clawing toward new all-time highs with the same 3.73x payoff ratio, the same mechanical discipline, the same algorithm that doesn't know the meaning of "give up."
+HAKR found CC. Found NTLA. Rebuilt the symbol allocation. The algorithm adapted. The edge migrated. And now HAKR is climbing back — clawing toward new all-time highs with the same 4.07x payoff ratio, the same mechanical discipline, the same algorithm that doesn't know the meaning of "give up."
 
 **DarwinIA Gold is not a destination. It's a bookmark. HAKR was there. HAKR will be there again.** Zero Cool didn't stay arrested. He came back at 18 and hacked a bigger target on live television while the Secret Service watched. HAKR won't stay in Silver. It's reloading.
 
