@@ -151,8 +151,56 @@ CKUC is the sixth headstone in the DARWIN Graveyard. But its corpse isn't wasted
 
 IYCN found the supercycle. No hedge required.
 
+---
+
+## Post-Mortem: IYCN Is Dead (2026-04-06, evening)
+
+```
+IYCN final state:
+  Balance:      $72,399 (was $100,000)
+  Equity:       $72,399
+  Positions:    0 (broker liquidated all)
+  Risk:         $0
+  VaR:          0%
+  Cause of death: Broker stop-out. XNGUSD moved against long bias.
+  Lifespan:     ~8 hours
+  Total loss:   -$27,601
+```
+
+*"Is that the best you can do, you pansies?"* — Marv asked the question one too many times. IYCN lasted 8 hours. Shorter than CKUC's 36. Two natgas DARWINs dead in 12 hours. Same day. Same thesis. Same instrument. Different approaches — both dead.
+
+CKUC died because hedged martingale doesn't work at $2,900/lot. IYCN died because naked long on XNGUSD with 432% risk and no hedge means one adverse daily ATR move ($0.15) wipes the margin. The single-layer hedge bought a few hours. It wasn't enough.
+
+**The scorecard:**
+
+| DARWIN | Strategy | Lifespan | Loss | Cause |
+|---|---|---|---|---|
+| **CKUC** | Hedged MG (multi-layer) | 36 hours | -$54,686 | PROTECT overcorrection + broker stop-out |
+| **IYCN** | Single-layer hedge → naked long | 8 hours | -$27,601 | Broker stop-out on adverse move |
+| **Combined** | | 44 hours | **-$82,287** | XNGUSD + leverage + natgas volatility |
+
+$82,287 in tuition across two accounts in one calendar day. The natgas supercycle thesis consumed two DARWINs and spat out the bones.
+
+### The Lesson: XNGUSD CFDs Are Not a Supercycle Vehicle
+
+The thesis isn't wrong. The instrument is wrong. XNGUSD CFDs with 10% margin requirement and $2,900/lot are designed for short-term trading, not multi-month supercycle rides. The margin math doesn't give you enough room to survive the daily volatility while waiting for a thesis that plays out over months or years.
+
+*"Walk down the right back alley in Sin City and you can find anything."* — Marv found what he was looking for. It killed him. IYCN found the supercycle trade. It killed IYCN too. Sometimes the alley leads somewhere you shouldn't go. Not with this much leverage. Not on this instrument.
+
+The supercycle will be traded again. Not today. Not on a CFD account. The thesis deserves a vehicle that can survive the volatility long enough for the thesis to matter.
+
+---
+
+## 🪦 DARWIN Graveyard
+
+IYCN rests in a dark cemetery alongside CKUC — two graves dug on the same day. The fastest double burial in the portfolio's history. They lie next to AJTK, BBUD, XJFD, and QRRP. Six headstones. Six algorithms. Six theses that outlived their vehicles.
+
+IYCN's tombstone reads: *"Here lies IYCN — If You Can, Natgas. Turns out, you can't. Not on CFDs. Not at $2,900/lot. Not with 432% risk. 8 hours. $27,601. The thesis was right. The vehicle was wrong. Again."*
+
+*"Deadly little Miho."* — Miho doesn't talk. She just kills. XNGUSD doesn't talk either. It just stops you out. Two DARWINs in one day. The graveyard is getting crowded.
+
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. A 432% risk position on a single commodity can and will be liquidated if the market moves against it. The previous DARWIN (CKUC) running the same thesis was liquidated in 36 hours. Do not trade commodities with money you cannot afford to lose. The author holds active long positions in XNGUSD. The take profit of $134M is theoretical and assumes an extreme price move that may never occur.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account that was liquidated. This is NOT financial advice. IYCN lost $27,601 of virtual capital in 8 hours. CKUC and IYCN combined lost $82,287 in one calendar day on the same instrument. Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis remains the author's personal opinion and is not a recommendation to trade XNGUSD.
