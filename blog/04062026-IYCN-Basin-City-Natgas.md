@@ -6,7 +6,7 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Going naked long on natural gas after your previous natgas DARWIN died in 36 hours is the kind of decision that separates conviction from insanity. The line is thin. You have been warned.
 
-> **TRADING METHOD:** IYCN is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system. Stocks/ETF account — cash only, 100% margin, no hedging, no TRIM/PROTECT/martingale. The TyphooN EA serves as **risk management only**. Trade selection is manual: find an extreme outlier, trade it full tilt for a swing, rinse and repeat.
+> **TRADING METHOD:** IYCN was managed by TyphooN EA in hedged martingale mode on XNGUSD CFD. Multiple configurations tested: 60/54, 62/54, 64/54, 69/55. All resulted in account wipe. **Status: DEAD. Resting in the DARWIN Graveyard alongside CKUC.**
 
 ---
 
@@ -294,8 +294,37 @@ The account has $72K left. Two natgas DARWINs already dead. $82K of tuition alre
 
 *"Is that the best you can do, you pansies?"* — Marv gets hit. Gets up. Gets hit again. Gets up again. IYCN took $28K of damage, ignored it, and came back with 69/55 — the widest DEAD zone yet. The damage is tuition. The position is alive. The thesis continues.
 
+---
+
+## R.I.P. IYCN — The Graveyard Calls (2026-04-06)
+
+*"An old man dies. A young woman lives. A fair trade."* — Hartigan's last words. IYCN's epitaph.
+
+The account is dead. Again. Three attempts. Four configurations. $82K combined tuition across CKUC and IYCN. The thesis was never wrong — natgas supercycle is real. The vehicle was wrong. Hedged martingale on XNGUSD at $2,900/lot margin was too aggressive at every setting tried:
+
+| Config | DEAD Zone | Result |
+|---|---|---|
+| 60/54 (CKUC) | 6% | Dead in 36h |
+| 62/54 (CKUC) | 8% | Dead |
+| 64/54 (IYCN R1) | 10% | Dead in 8h |
+| 69/55 (IYCN R2) | 14% | Dead |
+
+**The lesson:** not the settings. Not the firmware. The **sizing**. Too many lots per side on a $100K account. Each PROTECT close swung ML by 3%. The overcorrection was inherent to the position density, not the DEAD zone width. At ~$321/lot hedged margin, 200+ gross lots on $100K leaves no runway.
+
+**What IYCN taught WNSO:**
+- 72/55 settings — 17% DEAD zone, the widest ever deployed. Every dead DARWIN bought more width.
+- 225L/209S on fresh $100K. Shorts print balance during unwind — funding the long thesis while they die.
+- Swap income on shorts (+$48/lot/day) partially offsets long carry cost while they survive.
+- TRIM at 72% is more patient. PROTECT at 55% gives maximum DEAD zone buffer — 17%.
+
+IYCN joins CKUC in the DARWIN graveyard. Two headstones, one thesis. Three accounts, zero survivors. But the data is priceless. Every dead DARWIN refined the calibration. WNSO — Will Not Stop, Obviously — inherits all of it.
+
+*"Walk down the right back alley in Sin City and you can find anything."* Including a fresh $100K account and the conviction to try one more time.
+
+Here lies IYCN — If You Can, Natgas. Turns out, the sizing couldn't. But the thesis never died. It just changed vehicles.
+
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. IYCN sustained significant losses during initial calibration but continues trading with wider settings (69/55). Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis remains the author's personal opinion and is not a recommendation to trade XNGUSD.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. IYCN and CKUC both sustained total account losses during hedged martingale calibration on XNGUSD. $82K combined tuition. Do not trade commodity CFDs with money you cannot afford to lose. The natgas supercycle thesis remains the author's personal opinion and is not a recommendation to trade XNGUSD.
