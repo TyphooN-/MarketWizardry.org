@@ -333,8 +333,8 @@ CKUC has 113L / 88S. TRIM closes shorts to build net LONG. The question: when ar
 - Short entries: ~52 lots @ $2.873, ~30 lots @ $2.879, ~6 lots @ various
 - Average short entry: **~$2.876**
 - Contract size: 10,000 (each 0.001 move = $10/lot)
-- Current ATR M15: $0.212 | ATR H1: $0.653 | ATR H4: $1.516
-- Current ATR D1: **$4.918** | ATR W1: **$15.061** | ATR MN1: **$48.258**
+- Current ATR M15: $0.014 | ATR H1: $0.023 | ATR H4: $0.047
+- Current ATR D1: **$0.150** | ATR W1: **$0.477** | ATR MN1: **$0.895**
 - TRIM closes shorts when ML ≥ 62%
 - Current ML: ~63% (TRIM active)
 - Shorts remaining: **88 lots**
@@ -344,14 +344,12 @@ CKUC has 113L / 88S. TRIM closes shorts to build net LONG. The question: when ar
 | Scenario | Price Move | XNGUSD Target | Short P/L per Lot | Total Short Cost | TRIM Speed | Est. Unwind Time |
 |---|---|---|---|---|---|---|
 | **Flat (range-bound)** | ±$0.05 | $2.83–$2.93 | -$110 to +$430 | -$9.7K to +$37.8K | Slow (1-3 lots/day at ML edge) | **4-8 weeks** |
-| **H4 ATR drop** | -$1.516 | **$1.371** | +$15,050/lot | **+$1.32M total** | Instant unwind | **< 1 session** |
-| **D1 ATR drop** | -$4.918 | **below zero** | All shorts max profit | **Account-making** | N/A — shorts closed before this | **Immediate** |
-| **W1 ATR drop** | -$15.061 | N/A | Supercycle invalidated at this vol | Thesis review needed | N/A | N/A |
+| **1 ATR D1 drop** | -$0.150 | **$2.737** | +$1,390/lot | **+$122K total** | Fast (ML spikes, maxSafe high) | **1-2 weeks** |
+| **1 ATR W1 drop** | -$0.477 | **$2.410** | +$4,660/lot | **+$410K total** | Very fast (ML explodes) | **2-3 days** |
+| **1 ATR MN1 drop** | -$0.895 | **$1.992** | +$8,840/lot | **+$778K total** | Instant (all shorts closed in one session) | **< 1 day** |
 | **Price rises $0.10** | +$0.100 | $2.987 | -$1,110/lot | **-$97.7K cost** | Stalled (ML drops into DEAD zone) | **Months** (PROTECT risk) |
 
-The ATR values on XNGUSD are enormous relative to price. D1 ATR of $4.918 on a $2.88 instrument means the average daily range exceeds the price itself — natgas is one of the most volatile commodities on earth. This volatility is the thesis. It's also why the hedge exists.
-
-**The sweet spot:** Any meaningful drop triggers a cascade. A move of just $0.50 to ~$2.38 makes every short profitable. TRIM fires aggressively — maxSafe jumps to double digits when ML spikes. The 88 shorts close for massive profit and CKUC emerges naked long on the supercycle.
+**The sweet spot:** A drop of 1 daily ATR ($0.150) to ~$2.737 would make every short profitable to close. TRIM would fire aggressively — maxSafe jumps into double digits when ML spikes. At that level, the 88 shorts close for a combined **+$122K profit**, and CKUC emerges as **113 lots naked long** on the supercycle with the hedge fully unwound and the balance restored.
 
 **The grind scenario:** If XNGUSD stays range-bound ($2.83–$2.93), TRIM closes 1-3 shorts per day at the ML boundary. Each short costs ~$110 in realized loss (closed above entry). At 2 lots/day, the 88 shorts take ~44 trading days (~8 weeks) to fully unwind. Balance bleeds ~$220/day but swap income (+$48/lot/day on remaining shorts) partially offsets. The grind is slow but the thesis builds daily.
 
