@@ -489,13 +489,140 @@ nav.breadcrumb a:hover {
     max-width: 100%;
     height: auto;
 }
-/* Images */
+/* Images — clickable with download */
+.md-img-container {
+    margin: 1.5em 0;
+    text-align: center;
+}
+.md-img-link {
+    display: inline-block;
+    cursor: zoom-in;
+    position: relative;
+}
+.md-img-link:hover .md-img {
+    border-color: #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
 .md-img {
     max-width: 100%;
     height: auto;
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 4px;
-    margin: 1em 0;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.md-img-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 0.75em;
+}
+.md-img-download {
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid rgba(0, 255, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    transition: background-color 0.2s;
+}
+.md-img-download:hover {
+    background-color: #001a00;
+    color: #ffffff;
+}
+.md-img-caption {
+    color: #00aa00;
+    font-style: italic;
+    font-size: 0.9em;
+    flex: 1;
+    text-align: right;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* Lightbox overlay */
+.md-lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+}
+.md-lightbox-content {
+    max-width: 95vw;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.md-lightbox-img {
+    max-width: 95vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 2px solid #00ff00;
+    border-radius: 4px;
+    cursor: default;
+}
+.md-lightbox-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+    font-family: "Courier New", monospace;
+    font-size: 0.85em;
+}
+.md-lightbox-caption {
+    color: #00aa00;
+    font-style: italic;
+    flex: 1;
+}
+.md-lightbox-download {
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid #00ff00;
+    padding: 4px 12px;
+    border-radius: 3px;
+}
+.md-lightbox-download:hover {
+    background-color: #002200;
+    color: #ffffff;
+}
+.md-lightbox-close {
+    color: #00ff00;
+    background: none;
+    border: 1px solid #00ff00;
+    padding: 4px 12px;
+    font-family: "Courier New", monospace;
+    font-size: 0.85em;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.md-lightbox-close:hover {
+    background-color: #002200;
+    color: #ffffff;
+}
+@media (max-width: 768px) {
+    .md-img-actions {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+    .md-img-caption {
+        text-align: left;
+        padding-left: 0;
+        white-space: normal;
+    }
+    .md-lightbox-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
 }
 /* Strikethrough (GFM) */
 del {

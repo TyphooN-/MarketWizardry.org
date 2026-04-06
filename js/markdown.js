@@ -66,7 +66,25 @@
                 html = html.replace(/<ul>/g, '<ul class="md-ul">');
                 html = html.replace(/<ol>/g, '<ol class="md-ol">');
                 html = html.replace(/<li>/g, '<li class="md-li">');
-                html = html.replace(/<img /g, '<img class="md-img" loading="lazy" ');
+                // Wrap images in clickable lightbox container with download link
+                html = html.replace(/<img ([^>]*?)src="([^"]*?)"([^>]*?)alt="([^"]*?)"([^>]*?)>/g,
+                    '<div class="md-img-container">' +
+                    '<a href="$2" class="md-img-link" data-action="lightbox" title="Click to enlarge">' +
+                    '<img class="md-img" loading="lazy" src="$2" alt="$4" $1$3$5>' +
+                    '</a>' +
+                    '<div class="md-img-actions">' +
+                    '<a href="$2" download class="md-img-download" title="Download image">Download</a>' +
+                    '<span class="md-img-caption">$4</span>' +
+                    '</div></div>');
+                // Fallback for img without alt before src
+                html = html.replace(/<img ([^>]*?)src="([^"]*?)"([^>]*?)(?!.*class="md-img")>/g,
+                    '<div class="md-img-container">' +
+                    '<a href="$2" class="md-img-link" data-action="lightbox" title="Click to enlarge">' +
+                    '<img class="md-img" loading="lazy" src="$2" $1$3>' +
+                    '</a>' +
+                    '<div class="md-img-actions">' +
+                    '<a href="$2" download class="md-img-download" title="Download image">Download</a>' +
+                    '</div></div>');
 
                 // Handle mermaid code blocks
                 html = html.replace(/<pre class="md-codeblock"><code class="md-code language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
@@ -118,4 +136,39 @@
     document.head.appendChild(ms);
 
     window.parseMarkdown = parseMarkdown;
+
+    // Lightbox: click image to view full size in overlay
+    document.addEventListener('click', function(e) {
+        var link = e.target.closest('[data-action="lightbox"]');
+        if (!link) return;
+        e.preventDefault();
+        var src = link.href;
+        var alt = link.querySelector('img') ? link.querySelector('img').alt : '';
+
+        // Create overlay
+        var overlay = document.createElement('div');
+        overlay.className = 'md-lightbox-overlay';
+        overlay.innerHTML = '<div class="md-lightbox-content">' +
+            '<img src="' + src + '" alt="' + alt + '" class="md-lightbox-img">' +
+            '<div class="md-lightbox-bar">' +
+            '<span class="md-lightbox-caption">' + alt + '</span>' +
+            '<a href="' + src + '" download class="md-lightbox-download">Download</a>' +
+            '<button class="md-lightbox-close">Close</button>' +
+            '</div></div>';
+
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+
+        // Close on click overlay, close button, or Escape
+        function closeLightbox() {
+            overlay.remove();
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', escHandler);
+        }
+        function escHandler(ev) { if (ev.key === 'Escape') closeLightbox(); }
+        overlay.addEventListener('click', function(ev) {
+            if (ev.target === overlay || ev.target.classList.contains('md-lightbox-close')) closeLightbox();
+        });
+        document.addEventListener('keydown', escHandler);
+    });
 })();
