@@ -58,11 +58,11 @@ The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, g
 
 | Crate | Purpose | Lines of Rust |
 |---|---|---|
-| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | 22,784 |
-| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 48 floating windows | 28,797 |
-| **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | 2,245 |
-| **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5 indicators | 3,573 |
-| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **59,769** |
+| **engine/** | Broker APIs (Alpaca, tastytrade, Kraken), SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | ~25,000 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 110+ floating windows | ~34,000 |
+| **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | ~2,300 |
+| **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5/PineScript indicators | ~4,200 |
+| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **~66,400** |
 
 ### Why Rust Won (And Why Everything Else Still Loses)
 
@@ -171,11 +171,12 @@ TyphooN-Terminal underwent a **21-pass** security audit before release:
 
 **Key Security Measures:**
 - **AES-256-GCM** encryption for all stored credentials and API keys
-- Zero `innerHTML` usage anywhere in the frontend (innerHTML is the number one vector for XSS attacks in desktop web apps -- eliminating it entirely removes the attack surface)
-- Content Security Policy headers enforced
-- IPC command validation on every Tauri bridge call
-- No `eval()`. No `Function()`. No dynamic code execution.
-- Credential storage uses OS-native keychains where available
+- Credential storage uses OS-native keychains (system keyring)
+- Zero bare `unwrap()` in production code — all fallible calls use safe alternatives
+- Constant-time HMAC comparison in LAN sync authentication
+- Discord webhook URL validation (SSRF prevention)
+- Bounded log buffer (500 entries, prevents memory leak)
+- No dynamic code execution — pure compiled Rust, no eval, no scripting engine
 
 When your terminal can execute market orders, "we'll add security later" is not an acceptable engineering position. The audit happened during development, not after.
 
@@ -268,7 +269,7 @@ The CLI shares **encrypted credentials** with the GUI (AES-256-GCM SQLite). Set 
 
 **Why this matters:** A **6.5MB binary** that can execute trades, manage positions, display live quotes, render ASCII charts, and import MT5 history — over SSH, on a $5/month VPS, with no GUI dependencies. This is the headless trading terminal that NinjaTrader ($1,099), Sierra Chart ($54/month), and every other Windows-only desktop terminal cannot offer. The algo doesn't need a monitor. It needs an SSH connection and a thesis.
 
-**The QRRP cascade doesn't need seven monitors and a Tauri window.** It needs TRIM 54.2%, a SOL price feed, and a terminal that can execute. The CLI is that terminal. 6.5MB. Runs anywhere. Trades everything Alpaca offers.
+**The QRRP cascade doesn't need seven monitors and a GUI.** It needs TRIM 54.2%, a SOL price feed, and a terminal that can execute. The CLI is that terminal. 6.5MB. Runs anywhere. Trades everything Alpaca offers.
 
 ## Performance Optimization Deep Dive
 
@@ -278,11 +279,11 @@ Raw feature count means nothing if the terminal stutters under load. TyphooN-Ter
 
 **HTTP Connection Pooling:** Alpaca's API, SEC EDGAR, options data, crypto feeds -- the terminal talks to 21 data sources. Without connection pooling, every request opens a new TCP connection and negotiates a new TLS handshake. With pooling, persistent connections are reused across requests. Latency on sequential API calls dropped from ~200ms to ~30ms per request after the initial handshake.
 
-**DOM Delta Updates:** The frontend never re-renders an entire panel. When a position's P&L changes, only that cell updates. When a quote ticks, only the price element mutates. Full panel re-renders are reserved for structural changes (adding/removing columns, switching views). This is the difference between a UI that feels instant and one that feels like it is "loading."
+**Immediate-Mode Rendering:** egui rebuilds the UI from scratch every frame — there is no retained widget tree, no stale state, no "update propagation" bugs. When a position's P&L changes, the next frame reflects it automatically. No explicit invalidation. No delta tracking. The data IS the UI.
 
-**Atomic Panel Swap:** Switching between dashboard views (positions, orders, watchlist, research) happens in a single DOM operation. The new panel is constructed off-screen, then swapped in atomically. No flash of empty content. No partial renders. The transition is imperceptible.
+**Background Thread Isolation:** Heavy operations (DARWIN analytics, SEC scraping, broker API calls, bar fetches) run on background threads via `tokio`. The UI thread never blocks. A `try_lock` pattern on shared data means the UI renders the last known state while the background computes the next. Zero freezes. Zero spinners.
 
-**Dashboard Overlap Prevention:** Multiple dashboard panels competing for the same viewport is a classic UI race condition. TyphooN-Terminal enforces a strict panel ownership model -- exactly one panel owns each viewport region at any time. Panel transitions are serialized. No z-index fights. No invisible panels consuming events underneath visible ones.
+**Dashboard Panel Management:** Multiple floating windows coexist without fighting for viewport space. egui handles z-ordering natively. Panel state (open/closed/position/size) persists across sessions.
 
 **Indicator Error Isolation:** A bad indicator calculation (division by zero, NaN propagation, insufficient data) does not crash the chart or poison other indicators. Each indicator runs in an isolated calculation context. If Fisher Transform produces NaN on bar 3 because there are not enough data points yet, the chart renders everything else normally and the indicator picks up cleanly once sufficient data exists.
 
@@ -322,7 +323,7 @@ The chunking strategy handles cold loads. But what about returning users who alr
 
 **Cache Trim:** `merge_bars()` accepts a `max_bars` limit. After merging and deduplicating, excess bars (oldest first) are trimmed to prevent unbounded SQLite growth. A 2,000-bar prefetch stays at 2,000 bars even after weeks of incremental merges.
 
-**Double-Write Elimination:** The frontend no longer writes to SQLite after receiving data from the backend — the backend already persists during the merge operation. Only the hot in-memory cache is updated in JavaScript. This eliminated duplicate zstd level-9 recompression on every bar fetch.
+**Double-Write Elimination:** Bar data is persisted during the merge operation in the engine. The in-memory cache is updated directly from the same Rust structs — no redundant serialization or recompression. This eliminated duplicate zstd level-9 recompression on every bar fetch.
 
 **Measured result across 3 benchmark runs:**
 
@@ -337,13 +338,13 @@ The chunking strategy handles cold loads. But what about returning users who alr
 
 Every piece of market data flows through a four-tier cache before hitting the network. Each tier trades latency for capacity.
 
-**Tier 1 -- Memory LRU (~0ms):** The fastest cache. Recently accessed bar data, quotes, and indicator results live in an in-memory LRU (Least Recently Used) cache. Cache hits are effectively instant. The LRU eviction policy ensures frequently accessed symbols stay hot while rarely viewed symbols get pushed to lower tiers.
+**Tier 1 -- Memory LRU (~0ms):** The fastest cache. Recently accessed bar data, quotes, and indicator results live in an in-memory LRU (Least Recently Used) cache backed by `HashMap`. Cache hits are effectively instant. The LRU eviction policy ensures frequently accessed symbols stay hot while rarely viewed symbols get pushed to lower tiers.
 
-**Tier 2 -- IndexedDB (~5-10ms):** Browser-native key-value storage. Larger than the memory LRU and survives page refreshes. Bar data for the current session's symbols lives here. Access time is 5-10ms -- imperceptible to the user but slower than memory.
+**Tier 2 -- KV Cache (~1-5ms):** A key-value store in SQLite for session state, DARWIN analytics, LAN sync data, and frequently accessed metadata. Faster than full bar queries because values are pre-computed and stored as simple key-value pairs.
 
-**Tier 3 -- SQLite + zstd Compression (~20-50ms):** The persistent cache. All bar data eventually lands in SQLite, compressed with Zstandard. This is the cache that survives application restarts. The zstd compression achieves **15-30x** compression ratios on bar data because OHLCV data is highly regular and compresses exceptionally well.
+**Tier 3 -- SQLite + zstd Compression (~20-50ms):** The persistent cache. All bar data lands in SQLite, compressed with Zstandard. Dual-connection architecture (separate read + write connections) eliminates "database is locked" errors. The zstd compression achieves **15-30x** compression ratios on bar data because OHLCV data is highly regular and compresses exceptionally well.
 
-**Tier 4 -- zstd File Cache (~100ms):** Bulk historical data stored as compressed binary files. This is the cold storage tier for data that does not fit efficiently in SQLite (very long historical ranges, exported datasets). Access time is ~100ms due to file I/O and decompression, but this tier handles arbitrarily large datasets.
+**Tier 4 -- External APIs (~100-500ms):** Alpaca, Kraken, CryptoCompare, tastytrade, MT5 SQLite sync. Data fetched from external sources flows through the sanity filter (reject negative/zero/NaN/high<low bars), gets merged into Tier 3, and populates Tier 1 on access.
 
 **Binary Format:** Each bar is stored in a fixed **48-byte** binary format (timestamp + OHLCV as f64). No JSON parsing. No CSV splitting. No string-to-float conversions on read. Raw binary in, raw binary out. This format is what enables the 15-30x compression ratios -- zstd compresses regular binary patterns far better than it compresses text.
 
@@ -365,28 +366,17 @@ The chart engine was built in five distinct phases, each adding a layer of capab
 
 The GPU chart engine is why TyphooN-Terminal can display a 4K chart with 60+ indicators and 15 Fibonacci levels without dropping a frame. CPU-based canvas rendering (TradingView, most Electron apps) cannot do this. The GPU can.
 
-**Draggable Panel Splitter:** The chart and sidebar panels resize by dragging the divider between them. Layout proportions persist across sessions. This sounds like a small thing until you realize NinjaTrader has fixed panel widths and TradingView charges for customizable layouts. In TyphooN-Terminal it is a mousedown/mousemove handler and 19 lines of CSS. Open source means features like this take minutes, not feature request tickets.
+**Draggable Panel Splitter:** The chart and sidebar panels resize by dragging the divider between them. Layout proportions persist across sessions. This sounds like a small thing until you realize NinjaTrader has fixed panel widths and TradingView charges for customizable layouts. In TyphooN-Terminal it is a drag handler in egui. Open source means features like this take minutes, not feature request tickets.
 
-## Wasm Indicator Engine
+## GPU Indicator Engine (Replaced WASM)
 
-Indicators are the heaviest per-bar computation in any trading terminal. TyphooN-Terminal compiles the indicator math to WebAssembly and runs it off the main thread.
+The Tauri-era WASM indicator engine (32KB binary, Web Workers, JS fallback) was deleted alongside the entire JavaScript frontend. Every indicator now runs on **GPU compute shaders** via wgpu.
 
-**The compiled Wasm binary is 32KB.** That is the entire indicator engine -- 22 ported indicators, all mathematical kernels, all buffer management. 32KB. For context, a typical npm package for a single charting library starts at 200KB+.
+All 60+ indicators are compiled to WGSL (WebGPU Shading Language) and dispatched on the GPU with 256 threads per workgroup. Bar data lives in VRAM. Indicator computation happens in parallel on the GPU — SMA, EMA, RSI, KAMA, Bollinger, ATR, MACD, Fisher, Stochastic, ADX, Ichimoku, and the full Ehlers DSP suite all run as GPU compute pipelines. Zero CPU indicator computation remaining.
 
-**Performance vs JavaScript:**
+**Performance:** GPU compute makes the old WASM vs JavaScript comparison irrelevant. The bottleneck is now the GPU upload (microseconds for typical datasets), not the computation. 10,000 bars with 39 indicators renders in a single frame. The GPU Strategy Optimizer performs parameter grid search across hundreds of combinations in parallel — what took 500ms in JavaScript and 5-10ms in WASM takes under 1ms on the GPU.
 
-| Indicator | JS (ms/10K bars) | Wasm (ms/10K bars) | Speedup |
-|---|---|---|---|
-| SMA | ~20ms | ~1ms | **20x** |
-| KAMA | ~25ms | ~1ms | **25x** |
-| Fisher Transform | ~27ms | ~1ms | **27x** |
-| Grid Optimizer | ~500ms | ~5-10ms | **50-100x** |
-
-The grid optimizer speedup is the most dramatic because it runs thousands of parameter combinations across the indicator suite. What takes half a second in JavaScript completes in under 10 milliseconds in Wasm. This makes real-time parameter optimization feasible during live trading.
-
-**22 indicators** are fully ported to Wasm. The remaining 17 run in JavaScript with automatic fallback -- if the Wasm module fails to load (older browsers, restricted environments), every indicator still works via the JS implementation. Zero functionality loss. Just slower.
-
-**Web Worker Isolation:** The Wasm indicator engine runs in a dedicated Web Worker, completely off the main thread. Indicator recalculation on a timeframe switch or new bar does not block UI rendering. The chart stays responsive at 60fps while the worker crunches 39 indicators across 10,000 bars in the background.
+**10 adjustable parameters** (SMA, EMA, RSI, ATR, BB, Stochastic, ADX, Fisher, Momentum periods) are configurable per-chart via DragValue sliders. Changes trigger immediate GPU recompute. No restart needed.
 
 ## Bug Fixes and Reliability
 
@@ -402,7 +392,7 @@ Shipping fast means nothing if the software crashes in production. TyphooN-Termi
 
 **429 Rate Limit Stale Data Fix:** When Alpaca returned HTTP 429 during a data fetch, the old code path would silently return stale cached data without marking it as stale. The user would see prices from hours or days ago with no indication that the data was outdated. Fixed: stale data is now visually flagged in the UI, and a background retry ensures fresh data replaces it as soon as the rate limit window expires.
 
-**Arc Cache Lock Contention Fix:** The SQLite cache is now `Arc<SqliteCache>` — the Tauri state lock is dropped immediately after cloning the Arc reference. Heavy operations (API fetch, merge_bars, zstd compression) run outside the lock. Previously, the state lock was held for the entire incremental fetch cycle (seconds to minutes for crypto), which froze the UI. Now the lock is held for microseconds. This is the difference between "the app freezes when loading charts" and "charts load in the background while you trade."
+**Arc Cache Lock Contention Fix:** The SQLite cache uses `Arc<SqliteCache>` with dual read/write connections. Heavy operations (API fetch, merge_bars, zstd compression) run on background threads with `try_lock`. The UI thread never waits for a database operation. This is the difference between "the app freezes when loading charts" and "charts load in the background while you trade."
 
 **Dual-Layer Bar Sanitization:** Bad data from APIs is caught at two boundaries. The Rust backend rejects bars with zero/NaN prices, fixes OHLC inconsistency (`true_high = max(o,h,l,c)`), and drops malformed timestamps at parse time. The JavaScript frontend runs `sanitizeBars()` before every chart render — removing duplicates, sorting by time, clamping negative volume. The dual-layer approach means zero chart artifacts even when Alpaca returns malformed crypto bars (which it does, occasionally).
 
@@ -420,7 +410,7 @@ Running multiple DARWINs means running multiple MT5 instances -- Futures, Crypto
 
 **Symbol Normalization:** MT5 names like `SOLUSD`, `EURUSD`, `XAUUSD` are normalized at every import boundary -- `SOL/USD`, `EUR/USD`, `XAU/USD`. Crypto, forex, metals all get slash-separated pairs. Indices like `US30` and `DE40` stay as-is. The terminal speaks the same symbol language as Alpaca regardless of where the data originated.
 
-**Live Sync Progress UI:** The sync window shows real-time progress with per-category status bars -- Forex, Crypto, Commodities, Indices, Healthcare, Technology, and more. Each category displays complete, partial, and pending counts. The sync runs continuously with live updates instead of one-shot import. Green bars fill as symbols sync. The UI never freezes because all heavy operations run on `spawn_blocking` threads outside the Tauri state lock.
+**Live Sync Progress UI:** The sync window shows real-time progress with per-category status bars -- Forex, Crypto, Commodities, Indices, Healthcare, Technology, and more. Each category displays complete, partial, and pending counts. The sync runs continuously with live updates instead of one-shot import. Green bars fill as symbols sync. The UI never freezes because all heavy operations run on `spawn_blocking` threads with `try_lock` patterns on shared state.
 
 Full sync across all 3 Darwinex instances: **895 symbols**, **8,447 bar entries** synced. Every sector fully populated -- Basic Materials (35), Commodities (44), Communication Services (28), Consumer Cyclical (103), Consumer Defensive (42), Crypto Currency (7), Financial (194+1 partial), Forex (41+1 partial+6 pending), Healthcare (97), Indices (11), Industrials (112), Other (11), Real Estate (8), Technology (124), Utilities (30). The sync idles at **"Waiting for BarCacheWriter"** when all databases are current, consuming zero resources until fresh bars arrive.
 
@@ -443,7 +433,7 @@ Full sync across all 3 Darwinex instances: **895 symbols**, **8,447 bar entries*
 
 **The pipeline reduction:** What was CSV export → file discovery → parse → validate → store is now SQLite read → validate → store. Two fewer steps. No human intervention. The sync runs in the background while you trade.
 
-**MT5 as Master Data Source (ADR-037):** MT5 is now the authoritative data source for every symbol it covers. No more merge complexity between MT5 and Alpaca -- if MT5 has the symbol, MT5 wins. The deepest history always takes priority. Alpaca is the fallback for symbols MT5 does not have. The frontend's `cachedGetBars` uses a 5-second rapid dedup window instead of per-timeframe staleness checks (which could defer up to 7 days), ensuring the backend's MT5-first logic always runs. When background MT5 sync imports new bars, the in-memory cache is invalidated and the chart reloads automatically -- no manual refresh needed.
+**MT5 as Master Data Source (ADR-037):** MT5 is now the authoritative data source for every symbol it covers. No more merge complexity between MT5 and Alpaca -- if MT5 has the symbol, MT5 wins. The deepest history always takes priority. Alpaca is the fallback for symbols MT5 does not have. The bar loader uses a 5-second rapid dedup window instead of per-timeframe staleness checks (which could defer up to 7 days), ensuring the MT5-first logic always runs. When background MT5 sync imports new bars, the in-memory cache is invalidated and the chart reloads automatically — no manual refresh needed.
 
 **UI State Persistence:** Every panel toggle -- news, indicators, log, watchlist, positions, orders -- saves session state immediately. Indicator checkbox changes, article opens, and watchlist collapse state all persist. Close the terminal and reopen it: everything is exactly where you left it.
 
@@ -471,7 +461,7 @@ New module `core/kraken.rs` adds Kraken as the third data source in a three-tier
 
 **All 9 Timeframes Backfilled:** 1Min, 5Min, 15Min, 30Min, 1Hour, 4Hour, Daily, Weekly, Monthly -- all gap-filled from Kraken with smart depth limits per timeframe. 1Min goes back 30 days (avoids millions of bars), 5Min 90 days, 15Min 1 year, 30Min 2 years, 1Hour+ full history from 2013.
 
-**Live Backfill Grid:** Real-time status grid showing per-symbol per-timeframe completion. Each cell updates live as Tauri events fire for every completed fetch -- `✓` synced, `+` new data, `⟳` fetching, `⏳` pending, `✗` error. Hover tooltips show bar count and estimated percentage (e.g., "19,732 bars (99% est)"). Auto-retry loops until all combos are synced (max 10 passes), with 15s backoff on rate limits and a stop button to cancel mid-backfill.
+**Live Backfill Grid:** Real-time status grid showing per-symbol per-timeframe completion. Each cell updates live as progress events fire for every completed fetch -- `✓` synced, `+` new data, `⟳` fetching, `⏳` pending, `✗` error. Hover tooltips show bar count and estimated percentage (e.g., "19,732 bars (99% est)"). Auto-retry loops until all combos are synced (max 10 passes), with 15s backoff on rate limits and a stop button to cancel mid-backfill.
 
 **Quake Console Toggle:** Backtick (`` ` ``) and tilde (`~`) toggle the command bar -- tap to focus and select all, tap again to dismiss. The same muscle memory as opening the Quake console. Capture phase handler prevents the character from typing into the input.
 
@@ -506,7 +496,7 @@ The `DARWINS` command is a full risk analytics dashboard with six tabbed views:
 - **P&L Distribution:** Histogram with VaR lines overlaid, plus skew, kurtosis, and win/loss day statistics. Know whether your returns distribution has fat tails.
 - **Correlation Matrix:** Cross-DARWIN correlation with color coding -- green means diversified, red means redundant. If two DARWINs are 0.9 correlated, one of them is not adding value.
 
-All charts use a reusable `drawChart()` canvas helper for consistent line/area rendering across the dashboard.
+All charts render natively via egui_plot for consistent line/area visualization across the dashboard.
 
 This is the complete Darwinex analytics pipeline: XLSX import → deal parsing → open position reconstruction → per-account analysis → portfolio-level risk dashboard. What previously required a spreadsheet and manual calculation now runs as two Ctrl+K commands.
 
@@ -628,9 +618,9 @@ The final analytics expansion pushes `darwin.rs` past **4,900 lines** with **120
 
 ## Indicator Parity Fixes, Multi-Symbol MTF Grid, and Performance
 
-Twelve indicator fixes across JS, WASM, Web Worker, and fallback paths: EMA SMA bootstrap, KAMA seed, Fisher median+window, MACD signal, DEMA, Bollinger NaN handling, ATR initial value, minBars enforcement, Ichimoku Chikou, BetterVolume 2-bar, Alligator shift, ForceIndex. Every indicator now produces identical output regardless of which execution path handles it.
+Twelve indicator fixes across GPU and CPU fallback paths: EMA SMA bootstrap, KAMA seed, Fisher median+window, MACD signal, DEMA, Bollinger NaN handling, ATR initial value, minBars enforcement, Ichimoku Chikou, BetterVolume 2-bar, Alligator shift, ForceIndex. Every indicator produces identical output between GPU and CPU paths.
 
-**Multi-Symbol MTF Grid:** The grid now supports multiple symbols simultaneously. View CC+SLV across H4+D1+MN1 in a single grid. GPU-first rendering with full `addLineSeries` wrapper. Sequential grid cell loading with `requestAnimationFrame` yields keeps the UI responsive during heavy multi-symbol loads.
+**Multi-Symbol MTF Grid:** The grid supports multiple symbols simultaneously. View CC+SLV across H4+D1+MN1 in a single grid. GPU-first rendering. Sequential grid cell loading keeps the UI responsive during heavy multi-symbol loads.
 
 **get_bars_tail: 34x Faster MT5 Bar Serving.** The old path serialized entire bar arrays to JSON, round-tripped through IPC, and deserialized. The new path does a binary tail read from the SQLite cache -- direct binary slice, zero JSON overhead. MT5 sync no longer triggers a full chart reload either (was freezing the UI every 30 seconds).
 
@@ -690,17 +680,17 @@ The rendering and computation pipeline was rebuilt from the ground up:
 
 **Async Indicator Pipeline:** Every indicator and HTF projection yields between computations. The UI never freezes during a 39-indicator recalculation across 10,000 bars. A 200-entry indicator memoization cache prevents recomputation when scrolling back to previously viewed ranges.
 
-**GPU Histogram and Fill Rendering:** The WASM chart engine gained `add_histogram`, `add_fill`, and `add_pane_histogram` — volume bars, MACD histograms, and Bollinger Band fills are now GPU-rendered geometry instead of CPU canvas operations.
+**GPU Histogram and Fill Rendering:** Volume bars, MACD histograms, and Bollinger Band fills are GPU-rendered geometry — instanced quads and filled polygons with alpha blending.
 
 **10x Timestamp Parser:** The bar timestamp parser was rewritten for direct integer parsing instead of Date object construction. On a 50,000-bar dataset, this alone saves hundreds of milliseconds per load.
 
 **Adaptive Vsync Render Loop:** The chart renders at monitor refresh rate when the viewport is changing (scroll, zoom, new data) and drops to 0fps when idle. No wasted GPU cycles on a static chart.
 
-**Web Worker Grid Computation:** MTF Grid cells compute indicators in a dedicated Web Worker, completely off the main thread. Parallel prefetch loads adjacent cells while the current one renders.
+**Background Thread Grid Computation:** MTF Grid cells compute indicators on background threads via `tokio::spawn_blocking`. Parallel prefetch loads adjacent cells while the current one renders.
 
-**Binary Search Data Clipping, O(1) Crosshair Lookup:** Visible bar range is found via binary search instead of linear scan. Crosshair price lookup uses a Map instead of array iteration.
+**Binary Search Data Clipping, O(1) Crosshair Lookup:** Visible bar range is found via binary search instead of linear scan. Crosshair price lookup uses a `HashMap` instead of array iteration.
 
-**localStorage Write Batching, Tab Visibility Pausing, DOM Ref Caching:** Session state writes are batched to prevent per-keystroke disk I/O. Background tabs pause their update intervals. Frequently accessed DOM elements are cached as references.
+**Session State Batching, Adaptive Vsync:** Session state writes are batched to prevent per-keystroke disk I/O. The render loop runs at monitor refresh rate when the UI is changing and drops to **0fps when idle** — zero GPU cycles on a static chart.
 
 ## MQL5 Compiler: Parse MQL5, Generate WASM
 
@@ -860,7 +850,7 @@ The MarketWizardry.org web explorers (ATR Explorer, VaR Explorer, EV Explorer, C
 
 **DARWINEX Command:** Runs a full analysis pipeline across ALL imported MT5 symbols. Sector classification (Forex/Crypto/Indices/Commodities/Stocks), dual-metric outliers (VaR x ATR), per-sector IQR statistics, top 20 most extreme outliers by Z-score, and crypto risk tiers. One command gives you the complete risk landscape of your Darwinex universe.
 
-`gatherScanSymbols()` unifies symbol collection from positions + watchlist + MT5 cache. All 6 scanner commands automatically include Darwinex data when available. The web explorers are legacy. The terminal scanners are live.
+Symbol collection unifies positions + watchlist + MT5 cache. All 6 scanner commands automatically include Darwinex data when available. The web explorers are legacy. The terminal scanners are live.
 
 ## Post-Launch: 56 Commits, LAN Parity, Drawing Tools UX, MQL5→WGSL Phase 2
 
