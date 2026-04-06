@@ -367,10 +367,78 @@ Trigger:    Any drop ≥ 1 ATR D1 ($0.150) accelerates to Phase 2 immediately.
 
 Once CKUC hits 113 lots naked long with zero shorts, the hedged martingale phase is over. No more TRIM. No more PROTECT. No more hedge. Just 113 lots of raw directional exposure on the natural gas supercycle thesis. From that point, the position rides to TP ($420.699) or SL ($1.484). R:R at that point: **astronomical**.
 
-*Full tilt. XNGUSD. Long. Hedged. EA-managed. Swap-optimized. Supercycle. Chad energy only.*
+---
+
+## Post-Mortem: CKUC Is Dead (2026-04-06)
+
+```
+CKUC final state:
+  Balance:      $45,314 (was $100,000)
+  Equity:       $45,314
+  Positions:    0 (broker liquidated all)
+  Risk:         $0
+  VaR:          0%
+  Cause of death: Broker stop-out. PROTECT could not iterate fast enough.
+  Lifespan:     ~36 hours
+  Total loss:   -$54,686
+```
+
+CKUC lived fast and died young. 36 hours from first position to broker liquidation. The Chad went in at $2.93, built a hedged martingale to 113L/88S, watched PROTECT overcorrect and destroy 43 bias lots, rebuilt the hedge, watched TRIM grind through shorts at 0.1 lots per tick, and then the broker pulled the plug.
+
+*"Is that the best you can do, you pansies?"* — Marv asked. Turns out, yes. That was the best CKUC could do on XNGUSD with hedged martingale. The instrument killed the strategy.
+
+### Why Hedged Martingale Doesn't Work on XNGUSD
+
+The hedged martingale strategy requires three things to function:
+
+1. **Cheap lots** — so you can hold thousands of them and TRIM/PROTECT can close in small increments without violent margin swings
+2. **Tight spreads relative to margin** — so spread spikes don't instantly blow through the DEAD zone
+3. **Margin room to grind** — so TRIM has time to build bias before price moves against you
+
+XNGUSD fails all three:
+
+| Factor | SOLUSD (BULS) | XNGUSD (CKUC) | Problem |
+|---|---|---|---|
+| **Margin per lot** | ~$80 | ~$2,900 | 36x more expensive per lot |
+| **Max lots on $100K** | ~55,000 per side | ~35 per side | No room to grind |
+| **TRIM increment** | 1 lot = $80 freed | 0.1 lot = $290 freed | Each close is a sledgehammer |
+| **PROTECT impact** | 33 lots = $2,640 freed | 43 lots = $124,700 freed | Overcorrection inevitable |
+| **Spread risk** | $0.01 × 55K = $550 | $0.014 × 200 = $2.80 | Proportionally irrelevant but... |
+| **ML swing per lot** | ~0.001% | ~3%+ | One lot changes everything |
+
+The math is simple: on SOLUSD, closing 1 lot moves ML by 0.001%. On XNGUSD, closing 1 lot moves ML by 3%+. The TRIM grind that works on SOLUSD — one lot at a time, slow and steady — produces violent ML swings on XNGUSD. PROTECT fires, overcorrects, bias inverts, TRIM scrambles to recover, and the cycle repeats until the account is gone.
+
+**The TyphooN EA v1.430 firmware is not broken.** It worked exactly as designed. PROTECT fired, closed what it calculated, recovered ML. TRIM ground through shorts correctly. The formula was right. The instrument was wrong. You don't run a hedged martingale on an instrument where one lot of margin is 3% of your account.
+
+### What CKUC Should Have Been
+
+The natgas supercycle thesis isn't dead — CKUC is. The thesis lives in XNGUSD's monthly Demand Proven zone, the structural LNG demand, the AI datacenter power consumption story. The thesis is correct. The execution was wrong.
+
+**CKUC should have been a discretionary DARWIN** — like HAKR, MFSO, GVZJ, ATPK. Manual swing trades on XNGUSD with the TyphooN EA as risk management only. Find the outlier, go full tilt, ride the swing, exit. No hedge. No martingale. No TRIM/PROTECT. Just naked directional conviction with a stop loss.
+
+The hedged martingale is for instruments where you can hold 50,000 lots per side and grind for months. Crypto CFDs on Darwinex. Not natgas. Not with $2,900/lot margin.
+
+---
+
+## 🪦 DARWIN Graveyard
+
+CKUC rests in a dark cemetery alongside AJTK, BBUD, XJFD, and QRRP. Five headstones in a row. Five algorithms that burned bright and burned out. The newest grave is the freshest — 36 hours from birth to burial. The fastest death in the portfolio's history.
+
+CKUC's tombstone reads: *"Here lies CKUC — Chad Killing Undervalued Commodities. The Inverse Cuck. Died believing in the supercycle. 113 lots long. 88 lots short. $2,900 margin per lot. The firmware was correct. The instrument was wrong. 36 hours. $54,686. Rest in peace, Chad."*
+
+BULS dug up the corpse immediately. The lessons are already bolted onto the firmware:
+- Hedged martingale requires cheap lots ($80, not $2,900)
+- PROTECT overcorrection is inevitable on high-margin instruments
+- The DEAD zone must scale with margin-per-lot
+- Swap income is real but doesn't save you from margin math
+- The thesis was right. The vehicle was wrong.
+
+The natgas supercycle will be traded again. Not as a hedged martingale. Not on a CFD account. As a discretionary swing — naked, directional, with conviction and a stop loss. The way HAKR trades. The way MFSO trades. The way Chad would trade if Chad had learned from dying once.
+
+*"Is that the best you can do, you pansies?"* — Marv's last words applied to CKUC. Yes, Marv. That was the best. But the next one will be better. The dead fuel the living.
 
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Natural gas is one of the most volatile commodity markets. A 467% risk position can and will be liquidated if the market moves against it. Do not trade commodities with money you cannot afford to lose. The author holds active long positions in XNGUSD. The take profit of $134M is theoretical and assumes an extreme price move that may never occur.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account that was liquidated. This is NOT financial advice. CKUC lost $54,686 of virtual capital in 36 hours. Hedged martingale strategies on high-margin instruments carry extreme risk of total account loss. Do not trade commodities with money you cannot afford to lose. The natgas supercycle thesis remains the author's personal opinion and is not a recommendation to trade XNGUSD.
