@@ -110,7 +110,57 @@ Either way, CKUC doesn't apologize. CKUC doesn't hedge. CKUC doesn't scale in sl
 
 **The inverse cuck doesn't watch. The inverse cuck acts.**
 
-*Full tilt. XNGUSD. Long. Supercycle. Chad energy only.*
+---
+
+## Update: CKUC Goes Hedged Martingale (2026-04-06)
+
+CKUC evolved. What started as a naked 32.1-lot long became a full hedged martingale position. TyphooN went in again. And again.
+
+```
+CKUC state (2026-04-06 14:53 UTC):
+  Longs:           109 lots
+  Shorts:          75 lots
+  Net LONG:        34.2 lots
+  Gross:           184 lots
+  Margin Level:    56.6%
+  Total P/L:       -$41,744
+  Risk (notional): $1,548,925 (1580%)
+  Equity:          $56,242
+  Balance:         $97,986
+  VaR %:           33.28 (net)
+```
+
+From 32.1 lots naked long to 109L / 75S hedged martingale. The thesis didn't change — XNGUSD to the supercycle. The execution evolved. The hedge absorbs the downside while the net long carries the thesis. 1,580% risk. 56.6% margin level. The account is leveraged to the eyeballs and the operator doesn't blink.
+
+### TyphooN EA Engaged — TRIM/PROTECT Managing Autonomously
+
+The TyphooN EA v1.430 is now managing CKUC's position autonomously:
+
+```
+EA Configuration:
+  EnableMartingale           = true
+  MartingaleUnwindMarginPct  = 62      // TRIM — start closing shorts above 62%
+  MartingaleDangerMarginPct  = 54      // PROTECT — sacrifice longs below 54%
+  MartingaleMarginFloor      = 10      // Hard floor
+  PreCloseMinutes            = 5       // Pre-close TRIM
+  MartingaleSpreadTolerance  = 0       // No Open MG — position is built
+  MartingaleEquityTP         = 0       // No equity TP — ride the supercycle
+  Bias:                      MG: LONG (auto-detected from TP > SL)
+```
+
+**TRIM at 62%, PROTECT at 54%.** With ML at 56.6%, CKUC is in the DEAD zone — the EA sits idle, watching. When ML recovers above 62% (natgas drops, equity increases), TRIM starts closing shorts to build net long exposure. When ML drops below 54% (natgas rises against the hedge, or spread spikes), PROTECT sacrifices long lots to save the account.
+
+The 62% TRIM threshold gives 2% cushion above 60% — important because XNGUSD spreads are wider than SOLUSD. A spread spike on natgas can swing ML by several percent. The 8% DEAD zone (54-62%) is where the position breathes without the EA touching it.
+
+**XNGUSD spread: 14 points ($0.014/lot).** At 184 lots gross, a spread spike to even $0.10/lot = $18.40 total. Equity is $56K. Spread risk on this instrument is negligible compared to BULS's 44K lots on SOLUSD. The danger on CKUC isn't spreads — it's directional. If natgas keeps dropping, PROTECT will fire and erode bias. If natgas turns, TRIM builds the thesis.
+
+**No more adding on.** The position is built. The EA manages from here. CKUC went from naked long to hedged martingale in one session. The thesis is the same. The risk management is automated. The operator's job is to not touch anything.
+
+![DARWIN CKUC — XNGUSD H4/Weekly/Daily/Monthly with TyphooN EA v1.430 MG: LONG, 109L/75S (2026-04-06)](/img/darwin-ckuc-mtf-20260406.webp)
+
+ML 57.0% — sitting in the DEAD zone. W1 100SMA at 3.2059 (target overhead). Demand Proven on monthly. The EA watches. The position breathes. The supercycle thesis is intact.
+
+*Full tilt. XNGUSD. Long. Hedged. EA-managed. Supercycle. Chad energy only.*
 
 -- TyphooN
 
