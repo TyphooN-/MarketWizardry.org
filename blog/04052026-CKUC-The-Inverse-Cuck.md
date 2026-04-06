@@ -228,17 +228,19 @@ XNGUSD swap rates:
 
 At 88 shorts: **+$4,224/day** swap income from the short side. At 113 longs: **-$8,814/day** swap cost. Net: **-$4,590/day**. The longs cost more than the shorts earn — but the shorts are generating real income that offsets the position's carry cost.
 
-**Every short that TRIM closes is -$48/day of passive income lost.** This changes the TRIM calculus. On SOLUSD (BULS), there's no swap benefit to keeping shorts alive — TRIM should close them as fast as possible. On XNGUSD, shorts earn money every day they exist. Keeping shorts alive longer has direct financial value.
+**The rare opportunity:** TRIM closes shorts to build net LONG bias — that's the goal. But while the shorts exist, they earn +$48/lot/day. TRIM grinds through them, collecting swap income on every short that's still alive. Once the shorts are gone, CKUC is naked long on the supercycle. The shorts die in the process, but they die profitable. On crypto (BULS/SOLUSD), both sides cost swap — you pay to hold the hedge. On XNGUSD, **the hedge pays you while it dies**. This doesn't happen on crypto. This is a rare structural advantage of commodity CFDs.
+
+On Wednesday triple-swap days, 88 shorts earn **+$12,672** in a single overnight hold. The shorts are fuel for the thesis AND a funding source. TRIM closes them as fast as margin allows, collecting swap the whole way down. The faster TRIM grinds, the faster bias builds — and you get paid during the grind.
 
 **Settings widened to 62/54:**
 ```
-MartingaleUnwindMarginPct  = 62      // TRIM — wider to preserve swap-earning shorts
+MartingaleUnwindMarginPct  = 62      // TRIM — wider for PROTECT overshoot protection on high-margin instrument
 MartingaleDangerMarginPct  = 54      // PROTECT
 ```
 
-8% DEAD zone. TRIM fires less aggressively, shorts survive longer, swap income persists. The thesis builds slower but cheaper. On Wednesday triple-swap days, 88 shorts earn **+$12,672** in a single overnight hold. That's not negligible — it's a funding rate that partially offsets the cost of maintaining the hedge.
+8% DEAD zone. The wider threshold isn't to slow TRIM down — it's to protect against the PROTECT overcorrection documented above. On XNGUSD at $2,900/lot, ML swings violently per lot. The extra 2% buffer (vs 60%) prevents ML from dipping into PROTECT territory on normal price action.
 
-**The lesson:** TRIM thresholds aren't universal. They depend on the instrument's margin per lot, swap structure, and position size. SOLUSD at $80/lot with no swap benefit → tight TRIM (57%). XNGUSD at $2,900/lot with +48 short swap → wide TRIM (62%). The same EA, the same firmware, different calibration. The firmware is correct. The voltage needs to match the silicon.
+**The lesson:** TRIM thresholds aren't universal. They depend on the instrument's margin per lot and volatility profile. SOLUSD at $80/lot → tight TRIM (57%). XNGUSD at $2,900/lot → wider TRIM (62%) for overshoot protection. The swap income is a bonus collected during the grind, not a reason to slow the grind. The same EA, the same firmware, different calibration. The firmware is correct. The voltage needs to match the silicon.
 
 ```
 CKUC final settings (2026-04-06):
