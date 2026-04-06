@@ -614,8 +614,8 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'iycn': "DARWIN IYCN: Basin City Natural Gas. 32.3 lots naked long XNGUSD. 432% risk. R:R 312:1. CKUC died so IYCN could live. No hedge. No martingale. Just Marv walking into a room with his fists and his faith.",
-        'basin-city': "DARWIN IYCN: Basin City Natural Gas. 32.3 lots naked long XNGUSD. 432% risk. R:R 312:1. CKUC died so IYCN could live. No hedge. No martingale. Just Marv walking into a room with his fists and his faith.",
+        'iycn': "DARWIN IYCN: If You Can, Natgas. 61L/32S on XNGUSD. R:R 312:1. CKUC died so IYCN could live. If you can stomach 432% risk after your last DARWIN died in 36 hours, you deserve the supercycle.",
+        'basin-city': "DARWIN IYCN: If You Can, Natgas. 61L/32S on XNGUSD. R:R 312:1. CKUC died so IYCN could live. If you can stomach 432% risk after your last DARWIN died in 36 hours, you deserve the supercycle.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
@@ -1291,7 +1291,7 @@ def generate_flavor_text(title, filename):
     if 'buls' in filename_lower and ('benchmark' in filename_lower or 'buls' in filename_lower.split('-')):
         return _darwin_flavor['benchmark-underway']
     if 'iycn' in filename_lower or 'basin-city' in filename_lower:
-        return "DARWIN IYCN: Basin City Natural Gas. 61L/32S single-layer hedge on XNGUSD. R:R 312:1. CKUC died so IYCN could live. No multi-layer martingale. Just Marv with his fists and his faith."
+        return "DARWIN IYCN: If You Can, Natgas. 61L/32S on XNGUSD. R:R 312:1. If you can stomach 432% risk after your last DARWIN died in 36 hours, you deserve the supercycle."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type

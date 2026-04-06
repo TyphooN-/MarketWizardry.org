@@ -10,7 +10,9 @@
 
 ---
 
-## I.Y.C.N. — Inverse Yield Curve Natgas
+## I.Y.C.N. — If You Can, Natgas
+
+*Acronym expanded: **I**f **Y**ou **C**an, **N**atgas. A dare. If you can stomach 432% risk on a single commodity after watching your last DARWIN die in 36 hours, you deserve the supercycle. If you can hold naked long while the death crosses scream at you from every timeframe. If you can watch $18K evaporate and come back the same day with a fresh account and a bigger position. If you can, natgas. Most can't. TyphooN can.*
 
 *"She smells like angels ought to smell."* — Marv, describing Goldie. TyphooN, describing the natgas supercycle thesis. It smells like money. It smells like $134M. It smells like the trade that CKUC died trying to execute the wrong way.
 
