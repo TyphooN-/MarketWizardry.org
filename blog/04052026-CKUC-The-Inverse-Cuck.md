@@ -323,6 +323,51 @@ CKUC isn't flinching because flinching is for DARWINs that don't have a thesis. 
 
 *"I'll be back."* — The Terminator. So will the $18K. And then some.
 
+---
+
+## Hedge Unwind Projection: When Does CKUC Go Naked Long?
+
+CKUC has 113L / 88S. TRIM closes shorts to build net LONG. The question: when are the shorts gone and CKUC is purely long for the supercycle?
+
+**Position data:**
+- Short entries: ~52 lots @ $2.873, ~30 lots @ $2.879, ~6 lots @ various
+- Average short entry: **~$2.876**
+- Contract size: 10,000 (each 0.001 move = $10/lot)
+- Current ATR D1: **$0.150** | ATR W1: **$0.477** | ATR MN1: **$0.895**
+- TRIM closes shorts when ML ≥ 62%
+- Current ML: ~63% (TRIM active)
+- Shorts remaining: **88 lots**
+
+**ATR-based unwind timeline projection:**
+
+| Scenario | Price Move | XNGUSD Target | Short P/L per Lot | Total Short Cost | TRIM Speed | Est. Unwind Time |
+|---|---|---|---|---|---|---|
+| **Flat (range-bound)** | ±$0.05 | $2.83–$2.93 | -$110 to +$430 | -$9.7K to +$37.8K | Slow (1-3 lots/day at ML edge) | **4-8 weeks** |
+| **1 ATR D1 drop** | -$0.150 | **$2.737** | +$1,390/lot | **+$122K total** | Fast (ML spikes, maxSafe high) | **1-2 weeks** |
+| **1 ATR W1 drop** | -$0.477 | **$2.410** | +$4,660/lot | **+$410K total** | Very fast (ML explodes) | **2-3 days** |
+| **1 ATR MN1 drop** | -$0.895 | **$1.982** | +$8,940/lot | **+$786K total** | Instant (all shorts closed in one session) | **< 1 day** |
+| **Price rises $0.10** | +$0.100 | $2.987 | -$1,110/lot | **-$97.7K cost** | Stalled (ML drops into DEAD zone) | **Months** (PROTECT risk) |
+
+**The sweet spot:** A drop of 1 daily ATR ($0.150) to ~$2.737 would make every short profitable to close. TRIM would fire aggressively — maxSafe jumps into double digits when ML spikes. At that level, the 88 shorts close for a combined **+$122K profit**, and CKUC emerges as **113 lots naked long** on the supercycle with the hedge fully unwound and the balance restored.
+
+**The grind scenario:** If XNGUSD stays range-bound ($2.83–$2.93), TRIM closes 1-3 shorts per day at the ML boundary. Each short costs ~$110 in realized loss (closed above entry). At 2 lots/day, the 88 shorts take ~44 trading days (~8 weeks) to fully unwind. Balance bleeds ~$220/day but swap income (+$48/lot/day on remaining shorts) partially offsets. Net daily cost: ~$220 - ($48 × remaining shorts). The grind is slow but the thesis builds daily.
+
+**The danger:** If XNGUSD rises to $2.99+ (1 daily ATR above current), ML drops below 54% and PROTECT fires. This is the scenario that cost $18K on day one. The 62/54 settings with 8% DEAD zone protect against this, but a sustained natgas rally before the shorts are gone is the enemy of the hedge unwind.
+
+### Projected Path to Naked Long
+
+```
+Current:    113L / 88S = Net LONG 25.1 (hedged)
+Phase 1:    113L / 44S = Net LONG 69   (half unwound, ~4 weeks at grind pace)
+Phase 2:    113L / 0S  = Net LONG 113  (fully unwound, naked supercycle)
+
+Trigger:    Any drop ≥ 1 ATR D1 ($0.150) accelerates to Phase 2 immediately.
+            Range-bound = 6-8 week grind.
+            Sustained rally = PROTECT fires, bias erodes, timeline extends.
+```
+
+Once CKUC hits 113 lots naked long with zero shorts, the hedged martingale phase is over. No more TRIM. No more PROTECT. No more hedge. Just 113 lots of raw directional exposure on the natural gas supercycle thesis. From that point, the position rides to TP ($420.699) or SL ($1.484). R:R at that point: **astronomical**.
+
 *Full tilt. XNGUSD. Long. Hedged. EA-managed. Swap-optimized. Supercycle. Chad energy only.*
 
 -- TyphooN
