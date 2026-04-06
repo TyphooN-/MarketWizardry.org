@@ -11,6 +11,7 @@ const files = {
     10: 'GAMING_INDUSTRY_DISCLAIMERS',
     11: 'AI_ML_PLATFORM_DISCLAIMERS',
     12: 'PRIVACY_COMMUNICATION_DISCLAIMERS',
+    13: 'POP_CULTURE_DISCLAIMERS',
 };
 
 let currentFileIndex = 0;
@@ -84,7 +85,13 @@ function loadFile(fileName) {
 
 function displayText(content, fileName) {
     currentFileContent = content;
-    document.getElementById('textContent').textContent = content;
+    var el = document.getElementById('textContent');
+    // Render markdown if parser available, otherwise plain text
+    if (typeof window.parseMarkdown === 'function') {
+        el.innerHTML = window.parseMarkdown(content);
+    } else {
+        el.textContent = content;
+    }
     document.getElementById('modalTitle').textContent = fileName;
 
     // Set up download link

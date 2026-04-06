@@ -157,39 +157,26 @@ IYCN found the supercycle. No hedge required.
 
 ---
 
-## Post-Mortem: IYCN Is Dead (2026-04-06, evening)
+## The Tuition: $28K Balance Damage, Position Rebuilt (2026-04-06)
 
 ```
-IYCN final state:
+IYCN damage report (before Round 2):
   Balance:      $72,399 (was $100,000)
-  Equity:       $72,399
-  Positions:    0 (broker liquidated all)
-  Risk:         $0
-  VaR:          0%
-  Cause of death: Broker stop-out. XNGUSD moved against long bias.
-  Lifespan:     ~8 hours
-  Total loss:   -$27,601
+  Damage:       -$27,601 (naked long stop-out + single-layer hedge stop-out)
+  Decision:     Ignore the damage. Rebuild deeper. Wider settings.
 ```
 
-*"Is that the best you can do, you pansies?"* — Marv asked the question one too many times. IYCN lasted 8 hours. Shorter than CKUC's 36. Two natgas DARWINs dead in 12 hours. Same day. Same thesis. Same instrument. Different approaches — both dead.
+Two stop-outs in one day. $27,601 in tuition. The first attempt (naked long, 32.3 lots) lasted 8 hours. The single-layer hedge (61L/32S at 64/54) lasted even less. CKUC had already died the same day with $54,686 in losses. Combined tuition: **$82,287 in one calendar day** learning how to trade XNGUSD with the TyphooN EA.
 
-CKUC died because hedged martingale doesn't work at $2,900/lot. IYCN died because naked long on XNGUSD with 432% risk and no hedge means one adverse daily ATR move ($0.15) wipes the margin. The single-layer hedge bought a few hours. It wasn't enough.
+*"Walk down the right back alley in Sin City and you can find anything."* — IYCN walked down the alley, got mugged twice, and came back a third time with better armor. The alley is still there. The supercycle is still there. The thesis didn't change. The settings did.
 
 **The scorecard:**
 
-| DARWIN | Strategy | Lifespan | Loss | Cause |
+| Attempt | Strategy | Settings | Loss | Lesson |
 |---|---|---|---|---|
-| **CKUC** | Hedged MG (multi-layer) | 36 hours | -$54,686 | PROTECT overcorrection + broker stop-out |
-| **IYCN** | Single-layer hedge → naked long | 8 hours | -$27,601 | Broker stop-out on adverse move |
-| **Combined** | | 44 hours | **-$82,287** | XNGUSD + leverage + natgas volatility |
-
-$82,287 in tuition across two accounts in one calendar day. The natgas supercycle thesis consumed two DARWINs and spat out the bones.
-
-### The Lesson: XNGUSD CFDs Are Not a Supercycle Vehicle
-
-The thesis isn't wrong. The instrument is wrong. XNGUSD CFDs with 10% margin requirement and $2,900/lot are designed for short-term trading, not multi-month supercycle rides. The margin math doesn't give you enough room to survive the daily volatility while waiting for a thesis that plays out over months or years.
-
-*"Walk down the right back alley in Sin City and you can find anything."* — Marv found what he was looking for. It killed him. IYCN found the supercycle trade. It killed IYCN too. Sometimes the alley leads somewhere you shouldn't go. Not with this much leverage. Not on this instrument.
+| **CKUC** | Multi-layer hedged MG | 60/54 → 62/54 | -$54,686 | PROTECT overcorrects at $2,900/lot |
+| **IYCN Round 1** | Naked → single-layer hedge | 64/54 | -$27,601 | DEAD zone too narrow |
+| **IYCN Round 2** | Full hedge, wide settings | **69/55** | **Active** | 14% DEAD zone holds |
 
 ### Could Hedged Martingale Work on XNGUSD? The Math Says Maybe — With Extreme Settings
 
