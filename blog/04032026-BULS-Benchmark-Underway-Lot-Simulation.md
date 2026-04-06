@@ -348,6 +348,51 @@ BULS state after first 83 minutes:
 
 **The session opened. TRIM fired 165 times. PROTECT fired once. The account survived. The bias is building. The thesis is being deployed one lot at a time.**
 
+---
+
+## Overnight: PROTECT Storm, Bias Erosion, TRIM Grinds On (2026-04-05 → 2026-04-06)
+
+The overnight session was violent. SOL pushed against the position. PROTECT fired repeatedly.
+
+**21:57 UTC — PROTECT Storm:**
+
+```
+TRIM close 399: 134 of 1000 lots — maxSafe=134, room=$10,966
+PROTECT: ML 52.9% < 54.0% → closed 33 bias lots → ML recovered 54.2% | fires: 77
+PROTECT: ML 53.6% < 54.0% → closed 12 bias lots → ML recovered 54.2% | fires: 78
+PROTECT: ML 53.8% < 54.0% → closed 5 bias lots  → ML recovered 54.8% | fires: 79
+PROTECT: ML 54.0% < 54.0% → closed 1 bias lot   → ML recovered 54.6% | fires: 80
+```
+
+Four PROTECT events in 100 seconds. The ML dropped to 52.9% — deepest since BULS launched. PROTECT closed 33+12+5+1 = **51 bias lots** to stabilize. Each fire recovered ML above 54% within one tick. The firmware iterates correctly — partial closes, proportional to urgency, not the full-position nuke that killed pre-v1.430 accounts.
+
+This is the cost of overnight volatility. PROTECT sacrifices bias lots (shorts) to reduce margin. Every bias lot closed is one less lot of directional exposure. The account survives, but the thesis loses ammunition.
+
+**By 06:46 UTC (2026-04-06 morning):**
+
+```
+BULS morning state (2026-04-06 06:46 UTC):
+  Hedge:         44,172 lots (was 55,062 at session open)
+  Bias:          45,620 lots (was 56,718)
+  Net SHORT:     1,448 lots (was 1,656 — lost 208 lots of bias)
+  Equity:        $67,447 (was $75,435 — down $7,988)
+  Margin Level:  58.2%
+  TRIM closes:   745 (was 34 at session open)
+  PROTECT fires: 80 (was 0 at session open)
+  Δ Equity:      -$4,679 since init
+  Δ Balance:     -$4,083 since init
+```
+
+![BULS SOLUSD H1/H4 — approaching H1 demand zone test (2026-04-06 morning)](/img/buls-h1-h4-20260406.webp)
+
+The overnight session cost BULS **208 lots of net short bias** and **$7,988 of equity**. The hedge burned through 10,890 longs (55,062 → 44,172) via 711 TRIM closes overnight. PROTECT fired 80 times total, each time sacrificing bias lots to keep the account alive.
+
+The H1 chart shows price approaching a tested Demand zone. The H4 shows a tested Supply zone above and the position sitting in the middle of a large demand area. Fisher Transform on H1 is positive (1.27) — momentum is with the short-term bulls. If SOL breaks through the H1 demand, BULS benefits. If it bounces up, more PROTECT fires incoming.
+
+**The firmware held.** 745 TRIM closes. 80 PROTECT fires. Zero account deaths. ML recovered from 52.9% to 58.2% by morning. The voltage is calibrated. The cooling works. But the overnight cost was real — bias erosion is the price of survival.
+
+**AJTK died with 141,305 bias. BULS has 45,620 and holding. The grind continues — slower, lighter, but alive.**
+
 -- TyphooN
 
 ---
