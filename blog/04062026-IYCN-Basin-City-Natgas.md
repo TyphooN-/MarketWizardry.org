@@ -187,7 +187,52 @@ The thesis isn't wrong. The instrument is wrong. XNGUSD CFDs with 10% margin req
 
 *"Walk down the right back alley in Sin City and you can find anything."* — Marv found what he was looking for. It killed him. IYCN found the supercycle trade. It killed IYCN too. Sometimes the alley leads somewhere you shouldn't go. Not with this much leverage. Not on this instrument.
 
-The supercycle will be traded again. Not today. Not on a CFD account. The thesis deserves a vehicle that can survive the volatility long enough for the thesis to matter.
+### Could Hedged Martingale Work on XNGUSD? The Math Says Maybe — With Extreme Settings
+
+Three attempts. Three deaths. Three different TRIM/PROTECT configurations:
+
+| DARWIN | Settings | DEAD Zone | Result |
+|---|---|---|---|
+| CKUC (attempt 1) | 60/54 | 6% | PROTECT overcorrection, bias inverted, dead |
+| CKUC (attempt 2) | 62/54 | 8% | Still died — ML swings too fast at $2,900/lot |
+| IYCN | 64/54 | 10% | TRIM unwound hedge too fast, left naked, dead |
+
+The settings got wider each time. Each dead DARWIN bought 2% more DEAD zone. The pattern suggests the DEAD zone needs to be **much** wider for XNGUSD.
+
+**The theoretical minimum: 55/69 (14% DEAD zone)**
+
+```
+$100K account, XNGUSD at $2.90, $2,900/lot margin
+
+Max safe gross: ~34 lots (17L/17S)
+  Margin: 34 × $2,900 = $98,600
+  ML at entry: $100K / $98.6K = 101.4%
+
+TRIM at 69%:
+  ML must drop from 101% to 69% before TRIM fires
+  That's a 32% ML drop — requires significant price move against hedge
+  Gives massive room to absorb volatility without touching the hedge
+  When TRIM fires, it's because there's genuine room to build bias
+
+PROTECT at 55%:
+  ML must drop from 69% to 55% (14% DEAD zone)
+  At 34 lots gross, each lot closed = ~3% ML swing
+  PROTECT closing 5 lots = 15% ML swing → still overcorrects
+  BUT 14% DEAD zone means price must move much further to trigger PROTECT
+
+Key insight: 69% TRIM means TRIM barely fires
+  The hedge sits for weeks/months, collecting +$48/lot/day short swap
+  When natgas drops (thesis direction), ML rises, TRIM fires, bias builds
+  When natgas rises (against thesis), ML drops into 14% DEAD zone buffer
+```
+
+**The problem remains:** even at 55/69, PROTECT closing 5 lots still causes a 15% ML swing. The overcorrection is inherent to the $2,900/lot margin. The only real fix is account size — **$500K+ where each lot is <1% of margin** and PROTECT can close in small increments without overshooting.
+
+**On $100K:** the safest XNGUSD approach is naked directional (what IYCN reverted to). No hedge. No PROTECT to overcorrect. Price goes your way → thesis prints. Price goes against → SL takes the hit. Clean. Simple. The $82K in CKUC/IYCN tuition proves this empirically.
+
+**On $500K+:** hedged martingale at 55/69 might work. Each lot = 0.6% of margin instead of 3%. PROTECT closing 5 lots = 3% ML swing instead of 15%. The grind is slow (swap-funded, collecting +$48/lot/day on shorts) and the DEAD zone is enormous. But this requires 5x the capital that was available.
+
+**The verdict:** XNGUSD hedged martingale on $100K is not viable at any TRIM/PROTECT setting. The margin-per-lot math kills it. The thesis is correct. The instrument needs either naked directional exposure or a much larger account.
 
 ---
 
