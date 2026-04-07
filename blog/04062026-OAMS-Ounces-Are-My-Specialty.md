@@ -6,7 +6,7 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Shorting silver after burying four natgas DARWINs in a single day is either evolution or insanity. The Strangers would call it an experiment.
 
-> **TRADING METHOD:** OAMS is managed by TyphooN EA in hedged martingale mode on XAGUSD CFD. Settings: 75/55, micro-lot layers. Discretionary entry by TyphooN, algorithm takes over from there.
+> **TRADING METHOD:** OAMS was managed by TyphooN EA in hedged martingale mode on XAGUSD CFD. Settings: 75/55, micro-lot layers. **Status: DEAD. PROTECT fired, broker finished the job. Resting in the DARWIN Graveyard.**
 
 ---
 
@@ -175,8 +175,34 @@ Once longs drop below ~48 lots, the position flips to positive net swap. From th
 
 *Ounces Are My Specialty.*
 
+---
+
+## R.I.P. OAMS — The Experiment Is Over (2026-04-07)
+
+*"Shut it down. Shut it down forever."*
+
+Another event. Another broker action. PROTECT fired, closed 18 bias lots, hit the hard floor at 3.3% ML — and the EA correctly stood down. The account briefly recovered to ML 71.4% with 38L/39S, TRIM resumed grinding at 0.01/tick, 88 more closes. Then silver moved again. The broker finished what PROTECT couldn't save.
+
+**The verdict on hedged martingale:**
+
+| DARWIN | Instrument | Margin/lot | DEAD Zone | Result |
+|---|---|---|---|---|
+| CKUC | XNGUSD | $2,900 | 6-8% | Dead |
+| IYCN R1 | XNGUSD | $2,900 | 10% | Dead |
+| IYCN R2 | XNGUSD | $2,900 | 14% | Dead |
+| WNSO | XNGUSD | $2,900 | 20% | Dead |
+| **OAMS** | **XAGUSD** | **$36,065** | **20%** | **Dead** |
+
+Five DARWINs. Two instruments. Every DEAD zone width from 6% to 20%. Every combination of TRIM/PROTECT settings. Micro-lot precision. Positive bias swap. None of it mattered.
+
+**The lesson:** hedged martingale on high-margin commodity CFDs is not viable. Not on XNGUSD at $2,900/lot. Not on XAGUSD at $36,065/lot. The margin per lot is too high relative to account equity. When the instrument moves, it moves in chunks that overwhelm any DEAD zone configuration. PROTECT can't close fast enough, and the broker doesn't wait.
+
+The only proven hedged martingale is BULS on SOLUSD — $68/lot margin, where each close is a rounding error on ML. That's the instrument the firmware was built for. Everything else was an experiment. The experiment is over.
+
+*"First there was darkness."* And darkness is where OAMS rests — alongside CKUC, IYCN, and WNSO in the DARWIN Graveyard. Five headstones for hedged martingale on commodities. The Strangers took OAMS apart. They won't be putting it back together.
+
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Four previous natgas DARWINs sustained total account losses before OAMS was created on XAGUSD. Hedged martingale carries inherent risk regardless of instrument. Do not trade commodity CFDs with money you cannot afford to lose. The silver short thesis is the author's personal opinion and is not a recommendation to trade XAGUSD.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Five hedged martingale DARWINs across XNGUSD and XAGUSD sustained total account losses. Hedged martingale on high-margin commodity CFDs is not viable at any tested configuration. Do not trade commodity CFDs with money you cannot afford to lose.
