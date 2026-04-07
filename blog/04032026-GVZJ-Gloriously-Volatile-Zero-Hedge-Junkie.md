@@ -1,6 +1,6 @@
-# DARWIN GVZJ: The CHGG Specialist
+# DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie
 
-*One stock to rule them all.*
+*Full tilt into extreme outliers. Zero hedging. Maximum voltage.*
 
 **Published: 2026-04-03 | TyphooN | MarketWizardry.org**
 
