@@ -37,14 +37,16 @@ The corpse pile isn't wasted. Every post-mortem produced lessons that feed the s
 
 All six DARWINs trade on Darwinex Zero Stocks/ETF accounts. All six hold **Permanent Allocations** — a Darwinex product that is no longer available for purchase. These allocations are grandfathered. They cannot be replicated by new users. They are the franchise.
 
-| DARWIN | Allocation | Net Profit | Specialty | Current Focus |
-|---|---|---|---|---|
-| **HAKR** | Permanent | **+$1.43M** | Broad market alpha | **NCLH long, CC long** |
-| **MFSO** | Permanent | **+$296K** | Balanced long/short | Discretionary outliers |
-| **GVZJ** | Permanent | **+$213K** | Extreme outliers | Full tilt swings |
-| **ATPK** | Permanent | **+$21K** | The zombie | $7.29/kill, 2,879 kills |
-| **WBYE** | Permanent | **-$246K** | Rehabilitation | Recovery mode |
-| **XUQF** | Permanent | **-$670K** | Comeback attempt | Rebuilding |
+| DARWIN | Allocation | PA Status | Net Profit | Specialty | Current Focus |
+|---|---|---|---|---|---|
+| **HAKR** | Permanent | Locked | **+$1.43M** | Broad market alpha | **NCLH long, CC long** |
+| **MFSO** | Permanent | Locked | **+$296K** | Balanced long/short | Discretionary outliers |
+| **GVZJ** | Permanent | Locked | **+$213K** | Extreme outliers | Full tilt swings |
+| **ATPK** | Permanent | **UNLOCKED** | **+$21K** | The zombie | $7.29/kill, 2,879 kills |
+| **WBYE** | Permanent | Locked | **-$246K** | Rehabilitation | Recovery mode |
+| **XUQF** | Permanent | Locked | **-$670K** | Comeback attempt | Rebuilding |
+
+**PA unlock status: 1 of 6.** ATPK — the zombie, the $7.29/kill grinder — is the only DARWIN with its Permanent Allocation fully unlocked. The other five are still locked and need consistent trading activity to unlock. Every trade on a locked PA moves it closer to activation. This is why all six accounts are actively trading.
 
 **Combined P&L: +$1.04M across six DARWINs.** HAKR carries the portfolio. MFSO and GVZJ add consistent alpha. ATPK refuses to die. WBYE and XUQF are rehabilitation projects that still hold valuable Permanent Allocations.
 
@@ -118,6 +120,23 @@ Current deployment:
 - **SLV short** — silver thesis via ETF, not CFD
 
 The corpse pile waits. The six survivors trade. The Permanent Allocations compound.
+
+---
+
+## After the PAs: What Comes Next
+
+Algo trading, carry trades, positive swap strategies, automated signal generation — all of it is **on hold** until all six Permanent Allocations are fully unlocked. Only **1 of 6** PAs is currently unlocked (ATPK). Five more to go. The priority order is clear:
+
+1. **Now:** Unlock the remaining five PAs through discretionary trading on Stocks/ETF accounts
+2. **Next:** Get all six DARWINs into **DarwinIA Gold** — the elite tier with maximum allocation
+3. **After all 6 in Gold + PA unlocked:** Revisit everything — algo trading, CFD accounts, hedged martingale viability, carry trades, positive swap strategies, automated signal generation
+4. **Long term:** Corpse Explosion — apply ten post-mortems worth of lessons to automated strategies running on Gold-tier PA-backed DARWINs
+
+The TyphooN EA already has the infrastructure: Pyramid Mode, TRIM/PROTECT, Monte Carlo simulation, the full risk engine ported to Rust in TyphooN-Terminal. The Kraken broker integration is live. The SwapHarvest scanner identified 827 positive-swap instruments. The tools are built. The knowledge is paid for in ten dead DARWINs.
+
+But none of that matters until the six PAs are unlocked and in Gold. Algo trading on a non-PA DARWIN is just creating more corpses. CFD experiments on accounts without Permanent Allocation are tuition payments with no diploma. Hedged martingale might work on a Gold-tier PA account where the allocation cushion changes the math — but that's a question for after the six are in Gold, not before.
+
+**Unlock first. Gold second. Revisit everything third. Detonate fourth.**
 
 *Ten dead. Six alive. All focused.*
 
