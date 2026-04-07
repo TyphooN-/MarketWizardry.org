@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,400 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **861 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,800 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **862 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,400 lines** across **861 commits** and **7 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,800 lines** across **862 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**861 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**862 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1007,7 +1007,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**68,400 lines of pure Rust. 861 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + WASM web client + 118+ commands + 60+ indicators (all GPU compute) + 89 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync + phone access over LAN. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**68,800 lines of pure Rust. 862 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + WASM web client + 118+ commands + 60+ indicators (all GPU compute) + 89 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync + phone access over LAN. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
@@ -1667,13 +1667,29 @@ A comprehensive audit of the LAN sync pipeline fixed 7 bugs:
 
 The `__SPECS__` query used `LIMIT 1` which grabbed the smallest MT5 account (10 symbols) instead of the CFD account (851 symbols). Fixed: now merges ALL `__SPECS__` entries across all MT5 accounts, deduplicating by symbol. The same bug affected `export_radar_txt`.
 
+### WASM Web Client Security Hardening (ADR-073)
+
+The WASM web client shipped read-only but still needed hardening before exposing it on a LAN. ADR-073 documents the full security pass:
+
+- **Passphrase authentication** — shared with LAN sync. Login screen on phone before any data flows
+- **Rate limiting** — 20 commands/second per client. Prevents abuse from rogue scripts
+- **Connection limits** — 10 max clients total, 3 per IP address. No DDoS from a single device
+- **64KB message cap** — prevents memory exhaustion from oversized payloads
+- **10-second auth timeout** — unauthenticated connections are dropped if they don't send credentials
+- **Input validation** — symbol and timeframe allowlists, path traversal blocked. No arbitrary strings reach the backend
+- **`deny_unknown_fields`** on all serde types — malformed JSON is rejected at the protocol level
+- **Broadcast lag handling** — slow clients get dropped instead of backing up the server's send queue
+- **`/health` endpoint** — for monitoring without authentication
+
+**7 new protocol tests** covering auth flow, rate limits, message validation, and connection lifecycle.
+
 ### Updated Stats (2026-04-12)
 
 | Metric | 2026-04-08 | 2026-04-12 |
 |---|---|---|
-| **LOC** | ~66,500 | **~68,400** |
-| **Commits** | 848 | **861** |
-| **Tests** | 618 | **621** |
+| **LOC** | ~66,500 | **~68,800** |
+| **Commits** | 848 | **862** |
+| **Tests** | 618 | **628** |
 | **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
 | **Console commands** | 115 | **118+** |
 
@@ -1683,12 +1699,12 @@ The `__SPECS__` query used `LIMIT 1` which grabbed the smallest MT5 account (10 
 | **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 110+ floating windows | ~35,300 |
 | **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | ~2,300 |
 | **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5/PineScript indicators | ~4,500 |
-| **web/** | eframe + glow WASM thin client for phone/browser access | ~400 |
-| **web-protocol/** | Shared WebCmd/WebMsg serializable types | ~90 |
-| **web-server/** | axum HTTPS + WebSocket relay with self-signed TLS | ~110 |
-| **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,400** |
+| **web/** | eframe + glow WASM thin client for phone/browser access | ~500 |
+| **web-protocol/** | Shared WebCmd/WebMsg serializable types with auth + validation | ~220 |
+| **web-server/** | axum HTTPS + WebSocket relay with TLS, rate limiting, passphrase auth | ~290 |
+| **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,800** |
 
-**861 total commits. ~68,400 LOC. 621 tests. 7 crates. Zero warnings.**
+**862 total commits. ~68,800 LOC. 628 tests. 7 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
