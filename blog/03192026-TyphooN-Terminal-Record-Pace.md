@@ -1593,6 +1593,10 @@ Three brokers. One terminal. Alpaca for US equities/options/crypto. tastytrade f
 
 **The terminal now manages all 6 active DARWINs simultaneously** — TyphooN uses the cross-DARWIN correlation matrix, symbol overlap heatmap, and portfolio VaR tools to juggle correlation and optimize profits across all accounts in real-time. The DARWINS command shows combined portfolio analytics. The DARWIN command shows per-account detail. One terminal, six accounts, zero spreadsheets.
 
+**SwapHarvest — Positive Swap Scanner:** Scans every symbol on the broker and identifies instruments with positive swap in either direction. 890 symbols scanned, 827 with positive swap found — 807 on the short side. Filters by direction (Long/Short/Both), sorts by best swap rate, shows spread, min lot, margin, and full description. Export to CSV for analysis. The Short King's shopping list, generated in seconds.
+
+![SwapHarvest — TyphooN-Terminal Positive Swap Scanner: 827 symbols with positive swap across 890 scanned](/img/swapharvest-scanner-20260407.webp)
+
 **848 total commits. ~66,500 LOC. 618 tests. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)

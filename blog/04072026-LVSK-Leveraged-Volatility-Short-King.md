@@ -36,6 +36,10 @@ LVSK opens with a naked short on XAGUSD. SELL 0.43 at $72.040, SELL 0.01 at $71.
 
 *"Jacked to the tits!"* — Jared Vennett, after loading up on short positions. LVSK doesn't need to be jacked to the tits. LVSK just needs to be short the right instruments.
 
+![SwapHarvest — TyphooN-Terminal Positive Swap Scanner: 827 symbols with positive swap across 890 scanned](/img/swapharvest-scanner-20260407.webp)
+
+TyphooN-Terminal's SwapHarvest scanner identifies every positive-swap instrument on the broker. 827 symbols. 807 with positive short swap. The Short King's shopping list.
+
 **Positive swap short instruments on Darwinex:**
 
 | Instrument | Swap Short (per lot/day) | Swap Long (per lot/day) | Thesis |
