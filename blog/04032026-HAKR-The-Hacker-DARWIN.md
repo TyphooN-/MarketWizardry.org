@@ -187,6 +187,12 @@ The signal account lost $1.43M (virtual). The DARWIN turned that chaos into +34.
 
 **The algorithm hacks the market. Darwinex hacks the algorithm. Everyone profits except XUQF.**
 
+### Current Positions — CC & NCLH (April 2026)
+
+![DARWIN HAKR — CC and NCLH multi-timeframe analysis: Daily and Monthly charts (April 2026)](/img/hakr-cc-nclh-mtf-20260407.webp)
+
+CC long 60,000 lots. NCLH long 53,502 lots. The post-LUMN Gibsons are fully deployed. CC sits in a Demand [Proven] zone on the daily with VaR XI at 3.37 — well within corridor. NCLH running VaR XI 2.82 with a Supply [Untested] zone overhead on the daily. Both positions show monthly charts with clear demand zones underneath. The algorithm found its replacement Gibsons and went full tilt.
+
 ---
 
 ## HAKR's Personality — "4ll l33t h4x0rz r3c0gn1z3 0n3 4n0th3r"
