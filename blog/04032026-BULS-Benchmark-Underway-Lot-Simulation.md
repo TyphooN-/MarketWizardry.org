@@ -6,6 +6,8 @@
 
 > **DISCLAIMER:** This is not financial advice. This is a post-mortem analysis and strategy description using a proprietary EA on leveraged crypto CFDs. Do not attempt hedged martingale strategies without understanding that you can lose everything. Crypto CFDs carry extreme risk. You have been warned.
 
+> **STATUS: DEAD.** The broker stepped in. BULS is the last hedged martingale DARWIN to fall. Resting in the DARWIN Graveyard alongside AJTK, BBUD, XJFD, QRRP, CKUC, IYCN, WNSO, and OAMS.
+
 ---
 
 ![DARWIN BULS — Calibration, April 2026](/img/darwin-buls-calibration-202604.webp)
@@ -393,8 +395,36 @@ The H1 chart shows price approaching a tested Demand zone. The H4 shows a tested
 
 **AJTK died with 141,305 bias. BULS has 45,620 and holding. The grind continues — slower, lighter, but alive.**
 
+---
+
+## R.I.P. BULS — The Last Hedged Martingale (2026-04-07)
+
+The broker stepped in. BULS is dead.
+
+The chosen DARWIN. The one built on 12 dead predecessors. The one with the firmware refined across AJTK, BBUD, XJFD, QRRP. SOLUSD at $68/lot — the instrument the hedged martingale was designed for. 745 TRIM closes. 80 PROTECT fires. It survived longer than any other hedged MG DARWIN. But in the end, you can't outsmart the broker.
+
+**The hedged martingale experiment is over.**
+
+| DARWIN | Instrument | Margin/lot | Result |
+|---|---|---|---|
+| BBUD | SOLUSD | $68 | Dead — broker stopped out before PROTECT could fire |
+| XJFD | SOLUSD | $68 | Dead — the Golden Sample, $4.15M projection, $0 reality |
+| QRRP | SOLUSD | $68 | Dead — 8 post-mortems, the rug was pulled on the rug puller |
+| AJTK | SOLUSD | $68 | Dead — 398 positions, maximum voltage, v1.430 final form |
+| **BULS** | **SOLUSD** | **$68** | **Dead — the chosen DARWIN, the last one standing** |
+| CKUC | XNGUSD | $2,900 | Dead — 36 hours, $54,686 |
+| IYCN | XNGUSD | $2,900 | Dead — three attempts, $82K combined |
+| WNSO | XNGUSD | $2,900 | Dead — 20% DEAD zone, broker collapsed to $25K |
+| OAMS | XAGUSD | $36,065 | Dead — same disease, different metal |
+
+Nine hedged martingale DARWINs. Three instruments. Every DEAD zone width from 6% to 20%. Every TRIM/PROTECT configuration imaginable. Micro-lot precision. Positive and negative swap. None of it was enough. The broker always wins.
+
+**The conclusion:** hedged martingale on leveraged CFDs cannot outsmart the broker's stop-out mechanism. The thesis was never wrong — the vehicle was. The six remaining DARWINs (HAKR, WBYE, XUQF, ATPK, GVZJ, MFSO) trade discretionarily without hedged martingale. They survive. The martingale DARWINs don't.
+
+*AJTK is dead. BULS is dead. The voltage is off. The experiment is complete.*
+
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged crypto CFDs. This is NOT financial advice. Past simulation results do not guarantee future performance. Leveraged trading carries substantial risk of loss including loss exceeding your initial deposit. Crypto markets are volatile, illiquid, and manipulated. Do not trade crypto CFDs with money you cannot afford to lose. Do not attempt hedged martingale strategies without understanding that you can lose everything. The author holds active short positions in SOLUSD.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged crypto CFDs. This is NOT financial advice. Nine hedged martingale DARWINs across SOLUSD, XNGUSD, and XAGUSD sustained total account losses. Hedged martingale on leveraged CFDs is not viable. Do not attempt hedged martingale strategies. Do not trade with money you cannot afford to lose.
