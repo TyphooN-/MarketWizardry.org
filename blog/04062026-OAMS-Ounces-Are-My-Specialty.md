@@ -6,13 +6,13 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Shorting silver after burying four natgas DARWINs in a single day is either evolution or insanity. The Strangers would call it an experiment.
 
-> **TRADING METHOD:** OAMS is managed by TyphooN EA in hedged martingale mode on XAGUSD CFD. Settings: 72/54, micro-lot layers. Discretionary entry by TyphooN, algorithm takes over from there.
+> **TRADING METHOD:** OAMS is managed by TyphooN EA in hedged martingale mode on XAGUSD CFD. Settings: 74/54, micro-lot layers. Discretionary entry by TyphooN, algorithm takes over from there.
 
 ---
 
 ## O.A.M.S. — Ounces Are My Specialty
 
-*Acronym expanded: **O**unces **A**re **M**y **S**pecialty. Silver is measured in ounces. 5,000 ounces per contract. OAMS measures in precision — micro-lot layers, 18% DEAD zone, and the patience that four dead natgas DARWINs bought. CKUC died at 6%. IYCN died at 10% and 14%. WNSO died at 20%. OAMS doesn't repeat the mistake — different instrument, different margin, different math.*
+*Acronym expanded: **O**unces **A**re **M**y **S**pecialty. Silver is measured in ounces. 5,000 ounces per contract. OAMS measures in precision — micro-lot layers, 20% DEAD zone, and the patience that four dead natgas DARWINs bought. CKUC died at 6%. IYCN died at 10% and 14%. WNSO died at 20%. OAMS doesn't repeat the mistake — different instrument, different margin, different math.*
 
 *"I have become the monster you were looking for."* — John Murdoch learned to tune reality. TyphooN learned to tune margin levels. Four dead DARWINs were the experiment. OAMS is the result — the ability to reshape the position at will, one micro-lot at a time. The Strangers rearranged the city every midnight. OAMS rearranges the hedge at every TRIM tick.
 
@@ -57,22 +57,22 @@ OAMS deployment (2026-04-06):
   ML:           64.5%
   Equity:       $64,582
   Balance:      $95,440
-  Settings:     72/54 (18% DEAD zone)
+  Settings:     74/54 (20% DEAD zone)
   TRIM:         Paused (needs 72%)
   PROTECT:      Sleeping (needs 54%)
 ```
 
-ML 64.5% — deep in the DEAD zone. TRIM won't fire until ML reaches 72%. PROTECT won't wake until 54%. The EA does nothing. The position breathes. The shorts collect swap. The city sleeps.
+ML 64.5% — deep in the DEAD zone. TRIM won't fire until ML reaches 74%. PROTECT won't wake until 54%. The EA does nothing. The position breathes. The shorts collect swap. The city sleeps.
 
 ---
 
-## Why 72/54 on Silver
+## Why 74/54 on Silver
 
-18% DEAD zone. The widest proven configuration from the natgas graveyard, applied to an instrument that actually supports it:
+20% DEAD zone. The widest proven configuration from the natgas graveyard, applied to an instrument that actually supports it:
 
-- **TRIM at 72%:** Patient. Shorts survive longer, collecting +$38/lot/day swap. When silver drops and ML rises above 72%, TRIM grinds hedge longs — closing the positions that cost swap, improving net income
+- **TRIM at 74%:** Patient. Shorts survive longer, collecting +$38/lot/day swap. When silver drops and ML rises above 74%, TRIM grinds hedge longs — closing the positions that cost swap, improving net income
 - **PROTECT at 54%:** Below spread-induced ML dips. Silver spreads are tighter than natgas, but off-hours widening still happens. 54% is deep enough that only a real move triggers it — never a spread artifact
-- **18% DEAD zone:** Massive buffer. On micro-lots, this is insurmountable by normal price action
+- **20% DEAD zone:** Massive buffer. On micro-lots, this is insurmountable by normal price action
 
 **The swap advantage:** Unlike XNGUSD (long-biased, negative bias swap), OAMS is short-biased with **positive bias swap**. As TRIM closes longs, three things happen simultaneously:
 1. Swap income improves (fewer negative-swap longs)
@@ -134,11 +134,11 @@ TRIM grinding at ML edge:
   PROTECT fires:  0
   ML:             72.3%
   Equity:         $74,390
-  Settings:       72/54 (18% DEAD zone)
+  Settings:       74/54 (20% DEAD zone)
   TRIM speed:     0.01 lots/tick at ML edge
 ```
 
-99 TRIM closes. Zero PROTECT fires. The EA is grinding 0.01 lots at the 72% edge — micro-lot precision that XNGUSD could never achieve. Each close releases ~$360 of margin. No overcorrection. No panic. Just the steady pulse of the algorithm tuning the position.
+99 TRIM closes. Zero PROTECT fires. The EA is grinding 0.01 lots at the 74% edge — micro-lot precision that XNGUSD could never achieve. Each close releases ~$360 of margin. No overcorrection. No panic. Just the steady pulse of the algorithm tuning the position.
 
 ### Hedge Unwind Price Projections
 
@@ -146,11 +146,11 @@ TRIM grinding at ML edge:
 
 | Scenario | Silver Price | ML Effect | TRIM Speed | Timeline to Pure Short |
 |---|---|---|---|---|
-| **Range-bound** | ~$72 ±$0.50 | Hovers at 72% edge | 0.01/tick, intermittent | **3-5 trading days** |
-| **Drop $1** | ~$71 | ML spikes above 72% | Accelerated, continuous | **1-2 days** |
-| **Drop $2** | ~$70 | ML well above 72% | Very fast, multi-lot | **6-12 hours** |
+| **Range-bound** | ~$72 ±$0.50 | Hovers at 74% edge | 0.01/tick, intermittent | **3-5 trading days** |
+| **Drop $1** | ~$71 | ML spikes above 74% | Accelerated, continuous | **1-2 days** |
+| **Drop $2** | ~$70 | ML well above 74% | Very fast, multi-lot | **6-12 hours** |
 | **Drop $5** | ~$67 | ML extremely high | Maximum speed | **1-3 hours** |
-| **Rise $1** | ~$73 | ML drops below 72% | **TRIM paused** | **Indefinite** |
+| **Rise $1** | ~$73 | ML drops below 74% | **TRIM paused** | **Indefinite** |
 | **Rise $2** | ~$74 | ML approaches 54% | **PROTECT territory** | **Danger zone** |
 
 ### Swap Evolution as Longs Close

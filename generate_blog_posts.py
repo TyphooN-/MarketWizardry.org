@@ -622,8 +622,8 @@ def generate_witty_description(content, filename, title):
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
         'benchmark-underway': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
-        'oams': "DARWIN OAMS: Ounces Are My Specialty. XAGUSD short hedged MG at 72/54 — 18% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs were the experiment. OAMS is what the Strangers put back together.",
-        'ounces-are': "DARWIN OAMS: Ounces Are My Specialty. XAGUSD short hedged MG at 72/54 — 18% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs were the experiment. OAMS is what the Strangers put back together.",
+        'oams': "DARWIN OAMS: Ounces Are My Specialty. XAGUSD short hedged MG at 74/54 — 20% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs were the experiment. OAMS is what the Strangers put back together.",
+        'ounces-are': "DARWIN OAMS: Ounces Are My Specialty. XAGUSD short hedged MG at 74/54 — 20% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs were the experiment. OAMS is what the Strangers put back together.",
     }
     for kw, desc in darwin_lore_unique.items():
         if kw in fname and desc is not None:
@@ -1300,7 +1300,7 @@ def generate_flavor_text(title, filename):
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
         return "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Broker collapsed everything to $25K in a single action. Swap theory doesn't work. Four natgas DARWINs dead."
     if 'oams' in filename_lower or 'ounces-are' in filename_lower:
-        return "DARWIN OAMS: Ounces Are My Specialty. XAGUSD short hedged MG at 72/54 — 18% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs were the experiment. OAMS learned to tune. Ounces are the specialty."
+        return "DARWIN OAMS: Ounces Are My Specialty. XAGUSD short hedged MG at 74/54 — 20% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs were the experiment. OAMS learned to tune. Ounces are the specialty."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type
