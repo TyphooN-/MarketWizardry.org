@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **59,769 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **687 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,400 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **861 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **59,769 lines** across **687 commits**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,400 lines** across **861 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -58,11 +58,14 @@ The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, g
 
 | Crate | Purpose | Lines of Rust |
 |---|---|---|
-| **engine/** | Broker APIs (Alpaca, tastytrade, Kraken), SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | ~25,000 |
-| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 110+ floating windows | ~34,000 |
+| **engine/** | Broker APIs (Alpaca, tastytrade, Kraken), SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | ~25,800 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 110+ floating windows | ~35,300 |
 | **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | ~2,300 |
-| **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5/PineScript indicators | ~4,200 |
-| **Total** | **100% Rust. Zero JavaScript. Zero WebKit.** | **~66,400** |
+| **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5/PineScript indicators | ~4,500 |
+| **web/** | eframe + glow WASM thin client for phone/browser access | ~400 |
+| **web-protocol/** | Shared WebCmd/WebMsg serializable types | ~90 |
+| **web-server/** | axum HTTPS + WebSocket relay with self-signed TLS | ~110 |
+| **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,400** |
 
 ### Why Rust Won (And Why Everything Else Still Loses)
 
@@ -157,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**687 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**861 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1004,7 +1007,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**59,769 lines of pure Rust. 734 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + 110 commands + 60+ indicators (all GPU compute) + 70 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**68,400 lines of pure Rust. 861 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + WASM web client + 118+ commands + 60+ indicators (all GPU compute) + 89 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync + phone access over LAN. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
@@ -1137,7 +1140,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 
 | Terminal | Cost | Open Source | Assets | Algo | GPU Charts | Binary Size | US Available |
 |---|---|---|---|---|---|---|---|
-| **TyphooN-Terminal** | **Free** | **Yes (BSL)** | Stocks, options, crypto + MT5 sync | **110 commands** | **Yes (wgpu)** | **~15MB** | **Yes** |
+| **TyphooN-Terminal** | **Free** | **Yes (BSL)** | Stocks, options, crypto + MT5 sync | **118+ commands** | **Yes (wgpu)** | **~15MB** | **Yes** |
 | MetaTrader 5 | Free | No | Forex, CFDs, stocks | MQL5 | No | ~50MB | Limited |
 | TradingView | $0-60/mo | No | Charts only | Pine Script (no exec) | No (canvas) | ~200MB | Yes |
 | Thinkorswim | Free | No | Stocks, options, futures | thinkScript (limited) | No | ~1GB+ | Yes |
@@ -1152,7 +1155,7 @@ If you trade with a prop firm, your terminal choice is dictated by the firm. Her
 | Webull | Free | No | Stocks, options, crypto | OpenAPI | No | ~150MB | Yes |
 | tastytrade | Free | No | Stocks, options, futures | REST API | No | ~100MB | Yes |
 
-**TyphooN-Terminal is the only trading terminal with a native GPU rendering pipeline (wgpu/Vulkan), zero JavaScript, zero WebKit, real brokerage integration, direct MT5 database sync, GPU compute shaders for indicators, LAN sync with TLS, built-in outlier scanners, MQL5→WGSL compiler, and a built-in risk management engine.** Every other option is either CPU-rendered (NinjaTrader, Sierra Chart, Thinkorswim), browser-based (TradingView), Electron bloatware, closed-source (Webull, IBKR), research-only (Godel), or locked to Windows (NinjaTrader, Sierra Chart, Quantower). TyphooN-Terminal is the only one that got the rendering pipeline right.
+**TyphooN-Terminal is the only trading terminal with a native GPU rendering pipeline (wgpu/Vulkan), zero JavaScript, zero WebKit, real brokerage integration, direct MT5 database sync, GPU compute shaders for indicators, LAN sync with TLS, WASM web client for phone access, built-in outlier scanners, MQL5→WGSL compiler, and a built-in risk management engine.** Every other option is either CPU-rendered (NinjaTrader, Sierra Chart, Thinkorswim), browser-based (TradingView), Electron bloatware, closed-source (Webull, IBKR), research-only (Godel), or locked to Windows (NinjaTrader, Sierra Chart, Quantower). TyphooN-Terminal is the only one that got the rendering pipeline right.
 
 ## Update (2026-04-02): Calculator Suite Sunset — VaR, ATR, and Portfolio Tools Retired
 
@@ -1598,6 +1601,94 @@ Three brokers. One terminal. Alpaca for US equities/options/crypto. tastytrade f
 ![SwapHarvest — TyphooN-Terminal Positive Swap Scanner: 827 symbols with positive swap across 890 scanned](/img/swapharvest-scanner-20260407.webp)
 
 **848 total commits. ~66,500 LOC. 618 tests. Zero warnings.**
+
+### WASM Web Client: Phone Access Over LAN (2026-04-12)
+
+Three new crates bring TyphooN-Terminal to your phone:
+
+- **web-protocol** — shared serializable `WebCmd`/`WebMsg` types between server and client
+- **web-server** — axum HTTPS + WebSocket relay with self-signed TLS
+- **web** — eframe 0.34 + glow WebGL2 thin client compiled to WASM
+
+The `WEBSERVER` console command starts an HTTPS server on port 9848, serves the WASM bundle, and bridges WebSocket connections to `BrokerCmd`/`BrokerMsg` channels. Open `https://your-ip:9848` on your phone and get:
+
+- **Account tab** — balance, equity, margin, buying power
+- **Positions tab** — all open positions with P&L
+- **Orders tab** — pending orders with status
+- **Chart tab** — basic chart with auto-refresh
+
+Read-only Phase 1 — no order placement from the phone. The server bridges all data from the native terminal's broker connections. No API keys needed on the phone. No app install. Just a browser and a LAN connection.
+
+The crate count goes from 4 to **7** (engine, native, cli, mql5-compiler, web, web-protocol, web-server).
+
+### Rich UI: SwapHarvest + DarwinexRadar Windows (2026-04-10+)
+
+**SwapHarvest UI** — the positive swap scanner got a full floating window:
+- Sortable grid with direction filters (Long/Short/Both)
+- Symbol search with instant filtering
+- Color-coded swap values (green positive, red negative)
+- Gold-highlighted best-swap column
+- Export CSV button
+
+**DarwinexRadar UI** — full symbol browser for all 851 Darwinex instruments:
+- Sector/industry columns
+- Trade mode indicators (close-only detection)
+- Swap rates and margin data
+- Export to MarketWizardry.org as semicolon-delimited CSVs
+
+Both open via console command or Darwin panel button.
+
+**DARWINEXRADAR Changelog:** compares current MT5 specs against a previous snapshot stored in KV — detects new/removed symbols, swap changes, spread changes, and trade mode changes (close-only). Exports changelog to `/home/typhoon/git/MarketWizardry.org/darwinex-radar/` for web publishing. Displayed as a collapsible section with color-coded change types.
+
+### Fundamentals Scrape: Source Settings + Status Dashboard (2026-04-10+)
+
+**Symbol source settings:** MT5/Alpaca/TastyTrade checkboxes control which broker's symbols are scraped for fundamentals. Previously it was scraping all 12K Alpaca symbols even when only MT5 was selected — the fix filters to `mt5:` prefixed keys only, reducing Darwinex scrapes from 12K to ~800 symbols.
+
+**Scrape Status dashboard** (`SCRAPESTATUS` command): unified view with live progress bars, color-coded status indicators (idle/running/done/error), and action buttons for Fundamentals, SEC Filings, DarwinIA FTP, and Crypto Backfill. Tracks OK/fail/cached counts with progress percentage. Inline source selection in the dashboard.
+
+### CRYPTOCOMPARE Console Command (2026-04-10+)
+
+`CRYPTOCOMPARE DOGEUSD` — downloads all timeframes (1Min→1Month) at full depth from CryptoCompare with Kraken gap-fill. One command, one symbol, all timeframes backfilled. Handles rate limits and partial data gracefully.
+
+### LAN Sync Audit: 7 Bug Fixes (2026-04-11)
+
+A comprehensive audit of the LAN sync pipeline fixed 7 bugs:
+
+1. **Dead `total_received` counter** — now tracks entries and validates against server batch count
+2. **`bytes_sent` tracked actual bytes** — was counting entry count, not byte count
+3. **KV batch uses `mem::replace`** — eliminates unnecessary clone on hot path
+4. **Client IP cleanup on all early-exit paths** — WS/auth/send failures now properly clean up
+5. **No-progress + zero-key guards** — all 5 binary parsing loops protected against infinite loops
+6. **30s TLS handshake timeout** — prevents hung connections from blocking the sync pipeline
+
+**KV log noise reduction:** 0-entry re-sync messages downgraded from info to debug level. Only logs info when entries are actually received.
+
+### SWAPHARVEST Fix: 10→851 Symbols (2026-04-10)
+
+The `__SPECS__` query used `LIMIT 1` which grabbed the smallest MT5 account (10 symbols) instead of the CFD account (851 symbols). Fixed: now merges ALL `__SPECS__` entries across all MT5 accounts, deduplicating by symbol. The same bug affected `export_radar_txt`.
+
+### Updated Stats (2026-04-12)
+
+| Metric | 2026-04-08 | 2026-04-12 |
+|---|---|---|
+| **LOC** | ~66,500 | **~68,400** |
+| **Commits** | 848 | **861** |
+| **Tests** | 618 | **621** |
+| **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
+| **Console commands** | 115 | **118+** |
+
+| Crate | Purpose | Lines of Rust |
+|---|---|---|
+| **engine/** | Broker APIs, SQLite cache, indicators, DARWIN analytics, SEC scraper, risk engine | ~25,800 |
+| **native/** | egui + wgpu native GPU application, all UI, GPU compute shaders, 110+ floating windows | ~35,300 |
+| **cli/** | Standalone TUI (ratatui, SSH-ready, 6.5MB binary) | ~2,300 |
+| **mql5-compiler/** | pest parser → AST → IR → WGSL codegen for custom MQL5/PineScript indicators | ~4,500 |
+| **web/** | eframe + glow WASM thin client for phone/browser access | ~400 |
+| **web-protocol/** | Shared WebCmd/WebMsg serializable types | ~90 |
+| **web-server/** | axum HTTPS + WebSocket relay with self-signed TLS | ~110 |
+| **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,400** |
+
+**861 total commits. ~68,400 LOC. 621 tests. 7 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
