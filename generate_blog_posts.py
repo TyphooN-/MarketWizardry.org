@@ -622,6 +622,8 @@ def generate_witty_description(content, filename, title):
         'xuqf': None,  # handled below for multiple XUQF posts
         'buls': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
         'benchmark-underway': "DARWIN BULS: Operation Maximum Voltage. The chosen DARWIN. 12 dead predecessors. Their corpses are the ammunition. AJTK is dead. Long live BULS.",
+        'oams': "DARWIN OAMS: Ounces Are My Specialty. Micro-lot Miho on XAGUSD. 72/54 settings, 18% DEAD zone. Short-biased with positive swap — the grind is self-funding. Four dead natgas DARWINs taught the math. Silver answers.",
+        'ounces-are': "DARWIN OAMS: Ounces Are My Specialty. Micro-lot Miho on XAGUSD. 72/54 settings, 18% DEAD zone. Short-biased with positive swap — the grind is self-funding. Four dead natgas DARWINs taught the math. Silver answers.",
     }
     for kw, desc in darwin_lore_unique.items():
         if kw in fname and desc is not None:
@@ -645,9 +647,9 @@ def generate_witty_description(content, filename, title):
 
     # Fallback for any unmatched DARWIN lore
     darwin_lore_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'oams',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'ounces-are',
     ]
     if any(kw in fname for kw in darwin_lore_filenames):
         return "DARWIN lore — where discretionary outlier trading meets open-source risk management. Real trades. Real losses. Real lessons."
@@ -691,7 +693,8 @@ def ensure_proper_capitalization(title):
         'SOLUSD', 'ADAUSD', 'DOGEUSD', 'BTCUSD', 'ETHUSD', 'XRPUSD', 'XNGUSD',
         'SRPT', 'NNFX', 'MQL5', 'MQL4', 'EA', 'EAs',
         'XUQF', 'BBUD', 'XJFD', 'AJTK', 'TRIM', 'PROTECT',
-        'WBYE', 'HAKR', 'ATPK', 'GVZJ', 'MFSO', 'BULS', 'QRRP', 'CKUC', 'IYCN', 'WNSO',
+        'WBYE', 'HAKR', 'ATPK', 'GVZJ', 'MFSO', 'BULS', 'QRRP', 'CKUC', 'IYCN', 'WNSO', 'OAMS',
+        'XAGUSD',
         'GPU', 'CPU', 'API', 'CLI', 'UI', 'UX',
         'ATR', 'IQR', 'EV', 'CFD', 'CFDs',
         'MT4', 'MT5', 'USA', 'SEC', 'FRED', 'FINRA',
@@ -732,7 +735,7 @@ def extract_title_and_summary(content, filename):
 
     # For DARWIN lore/graveyard posts, read the H1 title directly from the markdown
     darwin_all_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'wnso', 'iycn', 'ckuc', 'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'oams', 'wnso', 'iycn', 'ckuc', 'ajtk', 'bbud', 'xjfd', 'qrrp',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'inverse-cuck',
         'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'will-not-stop',
@@ -859,9 +862,9 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city', 'will-not-stop',
     ]
     darwin_lore_stems = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'oams',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'ounces-are',
     ]
     educational_stems = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
@@ -1025,10 +1028,10 @@ def update_blog_index(all_new_entries):
 
     # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
-        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
+        'buls', 'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'oams',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
         'the-bag-holder', 'the-dumpster', 'wave-bye', 'benchmark-underway',
-        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore'
+        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore', 'ounces-are'
     ]
 
     for entry in all_new_entries:
@@ -1296,6 +1299,8 @@ def generate_flavor_text(title, filename):
         return "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition across CKUC and IYCN. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson."
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
         return "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Broker collapsed everything to $25K in a single action. Swap theory doesn't work. Four natgas DARWINs dead."
+    if 'oams' in filename_lower or 'ounces-are' in filename_lower:
+        return "DARWIN OAMS: Ounces Are My Specialty. Micro-lot Miho on XAGUSD at 72/54 — 18% DEAD zone. Short-biased with positive swap. Four dead natgas DARWINs taught the math. Silver answers. Ounces are the specialty."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
     # Match WBYE/XUQF by specific post type
