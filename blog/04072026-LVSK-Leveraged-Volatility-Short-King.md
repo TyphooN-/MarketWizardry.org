@@ -6,7 +6,9 @@
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Shorting commodities for swap income after burying nine hedged martingale DARWINs is either the natural evolution of a trading system or the definition of insanity. The swap checks clear either way.
 
-> **TRADING METHOD:** LVSK is discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system on commodity CFDs. No hedged martingale. No TRIM. No PROTECT. No dead zone. Just naked directional shorts on positive-swap instruments with the TyphooN EA serving as **risk management only**. The Short King doesn't hedge. The Short King collects.
+> **STATUS: DEAD.** LVSK was the tenth and final CFD DARWIN. Account closed 2026-04-12. Focus redirected to six Permanent Allocation Stocks/ETF DARWINs.
+
+> **TRADING METHOD (historical):** LVSK was discretionarily traded by TyphooN using the open-source NNFX MQL5 trading system on commodity CFDs. No hedged martingale. No TRIM. No PROTECT. No dead zone. Just naked directional shorts on positive-swap instruments with the TyphooN EA serving as **risk management only**.
 
 ---
 
@@ -111,8 +113,54 @@ The Short King has arrived. No hedge. No martingale. No firmware. Just convictio
 
 *Long value. Short krap. Collect swap. Repeat.*
 
+---
+
+## 🪦 R.I.P. DARWIN LVSK — The Tenth Headstone
+
+**Status: DEAD** | Died: 2026-04-12 | Cause: CFD account closed. Focus redirected.
+
+*"I may have been early, but I'm not wrong." — Turns out, he was wrong. About the vehicle, not the thesis.*
+
+LVSK is dead. Not from a broker stop-out. Not from a margin call. From a strategic decision: **CFD accounts are graveyards.** Ten DARWINs have now died on CFD instruments — five on SOLUSD, three on XNGUSD, one on XAGUSD, and now LVSK's naked directional experiment. The common denominator isn't the strategy. It's the instrument class.
+
+### The Ten Headstones
+
+| # | DARWIN | Instrument | Strategy | How It Died |
+|---|---|---|---|---|
+| 1 | BBUD | SOLUSD | Hedged MG | Broker stopped out before PROTECT fired |
+| 2 | XJFD | SOLUSD | Hedged MG | Golden Sample, $4.15M projection, $0 reality |
+| 3 | QRRP | SOLUSD | Hedged MG | 8 post-mortems, rug pulled |
+| 4 | AJTK | SOLUSD | Hedged MG | 398 positions, maximum voltage |
+| 5 | BULS | SOLUSD | Hedged MG | The chosen one, still died |
+| 6 | CKUC | XNGUSD | Hedged MG | 36 hours, $54,686 |
+| 7 | IYCN | XNGUSD | Hedged MG | Three attempts, $82K tuition |
+| 8 | WNSO | XNGUSD | Hedged MG | 20% DEAD zone, broker collapsed to $25K |
+| 9 | OAMS | XAGUSD | Hedged MG | $36K/lot, PROTECT fired, broker finished |
+| 10 | **LVSK** | **XAGUSD** | **Naked directional** | **Account closed. CFD experiment over.** |
+
+### The Lesson
+
+Nine hedged martingale DARWINs died because the broker's stop-out mechanism always wins. LVSK tried a different approach — naked directional with positive swap — and it still wasn't viable as a standalone strategy. The CFD account type itself is the problem: high margin per lot, broker intervention, and no Permanent Allocation.
+
+### What Survives
+
+**Six Stocks/ETF DARWINs on Permanent Allocation.** All six are on allocations that can no longer be purchased — they're grandfathered in. No CFDs. No martingale. No hedging. Just discretionary outlier trading with the TyphooN EA as risk management:
+
+| DARWIN | Status | Focus |
+|---|---|---|
+| **HAKR** | Active (PA) | NCLH long, CC long |
+| **MFSO** | Active (PA) | Balanced long/short |
+| **GVZJ** | Active (PA) | Extreme outliers |
+| **ATPK** | Active (PA) | The zombie — $7.29/kill |
+| **WBYE** | Active (PA) | Rehabilitation project |
+| **XUQF** | Active (PA) | The comeback attempt |
+
+**Current focus: NCLH long, CC long, SLV short.** The corpse pile of ten dead CFD DARWINs will be useful later — every post-mortem teaches something. But the money is in the Permanent Allocations. Those six DARWINs are the franchise. Everything else was tuition.
+
+*The Short King is dead. Long live the six.*
+
 -- TyphooN
 
 ---
 
-> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Nine previous hedged martingale DARWINs sustained total account losses before LVSK adopted a naked directional approach. Shorting commodities carries extreme risk including unlimited loss potential. Positive swap does not guarantee profitability. Do not trade commodity CFDs with money you cannot afford to lose.
+> **DISCLAIMER:** This post describes a speculative trading strategy using leveraged commodity CFDs on a virtual (demo) account. This is NOT financial advice. Ten CFD DARWINs sustained total account losses across three instrument classes (SOLUSD, XNGUSD, XAGUSD). Shorting commodities carries extreme risk including unlimited loss potential. Positive swap does not guarantee profitability. Do not trade commodity CFDs with money you cannot afford to lose.

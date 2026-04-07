@@ -606,6 +606,8 @@ def generate_witty_description(content, filename, title):
         'ounces-are': "Here lies OAMS — Ounces Are My Specialty. Dark City couldn't save it. XAGUSD at $36K/lot — same disease, different metal. PROTECT fired, broker finished the job. Five hedged MG DARWINs dead. The experiment is over.",
         'buls': "Here lies BULS — Benchmark Underway Lot Simulation. The chosen DARWIN. The last hedged martingale standing. 12 dead predecessors weren't enough warning. The broker stepped in. You can't outsmart the broker with hedged martingale.",
         'benchmark-underway': "Here lies BULS — Benchmark Underway Lot Simulation. The chosen DARWIN. The last hedged martingale standing. 12 dead predecessors weren't enough warning. The broker stepped in. You can't outsmart the broker with hedged martingale.",
+        'lvsk': "Here lies LVSK — Leveraged Volatility Short King. The Big Short thesis, dead on arrival. Naked commodity shorts couldn't survive the swap math. Ten dead DARWINs. CFD accounts are graveyards. Focus returns to the six Permanent Allocation Stocks/ETF DARWINs.",
+        'short-king': "Here lies LVSK — Leveraged Volatility Short King. The Big Short thesis, dead on arrival. Naked commodity shorts couldn't survive the swap math. Ten dead DARWINs. CFD accounts are graveyards. Focus returns to the six Permanent Allocation Stocks/ETF DARWINs.",
         'burst-trim': "Burst-TRIM lessons from the crypto martingale graveyard. What happens when you manually fire TRIM at 51% and PROTECT answers 11 times.",
     }
     for kw, desc in darwin_graveyard_unique.items():
@@ -622,8 +624,6 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $212K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'lvsk': "DARWIN LVSK: Leveraged Volatility Short King. No hedge. No martingale. Just naked shorts on positive-swap commodities. Nine dead DARWINs taught one lesson: stop fighting the broker. The Short King collects swap and waits.",
-        'short-king': "DARWIN LVSK: Leveraged Volatility Short King. No hedge. No martingale. Just naked shorts on positive-swap commodities. Nine dead DARWINs taught one lesson: stop fighting the broker. The Short King collects swap and waits.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
     }
@@ -649,10 +649,12 @@ def generate_witty_description(content, filename, title):
 
     # Fallback for any unmatched DARWIN lore
     darwin_lore_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'short-king',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'darwin-focus', 'permanent-allocation',
     ]
+    if 'darwin-focus' in fname or 'permanent-allocation' in fname:
+        return "Six Permanent Allocation DARWINs. Ten dead CFD corpses. All focus on NCLH long, CC long, SLV short. The corpse pile waits for corpse explosion. The survivors compound."
     if any(kw in fname for kw in darwin_lore_filenames):
         return "DARWIN lore — where discretionary outlier trading meets open-source risk management. Real trades. Real losses. Real lessons."
 
@@ -741,6 +743,7 @@ def extract_title_and_summary(content, filename):
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'inverse-cuck',
         'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'will-not-stop',
+        'darwin-focus', 'permanent-allocation',
     ]
     is_darwin_lore = any(kw in filename.lower() for kw in darwin_all_filenames)
 
@@ -860,13 +863,13 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
 
     # Determine article section
     darwin_graveyard_stems = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn', 'wnso', 'oams', 'buls',
-        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city', 'will-not-stop', 'ounces-are', 'benchmark-underway',
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn', 'wnso', 'oams', 'buls', 'lvsk',
+        'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city', 'will-not-stop', 'ounces-are', 'benchmark-underway', 'short-king',
     ]
     darwin_lore_stems = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'short-king',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'darwin-focus', 'permanent-allocation',
     ]
     educational_stems = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
@@ -1024,16 +1027,16 @@ def update_blog_index(all_new_entries):
 
     # Dead DARWINs — stopped out, post-mortems
     darwin_graveyard_keywords = [
-        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn', 'wnso', 'oams', 'buls',
-        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade', 'inverse-cuck', 'basin-city', 'will-not-stop', 'ounces-are', 'benchmark-underway'
+        'ajtk', 'bbud', 'xjfd', 'qrrp', 'ckuc', 'iycn', 'wnso', 'oams', 'buls', 'lvsk',
+        'rise-from-ashes', 'blissfully-bankrupt', 'golden-sample', 'sol-cascade', 'inverse-cuck', 'basin-city', 'will-not-stop', 'ounces-are', 'benchmark-underway', 'short-king'
     ]
 
     # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
         'the-bag-holder', 'the-dumpster', 'wave-bye',
-        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore', 'short-king'
+        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore', 'darwin-focus', 'permanent-allocation'
     ]
 
     for entry in all_new_entries:
@@ -1302,7 +1305,7 @@ def generate_flavor_text(title, filename):
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
         return "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Broker collapsed everything to $25K in a single action. Swap theory doesn't work. Four natgas DARWINs dead."
     if 'lvsk' in filename_lower or 'short-king' in filename_lower:
-        return "DARWIN LVSK: Leveraged Volatility Short King. The Big Short, commodity edition. Naked shorts on positive-swap instruments. Nine dead martingale DARWINs taught one lesson: stop fighting the broker. The Short King collects swap and waits."
+        return "Here lies LVSK — Leveraged Volatility Short King. The Big Short thesis, dead on arrival. Ten dead CFD DARWINs. The corpse pile grows. Focus returns to the six Permanent Allocation Stocks/ETF DARWINs: NCLH long, CC long, SLV short."
     if 'oams' in filename_lower or 'ounces-are' in filename_lower:
         return "Here lies OAMS — Ounces Are My Specialty. Dark City couldn't save it. XAGUSD at $36K/lot — same disease, different metal. PROTECT fired, broker finished the job. Five hedged MG DARWINs dead. The experiment is over."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
