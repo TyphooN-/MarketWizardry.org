@@ -123,6 +123,54 @@ Net swap starts slightly negative but **improves as TRIM closes longs**. Once TR
 
 ---
 
+## Hedge Unwind Status (2026-04-06 22:13 UTC)
+
+```
+TRIM grinding at ML edge:
+  Hedge (longs):  61.72 lots remaining
+  Bias (shorts):  64.58 lots
+  Net SHORT:      2.86 lots
+  TRIM closes:    99
+  PROTECT fires:  0
+  ML:             72.3%
+  Equity:         $74,390
+  Settings:       72/54 (18% DEAD zone)
+  TRIM speed:     0.01 lots/tick at ML edge
+```
+
+99 TRIM closes. Zero PROTECT fires. The EA is grinding 0.01 lots at the 72% edge — micro-lot precision that XNGUSD could never achieve. Each close releases ~$360 of margin. No overcorrection. No panic. Just the steady pulse of the algorithm tuning the position.
+
+### Hedge Unwind Price Projections
+
+6,172 more closes needed (61.72 lots × 100) to reach pure short. Timeline depends on silver price action:
+
+| Scenario | Silver Price | ML Effect | TRIM Speed | Timeline to Pure Short |
+|---|---|---|---|---|
+| **Range-bound** | ~$72 ±$0.50 | Hovers at 72% edge | 0.01/tick, intermittent | **3-5 trading days** |
+| **Drop $1** | ~$71 | ML spikes above 72% | Accelerated, continuous | **1-2 days** |
+| **Drop $2** | ~$70 | ML well above 72% | Very fast, multi-lot | **6-12 hours** |
+| **Drop $5** | ~$67 | ML extremely high | Maximum speed | **1-3 hours** |
+| **Rise $1** | ~$73 | ML drops below 72% | **TRIM paused** | **Indefinite** |
+| **Rise $2** | ~$74 | ML approaches 54% | **PROTECT territory** | **Danger zone** |
+
+### Swap Evolution as Longs Close
+
+As TRIM closes longs, net swap improves. The position evolves from net-negative to net-positive carry:
+
+| Longs Remaining | Net Swap/Day | Status |
+|---|---|---|
+| 61.72 (now) | -$694 | Slightly negative |
+| ~48 lots | ~$0 | **Breakeven** — net swap flips positive |
+| 30 lots | +$916 | Position pays you to hold |
+| 10 lots | +$1,944 | Strong positive carry |
+| 0 (pure short) | +$2,454 | **Maximum swap income** |
+
+Once longs drop below ~48 lots, the position flips to positive net swap. From there, every midnight the market pays OAMS to hold the short. The Strangers reshape the city at midnight — and every midnight, they pay tribute.
+
+*"You have the power to make things happen by will alone."* — 99 TRIM closes. Zero PROTECT fires. The will is working.
+
+---
+
 *"First there was darkness. Then came the Strangers."* First there was CKUC. Then IYCN. Then WNSO. Darkness, all of them. Then came OAMS — and OAMS learned to tune.
 
 *Ounces Are My Specialty.*
