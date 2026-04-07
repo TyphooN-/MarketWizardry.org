@@ -1,10 +1,10 @@
 # DARWIN OAMS: Ounces Are My Specialty
 
-*"Walk down the right back alley in Sin City and you can find anything."* Including 5,000 ounces of silver per lot and the conviction to short it.
+*"First there was darkness. Then came the Strangers."*
 
 **Published: 2026-04-06 | TyphooN | MarketWizardry.org**
 
-> **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Shorting silver after burying four natgas DARWINs in a single day is either evolution or insanity. The line is thinner than a Miho blade.
+> **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. Shorting silver after burying four natgas DARWINs in a single day is either evolution or insanity. The Strangers would call it an experiment.
 
 > **TRADING METHOD:** OAMS is managed by TyphooN EA in hedged martingale mode on XAGUSD CFD. Settings: 72/54, micro-lot layers. Discretionary entry by TyphooN, algorithm takes over from there.
 
@@ -14,7 +14,7 @@
 
 *Acronym expanded: **O**unces **A**re **M**y **S**pecialty. Silver is measured in ounces. 5,000 ounces per contract. OAMS measures in precision — micro-lot layers, 18% DEAD zone, and the patience that four dead natgas DARWINs bought. CKUC died at 6%. IYCN died at 10% and 14%. WNSO died at 20%. OAMS doesn't repeat the mistake — different instrument, different margin, different math.*
 
-*"Deadly little Miho."* — Dwight, describing the deadliest woman in Basin City. She doesn't talk. She doesn't negotiate. She just cuts. OAMS is the Miho of the DARWIN portfolio — micro-lot precision, silent execution, no wasted motion. Every 0.1 lot is a blade. Every TRIM close is a cut. The shorts accumulate. The longs die quietly.
+*"I have become the monster you were looking for."* — John Murdoch learned to tune reality. TyphooN learned to tune margin levels. Four dead DARWINs were the experiment. OAMS is the result — the ability to reshape the position at will, one micro-lot at a time. The Strangers rearranged the city every midnight. OAMS rearranges the hedge at every TRIM tick.
 
 ---
 
@@ -39,13 +39,15 @@ XAGUSD changes the math:
 
 At micro-lot sizing (0.1 per layer), each PROTECT close swings ML by ~0.36% instead of 3%. The overcorrection problem vanishes.
 
+*"They wanted to find out what makes us tick. So they took us apart, studied us, and put us back together again."* — Dr. Schreber, describing the Strangers' experiments. Four natgas DARWINs were taken apart. OAMS is what was put back together.
+
 ---
 
-## The Position — "The Big Fat Kill"
+## The Position — "Tuning"
 
 ![DARWIN OAMS — XAGUSD MTF Grid: H1/Weekly/Daily/Monthly (April 2026)](/img/oams-mtf-xagusd-20260406.webp)
 
-*"It's time to prove to your friends that you're worth a damn. Sometimes that means dying. Sometimes it means killing a whole lot of people."* — Dwight, before the alley fight. OAMS deploys into Basin City's silver alley with precision:
+*"You have the power to make things happen by will alone."* — Dr. Schreber to John Murdoch. The EA has the power to reshape the position by margin level alone. TRIM tunes the hedge. PROTECT tunes the bias. The DEAD zone is where the city sleeps — nothing moves, nothing changes. The position holds its shape until the next midnight.
 
 ```
 OAMS deployment (2026-04-06):
@@ -60,7 +62,7 @@ OAMS deployment (2026-04-06):
   PROTECT:      Sleeping (needs 54%)
 ```
 
-ML 64.5% — deep in the DEAD zone. TRIM won't fire until ML reaches 72%. PROTECT won't wake until 54%. The EA does nothing. The position breathes. The shorts collect swap.
+ML 64.5% — deep in the DEAD zone. TRIM won't fire until ML reaches 72%. PROTECT won't wake until 54%. The EA does nothing. The position breathes. The shorts collect swap. The city sleeps.
 
 ---
 
@@ -79,9 +81,13 @@ ML 64.5% — deep in the DEAD zone. TRIM won't fire until ML reaches 72%. PROTEC
 
 The grind is self-reinforcing. Every TRIM close makes the position healthier.
 
+*"Sleep... now..."* — The Strangers' command when they reshape the city at midnight. Every night at swap rollover, OAMS collects. The shorts earn. The longs bleed. Midnight by midnight, the position tunes itself toward pure short.
+
 ---
 
 ## Four Headstones, One Evolution
+
+*"There used to be a way out of this city. I've seen it in my memories."* — Everyone in Dark City remembers Shell Beach. No one can find it. Four natgas DARWINs remembered profitability. None could find it. OAMS stopped looking in the same place.
 
 OAMS stands on the graves of four natgas DARWINs — but it's not another XNGUSD attempt. It's the answer to what they died asking:
 
@@ -99,7 +105,7 @@ The natgas DARWINs died because the math was wrong: high margin per lot + negati
 - Silver spreads are tighter than natgas
 - Short conviction backed by technical setup
 
-*"She doesn't quite chop his head off. She makes a Pez dispenser out of him."* — Dwight, watching Miho work. OAMS doesn't need to be dramatic. It just needs to cut 0.1 lots at a time until the position is pure short and the thesis prints.
+*"I was just thinking, what you do seems kind of like brain surgery."* — Inspector Bumstead to Dr. Schreber. What OAMS does to the XAGUSD order book seems kind of like brain surgery. Micro-lot precision. Every layer placed deliberately. Every TRIM close calculated. No wasted margin.
 
 ---
 
@@ -113,9 +119,11 @@ The natgas DARWINs died because the math was wrong: high margin per lot + negati
 
 Net swap starts slightly negative but **improves as TRIM closes longs**. Once TRIM has closed enough longs, net swap flips positive. The position starts paying you to hold it. This is the dream scenario that XNGUSD could never achieve.
 
+*"Shut it down. Shut it down forever."* — John Murdoch, after defeating the Strangers. Once the longs are shut down, only shorts remain. Pure directional. Positive swap. The city belongs to Murdoch. The silver belongs to OAMS.
+
 ---
 
-*"Walk down the right back alley in Sin City and you can find anything."* OAMS found the right alley. Different metal. Different math. Same conviction. Micro-lot Miho, cutting silver ounces one blade at a time.
+*"First there was darkness. Then came the Strangers."* First there was CKUC. Then IYCN. Then WNSO. Darkness, all of them. Then came OAMS — and OAMS learned to tune.
 
 *Ounces Are My Specialty.*
 
