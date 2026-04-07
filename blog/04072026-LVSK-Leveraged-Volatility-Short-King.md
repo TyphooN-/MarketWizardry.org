@@ -22,6 +22,16 @@ LVSK shorts commodities when every retail trader is long. The premiums are negat
 
 ---
 
+## The Position — First Blood
+
+![DARWIN LVSK — XAGUSD MTF Grid: H1/H4/Daily/Monthly short entry (April 2026)](/img/lvsk-xagusd-mtf-20260407.webp)
+
+LVSK opens with a naked short on XAGUSD. SELL 0.43 at $72.040, SELL 0.01 at $71.964. No hedge. No martingale. Just conviction and a stop loss. TP P/L: $1,005,043. The Short King aims high.
+
+*"I may have been early, but I'm not wrong."* — The position is open. The swap starts tonight.
+
+---
+
 ## The Swap Throne
 
 *"Jacked to the tits!"* — Jared Vennett, after loading up on short positions. LVSK doesn't need to be jacked to the tits. LVSK just needs to be short the right instruments.
