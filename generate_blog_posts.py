@@ -621,7 +621,7 @@ def generate_witty_description(content, filename, title):
         'mfso': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
-        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
+        'gloriously-volatile': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
         'wbye': None,  # handled below for multiple WBYE posts
@@ -650,7 +650,7 @@ def generate_witty_description(content, filename, title):
     # Fallback for any unmatched DARWIN lore
     darwin_lore_filenames = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
-        'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
+        'the-hacker', 'the-zombie', 'gloriously-volatile', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'darwin-focus', 'permanent-allocation',
     ]
     if 'darwin-focus' in fname or 'permanent-allocation' in fname:
@@ -740,7 +740,7 @@ def extract_title_and_summary(content, filename):
     # For DARWIN lore/graveyard posts, read the H1 title directly from the markdown
     darwin_all_filenames = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk', 'buls', 'oams', 'wnso', 'iycn', 'ckuc', 'ajtk', 'bbud', 'xjfd', 'qrrp',
-        'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
+        'the-hacker', 'the-zombie', 'gloriously-volatile', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'inverse-cuck',
         'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'will-not-stop',
         'darwin-focus', 'permanent-allocation',
@@ -868,7 +868,7 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
     ]
     darwin_lore_stems = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
-        'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
+        'the-hacker', 'the-zombie', 'gloriously-volatile', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'darwin-focus', 'permanent-allocation',
     ]
     educational_stems = [
@@ -1034,7 +1034,7 @@ def update_blog_index(all_new_entries):
     # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
         'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
-        'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
+        'the-hacker', 'the-zombie', 'gloriously-volatile', 'the-balanced',
         'the-bag-holder', 'the-dumpster', 'wave-bye',
         'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore', 'darwin-focus', 'permanent-allocation'
     ]
@@ -1280,7 +1280,7 @@ def generate_flavor_text(title, filename):
         'mfso': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
-        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
+        'gloriously-volatile': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
         'wave-bye': "DARWIN WBYE: Wave Bye, Your Equity. -$245K net. $228K incinerated on NVDA across 159 trades. Rating 76.53 — above guaranteed allocation. The signal is a crime scene. The DARWIN is a rehabilitation project.",
