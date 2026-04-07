@@ -1310,6 +1310,8 @@ def generate_flavor_text(title, filename):
         return "Here lies OAMS — Ounces Are My Specialty. Dark City couldn't save it. XAGUSD at $36K/lot — same disease, different metal. PROTECT fired, broker finished the job. Five hedged MG DARWINs dead. The experiment is over."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
         return "Here lies CKUC — The Inverse Cuck. 36 hours from birth to burial. $54,686 tuition. The firmware was correct. The instrument was wrong. Hedged martingale doesn't work at $2,900/lot. Rest in peace, Chad."
+    if 'darwin-focus' in filename_lower or 'permanent-allocation' in filename_lower:
+        return "Six Permanent Allocation DARWINs. Ten dead CFD corpses. NCLH long, CC long, SLV short. The corpse pile waits for Corpse Explosion. The Necromancer doesn't waste bodies — he detonates them."
     # Match WBYE/XUQF by specific post type
     if 'wbye' in filename_lower:
         if 'wave-bye' in filename_lower or 'equity' in filename_lower:
