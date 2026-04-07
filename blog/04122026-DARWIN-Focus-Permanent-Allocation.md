@@ -37,18 +37,20 @@ The corpse pile isn't wasted. Every post-mortem produced lessons that feed the s
 
 All six DARWINs trade on Darwinex Zero Stocks/ETF accounts. All six hold **Permanent Allocations** — a Darwinex product that is no longer available for purchase. These allocations are grandfathered. They cannot be replicated by new users. They are the franchise.
 
-| DARWIN | Allocation | PA Status | Net Profit | Specialty | Current Focus |
-|---|---|---|---|---|---|
-| **HAKR** | Permanent | Locked | **+$1.43M** | Broad market alpha | **NCLH long, CC long** |
-| **MFSO** | Permanent | Locked | **+$296K** | Balanced long/short | Discretionary outliers |
-| **GVZJ** | Permanent | Locked | **+$213K** | Extreme outliers | Full tilt swings |
-| **ATPK** | Permanent | **UNLOCKED** | **+$21K** | The zombie | $7.29/kill, 2,879 kills |
-| **WBYE** | Permanent | Locked | **-$246K** | Rehabilitation | Recovery mode |
-| **XUQF** | Permanent | Locked | **-$670K** | Comeback attempt | Rebuilding |
+| DARWIN | Allocation | PA Status | Net Profit | Trades | Win Rate | Specialty | Current Focus |
+|---|---|---|---|---|---|---|---|
+| **HAKR** | Permanent | Locked | **+$1,303,614** | 8,512 | 30.00% | Broad market alpha | **NCLH long, CC long** |
+| **ATPK** | Permanent | **UNLOCKED** | **+$518,837** | 2,884 | 34.43% | The zombie (#2 DARWIN) | LAZR, CHGG, BRSL |
+| **MFSO** | Permanent | Locked | **+$303,986** | 2,930 | 37.41% | Balanced long/short | CC, COTY, CHGG |
+| **GVZJ** | Permanent | Locked | **+$145,416** | 1,806 | 76.91% | Extreme outliers | CHGG specialist |
+| **WBYE** | Permanent | Locked | **-$247,380** | 8,788 | 30.88% | Rehabilitation | Recovery mode |
+| **XUQF** | Permanent | Locked | **-$670,559** | 6,235 | 17.18% | Comeback attempt | Rebuilding |
 
-**PA unlock status: 1 of 6.** ATPK — the zombie, the $7.29/kill grinder — is the only DARWIN with its Permanent Allocation fully unlocked. The other five are still locked and need consistent trading activity to unlock. Every trade on a locked PA moves it closer to activation. This is why all six accounts are actively trading.
+**Combined P&L: +$1,353,914 across 31,155 trades.** Four profitable, two recovering. HAKR and ATPK carry the portfolio.
 
-**Combined P&L: +$1.04M across six DARWINs.** HAKR carries the portfolio. MFSO and GVZJ add consistent alpha. ATPK refuses to die. WBYE and XUQF are rehabilitation projects that still hold valuable Permanent Allocations.
+**PA unlock status: 1 of 6.** ATPK — the zombie turned #2 performer at $519K — is the only DARWIN with its Permanent Allocation fully unlocked. The other five are still locked and need consistent trading activity to unlock. Every trade on a locked PA moves it closer to activation. This is why all six accounts are actively trading.
+
+**Combined P&L: +$1.35M across six DARWINs.** HAKR and ATPK carry the portfolio. MFSO and GVZJ add consistent alpha. WBYE and XUQF are rehabilitation projects that still hold valuable Permanent Allocations.
 
 ---
 

@@ -616,14 +616,14 @@ def generate_witty_description(content, filename, title):
 
     # Per-DARWIN unique flavor text — active/living DARWINs
     darwin_lore_unique = {
-        'hakr': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
-        'the-hacker': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'hakr': "DARWIN HAKR: Hack The Planet. $1.30M from a 30% win rate. 8,512 trades. 4.07x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'the-hacker': "DARWIN HAKR: Hack The Planet. $1.30M from a 30% win rate. 8,512 trades. 4.07x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
         'mfso': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
-        'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $212K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
-        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $212K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
-        'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
+        'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
+        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
+        'atpk': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
+        'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
     }
@@ -1275,14 +1275,14 @@ def generate_flavor_text(title, filename):
 
     # Per-DARWIN unique flavor text — highest priority
     _darwin_flavor = {
-        'hakr': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
-        'the-hacker': "DARWIN HAKR: Hack The Planet. $1.18M from a 29% win rate. 695 consecutive wins. 3.73x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'hakr': "DARWIN HAKR: Hack The Planet. $1.30M from a 30% win rate. 8,512 trades. 4.07x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
+        'the-hacker': "DARWIN HAKR: Hack The Planet. $1.30M from a 30% win rate. 8,512 trades. 4.07x payoff. Zero Cool didn't need your validation and neither does this algorithm.",
         'mfso': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
         'the-balanced': "DARWIN MFSO: Magnificently Fucking Slow Operation. $296K profit. 51/49 long/short. One $95K single trade. The most boring DARWIN in the portfolio — and the most consistently lethal.",
-        'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $212K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
-        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $212K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
-        'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
-        'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
+        'gvzj': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
+        'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. $145K profit. 77% win rate. Full tilt into extreme outliers. Zero hedging. Maximum voltage.",
+        'atpk': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
+        'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The zombie turned #2 performer. $519K profit across 2,884 trades. Not dead. Not alive. Just shambling through the market stacking half a million dollars.",
         'wave-bye': "DARWIN WBYE: Wave Bye, Your Equity. -$245K net. $228K incinerated on NVDA across 159 trades. Rating 76.53 — above guaranteed allocation. The signal is a crime scene. The DARWIN is a rehabilitation project.",
         'bag-holder': "DARWIN WBYE: The Bag Holder. The DARWIN that holds bags so heavy they have their own gravitational field. NVDA, LAZR, and a complete inability to let go.",
         'extremely-unfortunate': "DARWIN XUQF: eXtremely Unfortunate, Quite Frankly. -$669K. 14.54% win rate. Captain of the Drawdown Gang. LAZR: 2,127 trades, -$555K. Still beating 78% of DarwinIA Silver.",

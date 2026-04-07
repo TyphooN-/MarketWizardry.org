@@ -36,17 +36,17 @@ The name is an acronym. The acronym is an obituary.
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **-$468,389** |
-| **Total Trades** | 5,879 |
-| **Win Rate** | **18.22%** |
+| **Net Profit** | **-$670,559** |
+| **Total Trades** | 6,235 |
+| **Win Rate** | **17.18%** |
 | **Avg Win** | $391.89 |
 | **Avg Loss** | -$184.71 |
 | **Win/Loss Ratio** | 2.12x |
-| **Best Single Trade** | +$23,656 (CABO buy — the universe's cruel joke) |
-| **Worst Single Trade** | -$7,659 (MSTR short) |
+| **Best Single Trade** | +$19,424 |
+| **Worst Single Trade** | -$7,632 |
 | **Long Bias** | **95.0% Long / 5.0% Short** |
 | **Total Symbols** | 22 |
-| **Best Month** | July 2025: +$129,139 |
+| **Best Month** | July 2025: +$142,038 |
 | **Worst Month** | November 2024: **-$301,282** |
 | **Date Range** | 2024-06-28 to 2026-04-01 |
 

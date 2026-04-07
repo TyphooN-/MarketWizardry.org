@@ -6,7 +6,7 @@
 
 ## M.F.S.O. — Magnificently Fucking Slow Operation
 
-*Acronym expanded: **M**agnificently **F**ucking **S**low **O**peration. $406K in profit. 51% long. 49% short. One $95,040 single trade. The most boring DARWIN in the portfolio. The one that shows up on time, drinks two beers, makes a quarter million dollars, and goes home at a reasonable hour while everyone else is either printing millions (HAKR) or lighting money on fire (XUQF). Magnificently fucking slow. Magnificently fucking profitable.*
+*Acronym expanded: **M**agnificently **F**ucking **S**low **O**peration. $304K in profit. 51% long. 49% short. One $95,040 single trade. The most boring DARWIN in the portfolio. The one that shows up on time, drinks two beers, makes a quarter million dollars, and goes home at a reasonable hour while everyone else is either printing millions (HAKR) or lighting money on fire (XUQF). Magnificently fucking slow. Magnificently fucking profitable.*
 
 > **DISCLAIMER:** This is not financial advice. These are real trades on a Darwinex Zero account with virtual capital. The balance between long and short does not mean balanced risk. You can still lose everything. You have been warned.
 
@@ -20,7 +20,7 @@ Every DARWIN in this portfolio has a personality disorder. HAKR is a manic hacke
 
 MFSO? MFSO is the serial killer who keeps a perfectly organized apartment. Everything in its place. 51% long. 49% short. Socks folded. Bodies buried in even rows. A psychopath with impeccable hygiene.
 
-$406,055 net profit. 37.44% win rate. And the single largest winning trade across ALL six DARWINs.
+$303,986 net profit. 37.44% win rate. And the single largest winning trade across ALL six DARWINs.
 
 ---
 
@@ -28,16 +28,16 @@ $406,055 net profit. 37.44% win rate. And the single largest winning trade acros
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **$406,055** |
-| **Total Trades** | 2,927 |
-| **Win Rate** | 37.44% |
+| **Net Profit** | **$303,986** |
+| **Total Trades** | 2,930 |
+| **Win Rate** | 37.41% |
 | **Profit Factor** | 1.371 |
 | **Expected Payoff** | $138.73 |
 | **Avg Win** | $1,019.57 |
 | **Avg Loss** | $388.53 |
 | **Win/Loss Ratio** | 2.62x |
-| **Largest Win** | **$95,040** (BIGGEST SINGLE TRADE ACROSS ALL DARWINs) |
-| **Largest Loss** | -$31,450 |
+| **Largest Win** | **$95,060** (BIGGEST SINGLE TRADE ACROSS ALL DARWINs) |
+| **Largest Loss** | -$22,940 |
 | **Max Consecutive Wins** | 412 trades ($487,200 streak) |
 | **Max Consecutive Losses** | 340 trades (-$187,300) |
 | **Max Drawdown** | **26.57%** |
@@ -50,7 +50,7 @@ $406,055 net profit. 37.44% win rate. And the single largest winning trade acros
 
 Let's address the headline number: 26.57% max drawdown. That's the lowest of any profitable DARWIN in this portfolio. HAKR ate 40.82%. GVZJ took 33.41%. MFSO kept its drawdown under 27%.
 
-MFSO is the DARWIN your financial advisor wishes they could build. Except your financial advisor charges 2% AUM for a portfolio that tracks the S&P 500 minus fees, and MFSO returned $406K while keeping drawdown to a quarter of the account. Fire your financial advisor.
+MFSO is the DARWIN your financial advisor wishes they could build. Except your financial advisor charges 2% AUM for a portfolio that tracks the S&P 500 minus fees, and MFSO returned $304K while keeping drawdown to a quarter of the account. Fire your financial advisor.
 
 ---
 
@@ -103,9 +103,9 @@ Because most retail traders are pathologically long-biased. They buy dips. They 
 
 MFSO doesn't have opinions about direction. MFSO doesn't "believe" in anything. MFSO sees a long setup, goes long. Sees a short setup, goes short. 51/49. The market goes up, MFSO makes money. The market goes down, MFSO makes money. The market goes sideways, MFSO grinds out small wins on both sides.
 
-This is what it looks like when you remove your ego from trading. Nobody on Twitter is bragging about their perfectly balanced long/short portfolio. They're bragging about their 500x leveraged YOLO on some meme coin. And that's why MFSO has $406K and they have a margin call notification.
+This is what it looks like when you remove your ego from trading. Nobody on Twitter is bragging about their perfectly balanced long/short portfolio. They're bragging about their 500x leveraged YOLO on some meme coin. And that's why MFSO has $304K and they have a margin call notification.
 
-**Being balanced isn't sexy. It's profitable. $406,055 worth of profitable.**
+**Being balanced isn't sexy. It's profitable. $303,986 worth of profitable.**
 
 ---
 
@@ -116,7 +116,7 @@ Let's do some math that would make the Sharpe ratio purists absolutely lose thei
 | DARWIN | Profit | Max DD | Profit per % DD |
 |---|---|---|---|
 | **HAKR** | $1,183,742 | 40.82% | $28,997 per % DD |
-| **MFSO** | **$406,055** | **26.57%** | **$15,283 per % DD** |
+| **MFSO** | **$303,986** | **26.57%** | **$15,283 per % DD** |
 | **GVZJ** | $143,000 | 33.41% | $4,281 per % DD |
 | **ATPK** | $21,000 | 21.20% | $991 per % DD |
 
@@ -150,7 +150,7 @@ Notice the pattern: MFSO's worst month (-$143K) is less than HAKR's worst month 
 
 When the market tanks, MFSO's short positions are printing while its long positions are bleeding. When the market rips, the opposite happens. The result: compressed volatility in both directions. Smaller drawdowns. Smaller rallies. But consistent positive drift.
 
-**$406K doesn't happen in one glorious month. It happens in 24 months of disciplined, balanced, boring-as-hell execution.**
+**$304K doesn't happen in one glorious month. It happens in 24 months of disciplined, balanced, boring-as-hell execution.**
 
 ---
 
@@ -165,7 +165,7 @@ MFSO at the party:
 - Drinks exactly two beers
 - Has pleasant conversation with everyone
 - Goes home at a reasonable hour
-- You later find out MFSO made $406K that week while everyone else was hungover
+- You later find out MFSO made $304K that week while everyone else was hungover
 
 MFSO doesn't need to be loud. MFSO doesn't need 37 symbols like HAKR or 11,617 trades on one stock. MFSO executes quietly, collects money, and goes about its business. It's the most boring DARWIN in the portfolio and that's exactly why it works.
 
@@ -196,7 +196,7 @@ MFSO shares blood with the rest of the family:
 - **LAZR** shows up in MFSO (876) at a much smaller allocation than WBYE (13,080) or XUQF (11,345). MFSO is smart enough to limit its LAZR exposure. WBYE and XUQF were not.
 - **COTY** is MFSO's #2 (1,590) — a symbol that doesn't dominate any other DARWIN. This is MFSO's unique edge.
 
-The lesson: it's not what you trade, it's how much of it you trade. MFSO trades the same stocks as the losers but in balanced, measured allocations. WBYE trades 13,080 LAZR and loses $246K. MFSO trades 876 LAZR and makes $406K. Position sizing is the difference between profit and ruin.
+The lesson: it's not what you trade, it's how much of it you trade. MFSO trades the same stocks as the losers but in balanced, measured allocations. WBYE trades 13,080 LAZR and loses $246K. MFSO trades 876 LAZR and makes $304K. Position sizing is the difference between profit and ruin.
 
 ---
 
@@ -204,7 +204,7 @@ The lesson: it's not what you trade, it's how much of it you trade. MFSO trades 
 
 ### 1. Balance Is Not Boring, It's Disciplined
 
-51/49 long/short doesn't make headlines. It doesn't go viral on Twitter. But it produced $406K with 26.57% max drawdown. Every flashy long-only trader who brags about their returns during a bull market goes quiet during the bear. MFSO never goes quiet.
+51/49 long/short doesn't make headlines. It doesn't go viral on Twitter. But it produced $304K with 26.57% max drawdown. Every flashy long-only trader who brags about their returns during a bull market goes quiet during the bear. MFSO never goes quiet.
 
 ### 2. The Biggest Trade Can Come From the Quietest DARWIN
 
@@ -229,7 +229,7 @@ If your portfolio is 90% long and 10% short, you don't have a balanced portfolio
 | DARWIN | Net Profit | Max DD | Role |
 |---|---|---|---|
 | **HAKR** | +$1,183,742 | 40.82% | The engine |
-| **MFSO** | **+$406,055** | **26.57%** | **The stabilizer** |
+| **MFSO** | **+$303,986** | **26.57%** | **The stabilizer** |
 | **GVZJ** | +$143,000 | 33.41% | The specialist |
 | **ATPK** | +$21,000 | 21.20% | The zombie |
 | **WBYE** | -$246,000 | 44.01% | The lesson |
@@ -238,7 +238,7 @@ If your portfolio is 90% long and 10% short, you don't have a balanced portfolio
 
 If HAKR is the engine, MFSO is the transmission. It doesn't generate the most power, but it transfers that power to the wheels efficiently. MFSO's low drawdown and consistent returns smooth out the portfolio's equity curve. When HAKR is eating a -$287K month, MFSO's balanced exposure is limiting the damage.
 
-In a portfolio context, MFSO's value isn't just its $406K profit. It's the CORRELATION. MFSO's returns don't perfectly correlate with HAKR's because MFSO trades both sides equally. When HAKR's long bias gets punished, MFSO's short side picks up the slack. When HAKR's winners are running, MFSO's long side joins the party.
+In a portfolio context, MFSO's value isn't just its $304K profit. It's the CORRELATION. MFSO's returns don't perfectly correlate with HAKR's because MFSO trades both sides equally. When HAKR's long bias gets punished, MFSO's short side picks up the slack. When HAKR's winners are running, MFSO's long side joins the party.
 
 **The best portfolio isn't six versions of the same thing. It's different strategies that make money in different ways.** HAKR and MFSO are that portfolio.
 
@@ -250,7 +250,7 @@ Together: $1,480,082 profit. Combined portfolio drawdown lower than either indiv
 
 MFSO is proof that you don't need to be a cowboy to make money trading. You don't need $1.8M months. You don't need 695-trade win streaks. You don't need to trade 37 symbols or put 11,617 trades on one stock.
 
-You need a balanced system that trades both sides, manages drawdown, and grinds. Day after day. Month after month. 51/49. $406K.
+You need a balanced system that trades both sides, manages drawdown, and grinds. Day after day. Month after month. 51/49. $304K.
 
 The balanced killer doesn't make the highlights reel. The balanced killer makes money.
 

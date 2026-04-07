@@ -34,15 +34,15 @@ Wave bye to the narrative. Your equity came back.
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **+$51,755** |
-| **Total Trades** | 8,616 |
-| **Win Rate** | 31.50% |
+| **Net Profit** | **-$247,380** |
+| **Total Trades** | 8,788 |
+| **Win Rate** | 30.88% |
 | **Avg Win** | $555.73 |
 | **Avg Loss** | -$246.78 |
 | **Win/Loss Ratio** | 2.25x |
 | **Expected Payoff** | $6.01 |
-| **Best Single Trade** | +$11,757 (CRWD short — the one time WBYE tried shorting something) |
-| **Worst Single Trade** | **-$67,390 (NVDA short)** |
+| **Best Single Trade** | +$11,769 |
+| **Worst Single Trade** | **-$67,350** |
 | **Long Bias** | 85.8% Long / 14.2% Short |
 | **Total Symbols** | 46 |
 | **Best Month** | August 2024: +$181,875 |
