@@ -622,6 +622,8 @@ def generate_witty_description(content, filename, title):
         'the-chgg': "DARWIN GVZJ: Gloriously Volatile Zero-hedge Junkie. 73% of trades on one stock. $143K profit. 49% win rate. The CHGG specialist who turned monogamy into a trading strategy.",
         'atpk': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
         'the-zombie': "DARWIN ATPK: Always Targeting Player Kills. The undead PKer. $21K profit at $7.29 per kill. 2,879 kills and counting. Not dead. Not alive. Just shambling through the market looting $7.29 from every corpse.",
+        'lvsk': "DARWIN LVSK: Leveraged Volatility Short King. No hedge. No martingale. Just naked shorts on positive-swap commodities. Nine dead DARWINs taught one lesson: stop fighting the broker. The Short King collects swap and waits.",
+        'short-king': "DARWIN LVSK: Leveraged Volatility Short King. No hedge. No martingale. Just naked shorts on positive-swap commodities. Nine dead DARWINs taught one lesson: stop fighting the broker. The Short King collects swap and waits.",
         'wbye': None,  # handled below for multiple WBYE posts
         'xuqf': None,  # handled below for multiple XUQF posts
     }
@@ -647,9 +649,9 @@ def generate_witty_description(content, filename, title):
 
     # Fallback for any unmatched DARWIN lore
     darwin_lore_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'short-king',
     ]
     if any(kw in fname for kw in darwin_lore_filenames):
         return "DARWIN lore — where discretionary outlier trading meets open-source risk management. Real trades. Real losses. Real lessons."
@@ -693,7 +695,7 @@ def ensure_proper_capitalization(title):
         'SOLUSD', 'ADAUSD', 'DOGEUSD', 'BTCUSD', 'ETHUSD', 'XRPUSD', 'XNGUSD',
         'SRPT', 'NNFX', 'MQL5', 'MQL4', 'EA', 'EAs',
         'XUQF', 'BBUD', 'XJFD', 'AJTK', 'TRIM', 'PROTECT',
-        'WBYE', 'HAKR', 'ATPK', 'GVZJ', 'MFSO', 'BULS', 'QRRP', 'CKUC', 'IYCN', 'WNSO', 'OAMS',
+        'WBYE', 'HAKR', 'ATPK', 'GVZJ', 'MFSO', 'BULS', 'QRRP', 'CKUC', 'IYCN', 'WNSO', 'OAMS', 'LVSK',
         'XAGUSD',
         'GPU', 'CPU', 'API', 'CLI', 'UI', 'UX',
         'ATR', 'IQR', 'EV', 'CFD', 'CFDs',
@@ -735,7 +737,7 @@ def extract_title_and_summary(content, filename):
 
     # For DARWIN lore/graveyard posts, read the H1 title directly from the markdown
     darwin_all_filenames = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'buls', 'oams', 'wnso', 'iycn', 'ckuc', 'ajtk', 'bbud', 'xjfd', 'qrrp',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk', 'buls', 'oams', 'wnso', 'iycn', 'ckuc', 'ajtk', 'bbud', 'xjfd', 'qrrp',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
         'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'benchmark-underway', 'inverse-cuck',
         'blissfully-bankrupt', 'burst-trim', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'will-not-stop',
@@ -862,9 +864,9 @@ def generate_html_from_txt(txt_path, force_regenerate=False):
         'blissfully-bankrupt', 'qrrp-sol', 'ajtk-rise', 'golden-sample', 'inverse-cuck', 'basin-city', 'will-not-stop', 'ounces-are', 'benchmark-underway',
     ]
     darwin_lore_stems = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced', 'the-bag-holder', 'the-dumpster',
-        'wave-bye', 'extremely-unfortunate', 'drawdown-gang',
+        'wave-bye', 'extremely-unfortunate', 'drawdown-gang', 'short-king',
     ]
     educational_stems = [
         'what-is-value-at-risk', 'what-is-average-true-range', 'what-is-enterprise-value',
@@ -1028,10 +1030,10 @@ def update_blog_index(all_new_entries):
 
     # Living DARWINs — active accounts with ongoing trades
     darwin_lore_keywords = [
-        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso',
+        'hakr', 'wbye', 'xuqf', 'atpk', 'gvzj', 'mfso', 'lvsk',
         'the-hacker', 'the-zombie', 'the-chgg', 'the-balanced',
         'the-bag-holder', 'the-dumpster', 'wave-bye',
-        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore'
+        'extremely-unfortunate', 'drawdown-gang', 'darwin-lore', 'darwin_lore', 'short-king'
     ]
 
     for entry in all_new_entries:
@@ -1299,6 +1301,8 @@ def generate_flavor_text(title, filename):
         return "Here lies IYCN — If You Can, Natgas. Three attempts. $82K combined tuition across CKUC and IYCN. 60/54, 62/54, 64/54, 69/55 — all dead. The thesis was right. The sizing was wrong. WNSO learned the lesson."
     if 'wnso' in filename_lower or 'will-not-stop' in filename_lower:
         return "Here lies WNSO — Will Not Stop, Obviously. Turns out, the broker will. 225L/209S at 72/52 — 20% DEAD zone, widest ever. Broker collapsed everything to $25K in a single action. Swap theory doesn't work. Four natgas DARWINs dead."
+    if 'lvsk' in filename_lower or 'short-king' in filename_lower:
+        return "DARWIN LVSK: Leveraged Volatility Short King. The Big Short, commodity edition. Naked shorts on positive-swap instruments. Nine dead martingale DARWINs taught one lesson: stop fighting the broker. The Short King collects swap and waits."
     if 'oams' in filename_lower or 'ounces-are' in filename_lower:
         return "Here lies OAMS — Ounces Are My Specialty. Dark City couldn't save it. XAGUSD at $36K/lot — same disease, different metal. PROTECT fired, broker finished the job. Five hedged MG DARWINs dead. The experiment is over."
     if 'ckuc' in filename_lower or 'inverse-cuck' in filename_lower:
