@@ -66,14 +66,13 @@
                 html = html.replace(/<ul>/g, '<ul class="md-ul">');
                 html = html.replace(/<ol>/g, '<ol class="md-ol">');
                 html = html.replace(/<li>/g, '<li class="md-li">');
-                // Wrap images in clickable lightbox container with download link
+                // Wrap images in clickable lightbox container (download only in lightbox modal)
                 html = html.replace(/<img ([^>]*?)src="([^"]*?)"([^>]*?)alt="([^"]*?)"([^>]*?)>/g,
                     '<div class="md-img-container">' +
                     '<a href="$2" class="md-img-link" data-action="lightbox" title="Click to enlarge">' +
                     '<img class="md-img" loading="lazy" src="$2" alt="$4" $1$3$5>' +
                     '</a>' +
                     '<div class="md-img-actions">' +
-                    '<a href="$2" download class="md-img-download" title="Download image">Download</a>' +
                     '<span class="md-img-caption">$4</span>' +
                     '</div></div>');
                 // Fallback for img without alt before src
@@ -82,9 +81,7 @@
                     '<a href="$2" class="md-img-link" data-action="lightbox" title="Click to enlarge">' +
                     '<img class="md-img" loading="lazy" src="$2" $1$3>' +
                     '</a>' +
-                    '<div class="md-img-actions">' +
-                    '<a href="$2" download class="md-img-download" title="Download image">Download</a>' +
-                    '</div></div>');
+                    '</div>');
 
                 // Handle mermaid code blocks
                 html = html.replace(/<pre class="md-codeblock"><code class="md-code language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
