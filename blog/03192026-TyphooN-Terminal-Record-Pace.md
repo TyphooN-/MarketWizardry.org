@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,800 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **862 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,800 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **864 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,800 lines** across **862 commits** and **7 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,800 lines** across **864 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**862 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**864 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1688,7 +1688,7 @@ The WASM web client shipped read-only but still needed hardening before exposing
 | Metric | 2026-04-08 | 2026-04-12 |
 |---|---|---|
 | **LOC** | ~66,500 | **~68,800** |
-| **Commits** | 848 | **862** |
+| **Commits** | 848 | **864** |
 | **Tests** | 618 | **628** |
 | **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
 | **Console commands** | 115 | **118+** |
@@ -1704,7 +1704,15 @@ The WASM web client shipped read-only but still needed hardening before exposing
 | **web-server/** | axum HTTPS + WebSocket relay with TLS, rate limiting, passphrase auth | ~290 |
 | **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,800** |
 
-**862 total commits. ~68,800 LOC. 628 tests. 7 crates. Zero warnings.**
+### Price Scale Drag Fix + DARWIN Delete UX (2026-04-12, late)
+
+**Price scale drag regression fixed:** price axis Y-drag was blocked by a `pointer_over_window` guard that prevented drag initiation on price axis clicks. Fix: price axis drags bypass the window check while chart panning still respects it. Release condition no longer cancels active drags when `pointer_over_window` is true.
+
+**DARWIN delete with KV blacklist:** X button added per row in the DARWIN Accounts grid. Deletion writes a `darwin:deleted:TICKER` KV blacklist entry so LAN sync's `import_darwin_data` skips re-importing deleted tickers. Previously, deleted DARWINs would reappear on the next LAN sync cycle.
+
+**DARWIN delete UI freeze eliminated:** the SQL DELETE ran on the UI thread and blocked when LAN sync held the DB write lock. Now uses a three-step non-blocking pattern: 1) immediately remove from in-memory state (instant UI update), 2) write KV blacklist (fast), 3) spawn SQL DELETE on a background thread. Both the console `DELETE_DARWIN` command and the grid X button use the same pattern.
+
+**864 total commits. ~68,800 LOC. 628 tests. 7 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
