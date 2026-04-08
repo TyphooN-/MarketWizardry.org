@@ -1784,6 +1784,10 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **877 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
 
+![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
+
+*Full terminal in action: CC and NCLH daily + monthly MTF grid. Right panel shows live positions (NCLH long $338K, CC long $197K, SLV short $149K), watchlist with extended hours Ext% column via Yahoo Finance, risk dashboard ($99K equity, VaR 95% $49K, Sharpe 3.594). DARWIN Portfolio Optimal Allocation overlay: ATPK optimal 26.9%, MFSO 20.3%, GVZJ 19.5% — current equal-weight 16.7% allocation is within tolerance. Portfolio VaR 95%: $49,887. Six Permanent Allocation DARWINs. One terminal.*
+
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
 *Tome has inspected the webp metadata. Lossless compression for a grin. Peak efficiency. All PNG content images across MarketWizardry.org have been converted to lossless webp via `cwebp -lossless`. Apple-touch-icons remain PNG (browser requirement). Every screenshot, every chart, every Tome hoot — webp. The owl has spoken.*
