@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **877 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **883 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **877 commits** and **7 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **883 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**877 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**883 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1689,7 +1689,7 @@ The WASM web client shipped read-only but still needed hardening before exposing
 |---|---|---|
 | **LOC** | ~66,500 | **~68,900** |
 
-| **Commits** | 848 | **877** |
+| **Commits** | 848 | **883** |
 | **Tests** | 618 | **628** |
 | **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
 | **Console commands** | 115 | **118+** |
@@ -1782,7 +1782,19 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **Collapsible Recent Fills:** defaults to collapsed with trade count in header. Moved from nested inside Positions to sibling level — aligns with Positions/Orders/Watchlist collapsible headers.
 
-**877 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
+### Yahoo Finance Session + Watchlist Hardening (2026-04-08)
+
+**Yahoo Finance authenticated session:** bare `reqwest` client was getting 401/empty responses from Yahoo. Now creates a `YahooSession` with consent-bypass cookies + crumb token — same auth flow as the fundamentals scraper. Session cached across poll cycles and recreated every 30 minutes (was creating 2 auth HTTP calls per poll).
+
+**Watchlist poll interval: 15s** (was 1s). Combined with session caching, Yahoo API calls dropped from ~180/min to ~4/min.
+
+**LAN client watchlist skip:** clients no longer fire Alpaca/Yahoo API calls for watchlist data — it arrives via KV sync (`broker:watchlist`) from the server. Zero wasted calls on machines with no broker connection.
+
+**Volume column fixed:** `regularMarketVolume` added to Yahoo fields param. Handles both integer and nested JSON formats.
+
+**Correlation matrix fix:** values were exceeding [-1, 1] (e.g. -1.1478). The previous optimization pre-computed variance over all dates per series, but covariance was computed over common dates only — mismatched denominators. Now computes mean, variance, and covariance all over the same common-date pairs in a single pass. Result clamped to [-1, 1].
+
+**883 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
