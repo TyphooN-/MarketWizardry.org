@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,800 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **864 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **869 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,800 lines** across **864 commits** and **7 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **869 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**864 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**869 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1007,7 +1007,7 @@ None of this is necessary. The APIs are public. The math is known. The rendering
 
 TyphooN-Terminal is **BSL (Business Source License)**. Use it commercially. Fork it. Modify it. Build your own trading infrastructure on top of it. The only thing you cannot do is close the source and pretend you invented it.
 
-**68,800 lines of pure Rust. 862 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + WASM web client + 118+ commands + 60+ indicators (all GPU compute) + 89 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync + phone access over LAN. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
+**68,900 lines of pure Rust. 862 commits. Three frontend rebuilds. Zero JavaScript remaining.** GUI (egui + wgpu) + CLI (ratatui) + WASM web client + 118+ commands + 60+ indicators (all GPU compute) + 89 drawing tools + 110 floating windows + 31 DARWIN analytics functions + SEC EDGAR scraper + MQL5→WGSL compiler + risk-of-ruin + replay mode + GPU strategy optimizer + LAN sync + phone access over LAN. One developer who gutted 40,000 lines of JavaScript because the webview was the bottleneck.
 
 The terminal is open. The code is public. The Bloomberg tax is optional.
 
@@ -1687,8 +1687,9 @@ The WASM web client shipped read-only but still needed hardening before exposing
 
 | Metric | 2026-04-08 | 2026-04-12 |
 |---|---|---|
-| **LOC** | ~66,500 | **~68,800** |
-| **Commits** | 848 | **864** |
+| **LOC** | ~66,500 | **~68,900** |
+
+| **Commits** | 848 | **869** |
 | **Tests** | 618 | **628** |
 | **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
 | **Console commands** | 115 | **118+** |
@@ -1702,7 +1703,7 @@ The WASM web client shipped read-only but still needed hardening before exposing
 | **web/** | eframe + glow WASM thin client for phone/browser access | ~500 |
 | **web-protocol/** | Shared WebCmd/WebMsg serializable types with auth + validation | ~220 |
 | **web-server/** | axum HTTPS + WebSocket relay with TLS, rate limiting, passphrase auth | ~290 |
-| **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,800** |
+| **Total** | **100% Rust. Zero JavaScript. Phone access via WASM.** | **~68,900** |
 
 ### Price Scale Drag Fix + DARWIN Delete UX (2026-04-12, late)
 
@@ -1712,7 +1713,54 @@ The WASM web client shipped read-only but still needed hardening before exposing
 
 **DARWIN delete UI freeze eliminated:** the SQL DELETE ran on the UI thread and blocked when LAN sync held the DB write lock. Now uses a three-step non-blocking pattern: 1) immediately remove from in-memory state (instant UI update), 2) write KV blacklist (fast), 3) spawn SQL DELETE on a background thread. Both the console `DELETE_DARWIN` command and the grid X button use the same pattern.
 
-**864 total commits. ~68,800 LOC. 628 tests. 7 crates. Zero warnings.**
+### Fundamentals Scraping Improvements + SEC Fix (2026-04-13)
+
+**Per-broker scrape buttons:** the Scrape Status Dashboard now has MT5 Only, Alpaca Only, TastyTrade Only, and All Sources buttons. No more scraping 12K Alpaca symbols when you only want Darwinex data.
+
+**Yahoo 404 permanent caching:** symbols that return 404 from Yahoo Finance are permanently recorded in the `scrape_failures` table and skipped on all future runs. Rate limit (429) detection with 60-second cooldown and auto-retry.
+
+**SEC scrape fix:** was querying `kv_cache` (wrong table) for MT5 symbols — now queries `bar_cache` with correct key parsing (`mt5:CC:SYMBOL:tf`, index 2). SEC filings now correctly resolve to Darwinex stock symbols.
+
+**DARWIN delete blacklist hardened:** blacklist now filters the background thread account list AND LAN client KV-loaded `account_details`, preventing deleted DARWINs from reappearing via any sync path.
+
+### Win Rate Double-Multiply Bug Fix (2026-04-13)
+
+The engine stores `win_rate` as 0–100 (percentage), but every analytics UI was multiplying by 100 again — showing 3,281% instead of 32.8%. Fixed in: DARWIN Accounts grid, P&L Attribution, Backtest Results, Backtest log message, and Optimization Results grid. Thresholds corrected from 0.5 to 50.0. Only `oos_win_rate` (0–1 format) correctly keeps the `* 100` multiplier.
+
+### Analytics Calculation Bug Fixes (2026-04-13, cont.)
+
+Six analytics formulas corrected after audit:
+
+- **Tail ratio:** use `abs()` on both numerator and denominator (p95 could be negative)
+- **Kurtosis:** apply sample-corrected excess kurtosis formula (Fisher adjustment) instead of population kurtosis
+- **Profit factor:** cap at 999.0 instead of `f64::INFINITY` (prevents JSON/DB serialization issues)
+- **D-Score:** clamp all 6 components to [0,10] and total to [0,100]
+- **Sortino:** return 99.0 for perfect records (positive returns, zero downside deviation) instead of 0
+- **Calmar:** return 99.0 for zero-drawdown strategies instead of 0
+
+### Security Hardening + DARWIN AuM Input + ADRs 074–077 (2026-04-13, late)
+
+**Zeroize Kraken API secret:** the API secret now uses `Zeroizing<String>` — memory is overwritten with zeros when dropped. Prevents secrets from lingering in memory after use.
+
+**Input validation hardened:** ticker format validated before Yahoo Finance URL construction (prevents injection). CIK validated as numeric-only before SEC EDGAR URL construction. Both prevent SSRF via malformed user input.
+
+**DARWIN AuM input:** editable per-DARWIN AuM (Assets under Management) field in the Accounts grid. Values persist to KV cache (`darwin:aum:TICKER`) and auto-sync to LAN clients. Enables accurate portfolio-level AuM tracking without manual spreadsheets.
+
+**Four new ADRs:**
+- **ADR-074:** Notification System architecture
+- **ADR-075:** SwapHarvester automated strategy
+- **ADR-076:** DarwinexRadar symbol lifecycle tracking
+- **ADR-077:** Screener Framework for multi-factor filtering
+
+### Performance Optimizations (2026-04-13, final)
+
+Three hot-path optimizations:
+
+- **Correlation matrix:** pre-compute per-series mean/variance in a single pass, then single-pass covariance per pair (was 5 passes). Self-correlation short-circuits to 1.0. Pre-allocate result `Vec`. Significant speedup on 6-DARWIN correlation computations.
+- **DARWIN import:** wrap all DELETE+INSERT in a single transaction (`BEGIN IMMEDIATE`/`COMMIT`) for ~20–40x speedup on 46K deals. Use `prepare_cached()` for deal/position statements (eliminates per-row query planning). `HashSet` for O(1) blacklist lookups (was O(n) per row).
+- **GPU indicator upload:** single-loop bar extraction with pre-allocated `Vec`s (was 4 separate `collect()` passes). Reduces allocations on every chart render.
+
+**869 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
