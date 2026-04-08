@@ -1,0 +1,9 @@
+---
+plausible_base_url: "https://analytics.marketwizardry.org"
+plausible_port: 8000
+plausible_image: "ghcr.io/plausible/community-edition:v2.1"
+plausible_postgres_image: "postgres:16-alpine"
+plausible_clickhouse_image: "clickhouse/clickhouse-server:24.3-alpine"
+plausible_disable_registration: "invite_only"
+plausible_deploy_dir: "/opt/plausible"
+plausible_domain: "analytics.marketwizardry.org"

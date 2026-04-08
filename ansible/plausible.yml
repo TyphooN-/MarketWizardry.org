@@ -1,0 +1,6 @@
+---
+- name: Deploy Plausible Analytics
+  hosts: webservers
+  become: true
+  roles:
+    - plausible

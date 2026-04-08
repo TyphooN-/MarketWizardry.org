@@ -314,6 +314,7 @@ BLOG_POST_TEMPLATE = '''<!DOCTYPE html>
 {json_ld_schema}
     <link rel="stylesheet" href="/css/shared-styles.css">
     <link rel="stylesheet" href="/css/blog.css">
+    <script defer data-domain="marketwizardry.org" src="https://analytics.marketwizardry.org/js/script.js"></script>
 </head>
 <body>
 <div class="container">

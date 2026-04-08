@@ -1,0 +1,10 @@
+---
+- name: restart plausible
+  community.docker.docker_compose_v2:
+    project_src: "{{ plausible_deploy_dir }}"
+    state: restarted
+
+- name: restart caddy
+  systemd:
+    name: caddy
+    state: restarted

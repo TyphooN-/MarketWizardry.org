@@ -1,0 +1,122 @@
+---
+- name: Install required packages
+  apt:
+    name:
+      - docker.io
+      - docker-compose-v2
+      - python3-docker
+      - caddy
+    state: present
+    update_cache: true
+
+- name: Ensure docker service is running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create deploy directory
+  file:
+    path: "{{ plausible_deploy_dir }}"
+    state: directory
+    mode: "0750"
+
+- name: Create clickhouse config directory
+  file:
+    path: "{{ plausible_deploy_dir }}/clickhouse"
+    state: directory
+    mode: "0750"
+
+- name: Generate secret key base (if not exists)
+  shell: openssl rand -base64 48 | tr -d '\n'
+  register: generated_secret_key
+  args:
+    creates: "{{ plausible_deploy_dir }}/.secret_key_base"
+
+- name: Save secret key base
+  copy:
+    content: "{{ generated_secret_key.stdout }}"
+    dest: "{{ plausible_deploy_dir }}/.secret_key_base"
+    mode: "0600"
+  when: generated_secret_key.changed
+
+- name: Read secret key base
+  slurp:
+    src: "{{ plausible_deploy_dir }}/.secret_key_base"
+  register: secret_key_base
+
+- name: Generate TOTP vault key (if not exists)
+  shell: openssl rand -base64 32 | tr -d '\n'
+  register: generated_totp_key
+  args:
+    creates: "{{ plausible_deploy_dir }}/.totp_vault_key"
+
+- name: Save TOTP vault key
+  copy:
+    content: "{{ generated_totp_key.stdout }}"
+    dest: "{{ plausible_deploy_dir }}/.totp_vault_key"
+    mode: "0600"
+  when: generated_totp_key.changed
+
+- name: Read TOTP vault key
+  slurp:
+    src: "{{ plausible_deploy_dir }}/.totp_vault_key"
+  register: totp_vault_key
+
+- name: Generate postgres password (if not exists)
+  shell: openssl rand -hex 16
+  register: generated_pg_pass
+  args:
+    creates: "{{ plausible_deploy_dir }}/.pg_password"
+
+- name: Save postgres password
+  copy:
+    content: "{{ generated_pg_pass.stdout }}"
+    dest: "{{ plausible_deploy_dir }}/.pg_password"
+    mode: "0600"
+  when: generated_pg_pass.changed
+
+- name: Read postgres password
+  slurp:
+    src: "{{ plausible_deploy_dir }}/.pg_password"
+  register: pg_password
+
+- name: Deploy clickhouse logging config
+  template:
+    src: clickhouse-config.xml.j2
+    dest: "{{ plausible_deploy_dir }}/clickhouse/clickhouse-config.xml"
+    mode: "0644"
+  notify: restart plausible
+
+- name: Deploy clickhouse user config
+  template:
+    src: clickhouse-user-config.xml.j2
+    dest: "{{ plausible_deploy_dir }}/clickhouse/clickhouse-user-config.xml"
+    mode: "0644"
+  notify: restart plausible
+
+- name: Deploy plausible env file
+  template:
+    src: plausible-conf.env.j2
+    dest: "{{ plausible_deploy_dir }}/plausible-conf.env"
+    mode: "0600"
+  notify: restart plausible
+
+- name: Deploy docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ plausible_deploy_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: restart plausible
+
+- name: Deploy Caddy reverse proxy config
+  template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+    mode: "0644"
+  notify: restart caddy
+
+- name: Start plausible stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ plausible_deploy_dir }}"
+    state: present
