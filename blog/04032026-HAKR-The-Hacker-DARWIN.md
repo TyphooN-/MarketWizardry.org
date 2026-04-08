@@ -18,7 +18,7 @@ In 1988, Dade Murphy — handle: Zero Cool — crashed 1,507 Wall Street compute
 
 On his 18th birthday, the first thing he did was hack a television station. Then he enrolled at Stanton High School, met Acid Burn, tangled with The Plague, and hacked the Gibson — the most powerful supercomputer on Earth — live on international television while rollerblading through Manhattan with the FBI on his ass.
 
-HAKR traded 8,545 positions across 36 symbols and made **$1,456,639**. Nobody arrested HAKR. Nobody fined HAKR. The Secret Service did not show up at HAKR's door with a warrant because HAKR doesn't have a door. HAKR runs on a server in a datacenter and it does not give a single solitary shit about your feelings, your regulatory framework, or your outdated threat assessment protocols.
+HAKR traded 8,547 positions across 36 symbols and made **$1,460,599**. Nobody arrested HAKR. Nobody fined HAKR. The Secret Service did not show up at HAKR's door with a warrant because HAKR doesn't have a door. HAKR runs on a server in a datacenter and it does not give a single solitary shit about your feelings, your regulatory framework, or your outdated threat assessment protocols.
 
 H.A.K.R. — **H**acking **A**ll **K**nown **R**esistances. The Gibson is the market. HAKR is already inside. The Plague is the drawdown. And the floppy disk with the Da Vinci virus? That's the algorithm.
 
@@ -32,9 +32,9 @@ H.A.K.R. — **H**acking **A**ll **K**nown **R**esistances. The Gibson is the ma
 
 | M3tr1c | V4lu3 |
 |---|---|
-| **Net Profit** | **$1,456,639** |
-| **Total Trades** | 8,545 |
-| **Win Rate** | 30.28% |
+| **Net Profit** | **$1,460,599** |
+| **Total Trades** | 8,547 |
+| **Win Rate** | 30.29% |
 | **Profit Factor** | 1.554 |
 | **Expected Payoff** | $171.06 |
 | **Avg Win** | $1,347.98 |
@@ -51,11 +51,11 @@ H.A.K.R. — **H**acking **A**ll **K**nown **R**esistances. The Gibson is the ma
 | **Best Month** | March 2025: **+$1,868,590** |
 | **Worst Month** | Multiple months at -$200K+ |
 
-30.28% win rate. Seven out of ten trades are losers.
+30.29% win rate. Seven out of ten trades are losers.
 
 This is the part where every trading guru on YouTube who sells a $997 course about "consistent 80% win rates" quietly closes this tab and goes back to posting screenshots of winners on a demo account. *"You could sit at home, and do like absolutely nothing, and your name goes through like 17 computers a day."* — The Phantom Phreak wasn't wrong. These algorithms run whether you watch them or not.
 
-HAKR is wrong 70% of the time. HAKR made $1.30 million. The math works because when HAKR loses it loses $332, and when HAKR wins it wins $1,348. That's a 4.07x win/loss ratio. You could be wrong 4.07 times for every right and STILL break even. At 30.28% wins, HAKR wins about 1 in 3.3 trades. That's above the 1-in-4.07 breakeven. Razor thin margin of safety. Rock solid result.
+HAKR is wrong 70% of the time. HAKR made $1.30 million. The math works because when HAKR loses it loses $332, and when HAKR wins it wins $1,348. That's a 4.07x win/loss ratio. You could be wrong 4.07 times for every right and STILL break even. At 30.29% wins, HAKR wins about 1 in 3.3 trades. That's above the 1-in-4.07 breakeven. Razor thin margin of safety. Rock solid result.
 
 Cereal Killer said *"Dude, this is a really big deal. This is like being invited to the most exclusive club in New York City."* Except the club is a 29% win rate with a 4.07x payoff ratio, the bouncer is a drawdown, and the VIP section costs $1.43M to enter. Most traders can't get past the door because they panic at loss #5.
 
@@ -87,7 +87,7 @@ Did HAKR post a 4,000-word thread about how delisting is market manipulation? Di
 
 No. HAKR went to CC. NTLA. CHGG. Didn't even log the incident. The algorithm found the next edge and started trading it immediately. When Dade got banned from computers at age 11, he didn't quit hacking. He spent 7 years waiting, then hacked a TV station on his birthday. HAKR lost its primary target and found a new one the same day. **Zero Cool didn't cry when the Gibson crashed. He uploaded the worm and moved on.**
 
-*"You wanted to know who I am, Zero Cool? Well, let me explain the New World Order. Governments and corporations need people like you and me."* — Eugene "The Plague" Belford was talking about algo traders. The market needs liquidity providers. HAKR provides liquidity 8,545 times and takes $1.43M for the service.
+*"You wanted to know who I am, Zero Cool? Well, let me explain the New World Order. Governments and corporations need people like you and me."* — Eugene "The Plague" Belford was talking about algo traders. The market needs liquidity providers. HAKR provides liquidity 8,547 times and takes $1.43M for the service.
 
 ---
 
@@ -227,10 +227,10 @@ The difference between HAKR and XUQF isn't the stocks. It's the settings, the si
 ## Lessons from Zero Cool — "H4ck th3 pl4n3t"
 
 ### 1. Win Rate Is For People Who Don't Understand Math
-30.28% win rate. $1.43M. Engrave this on your tombstone if you have to. The win rate doesn't matter. The expected value per trade matters. $171.06 per trade × 8,545 trades = $1.43M. Win rate is a vanity metric for people who prefer being right over being rich. *"Of all the things I've lost, I miss my mind the most."* — If your mind tells you a 30% win rate can't be profitable, you're using the wrong mind.
+30.29% win rate. $1.43M. Engrave this on your tombstone if you have to. The win rate doesn't matter. The expected value per trade matters. $171.06 per trade × 8,547 trades = $1.43M. Win rate is a vanity metric for people who prefer being right over being rich. *"Of all the things I've lost, I miss my mind the most."* — If your mind tells you a 30% win rate can't be profitable, you're using the wrong mind.
 
 ### 2. Position Sizing Is The Exploit
-$1,348 avg win vs $332 avg loss = 4.07x. This is the Da Vinci virus — the code injection that makes the system vulnerable. In the movie, The Plague planted the Da Vinci virus to skim fractions of cents from Ellingson's oil transactions. HAKR's 4.07x ratio does the same thing in reverse — skim 4.07x more per win than per loss, repeat 8,545 times, collect $1.43M. The market's security model doesn't account for this asymmetry.
+$1,348 avg win vs $332 avg loss = 4.07x. This is the Da Vinci virus — the code injection that makes the system vulnerable. In the movie, The Plague planted the Da Vinci virus to skim fractions of cents from Ellingson's oil transactions. HAKR's 4.07x ratio does the same thing in reverse — skim 4.07x more per win than per loss, repeat 8,547 times, collect $1.43M. The market's security model doesn't account for this asymmetry.
 
 ### 3. Drawdowns Are The Secret Service Raid
 40.82% max drawdown. The Secret Service kicked in the door, confiscated the hardware, and hauled Zero Cool downtown. But they couldn't confiscate the knowledge. They couldn't delete the skill. They could only delay. Every time you turn off the EA during a drawdown, you're the Secret Service confiscating your own computer. You're Agent Gill arresting yourself.
@@ -242,7 +242,7 @@ LUMN got delisted. The Gibson ceased to exist. HAKR found CC. When the Gibson we
 March 2025 showed up after February 2025's -$198K. You don't know March is coming. You only find out after you stayed in. The traders who turned off their EA in February missed the month that made HAKR's entire year. Zero Cool got arrested at 11. He spent 7 years banned from computers. He didn't know the Gibson was coming. He waited. *"I don't play well with others."* Neither does patience.
 
 ### 6. 695 Consecutive Wins Happen To Algorithms, Not Egos
-An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scared at loss #50 and size-down. It executes the same logic at trade 8,545 that it ran at trade 1. That consistency — that absolute mechanical absence of emotional contamination — is the reason 695 wins in a row is possible. A human would have blown it at win #23 by doubling size "because I'm on a streak." Zero Cool didn't freestyle the Gibson hack. He had a plan. The crew executed. *"Hack the planet!"*
+An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scared at loss #50 and size-down. It executes the same logic at trade 8,547 that it ran at trade 1. That consistency — that absolute mechanical absence of emotional contamination — is the reason 695 wins in a row is possible. A human would have blown it at win #23 by doubling size "because I'm on a streak." Zero Cool didn't freestyle the Gibson hack. He had a plan. The crew executed. *"Hack the planet!"*
 
 ---
 
@@ -250,7 +250,7 @@ An algorithm doesn't get cocky at win #50 and start size-up. It doesn't get scar
 
 | DARWIN | Net Profit | Role |
 |---|---|---|
-| **HAKR** | **+$1,456,639** | Zero Cool. The Gibson is mine. |
+| **HAKR** | **+$1,460,599** | Zero Cool. The Gibson is mine. |
 | **GVZJ** | +$212,940 | Cereal Killer. Only talks about CHGG. |
 | **ATPK** | +$128,128 | The Phantom Phreak. $44.44/trade. Zombie grinding. |
 | **WBYE** | +$51,755 | Lord Nikon. Clawed back to positive. Rehabilitation working. |
