@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **869 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **872 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **869 commits** and **7 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **872 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**869 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**872 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1689,7 +1689,7 @@ The WASM web client shipped read-only but still needed hardening before exposing
 |---|---|---|
 | **LOC** | ~66,500 | **~68,900** |
 
-| **Commits** | 848 | **869** |
+| **Commits** | 848 | **872** |
 | **Tests** | 618 | **628** |
 | **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
 | **Console commands** | 115 | **118+** |
@@ -1760,7 +1760,17 @@ Three hot-path optimizations:
 - **DARWIN import:** wrap all DELETE+INSERT in a single transaction (`BEGIN IMMEDIATE`/`COMMIT`) for ~20–40x speedup on 46K deals. Use `prepare_cached()` for deal/position statements (eliminates per-row query planning). `HashSet` for O(1) blacklist lookups (was O(n) per row).
 - **GPU indicator upload:** single-loop bar extraction with pre-allocated `Vec`s (was 4 separate `collect()` passes). Reduces allocations on every chart render.
 
-**869 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
+### LAN Client Watchlist Fix + SEC Scrape Key Parsing (2026-04-14)
+
+**LAN client watchlist overwrite fix:** the server was syncing its `broker:watchlist` rows to the client, overwriting client-side edits. Now the LAN client filters server-synced watchlist rows to only show symbols that exist in the local `user_watchlist`. Server data supplements but never replaces client edits.
+
+**SEC scrape 0 results fix:** `bar_cache` keys have two formats — 3-part (`mt5:SYMBOL:TF`) and 4-part (`mt5:CC:SYMBOL:TF`). The previous fix assumed 4-part keys (`parts[2]`), which returned the timeframe instead of the symbol for 3-part keys. Now handles both formats correctly.
+
+**Hardcoded path removed:** darwin radar export path replaced `/home/typhoon/` with `$HOME`-based resolution. Portable across machines.
+
+**ADR updates:** ADR-054 (scrape_failures blocklist, 429 cooldown, per-broker buttons), ADR-057 (cross-references to ADR-075/076), ADR-064 (security hardening, performance optimizations, analytics fixes from 2026-04-07/08).
+
+**872 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
