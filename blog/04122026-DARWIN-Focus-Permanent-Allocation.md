@@ -39,18 +39,17 @@ All six DARWINs trade on Darwinex Zero Stocks/ETF accounts. All six hold **Perma
 
 | DARWIN | Allocation | PA Status | Net Profit | Trades | Win Rate | Specialty | Current Focus |
 |---|---|---|---|---|---|---|---|
-| **HAKR** | Permanent | Locked | **+$1,303,614** | 8,512 | 30.00% | Broad market alpha | **NCLH long, CC long** |
-| **ATPK** | Permanent | **UNLOCKED** | **+$518,837** | 2,884 | 34.43% | The zombie (#2 DARWIN) | LAZR, CHGG, BRSL |
-| **MFSO** | Permanent | Locked | **+$303,986** | 2,930 | 37.41% | Balanced long/short | CC, COTY, CHGG |
-| **GVZJ** | Permanent | Locked | **+$145,416** | 1,806 | 76.91% | Extreme outliers | CHGG specialist |
-| **WBYE** | Permanent | Locked | **-$247,380** | 8,788 | 30.88% | Rehabilitation | Recovery mode |
-| **XUQF** | Permanent | Locked | **-$670,559** | 6,235 | 17.18% | Comeback attempt | Rebuilding |
+| **HAKR** | Permanent | Locked | **+$1,449,189** | 8,542 | 30.25% | Broad market alpha | **NCLH long, CC long** |
+| **GVZJ** | Permanent | Locked | **+$212,940** | 1,806 | 76.91% | Extreme outliers | CHGG specialist |
+| **ATPK** | Permanent | **UNLOCKED** | **+$128,128** | 2,884 | 34.43% | The zombie | LAZR, CHGG, BRSL |
+| **WBYE** | Permanent | Locked | **+$51,755** | 8,788 | 30.88% | Recovery complete | Back to positive |
+| **XUQF** | Permanent | Locked | **-$468,389** | 6,235 | 17.18% | Comeback attempt | Rebuilding |
 
-**Combined P&L: +$1,353,914 across 31,155 trades.** Four profitable, two recovering. HAKR and ATPK carry the portfolio.
+**Combined P&L: +$1,357,640 across 28,225 trades.** Four profitable, one recovering. HAKR is the engine.
 
-**PA unlock status: 1 of 6.** ATPK — the zombie turned #2 performer at $519K — is the only DARWIN with its Permanent Allocation fully unlocked. The other five are still locked and need consistent trading activity to unlock. Every trade on a locked PA moves it closer to activation. This is why all six accounts are actively trading.
+**PA unlock status: 1 of 6.** ATPK — the zombie grinder at $128K — is the only DARWIN with its Permanent Allocation fully unlocked. The other five are still locked and need consistent trading activity to unlock. Every trade on a locked PA moves it closer to activation. This is why all six accounts are actively trading.
 
-**Combined P&L: +$1.35M across six DARWINs.** HAKR and ATPK carry the portfolio. MFSO and GVZJ add consistent alpha. WBYE and XUQF are rehabilitation projects that still hold valuable Permanent Allocations.
+**Combined P&L: +$1.36M across five DARWINs (MFSO export pending).** HAKR is the engine. Four profitable, one recovering. MFSO and GVZJ add consistent alpha. WBYE and XUQF are rehabilitation projects that still hold valuable Permanent Allocations.
 
 ---
 

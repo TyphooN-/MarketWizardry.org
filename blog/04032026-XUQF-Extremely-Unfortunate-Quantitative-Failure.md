@@ -36,7 +36,7 @@ The name is an acronym. The acronym is an obituary.
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **-$670,559** |
+| **Net Profit** | **-$468,389** |
 | **Total Trades** | 6,235 |
 | **Win Rate** | **17.18%** |
 | **Avg Win** | $391.89 |

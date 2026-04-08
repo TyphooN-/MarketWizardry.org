@@ -34,7 +34,7 @@ Wave bye to the narrative. Your equity came back.
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **-$247,380** |
+| **Net Profit** | **+$51,755** |
 | **Total Trades** | 8,788 |
 | **Win Rate** | 30.88% |
 | **Avg Win** | $555.73 |
