@@ -39,17 +39,18 @@ All six DARWINs trade on Darwinex Zero Stocks/ETF accounts. All six hold **Perma
 
 | DARWIN | Allocation | PA Status | Net Profit | Trades | Win Rate | Specialty | Current Focus |
 |---|---|---|---|---|---|---|---|
-| **HAKR** | Permanent | Locked | **+$1,449,189** | 8,542 | 30.25% | Broad market alpha | **NCLH long, CC long** |
-| **GVZJ** | Permanent | Locked | **+$212,940** | 1,806 | 76.91% | Extreme outliers | CHGG specialist |
+| **HAKR** | Permanent | Locked | **+$1,456,639** | 8,545 | 30.28% | Broad market alpha | **NCLH long, CC long** |
+| **MFSO** | Permanent | Locked | **+$406,055** | 2,930 | 37.41% | Balanced long/short | CC, COTY, CHGG |
+| **GVZJ** | Permanent | Locked | **+$73,792** | 1,879 | 76.64% | Extreme outliers | CHGG specialist |
 | **ATPK** | Permanent | **UNLOCKED** | **+$128,128** | 2,884 | 34.43% | The zombie | LAZR, CHGG, BRSL |
 | **WBYE** | Permanent | Locked | **+$51,755** | 8,788 | 30.88% | Recovery complete | Back to positive |
 | **XUQF** | Permanent | Locked | **-$468,389** | 6,235 | 17.18% | Comeback attempt | Rebuilding |
 
-**Combined P&L: +$1,357,640 across 28,225 trades.** Four profitable, one recovering. HAKR is the engine.
+**Combined P&L: +$1,518,270 across 31,155 trades.** Five profitable, one recovering. HAKR is the engine.
 
 **PA unlock status: 1 of 6.** ATPK — the zombie grinder at $128K — is the only DARWIN with its Permanent Allocation fully unlocked. The other five are still locked and need consistent trading activity to unlock. Every trade on a locked PA moves it closer to activation. This is why all six accounts are actively trading.
 
-**Combined P&L: +$1.36M across five DARWINs (MFSO export pending).** HAKR is the engine. Four profitable, one recovering. MFSO and GVZJ add consistent alpha. WBYE and XUQF are rehabilitation projects that still hold valuable Permanent Allocations.
+**Combined P&L: +$1.52M across six DARWINs.** HAKR is the engine. MFSO and GVZJ add consistent alpha. ATPK grinds. WBYE clawed back to positive. XUQF is the rehabilitation project that still holds a valuable Permanent Allocation.
 
 ---
 

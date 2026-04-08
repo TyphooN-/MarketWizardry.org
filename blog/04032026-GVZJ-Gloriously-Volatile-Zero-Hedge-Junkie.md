@@ -22,7 +22,7 @@ But GVZJ? GVZJ didn't just trade CHGG. GVZJ MARRIED CHGG. GVZJ took CHGG out to 
 
 1,074 trades on Chegg Inc. Out of 1,803 total trades. That's 59.57% of all trades on ONE STOCK.
 
-If diversification is the only free lunch in finance, GVZJ brought a peanut butter sandwich from home and ate it alone in the corner. And still made $212,940.
+If diversification is the only free lunch in finance, GVZJ brought a peanut butter sandwich from home and ate it alone in the corner. And still made $73,792.
 
 ---
 
@@ -30,9 +30,9 @@ If diversification is the only free lunch in finance, GVZJ brought a peanut butt
 
 | Metric | Value |
 |---|---|
-| **Net Profit** | **$212,940** |
-| **Total Trades** | 1,806 |
-| **Win Rate** | **76.91%** (highest across all DARWINs) |
+| **Net Profit** | **$73,792** |
+| **Total Trades** | 1,879 |
+| **Win Rate** | **76.64%** (highest across all DARWINs) |
 | **Profit Factor** | 1.198 |
 | **Expected Payoff** | $118.10 |
 | **Avg Win** | $484.06 |
@@ -51,11 +51,11 @@ If diversification is the only free lunch in finance, GVZJ brought a peanut butt
 
 ![DARWIN GVZJ — DarwinIA Silver ranking, April 2026](/img/darwin-gvzj-darwinia-202604.webp)
 
-Let's talk about that win rate. 76.91%. The HIGHEST across all six DARWINs. Not a coin flip anymore — GVZJ wins more than three out of four trades. The catch? When it loses, it loses big: 0.44x win/loss ratio means the average loss is more than double the average win.
+Let's talk about that win rate. 76.64%. The HIGHEST across all six DARWINs. Not a coin flip anymore — GVZJ wins more than three out of four trades. The catch? When it loses, it loses big: 0.44x win/loss ratio means the average loss is more than double the average win.
 
-But here's the thing about a coin flip that massively favors heads: flip it 1,803 times and the edge adds up. GVZJ wins 76.91% of the time with an average win of $484 vs average loss of $1,110. The wins are frequent but the losses are large — a 0.44x win/loss ratio — but applied 1,803 times, it produces $213K.
+But here's the thing about a coin flip that massively favors heads: flip it 1,803 times and the edge adds up. GVZJ wins 76.64% of the time with an average win of $484 vs average loss of $1,110. The wins are frequent but the losses are large — a 0.44x win/loss ratio — but applied 1,803 times, it produces $74K.
 
-**GVZJ is proof that winning often can overcome losing big.** 77% win rate with a 0.44x win/loss ratio means GVZJ takes frequent small wins and eats occasional large losses — but the sheer frequency of winners overwhelms the size of losers. Applied 1,803 times, it produces $213K.
+**GVZJ is proof that winning often can overcome losing big.** 77% win rate with a 0.44x win/loss ratio means GVZJ takes frequent small wins and eats occasional large losses — but the sheer frequency of winners overwhelms the size of losers. Applied 1,803 times, it produces $74K.
 
 ---
 
@@ -78,7 +78,7 @@ Chegg Inc. is (was?) an education technology company. Online textbook rentals, h
 
 But GVZJ doesn't care about fundamentals. GVZJ cares about volatility and mean reversion. A stock that's volatile and mean-reverting is the EA's dream target. CHGG swings up, GVZJ sells. CHGG swings down, GVZJ buys. 1,074 times. Like clockwork.
 
-The company's shareholders are crying. The analysts are downgrading. The Reddit crowd is posting loss porn. And GVZJ is sitting there with its EA running, mechanically extracting $213K from the chaos like a vampire quietly feeding while the village burns.
+The company's shareholders are crying. The analysts are downgrading. The Reddit crowd is posting loss porn. And GVZJ is sitting there with its EA running, mechanically extracting $74K from the chaos like a vampire quietly feeding while the village burns.
 
 **GVZJ doesn't care if CHGG goes to zero. GVZJ cares if CHGG MOVES. Direction is irrelevant. Volatility is the product.**
 
@@ -92,7 +92,7 @@ When you put 60% of your trades on one stock, your biggest loss is going to be o
 
 $40,500 loss means GVZJ got caught on the wrong side of a CHGG move and the position was too large to cut quickly. This is the risk of specialization: when your one stock has a bad day, YOU have a bad day. There's no NTLA position to offset it. There's no CC hedge. There's just CHGG and pain.
 
-GVZJ ate the $40,500, moved on, and eventually printed $213K net positive. The loss was 19% of the total profit. Expensive but not fatal.
+GVZJ ate the $40,500, moved on, and eventually printed $74K net positive. The loss was 19% of the total profit. Expensive but not fatal.
 
 ---
 
@@ -119,7 +119,7 @@ This is the emotional torture of specialization. You KNOW the edge exists. You K
 | MFSO | 28 | Balanced (made $296K) |
 | ATPK | 24 | Moderate (made $21K) |
 | XUQF | 22 | Concentrated but wrong (lost $670K) |
-| **GVZJ** | **15** | **Hyper-focused (made $213K)** |
+| **GVZJ** | **15** | **Hyper-focused (made $74K)** |
 
 15 symbols. The fewest of any DARWIN. And 73% on one stock. GVZJ is the sniper rifle in a portfolio of shotguns.
 
@@ -133,11 +133,11 @@ GVZJ understood this. 73% on CHGG. 27% on everything else as a token gesture tow
 
 ## The 49% Coin Flip — "The House Always Wins"
 
-76.91% win rate. Let's compare:
+76.64% win rate. Let's compare:
 
 | DARWIN | Win Rate | Profit Factor | Result |
 |---|---|---|---|
-| **GVZJ** | **76.91%** | 1.198 | +$213K |
+| **GVZJ** | **76.64%** | 1.198 | +$74K |
 | MFSO | 36.19% | 1.371 | +$296K |
 | ATPK | 33.60% | 1.037 | +$21K |
 | HAKR | 29.41% | 1.554 | +$1.18M |
@@ -146,7 +146,7 @@ GVZJ understood this. 73% on CHGG. 27% on everything else as a token gesture tow
 
 GVZJ has the highest win rate but NOT the highest profit. HAKR has the lowest profitable win rate but the HIGHEST profit. This is the fundamental tension in trading:
 
-- **High win rate + small wins per trade** = GVZJ ($213K)
+- **High win rate + small wins per trade** = GVZJ ($74K)
 - **Low win rate + large edge per trade** = HAKR ($1.18M)
 
 GVZJ wins 77% of the time with a 0.44x win/loss ratio. HAKR wins 29% of the time with a 3.73x win/loss ratio. Both are profitable. But HAKR's approach scales better because the large win/loss ratio means individual winners contribute more to total profit.
@@ -163,7 +163,7 @@ GVZJ at the party:
 - If you try to change the subject, steers it back to CHGG
 - "Have you heard about this great company called Chegg? Their volatility patterns are fascinating—"
 - Gets asked to leave because they're boring everyone
-- Goes home and makes $213K while everyone else is hungover
+- Goes home and makes $74K while everyone else is hungover
 
 GVZJ is the autistic savant of the DARWIN family. Can't hold a conversation about anything except CHGG. Can't diversify to save its life. Doesn't understand the concept of "spreading risk." But put GVZJ in front of a CHGG chart and it becomes Rain Man counting cards in Las Vegas.
 
@@ -183,7 +183,7 @@ This is the Faustian bargain of specialization: you make more money per trade on
 
 The counterargument: if CHGG dies, the EA finds another stock with similar volatility characteristics. The edge isn't in CHGG specifically — it's in the volatility profile. CHGG just happens to be the best current fit. Kill CHGG and another stock fills the gap.
 
-**But that's a theory. What we KNOW is that GVZJ made $213K on CHGG. What we DON'T know is whether it can make $213K on anything else.**
+**But that's a theory. What we KNOW is that GVZJ made $74K on CHGG. What we DON'T know is whether it can make $74K on anything else.**
 
 ---
 
@@ -191,7 +191,7 @@ The counterargument: if CHGG dies, the EA finds another stock with similar volat
 
 | DARWIN | CHGG Trades | CHGG % of Total | Total Profit |
 |---|---|---|---|
-| **GVZJ** | **5,370** | **59.57%** | **+$213K** |
+| **GVZJ** | **5,370** | **59.57%** | **+$74K** |
 | XUQF | 6,345 | 28.90% | -$670K |
 | HAKR | 3,190 | 37.78% | +$1.18M |
 | MFSO | 1,575 | 25.33% | +$296K |
@@ -208,11 +208,11 @@ GVZJ's focus on CHGG means CHGG's profits aren't diluted by losses on other symb
 
 ### 1. Specialization Works If You Actually Have Edge
 
-73% on one stock produced $213K. This ONLY works because the EA has genuine, measurable, repeatable edge on CHGG. If GVZJ had 73% on a stock where it had NO edge, it would look like XUQF. Know where your edge is. Deploy capital there. Nowhere else.
+73% on one stock produced $74K. This ONLY works because the EA has genuine, measurable, repeatable edge on CHGG. If GVZJ had 73% on a stock where it had NO edge, it would look like XUQF. Know where your edge is. Deploy capital there. Nowhere else.
 
 ### 2. Win Rate Isn't the Flex You Think It Is
 
-76.91% win rate sounds impressive until you realize HAKR made 5.5x more money at 29.41%. High win rate with inverted win/loss ratio = solid profit. Low win rate with large edge per trade = massive profit. Choose wisely.
+76.64% win rate sounds impressive until you realize HAKR made 5.5x more money at 29.41%. High win rate with inverted win/loss ratio = solid profit. Low win rate with large edge per trade = massive profit. Choose wisely.
 
 ### 3. One Month Can Make Your Year (or Your Career)
 
@@ -242,11 +242,11 @@ $40,500 largest loss on (probably) one stock. 33.41% max drawdown driven by (pro
 
 In portfolio theory, you want assets that are uncorrelated. GVZJ is about as uncorrelated with the rest of the portfolio as you can get because its returns are driven almost entirely by ONE stock. When HAKR is having a bad month because the broad market is down, GVZJ might be having its best month because CHGG is doing its own thing.
 
-This is the actual value of GVZJ in the portfolio. Not the $213K profit (HAKR makes that in a good week). The value is DIVERSIFICATION THROUGH CONCENTRATION. Paradoxical but true: a hyper-concentrated DARWIN adds diversification to a portfolio of broadly-traded DARWINs because its returns are driven by a single idiosyncratic factor.
+This is the actual value of GVZJ in the portfolio. Not the $74K profit (HAKR makes that in a good week). The value is DIVERSIFICATION THROUGH CONCENTRATION. Paradoxical but true: a hyper-concentrated DARWIN adds diversification to a portfolio of broadly-traded DARWINs because its returns are driven by a single idiosyncratic factor.
 
 GVZJ is the CHGG satellite orbiting the portfolio's center of gravity. When everything else zigs, GVZJ zags. Because GVZJ doesn't care about "everything else." GVZJ cares about CHGG. Only CHGG. Forever CHGG.
 
-*5,370 trades. One stock. $213K. The Chegg Whisperer has spoken.*
+*5,370 trades. One stock. $74K. The Chegg Whisperer has spoken.*
 
 -- TyphooN
 
