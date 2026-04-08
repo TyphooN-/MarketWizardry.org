@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **874 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **68,900 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **877 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **874 commits** and **7 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **68,900 lines** across **877 commits** and **7 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**874 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**877 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1689,7 +1689,7 @@ The WASM web client shipped read-only but still needed hardening before exposing
 |---|---|---|
 | **LOC** | ~66,500 | **~68,900** |
 
-| **Commits** | 848 | **874** |
+| **Commits** | 848 | **877** |
 | **Tests** | 618 | **628** |
 | **Crates** | 4 | **7** (+ web, web-protocol, web-server) |
 | **Console commands** | 115 | **118+** |
@@ -1770,18 +1770,19 @@ Three hot-path optimizations:
 
 **ADR updates:** ADR-054 (scrape_failures blocklist, 429 cooldown, per-broker buttons), ADR-057 (cross-references to ADR-075/076), ADR-064 (security hardening, performance optimizations, analytics fixes from 2026-04-07/08).
 
-### Extended Hours Quotes — Finnhub Enrichment + SIP Feed (2026-04-14, late)
+### Extended Hours Quotes — Yahoo Finance + SIP Feed (2026-04-14+)
 
-**Pre-market and after-hours quotes now match TradingView.** Alpaca's snapshot endpoint was using the IEX feed, which only reports regular session trades — pre-market and after-hours prices showed stale closing data. Two fixes:
+**Pre-market and after-hours quotes now match TradingView.** Alpaca's snapshot endpoint was using the IEX feed, which only reports regular session trades — pre-market and after-hours prices showed stale closing data. The fix evolved through three iterations:
 
 1. **Switched Alpaca snapshot to SIP feed** — gets real extended hours trade data from the consolidated tape
-2. **Added Finnhub quote enrichment** — after the Alpaca snapshot, queries Finnhub for each equity symbol to get real-time pre/post market prices (100ms rate limit per symbol). If Finnhub's price differs from Alpaca's, the terminal uses the Finnhub price and recalculates change%
+2. **Finnhub enrichment (attempted)** — Finnhub's `/quote` endpoint returns regular session close as current price, making it useless for pre/post market. Removed.
+3. **Yahoo Finance v7 batch quotes (final)** — `v7/finance/quote` returns explicit `preMarketPrice` and `postMarketPrice` fields. All equity symbols in one HTTP call (no per-symbol rate limiting). During pre-market: Last/Chg/Chg% show pre-market price, Ext% shows change from regular close to extended price. During regular hours: uses Yahoo `regularMarketPrice` as fallback if fresher than Alpaca.
 
-The watchlist and positions panel now show accurate pre-market/after-hours pricing instead of yesterday's close.
+The watchlist now shows a dedicated **Ext%** column with extended hours change percentage. Last/Chg/Chg% columns switch to extended hours data when available. Positions panel reflects the same pricing.
 
-**Collapsible Recent Fills:** the Recent Fills section defaults to collapsed with a trade count in the header, matching the Positions/Orders collapsible pattern. Reduces visual clutter when you have dozens of fills.
+**Collapsible Recent Fills:** defaults to collapsed with trade count in header. Moved from nested inside Positions to sibling level — aligns with Positions/Orders/Watchlist collapsible headers.
 
-**874 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
+**877 total commits. ~68,900 LOC. 628 tests. 7 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
