@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **70,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **915 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **125,700 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **923 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **70,200 lines** across **915 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **125,700 lines** across **923 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -1860,7 +1860,59 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **Test coverage hardened across core engine modules:** VaR (5→12 tests), risk (5→10), margin (8→12), options (10→18). New tests cover: VaR edge cases (insufficient data, 99%>95% ordering), `std_dev` edge cases, inverse normal at 50th/99th percentile, risk lots with zero SL/equity/VaR, lot normalization, margin urgency at threshold, deep ITM/OTM Greeks, IV put roundtrip, vega always positive, gamma highest ATM. Paranoia over assumptions — every edge case that could silently corrupt a live trade gets its own test.
 
-**915 total commits. ~70,200 LOC. 682 tests. 8 crates. Zero warnings.**
+### Ext-Hours Candle Fix + Event Calendar + DARWINVAR/EVOUTLIERS (2026-04-09)
+
+**Magenta candle finally renders.** Two bugs: `next_x = chart_rect.right() + 0.5*bar_w` placed the candle past the right edge so the bounds guard always failed — clamp flush to right edge instead. Second bug: `ext_price = prev_close * (1 + ext_change_pct/100)` used the wrong base — `ext_change_pct` is measured against intraday `reg_price`, not `prev_close`. Use `row.last` directly (already set to ext price by Yahoo enrichment).
+
+**New single-dimension outlier scanners:** `DARWINVAR` runs IQR detection on `per_darwin_var.var_95` and flags Darwinex corridor violations (3.25%–6.5%). `EVOUTLIERS` runs IQR on `fundamentals.enterprise_value` grouped by sector. **Event Calendar** aggregates upcoming earnings / ex-div / div-pay dates from fundamentals, tagged per-broker (Alpaca/Darwinex/Tasty) with source + type filters in a new egui window. `DIVEXPLORER` is a preset entry point (Darwinex + dividends only). ADR-084 documents.
+
+### Broker Scope Filter + ForexFactory Calendar + GPU Buffer Reuse (2026-04-09)
+
+**New `SCOPE [ALL|ALPACA|DARWINEX|TASTY]` command** with `broker_scope_symbols` / `scoped_fundamentals` helpers threaded through OUTLIERS / EVOUTLIERS / SectorHeatmap / DivScreener. Per-command overrides on `ALPACAOUTLIERS` / `TASTYOUTLIERS` / `DARWINEXOUTLIERS`.
+
+**ForexFactory XML parser** (`engine/core/econ_calendar.rs`, 7 tests) — keyless fallback when no Finnhub API key. Delivers impact / forecast / previous / currency. Dedup: `OUTLIERS` absorbs `DARWINEXOUTLIERS`, `EVENTS` absorbs `DIVEXPLORER` (handler aliases preserved).
+
+**GPU:** Hoist `ind_out` / `ind_params` buffers to `GpuContext`, reuse across 31 indicator dispatches per frame instead of realloc. **Cache:** align `read_conn` `PRAGMA cache_size` to `-64000` (was `-32000`). **Unwrap cleanup (ADR-082):** web-server auth JSON, native main tokio init, cli chunk.last, web/src/lib DOM init, metrics.rs registry init now returns Result. ADR-085 documents.
+
+### Perf Pass — O(1) LAN Remote Queue, Indexed Key Search (2026-04-09)
+
+**`append_to_queue` + `drain_queue` replace the `lan:remote_queue` read-decompress-append-recompress-write pattern** which was O(n²) under burst load (9 FETCH_BARS arriving together). Now O(1) insert + single-transaction drain.
+
+**`search_keys` uses SQL `LIKE` + timestamp index;** replaces 3 `detailed_stats` full-table scans in `app.rs` (symbol fallback lookup, HTF MA fallback, HTF KAMA fallback, Monday Kraken cleanup). Prevents the ADR-064 full-DB-scan frame stall regression. Log buffer cap 500→200 steady-state. `get_kv_raw` helper returns compressed blob without zstd decode — ready for future LAN pass-through paths. 5 new tests.
+
+### UX Pass — Calendar UI, Staleness Badges, Alert Notifications (2026-04-09)
+
+**Economic calendar:** impact + currency filters, actual/forecast/previous parsed columns, staleness badge, ForexFactory/Finnhub source tag, Majors preset.
+
+**Live panel staleness:** `positions_last_update_ts` / `orders_last_update_ts` / `watchlist_last_update_ts`, `staleness_badge` helper, inline badges on right-panel collapsing headers with color escalation (fresh/stale/STALE).
+
+**Alert breach badge:** top-bar red counter when indicator alerts fire, latest message as tooltip, click opens alert builder + clears. **Help window overhauled:** searchable filter, 3 sections (chart nav, app/window, command palette), 31 top commands documented, resize 720x560. **Order entry:** prefix-match autocomplete from `all_broker_assets` + watchlist, live validation (green=known, red=unknown w/hint), monospace font. ADR-086 documents.
+
+### ADR-084/085/086 Follow-Ups — Help Auto-Gen, Session Persistence, ICS Export (2026-04-09)
+
+**Help window now iterates `COMMANDS` registry directly** — no drift. `DRAW_*` commands moved to a collapsible sub-section. **Persistent broker scope button** in top bar — click to cycle ALL/ALPACA/DARWINEX/TASTY, color-coded. **`save/load_session` round-trip** `broker_scope` + `econ_filter_high/medium/low/holiday` + `econ_filter_currencies`. EV Scanner respects `broker_scope`; `EVSCRAPE` overrides `use_mt5/use_alpaca/use_tastytrade` flags based on active scope.
+
+**Alert badge uses `ViewportCommand::RequestUserAttention(Critical)`** — no new crate dep, taskbar flash / dock bounce / titlebar flash cross-platform. **Event Calendar ICS export** via new `build_events_ics` helper (RFC 5545, all-day VEVENTs, proper escaping, stable UIDs). Export `.ics` button writes `~/typhoon_events.ics`. 6 new unit tests.
+
+### ADR-069 Feature Gap Closure — Tasty Close, MT5 Auto-Sync, CP Drag Expansion (2026-04-09)
+
+**Tastytrade `close_equity_position`** — looks up position, picks Sell/Buy to Close from `quantity_direction`, submits market order. `BrokerCmd::TastytradeClosePosition` dispatches. Close X button on each tasty position row with hover tooltip.
+
+**`mt5_auto_sync` setting** (opt-in, persisted) fires `Mt5Sync` every ~5 min silently. Settings checkbox next to manual "Sync MT5 Data Now" button. **Watchlist context menu:** Move Up / Move Down / Move to Top.
+
+**Drawing control point drag expanded:** FibChannel + all Vec-of-points patterns (Polyline, PathDraw, Brush, ElliottWave/Double/Triangle/TripleCombo, HeadShoulders, XabcdPattern, AbcCorrection, AbcdPattern, TrianglePattern, ThreeDrives, CypherPattern). Each point editable individually.
+
+**Compound interest calc:** "Use My Equity Curve" button pre-fills principal + annual return from DARWIN portfolio CAGR when ≥30 days data. ADR-088 documents. Closes ADR-069 actionable items.
+
+### EasyLanguage + thinkScript Compilers + Phone Order Entry (ADR-073 Phase 2) (2026-04-09)
+
+**Third and fourth indicator-language compilers land.** `mql5-compiler/src/easylang.rs` — line scanner for TradeStation/MultiCharts PowerLanguage. `inputs`/`variables` blocks, case-insensitive keywords, `Plot1..N` with labels, built-ins mapped to common IR (`Average`→`ta_sma`, `XAverage`→`ta_ema`, `RSI`/`ATR`/`Highest`/`Lowest`/`StdDev`, `math_abs`/`sqrt`/`log`/`max`/`min`), arithmetic + comparison ops, `{}` brace + `//` line comments. 11 tests.
+
+`mql5-compiler/src/thinkscript.rs` — line scanner for thinkScript. `input`/`def`/`plot` statements, `declare lower`/`upper` for `separate_window`, case-sensitive built-ins (`Average`/`ExpAverage`/`RSI`/`ATR`), `#` line comments, bool/int/float input classification. 12 tests. **Indicator Compiler dropdown now offers 4 languages.** Auto-detection by extension (`.el`/`.els` → EL, `.ts`/`.tos` → TS).
+
+**Phone order entry (ADR-073 Phase 2):** 3 new `WebCmd` variants (`PlaceOrder`, `CancelOrder`, `ClosePosition`) + `WebMsg::OrderResult` + `is_valid_order_side`/`type`/`qty` helpers + `MAX_ORDER_QTY` constant. 8 new web-protocol tests. Per-variant validation in web-server dispatch loop — symbol/qty/side/type/price/broker whitelists, invalid commands dropped with `tracing::warn!`. Native `WebCmd` drain relays `PlaceOrder` to `AlpacaMarketOrder`/`LimitOrder`/`StopOrder` or `TastytradeEquityOrder`, `CancelOrder` → `AlpacaCancelOrder`, `ClosePosition` → `ClosePosition` or `TastytradeClosePosition`. `OrderResult` reply broadcast back. Local log mirror so operator sees every web-originated order. **728 total tests pass** (131 compiler + 497 engine + 78 native + 22 web-protocol). ADR-089 documents. Closes the last two explicitly-deferred items from ADR-069/073.
+
+**923 total commits. ~125,700 LOC. 728 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
