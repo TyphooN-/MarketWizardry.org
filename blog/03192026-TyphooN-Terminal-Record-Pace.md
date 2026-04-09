@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **70,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **912 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **70,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **913 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **70,200 lines** across **912 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **70,200 lines** across **913 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -1836,7 +1836,25 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **UX improvements:** watchlist right-click context menu with Chart/Remove options. Trading button tooltips on Destroy Lines, Open MG, Close Partial. MACD periods configurable via UI DragValue. GPU health status in Help window. Indicator Vec reuse (clear+reserve+push instead of new Vec per compute).
 
-**912 total commits. ~70,200 LOC. 658 tests. 8 crates. Zero warnings.**
+### 7 New Analytics Modules (2026-04-08)
+
+**HV Cone:** Historical Volatility Cone with percentile rank at 10/20/60/252-day windows — shows where current IV sits relative to historical distribution.
+
+**Sector Heatmap:** aggregates symbols by sector for visual performance overview.
+
+**Earnings Surprise:** actual vs estimate percentage — flags beats and misses.
+
+**Dividend Yield Screener:** filters and ranks by yield.
+
+**MTF Confluence Score:** multi-timeframe signal agreement scored from -1 (full bearish) to +1 (full bullish).
+
+**Stat Arb Pairs:** z-score + half-life for mean-reversion pair identification.
+
+**Risk Budget:** marginal VaR decomposition — shows each position's contribution to total portfolio risk.
+
+8 new tests across all modules.
+
+**913 total commits. ~70,200 LOC. 658 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
