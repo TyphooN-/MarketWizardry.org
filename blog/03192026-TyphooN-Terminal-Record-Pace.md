@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **70,000 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **890 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **70,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **912 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **70,000 lines** across **890 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **70,200 lines** across **912 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -160,7 +160,7 @@ Forty-six per day is not normal. It is the result of three factors:
 
 3. **Years of Domain Knowledge:** The risk management logic, the indicator math, the order management patterns -- none of this was invented during the sprint. It was ported. Porting known-correct logic to a better language is fundamentally faster than designing from scratch. The MQL5 EA has been battle-tested across multiple DARWINs and ten post-mortems. The math was proven. It just needed a better home.
 
-**890 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
+**912 commits** is not a vanity metric. Every commit represents a testable, working increment. The repository went from zero to functional trading terminal in six days because the architecture was right, the language was right, and the domain knowledge was already paid for in years of live trading.
 
 ## Security: 21-Pass Audit, 97 Findings, 91 Fixed
 
@@ -1808,7 +1808,35 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **launch.sh improvements:** auto-installs `wasm32-unknown-unknown` target before WASM build (survives `rustup toolchain` updates). Auto-builds WASM web client if sources changed — checks if `web/src/*.rs` or `web-protocol/src/lib.rs` are newer than `target/web-dist/index.html`. Skips if trunk not installed or already up-to-date. `./launch.sh web` for force rebuild.
 
-**890 total commits. ~70,000 LOC. 641 tests. 8 crates. Zero warnings.**
+### Options Pricing Engine + Greeks (2026-04-08)
+
+**Black-Scholes options pricing engine.** New `engine/src/core/options.rs`: full Black-Scholes pricing, Greeks (Delta, Gamma, Theta, Vega, Rho), Newton-Raphson implied volatility solver, put-call parity verified. The Option Chain window expanded from 3 columns (Strike/Call/Put) to 7 columns with Delta, Gamma, Theta, Vega per strike. Uses spot price from watchlist and days to expiry from the chain date. 8 new tests (BS pricing, Greeks call/put, put-call parity, IV roundtrip, edge cases).
+
+### Drawing Tools Complete + Zero Unwrap Policy (2026-04-08)
+
+**ADR-068 complete — all drawing tool items done.** Hit-testing added for Pitchfork (3-point segment distance), Ellipse (normalized elliptical distance), GannFan (origin point), FibCircle/FibSpiral (circle border distance), FibWedge (3-point segment distance). Drag handles: control points now draggable — click near handle to resize a single point, click elsewhere for whole-drawing drag. Cross-timeframe drawings: TF toggle button in toolbar syncs HLines (price-based, TF-independent) across all charts with the same symbol.
+
+**Zero unwrap/expect policy enforced across production code (ADR-082).** Replaced all `.expect()` in broker init (Alpaca, Kraken, notifications) with `.unwrap_or_else` fallbacks. Fixed `darwin.rs` `returns.last().unwrap()` → `.map().unwrap_or()`. Fixed `fundamentals.rs` `enterprise_value.unwrap()` → `if let Some(ev)`. Timezone `.expect()` → `.unwrap_or(UTC)`. Tokio runtime `.expect()` → `process::exit(1)` on fatal. All remaining `unwrap/expect` are exclusively in `#[test]` functions.
+
+### Analytics Expansion — ADR-083 (2026-04-08)
+
+**Relative Strength Ranking:** `compute_relative_strength()` ranks symbols by price performance over a configurable lookback period. Sorted by return%, ranked 1=strongest.
+
+**Portfolio Metrics:** Treynor Ratio `(return-rfr)/beta` and Jensen Alpha (CAPM excess return) added to `BenchmarkComparison` struct using 4% risk-free rate.
+
+**Symbol Correlation Matrix:** `compute_symbol_correlation_matrix()` — N×N Pearson correlation from close price series, configurable window, single-pass mean/var/cov, clamped [-1,1].
+
+**Volume Profile — Initial Balance (IB):** detects session start, computes first-hour high/low/range.
+
+**GPU Monte Carlo VaR dispatch:** `run_monte_carlo_gpu()` uploads historical daily returns, runs N parallel simulations (256 threads/workgroup) via PCG hash RNG on GPU, returns sorted final equity values. Uses the existing `MONTE_CARLO_SHADER` (PCG random walk, days_forward horizon, starting_equity). GPU backtester `evaluate()` and `evaluate_nnfx()` already fully implemented — no changes needed. ADR-083 complete: only Market Breadth + Put/Call Ratio remain (blocked on external data feeds).
+
+### Dependency Audit + Optimization (2026-04-08)
+
+**Dependency unification: 45→19 duplicate crates.** Force-unified `tokio-tungstenite` 0.29→0.28 (match axum), `zip` 8→7 (match calamine), `rand` 0.10→0.9 (match tungstenite). Remaining 19 duplicates are deep transitive (Wayland toolkit, prometheus→protobuf→thiserror, crypto stack transition) — unfixable without replacing upstream crates. `cargo audit`: 0 vulnerabilities.
+
+**UX improvements:** watchlist right-click context menu with Chart/Remove options. Trading button tooltips on Destroy Lines, Open MG, Close Partial. MACD periods configurable via UI DragValue. GPU health status in Help window. Indicator Vec reuse (clear+reserve+push instead of new Vec per compute).
+
+**912 total commits. ~70,200 LOC. 658 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
