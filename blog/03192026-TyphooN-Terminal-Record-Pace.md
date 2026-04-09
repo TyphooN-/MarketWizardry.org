@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **125,700 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **923 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **129,500 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **925 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **125,700 lines** across **923 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **129,500 lines** across **925 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -1912,7 +1912,35 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **Phone order entry (ADR-073 Phase 2):** 3 new `WebCmd` variants (`PlaceOrder`, `CancelOrder`, `ClosePosition`) + `WebMsg::OrderResult` + `is_valid_order_side`/`type`/`qty` helpers + `MAX_ORDER_QTY` constant. 8 new web-protocol tests. Per-variant validation in web-server dispatch loop — symbol/qty/side/type/price/broker whitelists, invalid commands dropped with `tracing::warn!`. Native `WebCmd` drain relays `PlaceOrder` to `AlpacaMarketOrder`/`LimitOrder`/`StopOrder` or `TastytradeEquityOrder`, `CancelOrder` → `AlpacaCancelOrder`, `ClosePosition` → `ClosePosition` or `TastytradeClosePosition`. `OrderResult` reply broadcast back. Local log mirror so operator sees every web-originated order. **728 total tests pass** (131 compiler + 497 engine + 78 native + 22 web-protocol). ADR-089 documents. Closes the last two explicitly-deferred items from ADR-069/073.
 
-**923 total commits. ~125,700 LOC. 728 tests. 8 crates. Zero warnings.**
+### Phone WASM Trade Tab — Place/Cancel/Close from Any LAN Browser (2026-04-09)
+
+**ADR-089 follow-up — phone can now trade.** `web/src/app.rs` Trade tab wires the `PlaceOrder`/`CancelOrder`/`ClosePosition` protocol commands into the WASM client. Broker dropdown (alpaca/tastytrade), symbol, side, type (market/limit/stop), qty, conditional limit/stop price fields. **Inline validation mirrors the server whitelist** — client-side rejection before bytes hit the websocket, so typos never reach the dispatch loop. **Two-step review-then-send confirm** — stray tap can't fire an order; review screen shows every field before the final send button activates. `OrderResult` toast banner pinned to bottom of viewport so every submission gets a visible success/failure acknowledgement.
+
+**Positions tab:** per-row `Close` button using the currently selected Trade tab broker. **Orders tab:** per-row `Cancel` button, same broker context. Closes the last deferred item in ADR-089 — protocol + server + native relay + phone UI all shipped. Phone can now place, cancel, and close orders from any browser on the LAN.
+
+### Six New Indicator Frontends + Cross-Language Transpiler (ADR-090, 2026-04-09)
+
+**Indicator compiler expands from 4 languages to 9.** Every new frontend lowers into the same `IrModule` the MQL5/Pine/EL/TS pipelines already consume, which is what makes the headline transpiler feature trivial.
+
+**MQL4** (`mql5-compiler/src/mql4.rs`) — textual rewrite pass runs before the existing MQL5 pest parser. Converts `extern`→`input`, `init`/`start`/`deinit`→`OnInit`/`OnCalculate`/`OnDeinit`, `Close[i]`→`iClose(...)`, `Bid`/`Ask` barewords→`SymbolInfoDouble(...)`, `Bars` bareword→`iBars(...)`. **String and comment aware** — user string literals are preserved verbatim instead of corrupted by the find-replace. Warns on `OrderSend`/`OrderSelect` calls since there is no textual port path for the MQL4 trading API.
+
+**AFL (AmiBroker)** — line scanner. `_SECTION_BEGIN`/`_SECTION_END` parsed, `Param()` calls lowered to `input`, `EMA`/`SMA`/`RSI`/`ATR`/`HHV`/`LLV`/`StdDev` built-ins mapped to common IR, `Plot()` lowered to plot statements. Case-insensitive keyword matching (AFL is case-insensitive by spec).
+
+**Pine v4** — extension to the existing `pine.rs` frontend. Auto-detects `//@version=4` header and normalises bareword calls (`sma` → `ta.sma`, `study` → `indicator`) — **only when not already namespaced**, so mixed-version files parse correctly. v5 files go through the normal v5 path untouched.
+
+**ProBuilder (ProRealTime)** — bracketed-length syntax (`ExponentialAverage[20](close)`), `RETURN expr AS "label"` multi-return statements, `CROSSES OVER`/`CROSSES UNDER` operators, `REM` + `//` comments.
+
+**NinjaScript (NinjaTrader)** — indicator subset. `[NinjaScriptProperty]` attribute scan to discover parameters, `AddPlot()` declarations, `Value[0]`/`Values[N][0]` assignments, SMA/EMA/RSI/ATR built-ins, `Math.*` utilities.
+
+**cAlgo (cTrader)** — indicator subset. `[Indicator]`/`[Parameter]`/`[Output]` attributes, `Indicators.SimpleMovingAverage(...).Result[index]` long-form calls, `Bars.ClosePrices` + `MarketSeries.Close` long and short forms, `#region` blocks stripped.
+
+**Cross-language transpiler** (`mql5-compiler/src/transpile.rs`) — **the exclusive headline feature.** Because every frontend lowers into the same `IrModule`, `transpile(source, from, to)` is just `parse_X → IR → emit_Y`. Phase 1 covers EL / TS / AFL / ProBuilder / Pine as sources and **MQL5 / Pine v5 / EL / TS as targets**. Each backend emits idiomatic source: full `#property` header and vectorised `OnCalculate` loop for MQL5, `//@version=5` + `ta.*`/`math.*` for PineScript, `inputs:`/`variables:`/`Plot1..N` for EasyLanguage, `input`/`def`/`plot` for thinkScript. Identifier case conventions preserved per-language (camel_case for EL/MQL5, snake_case for Pine/TS).
+
+**Native UI:** Indicator Compiler window now has a **9-entry language dropdown** (MQL5/MQL4/PineScript/EasyLanguage/thinkScript/AFL/ProBuilder/NinjaScript/cAlgo). File-extension auto-detection expanded (`.mq4`, `.afl`, `.itf`, `.cs` — `.cs` disambiguated by scanning for the `NinjaScriptProperty` keyword to distinguish NinjaScript from unrelated C# files). Beneath the Compile button: **`Transpile to: [dropdown] [Transpile] [Use as Source] [Copy]` row**. Successful transpiles render in a green "Transpiled Output" panel below the metadata summary, and the "Use as Source" button feeds the transpiled text back into the source editor for chained conversions.
+
+**65 new tests** — 11 MQL4, 10 AFL, 9 ProBuilder, 10 NinjaScript, 11 cAlgo, 2 Pine v4, 10 transpile, plus a cAlgo indicator-name regression fix. **Total workspace 793 tests** (from 728 in ADR-089). ADR-090 documents the full design.
+
+**925 total commits. ~129,500 LOC. 793 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
