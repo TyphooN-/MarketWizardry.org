@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **130,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **926 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **130,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **927 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **130,200 lines** across **926 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **130,200 lines** across **927 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -1960,7 +1960,18 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **10 new transpile tests** including a `full_matrix_smoke_test` (EL source → all 9 targets, asserts non-empty output for each). **803 total tests** (from 793). ADR-091 documents the full design.
 
-**926 total commits. ~130,200 LOC. 803 tests. 8 crates. Zero warnings.**
+### Command Palette Consolidation — 230 → 226 Entries (2026-04-10)
+
+**Four redundant commands removed from the palette**, their functionality merged into the primary command:
+
+- **`ECON_CALENDAR` absorbed into `CALENDAR`** — one command now opens the calendar window AND fetches econ events (FOMC/NFP/CPI/PMI). Updated description, LAN remote handler, and `BrokerCmd` result routing.
+- **`OPTION_CHAIN` absorbed into `OPTIONS`** — one command now fetches from both Alpaca (equity options) and tastytrade simultaneously.
+- **`PRICE_TARGET` absorbed into `ANALYST`** — one command now opens the analyst window AND auto-fetches Finnhub price targets for the current symbol.
+- **`POPOUT` removed** — `NEW_WINDOW` is the only entry.
+
+Old command names still work in the handler (match arms kept for backwards compat) but no longer appear in the palette. UI hint text updated throughout (`"run OPTION_CHAIN"` → `"run OPTIONS"`, `"run DARWINEXOUTLIERS"` → `"run OUTLIERS"`).
+
+**927 total commits. ~130,200 LOC. 803 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
