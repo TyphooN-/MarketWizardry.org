@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **129,500 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **925 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **130,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **926 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **129,500 lines** across **925 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **130,200 lines** across **926 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -1940,7 +1940,27 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 **65 new tests** — 11 MQL4, 10 AFL, 9 ProBuilder, 10 NinjaScript, 11 cAlgo, 2 Pine v4, 10 transpile, plus a cAlgo indicator-name regression fix. **Total workspace 793 tests** (from 728 in ADR-089). ADR-090 documents the full design.
 
-**925 total commits. ~129,500 LOC. 793 tests. 8 crates. Zero warnings.**
+### Complete 9×9 Cross-Language Transpiler Matrix (ADR-091, 2026-04-10)
+
+**Phase 2 closes the transpiler: every language is now both a source AND a target.** The full 9×9 = 81 directional matrix is live — any of the 9 indicator languages can transpile to any other in a single click.
+
+**Source-to-IR for the remaining 4 languages:** MQL5 gets a new `build_mql5_ir()` helper wrapping pest parser → AST → `ir::lower` into one call (`compile_mql5` becomes a thin wrapper). MQL4 gets source-to-IR for free via its textual rewrite pass + `build_mql5_ir`. NinjaScript and cAlgo each get `build_ir()` extracted from their parse functions.
+
+**Five new IR → source backends:**
+
+- **MQL4** — `#property strict`, `extern` inputs, `init()`/`start()` entry points, `Close[i]`/`Open[i]` series, `iMA(NULL,0,...)`/`iRSI`/`iATR`/`iStdDev` built-in calls.
+- **AFL** — `_SECTION_BEGIN`/`_SECTION_END`, `Param()` inputs, `EMA`/`MA`/`RSI`/`ATR`/`HHV`/`LLV`/`StDev` built-ins, `Plot(value, "label", color, style)`.
+- **ProBuilder** — bracketed-length form (`ExponentialAverage[N]`/`Average[N]`/`RSI[N]`/`ATR[N]`/`Highest[N]`/`Lowest[N]`/`StdDev[N]`), multi-return `RETURN ... AS "label"`.
+- **NinjaScript** — full C# class skeleton: `using` directives, namespace, `OnStateChange` with `AddPlot`, `OnBarUpdate` with `Values[N][0]` assignments, `[NinjaScriptProperty]`/`[Display]` attributes. PascalCase input references.
+- **cAlgo** — full C# class skeleton: `[Indicator]`/`[Parameter]`/`[Output]` attributes, `IndicatorDataSeries` outputs, `Calculate(int index)` with `Bars.ClosePrices[index]` and `Indicators.SimpleMovingAverage(...).Result` long-form built-ins. PascalCase input references.
+
+**C# identifier handling:** both NinjaScript and cAlgo backends collect IR input names and promote `GetLocal` references to PascalCase when matching an input, keeping `public int Period { get; set; }` and body references consistent. New `pascal_case` helper handles word splits, digit-prefix safety, and non-alphanumeric drops.
+
+**Native UI:** transpile target dropdown expanded from 4 to 9 entries — the full matrix is exposed.
+
+**10 new transpile tests** including a `full_matrix_smoke_test` (EL source → all 9 targets, asserts non-empty output for each). **803 total tests** (from 793). ADR-091 documents the full design.
+
+**926 total commits. ~130,200 LOC. 803 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
