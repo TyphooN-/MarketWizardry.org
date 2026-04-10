@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **130,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **927 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **131,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **931 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **130,200 lines** across **927 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **131,200 lines** across **931 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -1971,7 +1971,42 @@ The watchlist now shows a dedicated **Ext%** column with extended hours change p
 
 Old command names still work in the handler (match arms kept for backwards compat) but no longer appear in the palette. UI hint text updated throughout (`"run OPTION_CHAIN"` → `"run OPTIONS"`, `"run DARWINEXOUTLIERS"` → `"run OUTLIERS"`).
 
-**927 total commits. ~130,200 LOC. 803 tests. 8 crates. Zero warnings.**
+### Zero Alias Cruft — One Name Per Feature (2026-04-10)
+
+**Follow-up to the palette consolidation: all legacy alias match arms stripped from the handler.** `ECON_CALENDAR`, `OPTION_CHAIN`, `PRICE_TARGET`, `POPOUT` — removed from handler (were already removed from palette). `DIVEXPLORER`, `EVENTCALENDAR` removed from `EVENTS` handler. `DARWINEXOUTLIERS`, `ALPACAOUTLIERS`, `TASTYOUTLIERS` removed from `OUTLIERS` handler — the `SCOPE` command already controls broker filtering globally. `DIVEXPLORER` preset logic (forced Darwinex + dividends filter) removed. Typing a removed name now falls to the default no-op. No backward-compat shims, no aliases, no cruft.
+
+### Sierra Chart ACSIL — 10th Language, 10×10 Transpiler (ADR-092, 2026-04-10)
+
+**Tenth indicator language: Sierra Chart ACSIL** (`mql5-compiler/src/acsil.rs`). ACSIL uses C/C++ with Sierra Chart's proprietary API. The frontend scans for:
+
+- `SCDLLName("...")`/`sc.GraphName` → short name
+- `sc.GraphRegion = N` → separate window detection
+- `SCSubgraphRef`/`SCInputRef` alias declarations
+- `sc.SetDefaults` block: `Subgraph.Name`, `.DrawStyle`, `Input.Name`, `.SetInt`/`.SetFloat`
+- Built-in study functions: `sc.SimpleMovAvg`/`ExponentialMovAvg`/`RSI`/`ATR`/`Highest`/`Lowest`/`StdDev` (both 3-arg write-to-subgraph and 2-arg forms)
+- `sc.BaseDataIn[SC_LAST/OPEN/HIGH/LOW/VOLUME]` price series
+- `Subgraph[sc.Index] = expr` direct buffer assignments
+- Standard C arithmetic and comparison operators
+
+**Transpiler expanded to full 10×10 = 100 directional matrix.** IR → ACSIL backend emits a complete study skeleton: `#include`, `SCDLLName`, `SCSFExport`, `SCSubgraphRef`/`SCInputRef` declarations, `SetDefaults` block, and `sc.*` built-in calls. Input references emit `RefName.GetInt()`.
+
+**Native UI:** language dropdown 9 → 10, transpile target 9 → 10. File loader accepts `.cpp`/`.h` with content-sniffing (`SierraChart.h`/`SCSFExport`/`SCStudyInterfaceRef` → ACSIL, else MQL5 C++ fallback).
+
+**10 new ACSIL tests** + 1 `ema_mapping` regression fix (`starts_with` vs `contains` for `sc.BaseDataIn` prefix). **813 total tests** (from 803).
+
+### Codebase Audit — Zero GPU Unwraps + O(1) Darwin Analytics (2026-04-10)
+
+**All 10 `.as_ref().unwrap()` calls in `gpu_compute.rs` eliminated** (ADR-082 compliance). Pattern was: create buffer into `Some()`, immediately unwrap to write. Fix: capture buffer in local variable, write to `&local`, then move into `self.field = Some(local)`. Zero unwraps remain in `gpu_compute.rs`. Affected methods: `upload_darwin_batched` (2 sites × 2 buffers = 4), `BacktestContext::upload` (3 buffers), `evaluate_nnfx` (3 buffers).
+
+**4 production unwraps eliminated:** `backtest.rs` — 2× `bars.last().unwrap()` → if-let pattern. `darwin.rs` — `regimes.iter().max_by().unwrap()`/`min_by().unwrap()` → `.unwrap_or(&default_regime)` with `MEDIUM_VOL` fallback.
+
+**O(n²) → O(1) HashMap lookups in `darwin.rs`:** `darwin_var_list.iter().find()` in correlation pair loop → pre-built `sharpe_map: HashMap<&str, f64>`. `all_open.iter().find()` → pre-built `open_pos_map: HashMap<(&str, &str), &tuple>`. `returns.iter().find()` in drawdown analysis (dates × darwins × returns) → pre-built `balance_maps: Vec<HashMap<&str, f64>>` per darwin. `Vec::with_capacity()` added for portfolio balance allocations.
+
+**Security audit: CLEAN** — all SQL parameterized, no path traversal, no command injection, no unsafe blocks, AES-256-GCM + PBKDF2 crypto, rate limiting in place.
+
+ADR-090/091 accuracy updated: ACSIL marked implemented (was "permanently out of scope"), test counts corrected 803→813, language count 9→10. Pest parser unwraps (58 in `parser.rs`) retained — standard pest idiom where grammar validates structure before Rust runs.
+
+**931 total commits. ~131,200 LOC. 813 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
