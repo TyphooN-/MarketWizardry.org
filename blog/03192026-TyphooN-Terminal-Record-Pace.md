@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **131,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **931 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **131,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **932 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **131,200 lines** across **931 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **131,200 lines** across **932 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -2006,7 +2006,13 @@ Old command names still work in the handler (match arms kept for backwards compa
 
 ADR-090/091 accuracy updated: ACSIL marked implemented (was "permanently out of scope"), test counts corrected 803→813, language count 9→10. Pest parser unwraps (58 in `parser.rs`) retained — standard pest idiom where grammar validates structure before Rust runs.
 
-**931 total commits. ~131,200 LOC. 813 tests. 8 crates. Zero warnings.**
+### Zero Non-Pest Production Unwraps (2026-04-10)
+
+**Final unwrap pass: 7 `.unwrap()` calls in `ir.rs` converted to `.expect()` with guard documentation.** `iOpen`/`iHigh`/`iLow`/`iClose`/`iVolume` — `.into_iter().last().unwrap()` → `.last().expect("guarded by !is_empty")` (5 sites). `MathMax`/`MathMin` — `it.next().unwrap()` → `it.next().expect("guarded by len==2")` (4 sites across 2 match arms).
+
+**Production unwrap audit: 41 remain, ALL in `parser.rs`** — standard pest idiom where the grammar validates structure before Rust code runs. **Zero `.unwrap()` in engine, native, web-server, web-protocol, web, or cli production code.** ADR-082 fully satisfied.
+
+**932 total commits. ~131,200 LOC. 813 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
