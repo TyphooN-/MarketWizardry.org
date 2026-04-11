@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **138,400 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **962 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **138,700 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **964 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2128,7 +2128,15 @@ New `engine/src/core/data_source.rs` introduces the **DataSourceManager** — a 
 
 **Expanded Darwinex web scraping to all DARWIN profile tabs and portfolio pages.** The scraper now clicks through Return/Performance, Risk, Investable Attributes, and Investor tabs per DARWIN, extracting the full data surface. Portfolio-level performance, risk, and allocation pages are scraped alongside individual DARWINs. Snapshot validation with retry on partial failures ensures complete data capture — 11 new data types, 50 new tests.
 
-**962 total commits. ~138,400 LOC. 904 tests. 8 crates. Zero warnings.**
+## EVSCRAPE FORCE + Darwinex Scope Regression Fix
+
+**+101 lines, -70 lines.** Cache bypass and scope filtering made reliable.
+
+**EVSCRAPE FORCE**: `EVSCRAPE FORCE` now bypasses the 24-hour fundamentals cache, forcing a fresh scrape regardless of when data was last fetched. LAN forwarding propagates the force flag to the server — remote clients get the same cache-bypass behavior as local.
+
+**Darwinex scope regression fix**: The background thread now loads `darwinex_specs` via `load_all_specs_parsed()` every cycle, auto-populating `darwinex_radar_data` so Darwinex scope filtering works without manually running `DARWINEXRADAR` first. `broker_scope_symbols()` returns `None` (no filter) when radar data is empty instead of `Some(empty_set)` — which was silently filtering everything to zero symbols. `EVSCRAPE FORCE` also bypasses the `scrape_failures` blocklist, not just the 24h cache.
+
+**964 total commits. ~138,700 LOC. 904 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
