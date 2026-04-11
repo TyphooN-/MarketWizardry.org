@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **136,000 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **937 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **136,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **943 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **136,000 lines** across **937 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **136,300 lines** across **943 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -2058,7 +2058,21 @@ New `engine/src/core/data_source.rs` introduces the **DataSourceManager** — a 
 
 **ADR accuracy sweep**: 6 ADR docs updated — compiler tests 82→216 with 8 transpiler backends (067), data sources 19→21 with tastytrade/Kraken added (069), OCO + CancelAll + leverage marked implemented (072), ICS export done (084), broker scope sites resolved + ForexFactory filters implemented (085).
 
-**937 total commits. ~136,000 LOC. 865 tests. 8 crates. Zero warnings.**
+## SCOPE System, Scrollbar Fixes, Test Coverage, Cache Repair
+
+**+390 lines, -92 lines across 10 files in 6 commits.** Symbol scoping gets a proper UI and the test suite fills gaps.
+
+**SCOPE POSITIONS** (`native/src/app.rs`): New scope filter shows only symbols with open positions across Alpaca + tastytrade. Useful for focused outlier/fundamental analysis on actively held positions instead of 5,000+ symbols. Scope cycle: All → Alpaca → Darwinex → Tasty → Positions → All.
+
+**Unified SCOPE system**: SCOPE command and fundamentals source toggles (MT5/Alpaca/tastytrade) now drive the same state — changing one syncs the other. No more divergence between what OUTLIERS sees and what EVSCRAPE scrapes. New SCOPE popup window with checkboxes and quick presets (ALL, Alpaca Only, Darwinex Only, Positions). Status bar shows source toggles (MT5:ON Alpaca:off Tasty:off). All 8 checkbox combinations have explicit mappings — no more stale same-frame values.
+
+**Scrollbar fix** across all 26 floating windows: `auto_shrink(false)` on every `ScrollArea` instance so scrollbars appear at the window edge instead of mid-content. Outlier scanner switched to `ScrollArea::both` for horizontal overflow on wide grids.
+
+**Cache repair fix** (`engine/src/core/cache.rs`): `repair_bar_counts` now skips `__SPECS__`, `__SYMBOLS__`, `__SERVER__` metadata entries before attempting zstd decompression — eliminates warning spam on every startup.
+
+**+16 tests** filling gaps across 5 files: OCO body construction, Kraken credentials, data source wildcards/health, FRED series roundtrip, web-protocol OCO/DARWIN commands. **881 total, 0 failures, 0 warnings.**
+
+**943 total commits. ~136,300 LOC. 881 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
