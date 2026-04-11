@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **135,500 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **934 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **135,800 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **935 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **135,500 lines** across **934 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **135,800 lines** across **935 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -2034,7 +2034,19 @@ ADR-090/091 accuracy updated: ACSIL marked implemented (was "permanently out of 
 
 **ADR documentation updates**: 7 ADR docs updated with accuracy corrections and status changes — ADR-058 (GPU strategy optimizer), ADR-069 (feature status), ADR-072 (Kraken broker), ADR-081 (optimization roadmap), ADR-085 (broker scope), ADR-088 (gap closure), ADR-089 (EasyLang/ThinkScript/phone orders).
 
-**934 total commits. ~135,500 LOC. 854 tests. 8 crates. Zero warnings.**
+## ADR-038 Phase 2: Pluggable DataSourceManager with Priority Routing
+
+**+385 lines, -34 lines across 5 files.** The data layer gets its routing brain.
+
+New `engine/src/core/data_source.rs` introduces the **DataSourceManager** — a pluggable priority-based routing engine for market data. Five default sources ranked by priority: MT5 (1) > Alpaca (2) > tastytrade (3) > CryptoCompare (4) > Kraken (5). The manager handles `resolve_candidates()` for priority-ordered cache key lookup, `mark_success()`/`mark_failure()` for health tracking, and `update_health()` with automatic timeout detection (15 minutes without data → unhealthy). Unhealthy sources get demoted to end of candidate list but are still tried as last resort.
+
+**Per-symbol wildcard overrides** allow routing specific instruments to preferred sources — e.g., `BTC*` → Kraken first. The `find_cache_key()` function now uses `DataSourceManager::resolve_candidates()` instead of hardcoded source lists.
+
+**SOURCES console command** displays a health dashboard as a Summary result card — live visibility into which sources are healthy, unhealthy, or overridden.
+
+**11 new tests** covering source resolution, health transitions, wildcard overrides, and priority ordering. 865 total, 0 failures, 0 warnings.
+
+**935 total commits. ~135,800 LOC. 865 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
