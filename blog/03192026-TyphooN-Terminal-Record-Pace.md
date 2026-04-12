@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **142,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **990 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,100 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **996 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2344,7 +2344,100 @@ Fix: look up the second-to-last bar timestamp from the existing cache entry via 
 
 Fix: derive `server_name` from the suffix of the room id/alias so it works regardless of which homeserver hosts the room. Also `%23`-encode `#` for alias support, and surface "already joined" as a positive result instead of a silent no-op. The terminal's SHARE-to-Matrix feature (see last update) was occasionally failing on first-run for users who hadn't previously seen the room — this makes the first join succeed.
 
-**990 total commits. ~142,200 LOC. 908 tests. 8 crates. Zero warnings.**
+## The Full Repo O(1) Pass
+
+**Six commits in one sweep. One obsession: kill the N+1, kill the per-frame allocation, kill the redundant SQL parse.** After ADR-106's mimalloc + max-release-profile landing, the natural next question was "where is the terminal still doing N work that could be O(1)?" Turns out: a lot of places. What follows is five batches of a **full-repo O(1) pass** plus the opening batch of round 2.
+
+### bg_rev: Derived Caches Only Rebuild When BG Moves
+
+**The biggest single win.** The BG thread replaces `self.bg` atomically every cycle; the render thread reads from it every frame at monitor refresh rate. Multiple derived caches in the render path — `cached_scope_syms`, `cached_scoped_fundamentals`, `cached_mt5_symbols` — were being **rebuilt from scratch every frame**, even when the BG data hadn't changed. That's:
+
+- **~500 Fundamentals struct clones per frame** (~1 MB of allocation churn) for the scoped fundamentals cache
+- **A fresh HashSet rebuild** from `detailed_stats` with N `split+upper` per frame for the MT5 symbols cache
+- **Per-frame rescoping** of symbol lists that only change when the user switches broker scope or BG refreshes
+
+Fix: introduce a `bg_rev` monotonic counter that bumps whenever the BG thread swaps `self.bg`. Derived caches key on `(bg_rev, broker_scope)` and only rebuild when the key changes. A cache that used to fire **60 times a second** now fires **once per BG cycle** (every few seconds). That's ~3 orders of magnitude fewer rebuilds.
+
+`get_sparkline` now returns `Arc<Vec<f64>>`. The 6 local sparkline maps (unusual volume, EV scanner, fundamentals window, dividend calendar, outlier table, etc.) store the Arc so per-row clones become **O(1) refcount bumps** instead of copying 30 f64s × N rows per frame. For a 100-row scanner open, that's 6,000 f64 copies per frame replaced by 6,000 integer increments.
+
+Four other things in the same commit:
+- **`fuzzy_score` palette search**: precomputed `COMMANDS_LOWER` table + caller lowercases query once. Was doing `2 × N .to_lowercase()` allocations per frame while the palette is open. Replaced with constant-string slice lookups.
+- **darwin_breakdown positions join**: `.map(|d| d.clone()).collect::<Vec<String>>()` → `.map(|d| d.as_str()).collect::<Vec<&str>>()`. No more per-frame String clone per DARWIN per position.
+- **Pre-normalize to uppercase at load time**: `sec_filings.ticker`, `insider_trades` keys, `congress_trades.ticker`, `unusual_volume_results` symbols. Per-frame scope filters can now use `contains(s.as_str())` directly — no fresh `to_uppercase()` allocation per record per frame.
+- **`evict_lru` in the bar cache**: N per-row `DELETE` calls replaced with a single chunked `DELETE ... WHERE key IN (?, ?, ...)`. **~100× faster** on large eviction batches.
+- **`get_sector_exposure`**: `sector_map` value was `(Vec<String>, ...)` with `Vec::contains` O(N) dedup in the hot loop. Swapped to `HashSet<String>` for O(1) insert + dedup, materialized to sorted `Vec` at output.
+- **SEC scraper N+1**: replaced N per-symbol `SELECT last_scrape_date` round-trips (each in its own `spawn_blocking` with its own DB connection) with a **single upfront batch** `SELECT ticker, last_scrape_date FROM sec_scrape_index` into a HashMap. One query instead of N.
+
+**557 engine + 85 native tests still pass. Zero warnings.**
+
+### Batch 2: LAN Sync Buffer Reuse, Bulk KV Drain, Chart Bare Hoist
+
+**Every batch finds something.** `lan_sync::import_table_json` was allocating both a `Vec<Value>` and a `Vec<&dyn ToSql>` for every row during multi-thousand-row imports — millions of heap allocations when importing a full LAN sync snapshot. Rewrote to reuse one `Vec<Value>` buffer across rows and feed rusqlite via `params_from_iter(buf.iter())`. One allocation instead of N.
+
+`cache::drain_queue` got the same treatment as `evict_lru`: N per-row `DELETE ... WHERE key = ?` inside the transaction replaced with chunked `DELETE ... WHERE key IN (?, ?, ...)` at CHUNK=512. Same IN-list pattern, same ~100× speedup on large batches.
+
+`list_kv_entries_since` (polled by LAN sync on every tick) now uses `prepare_cached` to skip the SQL re-parse.
+
+**The MT5 live bid/ask refresh** (fires every 30 frames at 60Hz = twice a second) was computing `chart.symbol.replace('/', '').to_uppercase() + split(':').collect()` **once per quote per chart** inside the inner quote × chart loop. With 50 quotes × 20 charts that's 1,000 redundant allocations per refresh. Hoisted `chart_bare` out of the inner loop — now computed once per chart per cycle. 20 allocations instead of 1,000.
+
+**`draw_chart` sub-panes**: `Vec::with_capacity(bars.len())` for the 6 per-frame `points: Vec<Pos2>` buffers in supertrend, MACD (line + signal), stochastic (%K + %D), ADX (triple-series), plus Bollinger upper/lower fill vecs. Skips the geometric reallocation sequence egui normally does as points are pushed — fewer `memcpy` calls during the chart render.
+
+### Batch 3: Trade Marker Binary Search + Sparkline Uppercase Drop
+
+**`draw_chart` trade markers**: the marker list is already sorted by `bar_idx` in `build_trade_overlay()`. Use `partition_point` to binary-search the first marker `>= start_idx`, then `take_while` until `end_idx`. **Skips the O(N) full-list scan every frame** when the account has thousands of historical markers. On a DARWIN with 5,000 trade markers and a 200-bar visible window, this is 5,000 comparisons per frame replaced with ~log₂(5000) ≈ 13 comparisons plus 200 takes.
+
+**Sparkline HashMap lookups**: `uv_sparklines` (unusual volume), `sparklines` (EV scanner), `fw_sparklines` (fundamentals window) all had `.get(&sym.to_uppercase())` calls. But `sym` is **already normalized uppercase at creation** in all three cases (checked via tracing back through `parse_yahoo_data` and the scanner constructors). Swapped to `.get(sym.as_str())` to drop **N String allocations per row per frame** when the scanner is open.
+
+**Supertrend points** Vec pre-sized to `bars.len()` to skip the geometric realloc.
+
+### Batch 4: `prepare_cached` for Bar Cache Hot Reads
+
+**SQLite reparses every `prepare` call.** That's the SQL parse + query-plan cost. `prepare_cached` keeps the parsed statement in the connection's statement cache and reuses it across calls — the parse cost is paid once per connection lifetime and amortised across every call for the life of the worker thread. No behavioural change, just the parse overhead removed.
+
+Converted on the hot bar-cache read paths:
+- `cache::detailed_stats` — called every BG cycle by the background thread
+- `cache::all_keys` — called by LAN sync, symbol search, scanners
+- `cache::get_raw_blob` — called in LAN sync migration and BG jobs
+- `cache::read_bid_ask` — called every 30s from the UI to refresh forming bars
+- `cache::get_bar_timestamp_range_with_conn` — called for every crypto entry on every BG cycle (was reparsing the same SQL N times per phase)
+- `app.rs` BG Phase 1c `detailed_stats` direct query — same treatment
+
+Each saves the SQL parse + plan cost; the win scales with the number of calls inside a hot loop. Multiply by the BG cycle rate and it adds up.
+
+### Batch 5: `prepare_cached` for DARWIN BG Queries
+
+**Same pattern, different hot loop.** The BG thread iterates ~10-20 DARWIN accounts every cycle and calls into `darwin::get_daily_returns`, `get_darwin_open_positions`, `get_darwin_summary`, and `list_darwin_accounts` — each was re-parsing the same SQL text on every call. All converted to `prepare_cached`:
+
+- `get_daily_returns` (called N times inside `get_darwin_correlations` + `get_portfolio_daily_returns` + several other aggregators)
+- `get_darwin_open_positions` (called N times inside `get_portfolio_open_positions`)
+- `get_darwin_summary` — its `darwin_positions WHERE account = ?` and `darwin_deals ORDER BY time` queries
+- `list_darwin_accounts` (called at the top of every BG phase entry point)
+
+On a portfolio with 15 DARWINs, a single BG cycle used to do ~60 redundant SQL parses across these four entry points. Now: 4 parses, amortised across every subsequent call.
+
+### Round 2 Batch 1: SEC N+1 Drop, Log Pre-Format, Bound Drain
+
+**Round 1 was the obvious stuff. Round 2 finds the hidden N+1s.** `sec_filing::scrape_filings_for_ticker` was doing **3 per-filing SQL round-trips** on every filing: exists check, insert, alert-dedup `COUNT`. For a 100-filing batch that's **~300 round-trips**. Replaced with two bulk preloads into HashSets before the loop, plus **one transaction** that batches the INSERTs via prepared statements. DB work drops from ~300 round-trips to **2 + 100 prepared inserts** — all inside one tx.
+
+`fundamentals::scrape_batch` was doing **two per-ticker SELECTs** before every Yahoo call (`scrape_failures WHERE symbol=?` and `fundamentals WHERE symbol=?`). A 500-ticker scrape was **1000 DB round-trips just for bookkeeping** before any Yahoo request fired. Swapped for two upfront `SELECT symbol [, last_updated]` scans into a HashSet + HashMap. **1000 round-trips → 2.**
+
+**Log bottom panel rendering**: pre-format `display: String` at `LogEntry::new`, drop the per-frame `format!("[{}] {} {}", ...)` over all 200 log entries every render. **~12,000 allocs/sec → 0** on the log render path. Removed the now-unused `icon()` helper and the `timestamp` field (folded into `display`).
+
+**`broker_rx` drain**: cap at **128 messages per frame** and call `ctx.request_repaint()` when the cap is hit. A flood of broker messages can no longer stall the render thread — leftover messages pick up on the next frame. Bounded work per frame is non-negotiable for a 60Hz UI.
+
+**Symbol Explorer `parse_cache_key`** was returning `(&str, String, &str)` and collecting `Vec<&str>` via `split(':').collect()` per cache-key. Rewrote with `splitn` + byte-count prefix check — **no heap Vec, same semantics**. Replaced `symbol.replace('/', "").to_uppercase()` (two allocs) with `replace(..)` + in-place `make_ascii_uppercase` (one alloc).
+
+**Symbol Explorer `fund_map`** now keys on `&str` (since `f.symbol` is uppercase via `parse_yahoo_data`) — dropped N `to_uppercase` allocations per frame.
+
+**`compute_all_indicators` pivot-previous-close**: hoisted `last_day` out of the reverse-find closure. Was being recomputed on every bar in the scan — classic hoisting miss. One bind outside the loop, done.
+
+**Command palette recent-command check**: per-row `recent_commands.iter().take(10).any()` → `HashSet<&str>` built once outside the render loop. Quadratic palette render killed.
+
+---
+
+**The meta-point**: six commits, net **+224 LOC across the whole repo**. This is not a rewrite — it's the cumulative effect of **a lot of small, boring, correct fixes** applied to the hot paths. The terminal was already fast (it's been running at monitor refresh rate the whole time). What this pass proves is that "fast" has headroom: there's always another `to_uppercase` hiding in a render loop, another `Vec<&dyn ToSql>` allocated per row in a multi-thousand-row import, another SQL statement being re-parsed on every BG cycle. The `bg_rev` counter pattern in particular is the kind of thing that only becomes obvious once you ask "when does this data actually change?" — and the answer is almost always "less often than I'm recomputing it."
+
+**996 total commits. ~141,100 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
