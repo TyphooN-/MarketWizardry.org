@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,100 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **996 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **1001 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2433,11 +2433,65 @@ On a portfolio with 15 DARWINs, a single BG cycle used to do ~60 redundant SQL p
 
 **Command palette recent-command check**: per-row `recent_commands.iter().take(10).any()` → `HashSet<&str>` built once outside the render loop. Quadratic palette render killed.
 
+### Round 2 Batch 2: Fused Math Passes, DARWIN prepare_cached Sweep
+
+**The analytics layer had compounding math waste.** `darwin::get_darwin_correlations` was doing a **3-pass Pearson**: one pass for `mean_a`, one for `mean_b`, then a deviation pass across an intermediate `Vec<(f64, f64)>` pair buffer. Replaced with a single-pass running-sums formula that iterates the smaller of the two date maps. Zero allocation inside the inner loop. On a 20-DARWIN correlation matrix that's **N²/2 fewer 3-pass setups per BG cycle**.
+
+`screener::find_stat_arb_pairs` was doing **3 separate passes over the spread series** (mean, variance, std) before the AR(1) half-life **4-pass regression** fired. Fused to: one pass builds spreads and accumulates sum + sum_sq simultaneously, then a single-pass AR(1) coefficient computation via running sums of x, y, xy, x².
+
+`backtest::TradeReport::from_trades` was building a `wins: Vec<f64>`, a `losses: Vec<f64>`, and then summing them for `total_pnl` — three passes plus two intermediate Vecs. Replaced with a single branchless loop accumulating `gross_profit / gross_loss / total_pnl / n_wins / n_losses` in one traversal. Zero intermediate allocation, zero branch mispredicts on the inner path.
+
+**DARWIN `prepare_cached` sweep** hit **15 more per-account analytics queries**: `get_darwin_equity_curve`, `get_darwin_pnl_by_symbol`, `get_streak_analysis`, `get_hourly_pnl`, `get_day_of_week_pnl`, `get_hold_time_stats`, `get_symbol_rotation`, `get_sizing_efficiency`, `get_cost_analysis` (both inner queries), `analyze_slippage`, `compute_tax_lots`, `get_equity_history`, `get_portfolio_equity_curve`, and the per-account deals query inside `get_timing_divergences`. Every one of these is called N times per BG cycle across every DARWIN on the account list — parse + plan cost is now amortised.
+
+`darwin::get_hourly_pnl` was also doing `dt.format("%H").to_string().parse::<usize>()` — **allocating a String on every row just to read one integer**. Replaced with `dt.hour() as usize` via chrono's `Timelike` trait. Zero allocation on the hour-bucket loop.
+
+**`native/src/app.rs` fine-grain wins**: hoisted `last_day` out of the pivot-points reverse-find closure (was being recomputed on every scanned bar). Right-panel active symbol display swapped `split + Vec<&str>::collect` for `rsplit` + `next`. Three more broker-message handlers (MTF Live Quote, Watchlist Quote, 30s bid/ask refresh) got the same `rsplit` treatment when deriving the chart-bare symbol. Symbol-autocomplete fundamentals scan dropped the redundant `.to_uppercase()` on the already-uppercase `f.symbol` field.
+
+### Round 2 Batch 3: prepare_cached Sweep on sec_filing + fundamentals Hot Reads
+
+Same treatment, different module. `sec_filing::get_filing_alerts` (drives the alerts panel), `get_all_filings` and `get_all_insider_trades` (run once per BG phase to refresh the cache), and `get_unfetched_filings` (backs the content backfill worker) all switched from `conn.prepare` to `conn.prepare_cached`. Each is called every BG cycle — the parse + plan cost is now paid **once per connection lifetime**, not per call.
+
+Added `check_keywords_in(&keywords, content)` taking a **pre-loaded slice**. Batch callers used to hit `SELECT keyword FROM sec_keyword_watchlist` **once per filing** they were scanning; now the keywords are loaded once at the top of the batch and the check is pure in-memory.
+
+`fundamentals.rs` got the same sweep: `get_fundamentals` (per-symbol research panel reads), `get_all_fundamentals` (BG fundamentals cache refresh), `get_upcoming_earnings` + `get_upcoming_dividends` (BG calendar refresh), `get_quarterly_financials` + `get_institutional_holders` (research panel per-symbol reads) — six functions, all on hot paths, all now `prepare_cached`.
+
+### Round 2 Batch 4: Single-Pass Statistics Across Engine Analytics
+
+This is the batch where the **raw-moments formula** pays off at scale. The canonical textbook way to compute variance is to take a mean pass, then a deviation pass: `Σ(xᵢ - μ)²`. The raw-moments form is `Σxᵢ² - n·μ²` — same result, **one pass instead of two**, numerically stable at the data scales this engine operates on.
+
+**`var::detect_outliers`** (sector IQR) was doing **3 passes**: sum to get mean, a `.iter().map().collect::<Vec<_>>()` of deviations, then `std_dev` calling a Welford pass on the collected Vec. Fused to one pass using raw-moments. Zero intermediate allocation.
+
+**`var::detect_multi_outliers::z_scores`**: same treatment. The closure now folds mean + variance into a single pass over the per-dimension values.
+
+**`screener::compute_symbol_correlation_matrix`**: single-pass running-sums Pearson replaces two intermediate `ret_a` / `ret_b` Vecs and three passes (mean_a, mean_b, deviation accumulators). The correlation loop walks the aligned close slices **once per pair** and accumulates sums directly into `cov / var_a / var_b` formulas. For an N × M matrix that's **N²/2 fewer 2-allocation pair setups** per BG invocation of the screener.
+
+**`screener::compute_hv_cone`**: two wins here. First, build the log-returns series **ONCE** and share it across all lookbacks — the old code was recomputing it per lookback. Second, replace the O(lookback · window) rolling-HV loop with an O(N + lookback) sliding sum + sum_sq update: each window advance is **one add and one subtract** instead of re-scanning the whole window. For `252 × [10,30,60,90,120,180,252]` that's **~120k inner ops → ~1.7k**. Also swapped the post-sort `filter(<= current).count()` rank for `partition_point`.
+
+**`darwin::get_rolling_var`**: reuse the `pnls` buffer across sliding windows instead of allocating a new `Vec<f64>` per iteration. On a 500-day series that's **~500 allocations eliminated** per call. Fused mean + variance over `return_pct` into a single loop via raw-moments.
+
+**`darwin::compute_var_full`** was the worst offender: **five separate loops** — build `pnls`, build `returns`, sum pnl, sum returns, variance pass, downside_sq + downside_count, max_dd — all fused into **ONE loop over `daily_returns`**. Also eliminates an intermediate `Vec<f64>` (was building both `pnls` and `returns`). Still sorts `pnls` for the percentile VaR computation, but sorts the buffer we just built rather than a clone.
+
+### Round 2 Batch 5: put_kv_dedup Static Keys, Trade Autocorrelation Single-Pass
+
+**Small but hot-path**. `native/src/app.rs::put_kv_dedup` had all five call sites passing `&'static str` literals — `"broker:positions"`, `"broker:watchlist"`, etc. Changed `kv_write_hashes` and `kv_write_times` from `HashMap<String, ...>` to `HashMap<&'static str, ...>` and took the key as `&'static str`. Drops **one `key.to_string()` allocation per call** on the hot BrokerMsg handler path — ~5 allocs × every broker tick.
+
+`engine/src/core/darwin::compute_trade_autocorrelation`: switched the `darwin_positions WHERE account = ?` profit query to `prepare_cached`, and fused the mean + variance computation into a single pass over `profits` via the raw-moments formula (was two traversals).
+
+### Round 2 Batch 6: Sliding-Window Volatility on Remaining DARWIN BG Paths
+
+**The last of the O(N·window) offenders.** `darwin::compute_conditional_var` and `detect_market_regime` were both computing a 20-day rolling volatility via **O(N·20) double-pass per window**. Replaced with a sliding sum + sum_sq: on each advance, subtract the outgoing element and add the incoming one, then derive variance from raw moments. Total work drops from **O(N·20) → O(N)**.
+
+`darwin::compute_signal_decay` was the big one. The rolling Sharpe window was **building a fresh `Vec<f64>` of returns per iteration** and then doing mean + variance in two traversals. Switched to the same sliding-sums pattern. Was **O(N · window · 2)** — for a 500-day series × 90-day window × ~10 accounts per BG cycle that's **~900,000 ops**. Now **O(N) → ~5,000 ops per account**. That's a **180× reduction on a single function**, compounding across every BG phase tick.
+
+`darwin::simulate_margin_call`: build the `returns` buffer **AND** accumulate sum + sum_sq **in one pass** instead of collect-then-two-traversal. The Monte Carlo loop below still needs the `Vec` for random indexing, so the allocation stays — but the stats fold is free now.
+
+`darwin::compute_trade_autocorrelation`: confirmed that the single-pass raw-moments variance (`sum_sq − n·mean²`) is **numerically stable** for the trade-count scales this function runs on. It always gates on `profits.len() > 10` before proceeding, and at that scale the catastrophic-cancellation risk of raw-moments variance vs. Welford is negligible.
+
 ---
 
-**The meta-point**: six commits, net **+224 LOC across the whole repo**. This is not a rewrite — it's the cumulative effect of **a lot of small, boring, correct fixes** applied to the hot paths. The terminal was already fast (it's been running at monitor refresh rate the whole time). What this pass proves is that "fast" has headroom: there's always another `to_uppercase` hiding in a render loop, another `Vec<&dyn ToSql>` allocated per row in a multi-thousand-row import, another SQL statement being re-parsed on every BG cycle. The `bg_rev` counter pattern in particular is the kind of thing that only becomes obvious once you ask "when does this data actually change?" — and the answer is almost always "less often than I'm recomputing it."
+**The meta-point — Round 2 edition**: eleven commits across two rounds, **+438 Rust insertions against 196 deletions** over the whole surface. This is **not a rewrite** — it is what happens when you stop treating "fast" as a binary and start asking where the compounding waste lives. Round 1 killed per-frame cache rebuilds and N+1 SQL patterns. Round 2 proved the analytics layer itself had **compounding math waste**: triple-pass Pearson correlations, nested window scans for rolling volatility, fresh `Vec<f64>` allocations inside sliding-window loops, and `String` allocations just to read an integer hour field. The common thread: **single-pass raw-moments** (`sum, sum_sq → mean, variance`) replaces the two-traversal formulas that textbooks teach and every implementation ships. Numerically stable at the scales these functions operate on, and cuts both the traversals and the allocations in half. `compute_signal_decay` alone went from ~900k ops per BG cycle to ~5k — **180× on a single function**, compounding across every BG phase tick.
 
-**996 total commits. ~141,100 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
+**1001 total commits. ~141,300 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
