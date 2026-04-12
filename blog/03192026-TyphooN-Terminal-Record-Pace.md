@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,000 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **976 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **978 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2236,7 +2236,17 @@ The wiring pass continues. Sparklines land in two more tables (`div_screen_grid`
 
 **Sparkline cache bounds**: 2000-entry soft cap (~480KB), drops the 500 oldest entries on overflow. No LRU bookkeeping cost — a simple truncation beats tracking access time for this workload.
 
-**976 total commits. ~141,000 LOC. 904 tests. 8 crates. Zero warnings.**
+## ADR-101/102: Every Surface, Every Table, Every Window
+
+**Two more wiring passes.** ADR-098/099/100 got context menus into 11 tables and sparklines into 5. ADR-101 and ADR-102 push those numbers to **17 surfaces for context menus** and **7 for sparklines** — effectively every grid and window that shows a symbol.
+
+**ADR-101 (wiring pass 2)**: Context menus land in `live_orders` and `congress_grid` (13 tables total). Sparklines reach 6 tables with the Fundamentals window gaining an 80×18 inline chart next to the ticker name. **OUTLIERS handler clone reduction**: the per-row handler was cloning `f.symbol` **four times per row**; now it clones once and reuses. On a 1000-symbol scan that's **~3000 String allocations eliminated**. VAROUTLIER gets the same pattern — another ~1000 saved.
+
+**ADR-102 (wiring pass 3)**: Context menus extend to `earnings_cal_grid`, `div_cal_grid`, `event_cal_grid`, and the insider trades window header — **17 surfaces total**. Sparklines reach the insider trades window (100×18 next to the active symbol) — **7 surfaces total**.
+
+**The inner-loop fix**: `active_symbols()` was deduping with `Vec::contains()`, which is `O(n²)` — a quadratic cost quietly running on every "Active Only" filter check across the app. Replaced with `HashSet::insert()` — `O(n)`. A `cached_active_symbols` field now recomputes once per frame, and **six callsites** read from the cache instead of rebuilding the set each time. Non-trivial win: this used to be one of the hot spots on large watchlists.
+
+**978 total commits. ~141,200 LOC. 904 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
