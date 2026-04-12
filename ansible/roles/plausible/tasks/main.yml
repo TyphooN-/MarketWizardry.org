@@ -3,11 +3,17 @@
   apt:
     name:
       - docker.io
+      - containerd
       - docker-compose-v2
       - python3-docker
-      - caddy
     state: present
     update_cache: true
+
+- name: Ensure containerd service is running
+  systemd:
+    name: containerd
+    state: started
+    enabled: true
 
 - name: Ensure docker service is running
   systemd:
@@ -109,12 +115,70 @@
     mode: "0644"
   notify: restart plausible
 
-- name: Deploy Caddy reverse proxy config
-  template:
-    src: Caddyfile.j2
-    dest: /etc/caddy/Caddyfile
-    mode: "0644"
-  notify: restart caddy
+- name: Find Apache .bak backup files from earlier runs
+  find:
+    paths:
+      - /etc/apache2/sites-enabled
+      - /etc/apache2/sites-available
+    patterns: "*.bak.*"
+    use_regex: false
+  register: apache_bak_files
+
+- name: Clean up stacked Apache .bak files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ apache_bak_files.files }}"
+
+- name: Enable Apache proxy modules
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - proxy
+    - proxy_http
+    - headers
+  notify: restart apache
+
+- name: Disable obsolete global plausible.conf if present
+  command: a2disconf plausible
+  args:
+    removes: /etc/apache2/conf-enabled/plausible.conf
+  notify: restart apache
+
+- name: Remove obsolete global plausible.conf file
+  file:
+    path: /etc/apache2/conf-available/plausible.conf
+    state: absent
+  notify: restart apache
+
+- name: Backup default-ssl.conf before injecting Plausible proxy
+  copy:
+    src: /etc/apache2/sites-available/default-ssl.conf
+    dest: /etc/apache2/sites-available/default-ssl.conf.preplausible
+    remote_src: true
+    force: false
+
+- name: Inject Plausible proxy directives into default-ssl.conf
+  blockinfile:
+    path: /etc/apache2/sites-available/default-ssl.conf
+    insertbefore: "</VirtualHost>"
+    marker: "    # {mark} ANSIBLE MANAGED PLAUSIBLE PROXY"
+    block: |2
+          # Plausible Analytics reverse proxy — same-origin tracking
+          ProxyPreserveHost On
+          RequestHeader set X-Forwarded-Proto "https"
+
+          # Tracking script served from same origin (unblockable by ad blockers)
+          # Serves the enhanced variant with outbound links, file downloads,
+          # 404 tracking, and hashed page paths enabled.
+          ProxyPass /js/plausible.js http://127.0.0.1:{{ plausible_port }}/js/script.file-downloads.hash.outbound-links.js
+          ProxyPassReverse /js/plausible.js http://127.0.0.1:{{ plausible_port }}/js/script.file-downloads.hash.outbound-links.js
+
+          # Plausible event API
+          ProxyPass /api/event http://127.0.0.1:{{ plausible_port }}/api/event
+          ProxyPassReverse /api/event http://127.0.0.1:{{ plausible_port }}/api/event
+  notify: restart apache
 
 - name: Start plausible stack
   community.docker.docker_compose_v2:

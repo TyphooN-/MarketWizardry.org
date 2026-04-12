@@ -4,7 +4,7 @@
     project_src: "{{ plausible_deploy_dir }}"
     state: restarted
 
-- name: restart caddy
+- name: restart apache
   systemd:
-    name: caddy
+    name: apache2
     state: restarted
