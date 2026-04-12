@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **979 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,400 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **982 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2254,7 +2254,30 @@ The wiring pass continues. Sparklines land in two more tables (`div_screen_grid`
 
 **Stat arb pairs get context menus too**: the stat arb window displays pairs as `SYM_A / SYM_B`, and both symbols in each pair now have independent right-click menus — **18 surfaces with context menus total**. Full symbol interactivity across every grid, window, and pair display in the app.
 
-**979 total commits. ~141,300 LOC. 904 tests. 8 crates. Zero warnings.**
+## ADR-104/105: Active Filter HashSet, Filing Truncation, BG Blacklist
+
+**Two more wiring passes and a real inner-loop fix.** ADR-104 introduces `cached_active_symbols_set` — a HashSet field built once per frame — and converts **five windows** (Unusual Volume, Congress, EV Scanner, Earnings Calendar, Dividend Calendar) from `O(N×M)` `iter().any()` calls to `O(1)` HashSet lookups. On a 100-row watchlist with 30 active symbols, that's **3,000 string comparisons per frame replaced by 100 hash lookups** — a quiet but significant win on the active-filter hot path.
+
+**Filing truncation cap**: `store_filing_content()` now caps at **500KB of plain text** with UTF-8 boundary-safe truncation (no mid-codepoint splits, marker appended). The FTS5 index gets the same truncation. A single 8-MB 10-K filing was enough to bloat the cache — capped now.
+
+**Backfill grid context menu**: another surface joins the family. **19 surfaces with context menus total.**
+
+**ADR-105 (wiring pass 6)**: the BG thread's darwin:deleted blacklist was a `Vec` with an `O(n²)` `retain` — flipped to `HashSet` for `O(n)` retain. Cache capacities pre-allocated at startup so the sparkline cache (256), sector interner (64), and cached active-symbols set (64) do not reallocate during the first few frames. Also investigated a suspicious `build_trade_overlay` call — `entry.2.contains(...)` turned out to be `String::contains` (substring check), not `Vec::contains`, and was correct as written. 904 tests still pass.
+
+## ADR-106: mimalloc + Max Release Profile
+
+**The allocator gets replaced.** `mimalloc` (Microsoft Research's small-object-optimized allocator) is now the global allocator for the entire terminal. For a workload like this — thousands of small `String` and `Vec<f32>` allocations per frame as grids re-render and indicator pipelines feed GPU buffers — a small-object-tuned allocator is the right call. **Expected 5–15% frame latency reduction** on render-heavy operations.
+
+**Release profile maxed out**:
+- `opt-level` **2 → 3** (max optimizations + auto-vectorization)
+- `lto` **thin → fat** (cross-crate inlining across all 8 crates)
+- `codegen-units` → **1** (single-pass compilation, lets LLVM see the whole program)
+- `panic = abort` (no unwind tables, smaller binary)
+- `debug = false` (strip debug info)
+
+Build time goes from **3 minutes to 8 minutes** on release. For a production trading binary that runs 8+ hours a day at monitor refresh rate, that tradeoff is obvious. 904 tests pass, 0 warnings.
+
+**982 total commits. ~141,400 LOC. 904 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
