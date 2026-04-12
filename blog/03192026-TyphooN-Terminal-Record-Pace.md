@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **978 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **979 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2246,7 +2246,15 @@ The wiring pass continues. Sparklines land in two more tables (`div_screen_grid`
 
 **The inner-loop fix**: `active_symbols()` was deduping with `Vec::contains()`, which is `O(n²)` — a quadratic cost quietly running on every "Active Only" filter check across the app. Replaced with `HashSet::insert()` — `O(n)`. A `cached_active_symbols` field now recomputes once per frame, and **six callsites** read from the cache instead of rebuilding the set each time. Non-trivial win: this used to be one of the hot spots on large watchlists.
 
-**978 total commits. ~141,200 LOC. 904 tests. 8 crates. Zero warnings.**
+## ADR-103: Scoped Fundamentals Cache + Stat Arb Menus
+
+**One more pass. The `cached_scoped_fundamentals` field is recomputed once per frame**, and three callsites — the sector heatmap, dividend screener, and outlier scanner — now read from the cache instead of re-running the scope filter each time.
+
+**The `.to_uppercase()` bug**: the EV Scanner was calling `.to_uppercase()` on every symbol **three times per frame** (once per callsite that needed an uppercase key for the scope filter). That's **~600 String allocations eliminated per render** on a 200-symbol scanner just by hoisting the uppercase conversion and caching the result.
+
+**Stat arb pairs get context menus too**: the stat arb window displays pairs as `SYM_A / SYM_B`, and both symbols in each pair now have independent right-click menus — **18 surfaces with context menus total**. Full symbol interactivity across every grid, window, and pair display in the app.
+
+**979 total commits. ~141,300 LOC. 904 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
