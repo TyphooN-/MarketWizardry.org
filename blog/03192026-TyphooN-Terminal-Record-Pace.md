@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **138,700 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **964 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **140,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **973 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2136,7 +2136,67 @@ New `engine/src/core/data_source.rs` introduces the **DataSourceManager** — a 
 
 **Darwinex scope regression fix**: The background thread now loads `darwinex_specs` via `load_all_specs_parsed()` every cycle, auto-populating `darwinex_radar_data` so Darwinex scope filtering works without manually running `DARWINEXRADAR` first. `broker_scope_symbols()` returns `None` (no filter) when radar data is empty instead of `Some(empty_set)` — which was silently filtering everything to zero symbols. `EVSCRAPE FORCE` also bypasses the `scrape_failures` blocklist, not just the 24h cache.
 
-**964 total commits. ~138,700 LOC. 904 tests. 8 crates. Zero warnings.**
+## O(1) Hot-Path Optimizations (ADR-095)
+
+**All remaining O(n²) and O(n) hot paths converted to O(1).** The live quote ingestion loop was rebuilt around a pre-built symbol→chart-indices `HashMap` per message batch, collapsing the old `O(quotes × charts)` nested iteration into a single `HashMap` lookup per tick. Watchlist quote routing uses the same pattern.
+
+**Static HashSets for routing**: Indices and forex classification uses `LazyLock<HashSet>` instead of per-tick `.iter().any()` calls with `Vec` allocations. LAN watchlist filter switched to `HashSet` for O(1) exact-match lookup. MTF grid sort uses a match-based ordinal rather than `.position()` linear search.
+
+**ADRs 084 through 094 moved from Accepted to Implemented.** Every pluggable data source, every audit recommendation, every deferred perf pass — closed out and documented. 904 tests pass.
+
+## SEC Filing Database: FTS5 + Indefinite Storage + Insider Aggregation
+
+**Complete rearchitecture of SEC EDGAR filing storage.** New schema: `sec_filing_content` stores full plain-text filing content with no retention limit, `sec_fts` is a FTS5 virtual table with porter stemming and Unicode tokenization, and `sec_keyword_watchlist` holds proactive alert keywords. The background thread now loads ALL filings and ALL insider trades (previously capped at 100/90-day windows).
+
+**New engine functions**: `get_all_filings()`, `get_all_insider_trades()` (no limits), `strip_html_to_text()`, `store_filing_content()` with automatic FTS5 indexing, `search_filings_fts()`, `filing_content_stats()`, keyword watchlist CRUD, and `get_unfetched_filings()` for backfill prioritization.
+
+**SEC window UI**: `broker_scope` filtering replaces the old "Active Only" checkbox, a text search box provides instant client-side filter over the loaded filings, "X/Y indexed" status shows full-text search coverage, and a new **Insiders tab** aggregates Form 4 trades across symbols with cluster detection — 3+ trades within a 14-day window get flagged as a high-confidence cluster signal. Filing content auto-stores to the DB and FTS5 index on first View Document.
+
+## SEC Phase 2: Content Backfill, Chart Overlays, Filing Diff, Timeline Heatmap
+
+**+1,400 lines across BG thread, chart rendering, and SEC window.** The background thread now runs a continuous content backfill: every ~30 seconds it fetches 5 unfetched filings in a spawned thread with 250ms rate limiting. Every filing gets indexed into FTS5 without user intervention.
+
+**Keyword watchlist UI**: the Alerts tab lets you add/remove keywords as removable badges. During backfill, each new filing's text is scanned against the watchlist — matches fire `KEYWORD_MATCH` alerts. Proactive SEC intelligence with zero manual work.
+
+**Insider trade chart overlay**: `build_trade_overlay()` renders Form 4 buy/sell markers directly on the price chart, labeled with the insider's name (e.g., `SEC:John Smith`). See every insider transaction contextualized against price action without leaving the chart.
+
+**Filing diff viewer**: `diff_filing_content()` runs an LCS-based paragraph diff between the current filing and its previous revision via `find_previous_filing()`. Compare 10-Q to 10-Q, see what changed in management's risk disclosures. Nobody else in retail tooling does this.
+
+**Timeline tab**: monthly filing activity heatmap with proportional bars, color intensity scaled to density, and a form type breakdown per month. At a glance you see whether a company is quiet or slammed with activity.
+
+## GPU→CPU Indicator Fallback: Thirteen Boundary Regressions Fixed
+
+**Every GPU-accelerated indicator has a CPU fallback for when the shader path fails or is unavailable.** The CPU and GPU paths must produce identical results — and they weren't. Two commits fix thirteen off-by-one and warmup-period bugs that were silently discarding valid indicator bars.
+
+**RSI**: `i<=period` → `i<period`. First valid RSI bar was being blanked. **ADX**: split warmup into separate DI+/- (period) and ADX (period*2-1) windows — was blanking 14 valid DI bars, and ADX warmup had an off-by-one. **CCI**: hardcoded `i<20` corrected to `i<19` (period-1). **Fisher**: added explicit index boundary alongside the 0.0 sentinel check (0.0 is a legitimate Fisher value and was being treated as "not yet valid").
+
+**Williams %R**: `i<14` → `i<13`. **Ehlers EBSW**: `i<40` → `i<2` — 38 valid bars were being discarded. **Ehlers Cyber Cycle**: `i<7` → `i<4`. **Ehlers Center of Gravity**: replaced 0.0 sentinel with `i<9` index boundary (0.0 is a valid oscillator reading). **Ehlers Roofing Filter**: `i<10` → `i<2`. **MAMA/FAMA**: added `i<6` index boundary alongside 0.0 sentinel.
+
+**Bonus**: `sec_filing.rs` symbol dedup switched from `Vec::contains()` O(n²) to `HashSet` O(n). Zero production `unwrap()` confirmed (ADR-082 compliant). 904 tests pass, zero warnings.
+
+## VAROUTLIER + ATROUTLIER: MarketWizardry.org Methodology Ported to Rust
+
+**Three commits build out VaR-based and ATR-based IQR outlier detection commands**, matching the methodology used in the MarketWizardry.org VaR Explorer and ATR Explorer.
+
+**VAROUTLIER** computes `VaR_1_Lot` from D1 daily returns (95% confidence, `z × σ × price`) for every scoped symbol, then runs three-level IQR detection (sector → industry → global) with 1.5× IQR multiplier. Reports Q1, Q3, IQR, and bounds in the log. New engine function: `compute_var_from_closes()`. Then upgraded to the **full DWEX Portfolio Risk Man formula**: `VaR_1_Lot` now uses `tickValue`/`tickSize` from the `__SPECS__` CSV — the same formula as the MQL5 `CPortfolioRiskMan` class. New engine: `compute_var_from_closes_with_tick()` accepts a tick scaling factor, `load_tick_specs()` extracts per-symbol tick specs from bar cache. The VaR/Ask ratio used for IQR analysis is tick-scale-invariant (`z × σ × scale × price / price = z × σ × scale`), so the comparison remains fair across instruments with wildly different tick structures.
+
+**ATROUTLIER** computes ATR(14)/Close ratio from D1 bars, runs IQR per sector, matching the MarketWizardry.org ATR Explorer methodology. Both commands scope-filtered, both read directly from the bar cache.
+
+**Cruft removal**: `IMPORT_DARWIN` and `EXPORT_DARWIN` commands deleted. XLSX import via `DarwinImportAll` is the real path — the JSON import/export path was dead code. Command palette shrinks from 264 to 262 commands. **69 BrokerCmd variants sent, 27 BrokerMsg variants handled**. Zero dead code wired into the UI.
+
+## Performance/UX/Memory Pass (ADR-097)
+
+**Audit of 18 items across UX, performance, and memory. Twelve implemented, six deferred with rationale.**
+
+**UX**: the command palette gains `fuzzy_score()` subsequence matching with positional bonus, replacing the old contains-only filter — type `vrout` and VAROUTLIER matches. The filing detail viewer gains a sticky pin button with accession-tracked content, so scrolling the filing list doesn't blow away your current view.
+
+**Performance**: explicit `PRAGMA wal_checkpoint(TRUNCATE)` on quit — the WAL no longer balloons across crashes.
+
+**Memory — the big wins**: `sec_filing_content` now stores content with **zstd-3 compression** for ~10× size reduction. Insider trades are SQL-filtered to the last 5 years on load. The bar cache gained **LRU eviction** with a 500MB soft limit — eviction skips entries newer than 7 days (hot data always retained) and runs every 30 minutes alongside the existing vacuum cycle.
+
+**Deferred with rationale**: `Arc<str>` symbol interning, GPU buffer pool, scope cache, workspace presets, sparklines, chart auto-scroll. All documented in ADR-097 so future-me (or any contributor) understands why the knob wasn't turned.
+
+**973 total commits. ~140,300 LOC. 904 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
