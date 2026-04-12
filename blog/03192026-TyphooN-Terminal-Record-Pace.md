@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,400 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **982 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **142,200 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **990 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2277,7 +2277,74 @@ The wiring pass continues. Sparklines land in two more tables (`div_screen_grid`
 
 Build time goes from **3 minutes to 8 minutes** on release. For a production trading binary that runs 8+ hours a day at monitor refresh rate, that tradeoff is obvious. 904 tests pass, 0 warnings.
 
-**982 total commits. ~141,400 LOC. 904 tests. 8 crates. Zero warnings.**
+## Outlier Tables: Industry Column + Sortable Headers
+
+**The multi-dim OUTLIERS window gets an industry breakout.** `OutlierResult` / `MultiOutlierResult` now carry an `industry` field; `detect_outliers` and `detect_multi_outliers` take `(symbol, sector, industry, ...)` tuples. IQR grouping stays **by sector** — industry has too few peers per bucket for stable IQR — but it's carried as a display/sort column so you can finally see which *industry* within a sector an outlier is drifting from.
+
+**VAROUTLIER / EVOUTLIER / ATROUTLIER single-metric tables**: converted from static egui Grid to **clickable sortable headers** — Symbol / Sector / Industry / Value / Median / Tier / Z-Score / Dir. Default sort is `|z-score|` descending. VAROUTLIER lost its redundant second IQR-by-industry pass in the process — same information now rides along as a column on the sector-grouped result. One pass instead of two.
+
+## Yahoo Fundamentals: ETF / Fund / Crypto Fallback
+
+**Every ETF used to show up as "Unknown" in the outlier tables.** Yahoo Finance returns an empty `summaryProfile` for ETFs and mutual funds — they populate `fundProfile` + `quoteType` instead. Previously every ETF fell through with an empty sector/industry and got bucketed as Unknown, obscuring the actual sector distribution in the scanner.
+
+- Added `fundProfile,quoteType` to `YAHOO_MODULES`.
+- When `summaryProfile` is empty, `parse_yahoo_data` now reads `categoryName` / `family` / `legalType` from `fundProfile` and `quoteType` from `quoteType`:
+  - **ETF** → sector='ETF', industry=categoryName (e.g. 'Large Blend')
+  - **MUTUALFUND** → sector='Mutual Fund', industry=categoryName
+  - **CRYPTOCURRENCY / CURRENCY / INDEX / FUTURE** → corresponding sector bucket (last-resort fallback when `fundProfile` is absent)
+
+Equities with populated `summaryProfile` are untouched. 4 new tests cover ETF, mutual fund, crypto last-resort, and the equity-unchanged case.
+
+## ASKAI / ASKCLAUDE / ASKGEMINI: Research Packet Commands
+
+**The palette's bare AI/CLAUDE/GEMINI commands are dead. Long live ASKAI/ASKCLAUDE/ASKGEMINI.** These new commands open the corresponding chat window **AND** — when given symbol arguments — pre-load a full Markdown research packet assembled from every local data source the terminal has:
+
+- `symbol_fundamentals` row: sector, industry, mcap, EV, debt, cash, P/E, fwd P/E, PEG, P/B, P/S, EV/EBITDA, margins, ROE, ROA, beta, short interest, dividend yield, next earnings date, description
+- **Last 4 quarterly financials** from the SQLite cache: revenue, net income, FCF, gross/operating profit, EPS
+- **Top 5 institutional holders**: org, shares, pct, value
+- **Recent SEC filings**: form, category, summary
+- **Insider activity summary**: buy/sell counts, aggregate values, last 5 transactions
+- **Price & volatility**: last close, 20/60/252d returns, ATR(14) %, VaR 95% per 1 lot
+- **Sector peer comparison**: this symbol's ratios vs sector median across 9 metrics (P/E, P/B, P/S, EV/EBITDA, margins, ROE, beta, short % float, dividend yield), minimum 3 peers required
+
+**Three backends, one contract**:
+- `ASKAI` → `BrokerCmd::AiChat` (Claude / GPT / Gemini / Grok / Mistral / Perplexity / Local)
+- `ASKCLAUDE` → `claude --print` subprocess
+- `ASKGEMINI` → `gemini` subprocess
+
+Type `ASKGEMINI CC,NCLH what's their debt burden vs the sector?` and you get a chat window already populated with 10+ KB of structured fundamentals for both symbols plus the question verbatim. No re-querying Yahoo at chat-time, no copy-paste — it's already there.
+
+**Also in the same commit**: Claude Code CLI chat intercepts interactive-only slash commands (`/status`, `/help`, `/clear`, `/model`, `/cost`, `/config`, `/login`, ...) **locally** before shelling out. Previously `/status` returned "Unknown skill: status" because `claude --print` treats `/foo` as a skill invocation. `/clear` clears history, `/help` and `/status` return a local explanation, other interactive-only commands return a note. Regular user-invocable skills (`/commit` etc.) still pass through. **908 tests pass.**
+
+### Palette Plumbing: Argument Honour + Parser Fix
+
+Two follow-up commits fixed subtle bugs exposed by the new ASKAI commands:
+
+**Palette honours typed arguments on Enter.** The command palette was always executing `cmd.name` from the selected row, so typing `ASKGEMINI CC,NCLH what's their debt?` fuzzy-matched to `ASKGEMINI` and then dropped everything after the command name — the chat window opened empty with no research packet. Fix: on Enter, if the input contains whitespace the **raw input** is passed to `handle_command` verbatim; otherwise the palette selection is used as before (fuzzy-match stays intact for short typing). Click-to-execute still runs `cmd.name` with no args. MRU dedupes on the leading token now so `ASKAI CC` and `ASKAI NCLH` collapse to one entry.
+
+**Argument parser: stop swallowing question words.** `handle_command()` upper-cases the entire command string before `parse_ask_args()` runs, so my original `is_tickerish` check based on `is_ascii_uppercase` treated every word in a user question as a ticker. Typing `ASKGEMINI CC,NCLH what is your opinion...` ended up pushing a packet for symbols `[CC, NCLH, WHAT, IS, YOUR, OPINION, ...]` which was obviously wrong. New contract: **the first whitespace-separated token is the comma-separated symbol list; everything after the first whitespace is the question, preserved verbatim.** Space-separated symbol lists are no longer accepted — use commas. Added 7 regression tests: single-symbol, comma-separated, single+question, multi+question (the original bug), dedupe, empty input, and special-character tickers (BRK.B, RDS-A, BTC-USD).
+
+## MT5 Parity: MTF_MA and MultiKAMA Plot Every Timeframe
+
+**A subtle parity bug fixed.** `compute_mtf_sma` and `compute_multi_kama` previously skipped any timeframe `<=` the current chart TF, which meant a W1 chart only rendered the MN1 line from MTF_MA (1/6 of the buffers) and only the MN1 KAMA from MultiKAMA (1/5 of the buffers). **MT5's `MTF_MA.mqh` declares all 6 plotted buffers (H1/200, H4/200, D1/200, W1/200, W1/100, MN1/100) as `INDICATOR_DATA` with no chart-period guard.** `MultiKAMA.mqh` does the same for its 5 KAMA buffers. Both indicators draw every line on every host timeframe.
+
+Guard removed in both functions. Lower-TF lines projected onto higher-TF bars are informationally thin — but they match MT5 1:1, which is the mandate. **GPU/CPU parity is non-negotiable** (see CLAUDE.md: GPU/CPU parity mandatory, no disabling).
+
+## Alpaca FetchBars: Incremental Delta via `get_incremental_start`
+
+**99% reduction in API load on scheduled syncs.** `FetchBars` has always called `get_bars(.., limit=1000)` with no `after_timestamp`, which meant every scheduled sync re-fetched the full lookback window — **hundreds to thousands of bars** even when only a handful of new bars had formed since the last call.
+
+Fix: look up the second-to-last bar timestamp from the existing cache entry via `cache.get_incremental_start()` and pass it to `broker.get_bars_after()`. When the delta is empty we preserve the existing cache untouched; when there are new bars we read the existing entry, merge-dedupe by timestamp, and write the combined series back. **First-ever fetch** of a symbol still does a full lookback (no cache yet). For true full history the `BARDATA` command still exists and calls `get_all_bars()`, which ignores the lookback caps entirely.
+
+**Net effect** on a typical daily sync with cached D1 bars: **1-2 bars returned instead of 1000, ~99% reduction in API load** and ~99% less bandwidth + parse work on each cycle. Rate-limiter pressure drops proportionally. The scheduler already runs hourly on every cached symbol — this is the kind of quiet win that only shows up when you look at the outbound request log and realise it shrunk by two orders of magnitude.
+
+## Matrix Client: `server_name` Hint on Join
+
+**A federation bug hiding in plain sight.** The Matrix client-server spec for `POST /_matrix/client/v3/join/{roomId}` recommends passing `?server_name=<host>` to tell your homeserver which federation peer to ask about the room. When the hint is missing and your homeserver hasn't resolved the room before, it returns `M_UNKNOWN: "No known servers"` — even if the target homeserver is your own.
+
+Fix: derive `server_name` from the suffix of the room id/alias so it works regardless of which homeserver hosts the room. Also `%23`-encode `#` for alias support, and surface "already joined" as a positive result instead of a silent no-op. The terminal's SHARE-to-Matrix feature (see last update) was occasionally failing on first-run for users who hadn't previously seen the room — this makes the first join succeed.
+
+**990 total commits. ~142,200 LOC. 908 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
