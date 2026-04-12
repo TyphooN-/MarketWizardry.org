@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **140,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **973 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,000 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **976 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -2196,7 +2196,47 @@ New `engine/src/core/data_source.rs` introduces the **DataSourceManager** — a 
 
 **Deferred with rationale**: `Arc<str>` symbol interning, GPU buffer pool, scope cache, workspace presets, sparklines, chart auto-scroll. All documented in ADR-097 so future-me (or any contributor) understands why the knob wasn't turned.
 
-**973 total commits. ~140,300 LOC. 904 tests. 8 crates. Zero warnings.**
+## ADR-098/099/100: Every Deferred Item Implemented, Every Table Wired
+
+**Three ADRs in one sprint. Every item deferred in ADR-097 is now implemented, every new piece of infrastructure is wired into every table that can use it, and the allocation profile has been halved again.**
+
+### ADR-098 — The Deferred Seven
+
+Every item the perf pass deferred with rationale gets built:
+
+- **PERF2: Per-frame scope HashSet cache** — `cached_scope_syms` invalidated each `update()`. `scoped_fundamentals*()` and the SEC/EV scanner now read from the cache instead of recomputing the scope set on every callsite.
+- **PERF4: GPU buffer pool** — `pooled_bar_count` tracks the last upload size per chart. Forming-bar updates skip **8 buffer reallocations per chart per tick** by reusing the existing GPU buffer when the bar count hasn't grown.
+- **PERF5: Sector interning** — `sector_interner: HashMap<String, Arc<str>>` plus `intern_sector()` helper. Infrastructure in place for the migration pass in ADR-099.
+- **UX3: Symbol action pattern** — `SymbolAction` enum, `symbol_label_with_menu()` free function, `apply_symbol_action()` helper. Right-click any symbol, get chart/fundamentals/SEC/insider actions in a context menu. Wired first into the Outlier Scanner.
+- **UX4: Workspaces** — `WORKSPACE_SAVE`, `WORKSPACE_LOAD`, `WORKSPACES` commands. `capture_workspace_snapshot()` serializes ~20 `show_*` flags; `apply_workspace_snapshot()` restores them. Name a layout, switch to it with one command.
+- **UX6: Auto-scroll to extremes** — `outlier_scroll_pending` flag. On first EXTREME tier outlier, the table scrolls to the row so you see the thing that matters without hunting.
+- **UX7: Sparklines** — `sparkline_cache` with lazy fetch via `get_sparkline()`. `draw_inline_sparkline()` renders a 60×14px inline chart inside grid cells. First deployment in the EV Scanner.
+
+### ADR-099 — Wire It Everywhere
+
+With the symbol action + sparkline infrastructure in place, ADR-099 runs the wiring pass across every table that can use it.
+
+**Symbol context menus in nine grids**: `outliers_grid`, `multi_outlier_grid`, `ev_scanner_grid`, `sec_filings_grid`, `insider_agg_grid`, `swap_harvest_grid`, `radar_grid`, `div_screen_grid`, `unusual_vol_grid`. Every table that shows a symbol now lets you right-click for actions. The Watchlist context menu gains View fundamentals / View SEC / View insider entries.
+
+**Sparklines in three more tables**: EV Scanner, Multi-Outlier, Single-Dim Outlier. Sparklines are pre-fetched outside the rendering closure to avoid egui borrow conflicts.
+
+**PERF5 migration — the 20× allocation reduction**: `detect_outliers()` now uses `HashMap<Arc<str>, Vec<(&str, f64)>>` internally for sector grouping. Every symbol in every sector group used to clone a `String` for the sector key — now it's an `Arc::clone()` refcount bump. `tier` changed from `String::from("EXTREME")` to `&'static str` literals. `sector_str` is materialized once per group instead of once per symbol. For a 1000-symbol scan across 50 sectors, that's roughly **20× fewer `String` allocations**.
+
+### ADR-100 — Deeper Still
+
+The wiring pass continues. Sparklines land in two more tables (`div_screen_grid` and `unusual_vol_grid` — **five tables total** now). Live Alpaca and tastytrade positions gain right-click context menus via a new `deferred_symbol_action` field applied at the end of `update()` (deferred because the positions loop can't mutably borrow `self` while iterating).
+
+**Built-in workspace presets** — four curated layouts shipped out of the box:
+- **TRADING** — focus mode, charts + order panel only.
+- **RESEARCH** — full data surface, every fundamentals/SEC/EV window open.
+- **DARWIN** — analytics-first: portfolio VaR, correlation, DARWIN allocation.
+- **COMPACT** — everything closed except the command palette.
+
+`Self::builtin_workspace()` returns the snapshot; `WORKSPACE_LOAD` falls back to a builtin if no user-saved workspace matches the name. Type `WORKSPACE_LOAD TRADING` and the terminal rearranges itself.
+
+**Sparkline cache bounds**: 2000-entry soft cap (~480KB), drops the 500 oldest entries on overflow. No LRU bookkeeping cost — a simple truncation beats tracking access time for this workload.
+
+**976 total commits. ~141,000 LOC. 904 tests. 8 crates. Zero warnings.**
 
 ![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
 
