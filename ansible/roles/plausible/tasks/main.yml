@@ -184,3 +184,30 @@
   community.docker.docker_compose_v2:
     project_src: "{{ plausible_deploy_dir }}"
     state: present
+
+# ----- Credential display (opt-in) -----
+# Run with `-e show_credentials=true` to print the generated secrets so they
+# can be backed up to a password manager. Skipped by default.
+- name: Display Plausible credentials for backup
+  debug:
+    msg: |
+      === PLAUSIBLE CREDENTIALS — STORE IN PASSWORD MANAGER ===
+      Host:           {{ inventory_hostname }}
+      Deploy dir:     {{ plausible_deploy_dir }}
+
+      SECRET_KEY_BASE:  {{ secret_key_base.content | b64decode }}
+      TOTP_VAULT_KEY:   {{ totp_vault_key.content | b64decode }}
+      POSTGRES_PASSWORD: {{ pg_password.content | b64decode }}
+
+      These files live on the server at:
+        {{ plausible_deploy_dir }}/.secret_key_base
+        {{ plausible_deploy_dir }}/.totp_vault_key
+        {{ plausible_deploy_dir }}/.pg_password
+
+      WARNING: Back these up now. Losing them means:
+        - Existing admin sessions become invalid
+        - TOTP 2FA secrets cannot be decrypted
+        - PostgreSQL data volume becomes unrecoverable without password
+      ============================================================
+  no_log: false
+  when: show_credentials | default(false) | bool
