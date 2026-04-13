@@ -261,8 +261,8 @@ The GUI requires a display server. Algorithmic trading on a VPS doesn't have one
 :sell SLV 50               # Market sell
 :limit buy AAPL 10 150.00  # Limit order
 :stop sell SMCI 100 25.00  # Stop order
-:bracket buy CC 500 15.00 25.00  # Bracket (OCO)
-:close CC                  # Close position
+:bracket buy AAPL 100 150.00 180.00  # Bracket (OCO)
+:close AAPL                # Close position
 :closeall                  # Close everything
 :chart BTC/USD H4          # ASCII candlestick chart
 :import DARWIN_EUR /path.csv  # Import MT5 statement
@@ -623,7 +623,7 @@ The final analytics expansion pushes `darwin.rs` past **4,900 lines** with **120
 
 Twelve indicator fixes across GPU and CPU fallback paths: EMA SMA bootstrap, KAMA seed, Fisher median+window, MACD signal, DEMA, Bollinger NaN handling, ATR initial value, minBars enforcement, Ichimoku Chikou, BetterVolume 2-bar, Alligator shift, ForceIndex. Every indicator produces identical output between GPU and CPU paths.
 
-**Multi-Symbol MTF Grid:** The grid supports multiple symbols simultaneously. View CC+SLV across H4+D1+MN1 in a single grid. GPU-first rendering. Sequential grid cell loading keeps the UI responsive during heavy multi-symbol loads.
+**Multi-Symbol MTF Grid:** The grid supports multiple symbols simultaneously. View AAPL+SLV across H4+D1+MN1 in a single grid. GPU-first rendering. Sequential grid cell loading keeps the UI responsive during heavy multi-symbol loads.
 
 **get_bars_tail: 34x Faster MT5 Bar Serving.** The old path serialized entire bar arrays to JSON, round-tripped through IPC, and deserialized. The new path does a binary tail read from the SQLite cache -- direct binary slice, zero JSON overhead. MT5 sync no longer triggers a full chart reload either (was freezing the UI every 30 seconds).
 
@@ -1532,7 +1532,7 @@ The XLSX trade history import is no longer Darwinex-only. The import pipeline no
 
 **Bar sanity filter:** reject bars with negative, zero, or NaN prices, and bars where high < low. Catches malformed data from APIs before it enters the cache.
 
-**LAN crypto backfill architecture finalized:** the server is the single source of truth for crypto data. Server runs periodic Kraken/CryptoCompare fetches for its active chart. The LAN client sends `FETCH_BARS` to the server (forwarded via LAN protocol), then triggers `LanResyncBars` for fast delivery. Server's `FETCH_BARS` handler detects crypto symbols and routes through `KrakenBackfill` (works on weekends without Alpaca). Client never hits Kraken/CC APIs directly.
+**LAN crypto backfill architecture finalized:** the server is the single source of truth for crypto data. Server runs periodic Kraken/CryptoCompare fetches for its active chart. The LAN client sends `FETCH_BARS` to the server (forwarded via LAN protocol), then triggers `LanResyncBars` for fast delivery. Server's `FETCH_BARS` handler detects crypto symbols and routes through `KrakenBackfill` (works on weekends without Alpaca). Client never hits Kraken/CryptoCompare APIs directly.
 
 **LAN client demand forwarding:** clients no longer write a local `demand.txt`. Instead, the client's symbol list is forwarded to the server via KV (`client:demand`). On session save, the server reads `client:demand` from its KV cache and merges those symbols into its own `demand.txt` for BarCacheWriter. Result: BarCacheWriter re-exports symbols that ANY machine in the LAN is actively viewing — not just the server's charts.
 
@@ -2312,7 +2312,7 @@ Equities with populated `summaryProfile` are untouched. 4 new tests cover ETF, m
 - `ASKCLAUDE` → `claude --print` subprocess
 - `ASKGEMINI` → `gemini` subprocess
 
-Type `ASKGEMINI CC,NCLH what's their debt burden vs the sector?` and you get a chat window already populated with 10+ KB of structured fundamentals for both symbols plus the question verbatim. No re-querying Yahoo at chat-time, no copy-paste — it's already there.
+Type `ASKGEMINI AAPL,MSFT what's their debt burden vs the sector?` and you get a chat window already populated with 10+ KB of structured fundamentals for both symbols plus the question verbatim. No re-querying Yahoo at chat-time, no copy-paste — it's already there.
 
 **Also in the same commit**: Claude Code CLI chat intercepts interactive-only slash commands (`/status`, `/help`, `/clear`, `/model`, `/cost`, `/config`, `/login`, ...) **locally** before shelling out. Previously `/status` returned "Unknown skill: status" because `claude --print` treats `/foo` as a skill invocation. `/clear` clears history, `/help` and `/status` return a local explanation, other interactive-only commands return a note. Regular user-invocable skills (`/commit` etc.) still pass through. **908 tests pass.**
 
@@ -2320,9 +2320,9 @@ Type `ASKGEMINI CC,NCLH what's their debt burden vs the sector?` and you get a c
 
 Two follow-up commits fixed subtle bugs exposed by the new ASKAI commands:
 
-**Palette honours typed arguments on Enter.** The command palette was always executing `cmd.name` from the selected row, so typing `ASKGEMINI CC,NCLH what's their debt?` fuzzy-matched to `ASKGEMINI` and then dropped everything after the command name — the chat window opened empty with no research packet. Fix: on Enter, if the input contains whitespace the **raw input** is passed to `handle_command` verbatim; otherwise the palette selection is used as before (fuzzy-match stays intact for short typing). Click-to-execute still runs `cmd.name` with no args. MRU dedupes on the leading token now so `ASKAI CC` and `ASKAI NCLH` collapse to one entry.
+**Palette honours typed arguments on Enter.** The command palette was always executing `cmd.name` from the selected row, so typing `ASKGEMINI AAPL,MSFT what's their debt?` fuzzy-matched to `ASKGEMINI` and then dropped everything after the command name — the chat window opened empty with no research packet. Fix: on Enter, if the input contains whitespace the **raw input** is passed to `handle_command` verbatim; otherwise the palette selection is used as before (fuzzy-match stays intact for short typing). Click-to-execute still runs `cmd.name` with no args. MRU dedupes on the leading token now so `ASKAI AAPL` and `ASKAI MSFT` collapse to one entry.
 
-**Argument parser: stop swallowing question words.** `handle_command()` upper-cases the entire command string before `parse_ask_args()` runs, so my original `is_tickerish` check based on `is_ascii_uppercase` treated every word in a user question as a ticker. Typing `ASKGEMINI CC,NCLH what is your opinion...` ended up pushing a packet for symbols `[CC, NCLH, WHAT, IS, YOUR, OPINION, ...]` which was obviously wrong. New contract: **the first whitespace-separated token is the comma-separated symbol list; everything after the first whitespace is the question, preserved verbatim.** Space-separated symbol lists are no longer accepted — use commas. Added 7 regression tests: single-symbol, comma-separated, single+question, multi+question (the original bug), dedupe, empty input, and special-character tickers (BRK.B, RDS-A, BTC-USD).
+**Argument parser: stop swallowing question words.** `handle_command()` upper-cases the entire command string before `parse_ask_args()` runs, so my original `is_tickerish` check based on `is_ascii_uppercase` treated every word in a user question as a ticker. Typing `ASKGEMINI AAPL,MSFT what is your opinion...` ended up pushing a packet for symbols `[AAPL, MSFT, WHAT, IS, YOUR, OPINION, ...]` which was obviously wrong. New contract: **the first whitespace-separated token is the comma-separated symbol list; everything after the first whitespace is the question, preserved verbatim.** Space-separated symbol lists are no longer accepted — use commas. Added 7 regression tests: single-symbol, comma-separated, single+question, multi+question (the original bug), dedupe, empty input, and special-character tickers (BRK.B, RDS-A, BTC-USD).
 
 ## MT5 Parity: MTF_MA and MultiKAMA Plot Every Timeframe
 
@@ -2492,10 +2492,6 @@ This is the batch where the **raw-moments formula** pays off at scale. The canon
 **The meta-point — Round 2 edition**: eleven commits across two rounds, **+438 Rust insertions against 196 deletions** over the whole surface. This is **not a rewrite** — it is what happens when you stop treating "fast" as a binary and start asking where the compounding waste lives. Round 1 killed per-frame cache rebuilds and N+1 SQL patterns. Round 2 proved the analytics layer itself had **compounding math waste**: triple-pass Pearson correlations, nested window scans for rolling volatility, fresh `Vec<f64>` allocations inside sliding-window loops, and `String` allocations just to read an integer hour field. The common thread: **single-pass raw-moments** (`sum, sum_sq → mean, variance`) replaces the two-traversal formulas that textbooks teach and every implementation ships. Numerically stable at the scales these functions operate on, and cuts both the traversals and the allocations in half. `compute_signal_decay` alone went from ~900k ops per BG cycle to ~5k — **180× on a single function**, compounding across every BG phase tick.
 
 **1001 total commits. ~141,300 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
-
-![TyphooN-Terminal — CC and NCLH MTF grid with DARWIN Portfolio Optimal Allocation, positions, watchlist with Ext%, and risk dashboard (April 2026)](/img/typhoon-terminal-cc-nclh-portfolio-20260408.webp)
-
-*Full terminal in action: CC and NCLH daily + monthly MTF grid. Right panel shows live positions (NCLH long $338K, CC long $197K, SLV short $149K), watchlist with extended hours Ext% column via Yahoo Finance, risk dashboard ($99K equity, VaR 95% $49K, Sharpe 3.594). DARWIN Portfolio Optimal Allocation overlay: ATPK optimal 26.9%, MFSO 20.3%, GVZJ 19.5% — current equal-weight 16.7% allocation is within tolerance. Portfolio VaR 95%: $49,887. Six Permanent Allocation DARWINs. One terminal.*
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
