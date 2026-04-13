@@ -6,7 +6,7 @@
 
 Bloomberg Terminal costs **$24,000** per year. Godel Terminal costs **$80-118** per month. MetaTrader 5 is "free" in the same way that a roach motel is free -- you walk in, your data never walks out, and MetaQuotes owns the building.
 
-TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,300 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **1001 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
+TyphooN-Terminal started as a sprint -- first functional build in **4.7 days**, March 15 to March 20, 2026. Then the frontend was rebuilt. Twice. The final architecture -- **141,800 lines of pure Rust**, zero JavaScript, native GPU rendering via egui + wgpu -- is the result of **1003 commits** and three complete rendering pipeline rewrites. The frontend was gutted and rebuilt because each iteration revealed that the bottleneck was the rendering architecture itself.
 
 This is not a mockup. This is not a demo. This is a fully functional native GPU trading terminal with **60+** indicators (all computed on GPU), **70** drawing tools, **48** floating analytical windows, a complete port of the TyphooN v1.420 risk management engine, direct MT5 SQLite bar sync across multiple Darwinex accounts, and enough research tools to make a sell-side analyst uncomfortable.
 
@@ -50,7 +50,7 @@ The canvas was replaced with a custom **WebGL2** rendering pipeline. Candlestick
 
 The entire JavaScript/WebKit/Tauri frontend was deleted. **40,000 lines of JS, gone.** The WASM chart engine -- gone. The IPC bridge -- gone. Every byte of functionality was rebuilt in pure Rust with **egui** (immediate-mode GUI) and **wgpu** (Vulkan/Metal/DX12).
 
-**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **138,400 lines** across **962 commits** and **8 crates**.
+**The codebase dropped from 73,000 to 38,662 lines** initially -- all Rust, zero JavaScript. The same features in half the code because there is no serialization layer, no bridge, no framework abstraction. Since then, continued development has grown the codebase to **141,800 lines** across **1003 commits** and **8 crates**.
 
 **What works:** Everything. Data flows from Rust structs directly to GPU buffers. No JSON. No IPC. No garbage collector. The indicator engine runs on **GPU compute shaders** (WGSL) -- bar data lives in VRAM and never touches the CPU for computation. The UI renders at monitor refresh rate via adaptive vsync and drops to 0fps when idle.
 
@@ -2491,7 +2491,23 @@ This is the batch where the **raw-moments formula** pays off at scale. The canon
 
 **The meta-point — Round 2 edition**: eleven commits across two rounds, **+438 Rust insertions against 196 deletions** over the whole surface. This is **not a rewrite** — it is what happens when you stop treating "fast" as a binary and start asking where the compounding waste lives. Round 1 killed per-frame cache rebuilds and N+1 SQL patterns. Round 2 proved the analytics layer itself had **compounding math waste**: triple-pass Pearson correlations, nested window scans for rolling volatility, fresh `Vec<f64>` allocations inside sliding-window loops, and `String` allocations just to read an integer hour field. The common thread: **single-pass raw-moments** (`sum, sum_sq → mean, variance`) replaces the two-traversal formulas that textbooks teach and every implementation ships. Numerically stable at the scales these functions operate on, and cuts both the traversals and the allocations in half. `compute_signal_decay` alone went from ~900k ops per BG cycle to ~5k — **180× on a single function**, compounding across every BG phase tick.
 
-**1001 total commits. ~141,300 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
+## SEC Window: Hash-Keyed Cache Rebuild + DB-Cached Filing Viewer
+
+**Two commits, one obsession: stop re-deriving SEC window state every frame.** The SEC window was doing **per-frame dedup** (`format!()` per row building a `"{ticker}:{form}:{date}"` key), multi-field `.to_lowercase()` search across ticker+form+title+accession, a fresh `HashSet` allocation per frame, and a full `sort_by` over every filing in the database. On a 5,000-filing scope that's thousands of allocations and string comparisons **every frame the window is open**, even when nothing has changed.
+
+Fix: hoist **all four tab datasets** — filings indices, insider rows + 14-day clusters, timeline monthly grouping, per-tab filing counts — into a single `rebuild_sec_caches()` function keyed by a **`u64` hash** (DefaultHasher over `bg_rev + broker_scope + filters + query + sort_mode`). Steady state is now **zero O(N) work**; caches rebuild only when the hash key actually changes. Filings dedup switched from `format!("{}:{}:{}")` to a tuple `HashSet<(String, String, String)>` key — no intermediate allocation. Search reduced to symbol-only uppercase compare (ticker is stored upper at ingest, so no case-folding needed).
+
+**Chart "+" buttons across every table.** Added an inline "open new chart tab" button next to symbol cells in: Watchlist (custom painter — new `col_plus` at `avail_w - 28`, relative-x hit-test), Outlier Scanner (both multi-outlier and single-metric tables), SEC Filings + Insiders tabs (wrapped in `ui.horizontal` to stay one Grid column), Fundamentals, Holders, and Dividend Screener headers. Unified UX across every surface that shows a ticker — click the symbol for context menu, click "+" for instant chart.
+
+**MT5 auto-sync cadence fixed.** The auto-sync interval was 5 minutes but BarCacheWriter writes at `UpdateIntervalSec=30`. Dropped the UI sync to **30 seconds** (120 frames × 250ms idle) so fresh bars propagate from MT5 to the terminal at the same cadence they land in the cache.
+
+**DB-cached filing viewer + heuristic summarizer.** The SEC viewer now serves filing text from the `sec_filing_content` DB cache **before** re-fetching from EDGAR — no more waiting for a network round-trip to re-read a filing you've already downloaded. Summary cache invalidated on fresh content. New `sec_filing::summarize_filing()` is a **deterministic, form-type-aware heuristic**: 8-K extracts numbered Items, 10-K/Q extracts Risk Factors + MD&A sections, DEF 14A extracts proposals, S-1 extracts Use of Proceeds, 13F reports row count, Form 4 falls back to a generic insider summary. GUI renders a headline + collapsible bullets/sections above the raw filing text.
+
+**LAN sync whitelist extended**: `sec_filing_content` added with `fetched_at` as the incremental sync column, so LAN peers replicate cached filing bodies instead of each peer re-fetching independently from EDGAR. **Gemini CLI window** got a dynamic `ScrollArea` height that fills available space instead of a hard-coded 340px, constrained to viewport.
+
+---
+
+**1003 total commits. ~141,800 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
 
 ![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
 
