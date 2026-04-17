@@ -1328,9 +1328,29 @@ def generate_flavor_text(title, filename):
         if kw in filename_lower:
             return desc
 
-    # Unique flavor text for specific educational/editorial articles
+    # Unique flavor text for specific editorial articles
     if 'discord-to-matrix' in filename_lower or 'var-cult-discord' in filename_lower or 'moves-to-matrix' in filename_lower:
         return "The internet used to be protocols. Then it became platforms. Discord wants your government ID now. Matrix is bringing protocols back. VaR Cult moved. You should too."
+
+    # Dedicated pool for TyphooN-Terminal dev blog posts (monthly format)
+    if 'typhoon-terminal' in filename_lower or 'terminal-record-pace' in filename_lower or 'terminal-april-dev-blog' in filename_lower or 'terminal-may-dev-blog' in filename_lower or 'terminal-june-dev-blog' in filename_lower or 'terminal-july-dev-blog' in filename_lower or 'terminal-august-dev-blog' in filename_lower or 'terminal-september-dev-blog' in filename_lower or 'terminal-october-dev-blog' in filename_lower or 'terminal-november-dev-blog' in filename_lower or 'terminal-december-dev-blog' in filename_lower or 'terminal-january-dev-blog' in filename_lower or 'terminal-february-dev-blog' in filename_lower or 'terminal-march-dev-blog' in filename_lower:
+        typhoon_terminal_texts = [
+            "Native GPU trading terminal devlog for people who believe Electron is a war crime and WebKit is the slow-motion aftermath.",
+            "Trading terminal chronicles for engineers who wrote Rust because Excel felt too permissive and Bloomberg felt too expensive.",
+            "Open-source Bloomberg-class terminal development for traders who think $32K/year is too much to pay for browser-based rendering.",
+            "GPU-rendered financial infrastructure devlog for people whose definition of MVP includes MQL5->WGSL transpilers and zero JavaScript.",
+            "Desktop trading terminal commit log for engineers who measured 'sprint' in sleep-deprived days and 'feature' in thousand-line diffs.",
+            "Trading terminal chronicles for the sort of person who looks at TradingView and mutters 'I can do this without a browser'.",
+            "4.7-day Bloomberg-class rewrite documented by someone who confused 'deadline' with 'personal challenge'.",
+            "Trading terminal devlog for people whose rendering pipeline opinions directly correlate with their blood pressure.",
+            "Open-source GPU trading platform development for engineers who consider Electron a slur and Qt a compromise.",
+            "Platform engineering dev log for those who looked at the trading software market and decided everyone else was doing it wrong.",
+            "Rust, wgpu, and Tauri held together by vibes-based version control. Trading terminal development as combat sport.",
+            "40+ commits/day sustained development log for people who think velocity charts are decorative and sleep is negotiable.",
+            "Trading terminal devlog for engineers who chose wgpu over WebGL because 'slightly abstracted Vulkan' felt like the correct amount of suffering.",
+            "Bloomberg-tier terminal dev log for traders who consider Electron bloatware a symptom of civilizational decline.",
+        ]
+        return select_unused_flavor_text(typhoon_terminal_texts, typhoon_terminal_texts[0], "typhoon_terminal")
 
     # Check if we can read the txt content for better position detection
     txt_content = ""
