@@ -1498,11 +1498,136 @@ Fix: hoist **all four tab datasets** — filings indices, insider rows + 14-day 
 
 ---
 
-**1003 total commits. ~141,800 LOC. 557 engine + 85 native tests. 8 crates. Zero warnings.**
+## News Pipeline: 6-Source Aggregator with FTS5 Search
 
-![Tome approves: lossless webp across the entire site. Peak efficiency.](/img/tome-approves-webp-20260406.webp)
+**Finnhub was sparse for MT5/Darwinex symbols.** The commit-1003 snapshot above still relied on Finnhub as the single news feed, which meant CC, NCLH, CAR, and most of the Darwinex equity universe returned empty result sets on news lookup. A dedicated `engine/src/core/news.rs` now aggregates **six sources**:
 
-*Tome has inspected the webp metadata. Lossless compression for a grin. Peak efficiency. All PNG content images across MarketWizardry.org have been converted to lossless webp via `cwebp -lossless`. Apple-touch-icons remain PNG (browser requirement). Every screenshot, every chart, every Tome hoot — webp. The owl has spoken.*
+- **Keyless sources:** GDELT (global news graph), Yahoo RSS (per-symbol feeds), SEC EDGAR (official filings)
+- **Free-tier keyed sources:** Marketaux, Alpha Vantage, Financial Modeling Prep
+
+Dedup runs on `SHA-256(url)` with field-merge `ON CONFLICT` — syndicated stories from multiple sources collapse to one row, but each source contributes whatever fields the others left blank. The merged result is a single `research_news` row with summary + headline + publisher + source attribution.
+
+**FTS5 virtual table** mirrors `headline + summary` for **O(log n)** cache search. Type a keyword, get hits across every ingested source in milliseconds without walking the backing table. `research_news` joined the LAN sync whitelist — the cache server scrapes once, and every client pulls incrementally by `updated_at` timestamp.
+
+**SEC-viewer-style two-pane reader.** The NEWS window got a full rewrite matching the SEC filing viewer pattern: clickable list on the left, lazy-loaded body on the right. Buttons: **Load Cached** (from SQLite), **Fetch All Sources** (6-source sweep), **Scrape All** (MT5 + Alpaca + tastytrade symbol universes), **FTS search**. The "(0)" empty-state bug from the launch window is gone — AI-ingested articles appear in the panel on the next tick.
+
+## ADR-130: AI Web Research Ingest — Closing the Round-Trip Gap
+
+**Problem:** Packets flow out to Claude/Gemini; the web-search articles those agents fetch get lost on every turn. The research context the AI just built is thrown away the moment the chat window closes.
+
+**Fix:** Every outbound packet now ships with a **Return Path footer** instructing the agent to echo its articles back in a `===TYPHOON_INGEST===` block. The `INGEST_RESEARCH` console command parses that block — **lenient: json fences, alias fields, tolerant of wrapper text** — and appends each article to a per-symbol bag (FIFO, 50 cap, URL-deduped, timestamp-wins).
+
+- **New table:** `research_web_articles` (schema v23), `WebArticle` struct, LAN sync replication
+- **BrokerMsg::IngestResearchArticles** handler upserts each `WebArticle` as a `NewsArticle` into `research_news` too (source tag `"Ingested/<agent>"`) — so the NEWS panel displays them immediately without a round-trip through `LoadCachedNews`
+- **Auto-refresh:** after a successful ingest, auto-dispatch `LoadCachedNews` for the active filter or first ingested symbol. No more "Claude ingested news but NEWS shows (0)"
+- **LAN fan-out:** client-mode terminals forward ingest packets to the LAN server so peers converge on the same research view
+
+The AI's web research is now **first-class terminal data**. What Claude read about CC's debt load yesterday is available to Gemini today, cached across every machine on the LAN.
+
+## ADR-157: AI Session Persistence + RESUME Slash Commands
+
+**Transcripts died on restart.** `engine/src/core/ai_sessions.rs` adds **zstd-compressed `kv_cache` storage** for every chat turn across all four AI surfaces (Claude Code, Gemini CLI, Codex CLI, generic AI Chat). Persists at reply-receipt sites so transcripts survive `File → Quit`.
+
+- **Claude's `--session-id` UUID** is saved on the first turn. `/RESUMECLAUDE` rejoins the original thread — Anthropic's server still has it, and now so do you
+- **Gemini / Codex / AI:** transcript replays as prompt context on the next turn (those CLIs don't expose session handles, so replay is the next-best thing)
+- **Four palette-bound slash commands:** `/RESUMECLAUDE`, `/RESUMEGEMINI`, `/RESUMECODEX`, `/RESUMEAI`
+- **AISESSIONS history-browser window** lists every prior session with model picker, turn count, last-message preview, and a one-click resume button
+
+## ADR-162: Cross-Client AI Response Cache (LAN-Shared)
+
+**One peer pays, the rest hit cache.** A `SHA256`-keyed `ai_response_cache` table intercepts every AI call in the native broker. Hash input is `(model, prompt, whitespace-normalised)`. Hit → return cached reply, bump `hit_count`, update `last_hit_at`. Miss → call the model, store, return. `updated_at` is the LAN sync delta column, so cache hits and hit-count bumps propagate to every peer on the next sync window.
+
+**11 engine tests ship with the cache:** hash determinism, whitespace normalisation, hit-count increment, stats aggregation, recent ordering, prune TTL, etc. **Stats window** shows top queries by hit count, recent queries, total hit ratio — the cache's own dashboard.
+
+The economics are straightforward: if four terminals on the LAN ask Claude the same question in one day, three of those calls resolve locally at zero marginal cost. For a terminal whose primary AI use case is repeated symbol research across a fixed watchlist, the hit ratio is high.
+
+## Codex CLI Integration (ASKCODEX)
+
+**Third AI surface lands.** `ASKCODEX SYM [question]` mirrors `ASKGEMINI`: packet-preloaded dispatch, standalone chat window with model picker (`gpt-5-codex` / `gpt-5` / `o4-mini`), one-shot `codex exec` per turn with `--skip-git-repo-check` so it runs outside a git repo.
+
+The terminal is now **model-agnostic across four AI integrations** — Claude Code (`claude`), Gemini CLI (`gemini`), Codex CLI (`codex`), and the generic AI Chat that speaks to whichever HTTP-backed provider is configured. Every one of them receives the same research packet, the same session persistence, the same cached-response lookup. The differentiator between them is the model, not the terminal.
+
+## ADR-148: MT5 BarCacheWriter Health-Check Protocol
+
+**Cold-start and silent-drift holes closed.** The MT5 bar sync path had two failure modes: (1) EA running but not yet writing → client gap-requests never answered, (2) EA silently stopped writing → client thinks bars are fresh indefinitely. Both now self-heal via heartbeat.
+
+**Engine side:**
+- `SqliteCache::read_mt5_heartbeat(account_tag)` — reads the EA's heartbeat row from `bar_cache`, returns `(json, row_ts)`
+
+**Native side:**
+- `BrokerMsg::Mt5Heartbeat(Vec<(path, json, row_ts)>)` emitted from the `Mt5Sync` worker after scanning each source DB
+- **Gap-fill demand** triggered when `heartbeat.row_ts` is older than `2 × UpdateIntervalSec` — forces the EA to rotate through the symbol queue even if it thinks it's idle
+
+## ADR-166: Options Expiration Calendar (Tier 1 + Tier 2)
+
+**Two-tier expiration intelligence.** Tier 1 is a **market-wide** calendar: weekly expirations, monthly expirations, quarterly expirations (index options), LEAPS expirations, VIX expirations. Tier 2 is **per-symbol**: the underlying's own options chain with expirations ranked by OI, volume, and days-to-expiration.
+
+Both tiers materialize as RESEARCH_PACKET fields so the AI sees expiration context alongside the rest of the symbol's data. The Tier 2 view answers questions like "what's the nearest high-OI monthly on NVDA" without a separate options-chain query.
+
+## Godel Parity Sweep: 65 Rounds of Indicator/Analytics Expansion
+
+**The headline item of April.** The RESEARCH_PACKET — the markdown payload sent to every AI backend — ballooned from ~40 research surfaces in March to **320+ surfaces** by April 17. Each "godel parity round" adds 4-5 new surfaces following the same **ADR-107/108 fetcher → BrokerCmd/Msg → SQLite → LAN sync** pattern:
+
+1. **Fetcher function** pulls data (TA-Lib derivation from bars, FMP API, SEC, Yahoo, etc.)
+2. **BrokerCmd/Msg** plumbing carries the fetch request and response across the broker worker boundary
+3. **SQLite cache table** persists the result for incremental LAN sync
+4. **Label heuristic** converts the raw number into a bucket string (e.g., `BULL_STRONG / BULL / NEUTRAL / BEAR / BEAR_STRONG / INSUFFICIENT_DATA`) so the packet gives the AI both the raw value and a human-readable classification
+5. **RESEARCH_PACKET.md docs** document the field, the source, the edge cases, and the label thresholds
+6. **Tests** — 5-12 per round — covering fetch, cache round-trip, label logic, LAN sync delta column
+
+**Cumulative surfaces by round range** (rounds 1-65, cumulative):
+
+| Category | Examples | Surfaces |
+|---|---|---|
+| Fundamentals | FA, MGMT, COT, DVD, EEB, UPDG, GY, FCFY, MARGINS, REGIME, RELVOL | 60+ |
+| Market structure | HRA, DCF, SVM, OMON, IVOL, WCR, BETA, DDM, WEI, MOV, INDU | 40+ |
+| Factor models | RRK, QRK, VRK, VAL, QUAL, RISK, MOMF, SIZEF, PEADRANK | 25+ |
+| Risk / VaR analytics | CVAR, RACHEV, UPR, LEVEREFF, DRAWDAR, VARHALF, GINI, ULCER | 35+ |
+| Volatility / distribution | PARKINSON, GKVOL, RSVOL, ENTROPY, PERMEN, RECFACT, KPSS, SPECENT, SAMPEN | 40+ |
+| Statistical tests | ADF, PSR, MNKENDALL, BIPOWER, DDDUR, LJUNGB, RUNSTEST, ARCHLM, JBNORM, KSNORM | 30+ |
+| TA-Lib canonical | MACD, RSI, ADX, CCI, CMF, MFI, PSAR, SUPERTREND, KELTNER, FISHER, AROON, ICHIMOKU, STOCH, VWAP, WILLR, ULTOSC, KST, DPO, PPO, TRIX, VORTEX, HMA, OBV, MOM, ROC, APO, SAREXT, MIDPRICE | 100+ |
+| Adaptive / advanced filters | MAMA, FRAMA, KAMA, ZLEMA, ALMA, T3, TRIMA, VIDYA, SMI, PVT, HT_TRENDLINE, HT_DCPHASE, HT_SINE, HT_PHASOR, LINEARREG, LINEARREG_SLOPE, LINEARREG_ANGLE | 45+ |
+| Pattern / structure | FRACTALS, ZIGZAG, PIVOTS, HEIKIN, DONCHIAN, ALLIGATOR, GATOR, DEMARKER, BBSQUEEZE, SQUEEZERANK | 25+ |
+
+**File-level impact** (as of round 65):
+
+- `engine/src/core/research.rs` — **52,559 lines** (from ~6,000 at blog-1003 snapshot)
+- `docs/RESEARCH_PACKET.md` — **6,211 lines** covering 323 `####` field entries
+- `native/src/app.rs` — each round adds ~500 lines of window + UI wiring
+- `engine/src/core/lan_sync.rs` — incremental sync columns for every new table
+
+**Per-round ADR cadence.** Every round ships its own ADR documenting the label thresholds, edge-case handling (insufficient-data gates, n<window fallback), mathematical formulation, and the rationale for picking that indicator (why MOM distinct from ROC, why MIDPRICE distinct from MIDPOINT, why SAREXT distinct from SAR). The ADR corpus grew from ~107 entries in March to **156 entries** by mid-April — roughly one per round plus the infrastructure ADRs (130, 148, 157, 162, 166).
+
+**What this buys you.** The AI no longer needs to compute these itself. When you `ASKCLAUDE NVDA write me a technical read`, the packet already contains ADX current value + label, MACD histogram + crossover state + label, ICHIMOKU cloud position + Tenkan/Kijun state + label, a 65-wide Hurst exponent + tail-risk + KPSS stationarity + GARCH(1,1) volatility forecast, and ~300 more fields. Claude spends its tokens on **interpretation**, not recomputation.
+
+## MT5 Bar Sync: 4-Part Key Collation (ADR-056 Regression Fix)
+
+**CC and CAR stuck out-of-sync across every timeframe.** `detect_mt5_gaps()`, `write_mt5_demand_txt()`, and `save_session()` were looking up cache timestamps using 3-part keys `mt5:{sym}:{tf}` while BarCacheWriter stores **4-part keys** `mt5:{broker}:{sym}:{tf}` per ADR-056. Every lookup returned 0, gap detector marked all symbols "empty", and every heartbeat fired max-bars demand requests that saturated the EA rotation queue.
+
+Fix: unify every lookup to the 4-part key by threading the broker tag through the call chain. Gap-detect loops now correctly see the cached bars and only demand what's actually missing.
+
+## MT5 Self-Heal: DARWIN Positions + Right-Sized Gap-Fill
+
+**Open positions weren't being chart-refreshed.** `detect_mt5_gaps()` previously only scanned **open charts** — held positions not currently charted were excluded from gap detection. Positions on CC / CAR held but never charted stayed stale until a user clicked them open. Fix: mirror the DARWIN loop from `write_mt5_demand_txt()` so position symbols also trigger `demand.txt` fill requests.
+
+**Right-sized gap-fill.** Switched from **always-max_bars** to **gap-sized** requests. When stale (vs. empty), compute the actual missing bar count from `period_ms` with 10% headroom, cap at `max_bars`. Avoids wasting EA rotation asking for 1,500 H1 bars when ~50 were missing.
+
+## Alpaca Bar Data: adjustment=all + Split-Cache Purge
+
+**Symptom:** Charts for split-affected symbols rendered as a long flat region followed by a vertical hockey-stick, while TradingView showed a clean trend. **Root cause:** Alpaca bar fetches never passed the `adjustment` parameter — every cached stock series was **raw (pre-split)** for old history and **post-split** for fresh bars, the two glued together in the same chart.
+
+**Fix across three surfaces:**
+- `alpaca::get_bars_after`: request `adjustment=all` for stock bars (skip for crypto endpoint which does not accept the field)
+- `cache::open`: one-shot migration purges existing `alpaca:*:*` stock bar cache entries on first launch of the fixed build so the next fetch re-pulls with adjustment applied
+- Harden `pack / merge / try_load` paths to survive partial-purge state transitions
+
+---
+
+**1081 total commits. ~194,400 LOC. 1,733 tests (1,648 engine + 85 native). 8 crates. 156 ADRs. Zero warnings. 65 godel parity rounds + ADR-130/148/157/162/166 infrastructure.**
+
+The March post framed the launch as "4.7 days to Bloomberg-class." April's framing is different: **the terminal is done shipping features and is now shipping a research surface.** The AI integrations are the product. Every godel parity round makes the packet denser, every LAN sync table makes the packet cheaper to materialize across peers, every cache layer makes the packet cheaper to re-serve. The terminal is, at this point, a **context compiler for AI-assisted trading research** that happens to also execute orders and render charts.
+
+Feature velocity on the base terminal has slowed — not because the pace dropped (the commit rate is unchanged at ~40+/day), but because the commits are now **additive research surfaces** rather than foundational infrastructure. The foundation is done. The building on top of it is what April was.
 
 -- TyphooN
 
