@@ -1706,9 +1706,17 @@ Thirteen more parity rounds landed since the commit-1003 snapshot, taking the RE
 
 **Options Expiration Calendar (ADR-166)** also shipped: Tier 1 market-wide (weekly/monthly/quarterly/LEAPS/VIX expirations) + Tier 2 per-symbol (underlying's own chain ranked by OI, volume, DTE). Both tiers materialize as RESEARCH_PACKET fields.
 
+### Sync Status: Per-Broker % Healthy + Storage Manager Triage
+
+Closing the month: a dedicated **Sync Status window** aggregates `bar_ts_cache` into `(broker, TF)` health buckets via `SyncStatsRow` + `compute_bar_sync_stats / _broker_totals`. Every configured broker always emits a row — a newly-configured-but-not-yet-synced broker shows `0%` instead of being invisible. Per-broker chips at the top, per-TF grid below. Opened via the **SYNC** palette command (aliases: `SYNC_STATUS`, `SYNC_PCT`, `BARSYNC`, `BAR_SYNC`).
+
+Storage Manager now carries a one-line Sync banner with a `[Details]` button that jumps into the same window. The FROZEN column also got triage-aware: entries with outstanding `mt5_gap_requests` render as **pending** (not frozen), and entries where `mt5_shallow_saturation ≥ 2` render as **capped** — so shallow pre-v1.463 caches the broker genuinely can't backfill past aren't mislabelled as dead.
+
+Single commit but it's the operator-visible closing piece of the MT5 pipeline rewrite: every bar in the cache now has a provenance label and a health score visible from one window.
+
 ---
 
-**1126 total commits. ~196,900 LOC. 1,753 tests (1,395 engine + 216 compiler + 85 native + 57 web). 8 crates. 157 ADRs. Zero warnings. 66 godel parity rounds + ADR-130/148/157/162/166/178 infrastructure.**
+**1127 total commits. ~197,200 LOC. 1,753 tests (1,395 engine + 216 compiler + 85 native + 57 web). 8 crates. 157 ADRs. Zero warnings. 66 godel parity rounds + ADR-130/148/157/162/166/178 infrastructure.**
 
 The March post framed the launch as "4.7 days to Bloomberg-class." April's framing is different: **the terminal is done shipping features and is now shipping a research surface.** The AI integrations are the product. Every godel parity round makes the packet denser, every LAN sync table makes the packet cheaper to materialize across peers, every cache layer makes the packet cheaper to re-serve. The terminal is, at this point, a **context compiler for AI-assisted trading research** that happens to also execute orders and render charts.
 
