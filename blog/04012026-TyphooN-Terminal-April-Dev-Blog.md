@@ -1,6 +1,6 @@
 ## TyphooN-Terminal: April Dev Blog — Post-Launch Iteration at 40+ Commits/Day
 
-> **Continuation of the [March launch post](03192026-TyphooN-Terminal-Record-Pace.html).** The initial 4.7-day sprint shipped a functional GPU trading terminal. This post tracks April's work: LAN sync parity, drawing tools UX, MQL5→WGSL Phase 2, SEC EDGAR deep integration, multi-broker expansion (tastytrade, Kraken), the cross-language transpiler matrix, the allocation audit (mimalloc + max release profile), and the full-repo O(1) sweep. Updates run chronologically. Monthly format: each month gets its own dev blog going forward.
+> **Continuation of the [March launch post](03192026-TyphooN-Terminal-Record-Pace.html).** The initial 4.7-day sprint shipped a functional GPU trading terminal. This post tracks April's work: LAN sync parity, drawing tools UX, MQL5→WGSL Phase 2, SEC EDGAR deep integration, multi-broker expansion (tastytrade, Kraken), the cross-language transpiler matrix, the allocation audit (mimalloc + max release profile), the full-repo O(1) sweep, and the end-of-month MT5 sync pipeline rewrite (v3-only demand.txt, cache-wide self-heal, 100K-bar integrity target, 3-part key canonicalization). Updates run chronologically. Monthly format: each month gets its own dev blog going forward.
 
 ---
 
@@ -1621,9 +1621,94 @@ Fix: unify every lookup to the 4-part key by threading the broker tag through th
 - `cache::open`: one-shot migration purges existing `alpaca:*:*` stock bar cache entries on first launch of the fixed build so the next fetch re-pulls with adjustment applied
 - Harden `pack / merge / try_load` paths to survive partial-purge state transitions
 
+## Update (2026-04-18): MT5 Sync Pipeline Rewrite, Self-Heal, 100K-Bar Integrity Target
+
+45 commits in ~24 hours. The MT5 bar pipeline — the data plumbing that feeds every chart, every DARWIN analytic, every RESEARCH_PACKET surface — got rewritten end-to-end. The surface changes are small; the engineering underneath is a reset.
+
+### demand.txt v3-Only + Common/Files Delivery
+
+**The entire MT5 demand signal was being dropped at the EA's front door.** Two bugs compounded into a null data pipeline:
+
+1. `write_mt5_demand_txt` and `save_session` built a full v3 payload (`SYMBOL:TF:LAST_TS_MS:MAX_BARS` per row), then wrote a *different* bare-symbol-only variable to the actual demand.txt files. The EA only ever saw v1 bare symbols. Timestamped gap-fill semantics never activated — every rotation cycle re-exported every symbol from scratch.
+2. BarCacheWriter reads `demand.txt` with the `FILE_COMMON` flag, which resolves to `<install>/Common/Files` or the Wine AppData/Roaming path. Terminal was only writing to `MQL5/Files` next to the DB — **a directory the EA never reads**.
+
+Refactored into four shared helpers: `collect_mt5_demand_local`, `parse_mt5_demand_txt`, `render_mt5_demand_txt`, `flush_mt5_demand_txt`. Format is v3-only now: `MAX_BARS=0` for passive demand (normal rotation), `MAX_BARS>0` for gap-fill requests that force-export N recent bars. v1 and v2 paths deleted. New `mt5_common_files_dirs()` helper enumerates candidate `Common/Files` directories under each configured MT5 db path — writes fan out to every candidate that exists. Ramdisk-symlink layouts (deploy_ramdisk.sh) now resolve correctly via the instance name embedded in the tmpfs filename.
+
+1 Hz flush cadence with content-hash dedup means fresh-tab-open latency is sub-second without flooding /dev/shm. Idle-tick flush now includes gap requests — previously, the heartbeat path would stage gap-fill demand and the idle flush one second later would overwrite demand.txt with the non-gap set, silently erasing the request before BCW's ~60 s reload window ever saw it.
+
+### Self-Heal: Pass-2 Cache-Wide Scan + Repair/Steady-State Modes
+
+**detect_mt5_gaps previously only scanned pairs the user had open.** Anything else in the cache that fell behind — rotation lag, BarCacheWriter restart, /dev/shm wipe, Wine hibernate, transient broker dropout — stayed stale until the user happened to open its chart.
+
+New pass-2 self-healing sweeps the entire local cache. Any `mt5:{sym}:{tf}` with `bars>0` lagged more than **5×TF** behind now queues a gap-fill request automatically. Pass-1 (watched pairs) keeps the aggressive 2×TF threshold. Queue caps at 256 most-stale entries sorted by `lag ÷ period`, so demand.txt stays bounded (~25 KB at cap) and the EA's linear gap-fill scan stays cheap. Empty pairs (`bars==0`) are skipped — baseline rotation handles cold-start warm-up.
+
+Mode tracking: `mt5_repair_mode` flag flips to false after 3 consecutive pass-2 runs find no staleness (~90 s at 30 s cadence). Log line reports the transition. Periodic self-heal (`frame_count % 120 == 90`) runs unconditionally when any MT5 db path exists, regardless of auto-sync toggle — matches the user-intent phrasing: *"run gap fill / self healing until all timeframes/symbols are repaired, then only normal predictive sync."*
+
+### 100K-Bar Integrity Target + Coverage-Gap Flag
+
+Per-TF integrity target declared in `mt5_tf_spec()`: D1/W1/MN1 get full-history (100K covers 274 years of D1), M1–H4 get last 100K bars matching BCW's `MAX_BARS_PER_KEY`. Pass-2 self-heal gains a **second trigger** alongside staleness: any `(sym, TF)` whose bar count is <95% of the integrity target flags as a **coverage gap** even when the newest bar is fresh. Scoring combines lag-in-periods with coverage-deficit-permille so both metrics compete for queue slots on a common scale — a severely-shallow 1Day cache ranks above a modestly-lagging 1Min.
+
+**Broker-saturation memory** prevents the coverage-gap flag from firing forever on symbols the broker genuinely can't backfill past (new listings, short-history tickers). Per-`(sym, tf)` tracker holds `(last_flagged_count, consecutive_noops)`. After 2 consecutive cycles where the count hasn't grown, the shallow flag is suppressed as "broker saturated." Any growth resets the counter; reaching ≥95% forgets the memory entirely so subsequent regressions flag cleanly. Memory is bounded by cache key count (~225 KB ceiling).
+
+### Alpaca + tastytrade: MT5 Priority + Full-History First Fetch
+
+Two long-standing limitations on non-MT5 bar fetches removed:
+
+- **MT5/Darwinex priority check.** Before dispatching any HTTP request, the handler probes `mt5:{BARE_UPPER}:{TF}` — if MT5 has bars, skip the broker fetch entirely. Saves free-tier rate-limit quota for symbols Darwinex carries anyway. Crypto naturally falls through since MT5 has no crypto keys.
+- **Full-history first fetch.** `FetchAllBars` was defined but dispatched nowhere — dead code. First fetch (when `after_ts` is None) now routes through `get_all_bars`, paginating from 2000-01-01 (stocks) / 2015-01-01 (crypto) with no total cap. A tokio forwarder bridges chunk-by-chunk progress strings to `BrokerMsg::OrderResult` so users see live updates during multi-minute full-history fetches. tastytrade's 365-day lookback clamp extended to 2000-01-01 — DXLink returns whatever the instrument actually has.
+
+Symptom before the fix: fresh installs only ever saw the last ~1000 bars for Alpaca-only symbols, even though the underlying broker method supported the full paginated history.
+
+### Crypto Backfill: CC + Kraken Union with Shared Rate-Limit Back-Off
+
+Two tightly-coupled fixes triggered by rate-limit logs recurring every ~15 s — each `(symbol, TF)` pair was re-hitting the API to re-learn the same 429 state:
+
+- **Process-wide `RATE_LIMITED_UNTIL_SECS` clock.** On HTTP 429 or in-body "rate limit"/"upgrade" message, CryptoCompare arms a 10 min back-off. Subsequent `fetch_ohlcv` calls short-circuit with `Err(...)` before the HTTP round-trip. Callers drop out immediately and can route to Kraken instead. `rate_limited_for_secs()` lets callers probe the back-off state *before* dispatching.
+- **Per-source 6 h freshness + union merge.** Per TF, CC and Kraken fetch independently; a fresh Kraken entry no longer short-circuits the whole TF. Chart-side merge dedups both keys, so the union gives CC's longer history plus Kraken's recent 720-bar window. Status messages differentiate fresh / back-off / unavailable / empty per source.
+
+### Storage Manager: First/Last Bar + FROZEN Status
+
+Storage Manager window gained per-row bar-range visibility: **First Bar** (oldest timestamp), **Last Bar** (newest), **Status**. Status is `ok` if last bar is within 24× the TF period, `FROZEN` (red) if older, `empty` if the blob has no bars, `…` while the BG thread backfills the range cache, `?` for unknown TF suffixes. The FROZEN multiplier is deliberately loose (24×) so weekend/holiday gaps don't trip M1/M5. A FROZEN D1 entry means "no new daily bar for 24 days" — strong signal that the source lost the symbol. At-a-glance distinction between real current data and orphans from retired brokers.
+
+Backing store change: `crypto_ts_cache` → `bar_ts_cache`, now covers every key rather than just `cryptocompare:`/`kraken:` prefixes. Decompression rate-limited to 500 keys/cycle so cold-startup scans of ~7500 keys complete in ~15 BG cycles (~45 s) without stalling the 3 s loop.
+
+### Settings: MT5 Heartbeat Freshness Tri-State
+
+`App::mt5_heartbeats` has been populated on every Mt5Sync pass since the ADR-148 heartbeat protocol landed — and nothing ever read it. Users had no way to distinguish "BarCacheWriter is actively writing" from "EA crashed but the .db file is still there." Fixed with a tri-state label next to each configured MT5 source:
+
+- **≤45 s** → green `beat Ns ago` (fresh)
+- **45–90 s** → yellow `beat Ns ago (lagging)`
+- **>90 s** → red `STALE (Ns)` — EA likely dead (BCW cadence is 30 s, so 90 s = three missed cycles)
+- **no beat** → dim `no heartbeat yet`
+
+Thresholds match the EA's 30 s write cadence with 50% jitter allowance. Also fixed two underlying read-path bugs: heartbeats were being stored as SQLite TEXT (not BLOB) so rusqlite refused the implicit coercion; Common/Files resolution now recovers the instance name from the ramdisk symlink's filename suffix so ancestor-walking finds `drive_c` even when the configured path is the /dev/shm target.
+
+### 3-Part Key Canonicalization — Drop the Never-Shipped 4-Part Form
+
+ADR-056 speculated on a 4-part `mt5:{broker}:{sym}:{tf}` cache key. **BarCacheWriter has always written 3-part `mt5:{SYM}:{TF}`** — the 4-part form never shipped from any writer. Every consumer site was carrying a dead `parts.len() >= 4` fallback that pulled a broker tag out of a slot that didn't exist. Symptom: 4 MT5 symbols were intermittently returning empty bars because `detect_mt5_gaps`, `write_mt5_demand_txt`, and `save_session` were looking up cache timestamps using 3-part keys while reading from code paths that assumed 4-part. Every lookup returned 0. Gap detector marked all symbols empty. Every heartbeat fired max-bars demand that saturated the EA rotation queue.
+
+Fix: unify every lookup to the 3-part key. Drop dead `mt5:CC:...` fallbacks from five consumer sites (insider-panel, VaR, ATR, sparkline, web `GetBars`). Metadata rows (`mt5:__SYMBOLS__`, `mt5:__HEARTBEAT__:acct`, `mt5:__SPECS__:...`) filtered via single `starts_with("mt5:__")` guard instead of substring probes. Hide `mt5:__` rows from symbol autocomplete, Symbol Screener, Cache Statistics grid, and Symbol Explorer cache tree. ADR-054 + ADR-056 text updated to match reality. 1396 engine tests pass.
+
+### RAII Guards + Observability
+
+Introduced `Mt5SyncGuard` with a `Drop` impl so `MT5_SYNC_IN_FLIGHT` releases on normal completion, early return, **and panic unwind**. Previously the target-cache open-failure early return or any unexpected thread panic would silently leak the flag, permanently disabling all future 30 s trigger cycles until terminal restart. Same RAII pattern applied to the `importing_flag` in XLSX import + compact threads — without it, a panic in the openpyxl row decoder would leak the flag stuck `true` and the background stats worker would silently skip every 3 s cycle forever.
+
+Six previously-silent failure paths in the demand pipeline now log via `tracing`: heartbeat read errors, Mt5Sync per-cycle summaries, empty-heartbeat states, client-KV forward failures, Common/Files write failures, and malformed demand.txt row rejection (was `unwrap_or(0)` silently coercing to full-history gap-fill).
+
+### Godel Parity Rounds 54–66 Complete + ADR-178
+
+Thirteen more parity rounds landed since the commit-1003 snapshot, taking the RESEARCH_PACKET through:
+
+- **R54 (AC/CHVOL/BBWIDTH/ELDERIMP/RMI)** — accelerator oscillator, Chaikin volatility, Bollinger width, Elder impulse, Relative Momentum Index
+- **R55–R60 adaptive/structural** — SMMA, ALLIGATOR, CRSI, SEB, IMI, GMMA, MAENV, ADL, VHF, VROC, KDJ, QQE, PMO, CFO, TMF, FRACTALS, IFT_RSI, MAMA, COG, DIDI, DEMARKER, GATOR, BW_MFI, VWMA, STDDEV, WMA, RAINBOW, MESA_SINE, FRAMA, IBS
+- **R61–R65 cycle/linear/pattern** — LAGUERRE_RSI, ZIGZAG, PGO, HT_TRENDLINE, MIDPOINT, MASSINDEX, NATR, TTM_SQUEEZE, FORCE_INDEX, TRANGE, LINEARREG_SLOPE/ANGLE, HT_DCPERIOD/DCPHASE/SINE/PHASOR/TRENDMODE, ACCBANDS, STOCHF, MIDPRICE, APO, MOM, SAREXT, ADXR
+- **R66 price transforms + variance (ADR-178)** — AVGPRICE ((O+H+L+C)/4), MEDPRICE ((H+L)/2), TYPPRICE ((H+L+C)/3), WCLPRICE ((H+L+2C)/4), VARIANCE (flat-window population σ² over close). Schema v67→v68, 5 BrokerCmd + 5 BrokerMsg variants, per-snapshot App fields, tokio-spawned handlers, palette alias blocks, packet emitters 2.318–2.322. `VAR` alias collided with ADR-045 `show_var_mult` so `VARWIN` is used instead.
+
+**Options Expiration Calendar (ADR-166)** also shipped: Tier 1 market-wide (weekly/monthly/quarterly/LEAPS/VIX expirations) + Tier 2 per-symbol (underlying's own chain ranked by OI, volume, DTE). Both tiers materialize as RESEARCH_PACKET fields.
+
 ---
 
-**1081 total commits. ~194,400 LOC. 1,733 tests (1,648 engine + 85 native). 8 crates. 156 ADRs. Zero warnings. 65 godel parity rounds + ADR-130/148/157/162/166 infrastructure.**
+**1126 total commits. ~196,900 LOC. 1,753 tests (1,395 engine + 216 compiler + 85 native + 57 web). 8 crates. 157 ADRs. Zero warnings. 66 godel parity rounds + ADR-130/148/157/162/166/178 infrastructure.**
 
 The March post framed the launch as "4.7 days to Bloomberg-class." April's framing is different: **the terminal is done shipping features and is now shipping a research surface.** The AI integrations are the product. Every godel parity round makes the packet denser, every LAN sync table makes the packet cheaper to materialize across peers, every cache layer makes the packet cheaper to re-serve. The terminal is, at this point, a **context compiler for AI-assisted trading research** that happens to also execute orders and render charts.
 
